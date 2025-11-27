@@ -6,7 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "podman:build": "podman build -t albretsenno .",
+    "podman:run": "podman run -d --name albretsenno -p 3000:3000 albretsenno",
+    "podman:stop": "podman stop albretsenno || true",
+    "podman:rm": "podman rm albretsenno || true",
+    "podman:logs": "podman logs -f albretsenno",
+    "podman:restart": "npm run podman:stop && npm run podman:rm && npm run podman:run"
   },
   "dependencies": {
     "@types/canvas-confetti": "^1.9.0",

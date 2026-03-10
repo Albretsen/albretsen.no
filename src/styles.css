@@ -10,7 +10,7 @@
   --accent: #64a8ff;
   --accent-strong: #3b82f6;
   --shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
@@ -78,7 +78,7 @@ a {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 220px minmax(0, 1fr);
   gap: 3rem;
   align-items: center;
   padding: 5rem 0;
@@ -101,8 +101,13 @@ a {
   transform: scale(1.45);
 }
 
+.hero__copy {
+  max-width: 760px;
+}
+
 .eyebrow,
-.section-label {
+.section-label,
+.card__eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 0.78rem;
@@ -113,18 +118,26 @@ a {
 .hero h1,
 .section h2 {
   margin: 0;
-  line-height: 1;
+  line-height: 0.95;
 }
 
 .hero h1 {
-  font-size: clamp(3rem, 8vw, 5.8rem);
+  max-width: 10ch;
+  font-size: clamp(3.2rem, 8vw, 6rem);
 }
 
 .lead {
   max-width: 42rem;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  color: var(--text-muted);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  color: var(--text);
   margin: 1.5rem 0 0;
+}
+
+.hero__supporting {
+  max-width: 38rem;
+  font-size: 1.03rem;
+  color: var(--text-muted);
+  margin: 1rem 0 0;
 }
 
 .hero__actions {
@@ -132,6 +145,34 @@ a {
   gap: 1rem;
   flex-wrap: wrap;
   margin-top: 2rem;
+}
+
+.hero__highlights,
+.principles-list,
+.tag-list {
+  list-style: none;
+  padding: 0;
+}
+
+.hero__highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 0;
+}
+
+.hero__highlights li,
+.tag-list li,
+.principles-list li {
+  border-radius: 999px;
+  border: 1px solid rgba(100, 168, 255, 0.2);
+}
+
+.hero__highlights li,
+.tag-list li {
+  padding: 0.45rem 0.75rem;
+  background: rgba(100, 168, 255, 0.12);
+  color: #9dc2ff;
 }
 
 .button {
@@ -174,14 +215,39 @@ a {
 .section__grid,
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
   gap: 2rem;
 }
 
 .stack {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
   color: var(--text-muted);
+}
+
+.principles-list {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+}
+
+.principles-list li {
+  position: relative;
+  padding: 1rem 1rem 1rem 3.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+}
+
+.principles-list li::before {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, #8ab8ff 0 35%, rgba(138, 184, 255, 0.14) 36% 100%);
+  transform: translateY(-50%);
 }
 
 .section-heading {
@@ -190,6 +256,12 @@ a {
   align-items: end;
   gap: 1rem;
   margin-bottom: 2rem;
+}
+
+.section-intro {
+  max-width: 28rem;
+  margin: 0;
+  color: var(--text-muted);
 }
 
 .card-grid {
@@ -232,6 +304,10 @@ a {
   color: var(--text-muted);
 }
 
+.card__detail {
+  margin-top: -0.1rem;
+}
+
 .card__body a,
 .contact-card a {
   color: #8ab8ff;
@@ -239,21 +315,10 @@ a {
 }
 
 .tag-list {
-  list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
-  padding: 0;
   margin: 1rem 0 1.25rem;
-}
-
-.tag-list li {
-  padding: 0.45rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(100, 168, 255, 0.12);
-  color: #9dc2ff;
-  border: 1px solid rgba(100, 168, 255, 0.2);
-  font-size: 0.92rem;
 }
 
 .contact-card {
@@ -272,7 +337,8 @@ audio {
   .hero__content,
   .section__grid,
   .contact-grid,
-  .card-grid {
+  .card-grid,
+  .section-heading {
     grid-template-columns: 1fr;
   }
 
@@ -284,6 +350,11 @@ audio {
   .hero__profile {
     width: 180px;
     height: 180px;
+  }
+
+  .section-heading {
+    display: grid;
+    align-items: start;
   }
 }
 
@@ -302,5 +373,18 @@ audio {
 
   .button {
     width: 100%;
+  }
+
+  .hero__highlights {
+    gap: 0.6rem;
+  }
+
+  .hero__highlights li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .principles-list li {
+    padding-left: 3rem;
   }
 }

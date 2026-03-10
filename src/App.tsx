@@ -20,6 +20,8 @@ const experiments = [
   },
 ]
 
+const showExperiments = false
+
 const principles = [
   'Practical software over product theater.',
   'Clean systems, direct communication, and fast iteration.',
@@ -193,35 +195,37 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section" id="experiments">
-          <div className="container">
-            <div className="section-heading section-heading--stacked-mobile">
-              <div>
-                <p className="section-label">Experiments</p>
-                <h2>Smaller things worth showing</h2>
+        {showExperiments ? (
+          <section className="section" id="experiments">
+            <div className="container">
+              <div className="section-heading section-heading--stacked-mobile">
+                <div>
+                  <p className="section-label">Experiments</p>
+                  <h2>Smaller things worth showing</h2>
+                </div>
+                <p className="section-intro">
+                  Not everything needs to be a big product to say something useful.
+                </p>
               </div>
-              <p className="section-intro">
-                Not everything needs to be a big product to say something useful.
-              </p>
-            </div>
 
-            <div className="card-grid card-grid--single">
-              {experiments.map((experiment) => (
-                <article className="card" key={experiment.title}>
-                  <img className="card__image" src={experiment.image} alt={experiment.title} />
-                  <div className="card__body">
-                    <p className="card__eyebrow">Experiment</p>
-                    <h3>{experiment.title}</h3>
-                    <p>{experiment.description}</p>
-                    <audio controls preload="none" src={experiment.audio}>
-                      Your browser does not support the audio element.
-                    </audio>
-                  </div>
-                </article>
-              ))}
+              <div className="card-grid card-grid--single">
+                {experiments.map((experiment) => (
+                  <article className="card" key={experiment.title}>
+                    <img className="card__image" src={experiment.image} alt={experiment.title} />
+                    <div className="card__body">
+                      <p className="card__eyebrow">Experiment</p>
+                      <h3>{experiment.title}</h3>
+                      <p>{experiment.description}</p>
+                      <audio controls preload="none" src={experiment.audio}>
+                        Your browser does not support the audio element.
+                      </audio>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
         <section className="section section--muted" id="contact">
           <div className="container contact-grid">

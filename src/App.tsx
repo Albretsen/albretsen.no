@@ -8,6 +8,7 @@ const projects = [
     link: 'https://play.google.com/store/apps/details?id=com.asgalb.FunLibs&hl=en',
     image: '/images/fun-libs.png',
     tags: ['React Native', 'TypeScript', 'Supabase', '10k+ users'],
+    meta: ['Consumer app', 'Mobile-first', 'Live product'],
   },
 ]
 
@@ -67,42 +68,76 @@ const links = [
   },
 ]
 
+const heroStats = [
+  { value: '3', label: 'selected roles shown' },
+  { value: '10k+', label: 'users on Fun Libs' },
+  { value: 'Bergen', label: 'base of operations' },
+]
+
 export default function App() {
   return (
     <div className="site-shell">
       <header className="hero" id="top">
         <div className="hero__backdrop" />
-        <div className="container hero__content">
-          <div className="hero__profile">
-            <img src="/images/profile.jpg" alt="Asgeir Albretsen" />
-          </div>
+        <div className="hero__grid" />
 
-          <div className="hero__copy">
-            <p className="eyebrow">Software developer • Builder • Systems-minded</p>
-            <h1>Asgeir Albretsen</h1>
-            <p className="lead">
-              I build practical software, product ideas, and small experiments that are
-              fast to understand and worth using.
-            </p>
-            <p className="hero__supporting">
-              Developer based in Bergen, working across product thinking, implementation,
-              and the details that make software feel solid.
-            </p>
+        <div className="container">
+          <nav className="topbar" aria-label="Primary">
+            <a className="topbar__brand" href="#top">
+              <span className="topbar__dot" aria-hidden="true" />
+              Asgeir Albretsen
+            </a>
 
-            <div className="hero__actions">
-              <a className="button button--primary" href="#projects">
-                See projects
-              </a>
-              <a className="button button--ghost" href="#contact">
-                Get in touch
-              </a>
+            <div className="topbar__links">
+              <a href="#experience">Experience</a>
+              <a href="#projects">Projects</a>
+              <a href="#contact">Contact</a>
+            </div>
+          </nav>
+
+          <div className="hero__content">
+            <div className="hero__profileWrap">
+              <div className="hero__profile">
+                <img src="/images/profile.jpg" alt="Asgeir Albretsen" />
+              </div>
             </div>
 
-            <ul className="hero__highlights" aria-label="Approach highlights">
-              <li>Useful software</li>
-              <li>Direct communication</li>
-              <li>Clean execution</li>
-            </ul>
+            <div className="hero__copy">
+              <p className="eyebrow">Software developer • Builder • Systems-minded</p>
+              <h1>Clean software. Clear thinking. Real products.</h1>
+              <p className="lead">
+                I build practical software, product ideas, and small experiments that are
+                fast to understand and worth using.
+              </p>
+              <p className="hero__supporting">
+                Developer based in Bergen, working across product thinking,
+                implementation, and the details that make software feel solid.
+              </p>
+
+              <div className="hero__actions">
+                <a className="button button--primary" href="#projects">
+                  See projects
+                </a>
+                <a className="button button--ghost" href="#contact">
+                  Get in touch
+                </a>
+              </div>
+
+              <ul className="hero__highlights" aria-label="Approach highlights">
+                <li>Useful software</li>
+                <li>Direct communication</li>
+                <li>Clean execution</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="hero__stats" aria-label="Quick facts">
+            {heroStats.map((stat) => (
+              <article className="stat-card" key={stat.label}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </article>
+            ))}
           </div>
         </div>
       </header>
@@ -171,23 +206,36 @@ export default function App() {
               </p>
             </div>
 
-            <div className="card-grid">
+            <div className="project-showcase">
               {projects.map((project) => (
-                <article className="card" key={project.title}>
-                  <img className="card__image" src={project.image} alt={project.title} />
-                  <div className="card__body">
+                <article className="project-spotlight" key={project.title}>
+                  <div className="project-spotlight__media">
+                    <img className="card__image" src={project.image} alt={project.title} />
+                  </div>
+
+                  <div className="project-spotlight__content">
                     <p className="card__eyebrow">Featured project</p>
                     <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <p className="card__detail">{project.detail}</p>
+                    <p className="project-spotlight__lead">{project.description}</p>
+                    <p>{project.detail}</p>
+
+                    <div className="project-meta" aria-label="Project summary">
+                      {project.meta.map((item) => (
+                        <span key={item}>{item}</span>
+                      ))}
+                    </div>
+
                     <ul className="tag-list">
                       {project.tags.map((tag) => (
                         <li key={tag}>{tag}</li>
                       ))}
                     </ul>
-                    <a href={project.link} target="_blank" rel="noreferrer">
-                      View project ↗
-                    </a>
+
+                    <div className="project-spotlight__actions">
+                      <a href={project.link} target="_blank" rel="noreferrer">
+                        View project ↗
+                      </a>
+                    </div>
                   </div>
                 </article>
               ))}

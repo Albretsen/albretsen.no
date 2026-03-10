@@ -26,6 +26,12 @@ Goals:
 ### Milestone 1 — sharpen the landing page foundation
 Status: active
 
+Progress notes:
+- hero and page structure significantly improved from baseline
+- experience and contact sections now add more credibility
+- experiments are hidden for now to keep the page focused
+- current emphasis: make the presentation feel more impressive through polish, layout, and project framing without adding distracting gimmicks
+
 Goals:
 - improve the hero so the first impression is stronger and more specific
 - improve the visual hierarchy and spacing

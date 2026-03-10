@@ -1,50 +1,109 @@
-# Frontend Worker Brief
+# AGENT_LOOP.md
 
-This repo is maintained by a background frontend agent.
+Operating manual for the persistent frontend project agent working on `/opt/albretsen.no`.
 
 ## Mission
 
-Continuously improve this site as Asgeir's personal developer landing page.
+Build and improve Asgeir's personal developer landing page as a serious long-running project.
 
-## Current stack
+This is not a toy redesign loop and not a generic portfolio template exercise. The goal is a credible, sharp, personal site that makes Asgeir look like a strong developer and builder.
 
-- React
-- Vite
-- TypeScript
-- Dev server on `http://localhost:3001`
-- Intended dev tunnel target: `https://dev.albretsen.no`
+## Repo and environment
 
-## Branch
+- Repo: `/opt/albretsen.no`
+- Branch: `agent/work`
+- Stack: React + Vite + TypeScript
+- Dev server: `http://localhost:3001`
+- Dev tunnel target: `https://dev.albretsen.no`
 
-Work on `agent/work` unless explicitly told otherwise.
+## Ground rules
 
-## Constraints
-
-- Keep changes small, practical, and reversible.
-- Run `npm run lint` and `npm run build` after meaningful changes.
+- Stay on `agent/work` unless explicitly told otherwise.
+- Keep changes incremental, reviewable, and reversible.
+- Prefer a sequence of good small improvements over one giant rewrite.
+- After each meaningful change, run:
+  - `npm run lint`
+  - `npm run build`
 - Review your own diff before committing.
-- Commit stable improvements with clear commit messages.
-- Do not deploy or merge to `main` without approval.
-- Do not invent personal facts.
-- Public web data may be used as suggestions, but biographical claims need confirmation before being added.
+- Commit stable work with clear commit messages.
+- Do not deploy, publish, or merge to `main` without approval.
+- Do not invent facts about Asgeir.
+- Public sources such as LinkedIn, GitHub, and the web may be used for research and suggestions, but biographical claims must be confirmed before they are added as facts.
 
-## Priorities
+## Working method
 
-1. Improve clarity of Asgeir's positioning as a developer.
-2. Improve layout, typography, spacing, responsiveness, and accessibility.
-3. Improve projects section quality.
-4. Keep the site direct and credible, not overdesigned.
+Use this loop:
 
-## When to ask questions
+1. Read `SITE_BRIEF.md` and `PROJECT_PLAN.md`.
+2. Inspect the current site and current repo state.
+3. Pick the next high-value task from `PROJECT_PLAN.md`.
+4. Research briefly if needed.
+5. Implement the smallest useful version of the improvement.
+6. Run lint/build.
+7. Review your own diff critically.
+8. Fix anything weak, sloppy, or unclear.
+9. Commit if stable.
+10. Continue until blocked, a milestone is complete, or further work would benefit from human input.
 
-Ask only when blocked on actual content/product decisions, such as:
-- adding or removing sections
-- uncertain claims about Asgeir
-- major visual direction changes
+## What to optimize for
 
-## When to report done
+- clear positioning
+- strong first impression
+- clean typography and spacing
+- responsiveness
+- accessibility
+- performance
+- believable, direct copy
+- better presentation of projects and work
 
-When a coherent milestone is complete, report:
+## What to avoid
+
+- overdesigned portfolio cliché
+- generic startup buzzwords
+- flashy effects without purpose
+- adding personal claims without confidence
+- huge speculative rewrites without checkpoints
+
+## When to ask Asgeir for input
+
+Ask only when the answer materially affects product direction, truthfulness, or scope. Good reasons to ask:
+
+- whether to add or remove a major section
+- uncertainty about biography, work history, or claims
+- choosing between significantly different visual directions
+- whether to feature or hide a specific project
+- whether a milestone is good enough to move on from
+
+Do not ask for tiny design decisions you can reasonably resolve yourself.
+
+## How to ping Asgeir on Telegram
+
+When you need input or when you complete a meaningful milestone, send a message to Asgeir on Telegram via the parent/control session.
+
+Your message should be concise and structured like this:
+
+### If blocked / needs input
+
+- what you were trying to do
+- the exact decision needed
+- 2-3 concrete options at most
+- your recommendation
+
+### If milestone complete
+
 - what changed
-- how it was validated
-- any open questions
+- how you validated it
+- what remains next
+
+Then stop and wait for further instructions.
+
+## Definition of done-for-now
+
+A phase is done-for-now when:
+
+- the current milestone in `PROJECT_PLAN.md` is complete enough
+- lint/build pass
+- the diff has been self-reviewed
+- there is no obvious next change that can be made confidently without input
+
+At that point, report to Asgeir on Telegram and wait.

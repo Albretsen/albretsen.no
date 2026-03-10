@@ -26,6 +26,45 @@ const principles = [
   'Projects that feel intentional on both the technical and user side.',
 ]
 
+const experience = [
+  {
+    company: 'Unimicro',
+    role: 'Software Developer',
+    period: '2024 — Present',
+    summary: 'Building software in a production environment with real users, constraints, and team context.',
+  },
+  {
+    company: 'BI Norwegian Business School',
+    role: 'IT Consulting',
+    period: '2023 — 2024',
+    summary: 'Worked close to internal systems and operations, with a bias toward reliability and usefulness.',
+  },
+  {
+    company: 'Chess.com',
+    role: 'App Developer',
+    period: '2019 — 2022',
+    summary: 'Worked on mobile app development and app store-facing product work at consumer scale.',
+  },
+]
+
+const links = [
+  {
+    label: 'Email',
+    value: 'asgeir@albretsen.no',
+    href: 'mailto:asgeir@albretsen.no',
+  },
+  {
+    label: 'GitHub',
+    value: 'github.com/albretsen',
+    href: 'https://github.com/albretsen',
+  },
+  {
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/asgeir-albretsen',
+    href: 'https://www.linkedin.com/in/asgeir-albretsen/',
+  },
+]
+
 export default function App() {
   return (
     <div className="site-shell">
@@ -44,8 +83,8 @@ export default function App() {
               fast to understand and worth using.
             </p>
             <p className="hero__supporting">
-              This is a focused overview of the work, taste, and direction behind what I
-              build.
+              Developer based in Bergen, working across product thinking, implementation,
+              and the details that make software feel solid.
             </p>
 
             <div className="hero__actions">
@@ -88,9 +127,38 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section" id="projects">
+        <section className="section" id="experience">
           <div className="container">
-            <div className="section-heading">
+            <div className="section-heading section-heading--stacked-mobile">
+              <div>
+                <p className="section-label">Experience</p>
+                <h2>Work that adds useful context</h2>
+              </div>
+              <p className="section-intro">
+                A quick snapshot of roles that shaped how I think about product quality,
+                implementation, and shipping real software.
+              </p>
+            </div>
+
+            <div className="timeline">
+              {experience.map((item) => (
+                <article className="timeline__item" key={`${item.company}-${item.period}`}>
+                  <p className="timeline__period">{item.period}</p>
+                  <div>
+                    <h3>
+                      {item.role} <span>@ {item.company}</span>
+                    </h3>
+                    <p>{item.summary}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--muted" id="projects">
+          <div className="container">
+            <div className="section-heading section-heading--stacked-mobile">
               <div>
                 <p className="section-label">Projects</p>
                 <h2>Selected work</h2>
@@ -125,9 +193,9 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section section--muted" id="experiments">
+        <section className="section" id="experiments">
           <div className="container">
-            <div className="section-heading">
+            <div className="section-heading section-heading--stacked-mobile">
               <div>
                 <p className="section-label">Experiments</p>
                 <h2>Smaller things worth showing</h2>
@@ -155,7 +223,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section" id="contact">
+        <section className="section section--muted" id="contact">
           <div className="container contact-grid">
             <div>
               <p className="section-label">Contact</p>
@@ -167,10 +235,21 @@ export default function App() {
             </div>
 
             <div className="contact-card">
-              <a href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
-              <a href="https://github.com/albretsen" target="_blank" rel="noreferrer">
-                github.com/albretsen
-              </a>
+              {links.map((link) => {
+                const isExternal = link.href.startsWith('http')
+
+                return (
+                  <a
+                    href={link.href}
+                    key={link.label}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noreferrer' : undefined}
+                  >
+                    <span>{link.label}</span>
+                    <strong>{link.value}</strong>
+                  </a>
+                )
+              })}
             </div>
           </div>
         </section>

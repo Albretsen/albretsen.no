@@ -153,10 +153,15 @@ export default function DashboardPage() {
             </div>
           </DashboardCard>
 
-          <DashboardCard title="Today" detail="Calendar via GOG; falls back to placeholder if auth is unavailable" mode={data.calendarEvents[0]?.time === '—' ? 'placeholder' : 'live'}>
+          <DashboardCard
+            title="Today"
+            detail={data.calendar.detail ?? 'Calendar via GOG'}
+            status={data.calendar.status}
+            mode={data.calendar.mode ?? 'placeholder'}
+          >
             <div className="agenda-list">
-              {data.calendarEvents.map((event) => (
-                <div className="agenda-item" key={`${event.time}-${event.title}`}>
+              {data.calendar.events.map((event) => (
+                <div className={`agenda-item${event.time === '—' ? ' agenda-item--placeholder' : ''}`} key={`${event.time}-${event.title}`}>
                   <strong>{event.time}</strong>
                   <div>
                     <p>{event.title}</p>

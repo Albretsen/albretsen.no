@@ -1007,3 +1007,9 @@ a,
   background: rgba(148, 163, 184, 0.14);
   color: #d7dfeb;
 }
+
+
+.agenda-item--placeholder {
+  background: rgba(245, 158, 11, 0.08);
+  border-style: dashed;
+}

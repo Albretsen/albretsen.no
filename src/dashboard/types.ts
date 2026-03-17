@@ -42,6 +42,13 @@ export type CalendarEvent = {
   meta: string
 }
 
+export type CalendarState = {
+  mode?: DataMode
+  status?: ServiceStatus
+  detail?: string
+  events: CalendarEvent[]
+}
+
 export type WeatherData = {
   temperature: string
   condition: string
@@ -58,7 +65,7 @@ export type DashboardPayload = {
   spendingMetrics: DashboardMetric[]
   spendingCategories: Array<{ label: string; value: string; width: string }>
   funLibsMetrics: DashboardMetric[]
-  calendarEvents: CalendarEvent[]
+  calendar: CalendarState
   weather: WeatherData
   vpsMetrics: DashboardMetric[]
 }

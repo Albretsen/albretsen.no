@@ -47,14 +47,17 @@ export const dashboardMockData: DashboardPayload = {
     { label: 'Largest category', value: 'Placeholder' },
     { label: 'Budget drift', value: 'Placeholder' },
   ],
-  spendingCategories: [
-    { label: 'Category data', value: 'Placeholder', width: '35%' },
-  ],
+  spendingCategories: [{ label: 'Category data', value: 'Placeholder', width: '35%' }],
   funLibsMetrics: [
     { label: 'Status', value: 'Waiting' },
     { label: 'Source', value: 'Not wired yet' },
   ],
-  calendarEvents: [{ time: '—', title: 'Calendar placeholder', meta: 'Waiting for GOG data' }],
+  calendar: {
+    mode: 'placeholder',
+    status: 'warning',
+    detail: 'Waiting for GOG data',
+    events: [{ time: '—', title: 'Calendar placeholder', meta: 'Waiting for GOG data' }],
+  },
   weather: {
     temperature: '—',
     condition: 'Weather placeholder',

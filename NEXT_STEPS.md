@@ -15,9 +15,9 @@
    - Calendar ⚠️ GOG wiring improved, but live data is blocked by an expired/revoked Google token
    - Weather ✅ live via swappable provider layer with Open-Meteo as the first provider
 5. Validate responsive behavior for 11-inch tablet landscape and desktop.
-6. Document the expected API/data contract for real integrations.
+6. Document the expected API/data contract for real integrations. ✅ first contract draft added in `docs/dashboard-api-contract.md`
 7. Replace Fun Libs placeholder with a real source, or explicitly defer it.
-8. Reduce noisy/raw error text in blocked cards like Calendar while keeping them honest.
+8. Reduce noisy/raw error text in blocked cards like Calendar while keeping them honest. ✅ calmer blocked state added
 9. Consider mirroring BudgetTools runner semantics in the source script too, since it currently leaves stale `status: running` on failed runs.
 
 ## How to pick work

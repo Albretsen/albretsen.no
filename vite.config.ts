@@ -29,7 +29,12 @@ type DashboardPayload = {
   spendingMetrics: Array<{ label: string; value: string; tone?: ServiceStatus }>
   spendingCategories: Array<{ label: string; value: string; width: string }>
   funLibsMetrics: Array<{ label: string; value: string; tone?: ServiceStatus }>
-  calendarEvents: Array<{ time: string; title: string; meta: string }>
+  calendar: {
+    mode?: DataMode
+    status?: ServiceStatus
+    detail?: string
+    events: Array<{ time: string; title: string; meta: string }>
+  }
   weather: {
     temperature: string
     condition: string
@@ -468,17 +473,22 @@ function getVpsMetrics(): DashboardPayload['vpsMetrics'] {
   ]
 }
 
-function getCalendarEvents(): DashboardPayload['calendarEvents'] {
+function getCalendarEvents(): DashboardPayload['calendar'] {
   const dashboardEnv = getDashboardEnv()
   const account = dashboardEnv.gogAccount
   const keyringPassword = dashboardEnv.gogKeyringPassword
 
   if (!keyringPassword) {
-    return [{
-      time: '—',
-      title: 'Calendar placeholder',
-      meta: 'GOG_KEYRING_PASSWORD not available in this session',
-    }]
+    return {
+      mode: 'placeholder',
+      status: 'warning',
+      detail: 'Calendar is blocked until GOG auth is available',
+      events: [{
+        time: '—',
+        title: 'Calendar unavailable',
+        meta: 'Missing GOG keyring password in dashboard session',
+      }],
+    }
   }
 
   try {
@@ -494,25 +504,47 @@ function getCalendarEvents(): DashboardPayload['calendarEvents'] {
 
     const parsed = JSON.parse(raw) as Array<{ summary?: string; start?: { dateTime?: string; date?: string }; location?: string }>
     if (!parsed.length) {
-      return [{ time: '—', title: 'No calendar events today', meta: 'Live calendar data' }]
+      return {
+        mode: 'live',
+        status: 'healthy',
+        detail: 'Today from Google Calendar',
+        events: [{ time: '—', title: 'No calendar events today', meta: 'Live calendar data' }],
+      }
     }
 
-    return parsed.slice(0, 5).map((event) => {
-      const rawStart = event.start?.dateTime || event.start?.date || ''
-      const date = rawStart ? new Date(rawStart) : null
-      const isAllDay = Boolean(event.start?.date && !event.start?.dateTime)
-      return {
-        time: isAllDay || !date ? 'All day' : new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' }).format(date),
-        title: event.summary || 'Untitled event',
-        meta: event.location || 'Google Calendar',
-      }
-    })
+    return {
+      mode: 'live',
+      status: 'healthy',
+      detail: 'Today from Google Calendar',
+      events: parsed.slice(0, 5).map((event) => {
+        const rawStart = event.start?.dateTime || event.start?.date || ''
+        const date = rawStart ? new Date(rawStart) : null
+        const isAllDay = Boolean(event.start?.date && !event.start?.dateTime)
+        return {
+          time: isAllDay || !date ? 'All day' : new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' }).format(date),
+          title: event.summary || 'Untitled event',
+          meta: event.location || 'Google Calendar',
+        }
+      }),
+    }
   } catch (error) {
-    return [{
-      time: '—',
-      title: 'Calendar placeholder',
-      meta: error instanceof Error ? error.message.split('\n')[0] : 'GOG calendar error',
-    }]
+    const errorText = error instanceof Error ? error.message : 'GOG calendar error'
+    const isAuthError = errorText.includes('invalid_grant') || errorText.includes('expired or revoked')
+
+    return {
+      mode: 'placeholder',
+      status: 'warning',
+      detail: isAuthError
+        ? 'Calendar needs Google re-authentication'
+        : 'Calendar is temporarily unavailable',
+      events: [{
+        time: '—',
+        title: isAuthError ? 'Calendar blocked' : 'Calendar unavailable',
+        meta: isAuthError
+          ? 'GOG token expired or revoked for bjellanda@gmail.com'
+          : 'Could not load today\'s events right now',
+      }],
+    }
   }
 }
 
@@ -560,7 +592,7 @@ async function buildDashboardPayload(): Promise<DashboardPayload> {
       { label: 'Status', value: 'Waiting by request' },
       { label: 'Source', value: 'Placeholder' },
     ],
-    calendarEvents: getCalendarEvents(),
+    calendar: getCalendarEvents(),
     weather,
     vpsMetrics: getVpsMetrics(),
   }

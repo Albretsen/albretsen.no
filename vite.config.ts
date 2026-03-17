@@ -9,6 +9,11 @@ import react from '@vitejs/plugin-react'
 type ServiceStatus = 'healthy' | 'warning' | 'error' | 'unknown'
 type DataMode = 'live' | 'placeholder'
 
+type DashboardOverview = {
+  generatedAt: string
+  lastRefresh: string
+}
+
 type DashboardPayload = {
   generatedAt: string
   lastRefresh: string
@@ -690,12 +695,43 @@ function getCalendarEvents(): DashboardPayload['calendar'] {
   }
 }
 
-async function buildDashboardPayload(): Promise<DashboardPayload> {
-  const dashboardEnv = getDashboardEnv()
+
+function getDashboardOverview(): DashboardOverview {
+  return {
+    generatedAt: `Updated ${formatOsloTime(new Date().toISOString())}`,
+    lastRefresh: 'Auto-refresh every 2 min in dev',
+  }
+}
+
+function getFunLibsSection(): { mode: DataMode; detail: string; metrics: DashboardPayload['funLibsMetrics'] } {
+  return {
+    mode: 'placeholder',
+    detail: 'Explicitly kept as placeholder for now',
+    metrics: [
+      { label: 'Status', value: 'Waiting by request' },
+      { label: 'Source', value: 'Placeholder' },
+    ],
+  }
+}
+
+function getBudgetRunsSection() {
+  const runs = readBudgetRuns()
+  return {
+    mode: runs.some((run) => run.mode === 'placeholder') ? 'placeholder' as const : 'live' as const,
+    runs,
+  }
+}
+
+async function getServiceCardsSection() {
   const budgetRuns = readBudgetRuns()
-  const [spending, budgetHealth, actualBudget, mainSite, devSite, weather] = await Promise.all([
-    getSpendingSnapshot(),
-    Promise.resolve({
+  const [actualBudget, mainSite, devSite] = await Promise.all([
+    checkUrl('Actual Budget', 'https://budget.albretsen.no'),
+    checkUrl('albretsen.no', 'https://albretsen.no'),
+    checkUrl('dev.albretsen.no', 'https://dev.albretsen.no'),
+  ])
+
+  return [
+    {
       title: 'BudgetTools',
       status: (budgetRuns[0]?.result === 'success'
         ? 'healthy'
@@ -705,39 +741,54 @@ async function buildDashboardPayload(): Promise<DashboardPayload> {
       detail: budgetRuns[0]?.mode === 'live' ? 'Derived from latest run summary' : 'No live run summary available',
       summary: budgetRuns[0]?.summary ?? 'No data',
       mode: budgetRuns[0]?.mode ?? 'placeholder',
-    }),
-    checkUrl('Actual Budget', 'https://budget.albretsen.no'),
-    checkUrl('albretsen.no', 'https://albretsen.no'),
-    checkUrl('dev.albretsen.no', 'https://dev.albretsen.no'),
+    },
+    actualBudget,
+    mainSite,
+    {
+      title: 'dev.albretsen.no',
+      status: devSite.status,
+      detail: devSite.detail,
+      summary: devSite.summary,
+      mode: devSite.mode,
+    },
+  ]
+}
+
+async function buildDashboardPayload(): Promise<DashboardPayload> {
+  const dashboardEnv = getDashboardEnv()
+  const [serviceCards, budgetRuns, spending, weather] = await Promise.all([
+    getServiceCardsSection(),
+    Promise.resolve(getBudgetRunsSection()),
+    getSpendingSnapshot(),
     getWeather(dashboardEnv.weatherProvider),
   ])
 
   return {
-    generatedAt: `Updated ${formatOsloTime(new Date().toISOString())}`,
-    lastRefresh: 'Auto-refresh every 2 min in dev',
-    serviceCards: [
-      budgetHealth,
-      actualBudget,
-      mainSite,
-      {
-        title: 'dev.albretsen.no',
-        status: devSite.status,
-        detail: devSite.detail,
-        summary: devSite.summary,
-        mode: devSite.mode,
-      },
-    ],
-    budgetRuns,
+    ...getDashboardOverview(),
+    serviceCards,
+    budgetRuns: budgetRuns.runs,
     spendingMetrics: spending.metrics,
     spendingCategories: spending.categories,
-    funLibsMetrics: [
-      { label: 'Status', value: 'Waiting by request' },
-      { label: 'Source', value: 'Placeholder' },
-    ],
+    funLibsMetrics: getFunLibsSection().metrics,
     calendar: getCalendarEvents(),
     weather,
     vpsMetrics: getVpsMetrics(),
   }
+}
+
+function requireDashboardAuth(req: import('node:http').IncomingMessage, res: import('node:http').ServerResponse) {
+  const env = getDashboardEnv()
+  if (!env.dashboardPassword) {
+    sendJson(res, 503, { error: 'Dashboard password is not configured' })
+    return false
+  }
+
+  if (!isDashboardAuthenticated(req.headers.cookie)) {
+    sendJson(res, 401, { error: 'Unauthorized' })
+    return false
+  }
+
+  return true
 }
 
 function dashboardApiPlugin() {
@@ -806,18 +857,61 @@ function dashboardApiPlugin() {
         )
       })
 
+      server.middlewares.use('/api/dashboard/overview', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getDashboardOverview())
+      })
+
+      server.middlewares.use('/api/dashboard/service-cards', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        try {
+          sendJson(res, 200, await getServiceCardsSection())
+        } catch (error) {
+          sendJson(res, 500, { error: error instanceof Error ? error.message : 'Unknown dashboard error' })
+        }
+      })
+
+      server.middlewares.use('/api/dashboard/budget-runs', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getBudgetRunsSection())
+      })
+
+      server.middlewares.use('/api/dashboard/spending', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        try {
+          const spending = await getSpendingSnapshot()
+          sendJson(res, 200, { ...spending, mode: 'live', detail: 'Live spending snapshot from Actual' })
+        } catch (error) {
+          sendJson(res, 500, { error: error instanceof Error ? error.message : 'Unknown dashboard error' })
+        }
+      })
+
+      server.middlewares.use('/api/dashboard/fun-libs', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getFunLibsSection())
+      })
+
+      server.middlewares.use('/api/dashboard/calendar', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getCalendarEvents())
+      })
+
+      server.middlewares.use('/api/dashboard/weather', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        try {
+          sendJson(res, 200, await getWeather(getDashboardEnv().weatherProvider))
+        } catch (error) {
+          sendJson(res, 500, { error: error instanceof Error ? error.message : 'Unknown dashboard error' })
+        }
+      })
+
+      server.middlewares.use('/api/dashboard/vps', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getVpsMetrics())
+      })
+
       server.middlewares.use('/api/dashboard', async (req, res) => {
-        const env = getDashboardEnv()
-        if (!env.dashboardPassword) {
-          sendJson(res, 503, { error: 'Dashboard password is not configured' })
-          return
-        }
-
-        if (!isDashboardAuthenticated(req.headers.cookie)) {
-          sendJson(res, 401, { error: 'Unauthorized' })
-          return
-        }
-
+        if (!requireDashboardAuth(req, res)) return
         try {
           const payload = await buildDashboardPayload()
           sendJson(res, 200, payload)

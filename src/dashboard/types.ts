@@ -20,6 +20,11 @@ export type DashboardCardProps = {
   className?: string
 }
 
+export type DashboardOverview = {
+  generatedAt: string
+  lastRefresh: string
+}
+
 export type ServiceCard = {
   title: string
   status: ServiceStatus
@@ -34,6 +39,18 @@ export type BudgetRun = {
   summary: string
   meta: string
   mode?: DataMode
+}
+
+export type BudgetRunsSection = {
+  mode?: DataMode
+  runs: BudgetRun[]
+}
+
+export type SpendingSection = {
+  mode?: DataMode
+  detail?: string
+  metrics: DashboardMetric[]
+  categories: Array<{ label: string; value: string; width: string }>
 }
 
 export type CalendarEvent = {
@@ -57,14 +74,18 @@ export type WeatherData = {
   mode?: DataMode
 }
 
-export type DashboardPayload = {
-  generatedAt: string
-  lastRefresh: string
+export type FunLibsSection = {
+  mode?: DataMode
+  detail?: string
+  metrics: DashboardMetric[]
+}
+
+export type DashboardPayload = DashboardOverview & {
   serviceCards: ServiceCard[]
   budgetRuns: BudgetRun[]
-  spendingMetrics: DashboardMetric[]
-  spendingCategories: Array<{ label: string; value: string; width: string }>
-  funLibsMetrics: DashboardMetric[]
+  spendingMetrics: SpendingSection['metrics']
+  spendingCategories: SpendingSection['categories']
+  funLibsMetrics: FunLibsSection['metrics']
   calendar: CalendarState
   weather: WeatherData
   vpsMetrics: DashboardMetric[]

@@ -14,9 +14,10 @@ Current internal dashboard endpoint used by `/dashboard` in dev.
 Returns one normalized payload for the dashboard UI so the frontend does not need to talk to multiple data sources directly.
 
 The dashboard is now password-protected in dev via a simple cookie-backed gate:
-- unauthenticated requests to `GET /api/dashboard` return `401`
+- unauthenticated requests to dashboard data endpoints return `401`
 - login is done by posting a password to `POST /api/dashboard/login`
 - successful login sets an HTTP-only session cookie
+- the UI now loads section endpoints independently so slow sources do not block the whole page
 
 ## Current sources
 

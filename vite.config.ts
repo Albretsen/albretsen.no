@@ -48,7 +48,8 @@ type DashboardPayload = {
 const budgetRunsRoot = '/opt/BudgetTools/runs'
 const budgetToolsEnvPath = '/opt/BudgetTools/.env'
 const projectEnvPath = '/opt/albretsen.no/.env'
-const actualBudgetBlobPath = '/opt/actual/data/user-files/file-661e923a-109b-4412-ae67-4f26bafd055b.blob'
+const actualBudgetFileId = '661e923a-109b-4412-ae67-4f26bafd055b'
+const actualBaseUrl = 'http://127.0.0.1:5006'
 
 type WeatherProvider = 'open-meteo' | 'placeholder'
 
@@ -79,6 +80,7 @@ function getDashboardEnv() {
     gogKeyringPassword: process.env.GOG_KEYRING_PASSWORD || budgetEnv.GOG_KEYRING_PASSWORD || projectEnv.GOG_KEYRING_PASSWORD || '',
     weatherProvider: (process.env.WEATHER_PROVIDER || projectEnv.WEATHER_PROVIDER || budgetEnv.WEATHER_PROVIDER || 'open-meteo') as WeatherProvider,
     dashboardPassword: process.env.DASHBOARD_PASSWORD || projectEnv.DASHBOARD_PASSWORD || budgetEnv.DASHBOARD_PASSWORD || '',
+    actualPassword: process.env.BUDGET_PASSWORD || budgetEnv.BUDGET_PASSWORD || projectEnv.BUDGET_PASSWORD || '',
   }
 }
 
@@ -139,28 +141,70 @@ type SpendingSnapshot = {
   categories: DashboardPayload['spendingCategories']
 }
 
-function getSpendingSnapshot(): SpendingSnapshot {
-  if (!fs.existsSync(actualBudgetBlobPath)) {
+async function getActualToken(password: string) {
+  const response = await fetch(`${actualBaseUrl}/account/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password }),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Actual login failed with ${response.status}`)
+  }
+
+  const payload = (await response.json()) as { data?: { token?: string } }
+  if (!payload.data?.token) {
+    throw new Error('Actual login did not return a token')
+  }
+
+  return payload.data.token
+}
+
+async function downloadActualBudgetFile(token: string) {
+  const response = await fetch(`${actualBaseUrl}/sync/download-user-file`, {
+    headers: {
+      'X-ACTUAL-TOKEN': token,
+      'X-ACTUAL-FILE-ID': actualBudgetFileId,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error(`Actual download failed with ${response.status}`)
+  }
+
+  return Buffer.from(await response.arrayBuffer())
+}
+
+async function getSpendingSnapshot(): Promise<SpendingSnapshot> {
+  const env = getDashboardEnv()
+  if (!env.actualPassword) {
     return {
       metrics: [
         { label: 'This month', value: 'Unavailable' },
         { label: 'Largest category', value: 'Unavailable' },
         { label: 'Transactions', value: 'Unavailable' },
       ],
-      categories: [{ label: 'Spending data', value: 'Actual budget blob not found', width: '35%' }],
+      categories: [{ label: 'Spending data', value: 'Actual password missing', width: '35%' }],
     }
   }
 
+  const tempZipPath = path.join(os.tmpdir(), `albretsen-dashboard-${process.pid}-actual.zip`)
+  const tempDbPath = path.join(os.tmpdir(), `albretsen-dashboard-${process.pid}-actual.sqlite`)
+
   try {
+    const token = await getActualToken(env.actualPassword)
+    const zipBuffer = await downloadActualBudgetFile(token)
+    fs.writeFileSync(tempZipPath, zipBuffer)
+
     const script = `
 import json
 import sqlite3
 import zipfile
 from datetime import datetime, timezone
 
-blob_path = ${JSON.stringify(actualBudgetBlobPath)}
-with zipfile.ZipFile(blob_path) as zf:
-    db_path = '/tmp/albretsen-dashboard-spending.sqlite'
+zip_path = ${JSON.stringify(tempZipPath)}
+db_path = ${JSON.stringify(tempDbPath)}
+with zipfile.ZipFile(zip_path) as zf:
     with open(db_path, 'wb') as fh:
         fh.write(zf.read('db.sqlite'))
 
@@ -257,10 +301,13 @@ print(json.dumps({
       ],
       categories: [{
         label: 'Spending data',
-        value: error instanceof Error ? error.message.split('\\n')[0] : 'Spending snapshot failed',
+        value: error instanceof Error ? error.message.split('\n')[0] : 'Spending snapshot failed',
         width: '35%',
       }],
     }
+  } finally {
+    fs.rmSync(tempZipPath, { force: true })
+    fs.rmSync(tempDbPath, { force: true })
   }
 }
 
@@ -358,16 +405,20 @@ async function getWeather(provider: WeatherProvider): Promise<DashboardPayload['
   }
 }
 
-function formatUtc(iso: string) {
+function formatOsloTime(iso: string) {
   const date = new Date(iso)
-  return new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'UTC',
+  const formatted = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Oslo',
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
-  }).format(date).replace(',', ' ·') + ' UTC'
+  }).format(date).replace(',', ' ·')
+  const zone = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Oslo', timeZoneName: 'short' })
+    .formatToParts(date)
+    .find((part) => part.type === 'timeZoneName')?.value ?? 'CET'
+  return `${formatted} ${zone}`
 }
 
 function statusFromHttp(statusCode: number): ServiceStatus {
@@ -484,7 +535,7 @@ function readBudgetRuns(): DashboardPayload['budgetRuns'] {
           : derived.summary
 
     return {
-      timestamp: formatUtc(payload.startedAt),
+      timestamp: formatOsloTime(payload.startedAt),
       result: derived.result,
       summary,
       meta: `Duration ${payload.durationSeconds ?? 0}s${payload.failedStage ? ` · failed stage: ${payload.failedStage}` : ''}${payload.exitCode != null ? ` · exit ${payload.exitCode}` : ''}`,
@@ -612,7 +663,7 @@ function getCalendarEvents(): DashboardPayload['calendar'] {
         const date = rawStart ? new Date(rawStart) : null
         const isAllDay = Boolean(event.start?.date && !event.start?.dateTime)
         return {
-          time: isAllDay || !date ? 'All day' : new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' }).format(date),
+          time: isAllDay || !date ? 'All day' : new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Oslo' }).format(date),
           title: event.summary || 'Untitled event',
           meta: event.location || 'Google Calendar',
         }
@@ -642,8 +693,8 @@ function getCalendarEvents(): DashboardPayload['calendar'] {
 async function buildDashboardPayload(): Promise<DashboardPayload> {
   const dashboardEnv = getDashboardEnv()
   const budgetRuns = readBudgetRuns()
-  const spending = getSpendingSnapshot()
-  const [budgetHealth, actualBudget, mainSite, devSite, weather] = await Promise.all([
+  const [spending, budgetHealth, actualBudget, mainSite, devSite, weather] = await Promise.all([
+    getSpendingSnapshot(),
     Promise.resolve({
       title: 'BudgetTools',
       status: (budgetRuns[0]?.result === 'success'
@@ -662,7 +713,7 @@ async function buildDashboardPayload(): Promise<DashboardPayload> {
   ])
 
   return {
-    generatedAt: `Updated ${formatUtc(new Date().toISOString())}`,
+    generatedAt: `Updated ${formatOsloTime(new Date().toISOString())}`,
     lastRefresh: 'Auto-refresh every 2 min in dev',
     serviceCards: [
       budgetHealth,

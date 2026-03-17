@@ -22,8 +22,9 @@ The dashboard is now password-protected in dev via a simple cookie-backed gate:
 
 - BudgetTools runs from `/opt/BudgetTools/runs`
 - Actual Budget health from `https://budget.albretsen.no`
-- Spending snapshot from Actual's on-disk budget blob at:
-  - `/opt/actual/data/user-files/file-661e923a-109b-4412-ae67-4f26bafd055b.blob`
+- Spending snapshot from the live Actual instance via:
+  - `POST /account/login`
+  - `GET /sync/download-user-file` with `X-ACTUAL-FILE-ID`
 - Site health from:
   - `https://albretsen.no`
   - `https://dev.albretsen.no`

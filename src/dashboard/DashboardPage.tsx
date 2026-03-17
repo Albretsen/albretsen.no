@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 import DashboardCard from './DashboardCard'
-import { fetchDashboard } from './api'
+import { fetchDashboard, fetchDashboardAuthStatus, loginToDashboard, logoutFromDashboard } from './api'
+import DashboardAuthGate from './DashboardAuthGate'
 import { dashboardMockData } from './mockData'
 import type { DashboardPayload } from './types'
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardPayload>(dashboardMockData)
   const [loading, setLoading] = useState(true)
+  const [authLoading, setAuthLoading] = useState(true)
+  const [authenticated, setAuthenticated] = useState(false)
+  const [authConfigured, setAuthConfigured] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -14,6 +18,17 @@ export default function DashboardPage() {
 
     const load = async () => {
       try {
+        const auth = await fetchDashboardAuthStatus()
+        if (!active) return
+        setAuthenticated(auth.authenticated)
+        setAuthConfigured(auth.configured)
+        setAuthLoading(false)
+
+        if (!auth.authenticated) {
+          setLoading(false)
+          return
+        }
+
         const payload = await fetchDashboard()
         if (!active) return
         setData(payload)
@@ -21,6 +36,7 @@ export default function DashboardPage() {
       } catch (err) {
         if (!active) return
         setError(err instanceof Error ? err.message : 'Unknown dashboard error')
+        setAuthLoading(false)
       } finally {
         if (active) {
           setLoading(false)
@@ -36,6 +52,41 @@ export default function DashboardPage() {
       window.clearInterval(interval)
     }
   }, [])
+
+
+  const handleLogin = async (password: string) => {
+    setAuthLoading(true)
+    setError(null)
+
+    try {
+      await loginToDashboard(password)
+      setAuthenticated(true)
+      const payload = await fetchDashboard()
+      setData(payload)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Dashboard login failed')
+    } finally {
+      setAuthLoading(false)
+      setLoading(false)
+    }
+  }
+
+  const handleLogout = async () => {
+    await logoutFromDashboard()
+    setAuthenticated(false)
+    setData(dashboardMockData)
+  }
+
+  if (!authenticated) {
+    return (
+      <DashboardAuthGate
+        configured={authConfigured}
+        error={error}
+        loading={authLoading}
+        onSubmit={handleLogin}
+      />
+    )
+  }
 
   return (
     <div className="dashboard-page">
@@ -61,9 +112,14 @@ export default function DashboardPage() {
               <span>Refresh</span>
               <strong>{data.lastRefresh}</strong>
             </div>
-            <a className="button button--ghost dashboard-header__link" href="/">
-              Back home
-            </a>
+            <div className="dashboard-header__actions">
+              <button className="button button--ghost dashboard-header__link" onClick={() => void handleLogout()} type="button">
+                Lock dashboard
+              </button>
+              <a className="button button--ghost dashboard-header__link" href="/">
+                Back home
+              </a>
+            </div>
           </div>
         </header>
 

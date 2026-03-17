@@ -5,10 +5,18 @@ Current internal dashboard endpoint used by `/dashboard` in dev.
 ## Route
 
 - `GET /api/dashboard`
+- `GET /api/dashboard/session`
+- `POST /api/dashboard/login`
+- `POST /api/dashboard/logout`
 
 ## Purpose
 
 Returns one normalized payload for the dashboard UI so the frontend does not need to talk to multiple data sources directly.
+
+The dashboard is now password-protected in dev via a simple cookie-backed gate:
+- unauthenticated requests to `GET /api/dashboard` return `401`
+- login is done by posting a password to `POST /api/dashboard/login`
+- successful login sets an HTTP-only session cookie
 
 ## Current sources
 

@@ -47,17 +47,18 @@ type DashboardPayload = {
 
 const budgetRunsRoot = '/opt/BudgetTools/runs'
 const budgetToolsEnvPath = '/opt/BudgetTools/.env'
+const projectEnvPath = '/opt/albretsen.no/.env'
 const actualBudgetBlobPath = '/opt/actual/data/user-files/file-661e923a-109b-4412-ae67-4f26bafd055b.blob'
 
 type WeatherProvider = 'open-meteo' | 'placeholder'
 
 
-function readBudgetToolsEnv() {
-  if (!fs.existsSync(budgetToolsEnvPath)) {
+function readEnvFile(filePath: string) {
+  if (!fs.existsSync(filePath)) {
     return {}
   }
 
-  const content = fs.readFileSync(budgetToolsEnvPath, 'utf8')
+  const content = fs.readFileSync(filePath, 'utf8')
   return Object.fromEntries(
     content
       .split('\n')
@@ -71,14 +72,58 @@ function readBudgetToolsEnv() {
 }
 
 function getDashboardEnv() {
-  const budgetEnv = readBudgetToolsEnv()
+  const budgetEnv = readEnvFile(budgetToolsEnvPath)
+  const projectEnv = readEnvFile(projectEnvPath)
   return {
-    gogAccount: process.env.GOG_ACCOUNT || budgetEnv.GOG_ACCOUNT || 'bjellanda@gmail.com',
-    gogKeyringPassword: process.env.GOG_KEYRING_PASSWORD || budgetEnv.GOG_KEYRING_PASSWORD || '',
-    weatherProvider: (process.env.WEATHER_PROVIDER || budgetEnv.WEATHER_PROVIDER || 'open-meteo') as WeatherProvider,
+    gogAccount: process.env.GOG_ACCOUNT || budgetEnv.GOG_ACCOUNT || projectEnv.GOG_ACCOUNT || 'bjellanda@gmail.com',
+    gogKeyringPassword: process.env.GOG_KEYRING_PASSWORD || budgetEnv.GOG_KEYRING_PASSWORD || projectEnv.GOG_KEYRING_PASSWORD || '',
+    weatherProvider: (process.env.WEATHER_PROVIDER || projectEnv.WEATHER_PROVIDER || budgetEnv.WEATHER_PROVIDER || 'open-meteo') as WeatherProvider,
+    dashboardPassword: process.env.DASHBOARD_PASSWORD || projectEnv.DASHBOARD_PASSWORD || budgetEnv.DASHBOARD_PASSWORD || '',
   }
 }
 
+
+
+const dashboardCookieName = 'albretsen_dashboard_session'
+
+function parseCookies(cookieHeader: string | undefined) {
+  if (!cookieHeader) return {}
+  return Object.fromEntries(
+    cookieHeader
+      .split(';')
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((part) => {
+        const idx = part.indexOf('=')
+        return [part.slice(0, idx), decodeURIComponent(part.slice(idx + 1))]
+      }),
+  )
+}
+
+function createDashboardSessionValue(password: string) {
+  return Buffer.from(password).toString('base64url')
+}
+
+function isDashboardAuthenticated(cookieHeader: string | undefined) {
+  const env = getDashboardEnv()
+  if (!env.dashboardPassword) {
+    return false
+  }
+
+  const cookies = parseCookies(cookieHeader)
+  return cookies[dashboardCookieName] === createDashboardSessionValue(env.dashboardPassword)
+}
+
+function sendJson(res: import('node:http').ServerResponse, statusCode: number, payload: unknown, headers?: Record<string, string>) {
+  res.statusCode = statusCode
+  res.setHeader('Content-Type', 'application/json')
+  if (headers) {
+    for (const [key, value] of Object.entries(headers)) {
+      res.setHeader(key, value)
+    }
+  }
+  res.end(JSON.stringify(payload))
+}
 
 function formatNokFromMilliunits(value: number) {
   return new Intl.NumberFormat('nb-NO', {
@@ -648,15 +693,85 @@ function dashboardApiPlugin() {
   return {
     name: 'dashboard-api',
     configureServer(server: import('vite').ViteDevServer) {
-      server.middlewares.use('/api/dashboard', async (_req, res) => {
+      server.middlewares.use('/api/dashboard/session', (req, res) => {
+        const env = getDashboardEnv()
+        sendJson(res, 200, {
+          authenticated: isDashboardAuthenticated(req.headers.cookie),
+          configured: Boolean(env.dashboardPassword),
+        })
+      })
+
+      server.middlewares.use('/api/dashboard/login', (req, res) => {
+        if (req.method !== 'POST') {
+          sendJson(res, 405, { error: 'Method not allowed' })
+          return
+        }
+
+        const env = getDashboardEnv()
+        if (!env.dashboardPassword) {
+          sendJson(res, 503, { error: 'Dashboard password is not configured' })
+          return
+        }
+
+        let body = ''
+        req.on('data', (chunk) => {
+          body += chunk
+        })
+        req.on('end', () => {
+          try {
+            const payload = JSON.parse(body) as { password?: string }
+            if (payload.password !== env.dashboardPassword) {
+              sendJson(res, 401, { error: 'Wrong password' })
+              return
+            }
+
+            sendJson(
+              res,
+              200,
+              { authenticated: true, configured: true },
+              {
+                'Set-Cookie': `${dashboardCookieName}=${createDashboardSessionValue(env.dashboardPassword)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`,
+              },
+            )
+          } catch {
+            sendJson(res, 400, { error: 'Invalid login payload' })
+          }
+        })
+      })
+
+      server.middlewares.use('/api/dashboard/logout', (req, res) => {
+        if (req.method !== 'POST') {
+          sendJson(res, 405, { error: 'Method not allowed' })
+          return
+        }
+
+        sendJson(
+          res,
+          200,
+          { authenticated: false, configured: Boolean(getDashboardEnv().dashboardPassword) },
+          {
+            'Set-Cookie': `${dashboardCookieName}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`,
+          },
+        )
+      })
+
+      server.middlewares.use('/api/dashboard', async (req, res) => {
+        const env = getDashboardEnv()
+        if (!env.dashboardPassword) {
+          sendJson(res, 503, { error: 'Dashboard password is not configured' })
+          return
+        }
+
+        if (!isDashboardAuthenticated(req.headers.cookie)) {
+          sendJson(res, 401, { error: 'Unauthorized' })
+          return
+        }
+
         try {
           const payload = await buildDashboardPayload()
-          res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify(payload))
+          sendJson(res, 200, payload)
         } catch (error) {
-          res.statusCode = 500
-          res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown dashboard error' }))
+          sendJson(res, 500, { error: error instanceof Error ? error.message : 'Unknown dashboard error' })
         }
       })
     },

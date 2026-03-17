@@ -9,13 +9,13 @@
 3. Build reusable dashboard layout/card components.
    - In progress with the first `/dashboard` increment.
 4. Add placeholder/mock-backed sections for:
-   - BudgetTools recent runs
+   - BudgetTools recent runs ✅ first live wiring from `/opt/BudgetTools/runs`
    - Spending overview
-   - Actual Budget status
-   - albretsen.no status
-   - VPS overview
+   - Actual Budget status ✅ first live health check via `https://budget.albretsen.no`
+   - albretsen.no status ✅ first live health checks for prod + dev
+   - VPS overview ✅ first live host metrics
    - Fun Libs overview
-   - Calendar
+   - Calendar ⚠️ placeholder fallback added; live GOG data still depends on session auth
    - Weather
 5. Validate responsive behavior for 11-inch tablet landscape and desktop.
 6. Document the expected API/data contract for real integrations.

@@ -1,4 +1,7 @@
+import type { ReactNode } from 'react'
+
 export type ServiceStatus = 'healthy' | 'warning' | 'error' | 'unknown'
+export type DataMode = 'live' | 'placeholder'
 
 export type DashboardMetric = {
   label: string
@@ -6,14 +9,56 @@ export type DashboardMetric = {
   tone?: ServiceStatus
 }
 
-export type DashboardSectionState = 'live' | 'stale' | 'error'
-
 export type DashboardCardProps = {
   title: string
   eyebrow?: string
   status?: ServiceStatus
   detail?: string
-  children: React.ReactNode
-  footer?: React.ReactNode
+  mode?: DataMode
+  children: ReactNode
+  footer?: ReactNode
   className?: string
+}
+
+export type ServiceCard = {
+  title: string
+  status: ServiceStatus
+  detail: string
+  summary: string
+  mode?: DataMode
+}
+
+export type BudgetRun = {
+  timestamp: string
+  result: 'success' | 'partial' | 'failed'
+  summary: string
+  meta: string
+  mode?: DataMode
+}
+
+export type CalendarEvent = {
+  time: string
+  title: string
+  meta: string
+}
+
+export type WeatherData = {
+  temperature: string
+  condition: string
+  range: string
+  detail: string
+  mode?: DataMode
+}
+
+export type DashboardPayload = {
+  generatedAt: string
+  lastRefresh: string
+  serviceCards: ServiceCard[]
+  budgetRuns: BudgetRun[]
+  spendingMetrics: DashboardMetric[]
+  spendingCategories: Array<{ label: string; value: string; width: string }>
+  funLibsMetrics: DashboardMetric[]
+  calendarEvents: CalendarEvent[]
+  weather: WeatherData
+  vpsMetrics: DashboardMetric[]
 }

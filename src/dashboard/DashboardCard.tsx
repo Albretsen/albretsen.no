@@ -15,6 +15,7 @@ export default function DashboardCard({
   children,
   footer,
   className,
+  mode = 'live',
 }: DashboardCardProps) {
   return (
     <article className={`dashboard-card${className ? ` ${className}` : ''}`}>
@@ -25,12 +26,17 @@ export default function DashboardCard({
           {detail ? <p className="dashboard-card__detail">{detail}</p> : null}
         </div>
 
+        <div className="dashboard-card__badges">
+          {mode === 'placeholder' ? <span className="mode-badge mode-badge--placeholder">Placeholder</span> : null}
+          {mode === 'live' ? <span className="mode-badge mode-badge--live">Live</span> : null}
+
         {status ? (
           <span className={`status-badge status-badge--${status}`}>
             <span className="status-badge__dot" aria-hidden="true" />
             {statusLabel[status]}
           </span>
         ) : null}
+        </div>
       </header>
 
       <div className="dashboard-card__content">{children}</div>

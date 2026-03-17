@@ -18,6 +18,7 @@
 6. Document the expected API/data contract for real integrations.
 7. Replace Fun Libs placeholder with a real source, or explicitly defer it.
 8. Reduce noisy/raw error text in blocked cards like Calendar while keeping them honest.
+9. Consider mirroring BudgetTools runner semantics in the source script too, since it currently leaves stale `status: running` on failed runs.
 
 ## How to pick work
 Always do the highest-priority unfinished task that is unblocked.

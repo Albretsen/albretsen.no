@@ -349,6 +349,47 @@ async function checkUrl(label: string, url: string) {
   }
 }
 
+function getBudgetRunState(payload: {
+  finishedAt?: string
+  status: string
+  exitCode?: number
+  failedStage?: string
+}) {
+  const isDefinitelyRunning = payload.status === 'running' && (payload.exitCode == null || payload.exitCode === 999)
+
+  if (payload.status === 'success') {
+    return {
+      result: 'success' as const,
+      health: 'healthy' as const,
+      summary: 'Completed successfully.',
+    }
+  }
+
+  if (isDefinitelyRunning) {
+    return {
+      result: 'partial' as const,
+      health: 'warning' as const,
+      summary: 'BudgetTools daily flow is still in progress.',
+    }
+  }
+
+  if (payload.status === 'partial') {
+    return {
+      result: 'partial' as const,
+      health: 'warning' as const,
+      summary: `Run finished with warnings${payload.failedStage ? ` during ${payload.failedStage}` : ''}.`,
+    }
+  }
+
+  return {
+    result: 'failed' as const,
+    health: 'error' as const,
+    summary: payload.failedStage
+      ? `BudgetTools daily flow failed during ${payload.failedStage}.`
+      : 'BudgetTools daily flow failed.',
+  }
+}
+
 function readBudgetRuns(): DashboardPayload['budgetRuns'] {
   if (!fs.existsSync(budgetRunsRoot)) {
     return [{
@@ -376,21 +417,27 @@ function readBudgetRuns(): DashboardPayload['budgetRuns'] {
       durationSeconds?: number
       status: string
       failedStage?: string
+      exitCode?: number
+      runDir?: string
     }
 
-    const status = payload.status === 'success' ? 'success' : payload.status === 'partial' ? 'partial' : 'failed'
+    const derived = getBudgetRunState(payload)
     const failureSummary = fs.existsSync(failurePath)
       ? fs.readFileSync(failurePath, 'utf8').trim().split('\n')[0]
       : ''
+    const summary = derived.result === 'success'
+      ? derived.summary
+      : derived.result === 'partial'
+        ? derived.summary
+        : failureSummary && !failureSummary.startsWith('RUNNING:')
+          ? failureSummary
+          : derived.summary
 
     return {
       timestamp: formatUtc(payload.startedAt),
-      result: status,
-      summary:
-        status === 'success'
-          ? 'Completed successfully.'
-          : failureSummary || `Run ended with status: ${payload.status}`,
-      meta: `Duration ${payload.durationSeconds ?? 0}s${payload.failedStage ? ` · failed stage: ${payload.failedStage}` : ''}`,
+      result: derived.result,
+      summary,
+      meta: `Duration ${payload.durationSeconds ?? 0}s${payload.failedStage ? ` · failed stage: ${payload.failedStage}` : ''}${payload.exitCode != null ? ` · exit ${payload.exitCode}` : ''}`,
       mode: 'live' as const,
     }
   })

@@ -42,6 +42,7 @@ type DashboardPayload = {
 
 const budgetRunsRoot = '/opt/BudgetTools/runs'
 const budgetToolsEnvPath = '/opt/BudgetTools/.env'
+const actualBudgetBlobPath = '/opt/actual/data/user-files/file-661e923a-109b-4412-ae67-4f26bafd055b.blob'
 
 type WeatherProvider = 'open-meteo' | 'placeholder'
 
@@ -70,6 +71,146 @@ function getDashboardEnv() {
     gogAccount: process.env.GOG_ACCOUNT || budgetEnv.GOG_ACCOUNT || 'bjellanda@gmail.com',
     gogKeyringPassword: process.env.GOG_KEYRING_PASSWORD || budgetEnv.GOG_KEYRING_PASSWORD || '',
     weatherProvider: (process.env.WEATHER_PROVIDER || budgetEnv.WEATHER_PROVIDER || 'open-meteo') as WeatherProvider,
+  }
+}
+
+
+function formatNokFromMilliunits(value: number) {
+  return new Intl.NumberFormat('nb-NO', {
+    style: 'currency',
+    currency: 'NOK',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value / 100)
+}
+
+type SpendingSnapshot = {
+  metrics: DashboardPayload['spendingMetrics']
+  categories: DashboardPayload['spendingCategories']
+}
+
+function getSpendingSnapshot(): SpendingSnapshot {
+  if (!fs.existsSync(actualBudgetBlobPath)) {
+    return {
+      metrics: [
+        { label: 'This month', value: 'Unavailable' },
+        { label: 'Largest category', value: 'Unavailable' },
+        { label: 'Transactions', value: 'Unavailable' },
+      ],
+      categories: [{ label: 'Spending data', value: 'Actual budget blob not found', width: '35%' }],
+    }
+  }
+
+  try {
+    const script = `
+import json
+import sqlite3
+import zipfile
+from datetime import datetime, timezone
+
+blob_path = ${JSON.stringify(actualBudgetBlobPath)}
+with zipfile.ZipFile(blob_path) as zf:
+    db_path = '/tmp/albretsen-dashboard-spending.sqlite'
+    with open(db_path, 'wb') as fh:
+        fh.write(zf.read('db.sqlite'))
+
+conn = sqlite3.connect(db_path)
+conn.row_factory = sqlite3.Row
+cur = conn.cursor()
+now = datetime.now(timezone.utc)
+month_start = int(f"{now.year}{now.month:02d}01")
+if now.month == 12:
+    next_month_start = int(f"{now.year + 1}0101")
+else:
+    next_month_start = int(f"{now.year}{now.month + 1:02d}01")
+
+top_categories = cur.execute("""
+    select c.name as label,
+           sum(case when t.amount < 0 then -t.amount else 0 end) as spent,
+           count(*) as transactionCount
+    from transactions t
+    left join categories c on c.id = t.category
+    left join category_groups cg on cg.id = c.cat_group
+    where t.tombstone = 0
+      and t.starting_balance_flag = 0
+      and ifnull(t.isChild, 0) = 0
+      and t.date >= ?
+      and t.date < ?
+      and t.amount < 0
+      and c.name is not null
+      and ifnull(cg.name, '') not in ('Income', 'Other')
+    group by c.name
+    order by spent desc
+    limit 5
+""", (month_start, next_month_start)).fetchall()
+
+totals = cur.execute("""
+    select coalesce(sum(case when t.amount < 0 then -t.amount else 0 end), 0) as spent,
+           count(*) as transactionCount,
+           sum(case when t.pending = 1 then 1 else 0 end) as pendingCount
+    from transactions t
+    left join categories c on c.id = t.category
+    left join category_groups cg on cg.id = c.cat_group
+    where t.tombstone = 0
+      and t.starting_balance_flag = 0
+      and ifnull(t.isChild, 0) = 0
+      and t.date >= ?
+      and t.date < ?
+      and t.amount < 0
+      and c.name is not null
+      and ifnull(cg.name, '') not in ('Income', 'Other')
+""", (month_start, next_month_start)).fetchone()
+
+print(json.dumps({
+    'totalSpent': totals['spent'] or 0,
+    'transactionCount': totals['transactionCount'] or 0,
+    'pendingCount': totals['pendingCount'] or 0,
+    'topCategories': [dict(row) for row in top_categories],
+}))
+`
+
+    const raw = execFileSync('python3', ['-c', script], { encoding: 'utf8' })
+    const parsed = JSON.parse(raw) as {
+      totalSpent: number
+      transactionCount: number
+      pendingCount: number
+      topCategories: Array<{ label: string; spent: number; transactionCount: number }>
+    }
+
+    const largestCategory = parsed.topCategories[0]
+    return {
+      metrics: [
+        { label: 'This month', value: formatNokFromMilliunits(parsed.totalSpent) },
+        {
+          label: 'Largest category',
+          value: largestCategory
+            ? `${largestCategory.label} · ${formatNokFromMilliunits(largestCategory.spent)}`
+            : 'No categorized spending',
+        },
+        {
+          label: 'Transactions',
+          value: `${parsed.transactionCount}${parsed.pendingCount > 0 ? ` · ${parsed.pendingCount} pending` : ''}`,
+        },
+      ],
+      categories: parsed.topCategories.map((category) => ({
+        label: category.label,
+        value: formatNokFromMilliunits(category.spent),
+        width: parsed.totalSpent > 0 ? `${Math.max(12, Math.round((category.spent / parsed.totalSpent) * 100))}%` : '12%',
+      })),
+    }
+  } catch (error) {
+    return {
+      metrics: [
+        { label: 'This month', value: 'Unavailable' },
+        { label: 'Largest category', value: 'Unavailable' },
+        { label: 'Transactions', value: 'Unavailable' },
+      ],
+      categories: [{
+        label: 'Spending data',
+        value: error instanceof Error ? error.message.split('\\n')[0] : 'Spending snapshot failed',
+        width: '35%',
+      }],
+    }
   }
 }
 
@@ -331,6 +472,7 @@ function getCalendarEvents(): DashboardPayload['calendarEvents'] {
 async function buildDashboardPayload(): Promise<DashboardPayload> {
   const dashboardEnv = getDashboardEnv()
   const budgetRuns = readBudgetRuns()
+  const spending = getSpendingSnapshot()
   const [budgetHealth, actualBudget, mainSite, devSite, weather] = await Promise.all([
     Promise.resolve({
       title: 'BudgetTools',
@@ -365,12 +507,8 @@ async function buildDashboardPayload(): Promise<DashboardPayload> {
       },
     ],
     budgetRuns,
-    spendingMetrics: [
-      { label: 'This month', value: 'Placeholder' },
-      { label: 'Largest category', value: 'Placeholder' },
-      { label: 'Budget drift', value: 'Placeholder' },
-    ],
-    spendingCategories: [{ label: 'Spending data', value: 'Placeholder until source is wired', width: '35%' }],
+    spendingMetrics: spending.metrics,
+    spendingCategories: spending.categories,
     funLibsMetrics: [
       { label: 'Status', value: 'Waiting by request' },
       { label: 'Source', value: 'Placeholder' },

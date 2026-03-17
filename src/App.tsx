@@ -1,4 +1,5 @@
 import ShowcaseCard from './components/ShowcaseCard'
+import DashboardPage from './dashboard/DashboardPage'
 
 const projects = [
   {
@@ -77,13 +78,9 @@ const links = [
   },
 ]
 
-const heroFacts = [
-  'Based in Bergen',
-  'Software developer',
-  'Builds practical products',
-]
+const heroFacts = ['Based in Bergen', 'Software developer', 'Builds practical products']
 
-export default function App() {
+function LandingPage() {
   return (
     <div className="site-shell">
       <header className="hero" id="top">
@@ -99,6 +96,7 @@ export default function App() {
             <div className="topbar__links">
               <a href="#about">About</a>
               <a href="#projects">Projects</a>
+              <a href="/dashboard">Dashboard</a>
               <a href="#contact">Contact</a>
             </div>
           </nav>
@@ -119,6 +117,9 @@ export default function App() {
                 <a className="button button--primary" href="#projects">
                   View work
                 </a>
+                <a className="button button--ghost" href="/dashboard">
+                  Open dashboard
+                </a>
                 <a className="button button--ghost" href="#contact">
                   Contact me
                 </a>
@@ -135,9 +136,7 @@ export default function App() {
               <div className="hero-card hero-card--intro">
                 <div className="hero-card__label">Now</div>
                 <strong>Software Developer at Unimicro</strong>
-                <p>
-                  Building fintech products for Norwegian businesses.
-                </p>
+                <p>Building fintech products for Norwegian businesses.</p>
               </div>
 
               <div className="hero-card hero-card--profile">
@@ -273,4 +272,12 @@ export default function App() {
       </main>
     </div>
   )
+}
+
+export default function App() {
+  if (window.location.pathname === '/dashboard') {
+    return <DashboardPage />
+  }
+
+  return <LandingPage />
 }

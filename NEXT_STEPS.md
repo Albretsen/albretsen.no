@@ -1,0 +1,25 @@
+# NEXT_STEPS.md
+
+## Highest-priority tasks
+
+1. Implement `/dashboard` route using the design document.
+   - In progress: first dashboard shell, route split, and card system underway.
+2. Add navigation from the landing page to `/dashboard`.
+   - In progress with the first `/dashboard` increment.
+3. Build reusable dashboard layout/card components.
+   - In progress with the first `/dashboard` increment.
+4. Add placeholder/mock-backed sections for:
+   - BudgetTools recent runs
+   - Spending overview
+   - Actual Budget status
+   - albretsen.no status
+   - VPS overview
+   - Fun Libs overview
+   - Calendar
+   - Weather
+5. Validate responsive behavior for 11-inch tablet landscape and desktop.
+6. Document the expected API/data contract for real integrations.
+
+## How to pick work
+Always do the highest-priority unfinished task that is unblocked.
+If a task is blocked, move it to `BLOCKERS.md` and stop if human input is required.

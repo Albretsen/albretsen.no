@@ -2,7 +2,13 @@
 
 ## Active blockers
 
-_None currently._
+- Date/time: 2026-03-17 18:33 UTC
+- Task: Live calendar data for dashboard
+- Blocker: GOG calendar auth token for `bjellanda@gmail.com` is expired or revoked (`invalid_grant`)
+- Needed from human: Re-auth the GOG calendar account or provide a working calendar-backed account
+- Recommended option: Re-auth the existing `bjellanda@gmail.com` GOG account so the current wiring starts working immediately
+- Alternatives: Provide another GOG calendar account already authenticated
+- Status: waiting
 
 ## Blocker format
 - Date/time:

@@ -15,8 +15,8 @@
    - albretsen.no status ✅ first live health checks for prod + dev
    - VPS overview ✅ first live host metrics
    - Fun Libs overview
-   - Calendar ⚠️ placeholder fallback added; live GOG data still depends on session auth
-   - Weather
+   - Calendar ⚠️ GOG wiring improved, but live data is blocked by an expired/revoked Google token
+   - Weather ✅ live via swappable provider layer with Open-Meteo as the first provider
 5. Validate responsive behavior for 11-inch tablet landscape and desktop.
 6. Document the expected API/data contract for real integrations.
 

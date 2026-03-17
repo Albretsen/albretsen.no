@@ -41,6 +41,131 @@ type DashboardPayload = {
 }
 
 const budgetRunsRoot = '/opt/BudgetTools/runs'
+const budgetToolsEnvPath = '/opt/BudgetTools/.env'
+
+type WeatherProvider = 'open-meteo' | 'placeholder'
+
+
+function readBudgetToolsEnv() {
+  if (!fs.existsSync(budgetToolsEnvPath)) {
+    return {}
+  }
+
+  const content = fs.readFileSync(budgetToolsEnvPath, 'utf8')
+  return Object.fromEntries(
+    content
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('#') && line.includes('='))
+      .map((line) => {
+        const index = line.indexOf('=')
+        return [line.slice(0, index).trim(), line.slice(index + 1).trim()]
+      }),
+  )
+}
+
+function getDashboardEnv() {
+  const budgetEnv = readBudgetToolsEnv()
+  return {
+    gogAccount: process.env.GOG_ACCOUNT || budgetEnv.GOG_ACCOUNT || 'bjellanda@gmail.com',
+    gogKeyringPassword: process.env.GOG_KEYRING_PASSWORD || budgetEnv.GOG_KEYRING_PASSWORD || '',
+    weatherProvider: (process.env.WEATHER_PROVIDER || budgetEnv.WEATHER_PROVIDER || 'open-meteo') as WeatherProvider,
+  }
+}
+
+function formatPercent(value: number) {
+  return `${Math.round(value)}%`
+}
+
+async function getWeather(provider: WeatherProvider): Promise<DashboardPayload['weather']> {
+  if (provider === 'placeholder') {
+    return {
+      temperature: '—',
+      condition: 'Placeholder weather provider',
+      range: 'No live provider selected',
+      detail: 'Switch WEATHER_PROVIDER to open-meteo when ready',
+      mode: 'placeholder',
+    }
+  }
+
+  const latitude = 60.3913
+  const longitude = 5.3221
+  const url = new URL('https://api.open-meteo.com/v1/forecast')
+  url.searchParams.set('latitude', String(latitude))
+  url.searchParams.set('longitude', String(longitude))
+  url.searchParams.set('current', 'temperature_2m,apparent_temperature,weather_code,wind_speed_10m')
+  url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min,precipitation_probability_max')
+  url.searchParams.set('timezone', 'UTC')
+  url.searchParams.set('forecast_days', '1')
+
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`Open-Meteo returned ${response.status}`)
+  }
+
+  const payload = (await response.json()) as {
+    current?: {
+      temperature_2m?: number
+      apparent_temperature?: number
+      weather_code?: number
+      wind_speed_10m?: number
+    }
+    daily?: {
+      temperature_2m_max?: number[]
+      temperature_2m_min?: number[]
+      precipitation_probability_max?: number[]
+    }
+  }
+
+  const weatherCodeMap: Record<number, string> = {
+    0: 'Clear sky',
+    1: 'Mainly clear',
+    2: 'Partly cloudy',
+    3: 'Overcast',
+    45: 'Fog',
+    48: 'Rime fog',
+    51: 'Light drizzle',
+    53: 'Drizzle',
+    55: 'Dense drizzle',
+    61: 'Light rain',
+    63: 'Rain',
+    65: 'Heavy rain',
+    71: 'Light snow',
+    73: 'Snow',
+    75: 'Heavy snow',
+    80: 'Rain showers',
+    81: 'Rain showers',
+    82: 'Heavy rain showers',
+    95: 'Thunderstorm',
+  }
+
+  const current = payload.current ?? {}
+  const daily = payload.daily ?? {}
+  const condition = weatherCodeMap[current.weather_code ?? -1] ?? 'Unknown conditions'
+  const high = daily.temperature_2m_max?.[0]
+  const low = daily.temperature_2m_min?.[0]
+  const precipitation = daily.precipitation_probability_max?.[0]
+
+  return {
+    temperature: current.temperature_2m != null ? `${Math.round(current.temperature_2m)}°C` : '—',
+    condition: `${condition} in Bergen`,
+    range:
+      high != null && low != null
+        ? `High ${Math.round(high)}° · Low ${Math.round(low)}°`
+        : 'Daily range unavailable',
+    detail: [
+      current.apparent_temperature != null
+        ? `Feels like ${Math.round(current.apparent_temperature)}°`
+        : null,
+      current.wind_speed_10m != null ? `Wind ${Math.round(current.wind_speed_10m)} km/h` : null,
+      precipitation != null ? `Precipitation ${formatPercent(precipitation)}` : null,
+      'Provider: Open-Meteo',
+    ]
+      .filter(Boolean)
+      .join(' · '),
+    mode: 'live',
+  }
+}
 
 function formatUtc(iso: string) {
   const date = new Date(iso)
@@ -156,8 +281,9 @@ function getVpsMetrics(): DashboardPayload['vpsMetrics'] {
 }
 
 function getCalendarEvents(): DashboardPayload['calendarEvents'] {
-  const account = process.env.GOG_ACCOUNT || 'bjellanda@gmail.com'
-  const keyringPassword = process.env.GOG_KEYRING_PASSWORD
+  const dashboardEnv = getDashboardEnv()
+  const account = dashboardEnv.gogAccount
+  const keyringPassword = dashboardEnv.gogKeyringPassword
 
   if (!keyringPassword) {
     return [{
@@ -172,14 +298,11 @@ function getCalendarEvents(): DashboardPayload['calendarEvents'] {
     const from = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0)).toISOString()
     const to = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 23, 59, 59)).toISOString()
 
-    const raw = execFileSync(
-      'bash',
-      ['-lc', `gog calendar events primary --from ${JSON.stringify(from)} --to ${JSON.stringify(to)} --json --account ${JSON.stringify(account)}`],
-      {
-        encoding: 'utf8',
-        env: { ...process.env, GOG_KEYRING_PASSWORD: keyringPassword },
-      },
-    )
+    const command = `eval "$([ -x /home/linuxbrew/.linuxbrew/bin/brew ] && /home/linuxbrew/.linuxbrew/bin/brew shellenv)"; gog calendar events primary --from ${JSON.stringify(from)} --to ${JSON.stringify(to)} --json --account ${JSON.stringify(account)}`
+    const raw = execFileSync('bash', ['-lc', command], {
+      encoding: 'utf8',
+      env: { ...process.env, GOG_KEYRING_PASSWORD: keyringPassword },
+    })
 
     const parsed = JSON.parse(raw) as Array<{ summary?: string; start?: { dateTime?: string; date?: string }; location?: string }>
     if (!parsed.length) {
@@ -206,8 +329,9 @@ function getCalendarEvents(): DashboardPayload['calendarEvents'] {
 }
 
 async function buildDashboardPayload(): Promise<DashboardPayload> {
+  const dashboardEnv = getDashboardEnv()
   const budgetRuns = readBudgetRuns()
-  const [budgetHealth, actualBudget, mainSite, devSite] = await Promise.all([
+  const [budgetHealth, actualBudget, mainSite, devSite, weather] = await Promise.all([
     Promise.resolve({
       title: 'BudgetTools',
       status: (budgetRuns[0]?.result === 'success'
@@ -222,6 +346,7 @@ async function buildDashboardPayload(): Promise<DashboardPayload> {
     checkUrl('Actual Budget', 'https://budget.albretsen.no'),
     checkUrl('albretsen.no', 'https://albretsen.no'),
     checkUrl('dev.albretsen.no', 'https://dev.albretsen.no'),
+    getWeather(dashboardEnv.weatherProvider),
   ])
 
   return {
@@ -251,13 +376,7 @@ async function buildDashboardPayload(): Promise<DashboardPayload> {
       { label: 'Source', value: 'Placeholder' },
     ],
     calendarEvents: getCalendarEvents(),
-    weather: {
-      temperature: '—',
-      condition: 'Placeholder until weather source is wired',
-      range: 'Not connected yet',
-      detail: 'Kept explicit on purpose',
-      mode: 'placeholder',
-    },
+    weather,
     vpsMetrics: getVpsMetrics(),
   }
 }

@@ -1,3 +1,5 @@
+import ShowcaseCard from './components/ShowcaseCard'
+
 const projects = [
   {
     title: 'Fun Libs',
@@ -6,22 +8,29 @@ const projects = [
     detail:
       'Built as a lightweight consumer app with a simple loop: join in, fill the blanks, and get a result worth sharing.',
     link: 'https://play.google.com/store/apps/details?id=com.asgalb.FunLibs&hl=en',
-    image: '/images/fun-libs.png',
+    images: ['/images/fun-libs.png'],
     tags: ['React Native', 'TypeScript', 'Supabase', '10k+ users'],
     meta: ['Consumer app', 'Mobile-first', 'Live product'],
   },
 ]
 
-const experiments = [
+const sideProjects = [
   {
-    title: "You can't teach drive",
-    description: 'A small experiment mixing visuals, audio, and attitude.',
-    image: '/images/cant-teach-drive.png',
-    audio: '/audio/cant-teach-drive.mp3',
+    title: 'Bedriftspresentasjon med Unimicro',
+    description:
+      'Presented a fintech agent concept built around the Unimicro accounting system at a student event in Media City Bergen.',
+    detail:
+      'The talk focused on how an AI agent can work inside real accounting workflows, where finance, automation, and product thinking meet. It was a practical case for students interested in applied AI, fintech, and software that has to hold up in real business use.',
+    images: ['/images/bedpress_1.jpeg', '/images/bedpress_3.jpeg', '/images/bedpress_2.jpeg'],
+    tags: ['Fintech', 'AI agent', 'Unimicro', 'Presentation'],
+    meta: ['Media City Bergen', '5 March 2026', 'Student presentation'],
+    link:
+      'https://www.linkedin.com/posts/node-aiki_forrige-uke-var-vi-s%C3%A5-heldige-%C3%A5-f%C3%A5-bes%C3%B8ke-activity-7436718421142208512-pcw5?utm_source=share&utm_medium=member_desktop&rcm=ACoAADR9u9oBIzwfVAqkaJiVTcVIIVCcu4_jgL8',
+    linkLabel: 'See post from the event',
   },
 ]
 
-const showExperiments = false
+const showSideProjects = true
 
 const principles = [
   'I like software that is easy to understand and hard to break.',
@@ -102,7 +111,7 @@ export default function App() {
                 <span> sharp, useful, and real.</span>
               </h1>
               <p className="lead">
-                I’m Asgeir — a software developer who likes clean systems, practical
+                I’m Asgeir, a software developer who likes clean systems, practical
                 products, and sites that say what they mean.
               </p>
 
@@ -127,8 +136,7 @@ export default function App() {
                 <div className="hero-card__label">Now</div>
                 <strong>Software Developer at Unimicro</strong>
                 <p>
-                  Building software in a real production setting, with actual users and
-                  actual constraints.
+                  Building fintech products for Norwegian businesses.
                 </p>
               </div>
 
@@ -206,60 +214,23 @@ export default function App() {
 
             <div className="project-stack reveal reveal--2">
               {projects.map((project) => (
-                <article className="project-panel" key={project.title}>
-                  <div className="project-panel__visual">
-                    <img src={project.image} alt={project.title} />
-                  </div>
-
-                  <div className="project-panel__content">
-                    <div className="project-panel__header">
-                      <p className="card__eyebrow">Featured project</p>
-                      <h3>{project.title}</h3>
-                      <p className="project-panel__lead">{project.description}</p>
-                    </div>
-
-                    <p className="project-panel__detail">{project.detail}</p>
-
-                    <div className="project-meta" aria-label="Project summary">
-                      {project.meta.map((item) => (
-                        <span key={item}>{item}</span>
-                      ))}
-                    </div>
-
-                    <ul className="tag-list">
-                      {project.tags.map((tag) => (
-                        <li key={tag}>{tag}</li>
-                      ))}
-                    </ul>
-
-                    <a href={project.link} target="_blank" rel="noreferrer">
-                      Open project ↗
-                    </a>
-                  </div>
-                </article>
+                <ShowcaseCard item={project} eyebrow="Featured project" key={project.title} />
               ))}
             </div>
           </div>
         </section>
 
-        {showExperiments ? (
-          <section className="section section--muted" id="experiments">
-            <div className="container">
-              <div className="project-stack">
-                {experiments.map((experiment) => (
-                  <article className="project-panel" key={experiment.title}>
-                    <div className="project-panel__visual">
-                      <img src={experiment.image} alt={experiment.title} />
-                    </div>
-                    <div className="project-panel__content">
-                      <p className="card__eyebrow">Experiment</p>
-                      <h3>{experiment.title}</h3>
-                      <p>{experiment.description}</p>
-                      <audio controls preload="none" src={experiment.audio}>
-                        Your browser does not support the audio element.
-                      </audio>
-                    </div>
-                  </article>
+        {showSideProjects ? (
+          <section className="section section--muted" id="side-projects">
+            <div className="container split-section split-section--top">
+              <div className="section-heading-block reveal reveal--1">
+                <p className="section-label">Side work</p>
+                <h2>Useful and interesting things I’ve done.</h2>
+              </div>
+
+              <div className="project-stack reveal reveal--2">
+                {sideProjects.map((item) => (
+                  <ShowcaseCard item={item} eyebrow="Side work" key={item.title} />
                 ))}
               </div>
             </div>

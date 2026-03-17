@@ -429,58 +429,7 @@ a,
 
 .project-stack {
   display: grid;
-  gap: 1.25rem;
-}
-
-.project-panel {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1fr);
-  gap: 0;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 32px;
-  background: linear-gradient(180deg, rgba(14, 22, 35, 0.98), rgba(8, 12, 20, 0.94));
-  box-shadow: var(--shadow);
-}
-
-.project-panel__visual {
-  position: relative;
-  min-height: 100%;
-}
-
-.project-panel__visual::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(8, 12, 20, 0.06));
-}
-
-.project-panel__visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.project-panel__content {
-  display: grid;
-  align-content: center;
-  gap: 1rem;
-  padding: 2rem;
-}
-
-.project-panel__header {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.project-panel__lead {
-  margin: 0;
-  color: var(--text);
-  font-size: 1.08rem;
-}
-
-.project-panel__detail {
-  margin: 0;
+  gap: 1.5rem;
 }
 
 .project-meta,
@@ -489,6 +438,144 @@ a,
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
+}
+
+.showcase-card {
+  overflow: hidden;
+  border: 1px solid rgba(124, 179, 255, 0.14);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top right, rgba(77, 141, 255, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(9, 16, 28, 0.98), rgba(5, 10, 18, 0.96));
+  box-shadow: var(--shadow);
+}
+
+.showcase-card__media {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem 1rem 0;
+}
+
+.showcase-card__hero {
+  overflow: hidden;
+  border: 1px solid rgba(124, 179, 255, 0.16);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.showcase-card__imageButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  color: inherit;
+  text-align: inherit;
+  cursor: zoom-in;
+  border: 0;
+}
+
+.showcase-card__imageButton:hover img {
+  transform: scale(1.02);
+}
+
+.showcase-card__hero img {
+  width: 100%;
+  aspect-ratio: 16 / 8.5;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 180ms ease;
+}
+
+.showcase-card__rail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.showcase-card__thumb {
+  overflow: hidden;
+  border: 1px solid rgba(124, 179, 255, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.showcase-card__thumb img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 180ms ease;
+}
+
+.showcase-card__content {
+  display: grid;
+  gap: 1rem;
+  padding: 1.4rem 1.4rem 1.6rem;
+}
+
+.showcase-card__header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.showcase-card__lead {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.08rem;
+}
+
+.showcase-card__detail {
+  margin: 0;
+}
+
+.showcase-card__link {
+  color: #b7d1ff;
+}
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(2, 6, 12, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.image-modal__inner {
+  position: relative;
+  width: min(1100px, 100%);
+}
+
+.image-modal__inner img {
+  display: block;
+  width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 1px solid rgba(124, 179, 255, 0.18);
+  border-radius: 24px;
+  background: rgba(6, 10, 18, 0.98);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45);
+}
+
+.image-modal__close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(5, 10, 18, 0.72);
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.image-modal__count {
+  margin-top: 0.75rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.92rem;
 }
 
 .contact-list {
@@ -554,7 +641,6 @@ a,
 @media (max-width: 980px) {
   .hero__stage,
   .split-section,
-  .project-panel,
   .timeline__item,
   .hero__right {
     grid-template-columns: 1fr;
@@ -577,7 +663,7 @@ a,
     min-height: auto;
   }
 
-  .project-panel__visual img {
+  .showcase-card__hero img {
     aspect-ratio: 16 / 10;
   }
 }
@@ -611,6 +697,10 @@ a,
   .project-meta,
   .tag-list {
     gap: 0.55rem;
+  }
+
+  .showcase-card__rail {
+    grid-template-columns: 1fr;
   }
 
   .hero__facts li,

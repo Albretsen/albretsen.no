@@ -448,6 +448,50 @@ function readBudgetRuns(): DashboardPayload['budgetRuns'] {
   })
 }
 
+function getContainerSummary() {
+  try {
+    const runtime = fs.existsSync('/usr/bin/podman') ? 'podman' : fs.existsSync('/usr/bin/docker') ? 'docker' : null
+    if (!runtime) {
+      return { value: 'Unavailable', tone: 'unknown' as const }
+    }
+
+    const output = execFileSync(runtime, ['ps', '--format', '{{.Names}}\t{{.Status}}'], { encoding: 'utf8' })
+      .trim()
+      .split('\n')
+      .filter(Boolean)
+
+    if (!output.length) {
+      return { value: '0 running', tone: 'warning' as const }
+    }
+
+    const running = output.filter((line) => line.includes('\tUp ')).length
+    const healthy = output.filter((line) => /\(healthy\)/i.test(line)).length
+    const unhealthy = output.filter((line) => /\(unhealthy\)|\(health: starting\)/i.test(line)).length
+    const withHealthChecks = healthy + unhealthy
+
+    if (unhealthy > 0) {
+      return {
+        value: `${running} running · ${healthy}/${withHealthChecks} healthchecks passing`,
+        tone: 'warning' as const,
+      }
+    }
+
+    if (withHealthChecks > 0) {
+      return {
+        value: `${running} running · ${healthy}/${withHealthChecks} healthchecks passing`,
+        tone: 'healthy' as const,
+      }
+    }
+
+    return {
+      value: `${running} running`,
+      tone: 'healthy' as const,
+    }
+  } catch {
+    return { value: 'Unavailable', tone: 'unknown' as const }
+  }
+}
+
 function getVpsMetrics(): DashboardPayload['vpsMetrics'] {
   const cpus = os.loadavg()
   const totalMem = os.totalmem()
@@ -456,6 +500,7 @@ function getVpsMetrics(): DashboardPayload['vpsMetrics'] {
   const uptimeHours = Math.floor(os.uptime() / 3600)
   const uptimeDays = Math.floor(uptimeHours / 24)
   const remainingHours = uptimeHours % 24
+  const containers = getContainerSummary()
 
   let diskValue = 'Unavailable'
   try {
@@ -467,9 +512,10 @@ function getVpsMetrics(): DashboardPayload['vpsMetrics'] {
 
   return [
     { label: 'CPU load', value: cpus[0].toFixed(2) },
-    { label: 'RAM', value: `${usedMemPct}%` },
-    { label: 'Disk', value: diskValue },
+    { label: 'RAM', value: `${usedMemPct}%`, tone: usedMemPct >= 90 ? 'warning' : 'healthy' },
+    { label: 'Disk', value: diskValue, tone: diskValue === 'Unavailable' ? 'unknown' : Number.parseInt(diskValue, 10) >= 90 ? 'warning' : 'healthy' },
     { label: 'Uptime', value: `${uptimeDays}d ${remainingHours}h` },
+    { label: 'Containers', value: containers.value, tone: containers.tone },
   ]
 }
 

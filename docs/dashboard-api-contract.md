@@ -22,6 +22,7 @@ Returns one normalized payload for the dashboard UI so the frontend does not nee
 - Calendar from GOG / Google Calendar
 - Weather from Open-Meteo
 - VPS metrics from the host
+- Container status from the local container runtime (`podman` first, `docker` fallback)
 
 ## Response shape
 
@@ -130,6 +131,15 @@ type DashboardPayload = {
 
 ### `vpsMetrics`
 - Compact high-signal host metrics only.
+- Current live fields:
+  - CPU load from the host
+  - RAM usage from the host
+  - root disk usage from `df -h /`
+  - uptime from the host
+  - container runtime summary from local `podman`/`docker`
+- Important nuance:
+  - not every container has a health check configured
+  - the dashboard therefore separates `running` count from `healthchecks passing`
 
 ## UI rules for consumers
 

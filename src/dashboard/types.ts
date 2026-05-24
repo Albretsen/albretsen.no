@@ -46,6 +46,27 @@ export type BudgetRunsSection = {
   runs: BudgetRun[]
 }
 
+export type BudgetDownloadFile = {
+  id: string
+  account: string
+  timestamp: string
+  fileName: string
+  relativePath: string
+  sizeLabel: string
+  mode?: DataMode
+}
+
+export type BudgetDownloadsSection = {
+  mode?: DataMode
+  detail?: string
+  files: BudgetDownloadFile[]
+  query?: string
+  page: number
+  pageSize: number
+  totalFiles: number
+  totalPages: number
+}
+
 export type SpendingSection = {
   mode?: DataMode
   detail?: string

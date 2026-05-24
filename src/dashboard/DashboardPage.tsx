@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   fetchDashboardAuthStatus,
   fetchDashboardBudgetRuns,
+  fetchDashboardBudgetDownloads,
   fetchDashboardCalendar,
   fetchDashboardFunLibs,
   fetchDashboardOverview,
@@ -16,6 +17,7 @@ import DashboardAuthGate from './DashboardAuthGate'
 import DashboardCard from './DashboardCard'
 import type {
   BudgetRunsSection,
+  BudgetDownloadsSection,
   CalendarState,
   DashboardMetric,
   DashboardOverview,
@@ -100,6 +102,7 @@ const overviewInitial: DashboardOverview = {
 
 const serviceCardsInitial: ServiceCard[] = []
 const budgetRunsInitial: BudgetRunsSection = { mode: 'placeholder', runs: [] }
+const budgetDownloadsInitial: BudgetDownloadsSection = { mode: 'placeholder', detail: 'Loading archived CSV downloads…', files: [], query: '', page: 1, pageSize: 12, totalFiles: 0, totalPages: 1 }
 const spendingInitial: SpendingSection = { mode: 'placeholder', detail: 'Loading spending…', metrics: [], categories: [] }
 const funLibsInitial: FunLibsSection = { mode: 'placeholder', detail: 'Loading…', metrics: [] }
 const calendarInitial: CalendarState = { mode: 'placeholder', status: 'unknown', detail: 'Loading calendar…', events: [] }
@@ -137,10 +140,33 @@ export default function DashboardPage() {
     }
   }, [])
 
+  const [budgetDownloadQueryInput, setBudgetDownloadQueryInput] = useState('')
+  const [budgetDownloadQuery, setBudgetDownloadQuery] = useState('')
+  const [budgetDownloadPage, setBudgetDownloadPage] = useState(1)
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      const nextQuery = budgetDownloadQueryInput.trim()
+      setBudgetDownloadQuery((current) => {
+        if (current === nextQuery) return current
+        setBudgetDownloadPage(1)
+        return nextQuery
+      })
+    }, 250)
+
+    return () => window.clearTimeout(timeout)
+  }, [budgetDownloadQueryInput])
+
+  const loadBudgetDownloads = useMemo(
+    () => () => fetchDashboardBudgetDownloads(budgetDownloadQuery, budgetDownloadPage),
+    [budgetDownloadPage, budgetDownloadQuery],
+  )
+
   const overview = useDashboardResource(fetchDashboardOverview, overviewInitial, authenticated)
   const serviceCards = useDashboardResource(fetchDashboardServiceCards, serviceCardsInitial, authenticated)
   const budgetRuns = useDashboardResource(fetchDashboardBudgetRuns, budgetRunsInitial, authenticated)
   const spending = useDashboardResource(fetchDashboardSpending, spendingInitial, authenticated)
+  const budgetDownloads = useDashboardResource(loadBudgetDownloads, budgetDownloadsInitial, authenticated)
   const funLibs = useDashboardResource(fetchDashboardFunLibs, funLibsInitial, authenticated)
   const calendar = useDashboardResource(fetchDashboardCalendar, calendarInitial, authenticated)
   const weather = useDashboardResource(fetchDashboardWeather, weatherInitial, authenticated)
@@ -256,6 +282,80 @@ export default function DashboardPage() {
                   </article>
                 ))}
               </div>
+            )}
+          </DashboardCard>
+
+          <DashboardCard
+            title="Original CSV downloads"
+            eyebrow="Archive"
+            detail={budgetDownloads.loading ? 'Loading archived originals…' : budgetDownloads.data.detail ?? 'Archived original downloaded CSV files'}
+            mode={budgetDownloads.data.mode ?? 'live'}
+            className="dashboard-card--wide"
+          >
+            <div className="archive-toolbar">
+              <label className="archive-search">
+                <span>Search date or filename</span>
+                <input
+                  type="search"
+                  inputMode="search"
+                  placeholder="2026-05-08, amex, spv…"
+                  value={budgetDownloadQueryInput}
+                  onChange={(event) => setBudgetDownloadQueryInput(event.target.value)}
+                />
+              </label>
+              <span className="archive-toolbar__meta">
+                {budgetDownloads.data.totalFiles} file{budgetDownloads.data.totalFiles === 1 ? '' : 's'}
+              </span>
+            </div>
+
+            {budgetDownloads.loading ? (
+              <DashboardCardSkeleton blocks={4} />
+            ) : budgetDownloads.data.files.length ? (
+              <>
+                <div className="run-list">
+                  {budgetDownloads.data.files.map((file) => (
+                    <article className="run-item" key={file.id}>
+                      <div className="run-item__topline">
+                        <strong>{file.account}</strong>
+                        <div className="run-item__badges">
+                          {file.mode === 'placeholder' ? <span className="mode-badge mode-badge--placeholder">Placeholder</span> : null}
+                          <a className="button button--ghost dashboard-header__link" href={`/api/dashboard/budget-downloads/${encodeURIComponent(file.id)}`}>
+                            Download
+                          </a>
+                        </div>
+                      </div>
+                      <p>{file.fileName}</p>
+                      <span>{file.timestamp} · {file.sizeLabel}</span>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="archive-pagination">
+                  <button
+                    className="button button--ghost dashboard-header__link"
+                    type="button"
+                    onClick={() => setBudgetDownloadPage((page) => Math.max(1, page - 1))}
+                    disabled={budgetDownloads.data.page <= 1 || budgetDownloads.loading}
+                  >
+                    Previous
+                  </button>
+                  <span className="archive-pagination__status">
+                    Page {budgetDownloads.data.page} of {budgetDownloads.data.totalPages}
+                  </span>
+                  <button
+                    className="button button--ghost dashboard-header__link"
+                    type="button"
+                    onClick={() => setBudgetDownloadPage((page) => Math.min(budgetDownloads.data.totalPages, page + 1))}
+                    disabled={budgetDownloads.data.page >= budgetDownloads.data.totalPages || budgetDownloads.loading}
+                  >
+                    Next
+                  </button>
+                </div>
+              </>
+            ) : (
+              <p className="dashboard-summary">
+                {budgetDownloads.data.query ? 'No archived CSV files matched that search.' : 'No archived original CSV files yet.'}
+              </p>
             )}
           </DashboardCard>
 

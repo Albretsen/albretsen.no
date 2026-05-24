@@ -7,6 +7,7 @@ import type {
   SpendingSection,
   WeatherData,
   DashboardMetric,
+  BudgetDownloadsSection,
 } from './types'
 
 export type DashboardAuthStatus = {
@@ -41,6 +42,19 @@ export function fetchDashboardBudgetRuns() {
 
 export function fetchDashboardSpending() {
   return fetchJson<SpendingSection>('/api/dashboard/spending')
+}
+
+export function fetchDashboardBudgetDownloads(query = '', page = 1, pageSize = 12) {
+  const params = new URLSearchParams({
+    page: String(page),
+    pageSize: String(pageSize),
+  })
+
+  if (query.trim()) {
+    params.set('q', query.trim())
+  }
+
+  return fetchJson<BudgetDownloadsSection>(`/api/dashboard/budget-downloads?${params.toString()}`)
 }
 
 export function fetchDashboardFunLibs() {

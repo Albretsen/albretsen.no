@@ -5,29 +5,44 @@ const projects = [
   {
     title: 'Fun Libs',
     description:
-      'A mobile word game built to make story creation fast, social, and a little ridiculous.',
+      'A full-stack mobile app I built and shipped, with 10,000+ users and real product iteration behind it.',
     detail:
-      'Built as a lightweight consumer app with a simple loop: join in, fill the blanks, and get a result worth sharing.',
-    link: 'https://play.google.com/store/apps/details?id=com.asgalb.FunLibs&hl=en',
+      'Fun Libs started as a simple idea, but the useful part is the execution: shipping a consumer app, making the loop work on mobile, and keeping the product stable enough for real users instead of treating it like a throwaway side project.',
+    bullets: [
+      'Built and deployed the app with React Native, TypeScript, Expo, and Supabase.',
+      'Designed the backend structure, authentication flow, and the data model behind the core gameplay loop.',
+      'Reached 10,000+ users organically and kept iterating based on how people actually used it.',
+      'Handled the product as an end-to-end system: app updates, backend changes, release flow, and day-to-day improvements.',
+    ],
+    primaryLink: {
+      href: 'https://play.google.com/store/apps/details?id=com.asgalb.FunLibs&hl=en',
+      label: 'View on Google Play',
+    },
     images: ['/images/fun-libs.png'],
-    tags: ['React Native', 'TypeScript', 'Supabase', '10k+ users'],
-    meta: ['Consumer app', 'Mobile-first', 'Live product'],
+    tags: ['React Native', 'TypeScript', 'Expo', 'Supabase', '10k+ users'],
+    meta: ['Full-stack product', 'Mobile app', 'Shipped and maintained'],
   },
 ]
 
 const sideProjects = [
   {
-    title: 'Bedriftspresentasjon med Unimicro',
+    title: 'AI talk with Unimicro',
     description:
-      'Presented a fintech agent concept built around the Unimicro accounting system at a student event in Media City Bergen.',
+      'Presented a practical fintech AI agent case built around real accounting workflows.',
     detail:
-      'The talk focused on how an AI agent can work inside real accounting workflows, where finance, automation, and product thinking meet. It was a practical case for students interested in applied AI, fintech, and software that has to hold up in real business use.',
+      'The point of the talk was not futuristic AI hype. It was showing how an agent becomes useful when it can operate inside real systems, use structured tools, and help with work that already matters to businesses.',
+    bullets: [
+      'Explained how tool-based AI workflows fit into accounting systems instead of sitting beside them as a demo.',
+      'Focused on practical constraints: reliability, structured actions, and business-facing usefulness.',
+      'Used a real product context rather than a generic AI presentation.',
+    ],
     images: ['/images/bedpress_1.jpeg', '/images/bedpress_3.jpeg', '/images/bedpress_2.jpeg'],
     tags: ['Fintech', 'AI agent', 'Unimicro', 'Presentation'],
     meta: ['Media City Bergen', '5 March 2026', 'Student presentation'],
-    link:
-      'https://www.linkedin.com/posts/node-aiki_forrige-uke-var-vi-s%C3%A5-heldige-%C3%A5-f%C3%A5-bes%C3%B8ke-activity-7436718421142208512-pcw5?utm_source=share&utm_medium=member_desktop&rcm=ACoAADR9u9oBIzwfVAqkaJiVTcVIIVCcu4_jgL8',
-    linkLabel: 'See post from the event',
+    primaryLink: {
+      href: 'https://www.linkedin.com/posts/node-aiki_forrige-uke-var-vi-s%C3%A5-heldige-%C3%A5-f%C3%A5-bes%C3%B8ke-activity-7436718421142208512-pcw5?utm_source=share&utm_medium=member_desktop&rcm=ACoAADR9u9oBIzwfVAqkaJiVTcVIIVCcu4_jgL8',
+      label: 'See post from the event',
+    },
   },
 ]
 
@@ -36,7 +51,7 @@ const showSideProjects = true
 const principles = [
   'I like software that is easy to understand and hard to break.',
   'I care about direct communication, clean systems, and useful outcomes.',
-  'The goal is not to make something look clever. The goal is to make it good.',
+  'I prefer systems that stay understandable even after they become real work.',
 ]
 
 const experience = [
@@ -44,19 +59,19 @@ const experience = [
     company: 'Unimicro',
     role: 'Software Developer',
     period: '2024 — Present',
-    summary: 'Working on software that has to hold up in real use, not just in demos.',
+    summary: 'Building software used in real business workflows, across AI, backend systems, and mobile products.',
   },
   {
     company: 'BI Norwegian Business School',
-    role: 'IT Consulting',
+    role: 'IT Consultant',
     period: '2023 — 2024',
-    summary: 'Worked close to internal systems and day-to-day operational needs.',
+    summary: 'Built and maintained internal software for academic and administrative needs.',
   },
   {
     company: 'Chess.com',
-    role: 'App Developer',
+    role: 'Software Developer',
     period: '2019 — 2022',
-    summary: 'Worked on mobile app development and product-facing improvements at scale.',
+    summary: 'Worked on mobile product improvements for a platform operating at large scale.',
   },
 ]
 
@@ -67,18 +82,58 @@ const links = [
     href: 'mailto:asgeir@albretsen.no',
   },
   {
-    label: 'GitHub',
-    value: 'github.com/albretsen',
-    href: 'https://github.com/albretsen',
-  },
-  {
     label: 'LinkedIn',
     value: 'linkedin.com/in/asgeir-albretsen',
     href: 'https://www.linkedin.com/in/asgeir-albretsen/',
   },
 ]
 
-const heroFacts = ['Based in Bergen', 'Software developer', 'Builds practical products']
+const heroFacts = [
+  'Based in Bergen',
+  'Fintech + backend systems',
+  'Practical AI and mobile products',
+]
+
+const highlights = [
+  {
+    title: 'AI agent workflows at Unimicro',
+    eyebrow: 'Selected work',
+    summary:
+      'Built LLM-powered workflows around real accounting operations instead of isolated chat demos.',
+    points: [
+      'Worked on the Micro assistant and tool-based flows connected to core accounting systems.',
+      'Used Semantic Kernel and OpenAI APIs for structured execution rather than free-form prompting alone.',
+      'Designed around actions that need to be reliable, inspectable, and useful in business contexts.',
+      'Helped improve internal tooling and output reliability as the product matured.',
+    ],
+    tags: ['Semantic Kernel', 'OpenAI APIs', 'Tool-based execution', 'Accounting systems'],
+  },
+  {
+    title: '.NET backend systems',
+    eyebrow: 'Technical depth',
+    summary:
+      'Backend work focused on services that need to hold up under real usage, not just pass a happy-path demo.',
+    points: [
+      'Built backend services with ASP.NET Core, EF Core, and SQL Server.',
+      'Worked on API design, internal service logic, and data access patterns for production systems.',
+      'Contributed to architecture, code reviews, and reliability-focused engineering decisions.',
+      'Implemented security-related requirements as part of ISO 27001 work.',
+    ],
+    tags: ['ASP.NET Core', 'EF Core', 'SQL Server', 'ISO 27001'],
+  },
+  {
+    title: 'Mobile products with real users',
+    eyebrow: 'Product signal',
+    summary:
+      'Shipped mobile software where adoption and iteration mattered more than portfolio aesthetics.',
+    points: [
+      'Built React Native apps used by 10,000+ businesses at work and 10,000+ users in Fun Libs.',
+      'Worked across product behavior, release flow, and practical implementation details.',
+      'Care about product loops, not just screens: what users do, where they get stuck, and what makes them come back.',
+    ],
+    tags: ['React Native', 'TypeScript', 'Expo', 'Product iteration'],
+  },
+]
 
 function LandingPage() {
   return (
@@ -96,6 +151,7 @@ function LandingPage() {
             <div className="topbar__links">
               <a href="#about">About</a>
               <a href="#projects">Projects</a>
+              <a href="#highlights">Highlights</a>
               <a href="/dashboard">Dashboard</a>
               <a href="#contact">Contact</a>
             </div>
@@ -109,16 +165,20 @@ function LandingPage() {
                 <span> sharp, useful, and real.</span>
               </h1>
               <p className="lead">
-                I’m Asgeir, a software developer who likes clean systems, practical
-                products, and sites that say what they mean.
+                I’m Asgeir, a software developer working across fintech, backend
+                systems, practical AI, and mobile products.
+              </p>
+              <p className="hero__supporting">
+                I care most about systems that do something real: business workflows,
+                product loops, and tools people actually end up relying on.
               </p>
 
               <div className="hero__actions">
                 <a className="button button--primary" href="#projects">
                   View work
                 </a>
-                <a className="button button--ghost" href="/dashboard">
-                  Open dashboard
+                <a className="button button--ghost" href="#highlights">
+                  Technical highlights
                 </a>
                 <a className="button button--ghost" href="#contact">
                   Contact me
@@ -136,7 +196,7 @@ function LandingPage() {
               <div className="hero-card hero-card--intro">
                 <div className="hero-card__label">Now</div>
                 <strong>Software Developer at Unimicro</strong>
-                <p>Building fintech products for Norwegian businesses.</p>
+                <p>Building fintech products, backend services, and practical AI workflows.</p>
               </div>
 
               <div className="hero-card hero-card--profile">
@@ -151,8 +211,8 @@ function LandingPage() {
 
               <div className="hero-card hero-card--small">
                 <div className="hero-card__label">Selected signal</div>
-                <strong>Fun Libs reached 10k+ users</strong>
-                <p>A small product with real traction, not just a mockup in a repo.</p>
+                <strong>Built products with real adoption</strong>
+                <p>10k+ Fun Libs users, React Native apps used by 10k+ businesses, and AI work in live accounting workflows.</p>
               </div>
             </div>
           </div>
@@ -164,7 +224,7 @@ function LandingPage() {
           <div className="container split-section">
             <div className="section-heading-block reveal reveal--1">
               <p className="section-label">About</p>
-              <h2>Not here to sound like a startup deck.</h2>
+              <h2>Clear, direct, and built for real use.</h2>
             </div>
 
             <div className="about-panel reveal reveal--2">
@@ -208,7 +268,7 @@ function LandingPage() {
           <div className="container split-section split-section--top">
             <div className="section-heading-block reveal reveal--1">
               <p className="section-label">Projects</p>
-              <h2>Work worth opening.</h2>
+              <h2>Proof, not just positioning.</h2>
             </div>
 
             <div className="project-stack reveal reveal--2">
@@ -219,17 +279,48 @@ function LandingPage() {
           </div>
         </section>
 
+        <section className="section section--muted" id="highlights">
+          <div className="container split-section split-section--top">
+            <div className="section-heading-block reveal reveal--1">
+              <p className="section-label">Selected work / Technical highlights</p>
+              <h2>The part with more depth.</h2>
+            </div>
+
+            <div className="highlight-grid reveal reveal--2">
+              {highlights.map((item) => (
+                <article className="highlight-card" key={item.title}>
+                  <p className="card__eyebrow">{item.eyebrow}</p>
+                  <h3>{item.title}</h3>
+                  <p className="highlight-card__summary">{item.summary}</p>
+
+                  <ul className="highlight-points">
+                    {item.points.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+
+                  <ul className="tag-list">
+                    {item.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {showSideProjects ? (
-          <section className="section section--muted" id="side-projects">
+          <section className="section" id="side-projects">
             <div className="container split-section split-section--top">
               <div className="section-heading-block reveal reveal--1">
                 <p className="section-label">Side work</p>
-                <h2>Useful and interesting things I’ve done.</h2>
+                <h2>Useful things beyond the main timeline.</h2>
               </div>
 
               <div className="project-stack reveal reveal--2">
                 {sideProjects.map((item) => (
-                  <ShowcaseCard item={item} eyebrow="Side work" key={item.title} />
+                  <ShowcaseCard item={item} eyebrow="Talk / side work" key={item.title} />
                 ))}
               </div>
             </div>
@@ -245,8 +336,8 @@ function LandingPage() {
 
             <div className="contact-panel reveal reveal--2">
               <p>
-                Best for collaborations, interesting product ideas, or work that needs a
-                developer who cares about the details.
+                Best for collaborations, product work, backend systems, fintech, or AI
+                features that need to be useful outside a demo environment.
               </p>
 
               <div className="contact-list">
@@ -266,6 +357,10 @@ function LandingPage() {
                   )
                 })}
               </div>
+
+              <a className="dashboard-inline-link" href="/dashboard">
+                Personal dashboard (live system overview) →
+              </a>
             </div>
           </div>
         </section>

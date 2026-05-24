@@ -9,6 +9,11 @@ import react from '@vitejs/plugin-react'
 type ServiceStatus = 'healthy' | 'warning' | 'error' | 'unknown'
 type DataMode = 'live' | 'placeholder'
 
+type DashboardOverview = {
+  generatedAt: string
+  lastRefresh: string
+}
+
 type DashboardPayload = {
   generatedAt: string
   lastRefresh: string
@@ -47,17 +52,19 @@ type DashboardPayload = {
 
 const budgetRunsRoot = '/opt/BudgetTools/runs'
 const budgetToolsEnvPath = '/opt/BudgetTools/.env'
-const actualBudgetBlobPath = '/opt/actual/data/user-files/file-661e923a-109b-4412-ae67-4f26bafd055b.blob'
+const projectEnvPath = '/opt/albretsen.no/.env'
+const actualBudgetFileId = '661e923a-109b-4412-ae67-4f26bafd055b'
+const actualBaseUrl = 'http://127.0.0.1:5006'
 
 type WeatherProvider = 'open-meteo' | 'placeholder'
 
 
-function readBudgetToolsEnv() {
-  if (!fs.existsSync(budgetToolsEnvPath)) {
+function readEnvFile(filePath: string) {
+  if (!fs.existsSync(filePath)) {
     return {}
   }
 
-  const content = fs.readFileSync(budgetToolsEnvPath, 'utf8')
+  const content = fs.readFileSync(filePath, 'utf8')
   return Object.fromEntries(
     content
       .split('\n')
@@ -71,14 +78,59 @@ function readBudgetToolsEnv() {
 }
 
 function getDashboardEnv() {
-  const budgetEnv = readBudgetToolsEnv()
+  const budgetEnv = readEnvFile(budgetToolsEnvPath)
+  const projectEnv = readEnvFile(projectEnvPath)
   return {
-    gogAccount: process.env.GOG_ACCOUNT || budgetEnv.GOG_ACCOUNT || 'bjellanda@gmail.com',
-    gogKeyringPassword: process.env.GOG_KEYRING_PASSWORD || budgetEnv.GOG_KEYRING_PASSWORD || '',
-    weatherProvider: (process.env.WEATHER_PROVIDER || budgetEnv.WEATHER_PROVIDER || 'open-meteo') as WeatherProvider,
+    gogAccount: process.env.GOG_ACCOUNT || budgetEnv.GOG_ACCOUNT || projectEnv.GOG_ACCOUNT || 'bjellanda@gmail.com',
+    gogKeyringPassword: process.env.GOG_KEYRING_PASSWORD || budgetEnv.GOG_KEYRING_PASSWORD || projectEnv.GOG_KEYRING_PASSWORD || '',
+    weatherProvider: (process.env.WEATHER_PROVIDER || projectEnv.WEATHER_PROVIDER || budgetEnv.WEATHER_PROVIDER || 'open-meteo') as WeatherProvider,
+    dashboardPassword: process.env.DASHBOARD_PASSWORD || projectEnv.DASHBOARD_PASSWORD || budgetEnv.DASHBOARD_PASSWORD || '',
+    actualPassword: process.env.BUDGET_PASSWORD || budgetEnv.BUDGET_PASSWORD || projectEnv.BUDGET_PASSWORD || '',
   }
 }
 
+
+
+const dashboardCookieName = 'albretsen_dashboard_session'
+
+function parseCookies(cookieHeader: string | undefined) {
+  if (!cookieHeader) return {}
+  return Object.fromEntries(
+    cookieHeader
+      .split(';')
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((part) => {
+        const idx = part.indexOf('=')
+        return [part.slice(0, idx), decodeURIComponent(part.slice(idx + 1))]
+      }),
+  )
+}
+
+function createDashboardSessionValue(password: string) {
+  return Buffer.from(password).toString('base64url')
+}
+
+function isDashboardAuthenticated(cookieHeader: string | undefined) {
+  const env = getDashboardEnv()
+  if (!env.dashboardPassword) {
+    return false
+  }
+
+  const cookies = parseCookies(cookieHeader)
+  return cookies[dashboardCookieName] === createDashboardSessionValue(env.dashboardPassword)
+}
+
+function sendJson(res: import('node:http').ServerResponse, statusCode: number, payload: unknown, headers?: Record<string, string>) {
+  res.statusCode = statusCode
+  res.setHeader('Content-Type', 'application/json')
+  if (headers) {
+    for (const [key, value] of Object.entries(headers)) {
+      res.setHeader(key, value)
+    }
+  }
+  res.end(JSON.stringify(payload))
+}
 
 function formatNokFromMilliunits(value: number) {
   return new Intl.NumberFormat('nb-NO', {
@@ -94,28 +146,70 @@ type SpendingSnapshot = {
   categories: DashboardPayload['spendingCategories']
 }
 
-function getSpendingSnapshot(): SpendingSnapshot {
-  if (!fs.existsSync(actualBudgetBlobPath)) {
+async function getActualToken(password: string) {
+  const response = await fetch(`${actualBaseUrl}/account/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password }),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Actual login failed with ${response.status}`)
+  }
+
+  const payload = (await response.json()) as { data?: { token?: string } }
+  if (!payload.data?.token) {
+    throw new Error('Actual login did not return a token')
+  }
+
+  return payload.data.token
+}
+
+async function downloadActualBudgetFile(token: string) {
+  const response = await fetch(`${actualBaseUrl}/sync/download-user-file`, {
+    headers: {
+      'X-ACTUAL-TOKEN': token,
+      'X-ACTUAL-FILE-ID': actualBudgetFileId,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error(`Actual download failed with ${response.status}`)
+  }
+
+  return Buffer.from(await response.arrayBuffer())
+}
+
+async function getSpendingSnapshot(): Promise<SpendingSnapshot> {
+  const env = getDashboardEnv()
+  if (!env.actualPassword) {
     return {
       metrics: [
         { label: 'This month', value: 'Unavailable' },
         { label: 'Largest category', value: 'Unavailable' },
         { label: 'Transactions', value: 'Unavailable' },
       ],
-      categories: [{ label: 'Spending data', value: 'Actual budget blob not found', width: '35%' }],
+      categories: [{ label: 'Spending data', value: 'Actual password missing', width: '35%' }],
     }
   }
 
+  const tempZipPath = path.join(os.tmpdir(), `albretsen-dashboard-${process.pid}-actual.zip`)
+  const tempDbPath = path.join(os.tmpdir(), `albretsen-dashboard-${process.pid}-actual.sqlite`)
+
   try {
+    const token = await getActualToken(env.actualPassword)
+    const zipBuffer = await downloadActualBudgetFile(token)
+    fs.writeFileSync(tempZipPath, zipBuffer)
+
     const script = `
 import json
 import sqlite3
 import zipfile
 from datetime import datetime, timezone
 
-blob_path = ${JSON.stringify(actualBudgetBlobPath)}
-with zipfile.ZipFile(blob_path) as zf:
-    db_path = '/tmp/albretsen-dashboard-spending.sqlite'
+zip_path = ${JSON.stringify(tempZipPath)}
+db_path = ${JSON.stringify(tempDbPath)}
+with zipfile.ZipFile(zip_path) as zf:
     with open(db_path, 'wb') as fh:
         fh.write(zf.read('db.sqlite'))
 
@@ -212,10 +306,13 @@ print(json.dumps({
       ],
       categories: [{
         label: 'Spending data',
-        value: error instanceof Error ? error.message.split('\\n')[0] : 'Spending snapshot failed',
+        value: error instanceof Error ? error.message.split('\n')[0] : 'Spending snapshot failed',
         width: '35%',
       }],
     }
+  } finally {
+    fs.rmSync(tempZipPath, { force: true })
+    fs.rmSync(tempDbPath, { force: true })
   }
 }
 
@@ -313,16 +410,20 @@ async function getWeather(provider: WeatherProvider): Promise<DashboardPayload['
   }
 }
 
-function formatUtc(iso: string) {
+function formatOsloTime(iso: string) {
   const date = new Date(iso)
-  return new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'UTC',
+  const formatted = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Oslo',
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
-  }).format(date).replace(',', ' ·') + ' UTC'
+  }).format(date).replace(',', ' ·')
+  const zone = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Oslo', timeZoneName: 'short' })
+    .formatToParts(date)
+    .find((part) => part.type === 'timeZoneName')?.value ?? 'CET'
+  return `${formatted} ${zone}`
 }
 
 function statusFromHttp(statusCode: number): ServiceStatus {
@@ -439,7 +540,7 @@ function readBudgetRuns(): DashboardPayload['budgetRuns'] {
           : derived.summary
 
     return {
-      timestamp: formatUtc(payload.startedAt),
+      timestamp: formatOsloTime(payload.startedAt),
       result: derived.result,
       summary,
       meta: `Duration ${payload.durationSeconds ?? 0}s${payload.failedStage ? ` · failed stage: ${payload.failedStage}` : ''}${payload.exitCode != null ? ` · exit ${payload.exitCode}` : ''}`,
@@ -567,7 +668,7 @@ function getCalendarEvents(): DashboardPayload['calendar'] {
         const date = rawStart ? new Date(rawStart) : null
         const isAllDay = Boolean(event.start?.date && !event.start?.dateTime)
         return {
-          time: isAllDay || !date ? 'All day' : new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' }).format(date),
+          time: isAllDay || !date ? 'All day' : new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Oslo' }).format(date),
           title: event.summary || 'Untitled event',
           meta: event.location || 'Google Calendar',
         }
@@ -594,12 +695,43 @@ function getCalendarEvents(): DashboardPayload['calendar'] {
   }
 }
 
-async function buildDashboardPayload(): Promise<DashboardPayload> {
-  const dashboardEnv = getDashboardEnv()
+
+function getDashboardOverview(): DashboardOverview {
+  return {
+    generatedAt: `Updated ${formatOsloTime(new Date().toISOString())}`,
+    lastRefresh: 'Auto-refresh every 2 min in dev',
+  }
+}
+
+function getFunLibsSection(): { mode: DataMode; detail: string; metrics: DashboardPayload['funLibsMetrics'] } {
+  return {
+    mode: 'placeholder',
+    detail: 'Explicitly kept as placeholder for now',
+    metrics: [
+      { label: 'Status', value: 'Waiting by request' },
+      { label: 'Source', value: 'Placeholder' },
+    ],
+  }
+}
+
+function getBudgetRunsSection() {
+  const runs = readBudgetRuns()
+  return {
+    mode: runs.some((run) => run.mode === 'placeholder') ? 'placeholder' as const : 'live' as const,
+    runs,
+  }
+}
+
+async function getServiceCardsSection() {
   const budgetRuns = readBudgetRuns()
-  const spending = getSpendingSnapshot()
-  const [budgetHealth, actualBudget, mainSite, devSite, weather] = await Promise.all([
-    Promise.resolve({
+  const [actualBudget, mainSite, devSite] = await Promise.all([
+    checkUrl('Actual Budget', 'https://budget.albretsen.no'),
+    checkUrl('albretsen.no', 'https://albretsen.no'),
+    checkUrl('dev.albretsen.no', 'https://dev.albretsen.no'),
+  ])
+
+  return [
+    {
       title: 'BudgetTools',
       status: (budgetRuns[0]?.result === 'success'
         ? 'healthy'
@@ -609,54 +741,182 @@ async function buildDashboardPayload(): Promise<DashboardPayload> {
       detail: budgetRuns[0]?.mode === 'live' ? 'Derived from latest run summary' : 'No live run summary available',
       summary: budgetRuns[0]?.summary ?? 'No data',
       mode: budgetRuns[0]?.mode ?? 'placeholder',
-    }),
-    checkUrl('Actual Budget', 'https://budget.albretsen.no'),
-    checkUrl('albretsen.no', 'https://albretsen.no'),
-    checkUrl('dev.albretsen.no', 'https://dev.albretsen.no'),
+    },
+    actualBudget,
+    mainSite,
+    {
+      title: 'dev.albretsen.no',
+      status: devSite.status,
+      detail: devSite.detail,
+      summary: devSite.summary,
+      mode: devSite.mode,
+    },
+  ]
+}
+
+async function buildDashboardPayload(): Promise<DashboardPayload> {
+  const dashboardEnv = getDashboardEnv()
+  const [serviceCards, budgetRuns, spending, weather] = await Promise.all([
+    getServiceCardsSection(),
+    Promise.resolve(getBudgetRunsSection()),
+    getSpendingSnapshot(),
     getWeather(dashboardEnv.weatherProvider),
   ])
 
   return {
-    generatedAt: `Updated ${formatUtc(new Date().toISOString())}`,
-    lastRefresh: 'Auto-refresh every 2 min in dev',
-    serviceCards: [
-      budgetHealth,
-      actualBudget,
-      mainSite,
-      {
-        title: 'dev.albretsen.no',
-        status: devSite.status,
-        detail: devSite.detail,
-        summary: devSite.summary,
-        mode: devSite.mode,
-      },
-    ],
-    budgetRuns,
+    ...getDashboardOverview(),
+    serviceCards,
+    budgetRuns: budgetRuns.runs,
     spendingMetrics: spending.metrics,
     spendingCategories: spending.categories,
-    funLibsMetrics: [
-      { label: 'Status', value: 'Waiting by request' },
-      { label: 'Source', value: 'Placeholder' },
-    ],
+    funLibsMetrics: getFunLibsSection().metrics,
     calendar: getCalendarEvents(),
     weather,
     vpsMetrics: getVpsMetrics(),
   }
 }
 
+function requireDashboardAuth(req: import('node:http').IncomingMessage, res: import('node:http').ServerResponse) {
+  const env = getDashboardEnv()
+  if (!env.dashboardPassword) {
+    sendJson(res, 503, { error: 'Dashboard password is not configured' })
+    return false
+  }
+
+  if (!isDashboardAuthenticated(req.headers.cookie)) {
+    sendJson(res, 401, { error: 'Unauthorized' })
+    return false
+  }
+
+  return true
+}
+
 function dashboardApiPlugin() {
   return {
     name: 'dashboard-api',
     configureServer(server: import('vite').ViteDevServer) {
-      server.middlewares.use('/api/dashboard', async (_req, res) => {
+      server.middlewares.use('/api/dashboard/session', (req, res) => {
+        const env = getDashboardEnv()
+        sendJson(res, 200, {
+          authenticated: isDashboardAuthenticated(req.headers.cookie),
+          configured: Boolean(env.dashboardPassword),
+        })
+      })
+
+      server.middlewares.use('/api/dashboard/login', (req, res) => {
+        if (req.method !== 'POST') {
+          sendJson(res, 405, { error: 'Method not allowed' })
+          return
+        }
+
+        const env = getDashboardEnv()
+        if (!env.dashboardPassword) {
+          sendJson(res, 503, { error: 'Dashboard password is not configured' })
+          return
+        }
+
+        let body = ''
+        req.on('data', (chunk) => {
+          body += chunk
+        })
+        req.on('end', () => {
+          try {
+            const payload = JSON.parse(body) as { password?: string }
+            if (payload.password !== env.dashboardPassword) {
+              sendJson(res, 401, { error: 'Wrong password' })
+              return
+            }
+
+            sendJson(
+              res,
+              200,
+              { authenticated: true, configured: true },
+              {
+                'Set-Cookie': `${dashboardCookieName}=${createDashboardSessionValue(env.dashboardPassword)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`,
+              },
+            )
+          } catch {
+            sendJson(res, 400, { error: 'Invalid login payload' })
+          }
+        })
+      })
+
+      server.middlewares.use('/api/dashboard/logout', (req, res) => {
+        if (req.method !== 'POST') {
+          sendJson(res, 405, { error: 'Method not allowed' })
+          return
+        }
+
+        sendJson(
+          res,
+          200,
+          { authenticated: false, configured: Boolean(getDashboardEnv().dashboardPassword) },
+          {
+            'Set-Cookie': `${dashboardCookieName}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`,
+          },
+        )
+      })
+
+      server.middlewares.use('/api/dashboard/overview', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getDashboardOverview())
+      })
+
+      server.middlewares.use('/api/dashboard/service-cards', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        try {
+          sendJson(res, 200, await getServiceCardsSection())
+        } catch (error) {
+          sendJson(res, 500, { error: error instanceof Error ? error.message : 'Unknown dashboard error' })
+        }
+      })
+
+      server.middlewares.use('/api/dashboard/budget-runs', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getBudgetRunsSection())
+      })
+
+      server.middlewares.use('/api/dashboard/spending', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        try {
+          const spending = await getSpendingSnapshot()
+          sendJson(res, 200, { ...spending, mode: 'live', detail: 'Live spending snapshot from Actual' })
+        } catch (error) {
+          sendJson(res, 500, { error: error instanceof Error ? error.message : 'Unknown dashboard error' })
+        }
+      })
+
+      server.middlewares.use('/api/dashboard/fun-libs', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getFunLibsSection())
+      })
+
+      server.middlewares.use('/api/dashboard/calendar', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getCalendarEvents())
+      })
+
+      server.middlewares.use('/api/dashboard/weather', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        try {
+          sendJson(res, 200, await getWeather(getDashboardEnv().weatherProvider))
+        } catch (error) {
+          sendJson(res, 500, { error: error instanceof Error ? error.message : 'Unknown dashboard error' })
+        }
+      })
+
+      server.middlewares.use('/api/dashboard/vps', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
+        sendJson(res, 200, getVpsMetrics())
+      })
+
+      server.middlewares.use('/api/dashboard', async (req, res) => {
+        if (!requireDashboardAuth(req, res)) return
         try {
           const payload = await buildDashboardPayload()
-          res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify(payload))
+          sendJson(res, 200, payload)
         } catch (error) {
-          res.statusCode = 500
-          res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown dashboard error' }))
+          sendJson(res, 500, { error: error instanceof Error ? error.message : 'Unknown dashboard error' })
         }
       })
     },

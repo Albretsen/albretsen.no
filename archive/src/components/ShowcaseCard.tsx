@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
+type ShowcaseLink = {
+  href: string
+  label: string
+}
+
 type ShowcaseItem = {
   title: string
   description: string
@@ -8,8 +13,9 @@ type ShowcaseItem = {
   images: string[]
   tags: string[]
   meta: string[]
-  link: string
-  linkLabel?: string
+  bullets?: string[]
+  primaryLink: ShowcaseLink
+  secondaryLinks?: ShowcaseLink[]
 }
 
 type ShowcaseCardProps = {
@@ -35,6 +41,7 @@ export default function ShowcaseCard({ item, eyebrow }: ShowcaseCardProps) {
   }, [activeImage])
 
   const allImages = [heroImage, ...galleryImages]
+  const links = [item.primaryLink, ...(item.secondaryLinks ?? [])]
 
   return (
     <>
@@ -75,6 +82,14 @@ export default function ShowcaseCard({ item, eyebrow }: ShowcaseCardProps) {
 
           <p className="showcase-card__detail">{item.detail}</p>
 
+          {item.bullets?.length ? (
+            <ul className="showcase-card__bullets">
+              {item.bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
+          ) : null}
+
           <div className="project-meta" aria-label={`${item.title} summary`}>
             {item.meta.map((entry) => (
               <span key={entry}>{entry}</span>
@@ -87,9 +102,19 @@ export default function ShowcaseCard({ item, eyebrow }: ShowcaseCardProps) {
             ))}
           </ul>
 
-          <a className="showcase-card__link" href={item.link} target="_blank" rel="noreferrer">
-            {item.linkLabel ?? 'Open project'} ↗
-          </a>
+          <div className="showcase-card__links">
+            {links.map((link, index) => (
+              <a
+                className={index === 0 ? 'showcase-card__link showcase-card__link--primary' : 'showcase-card__link'}
+                href={link.href}
+                key={`${item.title}-${link.href}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link.label} ↗
+              </a>
+            ))}
+          </div>
         </div>
       </article>
 

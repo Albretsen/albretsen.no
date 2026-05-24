@@ -5,17 +5,27 @@ Current internal dashboard endpoint used by `/dashboard` in dev.
 ## Route
 
 - `GET /api/dashboard`
+- `GET /api/dashboard/session`
+- `POST /api/dashboard/login`
+- `POST /api/dashboard/logout`
 
 ## Purpose
 
 Returns one normalized payload for the dashboard UI so the frontend does not need to talk to multiple data sources directly.
 
+The dashboard is now password-protected in dev via a simple cookie-backed gate:
+- unauthenticated requests to dashboard data endpoints return `401`
+- login is done by posting a password to `POST /api/dashboard/login`
+- successful login sets an HTTP-only session cookie
+- the UI now loads section endpoints independently so slow sources do not block the whole page
+
 ## Current sources
 
 - BudgetTools runs from `/opt/BudgetTools/runs`
 - Actual Budget health from `https://budget.albretsen.no`
-- Spending snapshot from Actual's on-disk budget blob at:
-  - `/opt/actual/data/user-files/file-661e923a-109b-4412-ae67-4f26bafd055b.blob`
+- Spending snapshot from the live Actual instance via:
+  - `POST /account/login`
+  - `GET /sync/download-user-file` with `X-ACTUAL-FILE-ID`
 - Site health from:
   - `https://albretsen.no`
   - `https://dev.albretsen.no`

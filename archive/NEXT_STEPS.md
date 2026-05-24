@@ -16,9 +16,12 @@
    - Weather ✅ live via swappable provider layer with Open-Meteo as the first provider
 5. Validate responsive behavior for 11-inch tablet landscape and desktop.
 6. Document the expected API/data contract for real integrations. ✅ first contract draft added in `docs/dashboard-api-contract.md`
+   - Updated implementation now serves per-section async endpoints for independent card loading.
 7. Replace Fun Libs placeholder with a real source, or explicitly defer it.
 8. Reduce noisy/raw error text in blocked cards like Calendar while keeping them honest. ✅ calmer blocked state added
 9. Consider mirroring BudgetTools runner semantics in the source script too, since it currently leaves stale `status: running` on failed runs.
+10. Replace the temporary dashboard password placeholder with a real secret and move auth out of dev-only middleware if this should survive production deploys.
+11. Review whether weather and service timestamps should display explicit `CET/CEST` or `Europe/Oslo` consistently across all cards.
 
 ## How to pick work
 Always do the highest-priority unfinished task that is unblocked.

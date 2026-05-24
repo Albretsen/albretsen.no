@@ -1,12 +1,14 @@
 {
   "name": "albretsen.no",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "vite --host 0.0.0.0 --port 3001",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
+    "start": "serve -s dist -l 3000",
+    "lint": "eslint .",
     "podman:build": "podman build -t albretsenno .",
     "podman:run": "podman run -d --name albretsenno -p 3000:3000 albretsenno",
     "podman:stop": "podman stop albretsenno || true",
@@ -15,24 +17,26 @@
     "podman:restart": "npm run podman:stop && npm run podman:rm && npm run podman:run"
   },
   "dependencies": {
-    "@types/canvas-confetti": "^1.9.0",
     "canvas-confetti": "^1.9.3",
-    "next": "15.3.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-tsparticles": "^2.12.2",
+    "serve": "^14.2.4",
     "tsparticles": "^3.8.1",
     "tsparticles-slim": "^2.12.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@eslint/js": "^9.36.0",
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.44.1",
+    "vite": "^7.1.7"
   }
 }

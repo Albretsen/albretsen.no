@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Albretsen mark">
+  
+  <rect width="96" height="96" rx="10" fill="#F4F0E6"></rect>
+  <g stroke="#1A1714" stroke-width="9" stroke-linecap="square" fill="none">
+    <path d="M 19 81 L 40 19 L 56 19 L 77 81" stroke-linejoin="miter" stroke-miterlimit="10"></path>
+    <line x1="28" y1="56" x2="68" y2="56"></line>
+  </g>
+</svg>

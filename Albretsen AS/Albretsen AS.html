@@ -1,0 +1,2171 @@
+<!doctype html>
+<html lang="nb" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Albretsen AS · Programvare fra Bergen</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <meta name="description" content="Albretsen AS er et lite programvarestudio i Bergen. Konsulentarbeid, egne produkter og praktisk AI." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       Albretsen AS — tokens (copied from design system)
+       ============================================================ */
+    :root {
+      --bg:        #F4F0E6;
+      --bg-2:      #ECE7D9;
+      --bg-3:      #E0DAC8;
+      --surface:   #FAF7EE;
+
+      --fg:        #1A1714;
+      --fg-2:      #4F4940;
+      --fg-3:      #847C6E;
+      --fg-inv:    #F4F0E6;
+
+      --border:    #D5CFBE;
+      --border-2:  #B8B19E;
+
+      --clay:        #A03E2A;
+      --clay-soft:   #F0DDD5;
+      --moss:        #4A6B3B;
+      --moss-soft:   #E0E7D6;
+      --ochre:       #B0822C;
+      --ochre-soft:  #EFE3C8;
+      --fjord:       #3D5C6E;
+      --fjord-soft:  #DCE5EB;
+
+      --accent:        var(--moss);
+      --accent-hover:  #38522D;
+      --accent-soft:   var(--moss-soft);
+      --accent-fg:     #F4F0E6;
+
+      --success:       var(--moss);
+      --warn:          var(--ochre);
+      --danger:        #7E2F1F;
+
+      --focus:     var(--moss);
+      --focus-ring: 0 0 0 3px rgba(74, 107, 59, 0.22);
+
+      --shadow-1: 0 1px 0 rgba(20, 19, 15, 0.04), 0 1px 2px rgba(20, 19, 15, 0.04);
+      --shadow-2: 0 1px 0 rgba(20, 19, 15, 0.04), 0 4px 12px rgba(20, 19, 15, 0.06);
+
+      --font-sans:    "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --font-display: "Instrument Serif", "Iowan Old Style", "Palatino", "Georgia", serif;
+      --font-mono:    "Geist Mono", ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+
+      --fs-12: 0.75rem;
+      --fs-13: 0.8125rem;
+      --fs-14: 0.875rem;
+      --fs-16: 1rem;
+      --fs-18: 1.125rem;
+      --fs-20: 1.25rem;
+      --fs-24: 1.5rem;
+      --fs-30: 1.875rem;
+      --fs-38: 2.375rem;
+      --fs-48: 3rem;
+      --fs-64: 4rem;
+      --fs-88: 5.5rem;
+
+      --lh-tight:  1.05;
+      --lh-snug:   1.2;
+      --lh-normal: 1.5;
+      --lh-loose:  1.65;
+
+      --ls-tight:   -0.02em;
+      --ls-snug:    -0.01em;
+      --ls-normal:   0;
+      --ls-wide:     0.04em;
+      --ls-wider:    0.12em;
+
+      --space-1:  4px;  --space-2:  8px;  --space-3:  12px;
+      --space-4:  16px; --space-5:  24px; --space-6:  32px;
+      --space-7:  48px; --space-8:  64px; --space-9:  96px;
+      --space-10: 128px; --space-11: 160px;
+
+      --radius-1: 2px; --radius-2: 4px; --radius-3: 8px; --radius-4: 12px;
+      --radius-full: 999px;
+
+      --ease-out:    cubic-bezier(0.22, 0.61, 0.36, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-fast:    140ms;
+      --dur-base:    220ms;
+      --dur-slow:    480ms;
+
+      --measure:     64ch;
+      --container:   1180px;
+      --container-narrow: 760px;
+
+      --nav-h: 64px;
+      --gutter: clamp(20px, 4vw, 40px);
+    }
+
+    [data-theme="dark"] {
+      --bg:        #1A1410;
+      --bg-2:      #251D16;
+      --bg-3:      #322822;
+      --surface:   #251D16;
+
+      --fg:        #EFE5CD;
+      --fg-2:      #B0A48C;
+      --fg-3:      #786C5A;
+      --fg-inv:    #1A1410;
+
+      --border:    #3A2F25;
+      --border-2:  #503F31;
+
+      --clay:        #D87158;
+      --clay-soft:   #2A1813;
+      --moss:        #86A372;
+      --moss-soft:   #1E2A17;
+      --ochre:       #D6A656;
+      --ochre-soft:  #2A1F0E;
+      --fjord:       #7BA0B5;
+      --fjord-soft:  #162028;
+
+      --accent:        var(--moss);
+      --accent-hover:  #A2BC8E;
+      --accent-soft:   var(--moss-soft);
+      --accent-fg:     #16110D;
+
+      --shadow-1: 0 1px 0 rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.5);
+      --shadow-2: 0 1px 0 rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.55);
+    }
+
+    * { box-sizing: border-box; }
+    html { color-scheme: light; scroll-behavior: smooth; }
+    [data-theme="dark"] { color-scheme: dark; }
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      font-size: var(--fs-16);
+      line-height: var(--lh-normal);
+      font-feature-settings: "ss01", "cv11";
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      transition: background 280ms var(--ease-out), color 280ms var(--ease-out);
+    }
+
+    ::selection { background: var(--accent); color: var(--accent-fg); }
+    :focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-2); }
+
+    a { color: var(--accent); text-decoration: none; text-underline-offset: 3px; text-decoration-thickness: 1px; transition: color var(--dur-fast) var(--ease-out); }
+    a:hover { text-decoration: underline; color: var(--accent-hover); }
+
+    h1, h2, h3, h4, p { margin: 0; }
+
+    /* ============================================================
+       Nav
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      height: var(--nav-h);
+      padding: 0 var(--gutter);
+      background: color-mix(in oklab, var(--bg) 88%, transparent);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      transition: border-color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+    }
+    .nav.is-scrolled { border-bottom-color: var(--border); }
+
+    .nav-brand {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: -0.014em;
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .nav-brand:hover { text-decoration: none; color: var(--fg); }
+    .nav-brand-suffix {
+      color: var(--fg-3);
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-link {
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      color: var(--fg-2);
+      text-decoration: none;
+      letter-spacing: -0.005em;
+      transition: color var(--dur-fast) var(--ease-out);
+      cursor: pointer;
+      background: none;
+      border: 0;
+      padding: 4px 0;
+      font-weight: 400;
+    }
+    .nav-link:hover { color: var(--fg); text-decoration: none; }
+
+    .nav-theme {
+      width: 30px; height: 30px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      padding: 0;
+      color: var(--fg);
+      transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+    }
+    .nav-theme:hover { border-color: var(--border-2); background: var(--bg-2); }
+    .th-glyph {
+      width: 14px; height: 14px;
+      border-radius: 999px;
+      overflow: hidden;
+      display: inline-flex;
+      position: relative;
+      border: 1px solid var(--fg);
+    }
+    .th-half { flex: 1; height: 100%; }
+    .th-half--l { background: var(--fg); }
+    .th-half--r { background: transparent; }
+    .th-glyph.is-dark .th-half--l { background: transparent; }
+    .th-glyph.is-dark .th-half--r { background: var(--fg); }
+
+    @media (max-width: 640px) {
+      .nav-links { gap: var(--space-4); }
+      .nav-link { font-size: 13px; }
+      .nav-brand-suffix { display: none; }
+    }
+
+    /* ============================================================
+       Page shell + section frame
+       ============================================================ */
+    main {
+      padding-top: var(--nav-h);
+      max-width: var(--container);
+      margin: 0 auto;
+      padding-left: var(--gutter);
+      padding-right: var(--gutter);
+    }
+
+    section { scroll-margin-top: calc(var(--nav-h) + 24px); }
+
+    .ed-head {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 24px;
+      align-items: baseline;
+      margin-bottom: var(--space-8);
+    }
+    .ed-head-n {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .ed-head-title {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(34px, 4.6vw, 52px);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin: 0;
+      color: var(--fg);
+      text-wrap: balance;
+    }
+    .ed-head-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-top: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .ed-head { grid-template-columns: 40px 1fr; gap: 14px; }
+    }
+
+    /* ============================================================
+       Hero
+       ============================================================ */
+    .hero {
+      padding-top: clamp(48px, 9vw, 120px);
+      padding-bottom: clamp(64px, 9vw, 128px);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--fg-3);
+      margin-bottom: var(--space-7);
+      flex-wrap: wrap;
+    }
+    .hero-meta-rule { flex: 0 0 24px; height: 1px; background: var(--border); }
+    .hero-meta-status {
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-status-dot {
+      width: 7px; height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);
+      animation: pulse 2.4s var(--ease-in-out) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent); }
+      50%      { box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 8%, transparent); }
+    }
+
+    .hero-display {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(56px, 10vw, 132px);
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+      color: var(--fg);
+      margin: 0 0 var(--space-7);
+      text-wrap: balance;
+    }
+    .hero-display em {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+    }
+
+    .hero-byline {
+      font-family: var(--font-sans);
+      font-size: clamp(17px, 1.6vw, 19px);
+      line-height: 1.55;
+      color: var(--fg-2);
+      margin: 0 0 var(--space-8);
+      max-width: 54ch;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-9);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      height: 44px;
+      padding: 0 22px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      line-height: 1;
+      color: var(--accent-fg);
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-2);
+      cursor: pointer;
+      transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--accent-fg); text-decoration: none; }
+    .btn:active { transform: translateY(0.5px); }
+
+    .btn--secondary {
+      background: transparent;
+      color: var(--fg);
+      border-color: var(--border-2);
+    }
+    .btn--secondary:hover { background: var(--bg-2); color: var(--fg); border-color: var(--fg-2); }
+
+    .btn-arrow {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      transition: transform var(--dur-base) var(--ease-out);
+    }
+    .btn:hover .btn-arrow { transform: translateX(3px); }
+
+    /* Hero index list — a quick contents preview */
+    .hero-index {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+    }
+    .hero-index-row {
+      display: grid;
+      grid-template-columns: 56px 1fr 1.4fr 24px;
+      gap: 24px;
+      align-items: baseline;
+      padding: 20px 4px;
+      border-bottom: 1px solid var(--border);
+      color: var(--fg);
+      text-decoration: none;
+      transition: background 200ms var(--ease-out), padding 200ms var(--ease-out);
+      cursor: pointer;
+    }
+    .hero-index-row:hover {
+      background: var(--bg-2);
+      padding-left: 14px;
+      text-decoration: none;
+    }
+    .hero-index-row:hover .hero-index-arrow { color: var(--accent); transform: translateX(4px); }
+    .hero-index-n {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--fg-3);
+      letter-spacing: 0.06em;
+    }
+    .hero-index-t {
+      font-family: var(--font-sans);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.018em;
+      color: var(--fg);
+      line-height: 1;
+    }
+    .hero-index-d {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--fg-2);
+    }
+    .hero-index-arrow {
+      font-family: var(--font-mono);
+      color: var(--fg-3);
+      transition: color 140ms var(--ease-out), transform 200ms var(--ease-out);
+      text-align: right;
+    }
+    @media (max-width: 720px) {
+      .hero-index-row { grid-template-columns: 40px 1fr 24px; }
+      .hero-index-d { display: none; }
+    }
+
+    /* ============================================================
+       Services
+       ============================================================ */
+    .section {
+      padding: clamp(72px, 10vw, 128px) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8) var(--space-7);
+    }
+    .service {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--border);
+    }
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg);
+      background: var(--bg);
+      margin-bottom: 8px;
+      transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+    }
+    .service:hover .service-icon {
+      border-color: var(--fg-2);
+      color: var(--accent);
+    }
+    .service-icon svg { width: 22px; height: 22px; stroke-width: 1.5; }
+    .service-n {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .service-title {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: clamp(22px, 2.2vw, 28px);
+      line-height: 1.18;
+      letter-spacing: -0.022em;
+      color: var(--fg);
+      margin: 0 0 4px;
+    }
+    .service-body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--fg-2);
+      max-width: 52ch;
+      margin: 0;
+    }
+    @media (max-width: 720px) {
+      .services { grid-template-columns: 1fr; gap: var(--space-6); }
+    }
+
+    /* ============================================================
+       Clients
+       ============================================================ */
+    .clients-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+    .clients-note {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--fg-2);
+      max-width: 44ch;
+    }
+    .clients-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+    }
+    .client-row {
+      display: grid;
+      grid-template-columns: 220px 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding: 28px 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .client-logo {
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--fg);
+    }
+    .client-logo-mark {
+      flex: 0 0 32px;
+      width: 32px; height: 32px;
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg);
+      background: var(--surface);
+    }
+    .client-logo-mark svg { width: 18px; height: 18px; }
+    .client-logo-text {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.024em;
+      color: var(--fg);
+      line-height: 1;
+    }
+    .client-logo-text-suffix {
+      color: var(--fg-3);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .client-name {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: -0.026em;
+      line-height: 1;
+      color: var(--fg);
+    }
+    .client-kind {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--fg-2);
+    }
+    .client-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      text-align: right;
+    }
+    @media (max-width: 720px) {
+      .clients-wrap { grid-template-columns: 1fr; gap: var(--space-5); }
+      .client-row { grid-template-columns: 1fr; gap: 6px; }
+      .client-meta { text-align: left; }
+    }
+
+    /* ============================================================
+       Projects
+       ============================================================ */
+    .proj-list { display: flex; flex-direction: column; }
+    .proj {
+      display: grid;
+      grid-template-columns: 64px 1fr 1fr;
+      gap: 28px 40px;
+      padding: 56px 0 64px;
+      border-top: 1px solid var(--border);
+    }
+    .proj-image-wrap {
+      grid-column: 2 / -1;
+      height: clamp(220px, 28vw, 340px);
+      width: 100%;
+      max-width: 760px;
+      border-radius: var(--radius-3);
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .proj-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 600ms var(--ease-out);
+    }
+    .proj:hover .proj-image { transform: scale(1.015); }
+    .proj-image-caption {
+      position: absolute;
+      bottom: 12px; left: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg);
+      background: color-mix(in oklab, var(--bg) 92%, transparent);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 5px 8px;
+      border-radius: var(--radius-1);
+      border: 1px solid var(--border);
+    }
+    .proj:last-child { border-bottom: 1px solid var(--border); }
+    .proj-head {
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .proj-n {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--fg);
+      line-height: 1;
+    }
+    .proj-kind {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--fg-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .proj-title {
+      grid-column: 2 / -1;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1.1;
+      letter-spacing: -0.028em;
+      margin: 0;
+      color: var(--fg);
+      text-wrap: balance;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .proj-title-em {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--fg-2);
+      font-size: 0.5em;
+      letter-spacing: 0;
+    }
+    .proj-body {
+      grid-column: 2;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--fg-2);
+      margin: 12px 0 0;
+      max-width: 48ch;
+    }
+    .proj-foot {
+      grid-column: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .proj-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .proj-tag {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: var(--bg);
+    }
+    .proj-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .proj-link {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: var(--fg);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .proj-link:hover { color: var(--accent); text-decoration: none; }
+    .proj-link:hover .proj-link-arrow { transform: translate(2px, -2px); }
+    .proj-link-arrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--fg-3);
+      transition: transform var(--dur-base) var(--ease-out), color var(--dur-fast) var(--ease-out);
+    }
+    .proj-link:hover .proj-link-arrow { color: var(--accent); }
+    .proj-link-k {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    @media (max-width: 880px) {
+      .proj { grid-template-columns: 56px 1fr; }
+      .proj-image-wrap { grid-column: 1 / -1; max-width: none; height: clamp(200px, 32vw, 320px); }
+      .proj-title, .proj-body, .proj-foot { grid-column: 2; }
+      .proj-foot { margin-top: 20px; }
+    }
+    @media (max-width: 540px) {
+      .proj { grid-template-columns: 40px 1fr; gap: 18px 16px; }
+      .proj-image-wrap { height: 220px; }
+    }
+
+    /* Harbor link-preview card */
+    .harbor-card {
+      width: 100%;
+      height: 100%;
+      background: #F4F0E6;
+      color: #1A1714;
+      display: flex;
+      flex-direction: column;
+      font-family: var(--font-sans);
+      position: relative;
+      overflow: hidden;
+    }
+    .harbor-card-bar {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid #D5CFBE;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: #847C6E;
+      background: #ECE7D9;
+    }
+    .harbor-card-bar-dots {
+      display: inline-flex;
+      gap: 5px;
+    }
+    .harbor-card-bar-dots span {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: #D5CFBE;
+    }
+    .harbor-card-url {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .harbor-card-lock {
+      display: inline-block;
+      width: 9px; height: 9px;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      position: relative;
+    }
+    .harbor-card-lock::before {
+      content: "";
+      position: absolute;
+      left: 50%; top: -3px;
+      transform: translateX(-50%);
+      width: 5px; height: 4px;
+      border: 1px solid currentColor;
+      border-bottom: 0;
+      border-radius: 2px 2px 0 0;
+    }
+    .harbor-card-body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+      padding: 18px 20px 16px;
+      align-items: start;
+      min-height: 0;
+    }
+    .harbor-card-left {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+    .harbor-card-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #847C6E;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .harbor-card-eyebrow-mark {
+      display: inline-flex;
+      width: 18px; height: 18px;
+      border-radius: 4px;
+      background: #1A1714;
+      color: #F4F0E6;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0;
+    }
+    .harbor-card-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.18;
+      letter-spacing: -0.012em;
+      color: #1A1714;
+      margin: 0;
+      text-wrap: balance;
+    }
+    .harbor-card-desc {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #4F4940;
+      margin: 0;
+      max-width: 36ch;
+    }
+    .harbor-card-meta {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: #847C6E;
+      letter-spacing: 0.04em;
+    }
+    .harbor-card-meta-dot {
+      width: 4px; height: 4px;
+      border-radius: 999px;
+      background: #B8B19E;
+    }
+    .harbor-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      background: #1A1714;
+      color: #F4F0E6;
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    .harbor-card-right {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px;
+      background: #FAF7EE;
+      border: 1px solid #D5CFBE;
+      border-radius: 6px;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .harbor-card-right-h {
+      font-family: var(--font-display);
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 400;
+      color: #1A1714;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #ECE7D9;
+      margin-bottom: 2px;
+    }
+    .harbor-card-right-line {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: #4F4940;
+      line-height: 1.45;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .harbor-card-right-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4A6B3B;
+      background: #E0E7D6;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-right: 6px;
+    }
+    @media (max-width: 640px) {
+      .harbor-card-body { grid-template-columns: 1fr; }
+      .harbor-card-right { display: none; }
+    }
+
+    /* ============================================================
+       Contact
+       ============================================================ */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--space-9);
+      align-items: start;
+    }
+    .contact-lead {
+      font-family: var(--font-sans);
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--fg-2);
+      margin: 0 0 var(--space-6);
+      max-width: 44ch;
+    }
+    .contact-id {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      margin-bottom: var(--space-5);
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-id-avatar {
+      width: 44px; height: 44px;
+      border-radius: 999px;
+      object-fit: cover;
+      object-position: 50% 30%;
+      border: 1px solid var(--border);
+    }
+    .contact-id-meta { display: flex; flex-direction: column; gap: 2px; line-height: 1.2; }
+    .contact-id-name {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.012em;
+      color: var(--fg);
+    }
+    .contact-id-role {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .contact-mail {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--fg);
+      margin-bottom: var(--space-6);
+    }
+    .contact-mail-state {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .contact-mail-text {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: clamp(26px, 3.6vw, 42px);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--fg);
+      transition: color var(--dur-base) var(--ease-out);
+      word-break: break-all;
+    }
+    .contact-mail:hover .contact-mail-text { color: var(--accent); }
+    .contact-mail:hover { text-decoration: none; }
+
+    .contact-channels {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid var(--border);
+    }
+    .contact-channels li {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-channel-k {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--fg-3);
+    }
+    .contact-channel-v {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--fg);
+      text-decoration: none;
+    }
+    a.contact-channel-v:hover { color: var(--accent); text-decoration: none; }
+
+    /* Form */
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      padding: var(--space-6);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-3);
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--fg-3);
+    }
+    .input, .textarea {
+      width: 100%;
+      padding: 12px 14px;
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      color: var(--fg);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2);
+      transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+    }
+    .input { height: 44px; }
+    .textarea {
+      min-height: 130px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+    .input::placeholder, .textarea::placeholder { color: var(--fg-3); }
+    .input:hover, .textarea:hover { border-color: var(--border-2); }
+    .input:focus, .textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: var(--focus-ring);
+    }
+    .form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-top: var(--space-2);
+    }
+    .form-note {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .form-note.is-sent { color: var(--accent); }
+
+    @media (max-width: 880px) {
+      .contact-wrap { grid-template-columns: 1fr; gap: var(--space-7); }
+    }
+
+    /* ============================================================
+       Footer
+       ============================================================ */
+    .footer {
+      padding: var(--space-8) 0 var(--space-7);
+      border-top: 1px solid var(--border);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr auto;
+      gap: var(--space-7);
+      align-items: start;
+    }
+    .footer-mark {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      letter-spacing: -0.014em;
+      font-size: 15px;
+      color: var(--fg);
+      margin-bottom: 6px;
+    }
+    .footer-mark-suffix { color: var(--fg-3); font-weight: 400; }
+    .footer-meta, .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--fg-2);
+    }
+    .footer-k {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 4px;
+    }
+    .footer-col a { color: var(--fg); }
+    .footer-col a:hover { color: var(--accent); text-decoration: none; }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 0;
+      background: var(--bg);
+    }
+    .lang-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      background: transparent;
+      border: 0;
+      padding: 6px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+    }
+    .lang-btn:hover { color: var(--fg); }
+    .lang-btn.is-active {
+      color: var(--fg);
+      background: var(--bg-2);
+    }
+    [data-theme="dark"] .lang-btn.is-active { background: var(--bg-3); }
+
+    .footer-fine {
+      margin-top: var(--space-7);
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--fg-3);
+    }
+    @media (max-width: 760px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+      .footer-col--toggle { grid-column: 1 / -1; }
+    }
+
+    /* ============================================================
+       Fade-in
+       ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+    }
+    .fade-in.is-visible { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- React + Babel -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" data-presets="env,react">
+    const { useState, useEffect, useRef } = React;
+
+    /* ---------- Icons (Lucide-style) ---------- */
+    const ICONS = {
+      web: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" />
+          <path d="M12 3a14 14 0 0 1 0 18" />
+          <path d="M12 3a14 14 0 0 0 0 18" />
+        </svg>
+      ),
+      mobile: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="6.5" y="2.5" width="11" height="19" rx="2" />
+          <path d="M11 18h2" />
+        </svg>
+      ),
+      custom: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3.5 7.5l8.5-5 8.5 5v9l-8.5 5-8.5-5z" />
+          <path d="M3.5 7.5 12 12.5l8.5-5" />
+          <path d="M12 12.5v9.5" />
+        </svg>
+      ),
+      ai: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 3.5l1.7 4 4 1.7-4 1.7L12 14.9l-1.7-3.9-4-1.7 4-1.7z" />
+          <path d="M18.5 14.5l.9 2 2 .9-2 .9-.9 2-.9-2-2-.9 2-.9z" />
+          <path d="M5.5 16.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" />
+        </svg>
+      ),
+      pawn: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="6.5" r="2.5" />
+          <path d="M9 11h6l-.8 4H9.8z" />
+          <path d="M7.5 18.5h9l-.5 2.5h-8z" />
+        </svg>
+      ),
+      globe: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="8.5" />
+          <path d="M3.5 12h17" />
+          <path d="M12 3.5c2.5 3 2.5 14 0 17" />
+          <path d="M12 3.5c-2.5 3-2.5 14 0 17" />
+        </svg>
+      ),
+    };
+
+    /* ---------- Copy: Norwegian + English ---------- */
+    const COPY = {
+      no: {
+        htmlLang: "nb",
+        nav: { services: "Tjenester", projects: "Prosjekter", contact: "Kontakt" },
+        themeToggleLabel: "Bytt tema",
+        hero: {
+          metaLoc: "Bergen, Norge",
+          metaEst: "Etablert 2021",
+          metaStatus: "Tar inn nye prosjekter",
+          headline: ["Vi bygger ", <em key="e">programvare</em>, "."],
+          byline:
+            "Albretsen AS er et lite programvarestudio i Bergen. Vi gjør konsulentarbeid for selskaper som Chess.com og GlobeTech, og bygger noen egne produkter ved siden av.",
+          ctaPrimary: "Se hva vi gjør",
+          ctaSecondary: "Ta kontakt",
+          indexLabel: "Innhold",
+          index: [
+            { n: "01", t: "Tjenester", d: "Hva vi tar på oss, og hvordan", to: "services" },
+            { n: "02", t: "Kundene våre", d: "Et utvalg vi har bygget for", to: "clients" },
+            { n: "03", t: "Prosjekter", d: "Egne ting ved siden av", to: "projects" },
+            { n: "04", t: "Kontakt", d: "En e-post, en idé, en kaffe", to: "contact" },
+          ],
+        },
+        services: {
+          n: "01", label: "Tjenester",
+          title: "Hva vi gjør.",
+          tag: "Fire områder",
+          items: [
+            {
+              n: "01 / 04",
+              icon: "web",
+              title: "Nettsider og applikasjoner",
+              body: "Vi bygger nettsider og webapplikasjoner som faktisk er i drift, ikke bare designet pent. Fra første skisse til lansering og videre. Moderne stack (TypeScript, React, Phoenix, Rails) og en arkitektur som tåler å bli brukt.",
+            },
+            {
+              n: "02 / 04",
+              icon: "mobile",
+              title: "Mobilapper",
+              body: "Native-følelse uten å vedlikeholde to kodebaser. Vi bruker React Native og Expo for klienter som vil ha én app for iOS og Android, og leverer hele veien: App Store, Google Play, push-varsler og det som ellers må fungere.",
+            },
+            {
+              n: "03 / 04",
+              icon: "custom",
+              title: "Skreddersydde systemer",
+              body: "Interne verktøy, integrasjoner, backendsystemer og API-er. Programvare som passer akkurat den arbeidsflyten du har, i stedet for å bøye virksomheten etter et standardprodukt. Bygget for å være lett å forstå og lett å endre.",
+            },
+            {
+              n: "04 / 04",
+              icon: "ai",
+              title: "AI i arbeidsflyt",
+              body: "Vi setter opp AI der den faktisk gir verdi: inne i regnskap, kundedialog og dokumenthåndtering. Ikke som demo på siden. Praktisk integrasjon med LLM-er, agenter og evalueringer, med klare grenser for hva systemet får lov til å gjøre.",
+            },
+          ],
+        },
+        clients: {
+          n: "02", label: "Kundene våre",
+          title: "Folk vi har bygget for.",
+          tag: "Utvalgt",
+          note: "Vi tar på oss få oppdrag av gangen, og holder oss til kunder vi kan stå inne for. To vi har jobbet tett med det siste året.",
+          rows: [
+            { logo: "chesscom", name: "Chess.com", kind: "Verdens største sjakkplattform", meta: "Programvareutvikling" },
+            { logo: "globetech", name: "GlobeTech", kind: "Industriell teknologi, Bergen", meta: "Skreddersøm" },
+          ],
+        },
+        projects: {
+          n: "03", label: "Prosjekter",
+          title: "Ved siden av.",
+          tag: "Tre nylige",
+          rows: [
+            {
+              n: "01",
+              kind: "Produkt",
+              title: "Harbor",
+              titleEm: "kunnskapsbase",
+              previewKind: "harbor",
+              previewLang: "no",
+              body: "En privat kunnskapsbase for mennesker og AI. Notater, dokumenter og samtaler havner samme sted, og er like enkle å spørre LLM-er om som å lese selv. Selvhostet, eller hostet for $12 i måneden.",
+              tags: ["Web", "LLM", "Postgres"],
+              role: "Eget produkt",
+              links: [{ k: "Besøk", href: "https://harborknowledge.com", text: "harborknowledge.com" }],
+            },
+            {
+              n: "02",
+              kind: "Mobilapp",
+              title: "Fun Libs",
+              titleEm: "10 000+ brukere",
+              image: "assets/fun-libs.png",
+              imageAlt: "Markedsføringsbilde for Fun Libs-appen",
+              imageCaption: "Fun Libs · iOS og Android",
+              imageFit: "cover",
+              body: "Et eget produkt på Google Play og App Store. Bygget i React Native med TypeScript, Expo og Supabase, hele veien fra idé til drift og et community som vokser sakte og jevnt.",
+              tags: ["React Native", "TypeScript", "Expo", "Supabase"],
+              role: "Eget produkt",
+              links: [
+                { k: "Android", href: "https://play.google.com/store/apps/details?id=com.asgalb.FunLibs", text: "Google Play" },
+                { k: "iOS", href: "#", text: "App Store" },
+              ],
+            },
+            {
+              n: "03",
+              kind: "Foredrag",
+              title: "AI hos Unimicro",
+              titleEm: "Media City Bergen",
+              image: "assets/talk-unimicro.jpg",
+              imageAlt: "Asgeir holder foredrag på Media City Bergen",
+              imageCaption: "BedPres · 05.03.2026",
+              imageFit: "cover",
+              body: "5. mars 2026 holdt jeg et foredrag hos Unimicro på Media City Bergen. Tema: fintech-agenter som lever inne i regnskapssystemene, ikke ved siden av. En praktisk gjennomgang av hva som faktisk fungerer når AI skal jobbe på ekte data.",
+              tags: ["Fintech", "AI", "Foredrag"],
+              role: "Holdt av meg",
+              links: [{ k: "Hendelse", href: "#", text: "Les mer" }],
+            },
+          ],
+        },
+        contact: {
+          n: "04", label: "Kontakt",
+          title: "La oss bygge noe.",
+          tag: "Tar inn oppdrag",
+          profileName: "Asgeir Albretsen",
+          profileRole: "Grunnlegger · Albretsen AS",
+          lead:
+            "Best på konsulentarbeid, nye produkter, backendsystemer og AI-funksjoner som faktisk skal i drift. Skriv litt om hva du holder på med, så svarer vi i løpet av en dag eller to.",
+          mailState: "Skriv direkte",
+          mailHover: "Kopier",
+          mailCopied: "Kopiert",
+          channelsTitle: "Andre kanaler",
+          channels: [
+            { k: "LinkedIn", href: "https://linkedin.com/in/asgeir-albretsen", v: "linkedin.com/in/asgeir-albretsen" },
+            { k: "Telefon", href: null, v: "På forespørsel" },
+            { k: "Lokasjon", href: null, v: "Bergen, Norge · UTC+1" },
+          ],
+          form: {
+            title: "Send en melding",
+            name: "Navn", namePh: "Hva skal vi kalle deg",
+            email: "E-post", emailPh: "navn@firma.no",
+            message: "Melding", messagePh: "Hva er du i gang med, og hvor er du i prosessen?",
+            send: "Send melding",
+            sending: "Sender…",
+            sent: "Takk, vi svarer snart",
+            note: "Vi svarer normalt innen 24 timer",
+          },
+        },
+        footer: {
+          mark: "Albretsen", markSuffix: "AS",
+          tagline: "Programvare fra Bergen, Norge. Lite hus, små engasjementer, programmer som faktisk er i drift.",
+          colA: { k: "Selskap", lines: ["Albretsen AS · Bergen, Norge", "Org.nr. 999 999 999"] },
+          colB: { k: "Kontakt", lines: [
+            { kind: "mail", text: "asgeir@albretsen.no" },
+            { kind: "url", href: "https://linkedin.com/in/asgeir-albretsen", text: "LinkedIn" },
+          ] },
+          colC: { k: "Språk" },
+          fineLeft: "© 2026 Albretsen AS. Alle rettigheter forbeholdt.",
+          fineRight: "Bygget for hånd i Bergen",
+        },
+      },
+      en: {
+        htmlLang: "en",
+        nav: { services: "Services", projects: "Projects", contact: "Contact" },
+        themeToggleLabel: "Toggle theme",
+        hero: {
+          metaLoc: "Bergen, Norway",
+          metaEst: "Established 2021",
+          metaStatus: "Taking on new projects",
+          headline: ["We build ", <em key="e">software</em>, "."],
+          byline:
+            "Albretsen AS is a small software studio in Bergen. We do consulting work for companies like Chess.com and GlobeTech, and ship a handful of our own products on the side.",
+          ctaPrimary: "See what we do",
+          ctaSecondary: "Get in touch",
+          indexLabel: "Index",
+          index: [
+            { n: "01", t: "Services", d: "What we take on, and how", to: "services" },
+            { n: "02", t: "Our clients", d: "A few we've built for", to: "clients" },
+            { n: "03", t: "Projects", d: "Things on the side", to: "projects" },
+            { n: "04", t: "Contact", d: "A note, an idea, a coffee", to: "contact" },
+          ],
+        },
+        services: {
+          n: "01", label: "Services",
+          title: "What we do.",
+          tag: "Four areas",
+          items: [
+            {
+              n: "01 / 04",
+              icon: "web",
+              title: "Websites and applications",
+              body: "We build websites and web applications that actually run, not just sit pretty. From first sketch through launch and beyond. Modern stack (TypeScript, React, Phoenix, Rails) and an architecture that holds up to being used.",
+            },
+            {
+              n: "02 / 04",
+              icon: "mobile",
+              title: "Mobile apps",
+              body: "Native-feeling apps without maintaining two codebases. We use React Native and Expo for clients who want one app across iOS and Android, and ship the whole thing: App Store, Google Play, push, and the rest.",
+            },
+            {
+              n: "03 / 04",
+              icon: "custom",
+              title: "Custom systems",
+              body: "Internal tools, integrations, backend systems and APIs. Software that fits the workflow you actually have, instead of bending the business around an off-the-shelf product. Built to be easy to read and easy to change.",
+            },
+            {
+              n: "04 / 04",
+              icon: "ai",
+              title: "AI in real workflows",
+              body: "We put AI where it earns its keep: inside accounting, customer dialogue and document workflows. Not as a sidecar demo. Practical integration with LLMs, agents and evals, with sharp limits on what the system is allowed to do.",
+            },
+          ],
+        },
+        clients: {
+          n: "02", label: "Clients",
+          title: "People we've built for.",
+          tag: "Selected",
+          note: "We take on a small number of engagements at a time, and stick with clients we can stand behind. Two we've worked closely with this past year.",
+          rows: [
+            { logo: "chesscom", name: "Chess.com", kind: "The world's largest chess platform", meta: "Software development" },
+            { logo: "globetech", name: "GlobeTech", kind: "Industrial technology, Bergen", meta: "Custom software" },
+          ],
+        },
+        projects: {
+          n: "03", label: "Projects",
+          title: "On the side.",
+          tag: "Three recent",
+          rows: [
+            {
+              n: "01",
+              kind: "Product",
+              title: "Harbor",
+              titleEm: "knowledge base",
+              previewKind: "harbor",
+              previewLang: "en",
+              body: "A private knowledge base for humans and AI. Notes, documents and conversations end up in one place, and are as easy to query with an LLM as to read yourself. Self-hosted, or hosted for $12/month.",
+              tags: ["Web", "LLM", "Postgres"],
+              role: "Own product",
+              links: [{ k: "Visit", href: "https://harborknowledge.com", text: "harborknowledge.com" }],
+            },
+            {
+              n: "02",
+              kind: "Mobile app",
+              title: "Fun Libs",
+              titleEm: "10,000+ users",
+              image: "assets/fun-libs.png",
+              imageAlt: "Fun Libs marketing image",
+              imageCaption: "Fun Libs · iOS and Android",
+              imageFit: "cover",
+              body: "An own product on Google Play and the App Store. Built with React Native, TypeScript, Expo and Supabase, from first idea to ongoing operation and a community that grows slowly and steadily.",
+              tags: ["React Native", "TypeScript", "Expo", "Supabase"],
+              role: "Own product",
+              links: [
+                { k: "Android", href: "https://play.google.com/store/apps/details?id=com.asgalb.FunLibs", text: "Google Play" },
+                { k: "iOS", href: "#", text: "App Store" },
+              ],
+            },
+            {
+              n: "03",
+              kind: "Talk",
+              title: "AI at Unimicro",
+              titleEm: "Media City Bergen",
+              image: "assets/talk-unimicro.jpg",
+              imageAlt: "Asgeir speaking at Media City Bergen",
+              imageCaption: "BedPres · 05.03.2026",
+              imageFit: "cover",
+              body: "On 5 March 2026 I gave a talk at Unimicro at Media City Bergen. The topic: fintech agents that live inside the accounting system, not next to it. A practical walk-through of what actually works when AI has to operate on real data.",
+              tags: ["Fintech", "AI", "Talk"],
+              role: "Given by me",
+              links: [{ k: "Event", href: "#", text: "Read more" }],
+            },
+          ],
+        },
+        contact: {
+          n: "04", label: "Contact",
+          title: "Let's build something.",
+          tag: "Taking on work",
+          profileName: "Asgeir Albretsen",
+          profileRole: "Founder · Albretsen AS",
+          lead:
+            "Best for consulting work, new products, backend systems, and AI features that have to actually ship. Write a bit about what you're working on, and we'll get back within a day or two.",
+          mailState: "Write directly",
+          mailHover: "Copy",
+          mailCopied: "Copied",
+          channelsTitle: "Other channels",
+          channels: [
+            { k: "LinkedIn", href: "https://linkedin.com/in/asgeir-albretsen", v: "linkedin.com/in/asgeir-albretsen" },
+            { k: "Phone", href: null, v: "On request" },
+            { k: "Location", href: null, v: "Bergen, Norway · UTC+1" },
+          ],
+          form: {
+            title: "Send a message",
+            name: "Name", namePh: "What should we call you",
+            email: "Email", emailPh: "name@company.com",
+            message: "Message", messagePh: "What are you working on, and where are you in the process?",
+            send: "Send message",
+            sending: "Sending…",
+            sent: "Thanks, we'll be in touch",
+            note: "We typically reply within 24 hours",
+          },
+        },
+        footer: {
+          mark: "Albretsen", markSuffix: "AS",
+          tagline: "Software out of Bergen, Norway. Small studio, small engagements, programs that actually run.",
+          colA: { k: "Company", lines: ["Albretsen AS · Bergen, Norway", "Org.nr. 999 999 999"] },
+          colB: { k: "Contact", lines: [
+            { kind: "mail", text: "asgeir@albretsen.no" },
+            { kind: "url", href: "https://linkedin.com/in/asgeir-albretsen", text: "LinkedIn" },
+          ] },
+          colC: { k: "Language" },
+          fineLeft: "© 2026 Albretsen AS. All rights reserved.",
+          fineRight: "Hand-built in Bergen",
+        },
+      },
+    };
+
+    /* ---------- Hook: theme ---------- */
+    function useTheme() {
+      const [theme, setTheme] = useState(() => {
+        try { return localStorage.getItem("alb-theme") || "light"; } catch { return "light"; }
+      });
+      useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+        try { localStorage.setItem("alb-theme", theme); } catch {}
+      }, [theme]);
+      return [theme, () => setTheme(t => t === "light" ? "dark" : "light")];
+    }
+
+    /* ---------- Hook: lang ---------- */
+    function useLang() {
+      const [lang, setLang] = useState(() => {
+        try { return localStorage.getItem("alb-lang") || "no"; } catch { return "no"; }
+      });
+      useEffect(() => {
+        document.documentElement.setAttribute("lang", COPY[lang].htmlLang);
+        try { localStorage.setItem("alb-lang", lang); } catch {}
+      }, [lang]);
+      return [lang, setLang];
+    }
+
+    /* ---------- Hook: scroll fade-in ----------
+       Reveal above-fold elements immediately, and use IO for the rest.
+       Belt + braces: also force-reveal anything still hidden after 1.2s
+       so screenshots/headless contexts that throttle IO still render.
+    */
+    function revealVisibleAndObserve() {
+      const els = document.querySelectorAll(".fade-in:not(.is-visible)");
+      if (!els.length) return null;
+      const vh = window.innerHeight || 800;
+      els.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 1.05) {
+          // Above-fold: reveal instantly (no transition) so screenshots,
+          // throttled tabs, and headless contexts always paint.
+          el.style.transition = "none";
+          el.style.opacity = "1";
+          el.style.transform = "none";
+          el.classList.add("is-visible");
+        }
+      });
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: "-10% 0px -8% 0px", threshold: 0.01 });
+      document.querySelectorAll(".fade-in:not(.is-visible)").forEach(el => io.observe(el));
+      // Safety: force-reveal anything still hidden after a beat (with no transition,
+      // in case rAF is throttled and the CSS transition would never advance).
+      const timer = setTimeout(() => {
+        document.querySelectorAll(".fade-in:not(.is-visible)").forEach(el => {
+          el.style.transition = "none";
+          el.style.opacity = "1";
+          el.style.transform = "none";
+          el.classList.add("is-visible");
+        });
+      }, 1500);
+      return () => { io.disconnect(); clearTimeout(timer); };
+    }
+    function useFadeIn() {
+      useEffect(() => revealVisibleAndObserve(), []);
+    }
+
+    /* ---------- Hook: scrolled nav ---------- */
+    function useScrolledNav() {
+      const [scrolled, setScrolled] = useState(false);
+      useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 8);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+      }, []);
+      return scrolled;
+    }
+
+    /* ---------- Nav ---------- */
+    function Nav({ t, theme, onToggleTheme }) {
+      const scrolled = useScrolledNav();
+      const scrollTo = (id) => (e) => {
+        e.preventDefault();
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      return (
+        <nav className={"nav" + (scrolled ? " is-scrolled" : "")} role="navigation">
+          <a className="nav-brand" href="#top" onClick={scrollTo("top")}>
+            <span>Albretsen</span>
+            <span className="nav-brand-suffix">AS</span>
+          </a>
+          <div className="nav-right">
+            <ul className="nav-links">
+              <li><a className="nav-link" href="#services" onClick={scrollTo("services")}>{t.nav.services}</a></li>
+              <li><a className="nav-link" href="#projects" onClick={scrollTo("projects")}>{t.nav.projects}</a></li>
+              <li><a className="nav-link" href="#contact" onClick={scrollTo("contact")}>{t.nav.contact}</a></li>
+            </ul>
+            <button className="nav-theme" onClick={onToggleTheme} aria-label={t.themeToggleLabel}>
+              <span className={"th-glyph" + (theme === "dark" ? " is-dark" : "")}>
+                <span className="th-half th-half--l"/>
+                <span className="th-half th-half--r"/>
+              </span>
+            </button>
+          </div>
+        </nav>
+      );
+    }
+
+    /* ---------- Hero ---------- */
+    function Hero({ t }) {
+      const scrollTo = (id) => (e) => {
+        e.preventDefault();
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      return (
+        <section className="hero" id="top">
+          <div className="hero-meta fade-in">
+            <span>{t.hero.metaLoc}</span>
+            <span className="hero-meta-rule" />
+            <span>{t.hero.metaEst}</span>
+            <span className="hero-meta-rule" />
+            <span className="hero-meta-status">
+              <span className="hero-status-dot" />
+              {t.hero.metaStatus}
+            </span>
+          </div>
+
+          <h1 className="hero-display fade-in">{t.hero.headline}</h1>
+
+          <p className="hero-byline fade-in">{t.hero.byline}</p>
+
+          <div className="hero-ctas fade-in">
+            <a className="btn" href="#services" onClick={scrollTo("services")}>
+              {t.hero.ctaPrimary}<span className="btn-arrow">→</span>
+            </a>
+            <a className="btn btn--secondary" href="#contact" onClick={scrollTo("contact")}>
+              {t.hero.ctaSecondary}<span className="btn-arrow">→</span>
+            </a>
+          </div>
+
+          <div className="hero-index fade-in">
+            {t.hero.index.map(row => (
+              <a key={row.to} className="hero-index-row" href={"#" + row.to} onClick={scrollTo(row.to)}>
+                <span className="hero-index-n">{row.n}</span>
+                <span className="hero-index-t">{row.t}</span>
+                <span className="hero-index-d">{row.d}</span>
+                <span className="hero-index-arrow">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ---------- Section header ---------- */
+    function SectionHead({ n, label, title, tag }) {
+      return (
+        <header className="ed-head fade-in">
+          <div>
+            <div className="ed-head-n">{n} · {label}</div>
+          </div>
+          <div>
+            <h2 className="ed-head-title">{title}</h2>
+            {tag ? <div className="ed-head-tag">{tag}</div> : null}
+          </div>
+        </header>
+      );
+    }
+
+    /* ---------- Services ---------- */
+    function Services({ t }) {
+      return (
+        <section className="section" id="services">
+          <SectionHead n={t.services.n} label={t.services.label} title={t.services.title} tag={t.services.tag} />
+          <div className="services">
+            {t.services.items.map((it, i) => (
+              <article key={i} className="service fade-in">
+                <div className="service-icon">{ICONS[it.icon] || ICONS.web}</div>
+                <div className="service-n">{it.n}</div>
+                <h3 className="service-title">{it.title}</h3>
+                <p className="service-body">{it.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ---------- Harbor link-preview card ----------
+       Designed unfurl card, in the spirit of an iMessage/Slack preview
+       for harborknowledge.com — anchored to that site's own type and palette. */
+    function HarborPreview({ lang }) {
+      const t = lang === "no" ? {
+        title: "Din private kunnskapsbase for mennesker og AI.",
+        desc: "Notater, planer, idéer, mennesker, prosjekter, oppgaver og preferanser i ett rolig arbeidsrom.",
+        cta: "Åpne Harbor",
+        right: "Q3 Strategy",
+        rightTag: "Projects",
+        rightLines: [
+          "Ship v2.0 with external MCP support",
+          "Grow MRR 40% through hosted plan",
+          "Hire 2 senior engineers",
+        ],
+        meta: ["Hosted $12/mo", "Self-host free", "14-day trial"],
+      } : {
+        title: "Your private knowledge base for people and AI.",
+        desc: "Notes, plans, ideas, people, projects, tasks and preferences in one calm workspace.",
+        cta: "Open Harbor",
+        right: "Q3 Strategy",
+        rightTag: "Projects",
+        rightLines: [
+          "Ship v2.0 with external MCP support",
+          "Grow MRR 40% through hosted plan",
+          "Hire 2 senior engineers",
+        ],
+        meta: ["Hosted $12/mo", "Self-host free", "14-day trial"],
+      };
+      return (
+        <div className="harbor-card">
+          <div className="harbor-card-bar">
+            <span className="harbor-card-bar-dots">
+              <span/><span/><span/>
+            </span>
+            <span className="harbor-card-url">
+              <span className="harbor-card-lock"/>
+              harborknowledge.com
+            </span>
+          </div>
+          <div className="harbor-card-body">
+            <div className="harbor-card-left">
+              <span className="harbor-card-eyebrow">
+                <span className="harbor-card-eyebrow-mark">H</span>
+                Harbor
+              </span>
+              <h4 className="harbor-card-title">{t.title}</h4>
+              <p className="harbor-card-desc">{t.desc}</p>
+              <span className="harbor-card-cta">{t.cta} <span style={{ fontFamily: "var(--font-mono)" }}>→</span></span>
+              <div className="harbor-card-meta">
+                {t.meta.map((m, i) => (
+                  <React.Fragment key={m}>
+                    {i > 0 ? <span className="harbor-card-meta-dot"/> : null}
+                    <span>{m}</span>
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+            <div className="harbor-card-right" aria-hidden="true">
+              <div>
+                <span className="harbor-card-right-tag">{t.rightTag}</span>
+              </div>
+              <div className="harbor-card-right-h">{t.right}</div>
+              {t.rightLines.map((line, i) => (
+                <div key={i} className="harbor-card-right-line">· {line}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    /* ---------- Client logo ---------- */
+    function ClientLogo({ row }) {
+      if (row.logo === "chesscom") {
+        return (
+          <span className="client-logo" aria-label={row.name}>
+            <span className="client-logo-mark">{ICONS.pawn}</span>
+            <span className="client-logo-text">
+              Chess<span className="client-logo-text-suffix">.com</span>
+            </span>
+          </span>
+        );
+      }
+      if (row.logo === "globetech") {
+        return (
+          <span className="client-logo" aria-label={row.name}>
+            <span className="client-logo-mark">{ICONS.globe}</span>
+            <span className="client-logo-text">GlobeTech</span>
+          </span>
+        );
+      }
+      return <span className="client-name">{row.name}</span>;
+    }
+
+    /* ---------- Clients ---------- */
+    function Clients({ t }) {
+      return (
+        <section className="section" id="clients">
+          <SectionHead n={t.clients.n} label={t.clients.label} title={t.clients.title} tag={t.clients.tag} />
+          <div className="clients-wrap fade-in">
+            <p className="clients-note">{t.clients.note}</p>
+            <div className="clients-list">
+              {t.clients.rows.map((row, i) => (
+                <div key={i} className="client-row">
+                  <ClientLogo row={row} />
+                  <div className="client-kind">{row.kind}</div>
+                  <div className="client-meta">{row.meta}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ---------- Projects ---------- */
+    function Projects({ t }) {
+      return (
+        <section className="section" id="projects">
+          <SectionHead n={t.projects.n} label={t.projects.label} title={t.projects.title} tag={t.projects.tag} />
+          <div className="proj-list">
+            {t.projects.rows.map((p) => (
+              <article key={p.n} className="proj fade-in">
+                {p.previewKind === "harbor" ? (
+                  <div className="proj-image-wrap">
+                    <HarborPreview lang={p.previewLang || "en"} />
+                  </div>
+                ) : p.image ? (
+                  <div className="proj-image-wrap" style={p.imageFit === "contain" ? { background: "var(--bg-2)" } : null}>
+                    <img className="proj-image" src={p.image} alt={p.imageAlt || p.title} style={{ objectFit: p.imageFit || "cover" }} />
+                    {p.imageCaption ? <span className="proj-image-caption">{p.imageCaption}</span> : null}
+                  </div>
+                ) : null}
+                <div className="proj-head">
+                  <div className="proj-n">{p.n}</div>
+                  <div className="proj-kind">{p.kind}</div>
+                </div>
+                <h3 className="proj-title">
+                  <span>{p.title}</span>
+                  <span className="proj-title-em">{p.titleEm}</span>
+                </h3>
+                <p className="proj-body">{p.body}</p>
+                <div className="proj-foot">
+                  <div className="proj-stack">
+                    {p.tags.map(tag => <span key={tag} className="proj-tag">{tag}</span>)}
+                  </div>
+                  <div className="proj-links">
+                    {p.links.map(link => (
+                      <a key={link.k} className="proj-link" href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                        <span className="proj-link-k">{link.k}</span>
+                        <span>{link.text}</span>
+                        <span className="proj-link-arrow">↗</span>
+                      </a>
+                    ))}
+                  </div>
+                  <div className="proj-link-k" style={{ color: "var(--fg-3)" }}>{p.role}</div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ---------- Contact form ---------- */
+    function ContactForm({ t }) {
+      const [name, setName] = useState("");
+      const [email, setEmail] = useState("");
+      const [message, setMessage] = useState("");
+      const [status, setStatus] = useState("idle"); // idle | sending | sent
+
+      const onSubmit = (e) => {
+        e.preventDefault();
+        if (!name || !email || !message) return;
+        setStatus("sending");
+        setTimeout(() => {
+          setStatus("sent");
+          setName(""); setEmail(""); setMessage("");
+          setTimeout(() => setStatus("idle"), 4000);
+        }, 900);
+      };
+
+      const f = t.contact.form;
+      return (
+        <form className="form" onSubmit={onSubmit}>
+          <div className="field">
+            <label className="field-label" htmlFor="cf-name">{f.name}</label>
+            <input id="cf-name" className="input" type="text" value={name} onChange={e => setName(e.target.value)} placeholder={f.namePh} required />
+          </div>
+          <div className="field">
+            <label className="field-label" htmlFor="cf-email">{f.email}</label>
+            <input id="cf-email" className="input" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={f.emailPh} required />
+          </div>
+          <div className="field">
+            <label className="field-label" htmlFor="cf-msg">{f.message}</label>
+            <textarea id="cf-msg" className="textarea" value={message} onChange={e => setMessage(e.target.value)} placeholder={f.messagePh} required />
+          </div>
+          <div className="form-actions">
+            <span className={"form-note" + (status === "sent" ? " is-sent" : "")}>
+              {status === "sent" ? f.sent : f.note}
+            </span>
+            <button className="btn" type="submit" disabled={status === "sending"}>
+              {status === "sending" ? f.sending : f.send}<span className="btn-arrow">→</span>
+            </button>
+          </div>
+        </form>
+      );
+    }
+
+    /* ---------- Contact ---------- */
+    function Contact({ t }) {
+      const [copied, setCopied] = useState(false);
+      const mail = "asgeir@albretsen.no";
+      const copy = (e) => {
+        e.preventDefault();
+        navigator.clipboard?.writeText(mail).then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1800);
+        });
+      };
+      return (
+        <section className="section" id="contact">
+          <SectionHead n={t.contact.n} label={t.contact.label} title={t.contact.title} tag={t.contact.tag} />
+          <div className="contact-wrap">
+            <div className="fade-in">
+              <div className="contact-id">
+                <img className="contact-id-avatar" src="assets/profile.jpg" alt={t.contact.profileName} />
+                <div className="contact-id-meta">
+                  <span className="contact-id-name">{t.contact.profileName}</span>
+                  <span className="contact-id-role">{t.contact.profileRole}</span>
+                </div>
+              </div>
+              <p className="contact-lead">{t.contact.lead}</p>
+
+              <a className="contact-mail" href={"mailto:" + mail} onClick={copy}>
+                <span className="contact-mail-state">{copied ? t.contact.mailCopied : t.contact.mailState}</span>
+                <span className="contact-mail-text">{mail}</span>
+              </a>
+
+              <ul className="contact-channels">
+                {t.contact.channels.map(c => (
+                  <li key={c.k}>
+                    <span className="contact-channel-k">{c.k}</span>
+                    {c.href ? (
+                      <a className="contact-channel-v" href={c.href} target="_blank" rel="noopener noreferrer">{c.v}</a>
+                    ) : (
+                      <span className="contact-channel-v">{c.v}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="fade-in">
+              <ContactForm t={t} />
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ---------- Footer ---------- */
+    function Footer({ t, lang, setLang }) {
+      return (
+        <footer className="footer">
+          <div className="footer-grid">
+            <div>
+              <div className="footer-mark">
+                {t.footer.mark} <span className="footer-mark-suffix">{t.footer.markSuffix}</span>
+              </div>
+              <div className="footer-meta" style={{ marginTop: 8, maxWidth: "36ch" }}>
+                {t.footer.tagline}
+              </div>
+            </div>
+            <div className="footer-col">
+              <div className="footer-k">{t.footer.colA.k}</div>
+              {t.footer.colA.lines.map((line, i) => <span key={i}>{line}</span>)}
+            </div>
+            <div className="footer-col">
+              <div className="footer-k">{t.footer.colB.k}</div>
+              {t.footer.colB.lines.map((line, i) => (
+                line.kind === "mail" ? (
+                  <a key={i} href={"mailto:" + line.text}>{line.text}</a>
+                ) : (
+                  <a key={i} href={line.href} target="_blank" rel="noopener noreferrer">{line.text}</a>
+                )
+              ))}
+            </div>
+            <div className="footer-col footer-col--toggle">
+              <div className="footer-k">{t.footer.colC.k}</div>
+              <div className="lang-toggle" role="group" aria-label="Language">
+                <button
+                  className={"lang-btn" + (lang === "no" ? " is-active" : "")}
+                  onClick={() => setLang("no")}
+                  aria-pressed={lang === "no"}
+                >NO</button>
+                <button
+                  className={"lang-btn" + (lang === "en" ? " is-active" : "")}
+                  onClick={() => setLang("en")}
+                  aria-pressed={lang === "en"}
+                >EN</button>
+              </div>
+            </div>
+          </div>
+          <div className="footer-fine">
+            <span>{t.footer.fineLeft}</span>
+            <span>{t.footer.fineRight}</span>
+          </div>
+        </footer>
+      );
+    }
+
+    /* ---------- App ---------- */
+    function App() {
+      const [theme, toggleTheme] = useTheme();
+      const [lang, setLang] = useLang();
+      const t = COPY[lang];
+      useFadeIn();
+
+      // Re-run fade-in observer when lang changes (new DOM nodes for some fragments)
+      useEffect(() => {
+        return revealVisibleAndObserve();
+      }, [lang]);
+
+      return (
+        <React.Fragment>
+          <Nav t={t} theme={theme} onToggleTheme={toggleTheme} />
+          <main>
+            <Hero t={t} />
+            <Services t={t} />
+            <Clients t={t} />
+            <Projects t={t} />
+            <Contact t={t} />
+            <Footer t={t} lang={lang} setLang={setLang} />
+          </main>
+        </React.Fragment>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("app")).render(<App />);
+  </script>
+</body>
+</html>

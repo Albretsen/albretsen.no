@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen favicon">
+  <rect width="64" height="64" rx="6" fill="#1A1714"></rect>
+  <g stroke="#F4F0E6" stroke-width="6.5" stroke-linecap="square" fill="none">
+    <path d="M 13 54 L 27 13 L 37 13 L 51 54" stroke-linejoin="miter" stroke-miterlimit="10"></path>
+    <line x1="19" y1="38" x2="45" y2="38"></line>
+  </g>
+</svg>

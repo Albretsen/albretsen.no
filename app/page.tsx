@@ -25,18 +25,18 @@ export default async function HomePage() {
 
       <section className="hero" aria-labelledby="intro-title">
         <p className="eyebrow">ASGEIR ALBRETSEN <span>·</span> BERGEN, NORWAY</p>
-        <h1 id="intro-title">I build useful software and write about money, products, and the internet.</h1>
+        <h1 id="intro-title">I build useful software and write about personal finance, products, and the internet.</h1>
         <p className="hero-copy">This is where I keep the products I own, the things I’m learning, and occasional opinions worth putting in writing.</p>
-        <p className="status"><span className="status-dot" aria-hidden="true" /> Currently building MCP Emails. Still compounding Fun Libs.</p>
+        <p className="status">Currently building MCP Emails. Still compounding Fun Libs.</p>
       </section>
 
       <section className="metrics" aria-label="Product statistics">
         <div className="metric"><strong>NOK 61,630</strong><span>Fun Libs · AdSense revenue</span></div>
-        <div className="metric"><strong>Several thousand NOK</strong><span>Fun Libs · in-app purchases</span></div>
+        <div className="metric"><strong>NOK 8,349</strong><span>Fun Libs · in-app purchases</span></div>
         <div className="metric"><strong>113,013+</strong><span>Fun Libs · installs</span></div>
-        <div className="metric"><strong>{formatNumber(mcpEmailsUsers)}</strong><span>MCP Emails · users <i>{mcpEmailsUsers === null ? 'temporarily unavailable' : 'live'}</i></span></div>
+        <div className="metric"><strong>{formatNumber(mcpEmailsUsers)}</strong><span>MCP Emails · users {mcpEmailsUsers === null ? '(temporarily unavailable)' : ''}</span></div>
       </section>
-      <p className="data-note">Fun Libs figures are lifetime totals. MCP Emails user count is queried from its production database.</p>
+      <p className="data-note">Figures as of July 28, 2026. Fun Libs figures are lifetime totals; MCP Emails is queried from its production database.</p>
 
       <section className="section" id="projects" aria-labelledby="projects-title">
         <div className="section-heading"><p className="eyebrow">01 — PROJECTS</p><h2 id="projects-title">Things I have built.</h2></div>

@@ -1,6 +1,19 @@
-export type BlogPost = { slug: string; title: string; date: string; dateLabel: string; tags: string[]; excerpt: string; body: string[]; highlighted?: boolean }
+import { EN_BLOCKS, NB_BLOCKS, CHART_EN, CHART_NB, type Translation } from '@/lib/ath-post'
+
+export type BlogPost = { slug: string; title: string; date: string; dateLabel: string; tags: string[]; excerpt: string; body: string[]; highlighted?: boolean; translations?: Translation[] }
 
 export const posts: BlogPost[] = [
+  {
+    slug: 'stop-caring-about-all-time-highs', title: 'Stop caring about all-time highs', date: '2026-08-19', dateLabel: 'August 19, 2026', tags: ['Markets', 'Investing', 'Data'], highlighted: true,
+    excerpt: 'In a growing economy a record is not a warning. It is what a rising line does on the way up — over and over, for as long as it rises.',
+    // The rendered article comes from `translations`; `body` is the plain-text fallback
+    // that the RSS feed and any future plain renderer can rely on.
+    body: EN_BLOCKS.flatMap(block => (block.k === 'lead' || block.k === 'p' ? [block.t] : [])),
+    translations: [
+      { label: 'EN', dateLabel: 'August 19, 2026', tags: ['Markets', 'Investing', 'Data'], title: 'Stop caring about all-time highs', excerpt: 'In a growing economy a record is not a warning. It is what a rising line does on the way up — over and over, for as long as it rises.', blocks: EN_BLOCKS, chart: CHART_EN },
+      { label: 'NO', dateLabel: '19. august 2026', tags: ['Marked', 'Investering', 'Data'], title: 'Slutt å bry deg om all-time high', excerpt: 'I en økonomi i vekst er en rekord ingen advarsel. Det er det en stigende kurve gjør på vei opp — igjen og igjen, så lenge den stiger.', blocks: NB_BLOCKS, chart: CHART_NB },
+    ],
+  },
   {
     slug: 'why-i-built-mcp-emails', title: 'Why I built MCP Emails', date: '2026-07-28', dateLabel: 'July 28, 2026', tags: ['MCP', 'AI', 'Products'], highlighted: true,
     excerpt: 'I got bored of writing emails to customers. MCP Emails is my attempt at making email a smaller part of my day without making support feel impersonal.',
@@ -50,7 +63,7 @@ export const posts: BlogPost[] = [
     ],
   },
   {
-    slug: 'personal-finance-should-be-boring', title: 'Personal finance should be boring', date: '2026-07-28', dateLabel: 'July 28, 2026', tags: ['Personal finance', 'Money'], highlighted: true,
+    slug: 'personal-finance-should-be-boring', title: 'Personal finance should be boring', date: '2026-07-28', dateLabel: 'July 28, 2026', tags: ['Personal finance', 'Money'],
     excerpt: 'The interesting part is what a stable financial system lets you do with the rest of your time.',
     body: [
       'I like money. I like knowing where it goes, seeing a project make its first revenue, and watching an amount that used to feel hypothetical become real.',

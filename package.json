@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "podman:build": "podman build -t albretsenno .",
     "podman:run": "podman run -d --name albretsenno -p 3000:3000 albretsenno",
     "podman:stop": "podman stop albretsenno || true",
@@ -23,6 +23,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.5.23",
     "typescript": "^5"
   }
 }

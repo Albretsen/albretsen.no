@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · Brand explorations</title>
+<style>
+  :root { --bg:#f4f4f2; --panel:#fff; --ink:#151515; --mute:#77756f; --line:#e2e1dc; --hi:#ffd84d; color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#101010; --panel:#171717; --ink:#ededea; --mute:#8a8984; --line:#2a2a28; --hi:#e8c13a; color-scheme: dark; } }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 13px/1.4 ui-sans-serif, system-ui, -apple-system, sans-serif; display: grid; grid-template: auto 1fr / 280px 1fr; }
+  header { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+  header h1 { font-size: 13px; font-weight: 600; margin-right: auto; }
+  button, select { font: inherit; color: inherit; background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; cursor: pointer; min-height: 30px; }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  aside { overflow: auto; border-right: 1px solid var(--line); background: var(--panel); }
+  ol { list-style: none; padding: 0; }
+  li a { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: center; padding: 8px 12px; color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
+  li a[aria-current="true"] { background: var(--bg); box-shadow: inset 3px 0 0 var(--ink); }
+  li .n { font: 12px ui-monospace, monospace; color: var(--mute); }
+  li .name { font-weight: 550; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  li .tag { grid-column: 2 / 4; color: var(--mute); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sw { display: flex; gap: 2px; grid-column: 2 / 4; }
+  .sw i { width: 14px; height: 8px; border-radius: 2px; outline: 1px solid rgb(0 0 0 / .08); }
+  .star { border: 0; padding: 2px 4px; min-height: 0; font-size: 16px; color: var(--mute); }
+  .star[aria-pressed="true"] { background: none; color: #d9a400; }
+  main { display: grid; grid-template-rows: 1fr auto; min-height: 0; }
+  .stage { display: flex; gap: 12px; justify-content: center; align-items: stretch; padding: 12px; min-height: 0; overflow: auto; }
+  .frame { flex: 1 1 0; max-width: var(--w, none); display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+  .frame .cap { display: flex; justify-content: space-between; gap: 8px; padding: 0 2px 6px; color: var(--mute); }
+  .frame .cap a { color: inherit; }
+  iframe { width: 100%; height: 100%; min-height: 60vh; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  .info { border-top: 1px solid var(--line); background: var(--panel); padding: 10px 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px 20px; max-height: 34vh; overflow: auto; }
+  .info[hidden] { display: none; }
+  .info dt { color: var(--mute); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+  .info dd { margin: 0 0 4px; }
+  .empty { padding: 24px; color: var(--mute); }
+  kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+  .hint { color: var(--mute); }
+  @media (max-width: 760px) {
+    body { grid-template: auto auto 1fr / 1fr; }
+    aside { max-height: 32vh; border-right: 0; border-bottom: 1px solid var(--line); }
+    .hint { display: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Albretsen AS · Brand explorations <span class="hint" id="count"></span></h1>
+  <span class="hint"><kbd>←</kbd><kbd>→</kbd> browse · <kbd>F</kbd> favourite · <kbd>C</kbd> compare · <kbd>I</kbd> info</span>
+  <select id="vp" aria-label="Viewport">
+    <option value="">Full width</option><option value="390">Phone 390</option><option value="820">Tablet 820</option><option value="1440">Desktop 1440</option>
+  </select>
+  <button id="favOnly" aria-pressed="false">★ Favourites only</button>
+  <button id="compare" aria-pressed="false">Compare</button>
+  <button id="infoBtn" aria-pressed="true">Info</button>
+  <button id="copy">Copy picks</button>
+</header>
+<aside><ol id="list"></ol></aside>
+<main>
+  <div class="stage" id="stage"></div>
+  <dl class="info" id="info"></dl>
+</main>
+<script type="module" src="gallery.js"></script>
+</body>
+</html>

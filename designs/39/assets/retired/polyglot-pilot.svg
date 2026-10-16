@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Polyglot Pilot (retired)">
-<title>Polyglot Pilot</title>
-<rect width="400" height="400" rx="20" fill="#1a1918"/>
-<rect x="12.5" y="12.5" width="375" height="375" rx="12" fill="none" stroke="#2c2a29"/>
-<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-42 -36)" opacity="0.10" stroke="#8d8a86"><rect x="150" y="150" width="150" height="96" rx="18"/><path d="M188 246 l-14 28 l40 -28"/><path d="M180 188 h90 M180 210 h60"/></g><g transform="translate(-28 -24)" opacity="0.22" stroke="#8d8a86"><rect x="150" y="150" width="150" height="96" rx="18"/><path d="M188 246 l-14 28 l40 -28"/><path d="M180 188 h90 M180 210 h60"/></g><g transform="translate(-14 -12)" opacity="0.34" stroke="#8d8a86"><rect x="150" y="150" width="150" height="96" rx="18"/><path d="M188 246 l-14 28 l40 -28"/><path d="M180 188 h90 M180 210 h60"/></g><g stroke="#dcdad7"><rect x="150" y="150" width="150" height="96" rx="18"/><path d="M188 246 l-14 28 l40 -28"/><path d="M180 188 h90 M180 210 h60"/></g></g>
-<g font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing=".06em" fill="#8d8a86">
-<text x="32" y="364">Polyglot Pilot</text><text x="368" y="48" text-anchor="end">2025</text>
-<text x="32" y="48" fill="#2c2a29">&#8212; retired</text></g>
-</svg>

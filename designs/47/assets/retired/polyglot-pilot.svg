@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Polyglot Pilot (retired, stand-in)">
-  <rect width="128" height="128" rx="29" fill="#e7e5eb"/>
-  <rect x="30" y="34" width="44" height="44" rx="8" fill="none" stroke="#56535d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="54" y="50" width="44" height="44" rx="8" fill="#e7e5eb" stroke="#56535d" stroke-width="5"/>
-  <path d="M66 82 L76 60 L86 82 M70 75 H82" fill="none" stroke="#56535d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>

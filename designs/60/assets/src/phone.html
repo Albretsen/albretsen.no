@@ -1,9 +1,0 @@
-<!doctype html><meta charset="utf-8"><title>phone check</title>
-<!-- Dev helper: headless Chrome will not go below ~500px wide, so preview the 390px layout in iframes. -->
-<style>body{margin:0;background:#222;display:flex;gap:20px;padding:20px}iframe{width:390px;height:844px;border:0;background:#000;flex:none}</style>
-<body></body><script>
-const q = new URLSearchParams(location.search).get('q') || 'still';
-for (const o of (new URLSearchParams(location.search).get('pages') || ',products,identity').split(',')) {
-  const f = document.createElement('iframe'); f.src = '../preview.html?' + q + (o ? '&only=' + o : ''); document.body.appendChild(f);
-}
-</script>

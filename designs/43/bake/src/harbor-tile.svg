@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="1024" height="1024" color="#F0EDE8">
-  <!-- Harbor's own mark (designs/_shared/products/harbor/harbor-mark.svg, path copied unchanged),
-       shown in the colours Harbor itself uses on banner.png (#F0EDE8 on #1A1A1A). -->
-  <rect width="64" height="64" fill="#1A1A1A"/>
-  <g transform="translate(9.6 9.6) scale(0.7)">
-    <path d="M 12 26 Q 12 14 24 14 L 28.5 14 L 32 19.5 L 35.5 14 L 40 14 Q 52 14 52 26 L 52 40 Q 52 52 40 52 L 24 52 Q 12 52 12 40 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" fill="none"/>
-    <circle cx="32" cy="35" r="3" fill="currentColor"/>
-  </g>
-</svg>

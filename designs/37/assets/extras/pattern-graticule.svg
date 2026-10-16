@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
-  <title>Chamber graticule — tileable</title>
-  <g stroke="#e781b7" stroke-width="1" fill="none" opacity=".7">
-    <path d="M114 120h12M120 114v12"/>
-    <path d="M0 .5h240M.5 0v240" stroke-dasharray="1 5" opacity=".6"/>
-    <path d="M60 60.5h4M180 60.5h4M60 180.5h4M180 180.5h4" opacity=".6"/>
-  </g>
-  <circle cx="120" cy="120" r="1.6" fill="#d64d9d"/>
-</svg>

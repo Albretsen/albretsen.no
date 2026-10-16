@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" aria-label="Harbor mark">
-  
-  <path d="M 12 26&#xA;           Q 12 14 24 14&#xA;           L 28.5 14&#xA;           L 32 19.5&#xA;           L 35.5 14&#xA;           L 40 14&#xA;           Q 52 14 52 26&#xA;           L 52 40&#xA;           Q 52 52 40 52&#xA;           L 24 52&#xA;           Q 12 52 12 40&#xA;           Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" fill="none"></path>
-  <circle cx="32" cy="35" r="3" fill="currentColor"></circle>
-</svg>

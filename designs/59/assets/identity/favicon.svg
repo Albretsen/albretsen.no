@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <title>Albretsen AS</title>
-  <path d="M14 4H34Q54 8 60 28V50Q60 60 50 60H14Q4 60 4 50V14Q4 4 14 4Z" fill="#6c35ec" stroke="#0f0b22" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M18.72 50.70L10.05 50.70L21.38 27.30L30.62 27.30L41.95 50.70L32.94 50.70L31.54 47.60L20.08 47.60L18.72 50.70ZM24.27 37.84L22.63 41.79L28.99 41.79L27.36 37.84Q27.26 37.57 27.09 37.11Q26.92 36.65 26.71 36.08Q26.51 35.50 26.32 34.92Q26.14 34.34 25.97 33.87L25.97 33.87L25.73 33.87Q25.52 34.44 25.25 35.19Q24.98 35.94 24.73 36.65Q24.47 37.37 24.27 37.84L24.27 37.84Z" fill="#f3f2fb"/>
-  <path d="M34 4Q54 8 60 28Q50 33 40 34Q35 20 34 4Z" fill="#cefd3e" stroke="#0f0b22" stroke-width="4" stroke-linejoin="round"/>
-</svg>

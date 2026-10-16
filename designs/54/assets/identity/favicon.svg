@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Albretsen AS"><rect width="64" height="64" rx="14" fill="#f8f4ea"/>
-  <g transform="translate(5 5) scale(.84375)">
-  <g fill="none" stroke="#162118" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.2">
-    <path d="M15 55V31C15 20 22.6 12 32 12S49 20 49 31V55"/><path d="M9 55.5h46"/><path d="M32 55c0-6-.6-10 .6-15"/></g>
-  <circle cx="32" cy="6.4" r="3.6" fill="#162118"/>
-  <path d="M32.4 41.5c1.6-8 8-12.6 15-12-1.2 8-8 12.8-15 12z" fill="#408742"/></g>
-</svg>

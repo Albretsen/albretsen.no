@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen AS">
-  <rect width="64" height="64" rx="14.5" fill="#19161f"/>
-  <g transform="translate(9.6 9.4) scale(.68)">
-  <path d="M12 54 L32 10 L52 54" fill="none" stroke="#f3f2f6" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="10"/>
-  <path d="M15.5 38.5 H58" stroke="#f3f2f6" stroke-width="3.6"/>
-  <rect x="26.5" y="29" width="7.5" height="7.5" fill="#a98ae0"/>
-  </g>
-</svg>

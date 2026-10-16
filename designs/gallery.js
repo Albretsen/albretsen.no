@@ -9,12 +9,12 @@ const store = {
 
 const designs = await fetch('manifest.json').then(r => r.json()).catch(() => [])
 let favs = new Set(store.get('favs', []))
-let favOnly = false, compare = false, showInfo = true
+let round = store.get('round', ''), favOnly = false, compare = false, showInfo = true
 let current = designs.findIndex(d => d.id === location.hash.slice(1))
 if (current < 0) current = 0
 let second = null // index shown on the right in compare mode
 
-const visible = () => designs.map((d, i) => i).filter(i => !favOnly || favs.has(designs[i].id))
+const visible = () => designs.map((d, i) => i).filter(i => (!favOnly || favs.has(designs[i].id)) && (!round || String(designs[i].round) === round))
 
 function renderList() {
   const list = $('#list')
@@ -44,9 +44,10 @@ function frame(d) {
   const el = document.createElement('div')
   el.className = 'frame'
   if (vp) el.style.setProperty('--w', vp + 'px')
-  el.innerHTML = `<div class="cap"><span><b></b></span><a target="_blank" rel="noopener">Open ↗</a></div><iframe loading="eager"></iframe>`
+  el.innerHTML = `<div class="cap"><span><b></b></span><span><a class="as" target="_blank" rel="noopener" hidden>Assets ↗</a> <a class="op" target="_blank" rel="noopener">Open ↗</a></span></div><iframe loading="eager"></iframe>`
   el.querySelector('b').textContent = `${d.id} · ${d.name || ''}`
-  el.querySelector('a').href = d.path
+  el.querySelector('.op').href = d.path
+  if (d.assets) { const a = el.querySelector('.as'); a.href = d.assets; a.hidden = false }
   el.querySelector('iframe').src = d.path
   el.querySelector('iframe').title = d.name || d.id
   return el
@@ -96,6 +97,8 @@ function step(dir) {
 
 $('#vp').addEventListener('change', () => { store.set('vp', $('#vp').value); renderStage() })
 $('#vp').value = store.get('vp', '')
+$('#round').value = round
+$('#round').addEventListener('change', e => { round = e.target.value; store.set('round', round); const v = visible(); if (v.length && !v.includes(current)) current = v[0]; update() })
 $('#favOnly').addEventListener('click', e => { favOnly = !favOnly; e.currentTarget.setAttribute('aria-pressed', favOnly); if (favOnly && !favs.has(designs[current]?.id)) { const v = visible(); if (v.length) current = v[0] } update() })
 $('#compare').addEventListener('click', e => { compare = !compare; e.currentTarget.setAttribute('aria-pressed', compare); renderStage() })
 $('#infoBtn').addEventListener('click', e => { showInfo = !showInfo; e.currentTarget.setAttribute('aria-pressed', showInfo); renderInfo() })

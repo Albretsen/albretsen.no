@@ -28,7 +28,9 @@
    "https://emilkowal.ski"
   ],
   "id": "01",
-  "path": "01/"
+  "path": "01/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Continue.",
@@ -53,7 +55,9 @@
    "https://developer.mozilla.org/docs/Web/CSS/animation-timeline/view"
   ],
   "id": "02",
-  "path": "02/"
+  "path": "02/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Gravity Issue",
@@ -79,7 +83,9 @@
    "https://draw-down.com/products/duotone-limited-colour-schemes-in-graphic-design"
   ],
   "id": "03",
-  "path": "03/"
+  "path": "03/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Carrier",
@@ -113,7 +119,9 @@
    "https://www.framer.com/blog/90s-websites/"
   ],
   "id": "04",
-  "path": "04/"
+  "path": "04/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Stille",
@@ -146,7 +154,9 @@
    "https://fonts.google.com/specimen/Saira+Extra+Condensed"
   ],
   "id": "05",
-  "path": "05/"
+  "path": "05/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Current",
@@ -177,7 +187,9 @@
    "https://paco.me"
   ],
   "id": "06",
-  "path": "06/"
+  "path": "06/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Blue Hour",
@@ -210,7 +222,9 @@
    "https://en.wikipedia.org/wiki/Bloom_(software)"
   ],
   "id": "07",
-  "path": "07/"
+  "path": "07/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Threshold",
@@ -241,7 +255,9 @@
    "https://www.cssdesignawards.com"
   ],
   "id": "08",
-  "path": "08/"
+  "path": "08/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Afterimage",
@@ -271,7 +287,9 @@
    "https://en.wikipedia.org/wiki/After_Dark_(software)"
   ],
   "id": "09",
-  "path": "09/"
+  "path": "09/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Pust",
@@ -297,7 +315,9 @@
    "https://unicodefyi.com/guide/box-drawing-guide/"
   ],
   "id": "10",
-  "path": "10/"
+  "path": "10/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Low Sun",
@@ -326,7 +346,9 @@
    "https://www.hurtigruten.com/en/explore-norway/polar-night"
   ],
   "id": "11",
-  "path": "11/"
+  "path": "11/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Afterimage",
@@ -355,7 +377,9 @@
    "https://bellard.org"
   ],
   "id": "12",
-  "path": "12/"
+  "path": "12/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Bloom Index",
@@ -386,7 +410,9 @@
    "https://maxibestof.one/typefaces/instrument-serif/pairing/jetbrains-mono"
   ],
   "id": "13",
-  "path": "13/"
+  "path": "13/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Bitspark",
@@ -414,7 +440,9 @@
    "https://rauno.me"
   ],
   "id": "14",
-  "path": "14/"
+  "path": "14/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Surface Tension",
@@ -447,7 +475,9 @@
    "https://press.stripe.com"
   ],
   "id": "15",
-  "path": "15/"
+  "path": "15/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Full Stop",
@@ -477,7 +507,9 @@
    "https://fonts.google.com/specimen/Unbounded"
   ],
   "id": "16",
-  "path": "16/"
+  "path": "16/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Albedo",
@@ -510,7 +542,9 @@
    "https://www.dezeen.com/2017/12/13/kenya-hara-exclusive-interview-muji-us-expansion-brand-aesthetic/"
   ],
   "id": "17",
-  "path": "17/"
+  "path": "17/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Preprint",
@@ -544,7 +578,9 @@
    "https://www.are.na/explore"
   ],
   "id": "18",
-  "path": "18/"
+  "path": "18/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "One Spot",
@@ -573,7 +609,9 @@
    "https://productiontype.com/family/newsreader"
   ],
   "id": "19",
-  "path": "19/"
+  "path": "19/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Brev",
@@ -601,7 +639,9 @@
    "https://developer.mozilla.org/docs/Web/CSS/animation-timeline/view"
   ],
   "id": "20",
-  "path": "20/"
+  "path": "20/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Dot Plot",
@@ -631,7 +671,9 @@
    "https://press.stripe.com"
   ],
   "id": "21",
-  "path": "21/"
+  "path": "21/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Hjemmeside",
@@ -662,7 +704,9 @@
    "https://www.framer.com/ja/blog/90s-websites/"
   ],
   "id": "22",
-  "path": "22/"
+  "path": "22/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Exhale",
@@ -692,7 +736,9 @@
    "https://www.cosmos.so"
   ],
   "id": "23",
-  "path": "23/"
+  "path": "23/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Daylight Lattice",
@@ -724,7 +770,9 @@
    "https://brand.gocardless.com/typography"
   ],
   "id": "24",
-  "path": "24/"
+  "path": "24/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "fullt hus",
@@ -755,7 +803,9 @@
    "https://www.grillitype.com"
   ],
   "id": "25",
-  "path": "25/"
+  "path": "25/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Widescreen",
@@ -787,7 +837,9 @@
    "https://www.dezeen.com/2013/05/21/whitney-graphic-identity-by-experimental-jetset/"
   ],
   "id": "26",
-  "path": "26/"
+  "path": "26/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Full Stop",
@@ -817,7 +869,9 @@
    "https://cursor.com"
   ],
   "id": "27",
-  "path": "27/"
+  "path": "27/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Colophon",
@@ -847,7 +901,9 @@
    "https://www.colophon-foundry.org"
   ],
   "id": "28",
-  "path": "28/"
+  "path": "28/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "room 24",
@@ -876,7 +932,9 @@
    "https://atypi.org/?p=34784"
   ],
   "id": "29",
-  "path": "29/"
+  "path": "29/",
+  "round": 1,
+  "assets": null
  },
  {
   "name": "Uncut",
@@ -911,6 +969,8 @@
    "https://tympanus.net/codrops/2025/10/15/from-blank-canvas-to-mayhem-eloy-benoffis-brutalist-glitchy-portfolio-built-with-webflow-and-gsap/"
   ],
   "id": "30",
-  "path": "30/"
+  "path": "30/",
+  "round": 1,
+  "assets": null
  }
 ]

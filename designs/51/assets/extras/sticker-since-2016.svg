@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="480" height="480" role="img" aria-label="Published on Google Play since 2016">
+  <defs>
+    <path id="ring" d="M120 120 m-90 0 a90 90 0 1 1 180 0 a90 90 0 1 1 -180 0"/>
+    <radialGradient id="bg" cx="120" cy="150" r="130" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0c2348"/><stop offset="1" stop-color="#020513"/></radialGradient>
+    <radialGradient id="halo" cx="120" cy="134" r="26" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fb942a" stop-opacity=".7"/><stop offset="1" stop-color="#fb942a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <style>
+    .spin { transform-origin: 120px 120px; animation: spin 40s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+  </style>
+  <circle cx="120" cy="120" r="118" fill="url(#bg)"/>
+  <circle cx="120" cy="120" r="117" fill="none" stroke="#bed4eb" stroke-opacity=".25"/>
+  <circle cx="120" cy="120" r="72" fill="none" stroke="#bed4eb" stroke-opacity=".2" stroke-dasharray="2 5"/>
+  <g class="spin">
+    <text font-family="JetBrains Mono, ui-monospace, monospace" font-size="12" font-weight="500" letter-spacing="2.6" fill="#bed4eb">
+      <textPath href="#ring">PUBLISHED ON GOOGLE PLAY SINCE 2016 · ALBRETSEN AS · NORWAY ·</textPath>
+    </text>
+  </g>
+  <path d="M93 162 Q120 50 147 162" fill="none" stroke="#f1f6fa" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="120" cy="134" r="26" fill="url(#halo)"/>
+  <circle cx="120" cy="134" r="7" fill="#fb942a"/>
+  <circle cx="120" cy="134" r="2.6" fill="#ffe196"/>
+</svg>

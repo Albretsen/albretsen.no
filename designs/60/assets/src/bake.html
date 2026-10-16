@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>bake</title>
+<!-- Bakes stills from planet3d.js. Used by bake.sh; not part of the site. -->
+<style>html,body{margin:0;height:100%;background:transparent;overflow:hidden}canvas{display:block;width:100vw;height:100vh}</style>
+<canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import { mountPlanet } from '../interactive/planet3d.js';
+const q = new URLSearchParams(location.search);
+await mountPlanet(document.getElementById('c'), { scene: q.get('scene') || 'hero', still: true, transparent: q.has('transparent'), pixelRatio: +(q.get('dpr') || 1), seed: +(q.get('seed') || 7), bloom: q.get('bloom') === '1', shiftX: +(q.get('sx') || 0), shiftY: +(q.get('sy') || 0) });
+document.title = 'ready';
+</script>

@@ -1,0 +1,73 @@
+<!doctype html>
+<!-- Source for the product specimen cards. Rendered headless at 800x1000 @2x, then saved as webp.
+     Usage: _compose.html?id=mcp-emails | fun-libs | toolrails | harbor | luma -->
+<html lang="en"><head><meta charset="utf-8">
+<title>Specimen card</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --lapis:#073fe3; --deep:#082593; --ink:#061457; --night:#040b2d; --peri:#97b7f8; --frost:#cadbfd; --vellum:#faf3e3; --parch:#f4e6ce; --rose:#ec3d5f; --pollen:#f4cd4b; }
+  * { box-sizing:border-box }
+  html,body { margin:0; width:800px; height:1000px; overflow:hidden }
+  .card { position:relative; width:800px; height:1000px; overflow:hidden; background:var(--bg); color:var(--fg) }
+  .card::after { content:''; position:absolute; inset:0; pointer-events:none; mix-blend-mode:multiply; opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") }
+  .illo { position:absolute; pointer-events:none }
+  .mount { position:absolute; left:50%; top:46%; width:330px; height:330px; transform:translate(-50%,-50%) rotate(var(--tilt,-2.5deg));
+    background:#fffdf7; border-radius:4px; box-shadow:0 1px 0 rgba(0,0,0,.05), 0 30px 60px -24px rgba(4,11,45,.55), 0 8px 18px -8px rgba(4,11,45,.35);
+    display:grid; place-items:center }
+  .mount img { max-width:62%; max-height:62% }
+  .mount .app { width:58%; height:58%; border-radius:22%; box-shadow:0 10px 24px -10px rgba(4,11,45,.45) }
+  .tape { position:absolute; width:120px; height:34px; background:rgba(244,230,206,.78); box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .tape.a { top:-14px; left:30px; transform:rotate(-8deg) } .tape.b { bottom:-12px; right:26px; transform:rotate(-5deg) }
+  .no { position:absolute; z-index:2; top:34px; left:36px; padding:8px 10px; border-radius:3px; background:var(--bg); font:500 13px/1 'Martian Mono',monospace; letter-spacing:.12em; text-transform:uppercase; opacity:.8 }
+  .no b { font-weight:500; opacity:.55 }
+  .status { position:absolute; z-index:2; background:var(--bg); top:34px; right:40px; font:500 13px/1 'Instrument Sans'; padding:8px 14px 9px; border-radius:99px; border:1.5px solid currentColor }
+  .status i { display:inline-block; width:8px; height:8px; border-radius:50%; background:currentColor; margin-right:8px; vertical-align:1px }
+  .label { position:absolute; left:44px; right:44px; bottom:44px; display:flex; justify-content:space-between; align-items:flex-end; gap:20px }
+  .name { font:italic 400 64px/0.95 'Fraunces',serif; font-variation-settings:'SOFT' 100,'WONK' 1,'opsz' 144; letter-spacing:-.01em; margin:0 }
+  .line { font:400 18px/1.35 'Instrument Sans'; margin:12px 0 0; max-width:360px; opacity:.85 }
+  .fig { text-align:right; white-space:nowrap }
+  .fig strong { display:block; font:500 56px/1 'Fraunces',serif; font-variation-settings:'SOFT' 50,'opsz' 144; letter-spacing:-.02em }
+  .fig span { font:500 12px/1 'Martian Mono',monospace; letter-spacing:.12em; text-transform:uppercase; opacity:.7 }
+  .rule { position:absolute; left:44px; right:44px; bottom:200px; height:1px; background:currentColor; opacity:.25 }
+  .gem { position:absolute; filter:drop-shadow(0 14px 18px rgba(4,11,45,.35)) }
+</style></head>
+<body>
+<div class="card" id="card"></div>
+<script>
+const A = '../', P = '../../../_shared/products/';
+const cards = {
+  'mcp-emails': { bg:'var(--lapis)', fg:'var(--vellum)', no:'01', status:'Live', name:'MCP Emails', line:'Email for AI agents.', fig:['$782','MRR'],
+    logo:`<img src="${P}mcp-emails/logo-mark.svg" alt="">`, tilt:'-3deg',
+    illo:[[`${A}extras/diatom-rosette.webp`, 'left:-170px;top:-120px;width:760px;opacity:.95'], [`${A}extras/diatom-lens.webp`, 'right:-40px;top:380px;width:200px;transform:rotate(22deg);opacity:.8']],
+    gem:[`${A}extras/gem-aquamarine.webp`, 'right:90px;top:560px;width:150px;transform:rotate(12deg)'] },
+  'fun-libs': { bg:'var(--vellum)', fg:'var(--ink)', no:'02', status:'Live', name:'Fun Libs', line:'A fill-in-the-blanks word game for Android and iOS.', fig:['113,000+','installs'],
+    logo:`<img class="app" src="${P}fun-libs/icon.png" alt="">`, tilt:'2.5deg',
+    illo:[[`${A}extras/discoidea-sun.webp`, 'right:-150px;top:-110px;width:600px'], [`${A}extras/discoidea-trefoil.webp`, 'left:40px;top:560px;width:150px;transform:rotate(-20deg)']],
+    gem:[`${A}extras/gem-garnet.webp`, 'left:120px;top:150px;width:110px;transform:rotate(-8deg)'] },
+  'toolrails': { bg:'var(--ink)', fg:'var(--vellum)', no:'03', status:'Building', name:'Toolrails', line:'One MCP URL that gives an agent every tool.', fig:['4','connectors'],
+    logo:`<img class="app" src="${P}toolrails/icon.svg" alt="">`, tilt:'-1.5deg',
+    illo:[[`${A}extras/diatom-star.webp`, 'left:-150px;top:470px;width:470px;opacity:.85'], [`${A}extras/diatom-lens.webp`, 'right:30px;top:-60px;width:220px;transform:rotate(-30deg);opacity:.6']],
+    gem:[`${A}extras/gem-emerald.webp`, 'right:110px;top:560px;width:120px;transform:rotate(14deg)'] },
+  'harbor': { bg:'var(--parch)', fg:'var(--ink)', no:'04', status:'Paused', name:'Harbor', line:'A private knowledge base shared by people and AI.', fig:['549','commits'],
+    logo:`<img src="${P}harbor/harbor-wordmark.svg" alt="" style="max-width:78%">`, tilt:'2deg',
+    illo:[[`${A}extras/radiolarian-lantern.webp`, 'left:-110px;top:-60px;width:470px;opacity:.9'], [`${A}extras/radiolarian-cage.webp`, 'right:-90px;top:470px;width:360px;opacity:.75;transform:rotate(12deg)']],
+    gem:[`${A}extras/gem-lapis.webp`, 'right:80px;top:150px;width:140px;transform:rotate(-10deg)'] },
+  'luma': { bg:'var(--frost)', fg:'var(--ink)', no:'05', status:'Retired', name:'Luma', line:'Norwegian budgeting app with open banking.', fig:['378','commits'],
+    logo:`<img src="${P}luma/logo.png" alt="" style="max-width:70%">`, tilt:'-2deg',
+    illo:[[`${A}extras/rosa-kamtschatica.webp`, 'right:-140px;top:-80px;width:520px;opacity:.95']],
+    gem:[`${A}extras/gem-garnet.webp`, 'left:80px;top:600px;width:110px;transform:rotate(16deg)'] },
+};
+const id = new URLSearchParams(location.search).get('id') || 'mcp-emails';
+const c = cards[id], el = document.getElementById('card');
+el.style.setProperty('--bg', c.bg); el.style.setProperty('--fg', c.fg);
+el.innerHTML = `
+  ${c.illo.map(([s, st]) => `<img class="illo" src="${s}" style="${st}" alt="">`).join('')}
+  <div class="no">Specimen No. ${c.no} <b>· Albretsen AS</b></div>
+  <div class="status"><i></i>${c.status}</div>
+  <div class="mount" style="--tilt:${c.tilt}"><span class="tape a"></span>${c.logo}<span class="tape b"></span></div>
+  <img class="gem" src="${c.gem[0]}" style="${c.gem[1]}" alt="">
+  <div class="rule"></div>
+  <div class="label"><div><p class="name">${c.name}</p><p class="line">${c.line}</p></div><div class="fig"><strong>${c.fig[0]}</strong><span>${c.fig[1]}</span></div></div>`;
+</script>
+</body></html>

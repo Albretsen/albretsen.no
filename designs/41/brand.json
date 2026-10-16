@@ -1,0 +1,20 @@
+{
+  "name": "Key Frame",
+  "tagline": "A one-person animation studio for software: cel-shaded, duotone, drawn on twos.",
+  "summary": "Albretsen AS is presented as an animation studio where every product is a painted cel and the company mark is a 3D object you can grab and throw. The ancestry of motion (Muybridge, Marey, the 1840 phenakistiscope) is recut in two inks and lives on the page as real imagery, so the craft shows instead of being claimed. It reads as a small studio with feature-length ambition: precise, playful and very deliberate.",
+  "palette": ["#011835", "#259cde", "#010b1d", "#042e57", "#95ccef", "#e8f6fd", "#ffffff"],
+  "type": ["Unbounded 800", "Instrument Sans", "JetBrains Mono"],
+  "voice": "Studio-floor shorthand from someone who ships: short, concrete, a little cinematic, never salesy. Example: \"Four products on the stand right now. Drag them to re-cut the order.\"",
+  "motion": "Characters move on twos (12 drawings a second) with smears, squash and impact frames, while scroll and camera stay smooth; nothing ever blurs.",
+  "sound": "Off until switched on; then synthesised cel thwacks on impacts and a pencil tick on every edit, no audio files.",
+  "mark": "An extruded cel-shaded A with a hard ink line and a two-tone toon shader, the same geometry as a flat SVG mark and a live three.js object you can throw.",
+  "inspiration": [
+    "https://en.wikipedia.org/wiki/Animation_of_Royal_Space_Force:_The_Wings_of_Honn%C3%AAamise",
+    "https://www.slashfilm.com/562748/into-the-spider-verse-technique",
+    "https://80.lv/articles/learn-how-to-add-accents-to-your-animations-with-impact-frames",
+    "https://www.metmuseum.org/art/collection/search/291656",
+    "https://collection.cooperhewitt.org/objects/18607983",
+    "https://www.radix-ui.com/primitives/docs/components/tabs",
+    "https://motion.dev/docs/scroll"
+  ]
+}

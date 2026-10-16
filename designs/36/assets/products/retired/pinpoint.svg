@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" role="img" aria-label="pinpoint stand-in">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a0a52"/><stop offset=".6" stop-color="#b3177c"/><stop offset="1" stop-color="#ffb36b"/></linearGradient>
+  <clipPath id="c"><path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z"/></clipPath></defs>
+  <path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z" fill="url(#g)"/>
+  <g clip-path="url(#c)">
+    <path d="M8 112c20-6 34-6 52 0s34 6 52 0" stroke="#fff1e2" stroke-width="3" fill="none" opacity=".6"/>
+      <path d="M60 122c-18-22-26-36-26-48a26 26 0 0 1 52 0c0 12-8 26-26 48z" fill="#fff1e2"/><circle cx="60" cy="74" r="10" fill="#e8287f"/>
+  </g>
+  <path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z" fill="none" stroke="#170733" stroke-width="4" stroke-linejoin="round"/>
+</svg>

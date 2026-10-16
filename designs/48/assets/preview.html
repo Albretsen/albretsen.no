@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nocturne Select Kit</title>
+<meta name="description" content="Design 48 asset kit for Albretsen AS: glossy code-rendered plastic, a character-select stage, museum nocturnes.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.css">
+<link rel="stylesheet" href="motion.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+  :root { color-scheme: dark; --g: 16px; --max: 1240px; }
+  * { box-sizing: border-box; }
+  html { background: var(--void); }
+  body { margin: 0; background: var(--void); color: var(--paper); font: 400 16px/1.55 Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; background: url(extras/grain-256.png); opacity: .05; mix-blend-mode: overlay; pointer-events: none; z-index: 80; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: var(--glow-hi); }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--g); }
+  @media (min-width: 760px) { :root { --g: 32px; } }
+  .mono { font: 600 11px/1.3 "Geist Mono", ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--mist); }
+  h1, h2, h3 { font-family: Unbounded, sans-serif; font-weight: 600; letter-spacing: -.025em; margin: 0; }
+  h2 { font-size: clamp(26px, 4vw, 44px); line-height: 1.05; }
+  section.wrap { padding-top: clamp(72px, 10vw, 136px); }
+  .sec-head { display: grid; gap: 14px; margin-bottom: 32px; max-width: 760px; }
+  .sec-head p { margin: 0; color: var(--mist); }
+  .num { color: var(--glow); }
+  .panel { background: var(--stage); border-radius: 22px; overflow: hidden; position: relative; }
+  .cap { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--panel); }
+  .cap span:last-child { color: var(--line); }
+  .grid { display: grid; gap: 16px; }
+  @media (min-width: 760px) { .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } }
+  .g7 { grid-template-columns: repeat(2, 1fr); } @media (min-width: 760px) { .g7 { grid-template-columns: repeat(4, 1fr); } } @media (min-width: 1100px) { .g7 { grid-template-columns: repeat(7, 1fr); } }
+
+  /* masthead */
+  .mast { position: relative; min-height: min(100svh, 980px); display: grid; align-items: end; overflow: hidden; }
+  .mast picture, .mast picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+  .mast::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--void) 0%, oklch(0.13 0.022 324 / .7) 38%, transparent 70%), linear-gradient(0deg, var(--void) 0%, transparent 35%); }
+  .mast .wrap { position: relative; z-index: 2; padding-bottom: clamp(40px, 8vw, 96px); width: 100%; }
+  .mast .wm { width: min(440px, 80vw); margin-bottom: clamp(48px, 10vh, 120px); }
+  .mast h1 { font-size: clamp(36px, 5.6vw, 80px); line-height: .98; max-width: 10ch; }
+  .mast h1 em { font-style: normal; color: var(--glow-hi); }
+  .mast p { max-width: 520px; color: var(--mist); margin: 22px 0 0; }
+  .mast .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .tag { border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; }
+
+  /* palette */
+  .sw { border-radius: 16px; overflow: hidden; background: var(--stage); }
+  .sw i { display: block; height: 96px; }
+  .sw div { padding: 10px 12px 12px; display: grid; gap: 2px; }
+  .sw b { font: 600 13px/1.2 Geist, sans-serif; }
+  .sw small { font: 500 11px/1.4 "Geist Mono", monospace; color: var(--mist); }
+  .ramp { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (min-width: 760px) { .ramp { grid-template-columns: repeat(6, 1fr); } }
+  .spectrum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+  @media (min-width: 760px) { .spectrum { grid-template-columns: repeat(6, 1fr); } }
+  .rule { margin-top: 18px; color: var(--mist); max-width: 760px; }
+
+  /* type */
+  .type { padding: clamp(20px, 4vw, 40px); display: grid; gap: 28px; }
+  .type .d1 { font: 600 clamp(44px, 9vw, 120px)/.92 Unbounded, sans-serif; letter-spacing: -.035em; }
+  .type .d1 span { color: var(--glow); }
+  .type .d2 { font: 500 clamp(20px, 2.4vw, 28px)/1.35 Geist, sans-serif; max-width: 30ch; letter-spacing: -.01em; }
+  .type .row { display: grid; gap: 18px; border-top: 1px solid var(--panel); padding-top: 18px; }
+  @media (min-width: 760px) { .type .row { grid-template-columns: 1fr 1fr 1fr; } }
+  .type .row p { margin: 6px 0 0; color: var(--mist); font-size: 14px; }
+
+  /* identity */
+  .id-tile { display: grid; place-items: center; aspect-ratio: 1; padding: 18%; }
+  .id-tile.wide { aspect-ratio: auto; min-height: 220px; padding: 40px 8%; }
+  .light { background: var(--paper); }
+  .ink { color: var(--paper); }
+
+  /* products */
+  .prod > img { aspect-ratio: 4/5; object-fit: cover; width: 100%; }
+  .prod .cap img { flex-shrink: 0; }
+  .prod .cap { align-items: center; }
+  .prod .cap b { font: 600 15px/1.2 Unbounded, sans-serif; letter-spacing: -.01em; }
+  .ghost img { aspect-ratio: 1; }
+  .ghost .cap { flex-direction: column; gap: 2px; padding: 10px 12px; }
+  .ghost .cap b { font: 600 12px/1.25 Geist, sans-serif; }
+
+  /* stage + toybox */
+  .live { height: min(70vh, 640px); min-height: 420px; box-shadow: inset 0 0 0 1px var(--panel); }
+  .live canvas { border-radius: 22px; }
+  .live > div { position: absolute; inset: 0; }
+  .live .hud { position: absolute; left: 0; right: 0; bottom: 18px; text-align: center; pointer-events: none; z-index: 2; inset: auto 0 18px 0; }
+  .live .hud b { display: block; font: 600 clamp(22px, 3.4vw, 40px)/1 Unbounded, sans-serif; letter-spacing: -.02em; margin-top: 6px; }
+  .toy { height: min(62vh, 560px); min-height: 380px; background: radial-gradient(120% 70% at 50% 110%, #3a1240 0%, var(--stage) 50%, var(--void) 90%); }
+  .toy .ui { position: absolute; top: 14px; left: 14px; z-index: 2; display: flex; gap: 8px; }
+  .btn { font: 600 11px/1 "Geist Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--paper); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 11px 15px; cursor: pointer; }
+  .btn:hover { border-color: var(--glow); box-shadow: 0 0 20px -6px var(--glow); }
+  .sdf { height: min(60vh, 560px); min-height: 360px; }
+  .sdf canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* extras */
+  .ex { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; min-height: 260px; padding: 24px; }
+  .ex.pat { background: url(extras/pattern-select-grid.svg) var(--stage); }
+  .ex.grain { background: url(extras/grain-256.png) center/256px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .scarab { background: radial-gradient(60% 60% at 50% 55%, #2a1b30, var(--stage)); }
+  .scarab img { width: 78%; filter: drop-shadow(0 30px 30px #000c) drop-shadow(0 0 40px oklch(0.74 0.15 165 / .25)); }
+
+  /* motion */
+  .mo { padding: 22px; min-height: 230px; display: grid; gap: 14px; align-content: start; }
+  .mo h3 { font-size: 17px; }
+  .mo p { margin: 0; color: var(--mist); font-size: 14px; }
+  .demo-card { border-radius: 16px; background: var(--panel); padding: 16px; display: flex; align-items: center; gap: 14px; }
+  .demo-card img { width: 64px; border-radius: 14px; }
+  .roll { font: 600 clamp(34px, 5vw, 56px)/1 Unbounded, sans-serif; letter-spacing: -.03em; }
+  .rise-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .rise-row img { border-radius: 14px; }
+
+  .sprites img { aspect-ratio: 1; object-fit: contain; width: 100%; }
+  footer { padding: 120px 0 64px; color: var(--mist); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: end; }
+  .floaty { position: absolute; width: clamp(56px, 8vw, 110px); pointer-events: none; z-index: 1; }
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <picture>
+    <source type="image/avif" srcset="hero/hero-mark.avif 1440w, hero/hero-mark@2x.avif 2880w, hero/hero-mark-sm.avif 828w" sizes="100vw">
+    <img src="hero/hero-mark.webp" srcset="hero/hero-mark-sm.webp 828w, hero/hero-mark.webp 1440w, hero/hero-mark@2x.webp 2880w" sizes="100vw" alt="The Albretsen mark as glossy inflated plastic, lit in magenta and ion blue">
+  </picture>
+  <div class="wrap">
+    <img class="wm" src="identity/logo-wordmark.svg" alt="Albretsen" data-power>
+    <div class="mono" data-power>Design 48 · asset kit · Nocturne Select</div>
+    <h1 data-power style="margin-top:14px">Every product is a <em>playable character.</em></h1>
+    <p data-power>Soft plastic, rendered in code and lit like a studio at night. The site is a select screen: the roster is the products, the cursor is the mark, the physics is real.</p>
+    <div class="tags mono" data-power><span class="tag">minimal futurist</span><span class="tag">seed 324°</span><span class="tag">matter.js</span><span class="tag">three.js r170</span><span class="tag">raymarched SDF</span><span class="tag">Lenis + CSS scroll timelines</span></div>
+  </div>
+</header>
+
+<main>
+<section class="wrap" id="stage">
+  <div class="sec-head"><span class="mono"><span class="num">01</span> · Centrepiece · live</span><h2>The select stage</h2><p>select-stage.js. Real product icons inlaid in puffy tiles, each in its own brand colour. Click, ←/→ or drag to spin. The P1 pointer is the Albretsen mark turned upside down.</p></div>
+  <div class="panel live" id="live" data-select="SELECT"><div id="liveMount"></div><div class="hud"><span class="mono">← → · click · drag</span><b id="liveName">&nbsp;</b></div></div>
+</section>
+
+<section class="wrap" id="palette">
+  <div class="sec-head"><span class="mono"><span class="num">02</span> · Palette</span><h2>Night, glow, and one colour per character</h2></div>
+  <div class="ramp">
+    <div class="sw"><i style="background:#0b050c;box-shadow:inset 0 0 0 1px #251726"></i><div><b>Void</b><small>oklch(.13 .022 324)<br>#0b050c</small></div></div>
+    <div class="sw"><i style="background:#160b17;box-shadow:inset 0 0 0 1px #251726"></i><div><b>Stage</b><small>oklch(.17 .03 324)<br>#160b17</small></div></div>
+    <div class="sw"><i style="background:#251726"></i><div><b>Panel</b><small>oklch(.23 .035 324)<br>#251726</small></div></div>
+    <div class="sw"><i style="background:#423144"></i><div><b>Line</b><small>oklch(.34 .04 324)<br>#423144</small></div></div>
+    <div class="sw"><i style="background:#ae9faf"></i><div><b>Mist</b><small>oklch(.72 .03 324)<br>#ae9faf</small></div></div>
+    <div class="sw"><i style="background:#f8f1f8"></i><div><b>Paper</b><small>oklch(.965 .012 324)<br>#f8f1f8</small></div></div>
+  </div>
+  <div class="spectrum">
+    <div class="sw"><i style="background:linear-gradient(135deg,#f295fb,#dc3aec 45%,#861192)"></i><div><b>Glow · brand</b><small>oklch(.66 .27 324)<br>#dc3aec</small></div></div>
+    <div class="sw"><i style="background:#36dcec"></i><div><b>Ion · rim</b><small>oklch(.82 .13 205)<br>#36dcec</small></div></div>
+    <div class="sw"><i style="background:#588cff"></i><div><b>Cobalt · MCP Emails</b><small>oklch(.66 .19 264)<br>#588cff</small></div></div>
+    <div class="sw"><i style="background:#fbd452"></i><div><b>Butter · Fun Libs</b><small>oklch(.88 .15 92)<br>#fbd452</small></div></div>
+    <div class="sw"><i style="background:#e3d612"></i><div><b>Volt · Toolrails</b><small>oklch(.86 .18 105)<br>#e3d612</small></div></div>
+    <div class="sw"><i style="background:#1fc893"></i><div><b>Jade · Harbor</b><small>oklch(.74 .15 165)<br>#1fc893</small></div></div>
+  </div>
+  <p class="rule">Discipline: the page is night (hue 324 at very low chroma). Glow is the only brand colour and belongs to the cursor, the selection and the mark. Each product owns exactly one spectrum colour, used only for its seam, its stage light and its stats. Ember <code>#fd6a3a</code> and Lilac <code>#7f76dc</code> are reserves.</p>
+</section>
+
+<section class="wrap" id="type">
+  <div class="sec-head"><span class="mono"><span class="num">03</span> · Type</span><h2>Wide, rounded, then quiet</h2></div>
+  <div class="panel type">
+    <div class="d1">Choose your <span>build.</span></div>
+    <div class="d2">Fun Libs has 113,000+ installs. MCP Emails gives agents an inbox, with 17 tools across about 100 email providers.</div>
+    <div class="row">
+      <div><div class="mono">Display</div><div style="font:600 30px/1.1 Unbounded">Unbounded 600</div><p>Headlines, product names, the wordmark (outlined). Tracking −2.5%. Its inflated geometry matches the plastic.</p></div>
+      <div><div class="mono">Text</div><div style="font:500 26px/1.2 Geist">Geist 400 / 500</div><p>Body and UI. Short lines, mist colour for secondary copy.</p></div>
+      <div><div class="mono">Labels</div><div style="font:600 18px/1.4 'Geist Mono';letter-spacing:.12em">GEIST MONO 600</div><p>Status chips, stats, the cursor tag. Always uppercase, +14% tracking.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="identity">
+  <div class="sec-head"><span class="mono"><span class="num">04</span> · Identity</span><h2>The Selector</h2><p>An A that is also the P1 pointer above a chosen character. The ion dot is the one being chosen.</p></div>
+  <div class="grid g4">
+    <figure class="panel" style="margin:0" data-select="MARK"><div class="id-tile"><img src="identity/logo-mark.svg" alt="Albretsen mark" width="256" height="256"></div><div class="cap mono"><span>logo-mark.svg</span><span>SVG</span></div></figure>
+    <figure class="panel" style="margin:0" data-select="3D MARK"><div class="id-tile" style="padding:0"><img src="identity/mark-3d.webp" srcset="identity/mark-3d.webp 600w, identity/mark-3d@2x.webp 1200w" sizes="(min-width:760px) 25vw, 100vw" alt="3D mark" style="width:100%;height:100%;object-fit:cover"></div><div class="cap mono"><span>mark-3d.webp</span><span>SDF render</span></div></figure>
+    <figure class="panel light" style="margin:0" data-select="INK"><div class="id-tile"><img src="identity/logo-mark-flat.svg" alt="Flat mark" width="256" height="256"></div><div class="cap mono" style="border-color:#e6dbe6"><span>logo-mark-flat.svg</span><span>flat</span></div></figure>
+    <figure class="panel" style="margin:0" data-select="FAVICON"><div class="id-tile" style="gap:18px;grid-auto-flow:column"><img src="identity/favicon.svg" width="96" alt="Favicon"><img src="identity/apple-touch-icon-180.png" width="64" alt="Touch icon"><img src="identity/favicon-32.png" width="32" alt="32px"></div><div class="cap mono"><span>favicon.svg · 180 · 32</span><span>icons</span></div></figure>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <figure class="panel" style="margin:0" data-select="WORDMARK"><div class="id-tile wide"><img src="identity/logo-wordmark.svg" alt="Albretsen wordmark" style="width:100%"></div><div class="cap mono"><span>logo-wordmark.svg</span><span>on night</span></div></figure>
+    <figure class="panel light" style="margin:0" data-select="WORDMARK"><div class="id-tile wide"><img src="identity/logo-wordmark-ink.svg" alt="Albretsen wordmark, ink" style="width:100%"></div><div class="cap mono" style="border-color:#e6dbe6"><span>logo-wordmark-ink.svg</span><span>on paper</span></div></figure>
+  </div>
+  <figure class="panel" style="margin:16px 0 0" data-select="OG"><img src="identity/og-image.png" alt="Open Graph image" width="1200" height="630"><div class="cap mono"><span>og-image.png</span><span>1200 × 630</span></div></figure>
+</section>
+
+<section class="wrap" id="hero">
+  <div class="sec-head"><span class="mono"><span class="num">05</span> · Hero imagery</span><h2>Two keys for the first screen</h2><p>Both rendered in code (three.js and a raymarched shader), baked at 2880 px. AVIF + WebP at 828 / 1440 / 2880.</p></div>
+  <div class="grid">
+    <figure class="panel" style="margin:0" data-select="HERO A"><picture><source type="image/avif" srcset="hero/hero-select.avif 1440w, hero/hero-select@2x.avif 2880w" sizes="(min-width:1240px) 1176px, 100vw"><img src="hero/hero-select.webp" srcset="hero/hero-select-sm.webp 828w, hero/hero-select.webp 1440w, hero/hero-select@2x.webp 2880w" sizes="(min-width:1240px) 1176px, 100vw" alt="Four products on glowing plinths; Fun Libs is selected"></picture><div class="cap mono"><span>hero-select · the roster</span><span>three.js</span></div></figure>
+    <figure class="panel" style="margin:0" data-select="HERO B"><picture><source type="image/avif" srcset="hero/hero-mark.avif 1440w, hero/hero-mark@2x.avif 2880w" sizes="(min-width:1240px) 1176px, 100vw"><img src="hero/hero-mark.webp" srcset="hero/hero-mark-sm.webp 828w, hero/hero-mark.webp 1440w, hero/hero-mark@2x.webp 2880w" sizes="(min-width:1240px) 1176px, 100vw" alt="The inflated Albretsen mark among glossy toys"></picture><div class="cap mono"><span>hero-mark · the player</span><span>raymarched SDF</span></div></figure>
+  </div>
+  <div class="panel sdf" style="margin-top:16px" data-select="LIVE"><canvas id="sdf"></canvas><div class="cap mono" style="position:absolute;left:0;right:0;bottom:0;border:0"><span>mark-sdf.js · live, follows the pointer</span><span>WebGL2 · 0 deps</span></div></div>
+</section>
+
+<section class="wrap" id="products">
+  <div class="sec-head"><span class="mono"><span class="num">06</span> · Roster</span><h2>Live and building</h2><p>Real logos from designs/_shared/products, untouched, inlaid on tiles in each product's own brand colour. 1600 × 2000 and 800 × 1000.</p></div>
+  <div class="grid g4">
+    <figure class="panel prod select-lock" style="margin:0" data-select="MCP EMAILS" tabindex="0"><img src="products/mcp-emails.webp" srcset="products/mcp-emails.webp 800w, products/mcp-emails@2x.webp 1600w" sizes="(min-width:760px) 25vw, 100vw" alt="MCP Emails icon on a cobalt plinth"><div class="cap"><b>MCP Emails</b><img src="extras/chip-live.svg" alt="Live" style="height:24px;width:auto"></div></figure>
+    <figure class="panel prod select-lock" style="margin:0" data-select="FUN LIBS" tabindex="0"><img src="products/fun-libs.webp" srcset="products/fun-libs.webp 800w, products/fun-libs@2x.webp 1600w" sizes="(min-width:760px) 25vw, 100vw" alt="Fun Libs icon on a butter plinth"><div class="cap"><b>Fun Libs</b><img src="extras/chip-live.svg" alt="Live" style="height:24px;width:auto"></div></figure>
+    <figure class="panel prod select-lock" style="margin:0" data-select="TOOLRAILS" tabindex="0"><img src="products/toolrails.webp" srcset="products/toolrails.webp 800w, products/toolrails@2x.webp 1600w" sizes="(min-width:760px) 25vw, 100vw" alt="Toolrails icon on a volt plinth"><div class="cap"><b>Toolrails</b><img src="extras/chip-building.svg" alt="Building" style="height:24px;width:auto"></div></figure>
+    <figure class="panel prod select-lock" style="margin:0" data-select="HARBOR" tabindex="0"><img src="products/harbor.webp" srcset="products/harbor.webp 800w, products/harbor@2x.webp 1600w" sizes="(min-width:760px) 25vw, 100vw" alt="Harbor mark on a jade plinth"><div class="cap"><b>Harbor</b><img src="extras/chip-paused.svg" alt="Paused" style="height:24px;width:auto"></div></figure>
+  </div>
+  <div class="sec-head" style="margin-top:56px"><span class="mono">Retired · kept in smoked resin</span><p>Unplayable characters. Luma uses its real logo; the others have stand-in glyphs (products/retired/glyphs/*.svg).</p></div>
+  <div class="grid g7">
+    <figure class="panel ghost" style="margin:0" data-select="LUMA"><img src="products/retired/luma.webp" srcset="products/retired/luma.webp 600w, products/retired/luma@2x.webp 1200w" sizes="(min-width:1100px) 15vw, 50vw" alt="Luma in resin"><div class="cap"><b>Luma</b><span class="mono">2026</span></div></figure>
+    <figure class="panel ghost" style="margin:0" data-select="POLYGLOT PILOT"><img src="products/retired/polyglot-pilot.webp" srcset="products/retired/polyglot-pilot.webp 600w, products/retired/polyglot-pilot@2x.webp 1200w" sizes="(min-width:1100px) 15vw, 50vw" alt="Polyglot Pilot stand-in"><div class="cap"><b>Polyglot Pilot</b><span class="mono">2025</span></div></figure>
+    <figure class="panel ghost" style="margin:0" data-select="PINPOINT"><img src="products/retired/pinpoint.webp" srcset="products/retired/pinpoint.webp 600w, products/retired/pinpoint@2x.webp 1200w" sizes="(min-width:1100px) 15vw, 50vw" alt="PinPoint stand-in"><div class="cap"><b>PinPoint</b><span class="mono">2025</span></div></figure>
+    <figure class="panel ghost" style="margin:0" data-select="WEBVAKT"><img src="products/retired/webvakt.webp" srcset="products/retired/webvakt.webp 600w, products/retired/webvakt@2x.webp 1200w" sizes="(min-width:1100px) 15vw, 50vw" alt="WebVakt stand-in"><div class="cap"><b>WebVakt</b><span class="mono">2024</span></div></figure>
+    <figure class="panel ghost" style="margin:0" data-select="JOKE CENTRAL"><img src="products/retired/joke-central.webp" srcset="products/retired/joke-central.webp 600w, products/retired/joke-central@2x.webp 1200w" sizes="(min-width:1100px) 15vw, 50vw" alt="Joke Central stand-in"><div class="cap"><b>Joke Central</b><span class="mono">2024</span></div></figure>
+    <figure class="panel ghost" style="margin:0" data-select="TRYGGERE HYRING"><img src="products/retired/tryggere-hyring.webp" srcset="products/retired/tryggere-hyring.webp 600w, products/retired/tryggere-hyring@2x.webp 1200w" sizes="(min-width:1100px) 15vw, 50vw" alt="Tryggere Hyring stand-in"><div class="cap"><b>Tryggere Hyring</b><span class="mono">2023</span></div></figure>
+    <figure class="panel ghost" style="margin:0" data-select="EARLY APPS"><img src="products/retired/early-apps.webp" srcset="products/retired/early-apps.webp 600w, products/retired/early-apps@2x.webp 1200w" sizes="(min-width:1100px) 15vw, 50vw" alt="Early apps stand-in"><div class="cap"><b>Early apps</b><span class="mono">2021</span></div></figure>
+  </div>
+</section>
+
+<section class="wrap" id="toybox">
+  <div class="sec-head"><span class="mono"><span class="num">07</span> · Physics · live</span><h2>The toybox</h2><p>physics/toybox.js on matter.js 0.20.0. Every toy is a baked sprite from the same studio. Grab and throw them.</p></div>
+  <div class="panel toy" id="toy" data-select="GRAB"><div class="ui"><button class="btn" id="dropMark">Drop a mark</button><button class="btn" id="shake">Shake</button></div></div>
+  <div class="grid sprites" style="grid-template-columns:repeat(4,1fr);margin-top:16px;gap:10px">
+    <img src="physics/sprites/mark.webp" alt="" style="background:var(--stage);border-radius:14px;padding:14%"><img src="physics/sprites/pill.webp" alt="" style="background:var(--stage);border-radius:14px;padding:14%"><img src="physics/sprites/torus.webp" alt="" style="background:var(--stage);border-radius:14px;padding:14%"><img src="physics/sprites/cube.webp" alt="" style="background:var(--stage);border-radius:14px;padding:14%">
+  </div>
+</section>
+
+<section class="wrap" id="extras">
+  <div class="sec-head"><span class="mono"><span class="num">08</span> · Extras</span><h2>Glossy things people kept</h2><p>Open-access objects from The Met (CC0): polished jasper from ~1800 BC, Tiffany glass from 1893, a La Farge nocturne from 1885. Same idea as the plastic: a smooth object under one good light.</p></div>
+  <div class="grid g3">
+    <figure class="panel" style="margin:0" data-select="1893"><img src="extras/met-vase-nocturne.webp" srcset="extras/met-vase-nocturne.webp 500w, extras/met-vase-nocturne@2x.webp 1000w" sizes="(min-width:760px) 33vw, 100vw" alt="Tiffany Favrile glass vase, 1893, in magenta duotone"><div class="cap mono"><span>Tiffany vase · duotone</span><span>Met 9412</span></div></figure>
+    <figure class="panel" style="margin:0" data-select="1885"><img src="extras/met-lafarge-nocturne.webp" srcset="extras/met-lafarge-nocturne.webp 800w, extras/met-lafarge-nocturne@2x.webp 1600w" sizes="(min-width:760px) 33vw, 100vw" alt="John La Farge, Nocturne, a morning glory at night" style="aspect-ratio:1000/1364;object-fit:cover"><div class="cap mono"><span>La Farge · Nocturne</span><span>Met 11380</span></div></figure>
+    <figure class="panel" style="margin:0" data-select="~1800 BC"><div class="ex scarab" style="aspect-ratio:1000/1364"><img src="extras/met-scarab.webp" srcset="extras/met-scarab.webp 600w, extras/met-scarab@2x.webp 1200w" sizes="(min-width:760px) 25vw, 80vw" alt="Green jasper scarab, Middle Kingdom"></div><div class="cap mono"><span>Jasper scarab · cut-out</span><span>Met 545636</span></div></figure>
+  </div>
+  <div class="grid g4" style="margin-top:16px">
+    <figure class="panel" style="margin:0"><div class="ex"><img src="extras/badge-since-2016.svg" width="180" alt="On Google Play since 2016 badge"></div><div class="cap mono"><span>badge-since-2016.svg</span><span>sticker</span></div></figure>
+    <figure class="panel" style="margin:0"><div class="ex"><div class="chips"><img src="extras/chip-live.svg" alt="Live"><img src="extras/chip-building.svg" alt="Building"><img src="extras/chip-paused.svg" alt="Paused"><img src="extras/chip-retired.svg" alt="Retired"><img src="extras/tag-p1.svg" alt="P1"></div></div><div class="cap mono"><span>chip-*.svg · tag-p1.svg</span><span>UI</span></div></figure>
+    <figure class="panel" style="margin:0"><div class="ex pat"></div><div class="cap mono"><span>pattern-select-grid.svg</span><span>tile 192</span></div></figure>
+    <figure class="panel" style="margin:0"><div class="ex" style="background:radial-gradient(70% 60% at 50% 60%,#2b0f30,var(--stage))"><img src="extras/orbit-rings.svg" alt="Orbit rings" style="width:100%"></div><div class="cap mono"><span>orbit-rings.svg · grain-256.png</span><span>decor</span></div></figure>
+  </div>
+</section>
+
+<section class="wrap" id="motion">
+  <div class="sec-head"><span class="mono"><span class="num">09</span> · Motion study</span><h2>Five signatures</h2><p>motion.css + motion.js. Each one is named, researched, and turns off under reduced motion.</p></div>
+  <div class="grid g3">
+    <div class="panel mo"><span class="mono">01 · entrance</span><h3>Power-on</h3><p>A 1px scan opens to full height, de-blurs and over-brightens once. Like a select screen waking.</p><div class="demo-card" id="powerDemo"><img src="products/fun-libs.webp" alt=""><div><b style="font-family:Unbounded">Fun Libs</b><div class="mono">ready</div></div></div><button class="btn" id="replayPower">Replay</button></div>
+    <div class="panel mo"><span class="mono">02 · hover</span><h3>Select-lock</h3><p>Lift, magenta seam, tilt toward the pointer, and the cursor brackets snap around it.</p><div class="demo-card select-lock" data-select="P1"><img src="products/mcp-emails.webp" alt=""><div><b style="font-family:Unbounded">MCP Emails</b><div class="mono">hover me</div></div></div></div>
+    <div class="panel mo"><span class="mono">03 · ambient</span><h3>Glow-breathe</h3><p>The selected element breathes every 5.5 s. Never faster.</p><div class="demo-card glow-breathe"><img src="products/toolrails.webp" alt=""><div><b style="font-family:Unbounded">Toolrails</b><div class="mono">selected</div></div></div></div>
+    <div class="panel mo"><span class="mono">04 · scroll</span><h3>Roster-rise</h3><p>CSS <code>animation-timeline: view()</code>. Cards stand up off the floor as they enter.</p><div class="rise-row"><img class="roster-rise" src="products/mcp-emails.webp" alt=""><img class="roster-rise" src="products/fun-libs.webp" alt=""><img class="roster-rise" src="products/toolrails.webp" alt=""><img class="roster-rise" src="products/harbor.webp" alt=""></div></div>
+    <div class="panel mo"><span class="mono">05 · transition</span><h3>Versus-wipe</h3><p>A diagonal magenta blade crosses the screen; content swaps under it.</p><button class="btn" id="wipe">Run the wipe</button></div>
+    <div class="panel mo"><span class="mono">+ · stats</span><h3>Stat-roll</h3><p>Real figures roll up when seen, keeping their format.</p><div><div class="roll" data-roll>113,000+</div><span class="mono">Fun Libs installs</span></div><div><div class="roll" data-roll style="color:var(--glow-hi)">$782</div><span class="mono">MCP Emails MRR</span></div></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><img src="identity/logo-wordmark.svg" alt="Albretsen" style="width:200px;opacity:.55"><span class="mono">Kit 48 · Nocturne Select · see ASSETS.md</span></div></footer>
+
+<script>
+  // ?from=<section-id> hides everything above that section (handy for screenshots).
+  (() => { const f = new URLSearchParams(location.search).get('from'); if (!f) return; document.querySelector('.mast').style.display = 'none'; for (const s of document.querySelectorAll('main > section')) { if (s.id === f) break; s.style.display = 'none'; } })();
+</script>
+<script type="module">
+  import { initMotion } from './motion.js';
+  import { initCursor } from './cursor.js';
+  const motion = await initMotion({ lenis: true });
+  initCursor();
+
+  // lazy mounts
+  const lazy = (el, fn) => { const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); fn(); } }, { rootMargin: '200px' }); io.observe(el); };
+  lazy(document.getElementById('live'), async () => {
+    const [{ mountSelect }, { PRODUCTS }] = await Promise.all([import('./3d/select-stage.js'), import('./3d/studio.js')]);
+    await mountSelect(document.getElementById('liveMount'), { selected: 1, onSelect: id => document.getElementById('liveName').textContent = PRODUCTS[id].name });
+  });
+  lazy(document.getElementById('sdf'), async () => { const { mountMark } = await import('./3d/mark-sdf.js'); mountMark(document.getElementById('sdf'), { scene: 'solo', dpr: Math.min(devicePixelRatio, 1.25) }); });
+  lazy(document.getElementById('toy'), async () => {
+    const { mountToybox } = await import('./physics/toybox.js');
+    const box = await mountToybox(document.getElementById('toy'), { count: 24 });
+    document.getElementById('dropMark').onclick = () => box.spawn('mark');
+    document.getElementById('shake').onclick = () => box.shake();
+  });
+  document.getElementById('replayPower').onclick = () => { const el = document.getElementById('powerDemo'); el.classList.remove('power-on'); void el.offsetWidth; el.classList.add('power-on'); };
+  document.getElementById('wipe').onclick = () => motion.wipe();
+</script>
+</body>
+</html>

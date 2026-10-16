@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dither Lens demo</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--cream:#f9f2e2;--deep:#052517;--brass:#c59a44}
+  html,body{margin:0;height:100%;background:var(--deep);color:var(--cream);font:400 13px/1.4 'IBM Plex Mono',monospace}
+  canvas{display:block;width:100vw;height:100vh;cursor:none}
+  .ui{position:fixed;left:16px;bottom:16px;display:flex;gap:8px}
+  button{font:inherit;background:var(--cream);color:var(--deep);border:0;padding:8px 12px;cursor:pointer}
+  button[aria-pressed=true]{background:var(--brass)}
+  p{position:fixed;right:16px;bottom:16px;margin:0;max-width:40ch;background:var(--deep);padding:10px 12px}
+</style></head>
+<body>
+<canvas id="c" aria-label="A photograph of a misty pine forest rendered as dither; move the pointer to see the original."></canvas>
+<div class="ui"><button data-m="bayer" aria-pressed="true">Bayer</button><button data-m="ascii" aria-pressed="false">ASCII</button></div>
+<p>Move the pointer. The circle shows the photograph as it really is. Everything outside it is the same pixels, rounded down to one bit.</p>
+<script type="module">
+  import { mountDither, PALETTE } from '../js/dither.js';
+  const ctl = await mountDither(document.getElementById('c'), {
+    src: '../img/hero/pines-photo@1x.webp', mode: 'bayer', dot: 2, dark: PALETTE.deep, light: PALETTE.cream, accent: PALETTE.brass, lensR: 140 });
+  document.querySelectorAll('[data-m]').forEach(b => b.onclick = () => {
+    ctl.mode = b.dataset.m; document.querySelectorAll('[data-m]').forEach(x => x.setAttribute('aria-pressed', x === b));
+  });
+</script>
+</body></html>

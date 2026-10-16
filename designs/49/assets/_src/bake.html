@@ -1,0 +1,218 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Habit bake</title>
+<!-- Offline bake page: renders the ink scenes that become the hero/product stills.
+     bake.html?scene=desk&theme=light&px=2   (window size = output size) -->
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { background: var(--paper); }
+  canvas { display: block; }
+  .ov { position: absolute; pointer-events: none; }
+</style>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.min.js"}}</script>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from '../vendor/addons/loaders/GLTFLoader.js';
+import { InkKit, THEMES, sketchSegments } from '../three/ink.js';
+import { HABITS } from '../three/habits.js';
+import { LineSegments2 } from '../vendor/addons/lines/LineSegments2.js';
+import { LineSegmentsGeometry } from '../vendor/addons/lines/LineSegmentsGeometry.js';
+
+const q = new URLSearchParams(location.search);
+const sceneName = q.get('scene') || 'desk';
+const theme = q.get('theme') || 'light';
+const px = +(q.get('px') || 1);
+const bg = q.get('bg') !== 'none';
+const W = +(q.get('w') || innerWidth), H = +(q.get('h') || innerHeight);
+document.body.style.setProperty('--paper', bg ? THEMES[theme].paper : 'transparent');
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1); renderer.setSize(W, H);
+renderer.setClearColor(THEMES[theme].paper, bg ? 1 : 0);
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const ink = new InkKit({ theme, pixelRatio: px, width: 1.15 });
+ink.setSize(W / px, H / px);
+
+const loader = new GLTFLoader();
+const cache = {};
+async function model(name) {
+  if (!cache[name]) cache[name] = loader.loadAsync('../three/models/' + name + '.glb');
+  const g = await cache[name];
+  return g.scene.clone(true);
+}
+const S = 4; // Kenney units are small; scale everything up
+async function place(parent, name, x = 0, y = 0, z = 0, ry = 0, opts = {}) {
+  const m = await model(name);
+  m.position.set(x, y, z); m.rotation.y = ry;
+  parent.add(m);
+  ink.inkify(m, { scale: 0.25, seed: Math.floor(x * 100 + z * 37) + 3, spacing: 6.5, ...opts });
+  return m;
+}
+const tex = (url) => new Promise(r => new THREE.TextureLoader().load(url, t => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; r(t); }));
+async function logoPlane(url, w, h, opts = {}) {
+  const t = await tex(url);
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: t, transparent: true, toneMapped: false, ...opts }));
+  m.userData.keepMaterial = true; m.renderOrder = 3;
+  return m;
+}
+async function sprite(url, w) {
+  const t = await tex(url);
+  const h = w * t.image.height / t.image.width;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: t, transparent: true, alphaTest: 0.02 }));
+  m.geometry.translate(0, h / 2, 0); m.userData.keepMaterial = true; m.renderOrder = 4;
+  return m;
+}
+function polyline(pts, { faint = true, width = 0.8, closed = false, dashed = false, sketch = true, seed = 4 } = {}) {
+  const segs = [];
+  for (let i = 0; i < pts.length - (closed ? 0 : 1); i++) { const a = pts[i], b = pts[(i + 1) % pts.length]; segs.push(a.x, a.y, a.z, b.x, b.y, b.z); }
+  const arr = sketch ? sketchSegments(segs, { seed, overshoot: 0.02, jitter: 0.004, passes: 1 }) : new Float32Array(segs);
+  const m = ink.line({ width, faint, dashed });
+  if (dashed) { m.dashSize = 0.09; m.gapSize = 0.07; }
+  const l = new LineSegments2(new LineSegmentsGeometry().setPositions(arr), m);
+  if (dashed) l.computeLineDistances();
+  return l;
+}
+function ellipsePts(rx, rz, n = 160, y = 0) { const p = []; for (let i = 0; i < n; i++) { const t = i / n * Math.PI * 2; p.push(new THREE.Vector3(Math.cos(t) * rx, y, Math.sin(t) * rz)); } return p; }
+function overlay(src, css) { const i = document.createElement('img'); i.src = src; i.className = 'ov'; Object.assign(i.style, css); document.body.appendChild(i); return new Promise(r => i.onload = r); }
+
+const root = new THREE.Group(); root.scale.setScalar(S); scene.add(root);
+let camera;
+const persp = (fov, pos, target) => { camera = new THREE.PerspectiveCamera(fov, W / H, 0.1, 100); camera.position.set(...pos); camera.lookAt(...target); };
+
+const PROD = '../../../_shared/products/';
+async function roundedIcon(url, r = 0.22, size = 512) {
+  const img = await new Promise(res => { const i = new Image(); i.onload = () => res(i); i.src = url; });
+  const c = document.createElement('canvas'); c.width = c.height = size; const x = c.getContext('2d');
+  x.beginPath(); x.roundRect(0, 0, size, size, size * r); x.clip(); x.drawImage(img, 0, 0, size, size);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+function texPlane(t, w, h) {
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: t, transparent: true, toneMapped: false }));
+  m.userData.keepMaterial = true; m.userData.fixed = true; m.renderOrder = 3; return m;
+}
+function sheet(w, h) { // the lit screen: plain sheet colour, no hatching
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: theme === 'dark' ? '#1c2223' : '#fbfdfd' }));
+  m.userData.keepMaterial = true; m.userData.fixed = true; m.renderOrder = 2; return m;
+}
+const SCENES = {
+  async mcp() {
+    const g = new THREE.Group(); root.add(g);
+    await place(g, 'books', -0.09, 0, 0.0, 0.08);
+    const lap = await place(g, 'laptop', -0.135, 0.104, 0.06, -0.05);
+    const icon = await roundedIcon(PROD + 'mcp-emails/icon.png', 0.22);
+    const scr = new THREE.Group(); scr.position.set(0.132, 0.098, -0.2); scr.rotation.x = -0.22; lap.add(scr);
+    const p = texPlane(icon, 0.058, 0.058); p.material.depthTest = false; p.renderOrder = 9; scr.add(p);
+    g.add(ink.shadow({ rx: 0.26, rz: 0.12, spacing: 0.01, cx: 0.0, cz: -0.02, angle: -0.3 }));
+    const spec = await sprite('../specimens/teal-cluster.webp', 0.05); spec.position.set(0.2, 0, 0.06); g.add(spec);
+    persp(22, [2.2, 2.4, 4.2], [0.05, 0.45, 0]);
+  },
+  async funlibs() {
+    const g = new THREE.Group(); root.add(g);
+    await place(g, 'books', -0.12, 0, -0.02, -0.1);
+    const phone = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.185, 0.012));
+    const ph = new THREE.Group(); ph.add(phone); ph.position.set(0.0, 0.092, 0.06); ph.rotation.set(-0.18, -0.25, 0); g.add(ph);
+    ink.inkify(phone, { scale: 0.25, seed: 4, spacing: 6.5 });
+    const scr = sheet(0.08, 0.168); scr.position.z = 0.0065; phone.add(scr);
+    const icon = await roundedIcon(PROD + 'fun-libs/icon.png', 0.22);
+    const p = texPlane(icon, 0.042, 0.042); p.position.set(0, 0.018, 0.0072); phone.add(p);
+    g.add(ink.shadow({ rx: 0.2, rz: 0.1, spacing: 0.009, cx: -0.02, cz: 0.02, angle: -0.3 }));
+    const spec = await sprite('../specimens/amber-cube.webp', 0.07); spec.position.set(0.14, 0, 0.1); g.add(spec);
+    persp(17, [1.8, 2.0, 4.4], [0.0, 0.36, 0]);
+  },
+  async toolrails() {
+    const g = new THREE.Group(); root.add(g);
+    const scr = await place(g, 'computerScreen', -0.1965, 0, -0.05, 0.0);
+    await place(g, 'computerKeyboard', -0.17, 0, 0.12, 0.06);
+    await place(g, 'computerMouse', 0.2, 0, 0.09, -0.2);
+    const sh = sheet(0.37, 0.228); sh.position.set(0.214, 0.19, 0.002); scr.add(sh);
+    const t = await tex('./tex/toolrails-icon-512.png');
+    const p = texPlane(t, 0.072, 0.072); p.position.set(0.214, 0.19, 0.004); scr.add(p);
+    g.add(ink.shadow({ rx: 0.3, rz: 0.12, spacing: 0.01, cx: 0.0, cz: 0.02, angle: -0.3 }));
+    const spec = await sprite('../specimens/black-octahedron.webp', 0.045); spec.position.set(-0.27, 0, 0.08); g.add(spec);
+    persp(22, [2.0, 2.6, 4.6], [0.0, 0.5, 0]);
+  },
+  async harbor() {
+    const g = new THREE.Group(); root.add(g);
+    const bc = await place(g, 'bookcaseOpen', -0.2, 0, 0.12, 0, { threshold: 30 });
+    for (const [x, y, ry] of [[0.04, 0.31, -0.05], [0.24, 0.31, 0.0], [0.12, 0.6, 0.06]]) await place(bc, 'books', x, y, -0.05, ry);
+    await place(g, 'pottedPlant', -0.42, 0, 0.0, 0.3);
+    g.add(ink.shadow({ rx: 0.12, rz: 0.07, spacing: 0.01, cx: -0.41, cz: 0.02, angle: -0.3, seed: 6 }));
+    const t = await tex(PROD + 'harbor/banner.png');
+    const poster = texPlane(t, 0.42, 0.14);
+    const frame = new THREE.Group(); frame.position.set(0.0, 0.965, 0.03); g.add(frame);
+    poster.position.set(0, 0, 0.002); frame.add(poster);
+    const fb = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.16, 0.012)); fb.position.z = -0.005; frame.add(fb);
+    ink.inkify(fb, { scale: 0.25, seed: 12, hatch: false });
+    g.add(ink.shadow({ rx: 0.26, rz: 0.1, spacing: 0.01, cx: 0.0, cz: 0.02, angle: -0.3 }));
+    const spec = await sprite('../specimens/pale-cluster.webp', 0.11); spec.position.set(0.3, 0.6, 0.05); bc.add(spec);
+    persp(27, [2.6, 3.9, 10.8], [-0.35, 2.05, 0]);
+  },
+  async test() {
+    let k = 0;
+    for (const name of ['octahedron', 'dodecahedron', 'rhombohedron', 'prism', 'pyritohedron', 'cube']) {
+      const mesh = new THREE.Mesh(HABITS[name].make());
+      mesh.position.set((k % 3) * 3 - 3, k < 3 ? 1.6 : -1.6, 0); mesh.rotation.set(0.4, 0.5, 0.1);
+      scene.add(mesh);
+      const r = ink.inkify(mesh, { hidden: q.get('hidden') === '1', scale: 1, seed: 3 + k, width: 1.4, threshold: 8 }); if (q.get('nodepth')) r.lines.forEach(l => { l.material.depthTest = false; });
+      k++;
+    }
+    persp(30, [0, 0, 12], [0, 0, 0]);
+  },
+  async plate() {
+    const items = [
+      ['rhombohedron', [-3.4, 0.2, 0.2], 1.25, [0.22, 0.65, 0.22]],
+      ['dodecahedron', [0.1, -0.3, 0.9], 1.2, [0.62, 0.45, 0.18]],
+      ['octahedron', [3.5, 0.3, -0.2], 1.3, [0.3, 0.52, 0.2]],
+    ];
+    let k = 0;
+    for (const [name, pos, size, ry] of items) {
+      const mesh = new THREE.Mesh(HABITS[name].make());
+      const holder = new THREE.Group(); holder.add(mesh);
+      holder.position.set(...pos); holder.scale.setScalar(size);
+      mesh.rotation.set(...ry);
+      scene.add(holder);
+      ink.inkify(mesh, { hidden: true, scale: 1, seed: 21 + k * 7, spacing: 6, width: 1.45, threshold: 8 });
+      const ax = polyline([new THREE.Vector3(0, -1.75, 0), new THREE.Vector3(0, 1.75, 0)], { dashed: true, width: 0.8, sketch: false });
+      ax.rotation.copy(mesh.rotation); holder.add(ax);
+      k++;
+    }
+    const orbit = polyline(ellipsePts(4.6, 1.5), { closed: true, width: 0.9, seed: 8, dashed: true });
+    orbit.position.y = -0.05; orbit.rotation.z = -0.03; scene.add(orbit);
+    const orbit2 = polyline(ellipsePts(5.6, 2.1), { closed: true, width: 0.7, seed: 3 });
+    orbit2.position.y = -0.25; orbit2.rotation.z = 0.02; scene.add(orbit2);
+    persp(30, [0, 3.4, 13.5], [0, -0.2, 0]);
+    await overlay('../specimens/amber-cube.webp', { left: '6%', top: '57%', width: '17%', transform: 'rotate(-5deg)' });
+    await overlay('../specimens/red-crystal.webp', { left: '39%', top: '64%', width: '6.2%', transform: 'rotate(7deg)' });
+    await overlay('../specimens/black-octahedron.webp', { left: '83%', top: '62%', width: '7%', transform: 'rotate(4deg)' });
+  },
+  async desk() {
+    const g = new THREE.Group(); root.add(g);
+    await place(g, 'desk', -0.367, 0, 0.18);
+    const scr = await place(g, 'computerScreen', -0.26, 0.384, 0.0, 0.12);
+    const bub = await logoPlane('../hero/_screen-bubble-' + theme + '.svg', 0.33, 0.2);
+    bub.position.set(0.1965, 0.175, 0.002); bub.userData.fixed = true; scr.add(bub);
+    await place(g, 'computerKeyboard', -0.22, 0.384, 0.15, 0.04);
+    await place(g, 'computerMouse', 0.1, 0.384, 0.13, -0.15);
+    await place(g, 'lampSquareTable', 0.2, 0.384, -0.06, -0.5);
+    await place(g, 'books', -0.38, 0.384, 0.12, 0.45);
+    await place(g, 'chairDesk', -0.16, 0, 0.5, Math.PI * 0.82);
+    g.add(ink.shadow({ rx: 0.2, rz: 0.13, spacing: 0.013, cx: -0.36, cz: 0.52, angle: -0.25, seed: 5 }));
+    await place(g, 'pottedPlant', -0.86, 0, -0.12, 0.4);
+    g.add(ink.shadow({ rx: 0.13, rz: 0.08, spacing: 0.012, cx: -0.85, cz: -0.1, angle: -0.25, seed: 9 }));
+    const spec = await sprite('../specimens/teal-matrix.webp', 0.1);
+    spec.position.set(0.19, 0.384, 0.11); g.add(spec);
+    const sh = ink.shadow({ rx: 0.5, rz: 0.26, spacing: 0.014, cx: -0.05, cz: 0.02, angle: -0.25 });
+    g.add(sh);
+    g.position.x = 0.28;
+    persp(19, [7.5, 7.0, 14.5], [-1.45, 0.7, 0]);
+  },
+};
+
+await SCENES[sceneName]();
+// billboards face the camera
+scene.traverse(o => { if (o.userData.keepMaterial && o.material?.map && !o.userData.fixed) o.quaternion.copy(camera.quaternion); });
+renderer.render(scene, camera);
+document.title = 'done';
+</script>

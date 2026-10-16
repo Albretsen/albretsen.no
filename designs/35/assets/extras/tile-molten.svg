@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <filter id="clay" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" seed="18" result="n"/>
+      <feDiffuseLighting in="n" surfaceScale="1.4" lighting-color="#fff" result="l"><feDistantLight azimuth="235" elevation="55"/></feDiffuseLighting>
+      <feComposite in="l" in2="SourceGraphic" operator="arithmetic" k1="0.62" k2="0" k3="0.42" k4="0" result="lit"/>
+    </filter>
+    <filter id="press" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation=".22" result="b"/>
+      <feOffset in="b" dx="-.3" dy="-.3" result="hi"/><feOffset in="b" dx=".3" dy=".3" result="lo"/>
+      <feFlood flood-color="#fff6ea" flood-opacity=".7"/><feComposite in2="lo" operator="in" result="hiC"/>
+      <feFlood flood-color="#2c1c10" flood-opacity=".55"/><feComposite in2="hi" operator="in" result="loC"/>
+      <feMerge><feMergeNode in="hiC"/><feMergeNode in="loC"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="gl" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#8fc3d9"/><stop offset=".45" stop-color="#357e9c"/><stop offset="1" stop-color="#124356"/></radialGradient>
+    <radialGradient id="sheen" cx="30%" cy="22%" r="85%"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#3a2414" stop-opacity=".28"/></radialGradient>
+    <filter id="drop" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dy="14"/><feComponentTransfer><feFuncA type="linear" slope=".28"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <g filter="url(#drop)">
+    <rect x="40" y="36" width="320" height="320" rx="64" fill="#bf6d4c" filter="url(#clay)"/>
+    <rect x="40" y="36" width="320" height="320" rx="64" fill="url(#sheen)"/>
+    <rect x="41" y="37" width="318" height="318" rx="63" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+  </g>
+  <g transform="translate(92 88) scale(9)" fill="none" stroke="#bf6d4c" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#press)"><path d="M12 3.2c3.2 4.4 6 7.7 6 11.2a6 6 0 0 1-12 0c0-3.5 2.8-6.8 6-11.2Z"/></g>
+  <g transform="translate(92 88) scale(9)"><path class="g" fill="url(#gl)" stroke="none" d="M12 20.4a6 6 0 0 1-5.9-5h11.8a6 6 0 0 1-5.9 5Z"/></g>
+</svg>

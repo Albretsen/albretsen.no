@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · Key Frame</title>
+<meta name="description" content="Albretsen AS is a one-person software studio in Norway. Apps, SaaS and the tooling AI agents run on, drawn frame by frame by Asgeir Albretsen.">
+<meta name="theme-color" content="#010b1d">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="A small studio with feature-length ambition.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero/keyframe-1280.avif" type="image/avif" imagesrcset="assets/hero/keyframe-1280.avif 1280w, assets/hero/keyframe-2560.avif 2560w" imagesizes="100vw">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+<script defer src="assets/vendor/motion-12.23.24.js"></script>
+<script type="module" src="site.js"></script>
+</head>
+<body>
+<a class="skip" href="#cuts">Skip to products</a>
+
+<!-- ============ HERO: the camera field ============ -->
+<header class="bar bar-top" role="banner">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/identity/mark.svg" width="34" height="34" alt="">
+    <img class="brand-word" src="assets/identity/wordmark-on-ink.svg" width="190" height="22" alt="Albretsen AS">
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="#cuts" class="mag">Cuts</a>
+    <a href="#morgue" class="mag">Morgue</a>
+    <a href="mailto:asgeir@albretsen.no" class="mag">Email</a>
+  </nav>
+  <div class="toggles">
+    <button class="switch" id="sw-twos" data-short="2s" role="switch" aria-checked="true" data-state="checked" type="button">
+      <span class="switch-track"><span class="switch-thumb"></span></span><span class="switch-label">On twos</span>
+    </button>
+    <button class="switch" id="sw-sound" data-short="SFX" role="switch" aria-checked="false" data-state="unchecked" type="button">
+      <span class="switch-track"><span class="switch-thumb"></span></span><span class="switch-label">Sound</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-labelledby="hero-title">
+  <div class="field" id="field">
+    <!-- multiplane layer 0: painted cloud sea (NASA ISS040-E-062704, recut in five cel bands) -->
+    <picture class="plate plate-clouds" data-plane="0.18">
+      <source type="image/avif" srcset="assets/extras/cel-clouds-1280.avif 1280w, assets/extras/cel-clouds-2200.avif 2200w" sizes="100vw">
+      <img src="assets/extras/cel-clouds-1280.webp" srcset="assets/extras/cel-clouds-1280.webp 1280w, assets/extras/cel-clouds-2200.webp 2200w" sizes="100vw" alt="" width="1280" height="720" decoding="async">
+    </picture>
+    <!-- multiplane layer 1: impact burst, turns on twos -->
+    <div class="burst" aria-hidden="true"><img src="assets/extras/impact-burst.svg" alt=""></div>
+    <!-- key drawing (poster) until the live A is on the stand -->
+    <picture class="plate plate-key" id="poster">
+      <source type="image/avif" srcset="assets/hero/keyframe-1280.avif 1280w, assets/hero/keyframe-2560.avif 2560w" sizes="100vw">
+      <img src="assets/hero/keyframe-1280.webp" srcset="assets/hero/keyframe-1280.webp 1280w, assets/hero/keyframe-2560.webp 2560w" sizes="100vw" alt="A cel-shaded, ink-outlined letter A over a painted cloud sea" width="1280" height="720" fetchpriority="high">
+    </picture>
+    <div class="stand" id="stand" aria-label="The Albretsen A, a 3D object you can grab, spin and throw" role="img"></div>
+    <div class="flash" aria-hidden="true"><img src="assets/extras/speed-lines.svg" alt=""></div>
+
+    <div class="field-guide" aria-hidden="true"><i></i><i></i><i></i><i></i><span>12 FLD</span></div>
+
+    <div class="title-block">
+      <p class="slate-line"><span>Asgeir Albretsen</span><span>Albretsen AS</span><span>Norway</span></p>
+      <h1 id="hero-title" class="display">
+        <span class="w kf-smear-in" style="--kf-delay:120ms">Small</span>
+        <span class="w kf-smear-in" style="--kf-delay:200ms">studio.</span>
+        <span class="w w-box kf-smear-in" style="--kf-delay:330ms">Feature&#8209;length</span>
+        <span class="w kf-smear-in" style="--kf-delay:420ms">ambition.</span>
+      </h1>
+      <p class="lede">I build software that pays for itself: apps, SaaS and the tooling AI agents run on. Every product is drawn by hand, frame by frame, and only the ones that earn their keep stay in the cut.</p>
+      <div class="mcp" id="mcp">
+        <span class="mcp-tag">Give your agent the studio</span>
+        <code id="mcp-cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button type="button" class="mcp-copy mag" id="mcp-copy" aria-describedby="mcp-cmd"><span>Copy</span></button>
+        <span class="mcp-stamp" aria-hidden="true">PRINT IT</span>
+      </div>
+    </div>
+
+    <!-- the exposure sheet: live events, logged like drawings -->
+    <aside class="xsheet drag" data-drag="xsheet" aria-labelledby="xs-title">
+      <div class="xs-pegs" aria-hidden="true"><i></i><i class="long"></i><i></i></div>
+      <header class="xs-head">
+        <h2 id="xs-title">Exposure sheet</h2>
+        <span class="xs-live"><i></i>Live</span>
+      </header>
+      <div class="xs-cols" aria-hidden="true"><span>FR</span><span>Action</span><span>Cel</span><span>Dial</span></div>
+      <ol class="xs-rows" id="xs-rows" aria-live="polite" aria-relevant="additions"></ol>
+      <footer class="xs-foot"><span>Sc. 01 · Studio floor</span><span id="xs-count">000</span></footer>
+    </aside>
+
+    <img class="sticker drag" data-drag="key" src="assets/extras/sticker-key.svg" width="132" height="132" alt="Sticker: key drawing No. 01" draggable="false">
+    <img class="sticker drag" data-drag="since" src="assets/extras/sticker-since-2016.svg" width="120" height="120" alt="Sticker: shipping since 2016" draggable="false">
+    <p class="grab-hint" id="grab-hint" aria-hidden="true"><img src="assets/extras/sticker-sparkle.svg" alt="" width="22" height="22">Grab the A. Throw it.</p>
+  </div>
+
+  <div class="bar bar-bottom" aria-hidden="true">
+    <span>Albretsen AS · Cut 01 · Key</span>
+    <span class="takes">Takes <b id="takes">000</b></span>
+    <span class="tc" id="tc">00:00:00:00</span>
+  </div>
+</section>
+
+<!-- Interlude: scroll scrubs Muybridge's 1879 gallop one drawing at a time -->
+<div class="gallop-band" id="gallop" aria-hidden="true">
+  <div class="gb-track">
+    <div class="gb-horse"></div>
+  </div>
+  <div class="gb-marquee"><div class="kf-marquee"><span>Published on Google Play since 2016 ✦ Apps ✦ SaaS ✦ Agent infrastructure ✦ Drawn in Norway ✦ </span><span>Published on Google Play since 2016 ✦ Apps ✦ SaaS ✦ Agent infrastructure ✦ Drawn in Norway ✦ </span></div></div>
+</div>
+
+<!-- ============ PRODUCTS: the cuts ============ -->
+<section class="cuts" id="cuts" aria-labelledby="cuts-title">
+  <div class="cuts-head">
+    <div class="disc-wrap">
+      <button type="button" class="disc" id="disc" aria-label="Phenakistiscope disc from about 1840. Drag to spin it, or press to play and pause.">
+        <img src="assets/extras/phenakistiscope-600.webp" srcset="assets/extras/phenakistiscope-600.webp 600w, assets/extras/phenakistiscope-1200.webp 1200w" sizes="220px" width="600" height="600" alt="" loading="lazy" draggable="false">
+      </button>
+      <p class="disc-cap">Phenakistiscope, c.&nbsp;1840. Cooper Hewitt. Spin it.</p>
+    </div>
+    <div class="cuts-copy">
+      <p class="eyebrow">Sc. 02 · In production</p>
+      <h2 id="cuts-title" class="display h2">The cuts</h2>
+      <p>Four products on the stand right now. Each one is its own cel: its real logo, painted onto a plate from the archive of motion. Drag them to re-cut the order. The studio remembers your edit.</p>
+      <div class="cut-tools">
+        <div class="tgroup" role="radiogroup" aria-label="View">
+          <button type="button" role="radio" aria-checked="true" data-view="reel" tabindex="0">Reel</button>
+          <button type="button" role="radio" aria-checked="false" data-view="sheet" tabindex="-1">Sheet</button>
+          <span class="tgroup-ind" aria-hidden="true"></span>
+        </div>
+        <button type="button" class="ghost mag" id="recut">Reset cut</button>
+        <p class="kbd-hint">Keyboard: focus a cel, then <kbd>Alt</kbd> + arrows.</p>
+      </div>
+    </div>
+  </div>
+
+  <img class="sticker sticker-twos drag" data-drag="twos" src="assets/extras/sticker-on-twos.svg" width="268" height="64" alt="Sticker: on twos" loading="lazy" draggable="false">
+  <ol class="reel" id="reel" data-cut="live" data-view="reel" aria-label="Live products, in your order"></ol>
+  <p class="sr-only" id="cut-status" aria-live="polite"></p>
+</section>
+
+<!-- ============ MORGUE: the light table of retired work ============ -->
+<section class="morgue" id="morgue" aria-labelledby="morgue-title">
+  <div class="morgue-head">
+    <p class="eyebrow">Sc. 03 · The morgue</p>
+    <h2 id="morgue-title" class="display h2">Retired cels</h2>
+    <p>Animation studios keep every finished drawing in a morgue. These are the products that taught something and then left the cut. Throw them around; they stack.</p>
+    <div class="table-tools">
+      <button type="button" class="ghost mag" id="shake">Shake the table</button>
+      <button type="button" class="ghost mag" id="redrop">Drop again</button>
+    </div>
+  </div>
+  <div class="table" id="table">
+    <img class="table-under" src="assets/extras/marey-birds-1200.webp" srcset="assets/extras/marey-birds-1200.webp 1200w, assets/extras/marey-birds-2400.webp 2400w" sizes="90vw" width="1200" height="227" alt="" loading="lazy" draggable="false">
+    <ul class="table-items" id="table-items" aria-label="Retired products"></ul>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER: the fencer plate ============ -->
+<footer class="end" aria-labelledby="end-title">
+  <picture class="end-plate">
+    <source type="image/avif" srcset="assets/hero/marey-fencer-1280.avif 1280w, assets/hero/marey-fencer-2560.avif 2560w" sizes="100vw">
+    <img src="assets/hero/marey-fencer-1280.webp" srcset="assets/hero/marey-fencer-1280.webp 1280w, assets/hero/marey-fencer-2560.webp 2560w" sizes="100vw" alt="Chronophotograph of a fencer lunging, Georges Demenÿ, 1906" width="1280" height="838" loading="lazy">
+  </picture>
+  <div class="end-copy">
+    <p class="eyebrow">End card</p>
+    <h2 id="end-title" class="display h2">One lunge at a time.</h2>
+    <p class="avail">Takes one outside engagement at a time.</p>
+    <a class="email mag" href="mailto:asgeir@albretsen.no"><span>asgeir@albretsen.no</span></a>
+    <p class="dayjob">By day, Asgeir built and led an MCP server for an accounting platform, and the AI chat with invoice, VAT and OCR tools around it.</p>
+  </div>
+  <div class="end-bar">
+    <img src="assets/identity/wordmark-on-ink.svg" width="180" height="21" alt="Albretsen AS" loading="lazy">
+    <img class="norway drag" data-drag="norway" src="assets/extras/sticker-norway.svg" width="198" height="66" alt="Sticker: Albretsen AS, Norway" loading="lazy" draggable="false">
+    <span class="credits">Plates: The Met, Cooper Hewitt and NASA open access. Drawn on twos.</span>
+  </div>
+</footer>
+</body>
+</html>

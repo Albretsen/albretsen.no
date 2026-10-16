@@ -1,0 +1,19 @@
+{
+  "name": "The Vivarium",
+  "tagline": "Small software, kept alive under glass.",
+  "summary": "Albretsen AS presented as a tended terrarium: each product is a small creature living under a CSS-3D glass case, catalogued like a naturalist would, with real 17th and 18th century specimen drawings from The Met pinned beside storybook three.js creatures. The tension between the still archive and the living jar shows both taste and technical skill, and retired products stay visible as pressed herbarium sheets, which reads as honest and long-term.",
+  "palette": ["#f8f4ea", "#162118", "#408742", "#225424", "#e2a355", "#0d160f"],
+  "type": ["Fraunces (opsz 144, SOFT 50; italic SOFT 100 for Latin names)", "Fraunces (opsz 18)", "Spline Sans Mono"],
+  "voice": "A calm naturalist's field notes: exact, a little dry, never selling. Example: \"Four creatures live in the case. Seven are pressed and filed.\"",
+  "motion": "Everything grows rather than slides: bottom-anchored germinate reveals, a glass case that lands with a soft overshoot and turns under your hand with inertia, and idle life only in short bursts.",
+  "sound": "Off by default; when switched on, tapping a creature rings a small glass tink tuned per species and turning a herbarium sheet makes a soft paper rustle (Web Audio, no files).",
+  "mark": "A bell jar over a two-leaf sprout with the right leaf in moss, paired with an outlined Fraunces wordmark, a moss full stop and a mono AS.",
+  "inspiration": [
+    "https://bruno-simon.com",
+    "https://motion.dev/examples",
+    "https://www.radix-ui.com/primitives/docs/components/tooltip",
+    "https://rive.app/community/files/21035-39547-interactive-plant-with-wind-effects-bones-and-state-machine",
+    "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "https://codyhouse.co/gem/parallax-hero-image"
+  ]
+}

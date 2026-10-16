@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bake: product plate</title>
+<!-- Source for products/product-*.webp. Each real product logo (unaltered, from designs/_shared/products)
+     is cast inside a thick glass block, standing in front of one museum plate.
+     ?p=mcp-emails | fun-libs | toolrails | harbor   Render at 1600x1000. -->
+<style>
+  @font-face { font-family:"Geist Mono"; src:url(../fonts/geist-mono-normal.woff2) format("woff2"); font-weight:400 500; }
+  @font-face { font-family:"Geist"; src:url(../fonts/geist-normal.woff2) format("woff2"); font-weight:300 700; }
+  @font-face { font-family:"Instrument Serif"; src:url(../fonts/instrument-serif-italic.woff2) format("woff2"); font-style:italic; }
+  :root { --ink:#090706; --cream:#ede7df; --mute:#8e847e; --spark:#ff7e22; }
+  html, body { margin:0; height:100%; background:var(--ink); overflow:hidden; }
+  .bg { position:absolute; inset:0; background:radial-gradient(60vw 40vw at 30% 70%, rgba(115,49,25,.55), transparent 70%), radial-gradient(40vw 30vw at 85% 10%, rgba(59,31,18,.6), transparent 70%); }
+  .plate { position:absolute; right:2vw; top:-6vw; width:62vw; height:112vh; background-repeat:no-repeat; background-size:contain; background-position:center; filter:blur(.18vw); opacity:.95; }
+  .scene { position:absolute; inset:0; perspective:90vw; perspective-origin:38% 45%; }
+  .block { position:absolute; left:24vw; top:50%; width:26vw; height:26vw; margin-top:-14vw; transform-style:preserve-3d;
+           transform:rotateY(24deg) rotateX(8deg) rotateZ(-2deg); }
+  .face { position:absolute; inset:0; border-radius:3.2vw; }
+  .front { transform:translateZ(3vw);
+    background:linear-gradient(125deg, rgba(255,246,234,.20) 0%, rgba(255,246,234,.04) 26%, rgba(255,246,234,0) 44%, rgba(255,246,234,.07) 63%, rgba(255,246,234,.01) 80%, rgba(255,177,92,.10) 100%);
+    box-shadow: inset 0 0 0 .08vw rgba(255,240,225,.75), inset 0 .25vw .2vw -.1vw rgba(255,250,240,.45), inset 0 -1.2vw 2vw -1vw rgba(255,126,34,.25); }
+  .back { transform:translateZ(-3vw); background:rgba(255,240,225,.03); box-shadow: inset 0 0 0 .06vw rgba(255,240,225,.28); }
+  .side { position:absolute; border-radius:.4vw; }
+  .side.r { top:2.4vw; bottom:2.4vw; left:10vw; width:6vw; transform:rotateY(90deg) translateZ(13vw);
+    background:linear-gradient(90deg, rgba(255,177,92,.16), rgba(255,126,34,.26) 50%, rgba(255,177,92,.08)); box-shadow: inset 0 0 0 .06vw rgba(255,220,190,.5); }
+  .side.b { left:2.4vw; right:2.4vw; top:10vw; height:6vw; transform:rotateX(-90deg) translateZ(13vw);
+    background:linear-gradient(180deg, rgba(255,126,34,.38), rgba(255,177,92,.12)); box-shadow: inset 0 0 0 .06vw rgba(255,220,190,.4); }
+  .side.t { left:2.4vw; right:2.4vw; top:10vw; height:6vw; transform:rotateX(90deg) translateZ(13vw);
+    background:linear-gradient(180deg, rgba(255,246,234,.22), rgba(255,246,234,.05)); }
+  .logo { position:absolute; left:50%; top:50%; width:13vw; height:13vw; margin:-6.5vw 0 0 -6.5vw; transform:translateZ(0);
+          display:grid; place-items:center; filter: drop-shadow(0 1.2vw 2vw rgba(0,0,0,.5)); }
+  .logo img { width:100%; height:100%; object-fit:contain; display:block; }
+  .logo.rounded img { border-radius:22.5%; }
+  .shadow { position:absolute; left:16vw; top:calc(50% + 15vw); width:36vw; height:5vw; border-radius:50%;
+            background:radial-gradient(closest-side, rgba(0,0,0,.75), transparent); filter:blur(1vw); }
+  .caustic { position:absolute; left:30vw; top:calc(50% + 13.5vw); width:30vw; height:4vw; border-radius:50%;
+            background:radial-gradient(closest-side, rgba(255,126,34,.45), rgba(194,70,13,.12) 60%, transparent); filter:blur(.9vw); mix-blend-mode:screen; }
+  .meta { position:absolute; left:5vw; bottom:5.2vw; right:5vw; display:flex; justify-content:space-between; align-items:flex-end; color:var(--cream); }
+  .meta .k { font:500 1.2vw/1.5 "Geist Mono", monospace; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+  .meta .fig { font:italic 400 5.4vw/1 "Instrument Serif", serif; letter-spacing:-.01em; color:var(--cream); }
+  .meta .fig small { font:500 1.25vw/1 "Geist Mono", monospace; letter-spacing:.14em; text-transform:uppercase; color:var(--spark); margin-left:.8vw; vertical-align:.9vw; font-style:normal; }
+  .meta .r { text-align:right; }
+  .meta .name { font:500 2.2vw/1 "Geist", sans-serif; letter-spacing:-.01em; margin-bottom:.7vw; }
+  .grain { position:absolute; inset:0; background:url(../extras/grain-tile.png); opacity:.2; mix-blend-mode:overlay; }
+  .harbor { color:var(--cream); }
+  .harbor svg { width:100%; height:100%; } .logo.harbor { transform:scale(1.25); }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="plate" id="plate"></div>
+<div class="shadow"></div>
+<div class="scene">
+  <div class="block">
+    <div class="face back"></div>
+    <div class="side t"></div>
+    <div class="logo" id="logo"></div>
+    <div class="side r"></div>
+    <div class="side b"></div>
+    <div class="face front"></div>
+  </div>
+</div>
+<div class="caustic"></div>
+<div class="meta">
+  <div><div class="fig" id="fig"></div></div>
+  <div class="r"><div class="name" id="name"></div><div class="k" id="k"></div></div>
+</div>
+<div class="grain"></div>
+<script>
+const P = '../../../_shared/products/';
+const data = {
+  'mcp-emails': { name:'MCP Emails', k:'Since 2026 · live · mcpemails.com', fig:'$782', unit:'MRR', plate:'emulsion-corona-1883', logo:`<img src="${P}mcp-emails/icon.png" alt="MCP Emails">`, cls:'' },
+  'fun-libs':   { name:'Fun Libs', k:'Since 2019 · live · funlibs.app', fig:'113,000+', unit:'installs', plate:'emulsion-moon-1857', logo:`<img src="${P}fun-libs/icon.png" alt="Fun Libs">`, cls:'rounded' },
+  'toolrails':  { name:'Toolrails', k:'Since 2026 · building · toolrails.com', fig:'4', unit:'connectors', plate:'emulsion-cygnus-1885', logo:`<img src="${P}toolrails/icon.svg" alt="Toolrails">`, cls:'' },
+  'harbor':     { name:'Harbor', k:'Since 2026 · paused · harborknowledge.com', fig:'549', unit:'commits', plate:'emulsion-lyra-1885', logo:'', cls:'harbor', ps:'top:-16vw' },
+};
+const id = new URLSearchParams(location.search).get('p') || 'mcp-emails';
+if (new URLSearchParams(location.search).has("bare")) document.querySelector(".meta").style.display = "none";
+const d = data[id];
+document.getElementById('plate').style.backgroundImage = `url(../museum/${d.plate}.webp)`; if (d.ps) document.getElementById('plate').style.cssText += d.ps;
+const logo = document.getElementById('logo');
+logo.className = 'logo ' + d.cls;
+if (id === 'harbor') {
+  // the real Harbor mark is drawn in currentColor; inline it so it inherits the cream ink
+  fetch(P + 'harbor/harbor-mark.svg').then(r => r.text()).then(t => logo.innerHTML = t);
+} else logo.innerHTML = d.logo;
+document.getElementById('name').textContent = d.name;
+document.getElementById('k').textContent = d.k;
+document.getElementById('fig').innerHTML = `${d.fig}<small>${d.unit}</small>`;
+</script>
+</body>
+</html>

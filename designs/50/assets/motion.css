@@ -1,0 +1,94 @@
+/* ==========================================================================
+   IR//PEEL motion study (design 50)
+   Four signature moves. Everything respects prefers-reduced-motion.
+   --------------------------------------------------------------------------
+   1. SLAP      entrance  — a sticker is slapped onto the sheet: it arrives
+                            large, high and tilted, overshoots and settles, its
+                            shadow tightening as it lands. Springs via linear().
+                            Ref: motion.dev spring examples; sticker-bomb sites.
+   2. LIFT      hover     — the sticker lifts off the liner a few pixels, tilts,
+                            and a holographic glint sweeps across the vinyl.
+                            Ref: Simon Goellner's CSS holo cards (poke-holo.simey.me).
+   3. IR WIPE   transition— an ordered (Bayer 8x8) dither dissolve, the classic
+                            16-bit screen transition, in infrared colours.
+                            (canvas, see motion.js → irWipe)
+   4. CHROMA    accent    — a 1px magenta/orange split on pixel type when it is
+                            "charged" (hover/focus), echoing the mark's offset A.
+   ========================================================================== */
+
+:root {
+  --ir-void: #0d031e;
+  --ir-violet-900: #230445;
+  --ir-violet: #4b1788;
+  --ir-ultra: #8038d1;
+  --ir-magenta: #f315a2;
+  --ir-hot: #fa5e75;
+  --ir-orange: #fa8233;
+  --ir-amber: #fec766;
+  --ir-phosphor: #f2ed2b;
+  --ir-vinyl: #f6f3fc;
+  --ir-lilac: #b7a6dc;
+  /* springs as linear() easing (generated from a damped spring, stiffness 260, damping 14) */
+  --spring-slap: linear(0, 0.09 4.3%, 0.36 9.3%, 0.78 15%, 1.06 20.4%, 1.17 24.2%, 1.19 27.6%, 1.13 33.3%, 1.03 39.9%, 0.97 46%, 0.96 52%, 0.99 60.8%, 1.01 70%, 1);
+  --spring-soft: linear(0, 0.22 7%, 0.6 16%, 0.9 26%, 1.03 35%, 1.05 43%, 1.02 55%, 1);
+  --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* 1. SLAP ---------------------------------------------------------------- */
+@keyframes ir-slap {
+  0%   { opacity: 0; transform: translate3d(0, -28px, 0) scale(1.42) rotate(calc(var(--tilt, -8deg) * 2)); filter: drop-shadow(0 34px 24px rgb(13 3 30 / .0)); }
+  12%  { opacity: 1; }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1) rotate(var(--tilt, -8deg)); filter: drop-shadow(0 3px 2px rgb(13 3 30 / .35)); }
+}
+.ir-slap {
+  animation: ir-slap 720ms var(--spring-slap) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* 2. LIFT ---------------------------------------------------------------- */
+.ir-lift {
+  --lift: 0;
+  position: relative;
+  display: inline-block;
+  transform: translateY(calc(var(--lift) * -6px)) rotate(calc(var(--tilt, 0deg) + var(--lift) * -2deg)) scale(calc(1 + var(--lift) * .03));
+  filter: drop-shadow(0 calc(2px + var(--lift) * 14px) calc(2px + var(--lift) * 12px) rgb(13 3 30 / calc(.35 + var(--lift) * .1)));
+  transition: transform 420ms var(--spring-soft), filter 420ms var(--ease-out-expo);
+}
+.ir-lift::after {           /* holographic glint, masked to the sticker art */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / .0) 38%, rgb(255 255 255 / .55) 46%, rgb(242 237 43 / .35) 50%, rgb(243 21 162 / .3) 54%, transparent 64%) no-repeat;
+  background-size: 260% 100%; background-position: 120% 0;
+  -webkit-mask: var(--art) center / 100% 100% no-repeat; mask: var(--art) center / 100% 100% no-repeat;
+  mix-blend-mode: screen; opacity: 0; transition: opacity 200ms;
+}
+.ir-lift:hover, .ir-lift:focus-visible { --lift: 1; }
+.ir-lift:hover::after, .ir-lift:focus-visible::after { opacity: 1; animation: ir-glint 900ms var(--ease-out-expo) both; }
+@keyframes ir-glint { from { background-position: 120% 0; } to { background-position: -40% 0; } }
+@property --lift { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+/* 3. IR WIPE: canvas overlay created by motion.js; this just positions it */
+.ir-wipe-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 9999; pointer-events: none; image-rendering: pixelated; }
+
+/* 4. CHROMA -------------------------------------------------------------- */
+.ir-chroma { transition: text-shadow 160ms steps(2, end); }
+.ir-chroma:hover, .ir-chroma:focus-visible, .ir-chroma.is-charged {
+  text-shadow: 1px 0 0 var(--ir-magenta), -1px 0 0 var(--ir-orange);
+}
+
+/* Easter egg: thermal mode (motion.js adds html.ir-thermal) ---------------- */
+html.ir-thermal body { filter: url(#ir-thermal); }
+.ir-toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 10000;
+  font: 12px/1 Silkscreen, monospace; letter-spacing: .06em; color: var(--ir-void);
+  background: var(--ir-phosphor); padding: 10px 14px; box-shadow: 4px 4px 0 var(--ir-magenta);
+  animation: ir-toast 2600ms steps(1, end) both;
+}
+@keyframes ir-toast { 0% { opacity: 0 } 4% { opacity: 1 } 8% { opacity: .2 } 12%, 88% { opacity: 1 } 100% { opacity: 0 } }
+
+/* Pixel-perfect helpers */
+.ir-pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ir-slap, .ir-lift::after, .ir-toast { animation: none !important; }
+  .ir-lift { transition: none; }
+}

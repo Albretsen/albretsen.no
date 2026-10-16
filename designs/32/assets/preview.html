@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Night Shift Paper — asset kit 32</title>
+<meta name="description" content="Albretsen AS art direction 32: a paper cut-out desktop at night, lit by sodium orange.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist+Mono:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+:root{
+  --ink:#050d1c;--night:#0a1936;--deep:#122a52;--dusk:#1f4274;--twilight:#406c9b;--haze:#7fa3c2;
+  --sodium:#f68c26;--ember:#d55c13;--glow:#f9cc87;--aurora:#9ada5e;--aurora-deep:#298646;--paper:#f5eede;--paper-shade:#dccfbc;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--ink)}
+body{margin:0;color:var(--paper);font:400 15px/1.55 var(--mono);background:var(--night) url(extras/paper-night.webp);background-size:512px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--glow)}
+/* menu bar */
+.menubar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:22px;height:40px;padding:0 16px;background:var(--paper) url(extras/paper-cream.webp);color:var(--ink);
+  font:500 13px var(--mono);box-shadow:0 2px 0 rgb(2 6 15/.45),0 8px 18px rgb(2 6 15/.35)}
+.menubar img{height:22px}
+.menubar b{font:800 15px var(--display);letter-spacing:-.01em}
+.menubar nav{display:flex;gap:18px;overflow:auto;scrollbar-width:none}
+.menubar nav a{color:var(--ink);text-decoration:none;white-space:nowrap}
+.menubar nav a:hover{color:var(--ember)}
+.menubar .clock{margin-left:auto;white-space:nowrap}
+@media (max-width:720px){.menubar nav{display:none}}
+/* hero */
+.hero{position:relative;height:min(92vh,880px);min-height:560px;overflow:hidden}
+.hero #desk{position:absolute;inset:0}
+.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .title{position:absolute;left:clamp(16px,5vw,72px);bottom:clamp(24px,6vh,64px);max-width:640px;pointer-events:none}
+.kicker{font:600 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--glow)}
+h1{font:800 clamp(44px,8vw,112px)/.92 var(--display);letter-spacing:-.022em;word-spacing:.04em;margin:.15em 0 .2em;text-shadow:2px 4px 0 rgb(2 6 15/.6)}
+.hero p{max-width:46ch;color:#dfe6f3;margin:0}
+.hero .hint{position:absolute;right:16px;bottom:14px;font-size:12px;opacity:.7}
+/* layout */
+main{max-width:1240px;margin:0 auto;padding:40px 16px 120px}
+.torn{display:block;width:100%;height:40px;margin-top:-39px;position:relative;z-index:2}
+/* windows */
+.win{position:relative;margin:64px 0;background:var(--paper) url(extras/paper-cream.webp);color:var(--ink);border-radius:16px;padding:0 0 28px;
+  box-shadow:2px 4px 0 rgb(2 6 15/.55),14px 26px 46px rgb(2 6 15/.5);transform:rotate(var(--r,0deg))}
+.win.dark{background:var(--ink);color:var(--paper)}
+.win>header{display:flex;align-items:center;gap:8px;margin:8px 8px 22px;height:40px;padding:0 14px;border-radius:10px;background:var(--bar,var(--sodium)) url(extras/paper-cream.webp);background-blend-mode:multiply;color:var(--ink);font:600 13px var(--mono)}
+.win>header i{width:12px;height:12px;border-radius:50%;background:var(--ink);opacity:.8}
+.win>header span{margin:0 auto;transform:translateX(-24px)}
+.win .tape{position:absolute;width:118px;height:34px;background:url(extras/tape.svg) center/100% 100%;z-index:3;pointer-events:none}
+.win .tape.a{left:-32px;top:-6px;transform:rotate(-30deg)}.win .tape.b{right:-30px;top:-4px;transform:rotate(26deg)}
+.body{padding:0 clamp(16px,3vw,36px)}
+h2{font:800 clamp(28px,4vw,44px)/1 var(--display);letter-spacing:-.025em;margin:0 0 6px}
+h3{font:700 18px/1.2 var(--display);margin:22px 0 8px}
+.lede{max-width:70ch;color:var(--dusk);margin:0 0 22px}.dark .lede{color:var(--haze)}
+.cap{font:500 12px/1.45 var(--mono);color:var(--dusk);margin-top:8px}.dark .cap{color:var(--haze)}
+.cap code{background:rgb(5 13 28/.08);padding:1px 5px;border-radius:4px}
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.g6{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.card{background:#fffaf0;border-radius:12px;padding:12px}
+.dark .card{background:var(--night)}
+.chip{border-radius:10px;overflow:hidden;box-shadow:1px 2px 0 rgb(2 6 15/.4),3px 8px 16px rgb(2 6 15/.22)}
+.on-night{background:var(--night) url(extras/paper-night.webp);border-radius:12px;padding:22px;display:grid;place-items:center}
+.on-paper{background:var(--paper);border-radius:12px;padding:22px;display:grid;place-items:center;border:1px dashed var(--paper-shade)}
+/* palette */
+.swatch{position:relative;border-radius:10px;outline:1px solid rgb(245 238 222/.14);padding:64px 12px 12px;font:500 12px/1.4 var(--mono);box-shadow:1px 2px 0 rgb(2 6 15/.4);transform:rotate(var(--r));background-image:url(extras/paper-cream.webp);background-blend-mode:multiply}
+.swatch b{display:block;font:700 15px var(--display)}
+/* type */
+.specimen .big{font:800 clamp(56px,10vw,132px)/.88 var(--display);letter-spacing:-.04em}
+.specimen .mid{font:600 clamp(24px,3vw,34px)/1.15 var(--display);letter-spacing:-.015em;max-width:24ch}
+.specimen .mono{font:500 16px/1.6 var(--mono)}
+/* parallax stack */
+.stack{position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:#050d1c;cursor:crosshair}
+.stack .tilt-stage{position:absolute;inset:0}
+.stack img{position:absolute;inset:-3%;width:106%;height:106%;max-width:none;object-fit:cover}
+.stack .label{position:absolute;left:12px;top:10px;font:600 11px var(--mono);color:var(--paper);background:rgb(5 13 28/.6);padding:3px 8px;border-radius:6px}
+/* live */
+.live{position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:var(--ink)}
+.live canvas{width:100%;height:100%;display:block}
+.live.square{aspect-ratio:1;background:radial-gradient(circle at 50% 60%,#1f4274,#050d1c 70%)}
+.ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--haze);font-size:12px}
+/* motion playground */
+.btn{font:600 14px var(--mono);border:0;border-radius:10px;padding:11px 16px;background:var(--sodium) url(extras/paper-sodium.webp);color:var(--ink);cursor:pointer;
+  box-shadow:1px 2px 0 var(--ink);transition:transform .35s var(--spring-firm),box-shadow .35s}
+.btn:hover{transform:translateY(-2px) rotate(-1deg);box-shadow:2px 5px 0 var(--ink)}
+.btn:active{transform:translateY(1px);box-shadow:0 1px 0 var(--ink)}
+.btn.ghost{background:var(--paper);border:1.5px solid var(--ink)}
+.overlay{position:fixed;inset:0;background:rgb(2 6 15/.66);z-index:80}
+.dialog{position:fixed;z-index:90;left:50%;top:14vh;width:min(520px,calc(100vw - 32px));margin-left:calc(min(520px,calc(100vw - 32px)) / -2);background:var(--paper) url(extras/paper-cream.webp);color:var(--ink);border-radius:16px;padding:0 0 22px}
+.dialog header{margin:8px 8px 16px;height:38px;border-radius:10px;background:var(--glow);display:flex;align-items:center;padding:0 14px;font:600 13px var(--mono)}
+.dialog .body p{margin:0 0 16px}
+.tipwrap,.hcwrap{position:relative;display:inline-block}
+.tip{position:absolute;bottom:calc(100% + 10px);left:50%;margin-left:-90px;width:180px;text-align:center;background:var(--sodium);color:var(--ink);font:600 12px var(--mono);padding:8px 10px;border-radius:999px;box-shadow:1px 2px 0 var(--ink),4px 8px 14px rgb(2 6 15/.3)}
+.hc{position:absolute;top:calc(100% + 10px);left:0;width:280px;z-index:5;background:var(--ink);color:var(--paper);border-radius:12px;padding:14px;box-shadow:2px 4px 0 rgb(2 6 15/.5),10px 18px 30px rgb(2 6 15/.4);font-size:13px}
+.hc img{width:56px;border-radius:12px;float:left;margin:0 12px 6px 0}
+.lift{background:#fffaf0;border-radius:12px;padding:16px;--rest-rot:var(--r,0deg)}
+.lift img{width:52px;border-radius:12px;margin-bottom:10px}
+[role=tablist]{display:flex;gap:4px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+[role=tab]{font:600 13px var(--mono);background:none;border:0;padding:10px 12px;cursor:pointer;color:var(--dusk)}
+[role=tab][data-state=active]{color:var(--ink)}
+.shuffle-panel{margin-top:14px;background:#fffaf0;border-radius:12px;padding:16px}
+.acc{border-top:2px solid var(--ink)}
+.acc>div{border-bottom:2px solid var(--ink)}
+.acc button{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:0;padding:14px 4px;font:700 17px var(--display);color:var(--ink);cursor:pointer;text-align:left}
+.tear>div{padding:0 4px 26px;color:var(--dusk)}
+.dropzone{display:flex;flex-wrap:wrap;gap:14px;align-items:center;min-height:140px}
+.dropzone img{width:84px}
+.wipe{position:relative;height:160px;border-radius:12px;display:grid;place-items:center;font:800 32px var(--display);transition:none}
+.anim-card,.lift,.shuffle-panel{color:var(--ink)}.anim-card .cap,.lift .cap{color:var(--dusk)}
+.torn-demo img{margin-bottom:-1px}
+.motion-name{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ember)}
+.anim-card{background:#fffaf0;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.anim-card p{margin:0;font-size:12.5px;color:var(--dusk)}
+.desk-icons{position:absolute;right:18px;top:60px;display:flex;flex-direction:column;gap:18px;z-index:4}
+.desk-icons a{display:grid;justify-items:center;gap:4px;text-decoration:none;color:var(--paper);font:600 11px var(--mono);width:72px}
+.desk-icons img{width:52px;filter:drop-shadow(1px 2px 0 rgb(2 6 15/.6));transition:transform .4s var(--spring)}
+.desk-icons a:hover img{transform:translateY(-4px) rotate(-4deg) scale(1.06)}
+.desk-icons span{background:rgb(5 13 28/.7);padding:1px 6px;border-radius:4px}
+@media (max-width:720px){.desk-icons{display:none}}
+.grid>*{min-width:0}.on-night>*,.on-paper>*{max-width:100%;min-width:0}
+.win>header span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cap code{overflow-wrap:anywhere}
+.hero .title{right:16px}
+@media (max-width:720px){.hero .hint{display:none}.hero p{text-shadow:0 1px 2px #050d1c,0 0 12px #050d1c}.win{--r:0deg!important}.win .tape.a{left:-12px}.win .tape.b{right:-12px}.win>header span{transform:none}}
+footer{text-align:center;color:var(--haze);font-size:12px;padding:30px 16px 60px}
+</style>
+</head>
+<body>
+<div class="menubar">
+  <img src="identity/logo-mark.svg" alt=""><b>Albretsen</b>
+  <nav><a href="#identity">Identity</a><a href="#palette">Palette</a><a href="#type">Type</a><a href="#hero">Hero</a><a href="#products">Products</a><a href="#extras">Extras</a><a href="#live">Live 3D</a><a href="#motion">Motion</a></nav>
+  <span class="clock" id="clock">Kit 32 · Night Shift Paper</span>
+</div>
+
+<section class="hero" id="top">
+  <picture><source type="image/avif" srcset="hero/desktop.avif 1440w, hero/desktop@2x.avif 2880w"><img class="poster" src="hero/desktop.webp" srcset="hero/desktop.webp 1440w, hero/desktop@2x.webp 2880w" sizes="100vw" alt="A paper cut-out night landscape with aurora, a sodium sun and paper desktop windows"></picture>
+  <div id="desk"></div>
+  <div class="desk-icons">
+    <a href="#products"><img src="extras/icons/folder.svg" alt=""><span>Products</span></a>
+    <a href="#motion"><img src="extras/icons/terminal.svg" alt=""><span>Motion</span></a>
+    <a href="#extras"><img src="extras/icons/bin.svg" alt=""><span>Extras</span></a>
+  </div>
+  <div class="title">
+    <div class="kicker">Asset kit 32 · art direction</div>
+    <h1>Night Shift Paper</h1>
+    <p>A desktop operating system cut from paper, lit by sodium orange after the day job ends. Everything is built from code: three.js primitives, shaders, procedural fibre.</p>
+  </div>
+  <div class="hint">live three.js · move the pointer</div>
+</section>
+<img class="torn" src="extras/torn-edge-night.svg" alt="" aria-hidden="true">
+
+<main>
+<!-- IDENTITY -->
+<section class="win" id="identity" style="--r:-.4deg"><span class="tape a"></span><span class="tape b"></span>
+  <header><i></i><i></i><i></i><span>identity — logo, wordmark, favicon, OG</span></header>
+  <div class="body">
+    <h2>A paper peak with the sun behind it</h2>
+    <p class="lede">The mark is a tiny diorama: an app-icon tile, two aurora strips, a sodium sun rising behind a paper “A”, whose counter is a window onto the light. Every piece casts a short paper shadow. The wordmark sets Bricolage Grotesque 800 (outlined to paths) with an “AS” label stuck on like a strip of tape.</p>
+    <div class="grid g3">
+      <figure class="on-night" style="margin:0"><img src="identity/logo-mark.svg" alt="Albretsen mark" style="width:180px"></figure>
+      <figure class="on-paper" style="margin:0"><img src="identity/logo-glyph.svg" alt="Albretsen glyph" style="width:150px;background:var(--night);border-radius:18px;padding:10px"></figure>
+      <figure class="on-night" style="margin:0;gap:16px;grid-auto-flow:column;align-items:end">
+        <img src="identity/favicon.svg" alt="" style="width:64px"><img src="identity/favicon.svg" alt="" style="width:32px"><img src="identity/favicon.svg" alt="" style="width:16px"><img src="identity/favicon-180.png" alt="" style="width:90px">
+      </figure>
+    </div>
+    <p class="cap"><code>identity/logo-mark.svg</code> · <code>logo-glyph.svg</code> (no tile) · <code>favicon.svg</code> + <code>favicon-180.png</code> (apple-touch) · <code>logo-mark-512.png</code></p>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="on-night"><img src="identity/wordmark.svg" alt="Albretsen AS wordmark" style="width:100%;max-width:520px"></div>
+      <div class="on-paper"><img src="identity/wordmark-on-paper.svg" alt="Albretsen AS wordmark on paper" style="width:100%;max-width:520px"></div>
+    </div>
+    <h3>Open Graph image</h3>
+    <img class="chip" src="identity/og-image.jpg" alt="Open Graph image" style="width:100%;max-width:900px">
+    <p class="cap"><code>identity/og-image.jpg</code> · 1200×630 · composed from the wallpaper render, cream paper, tape and the shipped sticker.</p>
+  </div>
+</section>
+
+<!-- PALETTE -->
+<section class="win dark" id="palette" style="--r:.3deg;--bar:var(--glow)"><span class="tape a"></span>
+  <header><i></i><i></i><i></i><span>palette — night blues + sodium</span></header>
+  <div class="body">
+    <h2>Night blues, one sodium lamp, a green aurora</h2>
+    <p class="lede">Blue carries the depth: each hill layer is one step darker as it comes forward. Sodium orange is the only warm light and is reserved for things that are “on”. The seed hue 132° becomes the aurora: a single green that never touches text.</p>
+    <div class="grid g6" id="swatches"></div>
+  </div>
+</section>
+
+<!-- TYPE -->
+<section class="win" id="type" style="--r:-.25deg;--bar:var(--aurora)"><span class="tape b"></span>
+  <header><i></i><i></i><i></i><span>type — Bricolage Grotesque + Geist Mono</span></header>
+  <div class="body specimen">
+    <div class="big">Builds after dark.</div>
+    <p class="mid" style="margin:18px 0">Bricolage Grotesque has ink traps and a slightly hand-cut wobble at display sizes, so it sits naturally on paper.</p>
+    <div class="grid g2">
+      <div class="card"><div class="motion-name">Display · Bricolage Grotesque 800 / 700</div><div style="font:800 46px/1 var(--display);letter-spacing:-.03em;margin-top:8px">Aa Ææ Øø Åå 0123</div><div style="font:700 22px var(--display);margin-top:6px">MCP Emails · Fun Libs · Toolrails · Harbor</div></div>
+      <div class="card"><div class="motion-name">Text + UI · Geist Mono 400–600</div><div class="mono" style="margin-top:8px">$ claude mcp add albretsen https://albretsen.no/mcp<br>113,000+ installs · $782 MRR · 549 commits<br>On Google Play since 2016.</div></div>
+    </div>
+    <p class="cap">Both from Google Fonts (OFL). Scale: 112 / 72 / 44 / 28 / 18 / 15 / 12. Tracking −0.035em at display sizes; mono labels +0.12em uppercase.</p>
+  </div>
+</section>
+
+<!-- HERO -->
+<section class="win dark" id="hero" style="--r:.35deg"><span class="tape a"></span><span class="tape b"></span>
+  <header><i></i><i></i><i></i><span>hero imagery — baked from three.js</span></header>
+  <div class="body">
+    <h2>The desk, the wallpaper, and six layers to tilt</h2>
+    <p class="lede">Rendered from the live scene in <code>live/paperkit.js</code> (extruded torn-edge sheets, canvas-made paper fibres, PCF shadows, a sodium point light) through headless Chrome at 2880×1800, then encoded to AVIF + WebP.</p>
+    <div class="grid g2">
+      <figure style="margin:0"><picture><source type="image/avif" srcset="hero/desktop@2x.avif"><img class="chip" src="hero/desktop@2x.webp" alt="Paper desktop render" loading="lazy"></picture><p class="cap"><code>hero/desktop(@2x).avif|webp</code> · full desktop: menu bar, terminal, Products window with the real icons, dock, cursor.</p></figure>
+      <figure style="margin:0"><picture><source type="image/avif" srcset="hero/wallpaper@2x.avif"><img class="chip" src="hero/wallpaper@2x.webp" alt="Paper landscape wallpaper render" loading="lazy"></picture><p class="cap"><code>hero/wallpaper(@2x).avif|webp</code> · the wallpaper alone, for live HTML windows on top. Lower third is quiet on purpose: headline space.</p></figure>
+    </div>
+    <h3 style="color:var(--paper)">Signature delight: tilt the layers</h3>
+    <div class="stack" data-tilt id="stack"><div class="tilt-stage">
+      <img src="hero/layers/sky.webp" srcset="hero/layers/sky.webp 1440w, hero/layers/sky@2x.webp 2880w" sizes="(max-width:1240px) 100vw, 1200px" style="--depth:0" data-depth alt="">
+      <img src="hero/layers/aurora-sun.webp" srcset="hero/layers/aurora-sun.webp 1440w, hero/layers/aurora-sun@2x.webp 2880w" sizes="(max-width:1240px) 100vw, 1200px" style="--depth:.6" data-depth alt="">
+      <img src="hero/layers/far.webp" srcset="hero/layers/far.webp 1440w, hero/layers/far@2x.webp 2880w" sizes="(max-width:1240px) 100vw, 1200px" style="--depth:1.4" data-depth alt="">
+      <img src="hero/layers/mid.webp" srcset="hero/layers/mid.webp 1440w, hero/layers/mid@2x.webp 2880w" sizes="(max-width:1240px) 100vw, 1200px" style="--depth:2.2" data-depth alt="">
+      <img src="hero/layers/near.webp" srcset="hero/layers/near.webp 1440w, hero/layers/near@2x.webp 2880w" sizes="(max-width:1240px) 100vw, 1200px" style="--depth:3.2" data-depth alt="">
+      <img src="hero/layers/plane.webp" srcset="hero/layers/plane.webp 1440w, hero/layers/plane@2x.webp 2880w" sizes="(max-width:1240px) 100vw, 1200px" style="--depth:4.6" data-depth alt="">
+    </div><span class="label">6 transparent layers · motion.js tilt() · pointer or gyro</span></div>
+    <p class="cap"><code>hero/layers/{sky, aurora-sun, far, mid, near, plane}(@2x).webp</code> · alpha WebP with baked contact shadows. Rendered with a wider camera so ±3% overscan never shows an edge.</p>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="win" id="products" style="--r:-.3deg;--bar:var(--twilight)"><span class="tape a"></span>
+  <header><i></i><i></i><i></i><span>products — real logos, paper dioramas</span></header>
+  <div class="body">
+    <h2>Four live sheets, six in the archive</h2>
+    <p class="lede">Each product gets the same night set and its own props: envelopes for MCP Emails, fill-in slips for Fun Libs, connector chips for Toolrails, a held-for-approval note for Harbor. The logos are the real files from <code>_shared/products</code>, printed onto paper tiles, never redrawn.</p>
+    <div class="grid g2">
+      <figure style="margin:0"><img class="chip" src="products/mcp-emails@2x.webp" alt="MCP Emails diorama" loading="lazy"><p class="cap"><code>products/mcp-emails(@2x).webp</code> · real <code>mcp-emails/icon.png</code></p></figure>
+      <figure style="margin:0"><img class="chip" src="products/fun-libs@2x.webp" alt="Fun Libs diorama" loading="lazy"><p class="cap"><code>products/fun-libs(@2x).webp</code> · real <code>fun-libs/icon.png</code> (v5)</p></figure>
+      <figure style="margin:0"><img class="chip" src="products/toolrails@2x.webp" alt="Toolrails diorama" loading="lazy"><p class="cap"><code>products/toolrails(@2x).webp</code> · real <code>toolrails/icon.svg</code></p></figure>
+      <figure style="margin:0"><img class="chip" src="products/harbor@2x.webp" alt="Harbor diorama" loading="lazy"><p class="cap"><code>products/harbor(@2x).webp</code> · real <code>harbor/harbor-mark.svg</code></p></figure>
+    </div>
+    <h3>Archive (retired)</h3>
+    <div class="grid g6" style="align-items:start">
+      <figure style="margin:0" class="card"><div style="background:#fff;border-radius:18px;height:96px;display:grid;place-items:center;padding:10px"><img src="../../_shared/products/luma/logo.png" alt="Luma logo (real)"></div><p class="cap">Luma · real logo</p></figure>
+      <figure style="margin:0" class="card"><img src="products/retired/polyglot-pilot.svg" alt="" style="width:96px"><p class="cap">Polyglot Pilot</p></figure>
+      <figure style="margin:0" class="card"><img src="products/retired/pinpoint.svg" alt="" style="width:96px"><p class="cap">PinPoint</p></figure>
+      <figure style="margin:0" class="card"><img src="products/retired/webvakt.svg" alt="" style="width:96px"><p class="cap">WebVakt</p></figure>
+      <figure style="margin:0" class="card"><img src="products/retired/joke-central.svg" alt="" style="width:96px"><p class="cap">Daily Jokes / Joke Central</p></figure>
+      <figure style="margin:0" class="card"><img src="products/retired/tryggere-hyring.svg" alt="" style="width:96px"><p class="cap">Tryggere Hyring</p></figure>
+      <figure style="margin:0" class="card"><img src="products/retired/early-apps.svg" alt="" style="width:96px"><p class="cap">Early apps</p></figure>
+    </div>
+    <p class="cap">Stand-ins are paper app tiles in the house style, clearly not logos. They live in an “Archive” folder on the desktop.</p>
+  </div>
+</section>
+
+<!-- EXTRAS -->
+<section class="win dark" id="extras" style="--r:.25deg;--bar:var(--aurora)"><span class="tape b"></span>
+  <header><i></i><i></i><i></i><span>extras — icons, stickers, paper, edges</span></header>
+  <div class="body">
+    <h2>Things to scatter on the desk</h2>
+    <p class="lede">Desktop icons and cursors for the OS conceit, stickers for numbers and asides, three seamless paper stocks, torn-edge dividers, tape, and two spot crops from the render.</p>
+    <h3 style="color:var(--paper)">Desktop icons · <code>extras/icons/*.svg</code></h3>
+    <div class="grid g6 dropzone" id="icons">
+      <img data-drop style="--r:-3deg" src="extras/icons/folder.svg" alt="folder"><img data-drop style="--r:2deg" src="extras/icons/document.svg" alt="document"><img data-drop style="--r:-1deg" src="extras/icons/terminal.svg" alt="terminal"><img data-drop style="--r:3deg" src="extras/icons/mail.svg" alt="mail"><img data-drop style="--r:-2deg" src="extras/icons/globe.svg" alt="globe"><img data-drop style="--r:1deg" src="extras/icons/bin.svg" alt="bin"><img data-drop style="--r:-4deg" src="extras/icons/cursor.svg" alt="cursor"><img data-drop style="--r:4deg" src="extras/icons/hand.svg" alt="hand cursor">
+    </div>
+    <h3 style="color:var(--paper)">Stickers · <code>extras/sticker-*.svg</code>, <code>tape.svg</code></h3>
+    <div class="dropzone">
+      <img data-drop style="--r:-8deg;width:150px" src="extras/sticker-shipped.svg" alt=""><img data-drop style="--r:6deg;width:120px" src="extras/sticker-sun.svg" alt=""><img data-drop style="--r:-3deg;width:110px" src="extras/sticker-star.svg" alt=""><img data-drop style="--r:4deg;width:170px" src="extras/sticker-plane.svg" alt=""><img data-drop style="--r:-2deg;width:190px" src="extras/sticker-aurora.svg" alt=""><img data-drop style="--r:-20deg;width:130px" src="extras/tape.svg" alt="">
+    </div>
+    <h3 style="color:var(--paper)">Paper stocks · seamless 512px · <code>extras/paper-{night,cream,sodium}.webp</code></h3>
+    <div class="grid g3">
+      <div class="chip" style="height:140px;background:url(extras/paper-night.webp)"></div><div class="chip" style="height:140px;background:url(extras/paper-cream.webp)"></div><div class="chip" style="height:140px;background:url(extras/paper-sodium.webp)"></div>
+    </div>
+    <h3 style="color:var(--paper)">Torn edges · <code>extras/torn-edge-{night,paper}.svg</code>, <code>torn-mask.svg</code></h3>
+    <div class="torn-demo" style="background:var(--paper);border-radius:12px;overflow:hidden"><div style="height:60px"></div><img src="extras/torn-edge-night.svg" alt="" style="width:100%;height:46px"><div style="height:40px;background:var(--night)"></div></div>
+    <div class="torn-demo" style="background:var(--night);border-radius:12px;overflow:hidden;margin-top:12px"><div style="height:40px"></div><img src="extras/torn-edge-paper.svg" alt="" style="width:100%;height:46px"><div style="height:40px;background:var(--paper)"></div></div>
+    <h3 style="color:var(--paper)">Spot crops · <code>extras/spot-sunrise.webp</code>, <code>spot-cabins.webp</code></h3>
+    <div class="grid g2"><img class="chip" src="extras/spot-sunrise.webp" alt="" loading="lazy"><img class="chip" src="extras/spot-cabins.webp" alt="" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- LIVE -->
+<section class="win" id="live" style="--r:-.35deg;--bar:var(--glow)"><span class="tape a"></span><span class="tape b"></span>
+  <header><i></i><i></i><i></i><span>live — shader, glb, three.js scene</span></header>
+  <div class="body">
+    <h2>It keeps moving</h2>
+    <p class="lede">Three interactive pieces. The centrepiece is a raw WebGL fragment shader that draws the whole paper night in one pass. The mark exists as a real .glb of stacked paper layers that fan apart on hover. The full desk scene runs live in three.js (it is the hero above).</p>
+    <div class="grid g2">
+      <figure style="margin:0"><div class="live" id="pc"><div class="ph">loading shader…</div></div><p class="cap"><code>live/papercut-shader.js</code> · raw WebGL1, no deps · torn rims, drop shadows, aurora, sun rings, punched stars · parallax from pointer/gyro · demo <a href="live/papercut-demo.html">papercut-demo.html</a></p></figure>
+      <figure style="margin:0"><div class="live square" id="m3"><div class="ph">loading glb…</div></div><p class="cap"><code>live/albretsen-mark.glb</code> + <code>live/mark-3d.js</code> · hover or tap to explode the layers · demo <a href="live/mark-3d-demo.html">mark-3d-demo.html</a></p></figure>
+    </div>
+    <p class="cap">Also: <code>live/paper-desk.js</code> (mountPaperDesk, used in the hero; toggle UI in <a href="live/paper-desk-demo.html">paper-desk-demo.html</a>) and <code>live/paperkit.js</code> (the scene kit that baked every render).</p>
+  </div>
+</section>
+
+<!-- MOTION -->
+<section class="win dark" id="motion" style="--r:.2deg"><span class="tape a"></span>
+  <header><i></i><i></i><i></i><span>motion — motion.css + motion.js</span></header>
+  <div class="body">
+    <h2>Paper physics for Radix primitives</h2>
+    <p class="lede">Every primitive behaves like a sheet: dialogs unfold from a hinge, tooltips are slapped on like stickers, tabs shuffle a stack, accordions tear open. Selectors key off Radix <code>data-state</code> / <code>data-side</code>, so the same CSS drives real Radix.</p>
+    <div class="grid g3">
+      <div class="anim-card"><span class="motion-name">1 · Unfold — dialog</span><p>Hinged at the top edge, rotateX −78° → 0 on a damped spring; the shadow grows as it lands.</p><button class="btn" id="dlg-open" aria-haspopup="dialog">Open a sheet</button></div>
+      <div class="anim-card"><span class="motion-name">3 · Peel — tooltip</span><p>Scale .55 + rotate −9° to −2° with overshoot. Exit skews off like peeling.</p>
+        <span class="tipwrap"><button class="btn ghost" id="tip-t">Hover me</button><span class="tip peel" id="tip" role="tooltip" hidden data-side="top">Since 2016 on Google Play</span></span></div>
+      <div class="anim-card"><span class="motion-name">2 · Lift — hover card</span><p>The card lifts toward the pointer; its hover card slides out from underneath.</p>
+        <span class="hcwrap"><button class="btn ghost" id="hc-t">Fun Libs</button>
+          <span class="hc sheet-card" id="hc" hidden><img src="../../_shared/products/fun-libs/icon.png" alt="">A fill-in-the-blanks word game for Android and iOS. 113,000+ installs, built at 17, no marketing.</span></span></div>
+    </div>
+    <div class="grid g4" style="margin-top:22px" id="lifts">
+      <div class="lift" style="--r:-1.2deg"><img src="../../_shared/products/mcp-emails/icon.png" alt=""><b style="font:700 17px var(--display)">MCP Emails</b><div class="cap">Email for AI agents.</div></div>
+      <div class="lift" style="--r:.8deg"><img src="../../_shared/products/fun-libs/icon.png" alt=""><b style="font:700 17px var(--display)">Fun Libs</b><div class="cap">113,000+ installs</div></div>
+      <div class="lift" style="--r:-.6deg"><img src="../../_shared/products/toolrails/icon.svg" alt=""><b style="font:700 17px var(--display)">Toolrails</b><div class="cap">One MCP URL, every tool.</div></div>
+      <div class="lift" style="--r:1.1deg"><img src="identity/logo-mark.svg" alt="" style="background:none"><b style="font:700 17px var(--display)">Albretsen AS</b><div class="cap">Norway</div></div>
+    </div>
+    <div class="grid g2" style="margin-top:22px">
+      <div class="anim-card"><span class="motion-name">4 · Shuffle — tabs</span>
+        <div id="tabs"><div role="tablist" class="shuffle-list" aria-label="Day job">
+          <button role="tab" aria-controls="tp1" data-state="active">MCP</button><button role="tab" aria-controls="tp2">Hackathon</button><button role="tab" aria-controls="tp3">AI chat</button><button role="tab" aria-controls="tp4">Mobile</button><span class="shuffle-ink"></span></div>
+          <div class="shuffle-panel" role="tabpanel" id="tp1">Built and led an MCP server for an accounting platform.</div>
+          <div class="shuffle-panel" role="tabpanel" id="tp2" hidden>Ran a developer hackathon around it.</div>
+          <div class="shuffle-panel" role="tabpanel" id="tp3" hidden>Built AI chat with invoice, VAT and OCR tools.</div>
+          <div class="shuffle-panel" role="tabpanel" id="tp4" hidden>Built a React Native mobile app.</div></div></div>
+      <div class="anim-card"><span class="motion-name">5 · Tear — accordion</span>
+        <div class="acc" id="acc">
+          <div data-acc-item><button aria-expanded="false">Toolrails <span class="tear-chevron">▾</span></button><div class="tear" hidden><div>One MCP URL that gives an agent every tool. Tool search, injection guard, 4 connectors.</div></div></div>
+          <div data-acc-item><button aria-expanded="false">Harbor <span class="tear-chevron">▾</span></button><div class="tear" hidden><div>A private knowledge base shared by people and AI. Self-hostable; AI edits held for approval.</div></div></div>
+        </div></div>
+    </div>
+    <div class="grid g2" style="margin-top:22px">
+      <div class="anim-card"><span class="motion-name">6 · Drop — entrance</span><p>Collage pieces fall into place with a spring, staggered by <code>--i</code>, each landing on its own resting angle <code>--r</code>.</p>
+        <div class="dropzone" id="dz"><img data-drop style="--r:-6deg" src="extras/sticker-sun.svg" alt=""><img data-drop style="--r:5deg" src="extras/icons/folder.svg" alt=""><img data-drop style="--r:-2deg" src="extras/sticker-star.svg" alt=""><img data-drop style="--r:8deg" src="products/retired/pinpoint.svg" alt=""></div>
+        <button class="btn ghost" id="replay">Replay</button></div>
+      <div class="anim-card"><span class="motion-name">7 · Scissor wipe — page transition</span><p>View Transitions: the next page is revealed behind a torn vertical edge sweeping left to right.</p>
+        <div class="wipe" id="wipe" style="background:var(--night);color:var(--paper)">Products</div><button class="btn ghost" id="wipe-b">Cut to next page</button></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>Albretsen AS · asset kit 32 “Night Shift Paper” · see <a href="ASSETS.md">ASSETS.md</a> for sources and licences</footer>
+
+<div class="overlay unfold-overlay" id="dlg-ov" hidden></div>
+<div class="dialog unfold" id="dlg" role="dialog" aria-modal="true" aria-labelledby="dlg-h" hidden>
+  <header>about.txt</header>
+  <div class="body"><h2 id="dlg-h" style="font-size:30px">Asgeir Albretsen</h2><p>Software developer in Norway. Runs Albretsen AS: apps, SaaS and AI-agent infrastructure. On Google Play since 2016. Takes one outside engagement at a time.</p><button class="btn" data-close>Fold it away</button></div>
+</div>
+
+<script type="module">
+import { tilt, pointerVars, drop, dialog, tabs, accordion, tooltip, hoverCard, scissorTo } from './motion.js';
+// focus mode: preview.html?only=products,motion shows just those windows
+const only = new URLSearchParams(location.search).get('only');
+if (only) { const keep = only.split(','); document.querySelector('.hero').hidden = !keep.includes('top'); document.querySelector('.torn').hidden = true; document.querySelectorAll('main > section').forEach((s) => (s.hidden = !keep.includes(s.id))); }
+// palette
+const P =[['Ink','oklch(0.16 0.035 262)','#050d1c','text on paper, nearest hill'],['Night','oklch(0.22 0.06 262)','#0a1936','page ground'],['Deep','oklch(0.29 0.08 260)','#122a52','mid hills, secondary text'],['Dusk','oklch(0.38 0.095 258)','#1f4274','hill, links on paper'],['Twilight','oklch(0.52 0.09 252)','#406c9b','far hills, muted UI'],['Haze','oklch(0.70 0.06 245)','#7fa3c2','captions on night'],['Sodium','oklch(0.74 0.165 58)','#f68c26','the one warm light: CTAs, “on”'],['Ember','oklch(0.62 0.17 45)','#d55c13','sodium shadow side, hover'],['Glow','oklch(0.87 0.10 78)','#f9cc87','lit windows, highlights'],['Aurora','oklch(0.82 0.17 132)','#9ada5e','seed hue 132°: aurora, “live”'],['Aurora deep','oklch(0.55 0.13 150)','#298646','aurora shadow strip'],['Paper','oklch(0.95 0.022 85)','#f5eede','sheets, windows, rims']];
+const sw = document.getElementById('swatches');
+P.forEach(([n, ok, hex, use], i) => { const d = document.createElement('div'); d.className = 'swatch'; d.style.background = hex; d.style.setProperty('--r', ((i * 37) % 7 - 3) * .35 + 'deg');
+  const light = ['Paper','Glow','Aurora','Haze','Sodium'].includes(n); d.style.color = light ? '#050d1c' : '#f5eede';
+  d.innerHTML = `<b>${n}</b>${hex}<br>${ok}<br><span style="opacity:.75">${use}</span>`; sw.appendChild(d); });
+// motion demos
+tilt(document.getElementById('stack'));
+document.querySelectorAll('.lift').forEach(pointerVars);
+drop(document);
+dialog(document.getElementById('dlg-open'), document.getElementById('dlg-ov'), document.getElementById('dlg'));
+tabs(document.getElementById('tabs')); accordion(document.getElementById('acc'));
+tooltip(document.getElementById('tip-t'), document.getElementById('tip'));
+hoverCard(document.getElementById('hc-t'), document.getElementById('hc'));
+document.getElementById('replay').onclick = () => document.querySelectorAll('#dz [data-drop]').forEach((e) => { e.classList.remove('is-in'); void e.offsetWidth; e.classList.add('is-in'); });
+const pages = [['Products','var(--night)','var(--paper)'],['Writing','var(--sodium)','var(--ink)'],['Day job','var(--paper)','var(--ink)'],['Archive','var(--dusk)','var(--paper)']]; let pi = 0;
+document.getElementById('wipe-b').onclick = () => scissorTo(() => { pi = (pi + 1) % pages.length; const w = document.getElementById('wipe'); w.textContent = pages[pi][0]; w.style.background = pages[pi][1]; w.style.color = pages[pi][2]; });
+// ?autoplay: open every primitive once (for screenshots and quick review)
+if (new URLSearchParams(location.search).has('autoplay')) setTimeout(() => {
+  document.querySelector('#acc button').click();
+  document.getElementById('tip-t').dispatchEvent(new PointerEvent('pointerenter'));
+  document.getElementById('hc-t').dispatchEvent(new PointerEvent('pointerenter'));
+  document.querySelectorAll('#tabs [role=tab]')[2].click();
+  setTimeout(() => document.getElementById('dlg-open').click(), 900);
+}, 600);
+// clock
+const ck = document.getElementById('clock'); const tick = () => ck.textContent = 'albretsen.no · ' + new Date().toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' }); tick(); setInterval(tick, 30000);
+// lazy live pieces
+const lazy = (el, fn) => new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); fn().then(() => el.querySelector('.ph')?.remove()).catch((err) => { const ph = el.querySelector('.ph'); if (ph) ph.textContent = 'WebGL unavailable'; console.error(err); }); } }, { rootMargin: '200px' }).observe(el);
+lazy(document.getElementById('pc'), async () => { const { mountPapercut } = await import('./live/papercut-shader.js'); mountPapercut(document.getElementById('pc'), { sunX: .58 }); });
+lazy(document.getElementById('m3'), async () => { const { mountMark3D } = await import('./live/mark-3d.js'); await mountMark3D(document.getElementById('m3')); });
+lazy(document.getElementById('desk'), async () => { const { mountPaperDesk } = await import('./live/paper-desk.js'); await mountPaperDesk(document.getElementById('desk'), { ui: false, productBase: '../../_shared/products/' }); document.querySelector('.hero .poster').style.opacity = 0; });
+</script>
+</body>
+</html>

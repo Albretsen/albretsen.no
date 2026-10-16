@@ -972,5 +972,1146 @@
   "path": "30/",
   "round": 1,
   "assets": null
+ },
+ {
+  "name": "Honest Deck",
+  "tagline": "Every bet, face up: a self-dealing deck of candy cards under an airbrushed sunset.",
+  "summary": "Every product Asgeir has shipped is a glossy card in a three.js deck that deals itself as you scroll, live ones face up with their real numbers and retired ones stamped FOLDED. Showing the losers next to the winners is the point: it reads as someone who places many bets, keeps score in public and has nothing to hide. The 80s chrome-and-airbrush look in a candy palette keeps it optimistic, technical and nothing like a finance firm.",
+  "palette": [
+   "#aced37",
+   "#46ac2a",
+   "#f5f372",
+   "#ffa75a",
+   "#ff9fc6",
+   "#fa4095",
+   "#935edf",
+   "#d6bef5",
+   "#99e6f9",
+   "#f5f9ea",
+   "#10081d"
+  ],
+  "type": [
+   "Unbounded",
+   "Hanken Grotesk",
+   "Martian Mono"
+  ],
+  "voice": "Brutally honest and short, numbers before adjectives, losses stated plainly: \"Eleven products dealt so far: two pay, one is being built, one is paused, seven folded.\"",
+  "motion": "Things move like cards in a dealer's hands: they leave a deck, flip face up mid-air and land on a spring, and the hero deal is 64 pre-rendered frames scrubbed by scroll.",
+  "sound": "Off by default; when switched on, every deal, shuffle, shortcut and dropped card gives a short synthesised card snap, riffled for multi-card moves.",
+  "mark": "A house-of-cards A, two leaning cards with a third lying across them edge-on, next to an 80s chrome ALBRETSEN wordmark outlined from Unbounded 800.",
+  "inspiration": [
+   "https://tympanus.net/codrops/demos/",
+   "https://magicui.design/docs/components/magic-card",
+   "https://bruno-simon.com",
+   "https://activetheory.net",
+   "https://motion.dev/docs/scroll",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://linear.app/changelog/2021-03-25-keyboard-shortcuts-help",
+   "https://commons.wikimedia.org/wiki/File:Echo_-_A_Passive_Communications_Satellite_-_GPN-2002-000122.jpg"
+  ],
+  "id": "31",
+  "path": "31/",
+  "round": 2,
+  "assets": "31/assets/preview.html"
+ },
+ {
+  "name": "Night Shift Paper",
+  "tagline": "A paper-cut desktop on a Norwegian night, where you can drag the sun up.",
+  "summary": "The homepage is a desktop operating system cut from paper and lit by one sodium-orange sun. Windows are taped sheets you can drag, the dock holds the real product icons, and a raw WebGL shader draws torn hills, aurora and a sun that rises as you scroll or drag it. Everything looks hand-cut but is built in code. That gap carries the brand: a builder with taste who ships.",
+  "palette": [
+   "#0a1936",
+   "#050d1c",
+   "#1f4274",
+   "#f68c26",
+   "#9ada5e",
+   "#f5eede",
+   "#f9cc87"
+  ],
+  "type": [
+   "Bricolage Grotesque",
+   "Geist Mono",
+   "Geist Mono"
+  ],
+  "voice": "Plain, warm and a little nocturnal, and always concrete about what shipped. Example: \"Builds software that pays for itself. Cut from scratch after the day job and shipped before morning.\"",
+  "motion": "Paper physics: sheets unfold, drop, lift and peel, and they swing against the direction you drag them, all on damped linear() springs.",
+  "sound": "Off by default. Once it is on: synthesized paper rustles on drops and dialogs, a dry tick on the dock and tabs, and a soft two-note chime when you click the sun.",
+  "mark": "A paper 'A' whose counter is a window onto a rising sodium sun under an aurora strip, stacked as seven real paper layers that fan apart in 3D.",
+  "inspiration": [
+   "https://www.radix-ui.com/primitives/docs/guides/animation",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://developer.chrome.com/docs/css-ui/css-linear-easing-function",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://lynnandtonic.com/thoughts/entries/fun-css-only-scrolling-effects-for-matterday",
+   "https://community.spline.design",
+   "https://vercel.com/home"
+  ],
+  "id": "32",
+  "path": "32/",
+  "round": 2,
+  "assets": "32/assets/preview.html"
+ },
+ {
+  "name": "Uranographia",
+  "tagline": "A star atlas of working software: every product is a constellation drawn from its own number.",
+  "summary": "The site is a 19th-century star atlas rendered with modern data craft. MCP Emails is 17 stars for 17 tools, Fun Libs carries 113 cluster stars for 113,000 installs, Toolrails has 4 bright feeders for 4 connectors and Harbor holds 549 grains of dust for 549 commits; retired products stay on the rim as constellationes obsoletae. Every live event from the products falls into its constellation as a meteor, so the sky visibly grows while you read and says 'prolific and exact' without claiming it.",
+  "palette": [
+   "#0b090c",
+   "#141215",
+   "#221f24",
+   "#3f3c41",
+   "#737076",
+   "#aca9ae",
+   "#eceaee",
+   "#f8f6f9"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Calm, exact, catalogue-like; the numbers carry the boast. Example: \"Seventeen stars for seventeen tools.\"",
+  "motion": "Everything moves the way the sky does: gravity for arrivals, slow precession for transitions, and the pointer as a mass that stars lean toward, all on the Web Animations API.",
+  "sound": "Off until asked; then each live event that lands in a constellation rings one soft sine bell, pitched per product.",
+  "mark": "The asterism A: an A drawn as a constellation with gapped atlas lines, a diffraction sparkle at the apex and the crossbar running on as a dotted vector.",
+  "inspiration": [
+   "https://commons.wikimedia.org/wiki/File:Trouvelot-_The_great_nebula_in_Orion_-_1875.jpg",
+   "https://commons.wikimedia.org/wiki/File:Cellarius_Harmonia_Macrocosmica_-_Haemisphaerium_Stellatum_Boreale_Antiquum.jpg",
+   "https://www.biodiversitylibrary.org/",
+   "https://www.oldbookillustrations.com/illustrations/new-star/",
+   "https://www.radix-ui.com/primitives/docs/components/accordion",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://www.apple.com/macbook-pro/"
+  ],
+  "id": "33",
+  "path": "33/",
+  "round": 2,
+  "assets": "33/assets/preview.html"
+ },
+ {
+  "name": "Tension Prism",
+  "tagline": "The name is the prism: a glass lattice that every live event passes through as light.",
+  "summary": "Albretsen AS as a crystal held under tension. The ALBRETSEN wordmark is grown from about 1,900 live SVG facets that bend under the pointer, shatter on click and re-crystallise into each product's name, while every real event from his products enters as a white photon and leaves as one mint beam. It reads as hard to build and still perfectly held together, which is the case for the person behind it.",
+  "palette": [
+   "#060807",
+   "#F4FFF8",
+   "#39FD9E",
+   "#0B120E",
+   "#0D8750"
+  ],
+  "type": [
+   "Anybody Black Expanded",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Short, declarative, measured in facts rather than adjectives. Example: \"White light in, one colour out.\"",
+  "motion": "Everything is under tension: things stretch toward where they are going, overshoot slightly and snap back into the lattice.",
+  "sound": "Opt-in glass tones: each live event rings a short bell-like partial, pitched per product, and a shatter rings an octave lower.",
+  "mark": "The Prism A, a five-row lattice of glass triangles with the counter knocked out, mint at the apex and the two exit facets like a ray passing through a prism.",
+  "inspiration": [
+   "https://gsap.com/showcase/",
+   "https://godly.website",
+   "https://www.fwa.com",
+   "https://www.radix-ui.com/primitives/docs/guides/animation",
+   "https://blog.logrocket.com/how-create-liquid-glass-effects-css-and-svg/",
+   "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations/Timelines",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://threejs.org/docs/pages/MeshPhysicalMaterial.html"
+  ],
+  "id": "34",
+  "path": "34/",
+  "round": 2,
+  "assets": "34/assets/preview.html"
+ },
+ {
+  "name": "Kiln Light",
+  "tagline": "A quiet sunlit room, one day of light, and the products fired as glazed tiles.",
+  "summary": "Albretsen AS is a small sunlit room built from three.js primitives, with each real product logo fired as a ceramic tile. Scrolling scrubs 64 pre-rendered frames: the camera walks in while one day passes, and further down the same room runs live so the visitor can turn it over. The calm and the honest materials let the technical depth speak without decoration, which suits one developer who ships, keeps what earns and archives the rest.",
+  "palette": [
+   "#f6f0e8",
+   "#e8dac9",
+   "#d4b8a1",
+   "#bf6d4c",
+   "#e18344",
+   "#614735",
+   "#282019",
+   "#357e9c",
+   "#09181f"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Plain, unhurried and exact, with one warm word per line. Example: \"Quiet software that pays for itself.\"",
+  "motion": "Only the light moves on its own. Everything else enters with a focus pull (blur to sharp, a 14 px rise, expo-out) and settles with at most 4% overshoot.",
+  "sound": "Opt-in Web Audio synthesis tuned to A5: tok on a glazed tile, ting of glass, a glide in fifths, a clay thum, and embers crackling at dusk.",
+  "mark": "An arch with a ledge reads as a soft A, and a single glaze-blue sphere rests on the ledge. It is the room's window and the one drop of glaze that every icon carries.",
+  "inspiration": [
+   "https://hoverstat.es",
+   "https://polyhaven.com/a/brown_photostudio_05",
+   "https://ambientcg.com/view?id=Travertine002",
+   "https://images.nasa.gov/details/PIA11833",
+   "https://www.radix-ui.com/primitives/docs/guides/animation",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using"
+  ],
+  "id": "35",
+  "path": "35/",
+  "round": 2,
+  "assets": "35/assets/preview.html"
+ },
+ {
+  "name": "Infrared Fable",
+  "tagline": "A real landscape photographed in light you can't see, with a storybook living inside it.",
+  "summary": "Poly Haven photographs graded like Kodak Aerochrome infrared film, with the name set behind the treeline and a pointed-arch aperture that opens from the horizon into a second scene as you scroll. Hand-coloured public-domain plates (butterflies, ferns, Grandville's comet) and a spring-physics specimen deck make the products tangible. The craft is in the layering and physics; the copy stays dry and factual, which is how a company that keeps only what pays should sound.",
+  "palette": [
+   "#170733",
+   "#4a1a8c",
+   "#6b1272",
+   "#e8287f",
+   "#ff7a3d",
+   "#ffb36b",
+   "#1abcb8",
+   "#fff1e2"
+  ],
+  "type": [
+   "Gloock",
+   "Bricolage Grotesque",
+   "Martian Mono"
+  ],
+  "voice": "Storybook warmth with ledger-dry facts: short, concrete, no adjectives doing the work of numbers. \"Whatever pays. If it earns its keep, it stays in the field.\"",
+  "motion": "Things rise from behind the horizon, open through arches and settle on springs: depth first, then tension, then release.",
+  "sound": "Off by default; once turned on, flipping a plate rings a soft three-partial chime pitched per product and sending a card away is a short paper swish.",
+  "mark": "A pointed-arch window onto an infrared treeline at sunset, where the road to the horizon forms the counter of an A, beside a Gloock wordmark with a magenta Martian Mono AS tab.",
+  "inspiration": [
+   "https://www.diyphotography.net/?p=115948",
+   "https://motion.dev/examples",
+   "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://tympanus.net/codrops/2020/08/05/magnetic-buttons",
+   "https://www.radix-ui.com/primitives/docs/components/tooltip",
+   "https://www.biodiversitylibrary.org",
+   "https://polyhaven.com/a/lilienstein"
+  ],
+  "id": "36",
+  "path": "36/",
+  "round": 2,
+  "assets": "36/assets/preview.html"
+ },
+ {
+  "name": "Cloud Chamber",
+  "tagline": "A calm rose lab where chrome letters fall, collide and leave particle tracks",
+  "summary": "The hero is a working physics chamber: ALBRETSEN in liquid chrome drops onto a measured floor, can be grabbed and thrown, and every hard impact draws bubble-chamber spirals in canvas 2D. Live product events (MCP Emails, Fun Libs, Toolrails) enter as labelled tracks and are written to a detector log. It turns real activity into visible physics, which suits a builder whose work runs quietly in the background and is judged by what it leaves behind.",
+  "palette": [
+   "#fff8fb",
+   "#fceaf3",
+   "#f4b0d2",
+   "#d64d9d",
+   "#b43481",
+   "#5e1942",
+   "#1e0915",
+   "#0e0409",
+   "#b49da8",
+   "#7b606d"
+  ],
+  "type": [
+   "Unbounded 800",
+   "Geist 300-600",
+   "Geist Mono 400-500"
+  ],
+  "voice": "Scientific calm: plain sentences, numbers set like measurements, nothing raised. \"Shipped, measured, stopped. Each taught something the live ones use.\"",
+  "motion": "Long, even easing with at most one overshoot; text decodes into place out of a churn of brand glyphs, and sections open along the logo's break line.",
+  "sound": "Off until asked; then glassy two-partial pings, pitched by impact speed, and a soft low tick when a product event crosses the chamber.",
+  "mark": "Unbounded's A cut along one slanted line with the upper shard shifted; the break line is reused as the section transition and the specimen's hover state.",
+  "inspiration": [
+   "https://bruno-simon.com",
+   "https://ui.aceternity.com/components/lens",
+   "https://hoverstat.es",
+   "https://www.typohypergraphicobject.page/",
+   "https://www.radix-ui.com/primitives/docs/components/accordion",
+   "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+   "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access"
+  ],
+  "id": "37",
+  "path": "37/",
+  "round": 2,
+  "assets": "37/assets/preview.html"
+ },
+ {
+  "name": "Salon Refusé",
+  "tagline": "A museum wall after hours where every frame is a program and a UV torch shows the maths underneath.",
+  "summary": "The homepage is a jade gallery wall at night, made from three.js renders of a real CC0 gilt frame. The frame in the hero holds a live canvas-2D work that paints itself stroke by stroke. A UV torch follows the cursor and burns through the paint, the products and even the headline to show the underdrawing: vector fields, catenaries, construction grids, type specs. The products hang as real logos on museum mats, with a red 'sold' dot on the two that earn money. Retired products sit in a storeroom rack instead of being hidden. The craft is in the hidden layer, so visitors discover his taste themselves instead of being told about it.",
+  "palette": [
+   "#164737",
+   "#002116",
+   "#000f09",
+   "#f2f0e7",
+   "#cda454",
+   "#35dcab",
+   "#e62c2c",
+   "#11062a",
+   "#8bff70"
+  ],
+  "type": [
+   "Instrument Serif Italic",
+   "JetBrains Mono",
+   "Bricolage Grotesque 800 (wdth 75, stickers only)"
+  ],
+  "voice": "Dry, exact, slightly insolent: a gallery that breaks its own rules. 'Retired, not destroyed.'",
+  "motion": "Light before movement. The lamps flicker on, works unveil top-down with a clip-path, frames swing as real damped pendulums, and the UV torch opens and closes on a WAAPI-animated @property.",
+  "sound": "Off until asked. Then a synthesised light-switch click when the lamps come on or a work is rehung, and a soft glass tone when the UV torch lights up.",
+  "mark": "A frame hung deliberately crooked (−7°) from a spark-green nail on a taut wire, with a four-point spark inside; the wordmark is Instrument Serif Italic with the nail dot on the A.",
+  "inspiration": [
+   "https://en.wikipedia.org/wiki/Salon_des_Refus%C3%A9s",
+   "https://emilkowal.ski/ui/the-magic-of-clip-path",
+   "https://emilkowal.ski/ui/building-a-toast-component",
+   "https://emilkowal.ski/ui/you-dont-need-animations",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/linear",
+   "https://polyhaven.com/a/fancy_picture_frame_01",
+   "https://press.erco.com/"
+  ],
+  "id": "38",
+  "path": "38/",
+  "round": 2,
+  "assets": "38/assets/preview.html"
+ },
+ {
+  "name": "Cold Boot",
+  "tagline": "The site boots like a machine and lands like light through glass.",
+  "summary": "A short mono boot log lists the products and their numbers, then lifts away. A soft glow cracks into shards of prismatic light, and that still becomes live glass the visitor can push a lens through. Everything is warm grey; colour appears only where light is refracted (ray-traced caustics, the amber of a NASA night photograph, each product's own icon). It reads as an engineer with taste: precise, quiet, and clearly able to build the hard thing.",
+  "palette": [
+   "#100e0d",
+   "#191716",
+   "#22201f",
+   "#302d2c",
+   "#5d5a59",
+   "#938e8d",
+   "#d3d0cf",
+   "#ebe9e8",
+   "#f7f5f5"
+  ],
+  "type": [
+   "Schibsted Grotesk 600",
+   "Schibsted Grotesk 400",
+   "JetBrains Mono 400"
+  ],
+  "voice": "Nordic understatement: short declaratives, numbers instead of adjectives, the machine allowed one dry joke. Example: \"dmesg · the boot never really ends\"",
+  "motion": "Springs, not easing curves: everything settles like glass on a table, and anything that moves trails two fading echoes.",
+  "sound": "Off by default; when switched on, each live event rings a quiet glass tick with two decaying echoes, pitched per product.",
+  "mark": "An A built from two prism legs whose crossbar is a beam of light entering from outside the left leg, set beside a Schibsted Grotesk 560 wordmark and a mono AS.",
+  "inspiration": [
+   "https://bruno-simon.com",
+   "https://heronaiapp.com",
+   "https://blog.maximeheckel.com/posts/refraction-dispersion-and-other-shader-light-effects/",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://react-spring.dev/examples",
+   "https://commons.wikimedia.org/wiki/File:Snow_crystals_glittering_in_strong_direct_sunlight_42_-_wide_crop_-_high_contrast.jpg",
+   "https://images.nasa.gov/details/iss066e118171",
+   "https://polyhaven.com/a/moon_rock_03"
+  ],
+  "id": "39",
+  "path": "39/",
+  "round": 2,
+  "assets": "39/assets/preview.html"
+ },
+ {
+  "name": "Specimen Atlas",
+  "tagline": "A natural-history atlas of things that were built, lit by the sun over Oslo.",
+  "summary": "Albretsen AS is presented as a catalogue of specimens: each product is pinned to a cream card, photographed like an editorial still life and kept running. The hero is one beautiful render, a brass and glass radiolarian after Haeckel, built from three.js primitives, which comes alive in the hand and is re-lit by the real sun over Norway. It shows precision and taste without saying so, and every interaction (loupe, plate stack, drawer of tags) is hand-rolled spring physics.",
+  "palette": [
+   "#f6f0e0",
+   "#17482f",
+   "#cda047",
+   "#082014",
+   "#679270",
+   "#c444ac",
+   "#eadec8",
+   "#966626"
+  ],
+  "type": [
+   "Fraunces",
+   "Instrument Sans",
+   "Geist Mono"
+  ],
+  "voice": "A curator with a sense of humour: exact labels, short sentences, one wry italic aside. Example: \"The atlas: four specimens, under glass.\"",
+  "motion": "Everything moves on hand-rolled springs that keep their momentum: things settle like a specimen laid on a tray, and nothing animates from zero.",
+  "sound": "Off until asked; then synthesised paper (filtered noise) for plates and tags, and a small brass bell when the specimen comes alive.",
+  "mark": "A lattice A: five nodes joined like a molecule or a small network graph, apex stained eosin; set beside Albretsen in outlined Fraunces 600.",
+  "inspiration": [
+   "https://www.biodiversitylibrary.org",
+   "https://commons.wikimedia.org/wiki/File:Circogonia_icosahedra.jpg",
+   "https://siarchives.si.edu/collections/siris_arc_308074",
+   "https://www.cosmos.so",
+   "https://emilkowal.ski/ui/building-a-drawer-component",
+   "https://emilkowal.ski/ui/great-animations",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://www.joshwcomeau.com/animation/a-friendly-introduction-to-spring-physics/",
+   "https://blog.maximeheckel.com/posts/the-physics-behind-spring-animations/"
+  ],
+  "id": "40",
+  "path": "40/",
+  "round": 2,
+  "assets": "40/assets/preview.html"
+ },
+ {
+  "name": "Key Frame",
+  "tagline": "A one-person animation studio for software: cel-shaded, duotone, drawn on twos.",
+  "summary": "Albretsen AS is presented as an animation studio where every product is a painted cel and the company mark is a 3D object you can grab and throw. The ancestry of motion (Muybridge, Marey, the 1840 phenakistiscope) is recut in two inks and lives on the page as real imagery, so the craft shows instead of being claimed. It reads as a small studio with feature-length ambition: precise, playful and very deliberate.",
+  "palette": [
+   "#011835",
+   "#259cde",
+   "#010b1d",
+   "#042e57",
+   "#95ccef",
+   "#e8f6fd",
+   "#ffffff"
+  ],
+  "type": [
+   "Unbounded 800",
+   "Instrument Sans",
+   "JetBrains Mono"
+  ],
+  "voice": "Studio-floor shorthand from someone who ships: short, concrete, a little cinematic, never salesy. Example: \"Four products on the stand right now. Drag them to re-cut the order.\"",
+  "motion": "Characters move on twos (12 drawings a second) with smears, squash and impact frames, while scroll and camera stay smooth; nothing ever blurs.",
+  "sound": "Off until switched on; then synthesised cel thwacks on impacts and a pencil tick on every edit, no audio files.",
+  "mark": "An extruded cel-shaded A with a hard ink line and a two-tone toon shader, the same geometry as a flat SVG mark and a live three.js object you can throw.",
+  "inspiration": [
+   "https://en.wikipedia.org/wiki/Animation_of_Royal_Space_Force:_The_Wings_of_Honn%C3%AAamise",
+   "https://www.slashfilm.com/562748/into-the-spider-verse-technique",
+   "https://80.lv/articles/learn-how-to-add-accents-to-your-animations-with-impact-frames",
+   "https://www.metmuseum.org/art/collection/search/291656",
+   "https://collection.cooperhewitt.org/objects/18607983",
+   "https://www.radix-ui.com/primitives/docs/components/tabs",
+   "https://motion.dev/docs/scroll"
+  ],
+  "id": "41",
+  "path": "41/",
+  "round": 2,
+  "assets": "41/assets/preview.html"
+ },
+ {
+  "name": "Same Room",
+  "tagline": "One voxel room, 2019 and today, with a time scrubber as the split edge",
+  "summary": "The hero is a single isometric voxel room rendered twice from the same camera: the bedroom desk where Fun Libs was built at 17 and the studio it became. Dragging the edge between them scrubs through real milestones from 2016 to 2026, shedding pastel blocks as it moves. It reads as an optimistic builder who keeps placing the next block, and the craft (code-baked voxels, a CSS-3D shelf with the real product logos, spring physics everywhere) carries the skill without saying so.",
+  "palette": [
+   "#fefaed",
+   "#faf4da",
+   "#fee891",
+   "#f3d761",
+   "#d8b736",
+   "#a5ce6f",
+   "#6d944b",
+   "#2b3116",
+   "#bae5fd",
+   "#daccf7",
+   "#fcbfc2",
+   "#fed0b2"
+  ],
+  "type": [
+   "Bricolage Grotesque 800",
+   "Bricolage Grotesque 400/500",
+   "Geist Mono"
+  ],
+  "voice": "Plain, sunny and concrete: say what got built and what it did, then stop. Example: \"Same room. Bigger builds.\"",
+  "motion": "Everything is a block that is either placed or about to be: springs that land with a small overshoot (Stack Drop), an edge that follows on a spring and sheds voxels (Edge Drift), and pills that lean toward the cursor (Magnetic Pull).",
+  "sound": "Off by default; when switched on, a short wooden block click whose pitch rises with each year the seam passes, and a soft tick when a shelf cube lifts.",
+  "mark": "A 2×2×2 butter block with its front corner missing and a leaf-green block dropping into the gap, beside a pixel wordmark with a butter voxel extrusion.",
+  "inspiration": [
+   "https://threejs.org/examples/",
+   "https://vercel.com/home",
+   "https://www.radix-ui.com/primitives/docs/components/accordion",
+   "https://www.radix-ui.com/primitives/docs/components/tabs",
+   "https://motion.dev/docs/spring",
+   "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view",
+   "https://godly.website"
+  ],
+  "id": "42",
+  "path": "42/",
+  "round": 2,
+  "assets": "42/assets/preview.html"
+ },
+ {
+  "name": "The Albretsen Dawn",
+  "tagline": "A morning paper from the future, printed by a press that only knows triangles.",
+  "summary": "The homepage is the front page of a newspaper from about 2036, set in pastel low-poly light. A canvas press prints the lead plate live from the sun outward. A three.js crystal of the mark breaks out of the photograph, and a real wire of product events runs down the rail. The newspaper is only the frame. Everything printed inside it is plainly made by software, so a small technology company reads as calm, exact and quietly ambitious.",
+  "palette": [
+   "#f6fbfc",
+   "#e2f4f6",
+   "#b5e5ea",
+   "#6ab9c7",
+   "#32728a",
+   "#182933",
+   "#fbd1b6",
+   "#f6cbd0",
+   "#d0cded",
+   "#f8e18a",
+   "#efc65a"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Quiet confidence: headlines are facts, never adjectives, with lots of air around them. Example: \"A word game built at 17 now has 113,000+ installs.\"",
+  "motion": "Things print, not pop: facets arrive from the sun outward, pages turn on a diagonal facet (View Transitions API), and nothing bounces.",
+  "sound": "Off until the visitor turns it on, then a soft synthesised paper tick on edition turns, copies and theme changes.",
+  "mark": "A faceted A built from eleven triangles lit from the upper right, with a warm sunrise triangle in the crossbar and a gold four-point spark off the apex; in 3D it becomes the crystal.",
+  "inspiration": [
+   "https://www.monumentvalleygame.com",
+   "https://rauno.me/craft/interaction-design",
+   "https://magicui.design/docs/components",
+   "https://hoverstat.es",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://developer.chrome.com/docs/web-platform/view-transitions",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://ambientcg.com/view?id=Paper003",
+   "https://images.nasa.gov/details/iss073e1068530"
+  ],
+  "id": "43",
+  "path": "43/",
+  "round": 2,
+  "assets": "43/assets/preview.html"
+ },
+ {
+  "name": "Darkfield",
+  "tagline": "One glass slide you pan and zoom, with every product lit from the side.",
+  "summary": "Darkfield microscopy lights only what is really there, so the specimen glows on black. The homepage is a glass slide you can pan and zoom. Albretsen AS products are arranged around a stone of 24,000 grains, like a Victorian diatom slide. Wherever the objective settles, the grains fly over and become that product's specimen glyph. It shows taste and engineering in the same gesture, and every number on it is true.",
+  "palette": [
+   "#14100a",
+   "#fae0c1",
+   "#f0b871",
+   "#bd8e53",
+   "#735836",
+   "#3b3124",
+   "#0b0805"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist (300)",
+   "Geist Mono"
+  ],
+  "voice": "Quiet, exact and slightly scientific: it names what something is and what it measures, then stops. Example: \"Builds software that pays for itself. Everything he has shipped is on this slide.\"",
+  "motion": "Like an objective finding focus: things arrive out of blur with an expo-out ease, the slide moves slowly between places, and the grains converge, ripple on a live signal and peel away as you scroll.",
+  "sound": "Off by default. Once it is on, a soft two-partial sine ping marks a signal, a change of focus or a live event from the product under the objective.",
+  "mark": "A triangular Triceratium diatom valve that reads as an A, with three ocelli and one signal-gold nodule, beside an outlined Instrument Serif wordmark.",
+  "inspiration": [
+   "https://stripe.com",
+   "https://www.biodiversitylibrary.org",
+   "https://quaternius.com",
+   "https://www.lapa.ninja",
+   "https://microscope-antiques.com/arrangements.html",
+   "https://www.metmuseum.org/art/collection/search/301891",
+   "https://polyhaven.com/a/moon_rock_03",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://gsap.com/docs/v3/Plugins/ScrollTrigger/"
+  ],
+  "id": "44",
+  "path": "44/",
+  "round": 2,
+  "assets": "44/assets/preview.html"
+ },
+ {
+  "name": "Drift",
+  "tagline": "A river of time in soft plastic, from a first Android app in 2016 to today.",
+  "summary": "The homepage opens on a live three.js river: nine thousand glossy beads carry ten years of work toward the viewer, and the visitor can drag a pebble through the years or stir the water. Every surface is one hue (OKLCH 180) in twelve depths and lit like a studio product shot. That calm precision is what Albretsen AS should signal: someone who ships often, keeps what works and lets the rest settle.",
+  "palette": [
+   "#dcf7f1",
+   "#f2fdfa",
+   "#87dac9",
+   "#08a28f",
+   "#006154",
+   "#042822",
+   "#020907"
+  ],
+  "type": [
+   "Instrument Serif Italic",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Calm, exact and unhurried. It describes what exists and lets the numbers stay small. Example: \"Ten years downstream of a first Android app.\"",
+  "motion": "One hand-rolled spring drives everything, from the river's stir to the popovers, so nothing moves on a timeline and everything drifts, overshoots a little and settles.",
+  "sound": "Off by default. When turned on, synthesised water droplets mark ripples, year changes and live events, and a falling or rising four-note chord plays when the tide turns.",
+  "mark": "A single-storey 'a' whose bowl is a bead and whose stem flows out into a current, with one small bead floating free.",
+  "inspiration": [
+   "https://activetheory.net",
+   "https://www.radix-ui.com/primitives/docs/guides/animation",
+   "https://paco.me",
+   "https://rive.app/community",
+   "https://blog.maximeheckel.com/posts/the-physics-behind-spring-animations/",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://commons.wikimedia.org/wiki/Kunstformen_der_Natur",
+   "https://www.oldbookillustrations.com/illustrations/thy-stream/"
+  ],
+  "id": "45",
+  "path": "45/",
+  "round": 2,
+  "assets": "45/assets/preview.html"
+ },
+ {
+  "name": "Say Cheese",
+  "tagline": "A loud candy-clay camera world where the visitor holds the camera: pull focus, set exposure, keep the print.",
+  "summary": "Albretsen AS through a viewfinder. Blink, a squishy butter-yellow clay camera rendered live by a hand-written WebGL2 raymarcher, stands in for the company: hand-made warmth on top of serious engineering. The hero hands the visitor the controls (lens ring, exposure, shutter) and every print they take carries a real fact, so the skill shows itself instead of being claimed.",
+  "palette": [
+   "#FFF6E4",
+   "#381A13",
+   "#FFE97E",
+   "#FC9E47",
+   "#ED6E12",
+   "#FF99C2",
+   "#8DEFC5",
+   "#B6ADF3",
+   "#93D5F5",
+   "#ED3F4B"
+  ],
+  "type": [
+   "Bricolage Grotesque 800, width 76%",
+   "Bricolage Grotesque 400, opsz 14",
+   "DM Mono 400/500"
+  ],
+  "voice": "Sunny, blunt and proud, with camera words doing the work. Example: \"Four things, developing.\"",
+  "motion": "Everything moves like a camera handled by a person: the iris opens, focus hunts once and locks, the shutter flashes, clay squashes and springs back (Web Animations API, springs baked into linear()).",
+  "sound": "Off until asked; then every sound is synthesised live: a soft plastic shutter, the autofocus double-beep, ring detent ticks, a clay squish and a sticker slap.",
+  "mark": "Blink's face: a butter clay pebble with a bubblegum lens ring whose three-blade aperture forms the letter A, next to a wordmark rolled from clay coils.",
+  "inspiration": [
+   "https://quaternius.com",
+   "https://polyhaven.com/a/Camera_01",
+   "https://rauno.me/craft",
+   "https://paco.me",
+   "https://www.joshwcomeau.com/react/boop/",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://www.siteinspire.com"
+  ],
+  "id": "46",
+  "path": "46/",
+  "round": 2,
+  "assets": "46/assets/preview.html"
+ },
+ {
+  "name": "Stille",
+  "tagline": "A quiet archive of working things: an app store, art-directed by a museum.",
+  "summary": "The products sit on one long white shelf in Hammershøi daylight, photographed like objects in a museum store: real icons as glazed tiles, retired products as plaster casts, one violet cube. Everything can be picked up and rearranged, and every object opens into its catalogue card. It reads as quiet confidence: few things, all of them made to work.",
+  "palette": [
+   "#f3f2f6",
+   "#e7e5eb",
+   "#c9c6cb",
+   "#87848e",
+   "#56535d",
+   "#19161f",
+   "#7c44c3",
+   "#d7c9f3"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Short, plain, unhurried; says less than it could. Example: \"Arrange them in any order. Nothing is saved. It is only a shelf.\"",
+  "motion": "Objects move like things set down by hand: View Transitions glide the shelf into its new order, the dropped object kicks and settles, and a tile opens into its catalogue plate while the room drops to grey.",
+  "sound": "Off until asked; then one synthesised knock of a ceramic tile on a painted board when something is set down, and nothing else.",
+  "mark": "An A drawn as a house gable with a shelf across it and one aniline-violet square resting on the shelf; the wordmark is Instrument Serif in outline with AS in Geist Mono.",
+  "inspiration": [
+   "https://open.smk.dk/artwork/image/KMS7444",
+   "https://www.igloo.inc",
+   "https://www.unicorn.studio",
+   "https://blog.master.dev/view-transition-list-reordering-with-a-kick-flip/",
+   "https://developer.chrome.com/blog/view-transitions-misconceptions",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card"
+  ],
+  "id": "47",
+  "path": "47/",
+  "round": 2,
+  "assets": "47/assets/preview.html"
+ },
+ {
+  "name": "Nocturne Select",
+  "tagline": "A character-select screen where the products are the characters, in glossy plastic lit like a studio at night.",
+  "summary": "The homepage is a select screen: four live products stand on lit plinths in a real-time three.js stage, a stat sheet locks onto whichever one you pick, and its live wire shows what that product is doing right now. Everything is soft plastic rendered in code under one magenta and one ion rim light, with Met Open Access objects giving it a lineage. It reads as a builder with range and finish: many products, each owned, each lit properly.",
+  "palette": [
+   "#0b050c",
+   "#160b17",
+   "#251726",
+   "#f8f1f8",
+   "#dc3aec",
+   "#f295fb",
+   "#36dcec",
+   "#588cff",
+   "#fbd452",
+   "#e3d612",
+   "#1fc893"
+  ],
+  "type": [
+   "Unbounded",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Short, calm, exact; a stat sheet more than a pitch. \"Four on stage. Seven kept in resin.\"",
+  "motion": "Things power on from a scan line, lock in with a soft plastic overshoot, rise off the floor as you scroll, and otherwise breathe slowly in the dark.",
+  "sound": "Off by default; once turned on, each selection plays a two-note sine and triangle lock through a lowpass, like a soft plastic click.",
+  "mark": "The Selector: a rounded Λ that is both the A of Albretsen and the P1 pointer, with an ion dot for the one chosen; it doubles as the cursor and the 3D pointer above the selected product.",
+  "inspiration": [
+   "https://tympanus.net/codrops/?p=57089",
+   "https://threejs.org/docs/pages/MeshPhysicalMaterial.html",
+   "https://iquilezles.org/articles/distfunctions2d/",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://www.radix-ui.com/primitives/docs/components/tabs",
+   "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations/Timeline_range_names",
+   "https://cuberto.com/blog/cursor-magnetic-js-component/",
+   "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access"
+  ],
+  "id": "48",
+  "path": "48/",
+  "round": 2,
+  "assets": "48/assets/preview.html"
+ },
+ {
+  "name": "Habit",
+  "tagline": "A quiet conversation at a pen-drawn desk, with a crystal you can turn.",
+  "summary": "The site talks to the visitor in short, typed turns from an ink drawing of a desk, and answers in its own voice: chips, free text, and a mode that turns the products into plain specs for agents. Real 3D (Kenney models and generated crystal habits) is drawn by three.js as ink, after James Sowerby's British Mineralogy plates, and the only colour on the page comes from 200-year-old hand-coloured specimens and the real product logos. It reads as someone effective and unhurried who builds technical things with taste.",
+  "palette": [
+   "#f2f5f6",
+   "#fbfdfd",
+   "#d5dadc",
+   "#98a0a2",
+   "#646e70",
+   "#1c2427",
+   "#131819",
+   "#e6eaec"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Short, factual, a little dry; the site speaks in turns with a typing beat before each one. Example: \"Habit is a mineralogist's word: the shape a crystal keeps growing into.\"",
+  "motion": "Ink draws itself in, bubbles unfold from their tails after a typing beat, and the theme switches through a wobbly hand-drawn circle grown from the lamp bulb; nothing moves more than about 18 px.",
+  "sound": "Off by default; once enabled, each turn lands with two soft pencil ticks synthesised from band-passed noise.",
+  "mark": "An octahedron drawn Sowerby-style, front edges in ink and back edges dashed, whose top half reads as an A, beside an Instrument Serif wordmark set in outlines.",
+  "inspiration": [
+   "https://www.biodiversitylibrary.org/item/128814",
+   "https://archive.org/details/britishmineralog01sowe",
+   "https://www.radix-ui.com/primitives/docs/components/accordion",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://developer.chrome.com/docs/css-ui/animate-to-height-auto",
+   "https://scroll-driven-animations.style/",
+   "https://kenney.nl/assets/furniture-kit",
+   "https://www.framer.com/gallery"
+  ],
+  "id": "49",
+  "path": "49/",
+  "round": 2,
+  "assets": "49/assets/preview.html"
+ },
+ {
+  "name": "IR//PEEL",
+  "tagline": "Pixel stickers on glossy vinyl. Peel one and an infrared underdrawing is underneath.",
+  "summary": "The homepage is a sheet of die-cut vinyl stickers: the Albretsen AS mark, the four real product logos and a set of pixel sprites. Visitors can peel every one of them. Under each sticker is a fact, and under the mark is an infrared, Bayer-dithered plate of a public-domain museum object. The surface is playful, but there is always a deliberate layer under it, which suits a builder who ships toys and infrastructure with the same care.",
+  "palette": [
+   "#0d031e",
+   "#4b1788",
+   "#f315a2",
+   "#fa8233",
+   "#fec766",
+   "#f2ed2b",
+   "#f6f3fc"
+  ],
+  "type": [
+   "Geist 650",
+   "Geist 400",
+   "Geist Mono + Silkscreen (micro labels only)"
+  ],
+  "voice": "Terse and dry, the way a late-night terminal talks. Lowercase confidence that never shouts. Example: \"Every sticker on this sheet peels. Underneath is the work.\"",
+  "motion": "Objects behave like vinyl: they SLAP down on a spring, LIFT with a holographic glint, peel along a real fold line, and screens dissolve in Bayer-ordered infrared.",
+  "sound": "Off until the visitor turns it on. Then a band-passed noise sweep plays when vinyl lifts off the liner, there is a low thump on re-stick, and 8-bit square-wave blips on UI.",
+  "mark": "A 16×16 pixel tile in violet with its corner folded back and an A carrying a one-pixel magenta offset, set beside a pixel wordmark with an orange AS.",
+  "inspiration": [
+   "https://gsap.com/docs/v3/HelperFunctions/helpers/imageSequenceScrub",
+   "https://motion.dev/examples",
+   "https://github.com/simeydotme/pokemon-cards-css",
+   "https://www.radix-ui.com/primitives/docs/guides/animation",
+   "https://codemyui.com/peel-away-sticker-text-effect/",
+   "https://www.metmuseum.org/openaccess"
+  ],
+  "id": "50",
+  "path": "50/",
+  "round": 2,
+  "assets": "50/assets/preview.html"
+ },
+ {
+  "name": "Sodium Orbit",
+  "tagline": "Earth at night from the ISS: a playable spark lights four lamps, and the lamps light the introduction.",
+  "summary": "Seen from orbit, cities at night are sodium-orange circuit boards under a thin blue airglow. The hero is a small game on a real NASA photograph: fly a molten spark through four cold lamps, one per product, and each lamp strikes neon pink, warms to sodium and lights one part of the sentence 'Asgeir Albretsen builds software that pays for itself.' It shows craft by doing rather than claiming, and keeps every figure real.",
+  "palette": [
+   "#020513",
+   "#051029",
+   "#0c2348",
+   "#52b5f4",
+   "#bed4eb",
+   "#f1f6fa",
+   "#fb942a",
+   "#ffe196",
+   "#e63281"
+  ],
+  "type": [
+   "Unbounded",
+   "Inter Tight",
+   "JetBrains Mono"
+  ],
+  "voice": "Calm, exact, a little dry; facts in place of adjectives. Example: 'Four lamps on. A few burned out on the way.'",
+  "motion": "Everything arrives the way a sodium lamp strikes: a neon flicker, then a slow warm-up to orange, then rest, all written with the Web Animations API and spring easings sampled into linear().",
+  "sound": "Off until asked for; then each lamp strikes with a synthesised starter click, a flickering neon buzz and a warm hum, and the live feed ticks quietly.",
+  "mark": "The arc of a thrown spark forms an A, with the glowing spark itself as the crossbar; the game's lamps sit on that arc and finishing the game draws it in particles.",
+  "inspiration": [
+   "https://earthobservatory.nasa.gov/Features/CitiesAtNight",
+   "https://images.nasa.gov/details/iss035e017619",
+   "https://en.wikipedia.org/wiki/Sodium-vapor_lamp",
+   "https://rauno.me/craft",
+   "https://www.radix-ui.com/primitives/docs/components/accordion",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://www.joshwcomeau.com/animation/3d-button/",
+   "https://tympanus.net/codrops/2024/12/19/crafting-a-dreamy-particle-effect-with-three-js-and-gpgpu/"
+  ],
+  "id": "51",
+  "path": "51/",
+  "round": 2,
+  "assets": "51/assets/preview.html"
+ },
+ {
+  "name": "Violet Cabinet",
+  "tagline": "A museum archive plugged into the mains: five electrified plates, one crystal that changes habit, a bust digitised live.",
+  "summary": "Albretsen AS is shown as a cabinet of working software. Real public-domain scans (Kurr's 1859 crystal plates, West's Franklin, Tesla's 1899 lab, Haeckel) are electrified violet, and the homepage is a scroll-driven story in plates: the SVG specimen morphs from cube to octahedron to quartz to dodecahedron and finally into the twin-crystal mark while a CC0 marble bust is scanned into a live engraving. The precision is real (84°33′ Japan-law twin, Plate A habits, catalogue numbering) and the play is in the motion, which suits a builder who is both rigorous and quick.",
+  "palette": [
+   "#462eeb",
+   "#5a45f5",
+   "#170a62",
+   "#090731",
+   "#a3a9ff",
+   "#f3f6ff",
+   "#ddf93c",
+   "#f8edd8",
+   "#2a2440"
+  ],
+  "type": [
+   "Bodoni Moda (italic display)",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "A catalogue entry written by someone with a sense of humour: exact, short, numbered, never selling. Example: \"Built at seventeen. No marketing, ever. Version 5 shipped in 2026.\"",
+  "motion": "Scroll turns the plates: CSS view timelines on scene spacers cut each new scan open from a hexagonal crystal section around its focal point, while Lenis smooths the scroll and one spark discharges between plates.",
+  "sound": "Off until asked; when on, each plate change gives a short band-passed electrical crackle over a faint 50 Hz hum.",
+  "mark": "Two quartz crystals joined at exactly 84°33′ (a Japan-law twin) form an A, with a spark-yellow bar as the crossbar current; the scroll morph ends on it.",
+  "inspiration": [
+   "https://digital.sciencehistory.org/works/pr76f4633",
+   "https://developer.chrome.com/blog/nrk-casestudy",
+   "https://ui.aceternity.com/components",
+   "https://www.osmo.supply/resource/magnetic-hover-effect",
+   "https://www.framer.com/gallery/categories/portfolio"
+  ],
+  "id": "52",
+  "path": "52/",
+  "round": 2,
+  "assets": "52/assets/preview.html"
+ },
+ {
+  "name": "Halflight",
+  "tagline": "A title sequence that resolves into a page, printed in two inks and lit by the real sun over Oslo.",
+  "summary": "The site opens like a film: shutters, a spark on a NASA horizon, a halftone field pulling focus into a photograph, then the name. Every surface after that is a two-ink duotone whose inks follow the actual solar altitude over Oslo, and visitors can drag the sun across today's sky to re-light the whole page. It reads as one person with cinematic ambition and the patience to get every frame right, which is what Albretsen AS sells.",
+  "palette": [
+   "#160d06",
+   "#3c2514",
+   "#a75932",
+   "#de6f11",
+   "#deac37",
+   "#fad86f",
+   "#f6eedd",
+   "#696d43"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Title-card brevity, credits-roll calm: facts set like a film's opening credits, never a sales line. Example: \"Software that pays for itself. Apps, SaaS and agent infrastructure, written and shipped from 59° north.\"",
+  "motion": "Reveals sharpen rather than fade: everything moves from coarse to fine, over-exposed to printed, on long filmic ease-outs, and the letterbox only ever opens.",
+  "sound": "Off until asked; then a soft three-voice drone tuned to the phase of day whose filter opens as the sun climbs, with a single 1.3 kHz glint when you grab the sun.",
+  "mark": "A solid half-sun on the horizon over a tapering halftone reflection; it rises, prints its reflection dot by dot, then breathes (Lottie), beside an outlined Instrument Serif wordmark with a Geist Mono AS.",
+  "inspiration": [
+   "https://www.igloo.inc",
+   "https://www.siteinspire.com",
+   "https://godly.website",
+   "https://www.are.na/explore",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://www.radix-ui.com/primitives/docs/components/accordion",
+   "https://tympanus.net/codrops/2020/04/14/interactive-webgl-hover-effects/",
+   "https://commons.wikimedia.org/wiki/Category:The_Trouvelot_astronomical_drawings",
+   "https://images.nasa.gov/details/iss073e1068530"
+  ],
+  "id": "53",
+  "path": "53/",
+  "round": 2,
+  "assets": "53/assets/preview.html"
+ },
+ {
+  "name": "The Vivarium",
+  "tagline": "Small software, kept alive under glass.",
+  "summary": "Albretsen AS presented as a tended terrarium: each product is a small creature living under a CSS-3D glass case, catalogued like a naturalist would, with real 17th and 18th century specimen drawings from The Met pinned beside storybook three.js creatures. The tension between the still archive and the living jar shows both taste and technical skill, and retired products stay visible as pressed herbarium sheets, which reads as honest and long-term.",
+  "palette": [
+   "#f8f4ea",
+   "#162118",
+   "#408742",
+   "#225424",
+   "#e2a355",
+   "#0d160f"
+  ],
+  "type": [
+   "Fraunces (opsz 144, SOFT 50; italic SOFT 100 for Latin names)",
+   "Fraunces (opsz 18)",
+   "Spline Sans Mono"
+  ],
+  "voice": "A calm naturalist's field notes: exact, a little dry, never selling. Example: \"Four creatures live in the case. Seven are pressed and filed.\"",
+  "motion": "Everything grows rather than slides: bottom-anchored germinate reveals, a glass case that lands with a soft overshoot and turns under your hand with inertia, and idle life only in short bursts.",
+  "sound": "Off by default; when switched on, tapping a creature rings a small glass tink tuned per species and turning a herbarium sheet makes a soft paper rustle (Web Audio, no files).",
+  "mark": "A bell jar over a two-leaf sprout with the right leaf in moss, paired with an outlined Fraunces wordmark, a moss full stop and a mono AS.",
+  "inspiration": [
+   "https://bruno-simon.com",
+   "https://motion.dev/examples",
+   "https://www.radix-ui.com/primitives/docs/components/tooltip",
+   "https://rive.app/community/files/21035-39547-interactive-plant-with-wind-effects-bones-and-state-machine",
+   "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+   "https://codyhouse.co/gem/parallax-hero-image"
+  ],
+  "id": "54",
+  "path": "54/",
+  "round": 2,
+  "assets": "54/assets/preview.html"
+ },
+ {
+  "name": "Plate Nocturne",
+  "tagline": "A light table at night: 19th-century glass negatives under loose panes that bend the light.",
+  "summary": "The homepage is a light table. Loose panes of glass lie over glass-negative photographs from The Met's open-access collection: Moussette's 1886 lightning, an 1883 eclipse corona, Whipple's moon, and Paul Henry's Cygnus and Lyra. Each pane displaces what is under it, the way the Albretsen mark bends its ray. The people who made those plates did it after their day's work with instruments they built themselves, which is the honest story of Albretsen AS: one person who builds at night and keeps what pays for itself.",
+  "palette": [
+   "#090706",
+   "#120e0c",
+   "#1f1917",
+   "#332c29",
+   "#8e847e",
+   "#ede7df",
+   "#ff7e22",
+   "#ffb15c",
+   "#733119"
+  ],
+  "type": [
+   "Instrument Serif Italic",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "The quiet operator: short, exact, unhurried, with numbers given and never inflated. Labels read like museum catalogue entries. Example: \"Software, developed after dark.\"",
+  "motion": "Light develops instead of animating: photographs resolve from over-exposed amber haze to sharp, panes stack and recede on scroll, and plate changes open from a single seam of amber light.",
+  "sound": "Off until asked. Everything is synthesised in Web Audio: a struck-glass tink, a spark crackle when the bolt fires, a pane sliding, and a low hum while sound is on.",
+  "mark": "An A made of two glass plates seen edge-on, leaning together, with one amber ray that kinks as it passes through each plate. The ray draws itself on load.",
+  "inspiration": [
+   "https://www.metmuseum.org/art/collection/search/287289",
+   "https://scroll-driven-animations.style/demos/stacking-cards/css/",
+   "https://motion.dev/examples",
+   "https://www.radix-ui.com/primitives/docs/components/accordion",
+   "https://css-tricks.com/grainy-gradients/",
+   "https://eddy-naboulet.dev/"
+  ],
+  "id": "55",
+  "path": "55/",
+  "round": 2,
+  "assets": "55/assets/preview.html"
+ },
+ {
+  "name": "Honest Pixels",
+  "tagline": "Real photographs, rounded down by code, captioned with exactly what was done to them.",
+  "summary": "Every image is a CC0 photograph run through Asgeir's own dither, ASCII and engraving code, and every image says so. The hero is a moodboard you can rearrange and re-render live (Photo, Dither, ASCII), and it doubles as the portfolio: each piece is a product, a fact or a process. The same honesty runs through the numbers: two live, one building, one paused, seven retired, all listed.",
+  "palette": [
+   "#f9f2e2",
+   "#efe5d0",
+   "#052517",
+   "#14422b",
+   "#c59a44",
+   "#966b27",
+   "#587d50",
+   "#e03c63"
+  ],
+  "type": [
+   "Bricolage Grotesque",
+   "IBM Plex Mono",
+   "IBM Plex Mono"
+  ],
+  "voice": "Plain, exact and unflattering about itself; it states the source and the number. Example: \"I build software that pays for itself. Some of it didn't. This site says which.\"",
+  "motion": "Things move in steps, like pixels do (Bayer-ordered reveals, stepped counters, 1 Hz cursor); easing is allowed only where a hand is dragging.",
+  "sound": "Off until asked; then 1-bit square-wave blips with hard envelopes for pick-up, drop, render switch and each scroll step of the develop band.",
+  "mark": "A pixel 'A' that dithers away toward the top beside a blinking brass cursor block, next to 'albretsen' in outlined Bricolage and 'AS' in Plex Mono.",
+  "inspiration": [
+   "https://ui.aceternity.com/components/dither-shader",
+   "https://tympanus.net/codrops/?p=95318",
+   "https://www.radix-ui.com/primitives/docs/components/toggle-group",
+   "https://gsap.com/docs/v3/Plugins/Flip/",
+   "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+   "https://polyhaven.com/a/misty_pines",
+   "https://www.shadertoy.com"
+  ],
+  "id": "56",
+  "path": "56/",
+  "round": 2,
+  "assets": "56/assets/preview.html"
+ },
+ {
+  "name": "Escape Vector",
+  "tagline": "Public-domain spaceflight pushed to hard black and white, with one re-entry red for everything alive.",
+  "summary": "A self-funded builder who left orbit on purpose. The hero is a landing site: a crater field built from twenty CSS 3D contour slices, where a red probe reads altitude under the cursor and locks onto real product beacons standing on the high ground. NASA photography, Trouvelot engravings and Haeckel's radiolarians make it feel like a real archive, and decode-into-place type and spring physics make it feel engineered.",
+  "palette": [
+   "#070707",
+   "#FFFFFF",
+   "#F34046",
+   "#F9F6F5",
+   "#747070",
+   "#A51E27"
+  ],
+  "type": [
+   "Bricolage Grotesque",
+   "Martian Mono",
+   "Martian Mono"
+  ],
+  "voice": "Precise, a little defiant, never corporate. Short declaratives with physics in them. Example: \"Four up. Seven came down.\"",
+  "motion": "Everything has mass: hand-rolled damped springs for tilt, lift and float, and text that arrives as noise and locks in left to right.",
+  "sound": "Off until asked; then tiny sine blips on probe locks, decoded figures and new downlink events, pitched down like telemetry.",
+  "mark": "A vector capital A whose tip has come loose and floats, tilted 10 degrees in burn red; the tip launches on hover.",
+  "inspiration": [
+   "https://bruno-simon.com",
+   "https://www.igloo.inc",
+   "https://paco.me",
+   "https://www.cosmos.so",
+   "https://blog.maximeheckel.com/posts/the-physics-behind-spring-animations/",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://www.joshwcomeau.com/animation/3d-button/"
+  ],
+  "id": "57",
+  "path": "57/",
+  "round": 2,
+  "assets": "57/assets/preview.html"
+ },
+ {
+  "name": "Specimen Drop",
+  "tagline": "A product-drop page for a whole company: every product is a crystal on a live lapis geode.",
+  "summary": "Albretsen AS is presented as a naturalist's cabinet released like a product drop. Public-domain botanical and natural-history plates are re-inked in ultramarine, which was once ground from lapis lazuli. The hero is a live three.js geode: each crystal is a product you can pull off and re-seat, and a museum label hangs beside it on a spring. It reads as skilled, warm and careful, and it is clearly technology, because the specimens are software and the cabinet runs live.",
+  "palette": [
+   "#073fe3",
+   "#082593",
+   "#061457",
+   "#97b7f8",
+   "#cadbfd",
+   "#faf3e3",
+   "#f4e6ce",
+   "#ec3d5f",
+   "#f4cd4b"
+  ],
+  "type": [
+   "Fraunces (SOFT 100, WONK 1)",
+   "Instrument Sans",
+   "Martian Mono"
+  ],
+  "voice": "A careful collector in the first person: warm, specific and unhurried, and never selling. Example: \"Software, grown & mounted.\"",
+  "motion": "Every movement uses one hand-rolled damped spring: crystals drop and re-seat, stickers dangle while carried, the label swings like a pendulum, and cards settle onto the page.",
+  "sound": "Off until the visitor turns it on. After that, synthesised glass tinks play when a crystal re-seats or the label is let go, and a soft paper rustle plays when a card is laid down.",
+  "mark": "A cut-stone A with bevelled facets lit from the upper left, beside a Fraunces wordmark outlined to paths with an italic AS.",
+  "inspiration": [
+   "https://commons.wikimedia.org/wiki/File:Haeckel_Diatomea.jpg",
+   "https://www.oldbookillustrations.com/illustrations/kamchatka-rose/",
+   "https://www.biodiversitylibrary.org/item/128814",
+   "https://blog.maximeheckel.com/posts/the-physics-behind-spring-animations/",
+   "https://www.radix-ui.com/primitives/docs/components/tooltip",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://threejs.org/docs/#api/en/materials/MeshPhysicalMaterial"
+  ],
+  "id": "58",
+  "path": "58/",
+  "round": 2,
+  "assets": "58/assets/preview.html"
+ },
+ {
+  "name": "Cover Story",
+  "tagline": "The current issue of a magazine about one company, with stickers you can peel off and slap anywhere.",
+  "summary": "The homepage is a magazine cover you can open: a three.js cover that bends on its spine, a real magnifying glass that magnifies its print, and a glass crystal rising from the inside spread, which turns the story column into a contents page. Editorial serif and NASA crystal photography carry the gravitas; neo-brutalist stickers carry every fact from content.js, and visitors can peel them off a sticker sheet and put them on the page themselves. It reads as someone with taste and range who ships, never as a bank or a consultancy.",
+  "palette": [
+   "#0f0b22",
+   "#f3f2fb",
+   "#e0dff0",
+   "#6c35ec",
+   "#bab0ff",
+   "#cefd3e",
+   "#ff6f27",
+   "#2debf9",
+   "#fd54ad",
+   "#ffdc3a"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Archivo Expanded (stickers only)",
+   "JetBrains Mono"
+  ],
+  "voice": "Editorial and dry, an amused magazine writing about a serious subject. Example: \"Small products, shipped, then left to compound.\"",
+  "motion": "Stickers slap down with an overshoot and their hard shadows land a beat later, while paper turns slowly on its spine. Everything else holds still.",
+  "sound": "Off by default. When it is on, the sounds are made from filtered noise: a short thump when a sticker lands, a bright swish when one peels off, and a breath of air when the cover turns.",
+  "mark": "A violet sticker with an Archivo 'A' whose corner peels back to a lime underside, the same gesture as opening the cover.",
+  "inspiration": [
+   "https://magicui.design/docs/components/lens",
+   "https://www.radix-ui.com/primitives/docs/components/hover-card",
+   "https://emilkowal.ski/ui/building-a-drawer-component",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://images.nasa.gov/details/9262354",
+   "https://polyhaven.com/a/magnifying_glass_01",
+   "https://paco.me"
+  ],
+  "id": "59",
+  "path": "59/",
+  "round": 2,
+  "assets": "59/assets/preview.html"
+ },
+ {
+  "name": "Pocket Planet",
+  "tagline": "A pocket-sized voxel world that never stops working, and a cursor that keeps prying it apart.",
+  "summary": "Albretsen AS drawn as a tiny isometric planet: every glowing tower is something shipped, and live activity from the products is launched off its surface into a physics pile you can grab and throw. Careful construction with one deliberate block out of place reads as a builder who is exact, quick and slightly mischievous, which is the person behind a one-company product line.",
+  "palette": [
+   "#05080c",
+   "#080e15",
+   "#0e1721",
+   "#1c2735",
+   "#3c4958",
+   "#798898",
+   "#cad2db",
+   "#eef2f7",
+   "#0790ff",
+   "#80bcff",
+   "#0559a8"
+  ],
+  "type": [
+   "Unbounded",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Dry, exact and a little cheeky; states what was built and lets the numbers sit there. Example: \"You knocked the full stop off. It will find its way back.\"",
+  "motion": "Things are flung, never faded: spring overshoot on entrances, real gravity on live events, and a view transition that swallows the page into the pointer.",
+  "sound": "Off until asked; then soft synthesised ticks when blocks land, a two-note chirp on copy, and a low swoop when the planet is rerolled.",
+  "mark": "A 3x3x3 isometric voxel cube whose near-corner block has been launched out of its slot, with speed lines; the block springs out on hover.",
+  "inspiration": [
+   "https://activetheory.net",
+   "https://ambientcg.com/view?id=Terrazzo005",
+   "https://polyhaven.com/a/brown_photostudio_02",
+   "https://brm.io/matter-js/",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://www.radix-ui.com/primitives/docs/components/tabs"
+  ],
+  "id": "60",
+  "path": "60/",
+  "round": 2,
+  "assets": "60/assets/preview.html"
  }
 ]

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=900">
+<title>Specimen plate (source)</title>
+<!-- Source page used to bake products/plate-*.webp. Render at 900x1125: plate.html?p=mcp-emails -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=Martian+Mono:wdth,wght@87.5,400;87.5,600&display=block" rel="stylesheet">
+<style>
+  :root { --night:#170733; --dusk:#4a1a8c; --magenta:#e8287f; --ember:#ff7a3d; --peach:#ffb36b; --cyan:#1abcb8; --cream:#fff1e2; }
+  * { box-sizing:border-box; margin:0; }
+  html, body { width:900px; height:1125px; overflow:hidden; background:var(--cream); }
+  body { position:relative; font-family:'Bricolage Grotesque', sans-serif; color:var(--night); }
+  .paper { position:absolute; inset:0; background:url(../textures/paper-grain.webp) 0 0/512px; mix-blend-mode:multiply; opacity:.55; }
+  .frame { position:absolute; inset:26px; border:2px solid var(--night); }
+  .frame::after { content:''; position:absolute; inset:8px; border:1px solid var(--night); opacity:.5; }
+  .top { position:absolute; left:58px; right:58px; top:52px; display:flex; justify-content:space-between; font:600 15px/1 'Martian Mono', monospace; letter-spacing:.14em; text-transform:uppercase; }
+  .top b { color:var(--magenta); font-weight:600; }
+  .arch { position:absolute; left:170px; top:104px; width:560px; height:600px; clip-path:url(#arch); background:var(--night) center/cover; }
+  .arch img.scene { width:100%; height:100%; object-fit:cover; }
+  .archline { position:absolute; left:170px; top:104px; width:560px; height:600px; pointer-events:none; }
+  .mount { position:absolute; left:50%; top:430px; width:250px; height:250px; transform:translate(-50%,-50%) rotate(-3deg); border-radius:50%; background:var(--cream); box-shadow:0 2px 0 var(--night), 0 28px 50px -10px rgba(23,7,51,.75), inset 0 0 0 10px #fff7ee, inset 0 0 0 12px var(--magenta); display:grid; place-items:center; }
+  .mount img { width:58%; height:58%; object-fit:contain; }
+  .mount.icon img { width:62%; height:62%; border-radius:22%; box-shadow:0 6px 14px rgba(23,7,51,.35); }
+  .pin { position:absolute; left:50%; top:300px; width:22px; height:22px; margin-left:-11px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #fff1e2, var(--ember) 45%, var(--magenta)); box-shadow:0 6px 8px rgba(23,7,51,.5); z-index:3; }
+  .bfly { position:absolute; z-index:4; filter:drop-shadow(0 14px 14px rgba(23,7,51,.45)); }
+  .name { position:absolute; left:0; right:0; top:742px; text-align:center; font:400 92px/1 'Gloock', serif; letter-spacing:-.01em; }
+  .line { position:absolute; left:110px; right:110px; top:856px; text-align:center; font:400 27px/1.3 'Bricolage Grotesque'; }
+  .figs { position:absolute; left:58px; right:58px; bottom:58px; display:flex; justify-content:space-between; align-items:flex-end; font:400 15px/1.4 'Martian Mono', monospace; letter-spacing:.06em; text-transform:uppercase; }
+  .fig { font:600 40px/1 'Martian Mono', monospace; letter-spacing:-.02em; color:var(--magenta); text-transform:none; }
+  .chip { display:inline-block; padding:8px 14px; border-radius:99px; background:var(--night); color:var(--cream); }
+  .chip.building { background:var(--ember); color:var(--night); }
+  .chip.paused { background:var(--cyan); color:var(--night); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><clipPath id="arch" clipPathUnits="objectBoundingBox"><path d="M0 1V.47C0 .24 .24 .08 .5 0C.76 .08 1 .24 1 .47V1Z"/></clipPath></svg>
+<div class="paper"></div>
+<div class="frame"></div>
+<div class="top"><span id="plate"></span><span><b>&#9679;</b> <span id="since"></span></span></div>
+<div class="arch"><img class="scene" id="scene" alt=""></div>
+<svg class="archline" viewBox="0 0 560 600" preserveAspectRatio="none"><path d="M2 600V282C2 144 136 48 280 2C424 48 558 144 558 282V600" fill="none" stroke="#170733" stroke-width="5"/></svg>
+<div class="pin"></div>
+<div class="mount" id="mount"><img id="logo" alt=""></div>
+<img class="bfly" id="bfly" alt="">
+<div class="name" id="name"></div>
+<div class="line" id="line"></div>
+<div class="figs"><div><div class="fig" id="fig"></div><div id="figl"></div></div><div style="text-align:right"><span class="chip" id="status"></span><div id="facts" style="margin-top:10px"></div></div></div>
+<script type="module">
+  import { content } from '../../../_shared/content.js'
+  const P = '../../../_shared/products/'
+  const looks = {
+    'mcp-emails': { n:'I', scene:'../hero/horizon-1440.webp', pos:'62% 50%', logo:P+'mcp-emails/logo-mark.svg', icon:false, bf:'butterfly-black-and-gold', bfs:'left:600px;top:150px;width:250px;transform:rotate(18deg)' },
+    'fun-libs':   { n:'II', scene:'../hero/pinewood-1440.webp', pos:'40% 50%', logo:P+'fun-libs/icon.png', icon:true, bf:'butterfly-brimstone', bfs:'left:60px;top:470px;width:260px;transform:rotate(-16deg)' },
+    'toolrails':  { n:'III', scene:'../illustrations/comet-procession.webp', pos:'50% 30%', logo:P+'toolrails/icon.svg', icon:true, bf:'butterfly-helius', bfs:'left:590px;top:520px;width:230px;transform:rotate(-12deg)' },
+    'harbor':     { n:'IV', scene:'../textures/endpaper-marble.webp', pos:'50% 40%', logo:P+'harbor/harbor-mark-filled.svg', icon:false, bf:'butterfly-black-and-gold', bfs:'left:70px;top:120px;width:220px;transform:rotate(-24deg) scaleX(-1)' },
+  }
+  const id = new URLSearchParams(location.search).get('p') || 'mcp-emails'
+  const p = content.products.find(x => x.id === id), L = looks[id]
+  document.getElementById('plate').textContent = `Plate ${L.n} · Albretsen AS`
+  document.getElementById('since').textContent = `Since ${p.since}`
+  const sc = document.getElementById('scene'); sc.src = L.scene; sc.style.objectPosition = L.pos
+  document.getElementById('logo').src = L.logo
+  if (L.icon) document.getElementById('mount').classList.add('icon')
+  const bf = document.getElementById('bfly'); bf.src = `../illustrations/${L.bf}.webp`; bf.style.cssText = L.bfs
+  document.getElementById('name').textContent = p.name
+  document.getElementById('line').textContent = p.line
+  document.getElementById('fig').textContent = p.figure ? p.figure.value : ''
+  document.getElementById('figl').textContent = p.figure ? p.figure.label : ''
+  const st = document.getElementById('status'); st.textContent = p.status; st.classList.add(p.status)
+  document.getElementById('facts').textContent = (p.facts || []).slice(0, 2).join(' · ')
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="polyglot-pilot (retired) stand-in" color="#070707">
+  <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <ellipse cx="80" cy="80" rx="74" ry="22" fill="none" stroke="#F34046" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" transform="rotate(-18 80 80)"/>
+  <circle cx="150.37818220584137" cy="57.13274241625389" r="4.5" fill="#F34046"/>
+  <path d="M56 50 H42 V110 H56" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="miter" stroke-linecap="butt"/><path d="M104 50 H118 V110 H104" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="miter" stroke-linecap="butt"/><path d="M58 68 H98 M88 58 L99 68 L88 78" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="miter" stroke-linecap="butt"/><path d="M102 92 H62 M72 82 L61 92 L72 102" stroke="#F34046" stroke-width="7" fill="none"/>
+</svg>

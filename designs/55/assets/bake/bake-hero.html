@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bake: hero plates</title>
+<!-- Source for hero/*.webp. Rendered with scripts/shot.sh at 2880x1800 then exported. ?v=stack | refract | portrait -->
+<style>
+  :root { --ink:#090706; --spark:#ff7e22; --hot:#ffb15c; --cream:#ede7df; }
+  html, body { margin:0; height:100%; background:var(--ink); overflow:hidden; }
+  .stage { position:absolute; inset:0; background:url(../extras/ember-field@2x.webp) center/cover; }
+  .grain { position:absolute; inset:0; background:url(../extras/grain-tile.png); opacity:.22; mix-blend-mode:overlay; pointer-events:none; }
+
+  /* ---------- v=stack: four glass negatives receding in depth ---------- */
+  .scene { position:absolute; inset:0; perspective:140vw; perspective-origin:62% 46%; }
+  .stack { position:absolute; left:46%; top:50%; transform-style:preserve-3d; transform:rotateY(-26deg) rotateX(6deg) rotateZ(-1.5deg); }
+  .plate { position:absolute; width:25vw; height:32vw; left:-12.5vw; top:-16vw; transform-style:preserve-3d; }
+  .plate .img { position:absolute; inset:0; background-size:cover; background-position:center; border-radius:.35vw; }
+  .plate .glass { position:absolute; inset:0; border-radius:.35vw;
+    background:linear-gradient(115deg, rgba(255,240,225,.10) 0%, rgba(255,240,225,.02) 28%, rgba(255,240,225,0) 45%, rgba(255,240,225,.06) 62%, rgba(255,240,225,.015) 100%);
+    box-shadow: inset 0 0 0 .06vw rgba(255,236,214,.55), inset .25vw .25vw .6vw rgba(255,236,214,.08), inset -.4vw -.4vw 1.2vw rgba(0,0,0,.35); }
+  .plate .edge { position:absolute; top:0; right:0; width:.7vw; height:100%; transform-origin:right center; transform:rotateY(90deg);
+    background:linear-gradient(180deg, rgba(255,177,92,.0), rgba(255,177,92,.55) 30%, rgba(255,126,34,.35) 70%, rgba(255,126,34,0)); filter:blur(.02vw); }
+  .plate .edge.b { top:auto; bottom:0; width:100%; height:.7vw; transform-origin:center bottom; transform:rotateX(90deg);
+    background:linear-gradient(90deg, rgba(255,126,34,.1), rgba(255,177,92,.45), rgba(255,126,34,.1)); }
+  .plate .label { position:absolute; left:1vw; bottom:.8vw; font:500 .62vw/1 "Geist Mono", ui-monospace, monospace; letter-spacing:.12em; color:rgba(237,231,223,.55); text-transform:uppercase; }
+  .p1 { transform:translateZ(-30vw) translateX(21vw) translateY(-1vw); opacity:.8; filter:blur(.12vw) }
+  .p2 { transform:translateZ(-20vw) translateX(14vw) translateY(-.6vw); opacity:.9; filter:blur(.05vw) }
+  .p3 { transform:translateZ(-10vw) translateX(7vw) translateY(-.3vw); opacity:.96 }
+  .p4 { transform:translateZ(0) }
+  .p1 .img { background-image:url(../museum/emulsion-lyra-1885.webp); background-size:115%; background-position:50% 42%; }
+  .p2 .img { background-image:url(../museum/emulsion-moon-1857.webp); background-size:96%; background-repeat:no-repeat; }
+  .p3 .img { background-image:url(../museum/emulsion-corona-1883.webp); background-size:110%; background-repeat:no-repeat; background-position:50% 45%; }
+  .p4 .img { background-image:url(../museum/emulsion-spark-1886.webp); background-position:58% 50%; background-size:auto 112%; background-repeat:no-repeat; }
+  /* light falling through the stack onto the floor */
+  .caustic { position:absolute; left:36%; top:74%; width:46vw; height:8vw; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(255,126,34,.38), rgba(194,70,13,.12) 55%, transparent); filter:blur(1.4vw); transform:rotate(-4deg); }
+
+  /* ---------- v=refract / portrait: one plate seen through a second pane ---------- */
+  .refract { position:absolute; inset:0; display:none; }
+  .refract .photo { position:absolute; inset:0; background:url(../museum/plate-spark-1886@2x.webp) 50% 46%/cover; }
+  .refract .pane { position:absolute; overflow:hidden; border-radius:.3vw;
+    box-shadow: inset 0 0 0 .07vw rgba(255,236,214,.6), inset 0 0 3vw rgba(255,236,214,.05), 0 2vw 6vw rgba(0,0,0,.55); }
+  .refract .pane .photo { inset:-12%; transform:translate(2.6vw, 1.2vw) scale(1.07); filter:brightness(1.18) contrast(1.05) saturate(1.1); }
+  .refract .pane::before { content:""; position:absolute; inset:0; z-index:2;
+    background:linear-gradient(118deg, rgba(255,243,226,.16), rgba(255,243,226,.03) 24%, transparent 40%, rgba(255,243,226,.05) 58%, transparent 70%, rgba(255,177,92,.08)); }
+  .refract .pane::after { content:""; position:absolute; inset:0; z-index:3; border-radius:inherit;
+    box-shadow: inset .5vw 0 .6vw -.3vw rgba(255,177,92,.35), inset -.5vw 0 .6vw -.3vw rgba(120,160,255,.10); }
+  .refract .ghost { position:absolute; inset:0; background:url(../museum/plate-spark-1886@2x.webp) 50% 46%/cover; mix-blend-mode:screen; opacity:.0; }
+  body.v-refract .scene, body.v-portrait .scene, body.v-refract .caustic, body.v-portrait .caustic { display:none }
+  body.v-refract .refract, body.v-portrait .refract { display:block }
+  body.v-refract .refract .photo.bg { background-position: 34% 46%; background-size: 52% auto; background-repeat:no-repeat; }
+  body.v-refract .refract .pane { left:33%; top:22%; width:30%; height:62%; }
+  body.v-refract .refract .pane .photo { background-position: 34% 46%; background-size: auto; }
+  body.v-portrait .refract .pane { left:12%; top:40%; width:76%; height:38%; }
+  .rule { position:absolute; height:1px; background:rgba(237,231,223,.18); }
+  .tick { position:absolute; font:500 11px/1 "Geist Mono", monospace; color:rgba(237,231,223,.45); letter-spacing:.14em; text-transform:uppercase; }
+</style>
+<style>
+  @font-face { font-family:"Geist Mono"; src:url(../fonts/geist-mono-normal.woff2) format("woff2"); font-weight:400 500; }
+</style>
+</head>
+<body>
+<div class="stage"></div>
+<div class="scene">
+  <div class="stack">
+    <div class="plate p1"><div class="img"></div><div class="glass"></div><div class="label">Lyra · 1885 · Met 266895</div><div class="edge"></div><div class="edge b"></div></div>
+    <div class="plate p2"><div class="img"></div><div class="glass"></div><div class="label">Moon · 1857 · Met 262301</div><div class="edge"></div><div class="edge b"></div></div>
+    <div class="plate p3"><div class="img"></div><div class="glass"></div><div class="label">Corona · 1883 · Met 786870</div><div class="edge"></div><div class="edge b"></div></div>
+    <div class="plate p4"><div class="img"></div><div class="glass"></div><div class="label">Spark · 1886 · Met 287289</div><div class="edge"></div><div class="edge b"></div></div>
+  </div>
+</div>
+<div class="caustic"></div>
+<div class="refract">
+  <div class="photo bg"></div>
+  <div class="pane"><div class="photo"></div></div>
+</div>
+<div class="grain"></div>
+<script>
+  const v = new URLSearchParams(location.search).get('v') || 'stack';
+  document.body.classList.add('v-' + v);
+</script>
+</body>
+</html>

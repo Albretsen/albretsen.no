@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Escape Vector: asset kit</title>
+<meta name="description" content="Albretsen AS, design 57 asset kit: identity, hero imagery, product payloads, extras, motion and CSS 3D modules.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ev-ink);color:var(--ev-white);-webkit-font-smoothing:antialiased}
+body{font-family:var(--ev-mono);font-size:13px;line-height:1.6;background:var(--ev-ink) url(extras/starfield-tile.webp) 0 0/1024px;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;background:url(extras/grain-tile.webp);opacity:.35;pointer-events:none;z-index:50;mix-blend-mode:overlay}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1360px;margin:0 auto;padding:0 32px}
+.k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.k b{color:var(--ev-burn);font-weight:600}
+h2{font-family:var(--ev-display);font-weight:800;font-stretch:80%;font-size:clamp(44px,7vw,104px);line-height:.92;letter-spacing:-.005em;margin:10px 0 28px}
+h2 em{font-style:normal;color:var(--ev-burn)}
+section{padding:120px 0 40px;position:relative}
+.sechead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;border-top:1px solid rgba(255,255,255,.14);padding-top:18px}
+.grid{display:grid;gap:16px}
+.cell{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden}
+.cap{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;font-size:11px;letter-spacing:.06em;color:rgba(255,255,255,.6);border-top:1px solid rgba(255,255,255,.1)}
+.cap b{color:#fff;font-weight:500}
+.paper{background:var(--ev-paper);color:var(--ev-ink)}
+.paper .cap{color:rgba(0,0,0,.55);border-color:rgba(0,0,0,.1)} .paper .cap b{color:var(--ev-ink)}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:linear-gradient(#070707,rgba(7,7,7,0));}
+.bar img{height:22px}
+.bar nav{display:flex;gap:18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.bar nav a{text-decoration:none;color:rgba(255,255,255,.6)} .bar nav a:hover{color:var(--ev-burn)}
+
+/* HERO */
+.hero{position:relative;height:min(100vh,920px);min-height:640px;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.12)}
+#terrain{position:absolute;inset:0}
+.hero .moon{position:absolute;right:6vw;top:9%;width:min(30vw,420px);pointer-events:none;filter:drop-shadow(0 0 80px rgba(243,64,70,.12))}
+.hero .astro{position:absolute;left:54%;top:55%;width:min(13vw,180px);pointer-events:none}
+.hero .copy{position:absolute;left:32px;top:16%;max-width:760px;pointer-events:none}
+.hero h1{font-family:var(--ev-display);font-weight:800;font-stretch:82%;font-size:clamp(50px,8.2vw,132px);line-height:.9;letter-spacing:-.008em}
+.hero h1 em{font-style:normal;color:var(--ev-burn)}
+.hero .sub{margin-top:24px;max-width:430px;color:rgba(255,255,255,.72);font-size:13px}
+.hero .hint{position:absolute;right:32px;bottom:22px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.intro{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;padding:80px 0 0}
+.intro p{font-size:15px;line-height:1.7;color:rgba(255,255,255,.8);max-width:620px}
+.intro p+p{margin-top:14px}
+.intro dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:12px}
+.intro dt{color:var(--ev-burn);text-transform:uppercase;letter-spacing:.12em;font-size:11px}
+
+/* palette */
+.pal{grid-template-columns:repeat(4,1fr)}
+.sw{height:200px;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;font-size:11px;letter-spacing:.04em}
+.sw b{font-family:var(--ev-display);font-stretch:80%;font-size:30px;font-weight:800;letter-spacing:-.01em;line-height:1;margin-bottom:8px}
+.sw.big{grid-column:span 2;height:280px}
+
+/* type */
+.type{grid-template-columns:1.4fr 1fr}
+.spec{padding:28px}
+.spec .huge{font-family:var(--ev-display);font-weight:800;font-stretch:76%;font-size:clamp(80px,12vw,190px);line-height:.9;letter-spacing:-.01em}
+.spec .row{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px;font-family:var(--ev-display);font-size:34px;line-height:1}
+.spec .mono{font-family:var(--ev-mono);font-size:44px;line-height:1.1;font-stretch:87%}
+.spec .glyphs{font-family:var(--ev-mono);font-size:18px;letter-spacing:.12em;word-break:break-all;margin-top:18px;color:rgba(255,255,255,.7)}
+
+/* identity */
+.id{grid-template-columns:repeat(4,1fr)}
+.id .cell{display:flex;flex-direction:column}
+.id .art{flex:1;display:grid;place-items:center;min-height:240px;padding:32px}
+.id .wide{grid-column:span 2}
+.id .full{grid-column:1/-1}
+.id .art img{max-height:150px}
+.id .wide .art img{max-height:80px;width:90%}
+
+/* images */
+.heroes{grid-template-columns:repeat(6,1fr)}
+.heroes .cell img{width:100%;height:100%;object-fit:cover}
+.heroes .a{grid-column:span 4;aspect-ratio:16/9}
+.heroes .b{grid-column:span 2}
+.heroes .b .art{background:radial-gradient(circle at 50% 50%,#1b1717,#070707 70%);display:grid;place-items:center;height:calc(100% - 38px);padding:20px}
+.heroes .b .art img{object-fit:contain}
+.heroes .c{grid-column:span 3}
+.heroes .c .art{aspect-ratio:4/3;background:#070707}
+.heroes .d{grid-column:1/-1}
+.heroes .art{overflow:hidden}
+
+/* products */
+.prods{grid-template-columns:repeat(2,1fr)}
+.prods .cell .art{aspect-ratio:16/10;overflow:hidden}
+.prods .cell .art img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ev-out)}
+.prods .cell:hover .art img{transform:scale(1.035)}
+.retired{grid-template-columns:repeat(7,1fr);margin-top:16px}
+.retired .art{display:grid;place-items:center;padding:22px;aspect-ratio:1}
+.retired .art img{width:100%}
+.retired .cap{flex-direction:column;gap:0}
+
+/* extras */
+.ex{grid-template-columns:repeat(12,1fr)}
+.ex .cell .art{display:grid;place-items:center;overflow:hidden}
+.ex .s3{grid-column:span 3}.ex .s4{grid-column:span 4}.ex .s6{grid-column:span 6}.ex .s8{grid-column:span 8}.ex .s12{grid-column:1/-1}
+.stick{position:relative;height:520px;background:#141111 url(extras/vector-field.svg) 0 0/240px}
+.stick img{position:absolute;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5))}
+
+/* motion */
+.mo{grid-template-columns:repeat(3,1fr)}
+.mo .art{min-height:300px;display:grid;place-items:center;padding:28px;position:relative}
+.mo h4{font-family:var(--ev-display);font-weight:800;font-stretch:80%;font-size:clamp(30px,3.2vw,46px);line-height:.95;letter-spacing:-.01em}
+.mo .desc{padding:14px 14px 16px;font-size:12px;color:rgba(255,255,255,.7);border-top:1px solid rgba(255,255,255,.1)}
+.mo .desc b{color:var(--ev-burn);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:11px;display:block;margin-bottom:6px}
+button.ev{font:600 11px/1 var(--ev-mono);letter-spacing:.12em;text-transform:uppercase;background:none;color:#fff;border:1px solid rgba(255,255,255,.4);padding:10px 14px;cursor:pointer;position:absolute;right:14px;top:14px}
+button.ev:hover{background:var(--ev-burn);border-color:var(--ev-burn);color:var(--ev-ink)}
+.card{width:220px;height:150px;background:var(--ev-paper);color:var(--ev-ink);padding:16px;display:flex;flex-direction:column;justify-content:space-between;will-change:transform}
+.card img{height:34px;width:34px}
+.card b{font-family:var(--ev-display);font-stretch:80%;font-weight:800;font-size:28px;line-height:1}
+.panel{position:absolute;inset:60px 28px 28px;display:grid;place-items:center;text-align:center}
+.panel[hidden]{display:none}
+
+.three{height:560px}
+#ico{position:absolute;inset:0}
+footer{padding:80px 0 60px;color:rgba(255,255,255,.5);font-size:11px;line-height:1.8}
+
+@media (max-width:900px){
+  .wrap{padding:0 16px}.bar{padding:12px 16px}.bar nav{display:none}
+  .intro,.type{grid-template-columns:1fr}
+  .pal,.id{grid-template-columns:repeat(2,1fr)}
+  .heroes>*{grid-column:1/-1 !important}
+  .prods,.mo{grid-template-columns:1fr}
+  .retired{grid-template-columns:repeat(3,1fr)}
+  .ex>*{grid-column:1/-1 !important}
+  .hero .copy{left:16px;right:16px;top:12%}
+  .hero .moon{width:52vw;right:-8vw;top:auto;bottom:10%}
+  .hero .astro{left:auto;right:30vw;top:auto;bottom:6%;width:28vw}
+  .stick{height:640px}
+}
+</style></head>
+<body>
+<header class="bar"><img src="identity/lockup-reversed.svg" alt="Albretsen AS">
+<nav><a href="#palette">Palette</a><a href="#type">Type</a><a href="#identity">Identity</a><a href="#imagery">Imagery</a><a href="#payloads">Payloads</a><a href="#extras">Extras</a><a href="#motion">Motion</a><a href="#three">3D</a></nav></header>
+
+<div class="hero" id="hero">
+  <div id="terrain"></div>
+  <img class="moon" src="img/hero-farside-800.webp" srcset="img/hero-farside-400.webp 400w, img/hero-farside-800.webp 800w, img/hero-farside.webp 1600w" sizes="30vw" alt="">
+  <img class="astro" data-ev="drift" src="img/hero-astronaut-800.webp" alt="">
+  <div class="copy">
+    <p class="k"><b>Design 57</b> &nbsp;/&nbsp; Escape Vector &nbsp;/&nbsp; asset kit</p>
+    <h1 style="margin-top:18px"><span data-ev="decode">I build software</span><br><span data-ev="decode">that pays for</span> <em data-ev="decode">itself.</em></h1>
+    <p class="sub">Hero study: <b>escape-terrain.js</b> (CSS 3D contour slices on springs) with the far side of the Moon and STS-41B floating above. Move the cursor to probe. Hold to switch gravity off.</p>
+  </div>
+  <p class="hint">Hold anywhere / G 0.0</p>
+</div>
+
+<main class="wrap">
+<div class="intro">
+  <div>
+    <p class="k"><b>Art direction</b></p>
+    <h2 style="font-size:clamp(40px,5vw,72px)">Weightless, <em>rebellious,</em> exact.</h2>
+    <p>Escape Vector treats the public-domain archive of spaceflight like an indie zine treats a photocopier. NASA and ESA photographs are pushed to black and white, and only one thing ever gets colour: re-entry red, OKLCH hue 24. The Earth in Earthrise, the stripes on McCandless's suit, the probe on the terrain, the tip of the A.</p>
+    <p>Around the photographs sit 19th-century engravings (Trouvelot's astronomical drawings, Haeckel's radiolarians from the Biodiversity Heritage Library) and hand-authored vector annotation: trajectories, registration marks, a probe that reads altitude. The tone is a solo builder who left orbit on purpose.</p>
+  </div>
+  <dl>
+    <dt>Hero</dt><dd>CSS 3D contour terrain that reacts to the cursor</dd>
+    <dt>Images</dt><dd>NASA / ESA / Hubble (PD), Trouvelot (CC0), Haeckel via BHL (PD)</dd>
+    <dt>Tech</dt><dd>CSS 3D transforms only. No WebGL anywhere.</dd>
+    <dt>Motion</dt><dd>Hand-rolled spring physics (motion.js)</dd>
+    <dt>Delight</dt><dd>Text that decodes into place</dd>
+    <dt>Palette</dt><dd>Black, white, one red at 24°</dd>
+    <dt>Type</dt><dd>Bricolage Grotesque, Martian Mono</dd>
+    <dt>Spark</dt><dd>clarity / weightless / vector</dd>
+  </dl>
+</div>
+
+<section id="palette">
+  <div class="sechead"><div><p class="k"><b>01</b> Palette</p><h2>Black, white, <em>one burn.</em></h2></div></div>
+  <div class="grid pal">
+    <div class="cell sw big" style="background:#070707;color:#fff;border-color:rgba(255,255,255,.2)"><b>Ink</b>oklch(0.13 0 0) &nbsp; #070707 &nbsp; page ground</div>
+    <div class="cell sw big" style="background:#f34046;color:#070707"><b>Burn</b>oklch(0.64 0.215 24) &nbsp; #F34046 &nbsp; the only colour</div>
+    <div class="cell sw" style="background:#fff;color:#070707"><b>White</b>oklch(1 0 0) &nbsp; #FFFFFF</div>
+    <div class="cell sw" style="background:#f9f6f5;color:#070707"><b>Paper</b>oklch(0.975 0.004 24) &nbsp; #F9F6F5</div>
+    <div class="cell sw" style="background:#747070;color:#fff"><b>Fog</b>oklch(0.55 0.005 24) &nbsp; #747070</div>
+    <div class="cell sw" style="background:#161313;color:#fff"><b>Ink 2</b>oklch(0.19 0.004 24) &nbsp; #161313</div>
+    <div class="cell sw" style="background:#a51e27;color:#fff"><b>Burn low</b>oklch(0.47 0.17 24) &nbsp; #A51E27 &nbsp; pressed</div>
+    <div class="cell sw" style="background:#ffdfdd;color:#070707"><b>Burn tint</b>oklch(0.93 0.035 24) &nbsp; #FFDFDD &nbsp; selection</div>
+  </div>
+</section>
+
+<section id="type">
+  <div class="sechead"><div><p class="k"><b>02</b> Type</p><h2>Loud grotesk, <em>quiet mono.</em></h2></div></div>
+  <div class="grid type">
+    <div class="cell spec"><p class="k">Bricolage Grotesque / 800 / width 76</p>
+      <div class="huge">Escape<br>vector.</div>
+      <div class="row"><span style="font-weight:400">Regular 400</span><span style="font-weight:600;font-stretch:90%">Semibold 600</span><span style="font-weight:800;font-stretch:75%">Black 800 / 75</span></div>
+    </div>
+    <div class="cell spec"><p class="k">Martian Mono / 300-700 / width 75-112</p>
+      <div class="mono" data-ev="decode">claude mcp add albretsen</div>
+      <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 $782 113,000+ ←→↑↓ /\|&lt;&gt;</div>
+      <p style="margin-top:22px;color:rgba(255,255,255,.7);font-size:13px">Mono carries every label, figure, coordinate and caption. Uppercase at 11px with 0.14em tracking for HUD labels; sentence case at 13-15px for body.</p>
+    </div>
+  </div>
+</section>
+
+<section id="identity">
+  <div class="sechead"><div><p class="k"><b>03</b> Identity</p><h2>The A that <em>left orbit.</em></h2></div><p class="k" style="max-width:360px">A vector capital whose tip has come loose and floats, tilted 10°. The tip is the only red. It animates on its own (.ev-tip in motion.css).</p></div>
+  <div class="grid id">
+    <div class="cell"><div class="art" id="markInline"></div><div class="cap"><b>mark.svg</b><span>inline, tip floats</span></div></div>
+    <div class="cell paper"><div class="art"><img src="identity/mark.svg" alt=""></div><div class="cap"><b>mark.svg</b><span>on paper</span></div></div>
+    <div class="cell"><div class="art"><img src="identity/favicon.svg" alt="" style="width:120px"></div><div class="cap"><b>favicon.svg</b><span>+ 180 / 512 png</span></div></div>
+    <div class="cell"><div class="art"><img src="identity/favicon-180.png" alt="" style="width:60px;border-radius:13px"></div><div class="cap"><b>favicon-180.png</b><span>apple-touch</span></div></div>
+    <div class="cell wide"><div class="art"><img src="identity/wordmark-reversed.svg" alt=""></div><div class="cap"><b>wordmark-reversed.svg</b><span>monoline, skew -12°</span></div></div>
+    <div class="cell wide paper"><div class="art"><img src="identity/lockup.svg" alt=""></div><div class="cap"><b>lockup.svg</b><span>wordmark + AS tag</span></div></div>
+    <div class="cell full"><div class="art" style="padding:0"><img src="identity/og.jpg" alt="" style="max-height:none;width:100%"></div><div class="cap"><b>og.jpg</b><span>1200 x 630</span></div></div>
+  </div>
+</section>
+
+<section id="imagery">
+  <div class="sechead"><div><p class="k"><b>04</b> Hero imagery</p><h2>The archive, <em>re-entered.</em></h2></div><p class="k" style="max-width:360px">All retina-sized webp, every one with smaller siblings. Mono everywhere, red only where something is alive.</p></div>
+  <div class="grid heroes">
+    <div class="cell a"><img src="img/hero-earthrise-1440.webp" srcset="img/hero-earthrise-720.webp 720w, img/hero-earthrise-1440.webp 1440w, img/hero-earthrise.webp 2340w" sizes="66vw" alt="Earthrise, Apollo 8"></div>
+    <div class="cell b"><div class="art"><img src="img/hero-astronaut-800.webp" alt="" data-ev="drift"></div><div class="cap"><b>hero-astronaut</b><span>cut-out, 1600</span></div></div>
+    <div class="cell c"><div class="art"><img src="img/hero-farside-800.webp" alt="" style="width:70%;margin:6% auto"></div><div class="cap"><b>hero-farside</b><span>alpha disc, 1600</span></div></div>
+    <div class="cell c"><div class="art"><img src="img/hero-pillars-960.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%"></div><div class="cap"><b>hero-pillars</b><span>burn duotone, 1920</span></div></div>
+    <div class="cell d"><img src="img/horizon-apollo17-1920.webp" alt=""><div class="cap"><b>horizon-apollo17</b><span>3840 strip / footers, dividers</span></div></div>
+  </div>
+</section>
+
+<section id="payloads">
+  <div class="sechead"><div><p class="k"><b>05</b> Product payloads</p><h2>Real logos, <em>launched.</em></h2></div><p class="k" style="max-width:360px">Each live or building product: its real logo from designs/_shared/products on a floating tile, set in a public-domain scene with a burn trajectory. Source: src/payload.html.</p></div>
+  <div class="grid prods">
+    <div class="cell" data-ev="zerog"><div class="art"><img src="products/payload-mcp-emails-800.webp" srcset="products/payload-mcp-emails-800.webp 800w, products/payload-mcp-emails.webp 1600w" sizes="50vw" alt="MCP Emails"></div><div class="cap"><b>MCP Emails</b><span>live / $782 MRR / Earthrise</span></div></div>
+    <div class="cell" data-ev="zerog"><div class="art"><img src="products/payload-fun-libs-800.webp" srcset="products/payload-fun-libs-800.webp 800w, products/payload-fun-libs.webp 1600w" sizes="50vw" alt="Fun Libs"></div><div class="cap"><b>Fun Libs</b><span>live / 113,000+ installs / Trouvelot's Saturn</span></div></div>
+    <div class="cell" data-ev="zerog"><div class="art"><img src="products/payload-toolrails-800.webp" srcset="products/payload-toolrails-800.webp 800w, products/payload-toolrails.webp 1600w" sizes="50vw" alt="Toolrails"></div><div class="cap"><b>Toolrails</b><span>building / 4 connectors / Apollo 17</span></div></div>
+    <div class="cell" data-ev="zerog"><div class="art"><img src="products/payload-harbor-800.webp" srcset="products/payload-harbor-800.webp 800w, products/payload-harbor.webp 1600w" sizes="50vw" alt="Harbor"></div><div class="cap"><b>Harbor</b><span>paused / 549 commits / zodiacal light</span></div></div>
+  </div>
+  <div class="grid retired">
+    <div class="cell paper"><div class="art"><img src="../../_shared/products/luma/logo.png" alt="Luma" style="width:90%"></div><div class="cap"><b>Luma</b><span>real logo</span></div></div>
+    <div class="cell paper"><div class="art"><img src="products/retired/retired-polyglot-pilot.svg" alt=""></div><div class="cap"><b>Polyglot Pilot</b><span>stand-in</span></div></div>
+    <div class="cell paper"><div class="art"><img src="products/retired/retired-pinpoint.svg" alt=""></div><div class="cap"><b>PinPoint</b><span>stand-in</span></div></div>
+    <div class="cell paper"><div class="art"><img src="products/retired/retired-webvakt.svg" alt=""></div><div class="cap"><b>WebVakt</b><span>stand-in</span></div></div>
+    <div class="cell paper"><div class="art"><img src="products/retired/retired-joke-central.svg" alt=""></div><div class="cap"><b>Joke Central</b><span>stand-in</span></div></div>
+    <div class="cell paper"><div class="art"><img src="products/retired/retired-tryggere-hyring.svg" alt=""></div><div class="cap"><b>Tryggere Hyring</b><span>stand-in</span></div></div>
+    <div class="cell paper"><div class="art"><img src="products/retired/retired-early-apps.svg" alt=""></div><div class="cap"><b>Early apps</b><span>stand-in</span></div></div>
+  </div>
+</section>
+
+<section id="extras">
+  <div class="sechead"><div><p class="k"><b>06</b> Extras</p><h2>Texture, <em>stickers,</em> specimens.</h2></div></div>
+  <div class="grid ex">
+    <div class="cell s12"><div class="art stick" id="stick">
+      <img src="extras/sticker-since-2016.webp" alt="" style="left:4%;top:10%;width:300px" data-ev="drift">
+      <img src="extras/sticker-built-in-norway.webp" alt="" style="left:30%;top:30%;width:260px" data-ev="drift">
+      <img src="extras/sticker-zero-g.webp" alt="" style="left:46%;top:4%;width:250px" data-ev="drift">
+      <img src="extras/sticker-pays-for-itself.webp" alt="" style="right:3%;bottom:6%;width:320px" data-ev="drift">
+      <img src="img/radiolarian-icosa-burn-450.webp" alt="" style="left:26%;bottom:-10%;width:200px;filter:none" data-ev="drift">
+    </div><div class="cap"><b>sticker-*.webp</b><span>transparent, drifting on vector-field.svg</span></div></div>
+    <div class="cell s4"><div class="art" style="background:#070707;aspect-ratio:3/4"><img src="img/plate-comet-800.webp" alt="" style="height:100%;object-fit:cover"></div><div class="cap"><b>plate-comet</b><span>Trouvelot 1881</span></div></div>
+    <div class="cell s4"><div class="art" style="background:#070707;aspect-ratio:3/4"><img src="img/plate-mars-800.webp" alt="" style="height:100%;object-fit:cover"></div><div class="cap"><b>plate-mars</b><span>Trouvelot, burn</span></div></div>
+    <div class="cell s4"><div class="art" style="background:#070707;aspect-ratio:3/4"><img src="img/plate-zodiacal-600.webp" alt="" style="height:100%;object-fit:cover"></div><div class="cap"><b>plate-zodiacal</b><span>Trouvelot</span></div></div>
+    <div class="cell s8"><div class="art" style="background:#070707"><img src="img/plate-saturn-800.webp" alt=""></div><div class="cap"><b>plate-saturn</b><span>Trouvelot, mono</span></div></div>
+    <div class="cell s4 paper"><div class="art" style="aspect-ratio:1;padding:20px"><img src="img/radiolarian-icosa-ink-450.webp" alt=""></div><div class="cap"><b>radiolarian-icosa</b><span>Haeckel / BHL, ink + burn</span></div></div>
+    <div class="cell s12"><div class="art" style="background:#070707;padding:20px" id="diagram"></div><div class="cap"><b>escape-diagram.svg</b><span>hand-authored, inline to animate</span></div></div>
+    <div class="cell s4"><div class="art" style="height:220px;background:url(extras/starfield-tile.webp) 0 0/512px"></div><div class="cap"><b>starfield-tile</b><span>seamless 1024</span></div></div>
+    <div class="cell s4"><div class="art" style="height:220px;background:#070707 url(extras/vector-field.svg) 0 0/120px"></div><div class="cap"><b>vector-field.svg</b><span>seamless pattern</span></div></div>
+    <div class="cell s4"><div class="art" style="height:220px;background:#f34046;position:relative"><div style="position:absolute;inset:0;background:url(extras/grain-tile.webp);mix-blend-mode:multiply;opacity:1"></div></div><div class="cap"><b>grain-tile</b><span>overlay, 256</span></div></div>
+  </div>
+</section>
+
+<section id="motion">
+  <div class="sechead"><div><p class="k"><b>07</b> Motion</p><h2>Springs, <em>not curves.</em></h2></div><p class="k" style="max-width:360px">motion.js: one 4 kB module, a damped oscillator integrated at 240 Hz, and a shared rAF loop that sleeps when everything rests.</p></div>
+  <div class="grid mo">
+    <div class="cell"><div class="art"><button class="ev" id="replay">Replay</button><h4 id="dec"><span data-ev="decode">Signal acquired.</span><br><span data-ev="decode">Shipping since 2016.</span></h4></div>
+      <div class="desc"><b>01 Decode / entrance</b>Characters arrive as noise and lock in left to right with jitter; each lock flashes burn and drops 0.12em into place. Ref: igloo.inc, cruip text scramble.</div></div>
+    <div class="cell"><div class="art"><div class="card ev-zerog" data-ev="zerog"><img src="identity/mark.svg" alt=""><b>Hover me.<br>Zero-G.</b></div></div>
+      <div class="desc"><b>02 Zero-G / hover</b>Released from gravity: tilt toward the cursor, rise 36px in Z, the shadow falls away. Underdamped so it overshoots once. Ref: paco.me, bruno-simon.com.</div></div>
+    <div class="cell"><div class="art"><button class="ev" id="burnBtn">Burn</button>
+      <div class="panel" id="pA"><h4>Parking<br>orbit.</h4></div>
+      <div class="panel" id="pB" hidden><h4 style="color:var(--ev-burn)">Escape<br>vector.</h4></div></div>
+      <div class="desc"><b>03 Escape burn / transition</b>The outgoing view leaves along a -38° vector with skew and streak blur; the next arrives from the opposite vector on a spring. CSS twin for View Transitions in motion.css.</div></div>
+  </div>
+</section>
+
+<section id="three">
+  <div class="sechead"><div><p class="k"><b>08</b> CSS 3D</p><h2>Twenty triangles, <em>no WebGL.</em></h2></div><p class="k" style="max-width:360px">radiolarian.js: an icosahedron of DOM faces placed by matrix3d. Throw it, it keeps your spin. Click it, it comes apart along its normals and springs back.</p></div>
+  <div class="cell three"><div id="ico"></div></div>
+</section>
+
+<footer>
+  <p class="k"><b>Credits</b></p>
+  <p>Earthrise (Apollo 8, W. Anders), STS-41B (B. McCandless II), Apollo 17 landing-site panorama, LRO far side mosaic: NASA, public domain. Pillars of Creation (2014): NASA, ESA and the Hubble Heritage Team (STScI/AURA), public domain. Trouvelot Astronomical Drawings (1881-82): CC0 via Crystal Bridges / MLibrary. Haeckel, Kunstformen der Natur (1904): public domain via Biodiversity Heritage Library. NASA imagery does not imply NASA endorsement. Fonts: Bricolage Grotesque, Martian Mono (OFL). Full inventory in ASSETS.md.</p>
+</footer>
+</main>
+
+<script type="module">
+import { autowire, decode, burn } from './motion.js'
+// ?only=payloads,extras renders just those sections (handy for screenshots / reviews)
+const only = new URLSearchParams(location.search).get('only')
+if (only) { const keep = only.split(','); document.querySelectorAll('#hero,.intro,main>section').forEach(el => { if (!keep.includes(el.id)) el.remove() }) }
+import { mountTerrain } from './3d/escape-terrain.js'
+import { mountRadiolarian } from './3d/radiolarian.js'
+autowire()
+if (document.getElementById('terrain')) mountTerrain(document.getElementById('terrain'), { hud: true })
+const lazy = (el, fn) => new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { fn(); io.disconnect() } }, { rootMargin: '200px' }).observe(el)
+lazy(document.getElementById('ico'), () => mountRadiolarian(document.getElementById('ico'), { radius: 170, texture: 'img/radiolarian-icosa-ink-450.webp' }))
+// inline the mark so its tip can float
+fetch('identity/mark-reversed.svg').then(r => r.text()).then(t => { const m = document.getElementById('markInline'); m.innerHTML = t; const s = m.querySelector('svg'); s.style.width = '150px'; s.addEventListener('mouseenter', () => { s.classList.remove('ev-launch'); void s.offsetWidth; s.classList.add('ev-launch') }) })
+fetch('extras/escape-diagram.svg').then(r => r.text()).then(t => { document.getElementById('diagram').innerHTML = t; const s = document.querySelector('#diagram svg'); s.style.width = '100%'; s.style.height = 'auto'
+  const p = s.querySelector('#escape'), L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L
+  new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { p.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 1800, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' }); io.disconnect() } }, { threshold: .4 }).observe(s) })
+document.getElementById('replay').onclick = () => document.querySelectorAll('#dec span').forEach((el, i) => decode(el, { delay: i * 160 }))
+let a = true
+document.getElementById('burnBtn').onclick = () => { const A = document.getElementById('pA'), B = document.getElementById('pB'); burn(a ? A : B, a ? B : A); a = !a }
+</script>
+</body></html>

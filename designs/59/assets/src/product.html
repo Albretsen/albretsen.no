@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product plate master</title>
+<!-- Source for products/plate-*.webp. 1200x1200 CSS px. ?p=mcp-emails|fun-libs|toolrails|harbor|luma
+     Each plate is a magazine "feature opener" where the REAL product logo (designs/_shared/products, unaltered)
+     is printed as a die-cut vinyl sticker and stuck on the page with our fact labels around it. -->
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wdth,wght@125,700;125,900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<style>
+  :root { --ink:#0f0b22; --paper:#f3f2fb; --pulp:#e0dff0; --violet:#6c35ec; --glow:#bab0ff; --lime:#cefd3e; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1200px; height:1200px; overflow:hidden; }
+  .plate { position:relative; width:1200px; height:1200px; overflow:hidden; background:var(--paper); color:var(--ink); }
+  .plate::after { content:""; position:absolute; inset:0; background:url(../textures/grain-overlay.png); opacity:.18; mix-blend-mode:multiply; pointer-events:none; }
+  .bg { position:absolute; inset:0; background-size:cover; background-position:center; }
+  .rail { position:absolute; left:0; right:0; top:0; display:flex; justify-content:space-between; padding:20px 56px 18px; background:var(--ink); color:var(--paper);
+    font:700 15px/1 'JetBrains Mono', monospace; letter-spacing:.24em; text-transform:uppercase; }
+  .hed { position:absolute; left:56px; bottom:70px; width:640px; font:400 132px/.86 'Instrument Serif', serif; letter-spacing:-.03em; }
+  .hed i { color:var(--violet); }
+  .dark .hed i { color:var(--glow); }
+  .kick { position:absolute; left:58px; top:96px; font:700 15px/1 'JetBrains Mono', monospace; letter-spacing:.24em; text-transform:uppercase; }
+  .big { position:absolute; left:58px; top:126px; font:400 260px/.8 'Instrument Serif', serif; letter-spacing:-.04em; opacity:.95; }
+  .dark { color:var(--paper); }
+  /* the die-cut vinyl sticker that carries the real logo */
+  .vinyl { position:absolute; display:grid; place-items:center; background:#fff; border-radius:44px; padding:34px;
+    box-shadow: 0 0 0 4px var(--ink), 14px 14px 0 4px var(--ink); }
+  .vinyl::before { content:""; position:absolute; inset:10px; border-radius:36px; border:2px dashed rgba(15,11,34,.18); }
+  .vinyl::after { /* peeled corner */ content:""; position:absolute; right:-4px; top:-4px; width:92px; height:92px;
+    background:linear-gradient(225deg, transparent 50%, var(--pulp) 50%, #fff 78%); border-bottom-left-radius:30px;
+    clip-path: polygon(0 0, 100% 100%, 0 100%); filter:drop-shadow(-3px 3px 0 rgba(15,11,34,.35)); }
+  .vinyl img { display:block; position:relative; z-index:1; }
+  .st { position:absolute; }
+  .caption { position:absolute; right:56px; bottom:62px; width:330px; font:500 14px/1.5 'JetBrains Mono', monospace; letter-spacing:.03em; border-top:3px solid currentColor; padding-top:12px; }
+</style>
+</head>
+<body>
+<div class="plate" id="plate"></div>
+<script>
+const R = '../../../_shared/products/'
+const P = {
+  'mcp-emails': {
+    bg: 'background:url(../textures/spiral-violet-1800.webp) center/cover', dark: true,
+    rail: ['MCP Emails', '2026', 'mcpemails.com'], kick: 'Feature · Live',
+    hed: 'Email for <i>AI agents.</i>',
+    vinyl: `<img src="${R}mcp-emails/logo-mark.svg" style="width:260px">`, vpos: 'left:640px; top:200px; transform:rotate(-7deg)',
+    stickers: [['seal-mrr', 'left:730px; top:640px; width:300px; transform:rotate(9deg)'], ['label-tools', 'left:470px; top:560px; width:280px; transform:rotate(-5deg)'], ['pill-agpl', 'left:780px; top:1010px; width:330px; transform:rotate(-3deg)']],
+    caption: 'About 100 email providers. Open source under the AGPL.',
+  },
+  'fun-libs': {
+    bg: 'background:var(--paper) url(../textures/paper-grain.webp)', dark: false,
+    rail: ['Fun Libs', 'Since 2019', 'funlibs.app'], kick: 'Feature · Live on Android and iOS',
+    hed: 'Fill in the <i>blanks.</i>',
+    vinyl: `<img src="${R}fun-libs/icon.png" style="width:300px; border-radius:66px; box-shadow:0 0 0 3px #0f0b22">`, vpos: 'left:620px; top:170px; transform:rotate(6deg); padding:26px',
+    stickers: [['burst-installs', 'left:340px; top:470px; width:340px; transform:rotate(-10deg)'], ['tape-built-at-17', 'left:640px; top:640px; width:420px; transform:rotate(-4deg)'], ['status-live', 'left:930px; top:110px; width:200px; transform:rotate(8deg)']],
+    caption: 'Built at 17. No marketing. Version 5 shipped in 2026.',
+  },
+  'toolrails': {
+    bg: 'background:var(--ink) url(../hero/photo-aurora-1200.webp) 20% 50%/auto 120%', dark: true,
+    rail: ['Toolrails', '2026', 'toolrails.com'], kick: 'Feature · Building',
+    hed: 'One URL. <i>Every tool.</i>',
+    vinyl: `<img src="${R}toolrails/icon.svg" style="width:280px; border-radius:52px">`, vpos: 'left:660px; top:190px; transform:rotate(-5deg)',
+    stickers: [['status-building', 'left:470px; top:200px; width:230px; transform:rotate(-8deg)'], ['word-crystal', 'left:860px; top:640px; width:220px; transform:rotate(7deg)']],
+    caption: 'One MCP URL that gives an agent every tool. Tool search and an injection guard. Four connectors so far.',
+  },
+  'harbor': {
+    bg: 'background:linear-gradient(rgba(15,11,34,.62),rgba(15,11,34,.62)), url(../textures/spiral-violet-1800.webp) center/cover', dark: true,
+    rail: ['Harbor', '2026', 'harborknowledge.com'], kick: 'Feature · Paused',
+    hed: 'A shared <i>memory.</i>',
+    vinyl: `<img src="${R}harbor/banner.png" style="width:600px; border-radius:18px">`, vpos: 'left:470px; top:200px; transform:rotate(4deg); padding:22px; border-radius:30px',
+    stickers: [['status-paused', 'left:880px; top:480px; width:220px; transform:rotate(-6deg)'], ['word-rhythm', 'left:560px; top:560px; width:220px; transform:rotate(-4deg)']],
+    caption: 'A private knowledge base shared by people and AI. Self-hostable; AI edits are held for approval. 549 commits.',
+  },
+  'luma': {
+    bg: 'background:var(--paper) url(../textures/paper-grain.webp)', dark: false,
+    rail: ['Luma', '2026', 'Retired'], kick: 'Back issue',
+    hed: 'Budgeting, <i>boring</i> on purpose.',
+    vinyl: `<img src="${R}luma/logo.png" style="width:420px">`, vpos: 'left:560px; top:250px; transform:rotate(-4deg); padding:48px 40px',
+    stickers: [['status-retired', 'left:880px; top:150px; width:220px; transform:rotate(7deg)'], ['label-norway', 'left:640px; top:560px; width:260px; transform:rotate(5deg)']],
+    caption: 'Norwegian budgeting app with open banking. 378 commits.',
+  },
+}
+const id = new URLSearchParams(location.search).get('p') || 'mcp-emails'
+const c = P[id]
+const el = document.getElementById('plate')
+if (c.dark) el.classList.add('dark')
+el.innerHTML = `<div class="bg" style="${c.bg}"></div>
+  <div class="rail">${c.rail.map(s => `<span>${s}</span>`).join('')}</div>
+  <div class="kick">${c.kick}</div>
+  <h2 class="hed">${c.hed}</h2>
+  <div class="vinyl" style="${c.vpos}">${c.vinyl}</div>
+  ${c.stickers.map(([f, s]) => `<img class="st" src="../stickers/${f}.svg" style="${s}">`).join('')}
+  <p class="caption">${c.caption}</p>`
+</script>
+</body>
+</html>

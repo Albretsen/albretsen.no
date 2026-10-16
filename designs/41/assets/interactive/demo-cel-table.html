@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Light Table Demo</title>
+<link rel="stylesheet" href="../motion.css">
+<style>
+  :root { --ink:#011835; --ink950:#010b1d; --blue:#259cde; --blue200:#95ccef; --paper:#e8f6fd; }
+  html,body { margin:0; background:var(--ink950); color:var(--paper); font:500 13px/1.4 "JetBrains Mono", ui-monospace, monospace; }
+  .table { position:relative; height:100vh; overflow:hidden; background:
+      radial-gradient(ellipse at 50% 110%, rgba(37,156,222,.35), transparent 60%),
+      url(../extras/grain-256.png), var(--ink); }
+  .table .cel { width:min(30vw, 260px); aspect-ratio:4/3; border-radius:10px; outline:3px solid var(--ink); box-shadow:6px 6px 0 var(--ink950); overflow:hidden; }
+  .table .cel img { width:100%; height:100%; display:block; }
+  .table .disc { width:min(22vw, 170px); aspect-ratio:1; }
+  .table .disc img { width:100%; display:block; }
+  .table .stk { display:block; }
+  .table .is-held { filter:drop-shadow(10px 14px 0 rgba(1,11,29,.8)); }
+  .hud { position:absolute; z-index:5; left:16px; top:16px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; letter-spacing:.08em; text-transform:uppercase; }
+  button { font:inherit; color:var(--ink); background:var(--paper); border:2px solid var(--ink); border-radius:6px; padding:6px 10px; box-shadow:3px 3px 0 var(--blue); cursor:pointer; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="table" id="table">
+  <div class="hud"><span>Light table · drag, throw, stack</span><button id="shake">Shake</button><button id="reset">Reset</button></div>
+  <div class="cel" data-cel data-x=".05" data-y="-.2"><img src="../products/cel-mcp-emails-800.webp" alt="MCP Emails"></div>
+  <div class="cel" data-cel data-x=".3" data-y="-.6"><img src="../products/cel-fun-libs-800.webp" alt="Fun Libs"></div>
+  <div class="cel" data-cel data-x=".55" data-y="-.35"><img src="../products/cel-toolrails-800.webp" alt="Toolrails"></div>
+  <div class="cel" data-cel data-x=".8" data-y="-.8"><img src="../products/cel-harbor-800.webp" alt="Harbor"></div>
+  <div class="disc" data-cel data-shape="circle" data-x=".45" data-y="-1.1"><img class="kf-disc is-slow" src="../extras/phenakistiscope-600.webp" alt=""></div>
+  <img class="stk" data-cel src="../extras/sticker-key.svg" width="120" height="120" data-x=".2" data-y="-1.3" data-shape="circle" alt="">
+  <img class="stk" data-cel src="../extras/sticker-on-twos.svg" width="210" data-x=".6" data-y="-1.5" alt="">
+  <img class="stk" data-cel src="../extras/sticker-norway.svg" width="220" data-x=".75" data-y="-1.7" alt="">
+  <img class="stk" data-cel src="../identity/mark.svg" width="120" height="120" data-x=".1" data-y="-1.9" alt="">
+</div>
+<script src="../vendor/matter-0.20.0.min.js"></script>
+<script src="../vendor/motion-12.23.24.js"></script>
+<script type="module">
+  import { mountCelTable } from './cel-table.js';
+  import { impactFrame } from '../motion.js';
+  const go = () => {
+    const t = mountCelTable(document.getElementById('table'), { onTwos: true, persist: 'demo', settle: new URLSearchParams(location.search).has('settle') });
+    t.on('impact', ({ speed }) => { if (speed > 16) impactFrame(document.getElementById('table')); });
+    document.getElementById('shake').onclick = () => t.shake();
+    document.getElementById('reset').onclick = () => t.reset();
+  };
+  // wait for images so bodies get real sizes
+  Promise.all([...document.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; }))).then(go);
+</script>
+</body>
+</html>

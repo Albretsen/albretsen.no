@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infrared Fable — Albretsen AS asset kit</title>
+<meta name="description" content="Design 36 asset kit: false-colour infrared photographs, hand-coloured public-domain plates, a spring-physics specimen deck and GSAP motion.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<meta property="og:image" content="identity/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Martian+Mono:wdth,wght@87.5,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  :root {
+    --night: #170733;  --dusk: #4a1a8c;  --plum: #6b1272;  --magenta: #e8287f;
+    --ember: #ff7a3d;  --peach: #ffb36b; --cyan: #1abcb8;  --mist: #9fefe9;  --cream: #fff1e2;
+    --serif: 'Gloock', 'Times New Roman', serif;
+    --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+    --mono: 'Martian Mono', ui-monospace, monospace;
+    --gutter: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--night); }
+  body { background: var(--night); color: var(--cream); font: 400 17px/1.55 var(--sans); overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .m-still *, .m-still *::before { animation: none !important; } .m-still .m-aperture { --ap: 1; }
+  .grain { position: fixed; inset: -50%; z-index: 90; pointer-events: none; background: url(textures/film-grain.webp) 0 0 / 256px; mix-blend-mode: overlay; opacity: .12; animation: grain 1s steps(6) infinite; }
+  @keyframes grain { 0%{transform:translate(0,0)} 20%{transform:translate(-3%,2%)} 40%{transform:translate(2%,-4%)} 60%{transform:translate(-4%,-1%)} 80%{transform:translate(3%,3%)} }
+  @media (prefers-reduced-motion: reduce) { .grain { animation: none; } }
+
+  .eyebrow { font: 500 12px/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+  .h2 { font: 400 clamp(44px, 8vw, 120px)/.9 var(--serif); letter-spacing: -.02em; }
+  .h3 { font: 400 clamp(28px, 3.4vw, 44px)/1 var(--serif); }
+  .wrap { padding: 0 var(--gutter); max-width: 1500px; margin: 0 auto; }
+  section { position: relative; padding: clamp(72px, 10vw, 140px) 0; }
+  .sec-head { display: grid; grid-template-columns: auto 1fr; gap: 12px 32px; align-items: end; margin-bottom: 48px; }
+  .sec-head .num { font: 400 clamp(60px, 10vw, 150px)/.8 var(--serif); color: var(--magenta); }
+  .sec-head p { max-width: 62ch; opacity: .85; }
+  @media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; } }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; padding: 0; isolation: isolate; }
+  .hero .layer, .hero .layer img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+  .hero .layer { will-change: transform; }
+  .hero .word { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; z-index: 1;
+    font: 400 min(20vw, 31vh)/.82 var(--serif); letter-spacing: -.025em; color: var(--cream);
+    text-shadow: 0 0 80px rgba(255, 79, 139, .45); bottom: 53%; }
+  .hero[data-scene="pinewood"] .word { bottom: 34%; color: var(--night); text-shadow: 0 0 60px rgba(255, 241, 226, .55); }
+  .hero::before { content: ''; position: absolute; z-index: 4; inset: 0 0 auto; height: 160px; background: linear-gradient(rgba(23, 7, 51, .55), transparent); pointer-events: none; }
+  .hero::after { content: ''; position: absolute; z-index: 3; inset: auto 0 0; height: 260px; background: linear-gradient(transparent, rgba(23, 7, 51, .6)); pointer-events: none; }
+  .hero .front { z-index: 2; pointer-events: none; }
+  .hero nav { position: absolute; z-index: 5; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px var(--gutter); }
+  .hero nav img { height: 44px; width: auto; }
+  .hero nav .links { display: flex; gap: 22px; font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+  .hero .bf { position: absolute; z-index: 3; filter: drop-shadow(0 20px 22px rgba(23, 7, 51, .55)); }
+  .hero .bf1 { --w: clamp(120px, 15vw, 230px); right: 7vw; top: 62vh; rotate: -10deg; }
+  .hero .bf2 { --w: clamp(80px, 9vw, 150px); left: 7vw; top: 58vh; rotate: -18deg; }
+  .hero .foot { position: absolute; z-index: 4; left: var(--gutter); right: var(--gutter); bottom: 28px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .hero .line { font: 400 clamp(20px, 2.2vw, 30px)/1.2 var(--sans); max-width: 22ch; text-shadow: 0 2px 20px rgba(23, 7, 51, .6); }
+  .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 24px; border-radius: 999px; font: 600 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border: 0; cursor: pointer; }
+  .btn.primary { background: var(--magenta); color: var(--cream); box-shadow: 0 10px 30px -8px rgba(232, 40, 127, .8); }
+  .btn.ghost { background: rgba(255, 241, 226, .14); color: var(--cream); backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1.5px rgba(255, 241, 226, .5); }
+  @media (max-width: 640px) {
+    .hero .word { bottom: 62%; font-size: 21vw; }
+    .hero[data-scene="pinewood"] .word { bottom: 46%; }
+    .hero nav .links { display: none; }
+    .hero .foot { flex-direction: column; align-items: flex-start; bottom: 20px; }
+    .scene-switch { top: 74px; left: var(--gutter); right: auto; }
+    .btn { padding: 14px 18px; font-size: 12px; }
+  }
+  .scene-switch { position: absolute; z-index: 5; right: var(--gutter); top: 84px; display: flex; gap: 6px; }
+  .scene-switch button { font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 9px 12px; border-radius: 99px; border: 0; background: rgba(23, 7, 51, .5); color: var(--cream); cursor: pointer; backdrop-filter: blur(6px); }
+  .scene-switch button[aria-pressed="true"] { background: var(--cream); color: var(--night); }
+
+  /* ---------- PAPER SECTIONS ---------- */
+  .paper { background: var(--cream); color: var(--night); }
+  .paper::before { content: ''; position: absolute; inset: 0; background: url(textures/paper-grain.webp) 0 0 / 512px; mix-blend-mode: multiply; opacity: .5; pointer-events: none; }
+  .paper > * { position: relative; }
+
+  .intro { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; }
+  .intro .h2 em { font-style: normal; color: var(--magenta); }
+  .intro .fern { width: min(320px, 70%); justify-self: center; rotate: 6deg; filter: drop-shadow(0 18px 24px rgba(23, 7, 51, .3)); }
+  @media (max-width: 800px) { .intro { grid-template-columns: 1fr; } }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(9, 1fr); gap: 12px; }
+  @media (max-width: 1100px) { .swatches { grid-template-columns: repeat(3, 1fr); } }
+  .sw { border-radius: 16px; overflow: hidden; background: #fff8f0; box-shadow: 0 1px 0 rgba(23, 7, 51, .25), 0 18px 30px -18px rgba(23, 7, 51, .45); }
+  .sw .chip { height: 120px; }
+  .sw .meta { padding: 12px 14px 14px; font: 400 11px/1.6 var(--mono); }
+  .sw .meta b { display: block; font: 400 20px/1.1 var(--serif); margin-bottom: 4px; }
+  .gradient-bar { height: 70px; border-radius: 16px; margin-top: 18px; background: linear-gradient(90deg, #170733, #4a1a8c 18%, #6b1272 32%, #e8287f 52%, #ff7a3d 70%, #ffb36b 82%, #fff1e2); }
+
+  /* type */
+  .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .type-card { border-top: 2px solid currentColor; padding-top: 18px; }
+  .type-card .big { font-size: clamp(64px, 8vw, 128px); line-height: .9; margin: 12px 0 16px; }
+  .type-card p { font-size: 15px; }
+  @media (max-width: 900px) { .type-grid { grid-template-columns: 1fr; } }
+
+  /* identity */
+  .id-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .tile { border-radius: 18px; padding: 28px; display: grid; place-items: center; position: relative; min-height: 260px; overflow: hidden; }
+  .tile .cap { position: absolute; left: 16px; bottom: 12px; font: 500 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; opacity: .7; }
+  .t-night { background: var(--night); color: var(--cream); }
+  .t-cream { background: #fff8f0; color: var(--night); box-shadow: inset 0 0 0 1.5px rgba(23, 7, 51, .15); }
+  .t-mag { background: var(--magenta); color: var(--cream); }
+  .t-marble { background: url(textures/endpaper-marble.webp) center/cover; }
+  .span-3 { grid-column: span 3; } .span-4 { grid-column: span 4; } .span-5 { grid-column: span 5; } .span-6 { grid-column: span 6; } .span-7 { grid-column: span 7; } .span-8 { grid-column: span 8; } .span-12 { grid-column: span 12; }
+  @media (max-width: 900px) { .id-grid > * { grid-column: span 12 !important; } }
+  .wordmark-ink { width: min(90%, 620px); }
+  .favs { display: flex; gap: 22px; align-items: flex-end; }
+
+  /* imagery */
+  .hero-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .hero-pair figure { border-radius: 18px; overflow: hidden; position: relative; }
+  .hero-pair figcaption, .fig-cap { font: 500 11px/1.5 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 12px 2px; opacity: .8; }
+  .checker { background: repeating-conic-gradient(#2a0a52 0 25%, #1f0841 0 50%) 0 0 / 24px 24px; border-radius: 18px; overflow: hidden; }
+  @media (max-width: 800px) { .hero-pair { grid-template-columns: 1fr; } }
+
+  /* plates */
+  .plates { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .plates img { border-radius: 12px; box-shadow: 0 30px 50px -24px rgba(23, 7, 51, .7); transition: transform .6s var(--m-ease-spring); }
+  .plates img:hover { transform: translateY(-8px) rotate(-1.5deg); }
+  @media (max-width: 900px) { .plates { grid-template-columns: 1fr 1fr; } }
+  .deck-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 80px; }
+  .deck-stage .sd-back h3 { font: 400 34px/1 var(--serif); color: var(--cream); margin-bottom: 10px; }
+  .deck-stage .sd-back p { font: 400 16px/1.45 var(--sans); color: var(--cream); }
+  .deck-stage .sd-back .f { font: 400 11px/1.6 var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .9; margin-top: 12px; }
+  @media (max-width: 900px) { .deck-stage { grid-template-columns: 1fr; } }
+  .retired { display: grid; grid-template-columns: repeat(7, 1fr); gap: 18px; margin-top: 64px; }
+  .retired figure { text-align: center; }
+  .retired img { height: 150px; width: auto; margin: 0 auto 10px; }
+  .retired .luma { height: 150px; aspect-ratio: 120/160; margin: 0 auto 10px; clip-path: path('M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z'); background: #F4EFE6; display: grid; place-items: center; }
+  .retired .luma img { height: 70px; }
+  .retired figcaption { font: 500 10px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+  @media (max-width: 900px) { .retired { grid-template-columns: repeat(3, 1fr); } }
+
+  /* extras */
+  .extras { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .extras .tile { min-height: 320px; }
+  .bf-row { display: flex; gap: 40px; align-items: center; justify-content: center; flex-wrap: wrap; }
+
+  /* motion */
+  .motion-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .mcard { border-radius: 20px; background: rgba(255, 241, 226, .06); box-shadow: inset 0 0 0 1px rgba(255, 241, 226, .14); padding: 28px; min-height: 340px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+  .mcard .stage { flex: 1; display: grid; place-items: center; position: relative; border-radius: 14px; overflow: hidden; min-height: 220px; }
+  .mcard h3 { font: 400 32px/1 var(--serif); }
+  .mcard p { font-size: 15px; opacity: .82; max-width: 52ch; }
+  .mini-hero { position: absolute; inset: 0; }
+  .mini-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .mini-hero .w { position: absolute; left: 0; right: 0; bottom: 30%; text-align: center; font: 400 clamp(54px, 8vw, 110px)/.85 var(--serif); color: var(--night); text-shadow: 0 0 40px rgba(255,241,226,.6); }
+  .replay { align-self: flex-start; }
+  @media (max-width: 900px) { .motion-grid { grid-template-columns: 1fr; } }
+  .aperture-wrap { height: 120vh; }
+  .aperture-wrap .m-aperture { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+  .aperture-wrap .m-aperture img { width: 100%; height: 100%; object-fit: cover; }
+  .aperture-wrap .label { position: absolute; inset: auto 0 8vh; text-align: center; z-index: 2; }
+
+  footer { padding: 80px var(--gutter) 60px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: flex-end; }
+  footer img { height: 70px; width: auto; }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- =================== HERO: type set into the scene =================== -->
+<header class="hero" data-scene="horizon" data-m-scene id="hero">
+  <picture class="layer back" data-depth="0.25">
+    <source type="image/avif" srcset="hero/horizon-1440.avif 1440w, hero/horizon-2880.avif 2880w" sizes="100vw">
+    <img src="hero/horizon-1440.webp" alt="False-colour infrared photograph: magenta trees on a horizon under a violet sky" fetchpriority="high">
+  </picture>
+  <h1 class="word" data-m="rise" data-depth="0.55">Albretsen</h1>
+  <picture class="layer front" data-depth="0.8">
+    <source type="image/avif" srcset="hero/horizon-front-2880.avif 2880w" sizes="100vw">
+    <img src="hero/horizon-front-1440.webp" alt="">
+  </picture>
+  <span class="bf bf1 m-wing" data-m="wing" data-drift="off"><img src="illustrations/butterfly-black-and-gold.webp" alt=""></span>
+  <span class="bf bf2 m-wing" data-m="wing" data-drift="off"><img src="illustrations/butterfly-brimstone.webp" alt=""></span>
+  <nav>
+    <img src="identity/lockup-light.svg" alt="Albretsen AS">
+    <div class="links"><a class="m-ink" href="#products">Work</a><a class="m-ink" href="#motion">Motion</a><a class="m-ink" href="ASSETS.md">Inventory</a></div>
+  </nav>
+  <div class="scene-switch" role="group" aria-label="Hero scene">
+    <button aria-pressed="true" data-scene="horizon">Horizon</button>
+    <button aria-pressed="false" data-scene="pinewood">Pinewood</button>
+  </div>
+  <div class="foot">
+    <p class="line">I build software that pays for itself.</p>
+    <div class="btns">
+      <a class="btn primary m-magnetic" data-m="magnetic" href="#products">See the work</a>
+      <a class="btn ghost m-magnetic" data-m="magnetic" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    </div>
+  </div>
+</header>
+
+<!-- =================== INTRO =================== -->
+<section class="paper" id="intro">
+  <div class="wrap intro">
+    <div>
+      <p class="eyebrow" style="color:var(--magenta)">Design 36 · Asset kit · Infrared Fable</p>
+      <h2 class="h2" style="margin:18px 0 26px;font-size:clamp(40px,5.6vw,88px)">A real landscape, shot in <em>light you can't see</em>, with a storybook living inside it.</h2>
+      <p style="max-width:58ch">False-colour infrared photographs (CC0 Poly Haven HDRIs, regraded in the Aerochrome manner: foliage glows magenta, skies fall to violet and cyan) carry the type <i>inside</i> the scene. Hand-coloured 1830s natural-history plates and Grandville's 1844 <i>Un autre monde</i> are cut out and re-inked into the same infrared palette, so engraving and photograph read as one world. Everything technical stays crisp; everything around it is warm, odd and alive.</p>
+    </div>
+    <img class="fern" src="illustrations/sticker-fern-magenta.webp" alt="Die-cut fern sticker in magenta">
+  </div>
+</section>
+
+<!-- =================== PALETTE + TYPE =================== -->
+<section class="paper" style="padding-top:0" id="palette">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><div><p class="eyebrow">Palette — infrared, seed hue 192°</p><p>Three hot inks (magenta, ember, peach) burn against two night violets. The single cool note is the horizon cyan at the seed hue; use it once per view, like the strip of sky under the trees.</p></div></div>
+    <div class="swatches" id="swatches"></div>
+    <div class="gradient-bar" aria-hidden="true"></div>
+
+    <div class="sec-head" style="margin-top:100px"><span class="num">02</span><div><p class="eyebrow">Type</p><p>Gloock for the storybook voice (chunky, sharp, high-contrast serifs that hold up at 300px). Bricolage Grotesque for prose: a grotesk with tension in its ink-traps. Martian Mono for numbers, labels and anything an engineer would read.</p></div></div>
+    <div class="type-grid">
+      <div class="type-card"><p class="eyebrow">Display · Gloock 400</p><div class="big" style="font-family:var(--serif)">Aa Øø</div><p style="font:400 30px/1.1 var(--serif)">Fun Libs: 113,000 installs later</p></div>
+      <div class="type-card"><p class="eyebrow">Text · Bricolage Grotesque 300–800</p><div class="big" style="font-family:var(--sans);font-weight:700;letter-spacing:-.04em">Aa Øø</div><p>One MCP URL that gives an agent every tool. A private knowledge base shared by people and AI. Published on Google Play since 2016.</p></div>
+      <div class="type-card"><p class="eyebrow">Data · Martian Mono 87.5 wdth</p><div class="big" style="font-family:var(--mono);font-size:clamp(48px,6vw,96px);letter-spacing:-.06em">$782</div><p style="font:400 13px/1.7 var(--mono)">claude mcp add albretsen https://albretsen.no/mcp</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== IDENTITY =================== -->
+<section id="identity">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><div><p class="eyebrow">Identity</p><p>The mark is a pointed-arch window (an aperture into the scene) looking out at an infrared treeline at sunset. The road running to the horizon is the counter of the A; the horizon is its crossbar.</p></div></div>
+    <div class="id-grid">
+      <div class="tile t-cream span-4"><img src="identity/mark.svg" alt="Albretsen AS mark" style="width:62%"><span class="cap">identity/mark.svg</span></div>
+      <div class="tile t-cream span-8"><img class="wordmark-ink" src="identity/wordmark.svg" alt="Albretsen AS wordmark"><span class="cap">identity/wordmark.svg (fill: currentColor)</span></div>
+      <div class="tile t-night span-7"><img src="identity/lockup-light.svg" alt="Lockup on night" style="width:86%"><span class="cap">identity/lockup-light.svg on night</span></div>
+      <div class="tile t-mag span-5"><div class="favs"><img src="identity/favicon.svg" alt="" style="width:96px"><img src="identity/favicon-180.png" alt="" style="width:64px;border-radius:14px"><img src="identity/favicon.svg" alt="" style="width:32px"><img src="identity/favicon.svg" alt="" style="width:16px"></div><span class="cap">favicon.svg · favicon-180.png</span></div>
+      <div class="tile t-night span-12" style="padding:0;min-height:0"><img src="identity/og.jpg" alt="Open Graph image" style="width:100%"><span class="cap" style="color:var(--cream)">identity/og.jpg 1200×630</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== HERO IMAGERY =================== -->
+<section style="padding-top:0" id="imagery">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">04</span><div><p class="eyebrow">Hero imagery</p><p>Two infrared plates, each with a matching <b>front</b> layer (same photograph, sky cut away) so type can be set between the sky and the trees. Shipped as AVIF 1440/2880 + WebP 1440. Stack: back plate → headline → front plate.</p></div></div>
+    <div class="hero-pair">
+      <figure><img src="hero/horizon-1440.webp" alt="Horizon plate" loading="lazy"><figcaption>hero/horizon-*.avif|webp — Lilienstein meadow</figcaption></figure>
+      <figure><img src="hero/pinewood-1440.webp" alt="Pinewood plate" loading="lazy"><figcaption>hero/pinewood-*.avif|webp — misty pines</figcaption></figure>
+      <figure class="checker"><img src="hero/horizon-front-1440.webp" alt="Horizon front matte" loading="lazy"></figure>
+      <figure class="checker"><img src="hero/pinewood-front-1440.webp" alt="Pinewood front matte (trunks)" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PRODUCTS =================== -->
+<section class="paper" id="products">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">05</span><div><p class="eyebrow">Product plates</p><p>Each live or building product is a numbered specimen plate: the real logo, unaltered, pinned on a cream mount inside the arch window, over a scene from the kit. Plates are also the faces of the interactive specimen deck below.</p></div></div>
+    <div class="plates">
+      <img src="products/plate-mcp-emails.webp" alt="Plate I: MCP Emails" loading="lazy">
+      <img src="products/plate-fun-libs.webp" alt="Plate II: Fun Libs" loading="lazy">
+      <img src="products/plate-toolrails.webp" alt="Plate III: Toolrails" loading="lazy">
+      <img src="products/plate-harbor.webp" alt="Plate IV: Harbor" loading="lazy">
+    </div>
+    <div class="deck-stage">
+      <div>
+        <p class="eyebrow" style="color:var(--magenta)">Interactive · interactive/specimen-deck.js</p>
+        <h3 class="h2" style="margin:14px 0 18px;font-size:clamp(40px,5vw,76px)">Drag it. Fling it. Flip it.</h3>
+        <p style="max-width:46ch">A dependency-free DOM stack with real spring physics: the top plate lags the pointer with weight, tilts with tension, flies past the horizon when flung and springs back to the bottom of the pile. Tap to flip for the facts. Keyboard: Enter flips, arrows shuffle.</p>
+        <p style="margin-top:18px"><a class="m-ink" href="interactive/deck-demo.html">Open the standalone demo</a></p>
+      </div>
+      <div id="deck"></div>
+    </div>
+    <div class="retired">
+      <figure><img src="products/retired/polyglot-pilot.svg" alt=""><figcaption>Polyglot Pilot</figcaption></figure>
+      <figure><img src="products/retired/pinpoint.svg" alt=""><figcaption>PinPoint</figcaption></figure>
+      <figure><img src="products/retired/webvakt.svg" alt=""><figcaption>WebVakt</figcaption></figure>
+      <figure><img src="products/retired/joke-central.svg" alt=""><figcaption>Joke Central</figcaption></figure>
+      <figure><img src="products/retired/tryggere-hyring.svg" alt=""><figcaption>Tryggere Hyring</figcaption></figure>
+      <figure><img src="products/retired/early-apps.svg" alt=""><figcaption>Early apps</figcaption></figure>
+      <figure><div class="luma"><img src="../../_shared/products/luma/logo.png" alt="" style="height:auto;width:78%"></div><figcaption>Luma (real mark)</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- =================== EXTRAS =================== -->
+<section id="extras">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">06</span><div><p class="eyebrow">Extras — texture and life</p><p>Cut-out butterflies from <i>The Book of Butterflies, Sphinxes and Moths</i> (1832–34), a nature-printed fern as die-cut stickers, Grandville's comet procession for night sections, a marbled endpaper for section breaks, and two grain tiles.</p></div></div>
+    <div class="bf-row" style="margin-bottom:40px">
+      <span class="m-wing" data-m="wing" data-drift="off" style="--w:min(300px,80vw)"><img src="illustrations/butterfly-black-and-gold.webp" alt="Black and gold butterfly"></span>
+      <span class="m-wing" data-m="wing" data-drift="off" style="--w:min(240px,70vw)"><img src="illustrations/butterfly-helius.webp" alt="Helius butterfly"></span>
+      <span class="m-wing" data-m="wing" data-drift="off" style="--w:min(280px,78vw)"><img src="illustrations/butterfly-brimstone.webp" alt="Brimstone butterfly"></span>
+    </div>
+    <p class="fig-cap" style="text-align:center;margin-bottom:40px">illustrations/butterfly-*.webp — hover to make them flutter</p>
+    <div class="extras">
+      <div class="tile span-5" style="padding:0;background:#10042a"><img src="illustrations/comet-procession.webp" alt="Grandville comet procession, infrared regrade" style="width:100%;height:100%;object-fit:cover" loading="lazy"><span class="cap">illustrations/comet-procession.webp</span></div>
+      <div class="tile t-marble span-4"><span class="cap" style="color:var(--cream)">textures/endpaper-marble.webp</span></div>
+      <div class="tile t-cream span-3" style="gap:10px"><img src="illustrations/sticker-fern-cyan.webp" alt="" style="width:70%;rotate:-8deg" loading="lazy"><span class="cap">sticker-fern-cyan.webp</span></div>
+      <div class="tile span-6" style="background:#fff1e2 url(textures/paper-grain.webp) 0 0/512px;color:var(--night)"><span class="cap">textures/paper-grain.webp (multiply tile)</span></div>
+      <div class="tile span-6" style="background:var(--dusk);"><div style="position:absolute;inset:0;background:url(textures/film-grain.webp) 0 0/256px;mix-blend-mode:overlay;opacity:.6"></div><span class="cap">textures/film-grain.webp (overlay tile)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MOTION =================== -->
+<section id="motion" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">07</span><div><p class="eyebrow">Motion study — motion.css + motion.js (GSAP 3.12.5 + ScrollTrigger)</p><p>Five named signatures. Everything degrades to CSS and respects reduced motion.</p></div></div>
+    <div class="motion-grid">
+      <div class="mcard">
+        <div class="stage" data-m-scene id="riseStage">
+          <div class="mini-hero">
+            <img src="hero/pinewood-1440.webp" alt="" data-depth="0.2">
+            <div class="w" id="riseWord">Toolrails</div>
+            <img src="hero/pinewood-front-1440.webp" alt="">
+          </div>
+        </div>
+        <h3>Horizon Rise <span class="eyebrow" style="color:var(--peach)">entrance</span></h3>
+        <p>Letters climb out from behind the trees with blur and a centre-out stagger (expo.out, 1.6s); the scene's three depth layers then parallax at different rates on scroll.</p>
+        <button class="btn ghost replay m-magnetic" data-m="magnetic" id="replay">Replay</button>
+      </div>
+      <div class="mcard">
+        <div class="stage" style="background:radial-gradient(circle at 50% 60%, #6b1272, #170733 70%)">
+          <span class="m-wing" data-m="wing" data-drift="off" style="--w:min(320px,70vw)"><img src="illustrations/butterfly-black-and-gold.webp" alt=""></span>
+        </div>
+        <h3>Wingbeat <span class="eyebrow" style="color:var(--peach)">idle · hover</span></h3>
+        <p>Any butterfly image is split into two halves hinged at the body and flapped with rotateY in 3D. Idle beats arrive at random intervals; hovering makes it flutter.</p>
+      </div>
+      <div class="mcard">
+        <div class="stage" style="background:var(--cream);color:var(--night);gap:18px;align-content:center">
+          <div class="btns" style="justify-content:center">
+            <a class="btn primary m-magnetic" data-m="magnetic" href="#motion">Magnetic</a>
+            <a class="btn m-magnetic" data-m="magnetic" href="#motion" style="background:var(--night);color:var(--cream)">Read the notes</a>
+          </div>
+          <p style="font:400 22px/1.4 var(--serif)">Links get an <a class="m-ink" href="#motion">ink thread</a> that runs like a <a class="m-ink" href="#motion">horizon</a>.</p>
+        </div>
+        <h3>Magnetic + Ink Thread <span class="eyebrow" style="color:var(--peach)">hover</span></h3>
+        <p>Buttons lean toward the pointer within a 90px field (gsap.quickTo), the label leans further than the shell, and release snaps back on elastic.out(1, .32). Links draw a moving magenta wave underline.</p>
+      </div>
+      <div class="mcard">
+        <div class="stage" style="background:#10042a">
+          <img class="m-ember" src="identity/mark.svg" alt="" style="width:150px">
+        </div>
+        <h3>Ember Drift <span class="eyebrow" style="color:var(--peach)">ambient</span></h3>
+        <p>A six-second breathing glow (drop-shadow + saturation) for the mark, the sun and key figures. Cheap, CSS-only, and the only thing allowed to loop forever.</p>
+      </div>
+    </div>
+  </div>
+  <div class="aperture-wrap" style="margin-top:120px">
+    <div class="m-aperture" data-m="aperture">
+      <img src="illustrations/comet-procession.webp" alt="Comet procession, opening through an arch">
+      <div class="label"><p class="eyebrow">Aperture · transition</p><p class="h2">Through the arch</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="paper" style="position:relative" id="footer">
+  <img src="identity/lockup.svg" alt="Albretsen AS">
+  <p class="eyebrow">Infrared Fable · asset kit 36 · see ASSETS.md for sources &amp; licences</p>
+</footer>
+
+<script type="module">
+  import { content } from '../../_shared/content.js'
+  import { createDeck } from './interactive/specimen-deck.js'
+  import { initMotion, horizonRise } from './motion.js'
+
+  // palette
+  const pal = [
+    ['Night', '#170733', 'oklch(18.8% 0.081 294)', 'page ground, ink on cream'],
+    ['Dusk', '#4a1a8c', 'oklch(36.6% 0.171 296)', 'upper sky, panels'],
+    ['Plum', '#6b1272', 'oklch(38.4% 0.163 325)', 'deep foliage, shadows'],
+    ['Aerochrome', '#e8287f', 'oklch(61.7% 0.229 0)', 'primary action, accents'],
+    ['Ember', '#ff7a3d', 'oklch(72.6% 0.178 43)', 'sun, building status'],
+    ['Peach', '#ffb36b', 'oklch(82.5% 0.125 63)', 'highlights, small labels'],
+    ['Horizon cyan', '#1abcb8', 'oklch(72% 0.12 192)', 'seed hue, once per view'],
+    ['Mist', '#9fefe9', 'oklch(89.9% 0.079 190)', 'horizon glow'],
+    ['Plate cream', '#fff1e2', 'oklch(96.5% 0.025 69)', 'paper, type on night'],
+  ]
+  document.getElementById('swatches').innerHTML = pal.map(([n, h, o, u]) =>
+    `<div class="sw"><div class="chip" style="background:${h}"></div><div class="meta"><b>${n}</b>${h}<br>${o}<br><span style="opacity:.7">${u}</span></div></div>`).join('')
+
+  // deck
+  const ids = ['mcp-emails', 'fun-libs', 'toolrails', 'harbor']
+  const deckEl = document.getElementById('deck')
+  createDeck(deckEl, ids.map(id => {
+    const p = content.products.find(x => x.id === id)
+    return { front: `products/plate-${id}.webp`, alt: p.name,
+      back: `<h3>${p.name}</h3><p>${p.line}</p><p class="f">${p.figure ? p.figure.value + ' ' + p.figure.label + ' · ' : ''}${(p.facts || []).join(' · ')}</p>` }
+  }), { width: Math.min(340, window.innerWidth - 64) })
+
+  // scene switch
+  const hero = document.getElementById('hero')
+  const scenes = { horizon: 'horizon', pinewood: 'pinewood' }
+  hero.querySelectorAll('.scene-switch button').forEach(b => b.addEventListener('click', () => {
+    const s = scenes[b.dataset.scene]
+    hero.dataset.scene = s
+    hero.querySelectorAll('.scene-switch button').forEach(x => x.setAttribute('aria-pressed', String(x === b)))
+    const [back, front] = hero.querySelectorAll('picture')
+    back.querySelector('source').srcset = `hero/${s}-1440.avif 1440w, hero/${s}-2880.avif 2880w`
+    back.querySelector('img').src = `hero/${s}-1440.webp`
+    front.querySelector('source').srcset = `hero/${s}-front-2880.avif 2880w`
+    front.querySelector('img').src = `hero/${s}-front-1440.webp`
+    if (window.gsap) horizonRise(hero.querySelector('.word'))
+  }))
+  const q = new URLSearchParams(location.search).get('scene')
+  if (q && scenes[q]) hero.querySelector(`[data-scene="${q}"]`).click()
+
+  const still = new URLSearchParams(location.search).has('still')
+  const only = new URLSearchParams(location.search).get('only')
+  if (only) document.querySelectorAll('body > header, body > section, body > footer').forEach(el => { if (el.id !== only) el.style.display = 'none' })
+  if (still) { document.documentElement.classList.add('m-still'); document.querySelectorAll('img[loading]').forEach(i => i.loading = 'eager'); const h = new URLSearchParams(location.search).get('h'); if (h) { hero.style.height = h + 'px'; hero.style.minHeight = '0'; document.querySelector('.aperture-wrap').style.height = 'auto'; document.querySelector('.m-aperture').style.height = h + 'px' } } else {
+  await initMotion()
+  const rw = document.getElementById('riseWord')
+  horizonRise(rw, { scene: document.getElementById('riseStage') })
+  document.getElementById('replay').addEventListener('click', () => horizonRise(rw))
+  }
+</script>
+</body>
+</html>

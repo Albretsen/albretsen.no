@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live Deck Demo</title>
+<link rel="icon" href="../identity/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Martian+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../motion.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<style>
+  html,body{margin:0;height:100%;background:#10081d;color:#f5f9ea;font:500 13px/1.5 "Martian Mono",monospace}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .hud{position:fixed;left:20px;top:18px;right:20px;display:flex;justify-content:space-between;gap:12px;pointer-events:none}
+  .hud b{font:800 15px/1 Unbounded,sans-serif;letter-spacing:-.01em}
+  .card-info{position:fixed;left:20px;bottom:20px;max-width:360px;padding:12px 14px;border-radius:14px;background:rgba(16,8,29,.7);backdrop-filter:blur(8px);min-height:20px}
+</style></head>
+<body>
+<canvas id="deck" aria-label="A deck of product cards that deals itself. D deals, S shuffles, F folds, ? shows all keys."></canvas>
+<div class="hud"><b>Honest Deck · live</b><span>three.js, built from primitives</span></div>
+<div class="card-info" id="info">Hover a card.</div>
+<script type="module">
+import { createDeck } from './deck-scene.js';
+import { shortcuts } from '../shortcuts.js';
+const canvas = document.getElementById('deck');
+const deck = await createDeck(canvas, { live: true, mood: new URLSearchParams(location.search).get('mood') || 'dusk' });
+const info = document.getElementById('info');
+let last = null;
+(function watch() {
+  const h = deck.hovered?.userData?.data;
+  if (h !== last) { last = h; info.textContent = h ? `${h.name} — ${h.status}. ${h.fig} ${h.figLabel}.` : 'Hover a card.'; }
+  requestAnimationFrame(watch);
+})();
+shortcuts([
+  { key: 'd', label: 'Deal again', run: () => deck.deal() },
+  { key: 's', label: 'Shuffle, then deal', run: () => deck.shuffle() },
+  { key: 'f', label: 'Fold (collect the deck)', run: () => deck.collect() },
+]);
+</script>
+</body></html>

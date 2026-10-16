@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 309.6 44.6" width="1238" height="178.4" role="img" aria-label="Albretsen">
+  <title>Albretsen</title>
+  <g fill="none" stroke="#051029" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round">
+    <path transform="translate(2.30 2.3)" d="M0 40 Q16 -40 32 40"/>
+    <path transform="translate(45.30 2.3)" d="M0 0 V40 H22"/>
+    <path transform="translate(78.30 2.3)" d="M0 40 V0 H11.5 A9.5 9.5 0 0 1 11.5 19 H0 M11.5 19 A10.5 10.5 0 0 1 11.5 40 H0"/>
+    <path transform="translate(112.30 2.3)" d="M0 40 V0 H12 A9.5 9.5 0 0 1 12 19 H0 M11 19 L23 40"/>
+    <path transform="translate(146.30 2.3)" d="M22 0 H0 V40 H22 M0 20 H17"/>
+    <path transform="translate(179.30 2.3)" d="M0 0 H26 M13 0 V40"/>
+    <path transform="translate(216.30 2.3)" d="M21.5 4.5 C18.5 1.5 15 0 11.5 0 C5.5 0 1.5 3.5 1.5 9.5 C1.5 15.5 6 17.8 11.5 19.6 C17.5 21.6 22.5 24.2 22.5 30.4 C22.5 36.6 18 40 11.5 40 C7.5 40 3.5 38.6 0.5 35.5"/>
+    <path transform="translate(250.30 2.3)" d="M22 0 H0 V40 H22 M0 20 H17"/>
+    <path transform="translate(283.30 2.3)" d="M0 40 V0 L24 40 V0"/>
+  </g>
+  <circle cx="18.3" cy="29.3" r="3.8" fill="#ef5b36"/>
+</svg>

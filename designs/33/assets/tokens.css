@@ -1,0 +1,28 @@
+/* Uranographia — design tokens for Albretsen AS (design 33)
+   Greys only, every one tinted toward hue 312 in OKLCH. Colour appears ONLY inside imagery
+   (Cellarius hand-colouring, Haeckel nuclei, product logos). Never fill UI with the imagery accents.
+   Fonts: Instrument Serif (display), Geist (text), Geist Mono (catalogue data). All OFL, via Google Fonts. */
+:root {
+  --u-night:  #0b090c; /* oklch(0.145 0.006 312) page ground */
+  --u-deep:   #141215; /* oklch(0.185 0.008 312) raised plate */
+  --u-slate:  #221f24; /* oklch(0.245 0.009 312) wells, inputs */
+  --u-rule:   #3f3c41; /* oklch(0.36 0.010 312)  hairlines, graticule */
+  --u-dim:    #737076; /* oklch(0.55 0.010 312)  tertiary text, retired figures */
+  --u-haze:   #aca9ae; /* oklch(0.74 0.008 312)  secondary text, labels */
+  --u-vellum: #eceaee; /* oklch(0.94 0.006 312)  primary text, star ink */
+  --u-paper:  #f8f6f9; /* oklch(0.975 0.004 312) light-mode ground */
+
+  /* Imagery-only accents: documented so captions can reference them, never used as fills */
+  --img-vermilion: #d4553c; /* oklch(0.611 0.166 33)  Cellarius Scorpio */
+  --img-verdigris: #5e9f98; /* oklch(0.657 0.068 187) Cellarius Eridanus */
+  --img-ochre:     #c8ae3e; /* oklch(0.753 0.132 96)  Haeckel yellow cells */
+  --img-nucleus:   #b0577a; /* oklch(0.575 0.122 357) Haeckel central capsule */
+
+  --u-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  --u-sans:  'Geist', ui-sans-serif, system-ui, sans-serif;
+  --u-mono:  'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --u-ease-out: cubic-bezier(.16, 1, .3, 1);      /* expo-out: arrivals */
+  --u-ease-inout: cubic-bezier(.65, 0, .35, 1);   /* precession: morphs */
+  --u-ease-orbit: cubic-bezier(.34, 1.36, .64, 1); /* slight overshoot: gravity release */
+}

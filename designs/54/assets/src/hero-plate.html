@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Plate I (composition source)</title>
+<!-- Composition source for hero/plate-i. 1600x1000 CSS px; ?z=1.8 bakes 2880x1800. -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,50;1,9..144,300..500,100&family=Spline+Sans+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+  :root { --paper:#f8f4ea; --deep:#ede5d6; --ink:#162118; --soft:#525e54; --moss:#408742; --rule:#c4c5b7; }
+  html, body { margin: 0; }
+  body { width: 1600px; height: 1000px; overflow: hidden; position: relative; color: var(--ink); font-family: Fraunces, Georgia, serif;
+    background: radial-gradient(60% 70% at 58% 50%, #fffdf7, var(--paper) 55%, var(--deep)); }
+  body::after { content: ""; position: absolute; inset: 0; background: url(../extras/paper-grain.webp) 0 0/512px; mix-blend-mode: multiply; pointer-events: none; }
+  .frame { position: absolute; inset: 30px; border: 1px solid color-mix(in oklch, var(--ink) 22%, transparent); }
+  .frame::before { content: ""; position: absolute; inset: 6px; border: 1px solid color-mix(in oklch, var(--ink) 10%, transparent); }
+  .mono { font-family: "Spline Sans Mono", monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+  .fern { position: absolute; right: -40px; top: -60px; width: 640px; height: 900px; background: var(--moss); opacity: .09;
+    -webkit-mask: url(../extras/fern-mask.webp) center/contain no-repeat; mask: url(../extras/fern-mask.webp) center/contain no-repeat; transform: rotate(18deg); }
+  .s { position: absolute; filter: drop-shadow(8px 14px 10px rgba(22,33,24,.14)); }
+  .s img { display: block; width: 100%; height: auto; }
+  .n { position: absolute; font-family: "Spline Sans Mono", monospace; font-size: 12px; color: var(--moss); }
+  .n::before { content: ""; position: absolute; width: 22px; height: 22px; border: 1px solid var(--moss); border-radius: 50%; left: -7px; top: -5px; }
+  .head { position: absolute; left: 76px; top: 72px; }
+  .head h2 { margin: 10px 0 0; font-size: 46px; font-weight: 320; font-style: italic; letter-spacing: -.02em; font-variation-settings: "SOFT" 100, "opsz" 144; }
+  .legend { position: absolute; left: 76px; bottom: 70px; display: grid; grid-template-columns: repeat(4, 220px); gap: 26px; }
+  .legend div { border-top: 1px solid color-mix(in oklch, var(--ink) 25%, transparent); padding-top: 10px; }
+  .legend i { display: block; font-size: 19px; font-weight: 340; margin: 6px 0 2px; }
+  .legend span { font-size: 14px; color: var(--soft); }
+  .stamp { position: absolute; right: 70px; bottom: 56px; width: 140px; transform: rotate(-12deg); opacity: .85; mix-blend-mode: multiply; }
+  svg.lines { position: absolute; inset: 0; }
+</style>
+</head>
+<body>
+<div class="frame"></div>
+<div class="fern"></div>
+<div class="head"><div class="mono">Plate I &middot; Albretsen AS &middot; Norway</div><h2>Specimens kept, and still growing</h2></div>
+
+<div class="s" style="left:640px; top:120px; width:400px; transform: rotate(-4deg)"><img src="../extras/specimens/capers-merian.webp" alt=""></div>
+<div class="s" style="left:1090px; top:150px; width:300px; transform: rotate(-14deg)"><img src="../extras/specimens/moth-struyk.webp" alt=""></div>
+<div class="s" style="left:330px; top:420px; width:360px; transform: rotate(12deg)"><img src="../extras/specimens/longhorn-vandervinne.webp" alt=""></div>
+<div class="s" style="left:1150px; top:470px; width:250px; transform: rotate(8deg)"><img src="../extras/specimens/stag-beetle-redoute.webp" alt=""></div>
+<div class="s" style="left:860px; top:560px; width:300px; transform: rotate(-6deg)"><img src="../extras/specimens/dung-beetle-holsteyn.webp" alt=""></div>
+
+<span class="n" style="left:1360px; top:170px">1</span>
+<span class="n" style="left:400px; top:470px">2</span>
+<span class="n" style="left:1400px; top:520px">3</span>
+<span class="n" style="left:870px; top:740px">4</span>
+
+<div class="legend">
+  <div><span class="mono">1 &middot; Live</span><i>Noctua epistolaris</i><span>MCP Emails</span></div>
+  <div><span class="mono">2 &middot; Live</span><i>Cerambyx lusor</i><span>Fun Libs</span></div>
+  <div><span class="mono">3 &middot; Building</span><i>Lucanus instrumentarius</i><span>Toolrails</span></div>
+  <div><span class="mono">4 &middot; Paused</span><i>Scarabaeus custos</i><span>Harbor</span></div>
+</div>
+<img class="stamp" src="../extras/stamp-vivarium.svg" alt="">
+<script>
+  const q = new URLSearchParams(location.search); if (q.get('z')) document.documentElement.style.zoom = q.get('z');
+  addEventListener('load', () => document.title = 'ready');
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Albretsen AS mark">
+  <title>Albretsen AS (one colour)</title>
+  <defs><path id="a" d="M64 10 L118 114 L96 114 L86.6 96 L41.4 96 L32 114 L10 114 Z M64 52.4 L49.7 80 L78.3 80 Z" fill-rule="evenodd"/></defs>
+  <g transform="translate(1 5) scale(.9)" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="5.5">
+    <use href="#a" transform="translate(12 5)" fill="currentColor"/>
+    <use href="#a" fill="var(--mark-knockout, #fff)"/>
+  </g>
+</svg>

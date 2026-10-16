@@ -1,0 +1,65 @@
+/* Specimen Drop — motion tokens + CSS-only fallbacks for the spring animations in motion.js.
+ * The linear() curves below were sampled from the same damped springs used in motion.js
+ * (semi-implicit Euler, 240 Hz), so CSS-only moments feel identical to the JS ones.
+ */
+:root {
+  /* palette (OKLCH source of truth, hex fallbacks in ASSETS.md) */
+  --lapis: oklch(0.47 0.25 264);
+  --deep: oklch(0.34 0.18 265);
+  --ink: oklch(0.24 0.12 266);
+  --night: oklch(0.17 0.07 268);
+  --peri: oklch(0.78 0.10 264);
+  --frost: oklch(0.89 0.05 264);
+  --vellum: oklch(0.965 0.022 85);
+  --parch: oklch(0.93 0.035 82);
+  --rosehip: oklch(0.63 0.21 15);
+  --pollen: oklch(0.86 0.15 92);
+
+  /* "settle" spring (k=210, c=17, m=1): one soft bounce */
+  --ease-settle: linear(0, 0.109 4.4%, 0.330 8.8%, 0.573 13.3%, 0.784 17.7%, 0.940 22.1%, 1.038 26.5%, 1.085 30.9%, 1.096 35.4%, 1.085 39.8%, 1.064 44.2%, 1.040 48.6%, 1.020 53%, 1.005 57.5%, 0.996 61.9%, 0.991 70.7%, 0.996 84%, 1);
+  --dur-settle: 754ms;
+  /* "lift" spring (k=380, c=26, m=1): quick, 5% overshoot */
+  --ease-lift: linear(0, 0.114 4.4%, 0.328 8.8%, 0.556 13.2%, 0.750 17.6%, 0.891 22.1%, 0.982 26.5%, 1.031 30.9%, 1.050 35.3%, 1.050 39.7%, 1.030 48.5%, 1.010 57.4%, 1 66.2%, 0.997 75%, 0.999 88.2%, 1);
+  --dur-lift: 567ms;
+  /* "wash" spring (k=120, c=15, m=1): slow ink, small overshoot */
+  --ease-wash: linear(0, 0.094 4.4%, 0.284 8.8%, 0.495 13.3%, 0.685 17.7%, 0.833 22.1%, 0.937 26.5%, 1.001 31%, 1.035 35.4%, 1.047 39.8%, 1.046 44.2%, 1.028 53.1%, 1.011 61.9%, 1.001 70.8%, 0.998 79.6%, 0.999 97.3%, 1);
+  --dur-wash: 942ms;
+}
+
+/* 1 — Specimen settle (entrance), CSS fallback. Add .settle; stagger with --i. */
+@keyframes specimen-settle {
+  from { opacity: 0; transform: translate3d(0, -26px, 0) rotate(var(--settle-tilt, -4deg)); }
+  to { opacity: 1; transform: none; }
+}
+.settle { animation: specimen-settle var(--dur-settle) var(--ease-settle) both; animation-delay: calc(var(--i, 0) * 70ms); }
+.settle:nth-child(even) { --settle-tilt: 4deg; }
+
+/* 2 — Loupe (hover). JS drives tilt + lens; CSS sets the stage. */
+.loupe { transform-style: preserve-3d; will-change: transform; transition: box-shadow var(--dur-lift) var(--ease-lift); }
+.loupe:hover { box-shadow: 0 40px 70px -30px color-mix(in oklch, var(--night) 70%, transparent); }
+.loupe [data-loupe] { position: absolute; inset: 0; clip-path: circle(0 at 50% 50%); pointer-events: none; }
+.loupe [data-loupe]::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--vellum) 60%, transparent); border-radius: inherit; }
+
+/* 3 — Lapis wash (transition) with the View Transitions API, when supported. */
+::view-transition-new(root) { animation: lapis-wash-in var(--dur-wash) var(--ease-wash) both; }
+::view-transition-old(root) { animation: none; }
+@keyframes lapis-wash-in { from { clip-path: circle(0 at var(--wash-x, 50%) var(--wash-y, 50%)); } to { clip-path: circle(150vmax at var(--wash-x, 50%) var(--wash-y, 50%)); } }
+
+/* 4 — Herbarium shuffle (drag to rearrange). */
+[data-herbarium] > * { touch-action: none; cursor: grab; user-select: none; }
+[data-herbarium] > .is-lifted { cursor: grabbing; filter: drop-shadow(0 26px 30px color-mix(in oklch, var(--night) 45%, transparent)); }
+
+/* 5 — Drift (ambient float for stickers when JS is off). */
+@keyframes drift-bob { 0%, 100% { translate: 0 0; rotate: -1deg; } 50% { translate: 0 -8px; rotate: 1.2deg; } }
+.drift-css { animation: drift-bob 7s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -1.3s); }
+
+/* Paper grain overlay, procedural (no image request). Put on any ::after. */
+.grain::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .45;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settle, .drift-css { animation: none; }
+  ::view-transition-new(root) { animation: none; }
+}

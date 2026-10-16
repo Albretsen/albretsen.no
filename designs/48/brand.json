@@ -1,0 +1,21 @@
+{
+  "name": "Nocturne Select",
+  "tagline": "A character-select screen where the products are the characters, in glossy plastic lit like a studio at night.",
+  "summary": "The homepage is a select screen: four live products stand on lit plinths in a real-time three.js stage, a stat sheet locks onto whichever one you pick, and its live wire shows what that product is doing right now. Everything is soft plastic rendered in code under one magenta and one ion rim light, with Met Open Access objects giving it a lineage. It reads as a builder with range and finish: many products, each owned, each lit properly.",
+  "palette": ["#0b050c", "#160b17", "#251726", "#f8f1f8", "#dc3aec", "#f295fb", "#36dcec", "#588cff", "#fbd452", "#e3d612", "#1fc893"],
+  "type": ["Unbounded", "Geist", "Geist Mono"],
+  "voice": "Short, calm, exact; a stat sheet more than a pitch. \"Four on stage. Seven kept in resin.\"",
+  "motion": "Things power on from a scan line, lock in with a soft plastic overshoot, rise off the floor as you scroll, and otherwise breathe slowly in the dark.",
+  "sound": "Off by default; once turned on, each selection plays a two-note sine and triangle lock through a lowpass, like a soft plastic click.",
+  "mark": "The Selector: a rounded Λ that is both the A of Albretsen and the P1 pointer, with an ion dot for the one chosen; it doubles as the cursor and the 3D pointer above the selected product.",
+  "inspiration": [
+    "https://tympanus.net/codrops/?p=57089",
+    "https://threejs.org/docs/pages/MeshPhysicalMaterial.html",
+    "https://iquilezles.org/articles/distfunctions2d/",
+    "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+    "https://www.radix-ui.com/primitives/docs/components/tabs",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations/Timeline_range_names",
+    "https://cuberto.com/blog/cursor-magnetic-js-component/",
+    "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access"
+  ]
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product Cel Template</title>
+<!-- Renders one product "cel": a painted background plate, the REAL product
+     logo raised as a cel-shaded tile, peg holes and a production slate.
+     Usage: cel-template.html?p=mcp-emails|fun-libs|toolrails|harbor
+     The baked stills in this folder (cel-*.webp) were screenshotted from it at 1600x1200. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#011835; --ink950:#010b1d; --ink700:#042e57; --blue:#259cde; --blue200:#95ccef; --paper:#e8f6fd; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; width:100%; height:100%; background:var(--ink950); overflow:hidden; }
+  .cel { position:relative; width:100vw; height:100vh; overflow:hidden; font-family:"JetBrains Mono", monospace; color:var(--paper); }
+  .plate { position:absolute; inset:0; background-size:cover; background-position:center; }
+  .plate svg { position:absolute; inset:0; width:100%; height:100%; }
+  /* acetate: the cel sheet edge, peg strip, slight sheen band */
+  .acetate { position:absolute; inset:0; pointer-events:none; }
+  .acetate::before { content:""; position:absolute; inset:2.4vw; border:.18vw solid rgba(232,246,253,.55); border-radius:1.2vw; }
+  .acetate::after { content:""; position:absolute; inset:0; background:linear-gradient(115deg, transparent 0 58%, rgba(232,246,253,.06) 58% 66%, transparent 66% 70%, rgba(232,246,253,.05) 70% 72%, transparent 72%); }
+  .pegs { position:absolute; top:3.6vw; left:50%; transform:translateX(-50%); display:flex; gap:9vw; align-items:center; }
+  .pegs i { display:block; width:2.4vw; height:2.4vw; border-radius:50%; background:var(--ink950); box-shadow:inset .25vw .25vw 0 rgba(0,0,0,.6), 0 0 0 .18vw rgba(232,246,253,.55); }
+  .pegs i:nth-child(2) { width:6vw; border-radius:1.2vw; }
+  .reg { position:absolute; width:4vw; height:4vw; }
+  .reg::before,.reg::after { content:""; position:absolute; background:rgba(232,246,253,.7); }
+  .reg::before { left:50%; top:0; bottom:0; width:.14vw; transform:translateX(-50%); }
+  .reg::after { top:50%; left:0; right:0; height:.14vw; transform:translateY(-50%); }
+  .reg.l { left:5vw; top:50%; } .reg.r { right:5vw; top:50%; }
+  /* hero tile */
+  .tile-wrap { position:absolute; left:50%; top:50%; transform:translate(-50%,-46%) rotate(var(--tilt,-4deg)); }
+  .tile { position:relative; width:30vw; aspect-ratio:1; border-radius:6.6vw; overflow:visible; }
+  .tile .face { position:absolute; inset:0; border-radius:inherit; overflow:hidden; outline:.55vw solid var(--ink); background:var(--face,#fff); display:grid; place-items:center; }
+  .tile .face img { width:100%; height:100%; object-fit:contain; display:block; }
+  .tile .face.pad img { width:62%; height:62%; }
+  .tile .ext { position:absolute; inset:0; border-radius:inherit; background:var(--blue); outline:.55vw solid var(--ink); transform:translate(2.2vw,1.6vw); }
+  .tile .ext2 { position:absolute; inset:0; border-radius:inherit; background:var(--ink700); transform:translate(3.6vw,2.8vw); outline:.55vw solid var(--ink); }
+  .tile .glint { position:absolute; left:9%; top:7%; width:26%; height:7%; border-radius:1vw; background:rgba(255,255,255,.75); transform:rotate(-12deg); mix-blend-mode:screen; }
+  .sparkle { position:absolute; width:5vw; height:5vw; }
+  /* slate */
+  .slate { position:absolute; left:4.6vw; bottom:4.4vw; display:grid; gap:.7vw; background:var(--ink); padding:1.5vw 2vw 1.7vw; border-radius:1vw; box-shadow:.8vw .8vw 0 var(--blue); max-width:52vw; }
+  .slate .line { font-size:1.35vw; color:var(--paper); letter-spacing:.01em; }
+  .slate .name { font-family:Unbounded, sans-serif; font-weight:800; font-size:4.2vw; letter-spacing:-.01em; line-height:1; text-shadow:.3vw .3vw 0 var(--blue); color:var(--paper); }
+  .slate .meta { font-size:1.15vw; letter-spacing:.14em; text-transform:uppercase; color:var(--blue200); }
+  .figure { position:absolute; right:4.6vw; bottom:4.4vw; text-align:right; }
+  .figure b { display:block; font-family:Unbounded, sans-serif; font-weight:800; font-size:5vw; line-height:1; color:var(--ink); background:var(--paper); padding:.6vw 1.2vw; border:.4vw solid var(--ink); box-shadow:.6vw .6vw 0 var(--blue); border-radius:.8vw; }
+  .figure span { display:inline-block; margin-top:1.2vw; background:var(--ink); padding:.35vw .8vw; border-radius:.4vw; font-size:1.15vw; letter-spacing:.14em; text-transform:uppercase; color:var(--paper); }
+  .frameno { position:absolute; left:4.6vw; top:4.2vw; background:var(--ink); padding:.4vw .8vw; border-radius:.4vw; font-size:1.15vw; letter-spacing:.14em; color:var(--blue200); }
+  .status { display:inline-block; margin-left:.8vw; padding:.15vw .6vw; background:var(--blue); color:var(--ink); border-radius:.3vw; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="cel" id="cel">
+  <div class="plate" id="plate"></div>
+  <div class="tile-wrap"><div class="tile">
+    <div class="ext2"></div><div class="ext"></div>
+    <div class="face" id="face"><img id="logo" alt=""></div>
+  </div></div>
+  <svg class="sparkle" style="left:24vw;top:18vh" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#fff" stroke="#011835" stroke-width="2.4" stroke-linejoin="round"/></svg>
+  <svg class="sparkle" style="right:22vw;top:64vh;width:3vw;height:3vw" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#95ccef" stroke="#011835" stroke-width="2.8" stroke-linejoin="round"/></svg>
+  <div class="acetate"></div>
+  <div class="pegs"><i></i><i></i><i></i></div>
+  <div class="reg l"></div><div class="reg r"></div>
+  <div class="frameno" id="frameno"></div>
+  <div class="slate"><div class="meta" id="meta"></div><div class="name" id="name"></div><div class="line" id="line"></div></div>
+  <div class="figure" id="figure"><b></b><span></span></div>
+</div>
+<script type="module">
+  import { content } from '../../../_shared/content.js';
+  const id = new URLSearchParams(location.search).get('p') || 'mcp-emails';
+  const P = content.products.find(p => p.id === id);
+  const R = '../../../_shared/products/';
+  // speed lines, drawn: horizontal "rails" of motion for Toolrails
+  const speedLines = (n = 70) => {
+    let s = '<svg viewBox="0 0 1600 1200" preserveAspectRatio="none"><rect width="1600" height="1200" fill="#259cde"/>';
+    let r = 41;
+    const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < n; i++) {
+      const y = rnd() * 1200, h = 2 + rnd() * 16, x = rnd() * 900 - 200, w = 400 + rnd() * 1200;
+      const c = rnd() > .3 ? '#011835' : '#e8f6fd';
+      s += `<path d="M${x} ${y} L${x + w} ${y + h / 2} L${x} ${y + h} Z" fill="${c}" opacity="${c === '#011835' ? .9 : .8}"/>`;
+    }
+    return s + '</svg>';
+  };
+  // impact burst behind the tile
+  const burst = (n = 46, fill = '#e8f6fd', bg = null) => {
+    let s = `<svg viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice">${bg ? `<rect width="1600" height="1200" fill="${bg}"/>` : ''}`;
+    let r = 7; const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2 + rnd() * .08, a2 = a + .012 + rnd() * .03;
+      const r0 = 380 + rnd() * 160, R = 1400;
+      const p = (rr, aa) => `${800 + Math.cos(aa) * rr} ${600 + Math.sin(aa) * rr}`;
+      s += `<path d="M${p(r0, (a + a2) / 2)} L${p(R, a)} L${p(R, a2)} Z" fill="${fill}"/>`;
+    }
+    return s + '</svg>';
+  };
+  const cfg = {
+    'mcp-emails': { plate: `url(../extras/marey-birds-2400.webp) 50% 54% / 130% auto no-repeat, #010b1d`, logo: R + 'mcp-emails/icon.png', face: '#2547E5', tilt: '-5deg', overlay: burst(40, 'rgba(37,156,222,.35)') },
+    'fun-libs': { plate: `#011835`, logo: R + 'fun-libs/icon.png', face: '#FFE066', tilt: '4deg', disc: true },
+    'toolrails': { plate: '#259cde', logo: R + 'toolrails/icon.svg', face: '#141413', tilt: '-3deg', svg: speedLines() },
+    'harbor': { plate: `url(../extras/cel-clouds-2200.webp) center / cover`, logo: R + 'harbor/harbor-mark.svg', face: '#1b1b1b', pad: true, tilt: '3deg', harbor: true },
+  }[id];
+  const plate = document.getElementById('plate');
+  plate.style.background = cfg.plate;
+  if (cfg.svg) plate.innerHTML = cfg.svg;
+  if (cfg.overlay) plate.innerHTML += cfg.overlay;
+  if (cfg.disc) plate.innerHTML = burst(52, '#042e57') + `<img src="../extras/phenakistiscope-1200.webp" style="position:absolute;width:84vw;left:-24vw;top:-22vh;transform:rotate(-12deg)" alt="">` + `<img src="../extras/phenakistiscope-600.webp" style="position:absolute;width:30vw;right:-8vw;top:-8vh;transform:rotate(20deg)" alt="">`;
+  const face = document.getElementById('face');
+  face.style.setProperty('--face', cfg.face);
+  document.querySelector('.tile-wrap').style.setProperty('--tilt', cfg.tilt);
+  if (cfg.pad) face.classList.add('pad');
+  const img = document.getElementById('logo');
+  if (cfg.harbor) { // Harbor's mark is currentColor: shown in Harbor's own cream on its own near-black, as on its banner
+    const svg = await (await fetch(cfg.logo)).text();
+    face.innerHTML = svg.replace('<svg', '<svg style="width:62%;height:62%;color:#F3F0EA"');
+  } else img.src = cfg.logo;
+  const idx = content.products.indexOf(P) + 1;
+  document.getElementById('name').textContent = P.name;
+  document.getElementById('meta').innerHTML = `Albretsen AS · Sc. ${String(idx).padStart(2, '0')} · since ${P.since}<span class="status">${P.status}</span>`;
+  document.getElementById('frameno').textContent = `CUT ${String(idx).padStart(2, '0')} / ${String(content.products.length).padStart(2, '0')}`;
+  document.getElementById('line').textContent = P.line;
+  const fig = document.getElementById('figure');
+  if (P.figure) { fig.querySelector('b').textContent = P.figure.value; fig.querySelector('span').textContent = P.figure.label; } else fig.remove();
+</script>
+</body>
+</html>

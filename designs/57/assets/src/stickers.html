@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Sticker sheet source</title>
+<!-- Source for assets/extras/sticker-*.webp. Baked twice (?bg=000 and ?bg=fff) at 2000x500 and
+     difference-matted into transparent webp. Each sticker lives in a 500x500 cell. -->
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+:root{--ink:#070707;--burn:#f34046;--paper:#f9f6f5}
+*{margin:0;box-sizing:border-box}
+html,body{width:2000px;height:500px;overflow:hidden}
+body{display:grid;grid-template-columns:repeat(4,500px)}
+.cell{position:relative;width:500px;height:500px;display:grid;place-items:center}
+.disc{width:400px;height:400px;border-radius:50%;background:var(--paper);position:relative;display:grid;place-items:center;box-shadow:0 0 0 10px #fff}
+.disc svg.ring{position:absolute;inset:0;width:100%;height:100%}
+.disc .mk{width:150px;height:150px}
+.slab{transform:rotate(-8deg);background:var(--burn);color:var(--ink);padding:26px 34px 22px;box-shadow:0 0 0 10px #fff;font-family:"Bricolage Grotesque";font-weight:800;font-variation-settings:"wdth" 75,"opsz" 96;font-size:88px;line-height:.92;letter-spacing:0;text-transform:uppercase}
+.slab small{display:flex;justify-content:space-between;font-family:"Martian Mono";font-size:12px;letter-spacing:.12em;font-weight:600;margin-top:18px;line-height:1;gap:18px}
+.cut{position:relative;width:380px}
+.cut img{width:100%;display:block;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff)}
+.cut .tag{position:absolute;right:-6px;bottom:30px;background:var(--ink);color:#fff;font-family:"Martian Mono";font-weight:700;font-size:46px;padding:6px 18px;transform:rotate(6deg);box-shadow:0 0 0 6px #fff;letter-spacing:.04em}
+.cut .tag b{color:var(--burn)}
+.ticket{width:420px;height:210px;background:var(--ink);color:#fff;transform:rotate(5deg);position:relative;box-shadow:0 0 0 10px #fff;
+ -webkit-mask:radial-gradient(circle 18px at 0 50%,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 18px at 100% 50%,transparent 98%,#000) right/51% 100% no-repeat;
+ padding:28px 40px;display:flex;flex-direction:column;justify-content:space-between}
+.ticket .t{font-family:"Bricolage Grotesque";font-weight:800;font-variation-settings:"wdth" 75,"opsz" 96;font-size:62px;line-height:.92;letter-spacing:0;text-transform:uppercase}
+.ticket .t em{font-style:normal;color:var(--burn)}
+.ticket .m{font-family:"Martian Mono";font-size:13px;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between;color:rgba(255,255,255,.7)}
+.ticketwrap{filter:drop-shadow(0 0 0 #fff)}
+</style></head>
+<body>
+<div class="cell"><div class="disc">
+  <svg class="ring" viewBox="0 0 400 400"><defs><path id="c" d="M200 200 m-150 0 a150 150 0 1 1 300 0 a150 150 0 1 1 -300 0"/></defs>
+  <circle cx="200" cy="200" r="186" fill="none" stroke="#070707" stroke-width="3"/>
+  <circle cx="200" cy="200" r="114" fill="none" stroke="#f34046" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
+  <text font-family="Martian Mono" font-weight="700" font-size="25" letter-spacing="5" fill="#070707"><textPath href="#c">ON GOOGLE PLAY SINCE 2016 ✦ ALBRETSEN AS ✦</textPath></text></svg>
+  <img class="mk" src="../identity/mark.svg" alt="">
+</div></div>
+<div class="cell"><div class="slab">Built<br>in<br>Norway<small><span>Est. 2026</span><span>Albretsen AS</span></small></div></div>
+<div class="cell"><div class="cut"><img src="../img/hero-astronaut-800.webp" alt=""><div class="tag"><b>0</b>G</div></div></div>
+<div class="cell"><div class="ticket"><div class="t">Pays for<br><em>itself.</em></div><div class="m"><span>Software</span><span>Admit one</span></div></div></div>
+<script>document.body.style.background='#'+(new URLSearchParams(location.search).get('bg')||'000')</script>
+</body></html>

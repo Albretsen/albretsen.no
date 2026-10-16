@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="Selection orbit">
+<defs><linearGradient id="s" x1="0" x2="1"><stop offset="0" stop-color="#dc3aec" stop-opacity="0"/><stop offset=".3" stop-color="#dc3aec"/><stop offset=".7" stop-color="#36dcec"/><stop offset="1" stop-color="#36dcec" stop-opacity="0"/></linearGradient>
+<filter id="g" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g filter="url(#g)"><ellipse cx="400" cy="200" rx="280" ry="64" fill="none" stroke="url(#s)" stroke-width="1.6" stroke-opacity="0.9" /><ellipse cx="400" cy="200" rx="330" ry="80" fill="none" stroke="url(#s)" stroke-width="1.2" stroke-opacity="0.45" stroke-dasharray="2 10"/><ellipse cx="400" cy="200" rx="390" ry="98" fill="none" stroke="url(#s)" stroke-width="0.8" stroke-opacity="0.25" /><circle cx="657.9" cy="224.9" r="5" fill="#36dcec"/><circle cx="160.1" cy="233.0" r="3.5" fill="#f295fb"/><circle cx="262.7" cy="144.2" r="4" fill="#fbd452"/></g>
+</svg>

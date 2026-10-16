@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bake: refracted spark</title>
+<!-- Source for hero/hero-refract*.webp and hero-portrait*.webp.
+     The 1886 lightning plate seen through loose panes of glass: every pane holds a copy of the
+     world behind it, displaced and slightly magnified, the way a thick plate shifts a ray.
+     ?v=land (default) | portrait -->
+<style>
+  @font-face { font-family:"Geist Mono"; src:url(../fonts/geist-mono-normal.woff2) format("woff2"); font-weight:400 500; }
+  html, body { margin:0; height:100%; background:#090706; overflow:hidden; }
+  .world, .world > * { position:absolute; }
+  .world { left:0; top:0; width:100vw; height:100vh; }
+  .world .bg { inset:-10%; background:url(../extras/ember-field@2x.webp) center/cover; transform:translate(-9vw, 2vh); opacity:.85; }
+  .world .bolt { background:url(../museum/emulsion-spark-1886.webp) center/100% 100% no-repeat; }
+  .pane { position:absolute; overflow:hidden; border-radius:.28vmax; }
+  .pane .world { filter:brightness(1.1) contrast(1.08); }
+  .pane .sheen { position:absolute; inset:0;
+    background:
+      linear-gradient(116deg, rgba(255,243,226,.13), rgba(255,243,226,.025) 22%, transparent 38%, rgba(255,243,226,.045) 57%, transparent 66%),
+      linear-gradient(0deg, rgba(255,177,92,.05), transparent 30%); }
+  .pane .rim { position:absolute; inset:0; border-radius:inherit;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,236,214,.55),
+      inset 0 .12vmax 0 rgba(255,246,234,.5),
+      inset .55vmax 0 .7vmax -.45vmax rgba(255,150,60,.45),
+      inset -.55vmax 0 .7vmax -.45vmax rgba(255,236,214,.12); }
+  .shadow { position:absolute; border-radius:.3vmax; box-shadow:0 2.4vmax 5vmax rgba(0,0,0,.55), 0 .3vmax .6vmax rgba(0,0,0,.4); }
+  .tag { position:absolute; font:500 max(10px,.62vmax)/1 "Geist Mono", ui-monospace, monospace; letter-spacing:.14em; text-transform:uppercase; color:rgba(237,231,223,.5); }
+  .grain { position:absolute; inset:0; background:url(../extras/grain-tile.png); opacity:.2; mix-blend-mode:overlay; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<div class="grain"></div>
+<script>
+const v = new URLSearchParams(location.search).get('v') || 'land';
+const W = innerWidth, H = innerHeight;
+// image aspect of emulsion-spark-1886.webp: 1100 x 1658
+const AR = 1100 / 1658;
+const cfg = v === 'portrait' ? {
+  bolt: { h: 1.05, cx: 0.5, cy: 0.5, boltX: 0.56 },
+  panes: [
+    { x: .14, y: .28, w: .62, h: .26, dx: .055, dy: 0, s: 1.05 },
+    { x: .30, y: .50, w: .60, h: .22, dx: -.04, dy: .01, s: 1.03 },
+  ],
+  tag: { x: .08, y: .94, text: 'Plate 287289 · Moussette · 12.05.1886' },
+} : {
+  bolt: { h: 1.32, cx: 0.63, cy: 0.52, boltX: 0.56 },
+  panes: [
+    { x: .505, y: .25, w: .22, h: .40, dx: .026, dy: 0, s: 1.05 },
+    { x: .585, y: .56, w: .21, h: .30, dx: -.02, dy: .006, s: 1.03 },
+  ],
+  tag: { x: .505, y: .925, text: 'Plate 287289 · Moussette · 12.05.1886 · seen through two panes' },
+};
+function world(ox = 0, oy = 0, s = 1, pcx = 0, pcy = 0) {
+  const w = document.createElement('div'); w.className = 'world';
+  const bh = cfg.bolt.h * H, bw = bh * AR;
+  const bx = cfg.bolt.cx * W - cfg.bolt.boltX * bw, by = cfg.bolt.cy * H - bh / 2;
+  w.innerHTML = `<div class="bg"></div><div class="bolt" style="left:${bx}px;top:${by}px;width:${bw}px;height:${bh}px"></div>`;
+  w.style.transformOrigin = `${pcx}px ${pcy}px`;
+  w.style.transform = `translate(${ox}px, ${oy}px) scale(${s})`;
+  return w;
+}
+const root = document.getElementById('root');
+root.appendChild(world());
+for (const p of cfg.panes) {
+  const px = p.x * W, py = p.y * H, pw = p.w * W, ph = p.h * H;
+  const sh = document.createElement('div'); sh.className = 'shadow';
+  Object.assign(sh.style, { left: px + 'px', top: py + 'px', width: pw + 'px', height: ph + 'px' });
+  root.appendChild(sh);
+  const pane = document.createElement('div'); pane.className = 'pane';
+  Object.assign(pane.style, { left: px + 'px', top: py + 'px', width: pw + 'px', height: ph + 'px' });
+  // the world inside the pane, shifted back to page coordinates, then displaced
+  const inner = world(-px + p.dx * W, -py + p.dy * H, p.s, px + pw / 2, py + ph / 2);
+  pane.appendChild(inner);
+  pane.insertAdjacentHTML('beforeend', '<div class="sheen"></div><div class="rim"></div>');
+  root.appendChild(pane);
+}
+const t = document.createElement('div'); t.className = 'tag'; t.textContent = cfg.tag.text;
+Object.assign(t.style, { left: cfg.tag.x * W + 'px', top: cfg.tag.y * H + 'px' });
+root.appendChild(t);
+</script>
+</body>
+</html>

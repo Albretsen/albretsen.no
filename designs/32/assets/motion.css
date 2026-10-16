@@ -1,0 +1,109 @@
+/* motion.css — "Night Shift Paper" motion study for Albretsen AS.
+   Everything here is paper physics: sheets unfold, lift off the desk, get slapped
+   down like stickers, shuffle in a stack, tear open. All selectors key off Radix
+   data attributes ([data-state], [data-side]) so they work with real Radix
+   primitives or with the tiny vanilla versions in motion.js.
+
+   Signature animations (named):
+   1. UNFOLD        dialog entrance/exit: a sheet hinges open from its top edge.
+   2. LIFT          hover: paper lifts toward the pointer, its shadow lengthens.
+   3. PEEL          tooltip: a sticker slapped on with spring overshoot, peeled off on exit.
+   4. SHUFFLE       tabs transition: the new panel rises from behind the stack.
+   5. TEAR          accordion: content opens behind a torn deckle edge.
+   6. DROP          entrance: collage pieces drop into place, staggered by --i.
+   7. SCISSOR WIPE  page transition: a torn edge sweeps across (View Transitions).
+   8. TILT          parallax: [data-depth] layers follow pointer / device tilt (motion.js sets --tx/--ty). */
+
+:root {
+  /* damped spring (zeta .5) generated as linear() stops, cf. developer.chrome.com/docs/css-ui/css-linear-easing-function */
+  --spring: linear(0, 0.049, 0.174, 0.34, 0.521, 0.696, 0.849, 0.974, 1.065, 1.124, 1.155, 1.163, 1.153, 1.132, 1.104, 1.075, 1.046, 1.022, 1.002, 0.988, 0.979, 0.974, 0.973, 0.975, 0.979, 0.984, 0.988, 0.993, 0.997, 1, 1.002, 1.004, 1.004, 1.004, 1.003, 1);
+  /* firmer spring (zeta .72) for small things */
+  --spring-firm: linear(0, 0.064, 0.209, 0.383, 0.554, 0.703, 0.822, 0.911, 0.971, 1.009, 1.029, 1.038, 1.038, 1.034, 1.027, 1.02, 1.014, 1.009, 1.005, 1.002, 1, 0.999, 1);
+  --out-expo: cubic-bezier(.16, 1, .3, 1);
+  --in-quick: cubic-bezier(.5, 0, .75, 0);
+  --paper-shadow-rest: 1px 2px 0 rgb(2 6 15 / .45), 2px 5px 10px rgb(2 6 15 / .25);
+  --paper-shadow-lift: 2px 4px 0 rgb(2 6 15 / .25), 10px 18px 28px rgb(2 6 15 / .45);
+}
+
+/* ---------- 1. UNFOLD (Radix Dialog) ---------- */
+.unfold-overlay[data-state="open"] { animation: dim-in 260ms var(--out-expo) both; }
+.unfold-overlay[data-state="closed"] { animation: dim-out 180ms ease-in both; }
+.unfold[data-state="open"] { transform-origin: 50% 0; animation: unfold-in 720ms var(--spring) both; }
+.unfold[data-state="closed"] { transform-origin: 50% 0; animation: unfold-out 220ms var(--in-quick) both; }
+@keyframes dim-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dim-out { to { opacity: 0; } }
+@keyframes unfold-in {
+  0% { opacity: 0; transform: perspective(1000px) rotateX(-78deg) translateY(-10px) scale(.96); box-shadow: 0 0 0 rgb(2 6 15 / 0); }
+  35% { opacity: 1; }
+  100% { opacity: 1; transform: perspective(1000px) rotateX(0) translateY(0) scale(1); box-shadow: var(--paper-shadow-lift); }
+}
+@keyframes unfold-out { to { opacity: 0; transform: perspective(1000px) rotateX(-70deg) translateY(-8px) scale(.97); } }
+
+/* ---------- 2. LIFT (cards, windows, Radix HoverCard trigger) ---------- */
+.lift { transition: transform 420ms var(--spring-firm), box-shadow 420ms var(--out-expo); box-shadow: var(--paper-shadow-rest);
+  transform: translate3d(0, 0, 0) rotate(var(--rest-rot, 0deg)); will-change: transform; }
+@media (hover: hover) {
+  .lift:hover { transform: translate3d(calc(var(--px, 0) * 4px), calc(-6px + var(--py, 0) * 3px), 0) rotate(calc(var(--rest-rot, 0deg) * .3 + var(--px, 0) * 1.2deg)); box-shadow: var(--paper-shadow-lift); }
+}
+/* HoverCard content slides out from under the trigger like a second sheet */
+.sheet-card[data-state="open"] { animation: sheet-out 520ms var(--spring-firm) both; }
+.sheet-card[data-state="closed"] { animation: sheet-in 160ms ease-in both; }
+.sheet-card[data-side="top"] { --dy: 10px; } .sheet-card[data-side="bottom"] { --dy: -10px; }
+@keyframes sheet-out { from { opacity: 0; transform: translateY(var(--dy, -10px)) rotate(-2.5deg) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes sheet-in { to { opacity: 0; transform: translateY(var(--dy, -10px)) rotate(-1.5deg) scale(.96); } }
+
+/* ---------- 3. PEEL (Radix Tooltip: data-state = delayed-open | instant-open | closed) ---------- */
+.peel[data-state="delayed-open"], .peel[data-state="instant-open"] { animation: peel-on 520ms var(--spring) both; }
+.peel[data-state="closed"] { animation: peel-off 200ms var(--in-quick) both; }
+.peel[data-side="top"] { transform-origin: 50% 100%; } .peel[data-side="bottom"] { transform-origin: 50% 0; }
+@keyframes peel-on { from { opacity: 0; transform: rotate(-9deg) scale(.55) translateY(4px); } to { opacity: 1; transform: rotate(-2deg) scale(1); } }
+@keyframes peel-off { to { opacity: 0; transform: rotate(6deg) scale(.9) translate(6px, -6px) skewX(-6deg); } }
+
+/* ---------- 4. SHUFFLE (Radix Tabs) ---------- */
+.shuffle-panel[data-state="active"] { animation: shuffle-in 560ms var(--spring-firm) both; }
+@keyframes shuffle-in {
+  0% { opacity: 0; transform: translateY(18px) rotate(1.6deg) scale(.97); box-shadow: 0 0 0 rgb(2 6 15 / 0); filter: brightness(.8); }
+  100% { opacity: 1; transform: none; box-shadow: var(--paper-shadow-rest); filter: none; }
+}
+.shuffle-list { position: relative; }
+.shuffle-list .shuffle-ink { position: absolute; bottom: -3px; height: 6px; left: var(--ink-x, 0); width: var(--ink-w, 0);
+  background: var(--sodium, #f68c26); border-radius: 2px; transform: rotate(-1deg); transition: left 460ms var(--spring-firm), width 460ms var(--spring-firm); }
+
+/* ---------- 5. TEAR (Radix Accordion: uses --radix-accordion-content-height) ---------- */
+.tear[data-state="open"] { animation: tear-open 520ms var(--out-expo) both; }
+.tear[data-state="closed"] { animation: tear-close 280ms ease-in both; }
+.tear { overflow: hidden;
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 14px) no-repeat, url("extras/torn-mask.svg") bottom / 100% 14px no-repeat;
+          mask: linear-gradient(#000 0 0) top / 100% calc(100% - 14px) no-repeat, url("extras/torn-mask.svg") bottom / 100% 14px no-repeat; }
+@keyframes tear-open { from { height: 0; opacity: .3; } to { height: var(--radix-accordion-content-height, auto); opacity: 1; } }
+@keyframes tear-close { from { height: var(--radix-accordion-content-height, auto); } to { height: 0; opacity: 0; } }
+.tear-chevron { transition: transform 420ms var(--spring); }
+[data-state="open"] > .tear-chevron, [data-state="open"] .tear-chevron { transform: rotate(180deg); }
+
+/* ---------- 6. DROP (collage entrance) ---------- */
+[data-drop] { opacity: 0; }
+[data-drop].is-in { animation: drop-in 900ms var(--spring) both; animation-delay: calc(var(--i, 0) * 70ms); }
+@keyframes drop-in {
+  0% { opacity: 0; transform: translate3d(0, -36px, 0) rotate(calc(var(--r, -4deg) * 3)) scale(1.06); filter: drop-shadow(14px 26px 18px rgb(2 6 15 / .35)); }
+  40% { opacity: 1; }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) rotate(var(--r, -1deg)) scale(1); filter: drop-shadow(1px 2px 1px rgb(2 6 15 / .45)); }
+}
+
+/* ---------- 7. SCISSOR WIPE (View Transitions) ---------- */
+::view-transition-old(root) { animation: none; }
+::view-transition-new(root) { animation: scissor 760ms var(--out-expo) both; }
+@keyframes scissor {
+  from { clip-path: polygon(0 0, 0 0, 3% 8%, 0 16%, 2% 25%, 0 34%, 3% 43%, 0 52%, 2% 61%, 0 70%, 3% 79%, 0 88%, 2% 96%, 0 100%, 0 100%); }
+  to   { clip-path: polygon(0 0, 100% 0, 103% 8%, 100% 16%, 102% 25%, 100% 34%, 103% 43%, 100% 52%, 102% 61%, 100% 70%, 103% 79%, 100% 88%, 102% 96%, 100% 100%, 0 100%); }
+}
+
+/* ---------- 8. TILT (parallax layers) ---------- */
+[data-tilt] { perspective: 1200px; }
+[data-tilt] > .tilt-stage { transform-style: preserve-3d; transform: rotateX(calc(var(--ty, 0) * -4deg)) rotateY(calc(var(--tx, 0) * 5deg)); transition: transform 120ms linear; }
+[data-depth] { transform: translate3d(calc(var(--tx, 0) * var(--depth) * -14px), calc(var(--ty, 0) * var(--depth) * -9px), 0) scale(calc(1 + var(--depth) * .015)); will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
+  [data-depth], [data-tilt] > .tilt-stage { transform: none !important; }
+  [data-drop] { opacity: 1; }
+}

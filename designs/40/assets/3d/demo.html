@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live Specimen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../motion.css">
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; font-family: var(--font-mono); background: var(--bg); color: var(--fg); }
+  header, footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 24px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; flex-wrap: wrap; }
+  #stage { position: relative; min-height: 60vh; }
+  .phases { display: flex; gap: 6px; flex-wrap: wrap; }
+  button { font: inherit; letter-spacing: inherit; text-transform: inherit; background: transparent; color: inherit; border: 1px solid var(--rule); border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+  button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+  h1 { font: 600 clamp(28px, 5vw, 56px)/1 var(--font-display); letter-spacing: -.02em; text-transform: none; margin: 0; }
+</style>
+</head>
+<body>
+<header><h1>Specimen No. 1</h1><span data-daylight>Reading the sun over Oslo</span></header>
+<div id="stage"></div>
+<footer>
+  <div class="phases" role="group" aria-label="Light">
+    <button data-p="auto" aria-pressed="true">Now in Oslo</button><button data-p="dag">Dag</button><button data-p="gulltime">Gulltime</button><button data-p="blåtime">Blåtime</button><button data-p="natt">Natt</button>
+  </div>
+  <span>Drag to turn · flick to spin · double-click to tap it</span>
+</footer>
+<script type="module">
+import { mountSpecimen } from './specimen.js';
+import { daylight } from '../motion.js';
+daylight();
+const s = await mountSpecimen(document.getElementById('stage'), { phase: 'auto' });
+document.querySelectorAll('[data-p]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-p]').forEach(x => x.setAttribute('aria-pressed', x === b));
+  const p = s.setPhase(b.dataset.p);
+  document.documentElement.dataset.phase = p;
+}));
+</script>
+</body>
+</html>

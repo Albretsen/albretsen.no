@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Albretsen AS mark">
+  <title>Albretsen AS: the cel A</title>
+  <defs>
+    <path id="a41" d="M64 10 L118 114 L96 114 L86.6 96 L41.4 96 L32 114 L10 114 Z M64 52.4 L49.7 80 L78.3 80 Z" fill-rule="evenodd"/>
+  </defs>
+  <g transform="translate(1 5) scale(.9)" stroke-linejoin="round" stroke-linecap="round">
+    <!-- extrusion: back face + swept sides, flat cel blue -->
+    <use href="#a41" transform="translate(12 5)" fill="#259cde" stroke="#011835" stroke-width="5"/>
+    <use href="#a41" transform="translate(10.5 4.375)" fill="#259cde"/>
+    <use href="#a41" transform="translate(9.0 3.750)" fill="#259cde"/>
+    <use href="#a41" transform="translate(7.5 3.125)" fill="#259cde"/>
+    <use href="#a41" transform="translate(6.0 2.500)" fill="#259cde"/>
+    <use href="#a41" transform="translate(4.5 1.875)" fill="#259cde"/>
+    <use href="#a41" transform="translate(3.0 1.250)" fill="#259cde"/>
+    <use href="#a41" transform="translate(1.5 0.625)" fill="#259cde"/>
+    <!-- core shadow on the underside faces -->
+    <path d="M10 114 L22 119 L44 119 L32 114 Z M96 114 L108 119 L130 119 L118 114 Z M49.7 80 L61.7 85 L90.3 85 L78.3 80 Z M41.4 96 L53.4 101 L98.6 101 L86.6 96 Z" fill="#042e57"/>
+    <!-- silhouette connectors -->
+    <path d="M64 10 L76 15 M10 114 L22 119 M118 114 L130 119 M49.7 80 L61.7 85" fill="none" stroke="#011835" stroke-width="5"/>
+    <!-- front face, lit -->
+    <use href="#a41" fill="#ffffff" stroke="#011835" stroke-width="5.5"/>
+    <!-- rim light band on the front face, hard-edged -->
+    <path d="M30 92 L56 42 L59 47.6 L35.5 92 Z" fill="#95ccef"/>
+    <!-- cel highlight sparkle -->
+    <path d="M30 22 L32.4 29.6 L40 32 L32.4 34.4 L30 42 L27.6 34.4 L20 32 L27.6 29.6 Z" fill="#ffffff" stroke="#011835" stroke-width="2.4"/>
+  </g>
+</svg>

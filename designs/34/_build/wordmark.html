@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&display=block" rel="stylesheet">
+<body style="background:#060807;margin:0">
+<div id="view"></div>
+<script type="module">
+import { latticeFor, facetShade, inBeam, shrink } from '../assets/interactive/prism-lattice.js';
+await document.fonts.load('900 100px Anybody');
+await document.fonts.ready;
+const params = new URLSearchParams(location.search);
+const word = params.get('w') || 'ALBRETSEN';
+const mode = params.get('mode') || 'facet';
+const fontSpec = (px) => `900 ${px}px Anybody`;
+// Anybody wide (wdth 130) via font-stretch in canvas font string
+const L = latticeFor(word, { rows: +(params.get('rows') || 9), side: 24, fontSpec: undefined, font: 'Anybody', tracking: +(params.get('tr') || 0.5) });
+const W = Math.ceil(L.width), H = Math.ceil(L.height);
+const f = (n) => Math.round(n * 10) / 10;
+let paths = '';
+const MINT = '#39FD9E';
+if (mode === 'solid') {
+  // one compound path, slightly overgrown triangles so there are no hairlines
+  let d = '';
+  for (const t of L.tris) {
+    const p = shrink(t.pts, t.cx, t.cy, 1.04);
+    d += `M${f(p[0])} ${f(p[1])}L${f(p[2])} ${f(p[3])}L${f(p[4])} ${f(p[5])}Z`;
+  }
+  paths = `<path fill="currentColor" d="${d}"/>`;
+} else {
+  // faceted: grouped by shade bucket to keep the file small
+  const buckets = new Map();
+  for (const t of L.tris) {
+    const beam = inBeam(t, W, H);
+    let key;
+    if (beam) key = t.up ? 'm1' : 'm2';
+    else key = 'w' + Math.round(facetShade(t, W, H) * 10);
+    const p = shrink(t.pts, t.cx, t.cy, 0.9);
+    const d = `M${f(p[0])} ${f(p[1])}L${f(p[2])} ${f(p[3])}L${f(p[4])} ${f(p[5])}Z`;
+    buckets.set(key, (buckets.get(key) || '') + d);
+  }
+  for (const [k, d] of buckets) {
+    if (k === 'm1') paths += `<path fill="${MINT}" d="${d}"/>`;
+    else if (k === 'm2') paths += `<path fill="${MINT}" fill-opacity=".72" d="${d}"/>`;
+    else paths += `<path fill="#FFFFFF" fill-opacity="${(+k.slice(1) / 10).toFixed(1)}" d="${d}"/>`;
+  }
+}
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Albretsen"><title>${word}</title>${paths}</svg>`;
+document.getElementById('view').innerHTML = svg; document.querySelector('#view svg').style.cssText='width:96vw;height:auto;margin:2vw';
+const pre = document.createElement('textarea'); pre.id = 'out'; pre.textContent = svg; pre.style.display = 'none';
+document.body.append(pre);
+document.title = `${L.tris.length} tris ${W}x${H}`;
+</script>

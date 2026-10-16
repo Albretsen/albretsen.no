@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="320" height="320" role="img" aria-label="pinpoint (retired) stand-in">
+  <!-- Design 51 stand-in for a retired product: an extinguished lamp. Not the product's real brand. -->
+  <defs>
+    <radialGradient id="h" cx="80" cy="80" r="80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#234877" stop-opacity=".55"/><stop offset="1" stop-color="#051029" stop-opacity="0"/></radialGradient>
+    <radialGradient id="e" cx="118" cy="42" r="10" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e63281" stop-opacity=".9"/><stop offset="1" stop-color="#e63281" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="160" height="160" rx="34" fill="#051029"/>
+  <rect width="160" height="160" rx="34" fill="url(#h)"/>
+  <rect x=".75" y=".75" width="158.5" height="158.5" rx="33.25" fill="none" stroke="#bed4eb" stroke-opacity=".14" stroke-width="1.5"/>
+  <circle cx="80" cy="80" r="56" fill="none" stroke="#bed4eb" stroke-opacity=".22" stroke-width="1" stroke-dasharray="2 6"/>
+  <g fill="none" stroke="#bed4eb" stroke-opacity=".78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" color="#bed4eb"><circle cx="80" cy="76" r="18"/><path d="M80 94 V112"/><path d="M80 46 V54 M80 98 V98 M50 76 H58 M102 76 H110"/><circle cx="80" cy="76" r="3.5" fill="currentColor" stroke="none"/></g>
+  <circle cx="118" cy="42" r="10" fill="url(#e)"/>
+  <circle cx="118" cy="42" r="2.4" fill="#e63281"/>
+</svg>

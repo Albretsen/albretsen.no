@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+<title>Select grid: tileable stage pattern</title>
+<g fill="#423144"><circle cx="24" cy="24" r="1.1"/><circle cx="24" cy="72" r="1.1"/><circle cx="24" cy="120" r="1.1"/><circle cx="24" cy="168" r="1.1"/><circle cx="72" cy="24" r="1.1"/><circle cx="72" cy="72" r="1.1"/><circle cx="72" cy="120" r="1.1"/><circle cx="72" cy="168" r="1.1"/><circle cx="120" cy="24" r="1.1"/><circle cx="120" cy="120" r="1.1"/><circle cx="120" cy="168" r="1.1"/><circle cx="168" cy="24" r="1.1"/><circle cx="168" cy="72" r="1.1"/><circle cx="168" cy="120" r="1.1"/><circle cx="168" cy="168" r="1.1"/></g>
+<path d="M120 66v12M114 72h12" stroke="#dc3aec" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

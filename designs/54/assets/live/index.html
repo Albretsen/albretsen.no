@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vivarium live demos</title>
+<link rel="icon" href="../identity/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,50;1,9..144,300..500,100&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../motion.css">
+<link rel="stylesheet" href="./diorama.css">
+<style>
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: Fraunces, Georgia, serif; }
+  body::before { content: ""; position: fixed; inset: 0; background: url(../extras/paper-grain.webp) 0 0/512px; mix-blend-mode: multiply; pointer-events: none; z-index: 5; }
+  header { padding: 40px 6vw 0; }
+  .mono { font: 500 11px/1.4 "Spline Sans Mono", monospace; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); }
+  h1 { font-weight: 330; font-size: clamp(28px, 4vw, 44px); letter-spacing: -.02em; margin: 8px 0 0; }
+  section { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 30px 6vw; }
+  .stage { position: relative; height: min(70vh, 640px); border-top: 1px solid var(--rule); }
+  .stage canvas { width: 100%; height: 100%; display: block; }
+  .dio-wrap { display: grid; place-items: center; border-top: 1px solid var(--rule); padding-top: 20px; overflow: hidden; }
+</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }</script>
+</head>
+<body>
+<header><div class="mono">Albretsen AS &middot; design 54 &middot; live assets</div><h1>Two ways to keep a terrarium alive</h1></header>
+<section>
+  <div class="mono">A &middot; The Wardian case &middot; CSS 3D transforms only &middot; move the pointer</div>
+  <div class="dio-wrap"><div id="case"></div></div>
+</section>
+<section>
+  <div class="mono">B &middot; The bell jar &middot; three.js primitives, toon-shaded &middot; move the pointer</div>
+  <div class="stage"><canvas id="jar"></canvas></div>
+</section>
+<script type="module">
+  import { createDiorama } from './diorama.js';
+  createDiorama(document.getElementById('case'), { base: '../' });
+  // lazy-load three.js only when the jar scrolls near
+  const c = document.getElementById('jar');
+  new IntersectionObserver(async ([e], io) => {
+    if (!e.isIntersecting) return; io.disconnect();
+    const { createTerrarium } = await import('./terrarium.js');
+    createTerrarium(c, { view: 'portrait' });
+  }, { rootMargin: '200px' }).observe(c);
+</script>
+</body>
+</html>

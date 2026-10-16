@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" role="img" aria-label="early-apps stand-in">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a0a52"/><stop offset=".6" stop-color="#2fb8cc"/><stop offset="1" stop-color="#fff1e2"/></linearGradient>
+  <clipPath id="c"><path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z"/></clipPath></defs>
+  <path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z" fill="url(#g)"/>
+  <g clip-path="url(#c)">
+    <circle cx="42" cy="72" r="11" fill="none" stroke="#fff1e2" stroke-width="7"/><circle cx="78" cy="110" r="11" fill="none" stroke="#fff1e2" stroke-width="7"/>
+      <path d="M84 62L36 120" stroke="#e8287f" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z" fill="none" stroke="#170733" stroke-width="4" stroke-linejoin="round"/>
+</svg>

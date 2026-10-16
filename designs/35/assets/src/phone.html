@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>frame</title>
+<!-- Renders preview.html?still inside a frame for screenshots.
+     ?w=390 sets the frame width (headless Chrome windows cannot be narrower than ~500px)
+     ?y=8000 offsets the view, so lower sections can be captured in a short window. -->
+<style>body{margin:0;background:#ddd;overflow:hidden}iframe{border:0;display:block;background:#fff;position:absolute;left:0}</style>
+<iframe id="f"></iframe>
+<script>
+  const q = new URLSearchParams(location.search), f = document.getElementById('f');
+  f.style.width = (q.get('w') || 390) + 'px'; f.style.height = (q.get('h') || 16000) + 'px'; f.style.top = -(q.get('y') || 0) + 'px';
+  f.src = '../preview.html?still';
+</script>

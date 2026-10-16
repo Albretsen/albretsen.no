@@ -1,0 +1,75 @@
+/* Specimen Atlas — motion + tokens (design 40)
+   Pair with motion.js. The springs live in JS; CSS holds tokens, the
+   daylight phases, the loupe sheen, the plate flip faces and the
+   reduced-motion fallbacks. */
+
+:root {
+  /* palette (OKLCH, seed hue 336 = eosin) */
+  --cream: oklch(95.5% 0.022 88);      /* #f6f0e0 */
+  --paper: oklch(90.5% 0.032 84);      /* #eadec8 */
+  --forest: oklch(36% 0.068 158);      /* #17482f */
+  --ink: oklch(22% 0.038 160);         /* #082014 */
+  --moss: oklch(62% 0.07 150);         /* #679270 */
+  --brass: oklch(73% 0.118 82);        /* #cda047 */
+  --brass-deep: oklch(55% 0.1 70);     /* #966626 */
+  --eosin: oklch(60% 0.2 336);         /* #c444ac */
+  --blush: oklch(89% 0.055 336);       /* #f3cee9 */
+  --dusk: oklch(30% 0.06 262);         /* #1d2d4c */
+
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif; /* opsz 144, wght 600 for display; SOFT 50 for warmth */
+  --font-text: 'Instrument Sans', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  /* the "settle" curve, for CSS-only contexts (approximates the 170/26 spring) */
+  /* sampled from the same Spring(170, 26) integrator over 900ms */
+  --ease-settle: linear(0, 0.099 4.2%, 0.273 8.3%, 0.448 12.5%, 0.595 16.7%, 0.711 20.8%, 0.796 25%, 0.858 29.2%, 0.902 33.3%, 0.933 37.5%, 0.954 41.7%, 0.969 45.8%, 0.979 50%, 0.986 54.2%, 0.994 62.5%, 0.998 75%, 1);
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+
+  /* daylight defaults (overwritten by motion.js daylight()) */
+  --sun-elev: 20;
+  --sun-t: .7;
+  --bg: var(--cream);
+  --fg: var(--ink);
+  --accent: var(--eosin);
+  --rule: color-mix(in oklch, var(--forest) 28%, transparent);
+}
+
+/* ---- DAYLIGHT phases ---------------------------------------------------- */
+:root[data-phase="dag"]      { --bg: var(--cream); --fg: var(--ink); }
+:root[data-phase="gulltime"] { --bg: oklch(93% 0.04 75); --fg: var(--ink); }
+:root[data-phase="blåtime"]  { --bg: oklch(27% 0.045 168); --fg: var(--cream); --rule: color-mix(in oklch, var(--brass) 30%, transparent); }
+:root[data-phase="natt"]     { --bg: oklch(19% 0.03 170); --fg: var(--cream); --rule: color-mix(in oklch, var(--brass) 24%, transparent); }
+html { background: var(--bg); color: var(--fg); transition: background-color 1.2s var(--ease-out), color 1.2s var(--ease-out); }
+
+/* ---- SETTLE fallback (no JS / reduced motion) --------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .settle-css { animation: settle-in 900ms var(--ease-settle) both; animation-delay: calc(var(--i, 0) * 70ms); }
+  @keyframes settle-in { from { opacity: 0; transform: translateY(18px) scale(.965); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+}
+
+/* ---- LOUPE: brass sheen that follows the pointer ----------------------- */
+.loupe {
+  position: relative; transform-style: preserve-3d; isolation: isolate;
+  box-shadow: 0 calc(2px + var(--lift, 0) * 18px) calc(6px + var(--lift, 0) * 30px) -10px color-mix(in oklch, var(--ink) 45%, transparent);
+}
+.loupe::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(420px circle at var(--sheen-x, 50%) var(--sheen-y, 50%), color-mix(in oklch, var(--brass) 38%, transparent), transparent 55%);
+  mix-blend-mode: soft-light; opacity: var(--lift, 0);
+}
+
+/* ---- SHUFFLE: plate stack with two faces ------------------------------- */
+.stack { position: relative; display: grid; place-items: center; touch-action: pan-y; user-select: none; }
+.stack .plate {
+  grid-area: 1 / 1; position: relative; transform-style: preserve-3d; cursor: grab; will-change: transform;
+}
+.stack .plate:active { cursor: grabbing; }
+.stack .plate:focus-visible { outline: 2px solid var(--eosin); outline-offset: 6px; }
+.plate-front, .plate-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: inherit; }
+.plate-back { position: absolute; inset: 0; transform: rotateY(180deg); }
+.stack .plate { filter: brightness(calc(1 - var(--depth, 0) * .05)); }
+
+/* ---- small utilities ----------------------------------------------------- */
+.press { transition: transform 160ms var(--ease-out); }
+.press:active { transform: scale(.97); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }

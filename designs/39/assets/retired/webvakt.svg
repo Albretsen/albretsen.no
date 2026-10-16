@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="WebVakt (retired)">
+<title>WebVakt</title>
+<rect width="400" height="400" rx="20" fill="#1a1918"/>
+<rect x="12.5" y="12.5" width="375" height="375" rx="12" fill="none" stroke="#2c2a29"/>
+<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(30 -36)" opacity="0.10" stroke="#8d8a86"><rect x="120" y="130" width="170" height="130" rx="10"/><path d="M120 158 h170"/><circle cx="138" cy="144" r="3"/><circle cx="150" cy="144" r="3"/><path d="M146 196 h90 M146 218 h56"/></g><g transform="translate(20 -24)" opacity="0.22" stroke="#8d8a86"><rect x="120" y="130" width="170" height="130" rx="10"/><path d="M120 158 h170"/><circle cx="138" cy="144" r="3"/><circle cx="150" cy="144" r="3"/><path d="M146 196 h90 M146 218 h56"/></g><g transform="translate(10 -12)" opacity="0.34" stroke="#8d8a86"><rect x="120" y="130" width="170" height="130" rx="10"/><path d="M120 158 h170"/><circle cx="138" cy="144" r="3"/><circle cx="150" cy="144" r="3"/><path d="M146 196 h90 M146 218 h56"/></g><g stroke="#dcdad7"><rect x="120" y="130" width="170" height="130" rx="10"/><path d="M120 158 h170"/><circle cx="138" cy="144" r="3"/><circle cx="150" cy="144" r="3"/><path d="M146 196 h90 M146 218 h56"/></g></g>
+<g font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing=".06em" fill="#8d8a86">
+<text x="32" y="364">WebVakt</text><text x="368" y="48" text-anchor="end">2024</text>
+<text x="32" y="48" fill="#2c2a29">&#8212; retired</text></g>
+</svg>

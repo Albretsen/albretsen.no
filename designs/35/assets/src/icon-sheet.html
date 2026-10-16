@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><title>icon sheet</title>
+<style>body{margin:0;background:#f6f0e8;color:#282019;font:12px system-ui;display:grid;grid-template-columns:repeat(8,1fr);gap:8px;padding:24px}
+div{display:grid;place-items:center;gap:6px;padding:14px;background:#fff8;border-radius:10px}
+.r{grid-column:1/-1;display:flex;gap:16px;background:none}</style>
+<body>
+<script type="module">
+import {icons,svg} from '../icons/icons.js';
+for(const n of Object.keys(icons)){const d=document.createElement('div');d.innerHTML=svg(n,{size:56})+`<span>${n}</span>`;document.body.append(d)}
+const r=document.createElement('div');r.className='r';r.innerHTML=['polyglot-pilot','pinpoint','webvakt','joke-central','tryggere-hyring','early-apps'].map(i=>`<img src="../retired/${i}.svg" width="120">`).join('');document.body.append(r);
+</script>

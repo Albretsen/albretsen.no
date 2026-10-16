@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selector Mark Demo</title>
+<style>
+  html,body{margin:0;height:100%;background:#0b050c;color:#f8f1f8;font:500 13px/1.4 "Geist Mono",ui-monospace,monospace}
+  canvas{display:block;width:100%;height:100%}
+  p{position:fixed;left:16px;bottom:12px;margin:0;color:#ae9faf;letter-spacing:.04em}
+</style></head><body>
+<canvas id="c"></canvas>
+<p>mark-sdf.js · move the pointer · ?scene=solo · ?still</p>
+<script type="module">
+  import { mountMark } from './mark-sdf.js';
+  const q = new URLSearchParams(location.search);
+  mountMark(document.getElementById('c'), { scene: q.get('scene') || 'hero', still: q.has('still'), dpr: q.has('still') ? devicePixelRatio : Math.min(devicePixelRatio, 1.5), time: +(q.get('t') || 2), transparent: q.has('alpha') });
+  if (q.has('still')) document.querySelector('p').remove();
+  if (q.has('alpha')) document.documentElement.style.background = document.body.style.background = 'transparent';
+</script></body></html>

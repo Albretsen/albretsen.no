@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" role="img" aria-label="polyglot-pilot stand-in">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#170733"/><stop offset=".6" stop-color="#4a1a8c"/><stop offset="1" stop-color="#1abcb8"/></linearGradient>
+  <clipPath id="c"><path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z"/></clipPath></defs>
+  <path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z" fill="url(#g)"/>
+  <g clip-path="url(#c)">
+    <path d="M30 62h40a8 8 0 0 1 8 8v18a8 8 0 0 1-8 8H48l-12 10v-10h-6a8 8 0 0 1-8-8V70a8 8 0 0 1 8-8z" fill="#fff1e2"/>
+      <path d="M58 92h32a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8h-4v10l-12-10H58a8 8 0 0 1-8-8v-16a8 8 0 0 1 8-8z" fill="#e8287f" stroke="#fff1e2" stroke-width="3"/>
+      <path d="M33 74h30M33 83h20" stroke="#170733" stroke-width="4" stroke-linecap="round"/><path d="M62 104h24M62 113h14" stroke="#fff1e2" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z" fill="none" stroke="#170733" stroke-width="4" stroke-linejoin="round"/>
+</svg>

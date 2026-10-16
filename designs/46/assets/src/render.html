@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Clay still renderer</title>
+<style>html,body{margin:0;background:transparent;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+// Bakes a still of any scene: render.html?scene=hero&ss=2  (window size = output size)
+import { createClay } from '../3d/clay-engine.js';
+import { SCENES } from '../3d/scenes.js';
+const q = new URLSearchParams(location.search);
+const scene = SCENES[q.get('scene') || 'hero'];
+const c = document.getElementById('c');
+c.width = +(q.get('w')||innerWidth); c.height = +(q.get('h')||innerHeight); c.style.width=c.width+'px'; c.style.height=c.height+'px';
+console.log('viewport', innerWidth, innerHeight);
+const extra = {};
+if (q.get('alpha')) extra.uAlpha = +q.get('alpha');
+if (q.get('lid')) extra.uLid = +q.get('lid');
+if (q.get('look')) extra.uLook = q.get('look').split(',').map(Number);
+if (q.get('focus')) extra.uFocus = +q.get('focus');
+const t0 = performance.now();
+const clay = await createClay(c, scene, { quality: 'still', ss: +(q.get('ss') || 2), uniforms: extra });
+await clay.still(+(q.get('band') || 64));
+document.title = 'done ' + Math.round(performance.now() - t0) + 'ms';
+console.log(document.title);
+</script></body></html>

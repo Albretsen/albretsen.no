@@ -1,0 +1,80 @@
+/* The Wardian case: a glass terrarium made only of CSS 3D transforms.
+   Panes, gabled roof, plinth and the creatures inside are DOM elements on
+   different Z planes. diorama.js builds the markup and feeds --rx/--ry. */
+
+.dio {
+  --w: 560px; --h: 330px; --d: 320px; --rise: 110px; --plinth: 46px;
+  --ink: #162118; --moss: #408742; --paper: #f8f4ea;
+  --rx: -14deg; --ry: -24deg;
+  position: relative; width: calc(var(--w) * 1.5); height: calc((var(--h) + var(--rise) + var(--plinth)) * 1.65);
+  perspective: 1500px; perspective-origin: 50% 35%;
+  display: grid; place-items: center; user-select: none;
+}
+.dio__scale { transform: scale(var(--scale, 1)); transform-style: preserve-3d; }
+.dio__case {
+  position: relative; width: var(--w); height: var(--h);
+  transform-style: preserve-3d;
+  transform: translateY(20px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 900ms cubic-bezier(.16, 1, .3, 1);
+}
+.dio__case * { transform-style: preserve-3d; }
+.dio__face, .dio__layer, .dio__pane { position: absolute; left: 50%; top: 50%; backface-visibility: visible; }
+
+/* glass panes */
+.dio__pane {
+  border: 1.6px solid color-mix(in oklch, var(--ink) 78%, transparent);
+  background:
+    linear-gradient(112deg, rgba(255,255,255,.55) 0 6%, rgba(255,255,255,0) 6.5% 18%, rgba(255,255,255,.28) 18.5% 21%, rgba(255,255,255,0) 21.5%),
+    linear-gradient(180deg, rgba(233,243,230,.16), rgba(233,243,230,.06));
+  box-shadow: inset 0 0 0 5px rgba(22,33,24,.04);
+  pointer-events: none;
+}
+.dio__pane--fb { width: var(--w); height: var(--h); margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2); }
+.dio__pane--side { width: var(--d); height: var(--h); margin: calc(var(--h) / -2) 0 0 calc(var(--d) / -2); }
+.dio__pane--front { transform: translateZ(calc(var(--d) / 2)); }
+.dio__pane--back  { transform: rotateY(180deg) translateZ(calc(var(--d) / 2)); }
+.dio__pane--left  { transform: rotateY(-90deg) translateZ(calc(var(--w) / 2)); }
+.dio__pane--right { transform: rotateY(90deg) translateZ(calc(var(--w) / 2)); }
+/* mullion in the middle of the long panes */
+.dio__pane--fb::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1.6px; background: color-mix(in oklch, var(--ink) 70%, transparent); }
+
+/* gabled roof: two panes hinged at the ridge, triangles at the ends */
+.dio__roof { width: var(--w); height: var(--roof-len); margin-left: calc(var(--w) / -2); top: calc(50% - var(--h) / 2 - var(--rise)); transform-origin: 50% 0; }
+.dio__roof--front { transform: rotateX(var(--roof-angle)); }
+.dio__roof--back  { transform: rotateX(calc(var(--roof-angle) * -1)); }
+.dio__gable { width: var(--d); height: var(--rise); margin-left: calc(var(--d) / -2); top: calc(50% - var(--h) / 2 - var(--rise)); clip-path: polygon(50% 0, 100% 100%, 0 100%); border: 0;
+  background: linear-gradient(180deg, rgba(233,243,230,.25), rgba(233,243,230,.08)); }
+.dio__gable::before { content: ""; position: absolute; inset: 0; background: var(--ink); clip-path: polygon(50% 0, 100% 100%, 0 100%, 0 calc(100% - 1.6px), calc(100% - 2.6px) calc(100% - 1.6px), 50% 2.4px, 2.6px calc(100% - 1.6px), 0 calc(100% - 1.6px)); opacity: .8; }
+.dio__gable--left  { transform: translateX(calc(var(--w) / -2)) rotateY(-90deg); }
+.dio__gable--right { transform: translateX(calc(var(--w) / 2)) rotateY(90deg); }
+.dio__finial { width: 18px; height: 18px; margin: -9px 0 0 -9px; top: calc(50% - var(--h) / 2 - var(--rise) - 9px); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #7bc47a, var(--moss) 55%, #1c4a1f); border: 1.4px solid var(--ink); }
+.dio__finial--l { transform: translateX(calc(var(--w) / -2)); }
+.dio__finial--r { transform: translateX(calc(var(--w) / 2)); }
+
+/* soil floor and plinth */
+.dio__floor { width: var(--w); height: var(--d); margin: calc(var(--d) / -2) 0 0 calc(var(--w) / -2);
+  transform: translateY(calc(var(--h) / 2)) rotateX(90deg);
+  background: radial-gradient(60% 70% at 50% 50%, #5a4330, #3b2b1e); }
+.dio__plinth { background: #1f2b24; border: 1.4px solid var(--ink); }
+.dio__plinth--front, .dio__plinth--back { width: calc(var(--w) + 36px); height: var(--plinth); margin-left: calc(var(--w) / -2 - 18px); top: calc(50% + var(--h) / 2); }
+.dio__plinth--front { transform: translateZ(calc(var(--d) / 2 + 18px)); background: linear-gradient(#2c3a31, #1a241e); }
+.dio__plinth--back  { transform: rotateY(180deg) translateZ(calc(var(--d) / 2 + 18px)); }
+.dio__plinth--left, .dio__plinth--right { width: calc(var(--d) + 36px); height: var(--plinth); margin-left: calc(var(--d) / -2 - 18px); top: calc(50% + var(--h) / 2); background: linear-gradient(#26332b, #151d18); }
+.dio__plinth--left  { transform: rotateY(-90deg) translateZ(calc(var(--w) / 2 + 18px)); }
+.dio__plinth--right { transform: rotateY(90deg) translateZ(calc(var(--w) / 2 + 18px)); }
+.dio__plinth--top { width: calc(var(--w) + 36px); height: calc(var(--d) + 36px); margin: calc(var(--d) / -2 - 18px) 0 0 calc(var(--w) / -2 - 18px);
+  transform: translateY(calc(var(--h) / 2 + 1px)) rotateX(90deg) translateZ(-1px); background: #2c3a31; }
+.dio__shadow { width: calc(var(--w) * 1.5); height: calc(var(--d) * 1.4); margin: calc(var(--d) * -.7) 0 0 calc(var(--w) * -.75);
+  transform: translateY(calc(var(--h) / 2 + var(--plinth))) rotateX(90deg);
+  background: radial-gradient(closest-side, rgba(22,33,24,.28), transparent); filter: blur(6px); }
+
+/* things inside: billboards on their own Z plane, feet on the soil */
+.dio__layer { transform: translate3d(calc(-50% + var(--x, 0px)), calc(var(--h) / 2 - 100% + var(--y, 0px)), var(--z, 0px)); }
+.dio__layer img { display: block; width: var(--lw, 120px); height: auto; }
+.dio__mound { width: var(--mw, 300px); height: var(--mh, 90px); border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: url(../extras/pattern-moss-stipple.svg) 0 0/120px, radial-gradient(80% 120% at 40% 100%, #5a9a4c, #408742 55%, #2f6b33);
+  border: 1.4px solid color-mix(in oklch, var(--ink) 70%, transparent); border-bottom: 0; }
+.dio__fern { width: var(--lw, 260px); aspect-ratio: 1005 / 1419; background: var(--fern-c, #408742);
+  -webkit-mask: url(../extras/fern-mask.webp) center/contain no-repeat; mask: url(../extras/fern-mask.webp) center/contain no-repeat; }
+
+@media (prefers-reduced-motion: reduce) { .dio__case { transition: none; } }

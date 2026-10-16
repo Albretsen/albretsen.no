@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" role="img" aria-label="webvakt stand-in">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#170733"/><stop offset=".6" stop-color="#2b1f7a"/><stop offset="1" stop-color="#9fefe9"/></linearGradient>
+  <clipPath id="c"><path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z"/></clipPath></defs>
+  <path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z" fill="url(#g)"/>
+  <g clip-path="url(#c)">
+    <path d="M18 90c14-22 28-32 42-32s28 10 42 32c-14 22-28 32-42 32S32 112 18 90z" fill="#fff1e2"/>
+      <circle cx="60" cy="90" r="17" fill="#2b1f7a"/><circle cx="60" cy="90" r="7" fill="#170733"/><circle cx="66" cy="84" r="4" fill="#fff1e2"/>
+      <path d="M60 40v8M32 50l5 7M88 50l-5 7" stroke="#fff1e2" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <path d="M8 152V70C8 40 34 18 60 8C86 18 112 40 112 70V152Z" fill="none" stroke="#170733" stroke-width="4" stroke-linejoin="round"/>
+</svg>

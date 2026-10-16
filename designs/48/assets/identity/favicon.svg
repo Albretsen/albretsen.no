@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs><linearGradient id="g" x1="0.2" y1="0" x2="0.75" y2="1"><stop offset="0" stop-color="#f6b7fb"/><stop offset="0.4" stop-color="#dc3aec"/><stop offset="1" stop-color="#a21eb2"/></linearGradient>
+<radialGradient id="b" cx=".5" cy=".95" r=".9"><stop offset="0" stop-color="#3b1640"/><stop offset="1" stop-color="#0b050c"/></radialGradient></defs>
+<rect width="64" height="64" rx="14" fill="url(#b)"/>
+<g transform="translate(9 8) scale(.72)"><path d="M28.63 11.14Q32.00 5.00 35.37 11.14L57.59 51.62Q60.00 56.00 55.00 56.00L48.00 56.00Q45.00 56.00 43.52 53.39L33.97 36.48Q32.00 33.00 30.03 36.48L20.48 53.39Q19.00 56.00 16.00 56.00L9.00 56.00Q4.00 56.00 6.41 51.62Z" fill="url(#g)"/><circle cx="32" cy="50.5" r="5.199999999999999" fill="#36dcec"/></g>
+</svg>

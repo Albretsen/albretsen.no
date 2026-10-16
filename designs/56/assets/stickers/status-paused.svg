@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 84" role="img" aria-label="Paused, not dead">
+  <rect x="2" y="2" width="256" height="80" fill="#e03c63"/>
+  <rect x="8" y="8" width="244" height="68" fill="none" stroke="#f9f2e2" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="130" y="40" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-weight="700" font-size="22" letter-spacing="2" fill="#f9f2e2">PAUSED,</text>
+  <text x="130" y="64" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-weight="400" font-size="13" textLength="220" lengthAdjust="spacingAndGlyphs" fill="#f9f2e2">NOT DEAD. NOT LIVE EITHER.</text>
+</svg>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS · Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds apps, SaaS and infrastructure for AI agents from Norway. On Google Play since 2016.">
+<meta name="theme-color" content="#dcf7f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#020907" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself. Apps, SaaS and agent infrastructure from Norway, since 2016.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<script>
+  // theme before first paint: stored choice, else the system's
+  try { const h = location.hash.match(/theme=(light|dark)/); const t = h ? h[1] : localStorage.getItem('drift-theme'); document.documentElement.dataset.theme = t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+  catch { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero/river-day@1x.avif" type="image/avif" imagesrcset="assets/hero/river-day@1x.avif 1440w, assets/hero/river-day@2x.avif 2880w" imagesizes="100vw">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="top">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img class="brand-light" src="assets/identity/lockup.svg" alt="" width="142" height="29">
+    <img class="brand-dark" src="assets/identity/lockup-dark.svg" alt="" width="142" height="29">
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="#products" class="nav-link">Products</a>
+    <a href="#riverbed" class="nav-link">Riverbed</a>
+    <a href="#writing" class="nav-link">Writing</a>
+  </nav>
+  <div class="controls">
+    <button class="sound" type="button" aria-pressed="false" aria-label="Sound off. Turn on water sounds">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path class="s-body" d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path class="s-wave s-w1" d="M15.2 9.2a4 4 0 0 1 0 5.6"/><path class="s-wave s-w2" d="M17.8 6.8a7.4 7.4 0 0 1 0 10.4"/><path class="s-mute" d="M15.5 9.5l5 5m0-5l-5 5"/></svg>
+    </button>
+    <tide-switch></tide-switch>
+  </div>
+</header>
+
+<main>
+<!-- ============================================================ HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-stage" aria-hidden="true">
+    <picture class="still still-day">
+      <source type="image/avif" srcset="assets/hero/river-day@1x.avif 1440w, assets/hero/river-day@2x.avif 2880w" sizes="100vw">
+      <img src="assets/hero/river-day@1x.webp" srcset="assets/hero/river-day@1x.webp 1440w, assets/hero/river-day@2x.webp 2880w" sizes="100vw" alt="" width="1440" height="810" fetchpriority="high" decoding="async">
+    </picture>
+    <picture class="still still-night">
+      <source type="image/avif" srcset="assets/hero/river-night@1x.avif 1440w, assets/hero/river-night@2x.avif 2880w" sizes="100vw">
+      <img src="assets/hero/river-night@1x.webp" srcset="assets/hero/river-night@1x.webp 1440w, assets/hero/river-night@2x.webp 2880w" sizes="100vw" alt="" width="1440" height="810" decoding="async">
+    </picture>
+    <canvas class="river" tabindex="-1"></canvas>
+    <div class="year-pins"></div>
+    <img class="spec spec-a drift-bob" src="assets/extras/specimens/star-ink.webp" alt="" width="120" height="120" loading="lazy">
+    <img class="spec spec-b drift-bob" src="assets/extras/specimens/trefoil-ink.webp" alt="" width="90" height="90" loading="lazy">
+    <div class="scrim"></div>
+  </div>
+
+  <div class="hero-copy">
+    <p class="rise eyebrow mono" style="--i:1"><span class="dot" aria-hidden="true"></span>Albretsen AS · Norway · on Google Play since 2016</p>
+    <h1 id="hero-title" class="rise display" aria-label="Asgeir Albretsen" style="--i:2"><span class="chorus-line">Asgeir</span> <span class="chorus-line">Albretsen</span></h1>
+    <p class="rise lede" style="--i:3">Ten years downstream of a first Android app. Today the current carries apps, SaaS and the quiet infrastructure that AI agents run on, each one built to pay for itself.</p>
+    <div class="rise cmd" style="--i:4">
+      <span class="mono cmd-k">Give your agent this site</span>
+      <div class="cmd-row">
+        <code><span class="cmd-p" aria-hidden="true">$</span> claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button class="copy magnet" type="button" aria-describedby="copy-tip"><span class="copy-label">Copy</span></button>
+        <span id="copy-tip" role="status" class="tip" data-state="closed" hidden aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="rise feed" aria-label="Live activity across the products" style="--i:5">
+      <p class="mono feed-k"><span class="pulse" aria-hidden="true"></span>Surfacing now</p>
+      <ol class="feed-list" aria-live="off"></ol>
+    </div>
+  </div>
+
+  <!-- the scrubber: drag the pebble along ten years of current -->
+  <div class="tide" aria-label="Timeline 2016 to 2026">
+    <div class="tide-card" data-state="closed" id="tide-card" hidden aria-live="polite">
+      <p class="mono tc-year"></p>
+      <ul class="tc-list"></ul>
+    </div>
+    <div class="tide-rail" role="slider" tabindex="0" aria-label="Year" aria-valuemin="2016" aria-valuemax="2026" aria-valuenow="2026" aria-valuetext="2026" aria-controls="tide-card">
+      <svg class="tide-line" viewBox="0 0 1000 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12 C 120 2, 240 22, 360 12 S 600 2, 720 12 S 900 22, 1000 12"/></svg>
+      <ol class="tide-years" aria-hidden="true"></ol>
+      <span class="tide-pebble" aria-hidden="true"><span class="tp-moon"></span></span>
+    </div>
+    <p class="mono tide-hint">Drag the pebble, or move along the river. Click the water for a ripple.</p>
+  </div>
+</section>
+
+<!-- ============================================================ PRODUCTS -->
+<section class="products" id="products" aria-labelledby="products-title">
+  <div class="caustics" aria-hidden="true"></div>
+  <div class="pool" aria-hidden="true">
+    <img class="floater" data-home="0.86,0.06" src="assets/extras/object-orbit@1x.webp" srcset="assets/extras/object-orbit@1x.webp 1x, assets/extras/object-orbit@2x.webp 2x" alt="" width="190" height="190" loading="lazy" draggable="false">
+    <img class="floater" data-home="0.05,0.30" src="assets/extras/object-capsule@1x.webp" srcset="assets/extras/object-capsule@1x.webp 1x, assets/extras/object-capsule@2x.webp 2x" alt="" width="150" height="150" loading="lazy" draggable="false">
+    <img class="floater" data-home="0.94,0.52" src="assets/extras/object-specimen@1x.webp" srcset="assets/extras/object-specimen@1x.webp 1x, assets/extras/object-specimen@2x.webp 2x" alt="" width="140" height="140" loading="lazy" draggable="false">
+    <img class="floater" data-home="0.04,0.80" src="assets/extras/object-chorus@1x.webp" srcset="assets/extras/object-chorus@1x.webp 1x, assets/extras/object-chorus@2x.webp 2x" alt="" width="160" height="160" loading="lazy" draggable="false">
+  </div>
+
+  <div class="wrap">
+    <header class="sec-head" data-surface>
+      <p class="mono" data-surface-item>01 · In the current</p>
+      <h2 id="products-title" class="display" data-surface-item>Four things afloat, <br>each with its own weight.</h2>
+      <p class="sec-sub" data-surface-item>Every logo is the product's own, printed onto plastic and lit in the same studio. Pick one up. The pebbles in the margins float too: throw them.</p>
+    </header>
+
+    <ul class="tiles" role="list"></ul>
+  </div>
+
+  <!-- precision at small scale: Haeckel's lattice rebuilt in plastic -->
+  <figure class="specimen-band" aria-labelledby="band-cap">
+    <div class="band-img">
+      <picture>
+        <source type="image/avif" srcset="assets/hero/radiolarian@1x.avif 1440w, assets/hero/radiolarian@2x.avif 2880w" sizes="100vw">
+        <img src="assets/hero/radiolarian@1x.webp" srcset="assets/hero/radiolarian@1x.webp 1440w, assets/hero/radiolarian@2x.webp 2880w" sizes="100vw" alt="A radiolarian skeleton rebuilt as a glossy plastic lattice, floating beside a smaller specimen and loose beads." width="1440" height="810" loading="lazy" decoding="async">
+      </picture>
+    </div>
+    <figcaption id="band-cap" class="band-cap">
+      <span class="mono">Ernst Haeckel, 1904 → rebuilt in code</span>
+      <span class="display band-line">Small things, engineered with absurd care.</span>
+    </figcaption>
+  </figure>
+
+  <!-- retired products rest on the riverbed -->
+  <div class="riverbed" id="riverbed" aria-labelledby="riverbed-title">
+    <div class="wrap riverbed-grid">
+      <div class="rb-copy" data-surface>
+        <p class="mono" data-surface-item>02 · Riverbed</p>
+        <h3 id="riverbed-title" class="display" data-surface-item>What settled.</h3>
+        <p data-surface-item>Products that were shipped, learned from and let go. The current kept what they taught. Open any pebble.</p>
+      </div>
+      <figure class="rb-figure drift-gloss" data-surface>
+        <picture>
+          <source type="image/avif" srcset="assets/products/retired-riverbed@1x.avif 1x, assets/products/retired-riverbed@2x.avif 2x">
+          <img src="assets/products/retired-riverbed@1x.webp" srcset="assets/products/retired-riverbed@1x.webp 1x, assets/products/retired-riverbed@2x.webp 2x" alt="Seven glossy pebbles resting on a riverbed, one for each retired product, Luma's logo on the first." width="1200" height="450" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+      <ul class="pebbles" role="list"></ul>
+    </div>
+  </div>
+
+  <!-- writing, short -->
+  <div class="writing wrap" id="writing" aria-labelledby="writing-title">
+    <figure class="engraving" data-surface>
+      <img src="assets/extras/engraving-in-thy-stream.webp" alt="A teal-toned 1858 wood engraving of a figure kneeling at the edge of a stream under an old tree." width="609" height="768" loading="lazy" decoding="async">
+      <figcaption class="mono">Birket Foster, "In Thy Stream", 1858</figcaption>
+    </figure>
+    <div class="posts" data-surface>
+      <p class="mono" data-surface-item>03 · Notes from the bank</p>
+      <h3 id="writing-title" class="display" data-surface-item>Writing</h3>
+      <ol class="post-list" data-surface-item></ol>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-lines" aria-hidden="true"></div>
+  <div class="wrap foot-grid">
+    <img class="foot-mark drift-bob" src="assets/identity/mark.svg" alt="" width="64" height="64">
+    <p class="avail display">Takes one outside engagement at a time.</p>
+    <a class="mail magnet" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    <p class="mono foot-meta">Albretsen AS · Norway · <span class="foot-year"></span></p>
+  </div>
+</footer>
+
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

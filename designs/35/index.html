@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds apps, SaaS and infrastructure for AI agents under Albretsen AS, Norway.">
+<meta name="theme-color" content="#f6f0e8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#09181f" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Quiet software that pays for itself.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/sequence/poster.jpg" fetchpriority="high">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+}}</script>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#bench">Skip to the work</a>
+
+<header class="nav" id="nav">
+  <a class="nav-mark" href="#top" aria-label="Albretsen AS, top of page">
+    <img class="wm wm-light" src="assets/identity/wordmark.svg" alt="" width="141" height="40">
+    <img class="wm wm-dark" src="assets/identity/wordmark-reverse.svg" alt="" width="141" height="40">
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#bench" data-sound-hover>Work</a>
+    <a href="#room" data-sound-hover>The room</a>
+    <a href="#studio" data-sound-hover>Studio</a>
+  </nav>
+  <button class="sound-btn" id="sound" type="button" aria-pressed="false" data-tip="Sound is off. Small clay and glass sounds, synthesised.">
+    <svg class="i-off" width="18" height="18" aria-hidden="true"><use href="assets/icons/sprite.svg#k-sound-off"/></svg>
+    <svg class="i-on" width="18" height="18" aria-hidden="true"><use href="assets/icons/sprite.svg#k-sound-on"/></svg>
+    <span class="sound-label">Sound off</span>
+  </button>
+</header>
+
+<main id="top">
+<!-- HERO: one day in the room, scrubbed by scroll -->
+<section class="hero" id="hero" aria-label="Introduction">
+  <div class="stage">
+    <img class="poster" src="assets/sequence/poster.jpg" alt="A small sunlit cutaway room floating on limewash. On a walnut bench sit glazed tiles carrying the MCP Emails and Fun Libs logos; Toolrails rests on a travertine drum, Harbor on a stone block; an arched window looks out on Martian dunes." width="1280" height="800" fetchpriority="high">
+    <canvas class="seq" id="seq" aria-hidden="true"></canvas>
+    <div class="scrim" aria-hidden="true"></div>
+
+    <div class="chapters" id="chapters">
+      <article class="chapter" data-from="0" data-to="0.24" data-active>
+        <p class="eyebrow"><span class="dot"></span>Asgeir Albretsen · Albretsen AS · Norway</p>
+        <h1 class="h1">Quiet software<br>that <em>pays</em> for itself.</h1>
+        <p class="lede">One developer building apps, SaaS and the plumbing AI agents run on. Published on Google Play since 2016.</p>
+        <div class="cmd" id="cmd">
+          <svg width="18" height="18" aria-hidden="true"><use href="assets/icons/sprite.svg#k-terminal"/></svg>
+          <code id="cmd-text">claude mcp add albretsen https://albretsen.no/mcp</code>
+          <button class="cmd-copy" type="button" id="cmd-copy" data-tip="Copy to clipboard" data-sound="tok" aria-label="Copy the command">
+            <svg width="16" height="16" aria-hidden="true"><use href="assets/icons/sprite.svg#k-copy"/></svg>
+          </button>
+        </div>
+      </article>
+      <article class="chapter" data-from="0.24" data-to="0.5">
+        <p class="eyebrow"><span class="dot"></span>Noon · the bench</p>
+        <h2 class="h1 h1-sm">Two pieces already <em>in use</em>.</h2>
+        <p class="lede">MCP Emails gives AI agents an inbox: 17 tools, about 100 providers. Fun Libs, a word game built at 17, passed 113,000 installs with no marketing.</p>
+      </article>
+      <article class="chapter" data-from="0.5" data-to="0.78">
+        <p class="eyebrow"><span class="dot"></span>Afternoon · the drum</p>
+        <h2 class="h1 h1-sm">The next piece is <em>on the wheel</em>.</h2>
+        <p class="lede">Toolrails: one MCP URL that gives an agent every tool, with tool search and an injection guard. Harbor waits on its block.</p>
+      </article>
+      <article class="chapter" data-from="0.78" data-to="1.01">
+        <p class="eyebrow"><span class="dot dot-ember"></span>Dusk · the seam</p>
+        <h2 class="h1 h1-sm">Fired, cracked, <em>kept</em>.</h2>
+        <p class="lede">Four pieces on the bench, seven in the archive. Each retired one taught the next how to be made.</p>
+        <div class="row">
+          <a class="btn btn-ink magnetic" href="#bench" data-sound="tok">See the work
+            <svg width="18" height="18" aria-hidden="true"><use href="assets/icons/sprite.svg#k-arrow"/></svg></a>
+          <a class="btn magnetic" href="#room" data-sound="tok">Walk around the room</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- the sun's path: one glaze drop rides an arch -->
+    <div class="sunpath" id="sunpath">
+      <svg viewBox="0 0 120 96" aria-hidden="true">
+        <path id="arc" d="M14 90V54a46 46 0 0 1 92 0v36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-opacity=".35"/>
+        <path id="arc-lit" d="M14 90V54a46 46 0 0 1 92 0v36" fill="none" stroke="var(--ember)" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M14 70h92" stroke="currentColor" stroke-width="1.2" stroke-opacity=".35"/>
+        <circle id="sun" r="5.2" cx="14" cy="90" fill="var(--glaze)"/>
+        <circle id="sun-hi" r="1.4" cx="12.5" cy="88.5" fill="#fff" opacity=".6"/>
+      </svg>
+      <p class="readout"><span id="clock">06:40</span> · <span id="phase">Morning</span></p>
+      <div class="stops" role="group" aria-label="Jump to a time of day">
+        <button type="button" data-stop="0" data-tip="Morning: the whole room" data-sound="glide">I</button>
+        <button type="button" data-stop="0.37" data-tip="Noon: the bench" data-sound="glide">II</button>
+        <button type="button" data-stop="0.64" data-tip="Afternoon: the drum" data-sound="glide">III</button>
+        <button type="button" data-stop="1" data-tip="Dusk: the seam" data-sound="glide">IV</button>
+      </div>
+    </div>
+
+    <aside class="window" aria-label="Live activity across the products">
+      <p class="window-h"><span class="live"></span>Through the window <span class="mono-soft">live</span></p>
+      <ol class="feed" id="feed" aria-live="polite"></ol>
+    </aside>
+
+    <p class="scroll-hint" aria-hidden="true"><span>Scroll to let the day pass</span></p>
+  </div>
+</section>
+
+<!-- FIRST SECTION: the products, as fired pieces -->
+<section class="bench" id="bench" aria-labelledby="bench-h">
+  <div class="k-windowlight" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="sec-head">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>On the bench · 4 pieces</p>
+        <h2 id="bench-h" class="h2" data-focus-pull>Each one fired<br>until it <em>holds</em>.</h2>
+      </div>
+      <p class="lede" data-focus-pull style="--i:2">Albretsen AS builds whatever is profitable. Some of it sells, some of it is still being turned, and the rest teaches the next one. These are the pieces in use today.</p>
+    </header>
+
+    <ul class="pieces" id="pieces" role="list"></ul>
+
+    <div class="archive">
+      <figure class="archive-art">
+        <picture>
+          <source srcset="assets/retired/archive-tray.webp 1000w, assets/retired/archive-tray@2x.webp 2000w" sizes="(min-width: 900px) 46vw, 92vw" type="image/webp">
+          <img src="assets/retired/archive-tray.webp" alt="Six clay tokens on a walnut tray, each stamped with a glyph for a retired product." width="1000" height="625" loading="lazy" decoding="async">
+        </picture>
+        <figcaption class="cap">The archive tray. Six clay tokens, stamped from the same glyph set as the rest of the site.</figcaption>
+      </figure>
+      <div class="archive-list">
+        <p class="eyebrow"><span class="dot"></span>The archive · 7 retired</p>
+        <h3 class="h3">Shipped, learned from, <em>set down</em>.</h3>
+        <div class="strata" data-strata id="archive"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- the live room -->
+<section class="roomsec" id="room" aria-labelledby="room-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>The room · live three.js</p>
+        <h2 id="room-h" class="h2" data-focus-pull>Pick it up.<br>Turn it <em>over</em>.</h2>
+      </div>
+      <p class="lede" data-focus-pull style="--i:2">The same room the scroll was baked from, running live in your browser. Drag to turn it, choose a piece, move the sun. Built only from primitives, CC0 plaster, walnut and travertine, and one Poly Haven sky.</p>
+    </header>
+  </div>
+  <div class="room-frame" id="room-frame">
+    <img class="room-poster" src="assets/hero/hero-bench.webp" srcset="assets/hero/hero-bench.webp 1280w, assets/hero/hero-bench@2x.webp 2560w" sizes="100vw" alt="The walnut bench in the room, with the MCP Emails and Fun Libs tiles in an arch of sunlight." width="1280" height="800" loading="lazy" decoding="async">
+    <canvas id="room-canvas" aria-label="Interactive 3D room. Drag to turn it, or use the controls below." tabindex="0"></canvas>
+    <button class="btn btn-ink kindle magnetic" type="button" id="kindle" data-sound="ting">
+      <svg width="18" height="18" aria-hidden="true"><use href="assets/icons/sprite.svg#k-molten"/></svg>
+      Light the room <span class="mono-soft">· 3D, about 1 MB</span>
+    </button>
+    <div class="room-tag" id="room-tag" aria-live="polite" hidden></div>
+    <p class="room-status" id="room-status" aria-live="polite"></p>
+  </div>
+  <div class="wrap room-controls">
+    <div data-pebble class="views">
+      <div data-pebble-list role="tablist" aria-label="Camera">
+        <button role="tab" type="button" data-view="approach" data-default>Room</button>
+        <button role="tab" type="button" data-view="bench">Bench</button>
+        <button role="tab" type="button" data-view="mcp-emails">MCP Emails</button>
+        <button role="tab" type="button" data-view="fun-libs">Fun Libs</button>
+        <button role="tab" type="button" data-view="toolrails">Toolrails</button>
+        <button role="tab" type="button" data-view="harbor">Harbor</button>
+        <button role="tab" type="button" data-view="archive">Archive</button>
+        <button role="tab" type="button" data-view="glass">Glass</button>
+      </div>
+    </div>
+    <label class="sun-slider">
+      <span class="mono-soft">Sun</span>
+      <svg width="18" height="18" aria-hidden="true"><use href="assets/icons/sprite.svg#k-since"/></svg>
+      <input type="range" id="sun-range" min="0" max="1" step="0.005" value="0.35" aria-label="Time of day in the room">
+      <svg width="18" height="18" aria-hidden="true"><use href="assets/icons/sprite.svg#k-molten"/></svg>
+    </label>
+  </div>
+</section>
+
+<!-- the view from the window -->
+<section class="dunes" aria-label="The view from the window">
+  <div class="dunes-img" aria-hidden="true"></div>
+  <div class="wrap dunes-inner">
+    <figure class="arch-crop">
+      <img src="assets/extras/dunes-window.webp" alt="Sand dunes and ripples in Proctor Crater on Mars, seen through an arched window." width="640" height="768" loading="lazy" decoding="async">
+    </figure>
+    <div class="dunes-copy">
+      <p class="eyebrow eyebrow-light"><span class="dot"></span>The view from the window</p>
+      <p class="quote" data-focus-pull>The window looks out on <em>Mars</em>, because the work should always face something bigger than the room.</p>
+      <p class="cap cap-light">Sand dunes and ripples in Proctor Crater. HiRISE, PIA11833. NASA/JPL-Caltech/UArizona, public domain.</p>
+    </div>
+  </div>
+</section>
+
+<!-- studio: what gets made, the glyph tiles -->
+<section class="studio" id="studio" aria-labelledby="studio-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>The studio</p>
+        <h2 id="studio-h" class="h2" data-focus-pull>Four kinds of <em>clay</em>.</h2>
+      </div>
+      <p class="lede" data-focus-pull style="--i:2">Every glyph on this site is drawn on a 24 px grid with one drop of glaze. Pressed into tiles, they name what Albretsen AS makes.</p>
+    </header>
+    <ul class="tiles" role="list">
+      <li class="tile k-liftable" data-sound-hover><img src="assets/extras/tile-agent.webp" alt="" width="640" height="640" loading="lazy" decoding="async"><h3>Agent infrastructure</h3><p>MCP servers, tool routing and email that agents can use without a human holding the mouse.</p></li>
+      <li class="tile k-liftable" data-sound-hover><img src="assets/extras/tile-app.webp" alt="" width="640" height="640" loading="lazy" decoding="async"><h3>Apps</h3><p>Android and iOS, on Google Play since 2016. Fun Libs is on version five.</p></li>
+      <li class="tile k-liftable" data-sound-hover><img src="assets/extras/tile-saas.webp" alt="" width="640" height="640" loading="lazy" decoding="async"><h3>SaaS</h3><p>Small, paid, self-serve. MCP Emails is open source under the AGPL and still earns.</p></li>
+      <li class="tile k-liftable" data-sound-hover><img src="assets/extras/tile-knowledge.webp" alt="" width="640" height="640" loading="lazy" decoding="async"><h3>Outside work</h3><p>Consulting since 2021, one engagement at a time, alongside a day job building AI and MCP tools.</p></li>
+    </ul>
+
+    <div class="dayjob">
+      <figure class="niche-art">
+        <img src="assets/extras/glass-niche.webp" srcset="assets/extras/glass-niche.webp 1000w, assets/extras/glass-niche@2x.webp 2000w" sizes="(min-width: 900px) 40vw, 92vw" alt="A glaze-blue glass sphere resting in an arched plaster niche." width="1000" height="625" loading="lazy" decoding="async">
+      </figure>
+      <div>
+        <p class="eyebrow"><span class="dot"></span>The day job</p>
+        <ul class="jobs" role="list">
+          <li><svg width="22" height="22" aria-hidden="true"><use href="assets/icons/sprite.svg#k-connector"/></svg>Built and led an MCP server for an accounting platform.</li>
+          <li><svg width="22" height="22" aria-hidden="true"><use href="assets/icons/sprite.svg#k-consult"/></svg>Ran a developer hackathon around it.</li>
+          <li><svg width="22" height="22" aria-hidden="true"><use href="assets/icons/sprite.svg#k-agent"/></svg>Built AI chat with invoice, VAT and OCR tools.</li>
+          <li><svg width="22" height="22" aria-hidden="true"><use href="assets/icons/sprite.svg#k-app"/></svg>Built a React Native mobile app.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <img class="strata-band" src="assets/extras/strata-band.webp" alt="" width="2000" height="140" loading="lazy" decoding="async">
+</section>
+</main>
+
+<footer class="foot" id="foot">
+  <div class="foot-sky" aria-hidden="true">
+    <picture>
+      <source srcset="assets/hero/hero-dusk@2x.avif" type="image/avif" media="(min-width: 900px)">
+      <img src="assets/hero/hero-dusk.webp" alt="" width="1280" height="800" loading="lazy" decoding="async">
+    </picture>
+  </div>
+  <div class="fracture" aria-hidden="true"></div>
+  <div class="wrap foot-inner">
+    <img class="foot-mark" src="assets/identity/mark-reverse.svg" alt="" width="64" height="64">
+    <p class="avail" data-focus-pull>Takes one outside engagement <em>at a time</em>.</p>
+    <a class="mail magnetic" href="mailto:asgeir@albretsen.no" data-sound="ting">
+      <svg width="22" height="22" aria-hidden="true"><use href="assets/icons/sprite.svg#k-mail"/></svg>
+      <span>asgeir@albretsen.no</span>
+    </a>
+    <p class="foot-meta">Albretsen AS · Norway · albretsen.no</p>
+  </div>
+  <div class="stickers" id="stickers" aria-label="Glaze stickers. Drag them around." role="group"></div>
+  <p class="credits wrap">Room built from three.js primitives. Light: <a href="https://polyhaven.com/a/brown_photostudio_05">brown_photostudio_05</a> (Poly Haven, CC0). Surfaces: <a href="https://polyhaven.com/a/grey_plaster">Grey Plaster</a>, <a href="https://ambientcg.com/view?id=Wood060">Wood060</a>, <a href="https://ambientcg.com/view?id=Travertine002">Travertine002</a> (CC0). View: <a href="https://images.nasa.gov/details/PIA11833">PIA11833</a>, NASA/JPL-Caltech/UArizona. Product logos belong to their products.</p>
+</footer>
+
+<!-- product dialog (Niche open) -->
+<div id="piece" data-niche hidden>
+  <div data-niche-overlay></div>
+  <div data-niche-content role="dialog" aria-modal="true" aria-labelledby="piece-name" class="piece-dialog">
+    <button class="pd-close" type="button" data-niche-close aria-label="Close">
+      <svg width="20" height="20" aria-hidden="true"><use href="assets/icons/sprite.svg#k-close"/></svg>
+    </button>
+    <figure class="pd-art"><img id="pd-img" alt="" width="720" height="900"></figure>
+    <div class="pd-body">
+      <div class="pd-top">
+        <img id="pd-logo" alt="" width="44" height="44">
+        <p class="eyebrow" id="pd-meta"></p>
+      </div>
+      <h3 id="piece-name" class="h2 pd-name"></h3>
+      <p class="lede" id="pd-line"></p>
+      <p class="pd-figure"><span id="pd-fig"></span> <span class="mono-soft" id="pd-fig-l"></span></p>
+      <ul class="pd-facts" id="pd-facts" role="list"></ul>
+      <div class="row">
+        <a class="btn btn-ink" id="pd-url" href="#" target="_blank" rel="noopener">Visit <svg width="16" height="16" aria-hidden="true"><use href="assets/icons/sprite.svg#k-external"/></svg></a>
+        <button class="btn" type="button" id="pd-room" data-niche-close>See it in the room</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="site.js"></script>
+</body>
+</html>

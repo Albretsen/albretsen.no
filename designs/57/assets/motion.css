@@ -1,0 +1,44 @@
+/* Escape Vector: tokens + CSS half of the motion kit. Pair with motion.js. */
+:root {
+  --ev-ink: #070707;          /* oklch(0.13 0 0) */
+  --ev-ink-2: #161313;        /* oklch(0.19 0.004 24) */
+  --ev-fog: #747070;          /* oklch(0.55 0.005 24) */
+  --ev-paper: #f9f6f5;        /* oklch(0.975 0.004 24) */
+  --ev-white: #ffffff;
+  --ev-burn: #f34046;         /* oklch(0.64 0.215 24)  the one primary */
+  --ev-burn-lo: #a51e27;      /* oklch(0.47 0.17 24) */
+  --ev-burn-tint: #ffdfdd;    /* oklch(0.93 0.035 24) */
+  --ev-display: "Bricolage Grotesque", "Arial Narrow", sans-serif;
+  --ev-mono: "Martian Mono", ui-monospace, "SF Mono", monospace;
+  --ev-spring: linear(0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1);
+  --ev-out: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* 1. decode: per-character state set by motion.js decode() */
+.ev-ch { display: inline-block; min-width: .2ch; color: var(--ev-fog); font-family: var(--ev-mono); font-size: .92em; }
+.ev-ch.ev-lock { color: inherit; font-family: inherit; font-size: 1em; animation: ev-lock .5s var(--ev-out) both; }
+@keyframes ev-lock { 0% { color: var(--ev-burn); transform: translateY(-.12em); } 100% { transform: none; } }
+
+/* 2. zero-G: motion.js sets transform + --ev-lift (0..1); CSS draws the shadow falling away */
+.ev-zerog { position: relative; transition: box-shadow .2s; box-shadow: 0 calc(8px + var(--ev-lift, 0) * 50px) calc(20px + var(--ev-lift, 0) * 60px) calc(-10px - var(--ev-lift, 0) * 10px) rgba(0,0,0,calc(.35 + var(--ev-lift, 0) * .25)); }
+
+/* 3. escape burn: CSS-only variant for view transitions */
+::view-transition-old(root) { animation: ev-burn-out .45s var(--ev-out) both; }
+::view-transition-new(root) { animation: ev-burn-in .7s var(--ev-spring) both; }
+@keyframes ev-burn-out { to { transform: translate(14vw, -10vw) skewX(-9deg); opacity: 0; filter: blur(6px); } }
+@keyframes ev-burn-in { from { transform: translate(-14vw, 10vw) skewX(9deg); opacity: 0; } }
+
+/* 4. the mark's loose tip floats on its own (works on inline mark.svg: .ev-tip) */
+.ev-tip { transform-box: fill-box; transform-origin: 50% 80%; animation: ev-tip 5.5s ease-in-out infinite; }
+@keyframes ev-tip { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: .6px -2.4px; rotate: 6deg; } }
+a:hover .ev-tip, .ev-launch .ev-tip { animation: ev-launch .9s var(--ev-spring) both; }
+@keyframes ev-launch { 0% { translate: 0 0; } 40% { translate: 3px -9px; rotate: 14deg; } 100% { translate: 0 0; rotate: 0deg; } }
+
+/* 5. orbit: dashed rings that crawl */
+.ev-orbit { stroke-dasharray: 1 7; animation: ev-orbit 14s linear infinite; }
+@keyframes ev-orbit { to { stroke-dashoffset: -160; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-ch.ev-lock, .ev-tip, .ev-orbit { animation: none !important; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}

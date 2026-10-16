@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds apps, SaaS and agent infrastructure from Norway. Albretsen AS. On Google Play since 2016.">
+<meta name="theme-color" content="#0a1936">
+<meta property="og:title" content="Asgeir Albretsen · Albretsen AS">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" as="image" href="assets/hero/wallpaper.avif" type="image/avif" imagesrcset="assets/hero/wallpaper.avif 1440w, assets/hero/wallpaper@2x.avif 2880w" imagesizes="100vw" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist+Mono:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<!-- ============ MENU BAR ============ -->
+<header class="menubar" role="banner">
+  <a class="mb-brand" href="#top" aria-label="Albretsen AS, top of page">
+    <img src="assets/identity/logo-glyph.svg" alt="" width="22" height="22">
+    <b>Albretsen</b>
+  </a>
+  <nav class="mb-menu" aria-label="Sections">
+    <a href="#products">Products</a>
+    <button type="button" data-open="writing">Writing</button>
+    <button type="button" data-open="dayjob">Day job</button>
+    <button type="button" data-open="archive">Archive</button>
+  </nav>
+  <div class="mb-right">
+    <button type="button" class="mb-btn" id="gyro" hidden>Tilt</button>
+    <button type="button" class="mb-btn" id="sound" aria-pressed="false" title="Sound is off until you turn it on">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 6h3l4-3v10L5 10H2z" fill="currentColor"/><path class="wave" d="M11 5.5c1 .8 1 4.2 0 5M12.8 4c2 1.6 2 6.4 0 8" stroke="currentColor" fill="none" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <span>Sound off</span>
+    </button>
+    <span class="mb-clock" aria-label="Local time in Norway"><span>NO</span> <time id="clock">--:--</time></span>
+  </div>
+</header>
+
+<main id="top">
+<!-- ============ HERO: the paper desktop ============ -->
+<section class="desk" id="desk" aria-label="Asgeir Albretsen's desktop">
+  <picture class="wall" aria-hidden="true">
+    <source type="image/avif" srcset="assets/hero/wallpaper.avif 1440w, assets/hero/wallpaper@2x.avif 2880w" sizes="100vw">
+    <img src="assets/hero/wallpaper.webp" srcset="assets/hero/wallpaper.webp 1440w, assets/hero/wallpaper@2x.webp 2880w" sizes="100vw" alt="" width="1440" height="900" fetchpriority="high" decoding="async">
+  </picture>
+  <canvas class="sky" id="sky" aria-hidden="true"></canvas>
+  <img class="plane" src="assets/extras/sticker-plane.svg" alt="" width="64" height="64" aria-hidden="true">
+  <p class="sun-hint" id="sunHint" aria-hidden="true"><span>drag the sun</span></p>
+
+  <!-- desktop folders -->
+  <ul class="folders" aria-label="Desktop">
+    <li><a class="folder" href="#products"><img src="assets/extras/icons/folder.svg" alt="" width="64" height="64"><span>Products</span></a></li>
+    <li><button class="folder" type="button" data-open="writing"><img src="assets/extras/icons/document.svg" alt="" width="64" height="64"><span>Writing</span></button></li>
+    <li><button class="folder" type="button" data-open="dayjob"><img src="assets/extras/icons/terminal.svg" alt="" width="64" height="64"><span>Day job</span></button></li>
+    <li><button class="folder" type="button" data-open="archive"><img src="assets/extras/icons/bin.svg" alt="" width="64" height="64"><span>Archive</span></button></li>
+  </ul>
+  <ul class="minimised" id="minimised" aria-label="Closed windows"></ul>
+
+  <!-- windows -->
+  <div class="windows">
+    <article class="win win-about" data-win="about" data-title="about.txt" data-icon="document" style="--x:5vw;--y:13vh;--r:-1.2deg;--z:4" aria-labelledby="about-h">
+      <div class="win-bar" tabindex="0" aria-label="about.txt window. Drag, or use arrow keys to move it.">
+        <span class="lights"><button type="button" class="dot close" aria-label="Close about.txt"></button><i></i><i></i></span>
+        <span class="win-title">~/about.txt</span>
+      </div>
+      <img class="tape tape-l" src="assets/extras/tape.svg" alt="" width="120" height="34" aria-hidden="true">
+      <img class="tape tape-r" src="assets/extras/tape.svg" alt="" width="120" height="34" aria-hidden="true">
+      <div class="win-body">
+        <p class="kicker">Albretsen AS <span>·</span> Norway <span>·</span> on Google Play since 2016</p>
+        <h1 id="about-h"><span class="h-line">Asgeir</span> <span class="h-line">Albretsen<img class="as-tag" src="assets/extras/sticker-star.svg" alt="" width="44" height="44"></span></h1>
+        <p class="lede">Builds software that pays for itself. Apps, SaaS and the plumbing AI agents run on, cut from scratch after the day job and shipped before morning.</p>
+        <p class="meta"><span class="live-dot" aria-hidden="true"></span> 2 products live, 1 being built, all on the desk below.</p>
+      </div>
+    </article>
+
+    <article class="win win-term" data-win="term" data-title="terminal" data-icon="terminal" style="--x:8vw;--y:63vh;--r:.8deg;--z:3" aria-label="Terminal">
+      <div class="win-bar dark" tabindex="0" aria-label="terminal window. Drag, or use arrow keys to move it.">
+        <span class="lights"><button type="button" class="dot close" aria-label="Close terminal"></button><i></i><i></i></span>
+        <span class="win-title">terminal · ~/albretsen</span>
+      </div>
+      <img class="tape tape-c" src="assets/extras/tape.svg" alt="" width="120" height="34" aria-hidden="true">
+      <div class="win-body term">
+        <p><span class="pr">~</span> whoami</p>
+        <p class="out">asgeir · builder · Albretsen AS</p>
+        <p><span class="pr">~</span> <span id="cmd">claude mcp add albretsen https://albretsen.no/mcp</span></p>
+        <div class="term-row">
+          <button type="button" class="copy" id="copy" aria-describedby="copy-tip">Copy command</button>
+          <span class="peel tip" id="copy-tip" role="tooltip" hidden data-side="top">Paste it into Claude Code</span>
+          <span class="caret" aria-hidden="true"></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="win win-log" data-win="log" data-title="night.log" data-icon="globe" style="--x:calc(100vw - 470px);--y:12vh;--r:1.4deg;--z:2" aria-labelledby="log-h">
+      <div class="win-bar" tabindex="0" aria-label="night.log window. Drag, or use arrow keys to move it.">
+        <span class="lights"><button type="button" class="dot close" aria-label="Close night.log"></button><i></i><i></i></span>
+        <span class="win-title" id="log-h">night.log <em>live</em></span>
+      </div>
+      <img class="tape tape-r" src="assets/extras/tape.svg" alt="" width="120" height="34" aria-hidden="true">
+      <div class="win-body">
+        <div class="tabs" id="logTabs">
+          <div class="shuffle-list" role="tablist" aria-label="Filter activity">
+            <button role="tab" id="t-all" aria-controls="p-all" data-state="active" data-filter="">All</button>
+            <button role="tab" id="t-mcp" aria-controls="p-mcp" data-filter="mcp-emails">MCP Emails</button>
+            <button role="tab" id="t-fl" aria-controls="p-fl" data-filter="fun-libs">Fun Libs</button>
+            <button role="tab" id="t-tr" aria-controls="p-tr" data-filter="toolrails">Toolrails</button>
+            <span class="shuffle-ink" aria-hidden="true"></span>
+          </div>
+          <div class="shuffle-panel log-panel" role="tabpanel" id="p-all" aria-labelledby="t-all"><ol class="feed" aria-live="polite"></ol></div>
+          <div class="shuffle-panel log-panel" role="tabpanel" id="p-mcp" aria-labelledby="t-mcp" hidden><ol class="feed"></ol></div>
+          <div class="shuffle-panel log-panel" role="tabpanel" id="p-fl" aria-labelledby="t-fl" hidden><ol class="feed"></ol></div>
+          <div class="shuffle-panel log-panel" role="tabpanel" id="p-tr" aria-labelledby="t-tr" hidden><ol class="feed"></ol></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="win win-mark" data-win="mark" data-title="mark.glb" data-icon="globe" style="--x:calc(100vw - 400px);--y:56vh;--r:-2deg;--z:1" aria-label="The Albretsen mark in 3D">
+      <div class="win-bar" tabindex="0" aria-label="mark.glb window. Drag, or use arrow keys to move it.">
+        <span class="lights"><button type="button" class="dot close" aria-label="Close mark.glb"></button><i></i><i></i></span>
+        <span class="win-title">mark.glb</span>
+      </div>
+      <div class="win-body mark-body">
+        <div class="mark3d" id="mark3d" role="img" aria-label="The Albretsen mark as seven layers of paper. Hover or tap to fan the layers apart.">
+          <img src="assets/identity/logo-mark.svg" alt="" width="160" height="160" class="mark-poster">
+        </div>
+        <p class="mark-cap">7 paper layers · hover to fan</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- dock -->
+  <nav class="dock-wrap" aria-label="Dock">
+    <ul class="dock" id="dock">
+      <li><a href="#top" class="dock-i" data-tip="Albretsen AS · since 2026"><img src="assets/identity/logo-mark.svg" alt="Albretsen AS" width="56" height="56"></a></li>
+      <li><a href="#p-mcp-emails" class="dock-i on" data-tip="MCP Emails · live"><img src="../_shared/products/mcp-emails/icon.png" alt="MCP Emails" width="56" height="56"></a></li>
+      <li><a href="#p-fun-libs" class="dock-i on" data-tip="Fun Libs · live"><img src="../_shared/products/fun-libs/icon.png" alt="Fun Libs" width="56" height="56"></a></li>
+      <li><a href="#p-toolrails" class="dock-i on" data-tip="Toolrails · building"><img src="../_shared/products/toolrails/icon.svg" alt="Toolrails" width="56" height="56"></a></li>
+      <li><a href="#p-harbor" class="dock-i" data-tip="Harbor · paused"><span class="tile-white"><img src="../_shared/products/harbor/harbor-mark-filled.svg" alt="Harbor" width="56" height="56"></span></a></li>
+      <li class="dock-sep" aria-hidden="true"></li>
+      <li><button type="button" class="dock-i" data-open="archive" data-tip="Archive · 7 retired"><img src="assets/extras/icons/bin.svg" alt="Archive" width="56" height="56"></button></li>
+    </ul>
+    <span class="peel tip dock-tip" id="dockTip" role="tooltip" hidden data-side="top"></span>
+  </nav>
+</section>
+
+<img class="torn torn-top" src="assets/extras/torn-edge-paper.svg" alt="" aria-hidden="true" width="1440" height="80">
+
+<!-- ============ PRODUCTS ============ -->
+<section class="products" id="products" aria-labelledby="products-h">
+  <div class="p-head">
+    <p class="label">Products · on the desk</p>
+    <h2 id="products-h">Four things on the desk.<br><span>Two live, one being cut, one paused.</span></h2>
+    <p class="p-sub">Each one started as a weeknight sketch. The ones that earn stay; the rest go in the archive, kept honest.</p>
+    <figure class="p-photo" data-drop style="--r:3deg"><img class="tape tape-c" src="assets/extras/tape.svg" alt="" width="120" height="34" aria-hidden="true"><img src="assets/extras/spot-sunrise.webp" alt="A paper sun rising behind torn blue hills" width="1280" height="560" loading="lazy" decoding="async"><figcaption>06:12 · nearly morning</figcaption></figure>
+    <img class="p-sticker" src="assets/extras/sticker-shipped.svg" alt="Shipped since 2016" width="140" height="140" data-drop style="--r:9deg">
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="archive" id="archiveAcc" data-acc>
+    <div class="acc-item" data-acc-item data-state="closed">
+      <h3 class="acc-h">
+        <button type="button" aria-expanded="false" aria-controls="acc-panel" id="acc-btn">
+          <img src="assets/extras/icons/bin.svg" alt="" width="40" height="40">
+          <span><b>The archive</b> <small>7 retired products, stamped and kept</small></span>
+          <svg class="tear-chevron" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </h3>
+      <div class="tear" id="acc-panel" role="region" aria-labelledby="acc-btn" data-state="closed" hidden>
+        <ul class="retired" id="retired"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <img class="torn torn-foot" src="assets/extras/torn-edge-night.svg" alt="" aria-hidden="true" width="1440" height="80">
+  <div class="foot-in">
+    <figure class="polaroid" data-drop style="--r:-4deg">
+      <img src="assets/extras/spot-cabins.webp" alt="Paper cabins with lit windows under the night sky" width="640" height="400" loading="lazy" decoding="async">
+      <figcaption>still on · 23:47</figcaption>
+    </figure>
+    <div class="foot-text">
+      <img class="wordmark" src="assets/identity/wordmark.svg" alt="Albretsen AS" width="300" height="72" loading="lazy">
+      <p class="avail"><span class="live-dot" aria-hidden="true"></span> Takes one outside engagement at a time.</p>
+      <p><a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+      <p class="small">Albretsen AS · Norway · the scenery on this page was cut in code.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ DIALOGS (UNFOLD) ============ -->
+<div class="unfold-overlay" id="ov" hidden data-state="closed"></div>
+<div class="unfold sheet" id="dlg" role="dialog" aria-modal="true" aria-labelledby="dlg-h" hidden data-state="closed">
+  <img class="tape tape-l" src="assets/extras/tape.svg" alt="" width="120" height="34" aria-hidden="true">
+  <img class="tape tape-r" src="assets/extras/tape.svg" alt="" width="120" height="34" aria-hidden="true">
+  <div class="win-bar static"><span class="lights"><button type="button" class="dot close" data-close aria-label="Close"></button><i></i><i></i></span><span class="win-title" id="dlg-title">folder</span></div>
+  <div class="sheet-body" id="dlg-body"></div>
+</div>
+
+<template id="tpl-card">
+  <article class="card lift" data-drop>
+    <img class="tape tape-c" src="assets/extras/tape.svg" alt="" width="120" height="34" aria-hidden="true">
+    <div class="win-bar static"><span class="lights"><i></i><i></i><i></i></span><span class="win-title"></span><span class="status"></span></div>
+    <div class="diorama"><picture><source type="image/webp"><img alt="" loading="lazy" decoding="async" width="800" height="600"></picture></div>
+    <div class="card-body">
+      <div class="card-top"><img class="logo" alt="" width="48" height="48"><div class="ct"><h3></h3><p class="line"></p></div><div class="fig-sticker"><b></b><span></span></div></div>
+      <ul class="facts"></ul>
+      <div class="card-foot"><a class="visit" target="_blank" rel="noopener"></a><span class="since"></span></div>
+    </div>
+  </article>
+</template>
+
+<script type="module" src="site.js"></script>
+</body>
+</html>

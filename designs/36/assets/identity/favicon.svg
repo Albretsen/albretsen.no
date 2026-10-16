@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 0 116 128" role="img" aria-label="Albretsen AS mark">
+  <title>Albretsen AS</title>
+  <defs>
+    <linearGradient id="fsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#170733"/>
+      <stop offset=".45" stop-color="#4a1a8c"/>
+      <stop offset=".72" stop-color="#1abcb8"/>
+      <stop offset="1" stop-color="#9fefe9"/>
+    </linearGradient>
+    <radialGradient id="fsun" cx=".45" cy=".4" r=".6">
+      <stop offset="0" stop-color="#fff1e2"/>
+      <stop offset=".35" stop-color="#ffb36b"/>
+      <stop offset=".75" stop-color="#ff7a3d"/>
+      <stop offset="1" stop-color="#e8287f"/>
+    </radialGradient>
+    <clipPath id="fclip"><path d="M14 124V66C14 36 38 14 64 4C90 14 114 36 114 66V124Z"/></clipPath>
+  </defs>
+  <g clip-path="url(#fclip)">
+    <rect width="128" height="128" fill="url(#fsky)"/>
+    <circle cx="80" cy="62" r="14" fill="url(#fsun)"/>
+    <path d="M0 86 C-2.1 68.5 16.1 68.5 14.0 79.7 C12.2 61.6 27.8 61.6 26.0 81.9 C23.6 66.2 44.4 66.2 42.0 79.4 C40.0 57.0 57.0 57.0 55.0 81.1 C52.8 63.9 72.2 63.9 70.0 79.3 C67.9 59.3 86.1 59.3 84.0 79.7 C81.6 68.5 102.4 68.5 100.0 82.0 C97.3 66.2 120.7 66.2 118.0 79.6 V128 H0Z" fill="#b3177c"/>
+    <path d="M0 90 C-1.5 74.8 11.5 74.8 10.0 83.7 C8.7 67.9 20.4 67.9 19.0 84.6 C17.2 72.5 32.8 72.5 31.0 84.1 C29.8 63.3 40.2 63.3 39.0 84.8 C37.4 70.2 51.6 70.2 50.0 84.9 C48.5 58.7 61.5 58.7 60.0 83.2 C58.6 69.0 70.3 69.0 69.0 83.0 C67.2 64.5 82.8 64.5 81.0 85.5 C79.5 73.7 92.5 73.7 91.0 83.8 C89.3 66.8 103.7 66.8 102.0 83.7 C100.0 71.3 117.0 71.3 115.0 86.0 C113.2 74.8 128.8 74.8 127.0 84.4 V128 H0Z" fill="#e8287f"/>
+    <rect y="84" width="128" height="44" fill="#6b1272"/>
+    <path d="M0 84H128" stroke="#fff1e2" stroke-width="1.6" opacity=".55"/>
+  </g>
+  <path d="M61.6 84H66.4L84 124H44Z" fill="#fff1e2"/>
+  <path d="M14 124V66C14 36 38 14 64 4C90 14 114 36 114 66V124Z" fill="none" stroke="#170733" stroke-width="5" stroke-linejoin="round"/>
+</svg>

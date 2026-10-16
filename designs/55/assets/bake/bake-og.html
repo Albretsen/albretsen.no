@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bake: Open Graph</title>
+<!-- Source for brand/og.png and og.webp. Render at 1200x630. -->
+<style>
+  @font-face { font-family:"Geist"; src:url(../fonts/geist-normal.woff2) format("woff2"); font-weight:300 700; }
+  @font-face { font-family:"Geist Mono"; src:url(../fonts/geist-mono-normal.woff2) format("woff2"); font-weight:400 500; }
+  @font-face { font-family:"Instrument Serif"; src:url(../fonts/instrument-serif-italic.woff2) format("woff2"); font-style:italic; }
+  html, body { margin:0; width:1200px; height:630px; background:#090706; overflow:hidden; color:#ede7df; }
+  .bg { position:absolute; inset:0; background:url(../hero/hero-refract@2x.webp) 78% 50%/auto 120% no-repeat; }
+  .fade { position:absolute; inset:0; background:linear-gradient(90deg, #090706 0%, rgba(9,7,6,.92) 34%, rgba(9,7,6,.2) 62%, transparent); }
+  .wm { position:absolute; left:64px; top:58px; height:40px; }
+  h1 { position:absolute; left:64px; top:200px; width:640px; margin:0; font:italic 400 76px/0.98 "Instrument Serif", serif; letter-spacing:-.015em; }
+  h1 em { font-style:italic; color:#ff7e22; }
+  .foot { position:absolute; left:64px; bottom:56px; font:500 14px/1 "Geist Mono", monospace; letter-spacing:.16em; text-transform:uppercase; color:#8e847e; }
+  .foot b { color:#ede7df; font-weight:500; }
+  .grain { position:absolute; inset:0; background:url(../extras/grain-tile.png); opacity:.18; mix-blend-mode:overlay; }
+</style>
+</head>
+<body>
+  <div class="bg"></div><div class="fade"></div>
+  <img class="wm" src="../brand/wordmark.svg" alt="">
+  <h1>I build software that <em>pays for itself.</em></h1>
+  <div class="foot"><b>albretsen.no</b> &nbsp;·&nbsp; Apps, SaaS, agent infrastructure &nbsp;·&nbsp; Norway</div>
+  <div class="grain"></div>
+</body>
+</html>

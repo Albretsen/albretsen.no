@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Toybox Physics Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;height:100%;background:#0b050c;color:#f8f1f8;font:500 13px/1.4 "Geist Mono",ui-monospace,monospace}
+  #box{position:fixed;inset:0;background:radial-gradient(120% 70% at 50% 110%,#3a1240 0%,#160b17 45%,#0b050c 80%)}
+  .ui{position:fixed;left:16px;top:14px;display:flex;gap:8px;z-index:2}
+  button{font:inherit;color:#f8f1f8;background:#251726;border:1px solid #423144;border-radius:999px;padding:8px 14px;cursor:pointer}
+  button:hover{border-color:#dc3aec;box-shadow:0 0 18px -4px #dc3aec}
+</style></head><body>
+<div id="box"></div>
+<div class="ui"><button id="drop">drop a mark</button><button id="shake">shake</button></div>
+<script type="module">
+  import { mountToybox } from './toybox.js';
+  const box = await mountToybox(document.getElementById('box'), { count: 26 });
+  document.getElementById('drop').onclick = () => box.spawn('mark');
+  document.getElementById('shake').onclick = () => box.shake();
+</script></body></html>

@@ -1,0 +1,67 @@
+/*
+ * Infrared Fable — motion study (CSS layer). Pairs with motion.js (GSAP + ScrollTrigger).
+ * Every signature has a pure-CSS fallback here, so the site still moves if JS is late.
+ *
+ *  1. HORIZON RISE   (entrance)   .m-rise > .m-rise__char   letters rise from behind the treeline
+ *  2. WINGBEAT       (hover/idle) .m-wing                   a 2-half 3D flap for any butterfly image
+ *  3. APERTURE       (transition) .m-aperture               arch-shaped clip opening, scroll-scrubbed in JS
+ *  4. INK THREAD     (hover)      .m-ink                    a hand-drawn magenta wave underline draws in
+ *  5. MAGNETIC       (hover)      .m-magnetic               the JS pulls it; CSS gives the press squash
+ *  6. EMBER DRIFT    (ambient)    .m-ember                  slow sun-glow breathing for highlights
+ */
+
+:root {
+  --m-ease-out: cubic-bezier(.16, 1, .3, 1);        /* expo-out: long soft landing */
+  --m-ease-spring: cubic-bezier(.34, 1.56, .64, 1); /* overshoot that settles like a spring */
+  --m-magenta: #e8287f;
+  --m-ember: #ff7a3d;
+}
+
+/* 1. HORIZON RISE ---------------------------------------------------------------- */
+.m-rise { display: inline-block; }
+.m-rise__char { display: inline-block; transform: translateY(70%); opacity: 0; filter: blur(6px);
+  animation: m-rise 1.4s var(--m-ease-out) forwards; animation-delay: calc(var(--i, 0) * 55ms + 200ms); }
+@keyframes m-rise { to { transform: none; opacity: 1; filter: none; } }
+.m-js .m-rise__char { animation: none; } /* motion.js takes over when present */
+
+/* 2. WINGBEAT -------------------------------------------------------------------- */
+/* markup: <span class="m-wing" style="--w:260px"><img src=butterfly.webp></span>; motion.js splits it */
+.m-wing { position: relative; display: inline-block; width: var(--w, 240px); perspective: 900px; transform-style: preserve-3d; }
+.m-wing img { width: 100%; display: block; }
+.m-wing__half { position: absolute; inset: 0; transform-style: preserve-3d; }
+.m-wing__half img { width: 100%; height: 100%; }
+.m-wing__half--l { clip-path: inset(0 50% 0 0); transform-origin: 50% 50%; animation: m-flap-l 2.6s ease-in-out infinite; }
+.m-wing__half--r { clip-path: inset(0 0 0 50%); transform-origin: 50% 50%; animation: m-flap-r 2.6s ease-in-out infinite; }
+.m-wing.is-split > img { visibility: hidden; }
+.m-wing:hover .m-wing__half { animation-duration: .42s; }
+@keyframes m-flap-l { 0%, 100% { transform: rotateY(0) } 45% { transform: rotateY(58deg) } 55% { transform: rotateY(52deg) } }
+@keyframes m-flap-r { 0%, 100% { transform: rotateY(0) } 45% { transform: rotateY(-58deg) } 55% { transform: rotateY(-52deg) } }
+
+/* 3. APERTURE -------------------------------------------------------------------- */
+/* starts as a small pointed-arch window, opens to full bleed (JS scrubs --ap 0..1) */
+.m-aperture { --ap: 0; clip-path: inset(calc((1 - var(--ap)) * 18%) calc((1 - var(--ap)) * 30%) 0 calc((1 - var(--ap)) * 30%) round calc((1 - var(--ap)) * 50vw) calc((1 - var(--ap)) * 50vw) 0 0); }
+.m-aperture.is-open { --ap: 1; transition: clip-path 1.2s var(--m-ease-out); }
+
+/* 4. INK THREAD ------------------------------------------------------------------ */
+.m-ink { position: relative; text-decoration: none; color: inherit; padding-bottom: .18em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 8'%3E%3Cpath d='M0 4c5-4 5-4 10 0s5 4 10 0 5-4 10 0 5 4 10 0' fill='none' stroke='%23e8287f' stroke-width='2.2'/%3E%3C/svg%3E") 0 100% / 0% .4em repeat-x;
+  transition: background-size .55s var(--m-ease-out), color .3s; }
+.m-ink:hover, .m-ink:focus-visible { background-size: 100% .4em; color: var(--m-magenta); animation: m-ink-run 1.2s linear infinite; }
+@keyframes m-ink-run { to { background-position: 2.5em 100%; } }
+
+/* 5. MAGNETIC -------------------------------------------------------------------- */
+.m-magnetic { display: inline-flex; will-change: transform; transition: scale .25s var(--m-ease-spring); }
+.m-magnetic:active { scale: .94; }
+.m-magnetic__label { display: inline-block; will-change: transform; pointer-events: none; }
+
+/* 6. EMBER DRIFT ----------------------------------------------------------------- */
+.m-ember { animation: m-ember 6s ease-in-out infinite; }
+@keyframes m-ember { 50% { filter: drop-shadow(0 0 24px rgba(255, 122, 61, .55)) saturate(1.15); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-rise__char { animation: none; transform: none; opacity: 1; filter: none; }
+  .m-wing__half { animation: none !important; }
+  .m-ink:hover { animation: none; }
+  .m-ember { animation: none; }
+  .m-aperture { --ap: 1; }
+}

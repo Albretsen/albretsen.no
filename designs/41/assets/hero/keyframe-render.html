@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Key Frame Render</title>
+<!-- Source for hero/keyframe-*.webp and identity/og-image.png.
+     ?mode=hero (default) | og. Screenshotted headless, then encoded. -->
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#011835; --ink950:#010b1d; --ink700:#042e57; --blue:#259cde; --blue200:#95ccef; --paper:#e8f6fd; }
+  html,body { margin:0; width:100%; height:100%; overflow:hidden; background:var(--ink950); }
+  .f { position:relative; width:100vw; height:100vh; overflow:hidden; font-family:"JetBrains Mono", monospace; color:var(--paper); }
+  .bg { position:absolute; inset:-2%; background:url(../extras/cel-clouds-2200.webp) 50% 40% / cover; }
+  .burst { position:absolute; inset:0; width:100%; height:100%; }
+  #obj { position:absolute; inset:0; }
+  .bar { position:absolute; left:0; right:0; height:9.5vh; background:var(--ink950); }
+  .bar.t { top:0 } .bar.b { bottom:0 }
+  .slate { position:absolute; left:3vw; bottom:3.2vh; font-size:max(11px,1vw); letter-spacing:.16em; text-transform:uppercase; color:var(--blue200); }
+  .slate b { color:var(--paper); }
+  .tc { position:absolute; right:3vw; bottom:3.2vh; font-size:max(11px,1vw); letter-spacing:.16em; color:var(--blue200); }
+  .og .bar { display:none; }
+  .og .word { position:absolute; left:6vw; bottom:9vh; width:52vw; }
+  .og .tag { position:absolute; left:6vw; top:9vh; font-size:2.1vw; letter-spacing:.14em; text-transform:uppercase; background:var(--ink); padding:.6vw 1.2vw; border-radius:.6vw; box-shadow:.5vw .5vw 0 var(--blue); }
+  .og .slate, .og .tc { display:none; }
+  .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(1,11,29,.72), rgba(1,11,29,0) 55%); }
+</style>
+</head>
+<body>
+<div class="f" id="f">
+  <div class="bg"></div>
+  <svg class="burst" id="burst" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"></svg>
+  <div id="obj"></div>
+  <div class="bar t"></div><div class="bar b"></div>
+  <div class="slate"><b>Albretsen AS</b> · Cut 01 · Key</div>
+  <div class="tc">00:00:01:12</div>
+</div>
+<script type="module">
+  import { mountCelObject } from '../interactive/cel-object.js';
+  const mode = new URLSearchParams(location.search).get('mode') || 'hero';
+  const f = document.getElementById('f');
+  // impact burst: ink wedges radiating from the object
+  let r = 9; const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647;
+  const cx = mode === 'og' ? 1160 : 800, cy = 450;
+  let s = '';
+  for (let i = 0; i < 64; i++) {
+    const a = (i / 64) * Math.PI * 2 + rnd() * .05, a2 = a + .01 + rnd() * .028, r0 = 300 + rnd() * 140;
+    const p = (rr, aa) => `${cx + Math.cos(aa) * rr} ${cy + Math.sin(aa) * rr}`;
+    s += `<path d="M${p(r0, (a + a2) / 2)} L${p(1700, a)} L${p(1700, a2)} Z" fill="${i % 3 ? '#010b1d' : '#e8f6fd'}" opacity="${i % 3 ? .55 : .5}"/>`;
+  }
+  document.getElementById('burst').innerHTML = s;
+  if (mode === 'og') {
+    f.classList.add('og');
+    f.insertAdjacentHTML('beforeend', '<div class="shade"></div><img class="word" src="../identity/wordmark-on-ink.svg" alt=""><div class="tag">Software that pays for itself</div>');
+    document.querySelector('.shade').before(document.getElementById('obj'));
+  }
+  await mountCelObject(document.getElementById('obj'), {
+    autoSpin: 0, onTwos: false, light: mode === 'og' ? [-0.6, 0.5, 0.7] : [0.6, 0.45, 0.72],
+    pose: mode === 'og' ? [-0.22, -0.62, 0.12] : [-0.3, 0.72, 0.1],
+    scale: mode === 'og' ? 1.05 : 1.25, offset: mode === 'og' ? [1.9, 0] : [0, -0.05],
+  });
+  if (mode === "og") document.getElementById("f").appendChild(document.querySelector('.word')), document.getElementById('f').appendChild(document.querySelector('.tag'));
+</script>
+</body>
+</html>

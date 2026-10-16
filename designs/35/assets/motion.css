@@ -1,0 +1,123 @@
+/* Kiln Light — motion study (design 35)
+   Serene and spacious: long ease-outs, no bounce bigger than 4%, nothing
+   moves that the visitor did not ask to move (except the slow light).
+   Radix-compatible: every primitive keys off [data-state] and the CSS
+   variables Radix sets (--radix-accordion-content-height,
+   --radix-*-content-transform-origin). motion.js provides vanilla
+   equivalents that set the same attributes, so the CSS works either way.
+
+   Signature animations
+   1. "Focus pull"      entrance   blur 10px -> 0 + 14px rise, staggered      (ref: softlabor.biz via hoverstat.es; Apple product pages)
+   2. "Kiln glow"       hover      cursor-tracked radial glaze sheen on cards  (ref: Linear / Vercel card spotlight)
+   3. "Niche open"      transition dialog grows out of an arch-shaped clip    (ref: Radix Dialog data-state pattern; age-hh.com scaling reveal)
+   4. "Strata"          accordion  height + content slide, bars settle like sediment
+   5. "Drip"            tooltip    scales from its trigger with a slow molten droop
+   6. "Pebble"          tabs       indicator glides like a stone on wet clay
+   7. "Lift"            hover card rises 6px with a shadow that spreads, not darkens
+*/
+
+:root {
+  --ease-out: cubic-bezier(.16, 1, .3, 1);       /* expo-ish, the house curve */
+  --ease-in: cubic-bezier(.7, 0, .84, 0);
+  --ease-molten: cubic-bezier(.34, 1.04, .64, 1); /* 4% overshoot, max */
+  --dur-1: 180ms; --dur-2: 420ms; --dur-3: 900ms; --dur-4: 1400ms;
+  --glaze: #357e9c; --ink: #282019; --limewash: #f6f0e8; --ember: #e18344;
+}
+
+/* 1. Focus pull ------------------------------------------------------- */
+[data-focus-pull] {
+  opacity: 0; filter: blur(10px); transform: translateY(14px);
+  transition: opacity var(--dur-4) var(--ease-out), filter var(--dur-4) var(--ease-out), transform var(--dur-4) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+[data-focus-pull].is-in { opacity: 1; filter: blur(0); transform: none; }
+/* per-letter variant: motion.js splits text into <span style="--i"> */
+.focus-letters > span { display: inline-block; white-space: pre; }
+
+/* 2. Kiln glow -------------------------------------------------------- */
+.kiln-glow { position: relative; isolation: isolate; overflow: hidden; }
+.kiln-glow::before {
+  content: ""; position: absolute; inset: -1px; z-index: -1; pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklch, var(--glaze) 22%, transparent), transparent 55%),
+              radial-gradient(160px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklch, var(--ember) 16%, transparent), transparent 70%);
+  opacity: 0; transition: opacity var(--dur-2) var(--ease-out);
+}
+.kiln-glow:hover::before { opacity: 1; }
+
+/* 3. Niche open (Radix Dialog) -------------------------------------- */
+[data-niche-overlay] { position: fixed; inset: 0; background: color-mix(in oklch, var(--ink) 28%, transparent); backdrop-filter: blur(6px); }
+[data-niche-overlay][data-state="open"] { animation: k-fade var(--dur-2) var(--ease-out); }
+[data-niche-overlay][data-state="closed"] { animation: k-fade var(--dur-1) var(--ease-in) reverse forwards; }
+[data-niche-content][data-state="open"] { animation: k-niche-open var(--dur-3) var(--ease-out); }
+[data-niche-content][data-state="closed"] { animation: k-niche-close 260ms var(--ease-in) forwards; }
+@keyframes k-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes k-niche-open {
+  0%   { clip-path: inset(70% 38% 0 38% round 999px 999px 18px 18px); transform: translateY(18px) scale(.98); opacity: 0; }
+  35%  { opacity: 1; }
+  100% { clip-path: inset(0 0 0 0 round 22px); transform: none; opacity: 1; }
+}
+@keyframes k-niche-close {
+  from { clip-path: inset(0 0 0 0 round 22px); opacity: 1; }
+  to   { clip-path: inset(40% 30% 0 30% round 999px 999px 18px 18px); opacity: 0; transform: translateY(10px); }
+}
+
+/* 4. Strata (Radix Accordion) --------------------------------------- */
+[data-strata-content] { overflow: hidden; }
+[data-strata-content][data-state="open"] { animation: k-strata-down var(--dur-2) var(--ease-out); }
+[data-strata-content][data-state="closed"] { animation: k-strata-up 280ms var(--ease-in) forwards; }
+[data-strata-content] > * { transition: transform var(--dur-3) var(--ease-out), opacity var(--dur-3) var(--ease-out); }
+[data-strata-content][data-state="closed"] > * { transform: translateY(-8px); opacity: 0; }
+[data-strata-content][data-state="open"] > * { transform: none; opacity: 1; }
+@keyframes k-strata-down { from { height: 0 } to { height: var(--radix-accordion-content-height) } }
+@keyframes k-strata-up { from { height: var(--radix-accordion-content-height) } to { height: 0 } }
+[data-strata-trigger] .k-chev { transition: transform var(--dur-2) var(--ease-molten); }
+[data-strata-trigger][data-state="open"] .k-chev { transform: rotate(180deg); }
+/* the sediment line under each item fills from left when open */
+[data-strata-item] { background: linear-gradient(var(--glaze), var(--glaze)) 0 100% / 0 1px no-repeat; transition: background-size var(--dur-3) var(--ease-out); }
+[data-strata-item][data-state="open"] { background-size: 100% 1px; }
+
+/* 5. Drip (Radix Tooltip) ------------------------------------------- */
+[data-drip] { transform-origin: var(--radix-tooltip-content-transform-origin, 50% 100%); }
+[data-drip][data-state="delayed-open"], [data-drip][data-state="instant-open"] { animation: k-drip var(--dur-2) var(--ease-molten); }
+[data-drip][data-state="closed"] { animation: k-drip-out 140ms var(--ease-in) forwards; }
+@keyframes k-drip {
+  0%   { opacity: 0; transform: translateY(4px) scale(.92, .7); border-radius: 40px; }
+  60%  { opacity: 1; transform: translateY(-1px) scale(1.01, 1.03); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes k-drip-out { to { opacity: 0; transform: translateY(2px) scale(.96); } }
+
+/* 6. Pebble (Radix Tabs) -------------------------------------------- */
+[data-pebble-list] { position: relative; }
+[data-pebble-indicator] {
+  position: absolute; left: 0; top: 0; height: 100%; width: var(--w, 0); transform: translateX(var(--x, 0));
+  border-radius: 999px; background: var(--ink); z-index: 0;
+  transition: transform 560ms var(--ease-molten), width 560ms var(--ease-molten);
+}
+[data-pebble-list] [role="tab"] { position: relative; z-index: 1; transition: color var(--dur-2) var(--ease-out); }
+[data-pebble-list] [role="tab"][data-state="active"] { color: var(--limewash); }
+[data-pebble-panel][hidden] { display: none; }
+[data-pebble-panel][data-state="active"] { animation: k-panel var(--dur-3) var(--ease-out); }
+@keyframes k-panel { from { opacity: 0; filter: blur(6px); transform: translateY(6px); } to { opacity: 1; filter: none; transform: none; } }
+
+/* 7. Lift (Radix HoverCard) ----------------------------------------- */
+[data-lift] { transform-origin: var(--radix-hover-card-content-transform-origin, 50% 0); }
+[data-lift][data-state="open"] { animation: k-lift var(--dur-2) var(--ease-out); }
+[data-lift][data-state="closed"] { animation: k-lift-out 160ms var(--ease-in) forwards; }
+@keyframes k-lift { from { opacity: 0; transform: translateY(10px) scale(.97); box-shadow: 0 0 0 rgba(60,40,20,0); } to { opacity: 1; transform: none; } }
+@keyframes k-lift-out { to { opacity: 0; transform: translateY(6px) scale(.98); } }
+.k-liftable { transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
+.k-liftable:hover { transform: translateY(-6px); box-shadow: 0 2px 4px rgba(70,45,25,.06), 0 24px 48px -18px rgba(70,45,25,.28); }
+
+/* Slow light: a window-light gobo drifting across a section (decorative) */
+.k-windowlight { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
+  background: url("extras/window-light.webp") center / cover no-repeat; animation: k-drift 38s ease-in-out infinite alternate; opacity: .9; }
+@keyframes k-drift { from { transform: translateX(-6%) skewX(-4deg); } to { transform: translateX(6%) skewX(4deg); } }
+
+/* Default skin for the vanilla tooltip that motion.js creates */
+.k-tip { position: absolute; z-index: 60; background: var(--ink); color: var(--limewash); font: 12px/1.35 "Geist Mono", ui-monospace, monospace; padding: 8px 11px; border-radius: 10px; pointer-events: none; max-width: 240px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+  [data-focus-pull] { filter: none; transform: none; }
+}

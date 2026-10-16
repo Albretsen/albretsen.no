@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Salon Refusé kit</title>
+<meta name="description" content="Design 38 asset kit for Albretsen AS: a museum-lit salon of generative works with a UV-torch underdrawing.">
+<link rel="icon" href="brand/favicon.svg"><link rel="apple-touch-icon" href="brand/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+  :root {
+    --wall: oklch(0.36 0.06 168); --wall-deep: oklch(0.22 0.045 168); --night: oklch(0.15 0.03 168);
+    --ink: oklch(0.2 0.02 168); --paper: oklch(0.955 0.012 95); --paper-2: oklch(0.91 0.02 85);
+    --gilt: oklch(0.74 0.11 82); --spark: oklch(0.8 0.15 168); --red: oklch(0.6 0.22 27);
+    --uv-ground: oklch(0.17 0.07 292); --uv-ink: oklch(0.9 0.21 140); --uv-cyan: oklch(0.86 0.13 205); --uv-rose: oklch(0.74 0.2 340);
+    --serif: "Instrument Serif", Georgia, serif; --display: "Bricolage Grotesque", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+    --gutter: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box }
+  html { background: var(--night); color: var(--paper); font: 15px/1.55 var(--mono); -webkit-font-smoothing: antialiased }
+  body { margin: 0; background: radial-gradient(120% 60% at 50% 0%, var(--wall) 0%, var(--wall-deep) 55%, var(--night) 100%) fixed; overflow-x: hidden }
+  img { max-width: 100%; display: block }
+  a { color: var(--spark) }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter) }
+
+  header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px var(--gutter); position: sticky; top: 0; z-index: 20; backdrop-filter: blur(10px); background: color-mix(in oklch, var(--night) 70%, transparent) }
+  header.top img { height: 34px; width: auto }
+  header.top nav { display: flex; gap: 18px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; flex-wrap: wrap; justify-content: flex-end }
+  header.top nav a { color: var(--paper); opacity: .7; text-decoration: none } header.top nav a:hover { opacity: 1; color: var(--spark) }
+
+  .intro { padding: 72px 0 32px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: end }
+  .kicker { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gilt) }
+  h1 { font: italic 400 clamp(56px, 9vw, 132px)/.92 var(--serif); margin: 12px 0 0; letter-spacing: -.02em }
+  h1 b { font: 800 .62em/1 var(--display); font-stretch: 75%; font-style: normal; letter-spacing: -.01em; color: var(--spark); display: inline-block; transform: rotate(-3deg) translateY(-.12em) }
+  .intro p { max-width: 52ch; opacity: .85; margin: 0 }
+
+  section.room { padding: 72px 0 24px; border-top: 1px solid #ffffff14; margin-top: 40px }
+  .room-h { display: flex; gap: 20px; align-items: baseline; margin-bottom: 28px; flex-wrap: wrap }
+  .room-h .no { font-size: 12px; letter-spacing: .14em; color: var(--gilt); text-transform: uppercase }
+  .room-h h2 { font: italic 400 clamp(36px, 5vw, 60px)/1 var(--serif); margin: 0 }
+  .room-h p { flex-basis: 100%; max-width: 70ch; margin: 6px 0 0; opacity: .75 }
+
+  .card { background: #0000002a; border: 1px solid #ffffff12; border-radius: 4px; padding: 18px }
+  .cap { font-size: 12px; opacity: .72; margin-top: 10px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap }
+  .cap code { color: var(--spark) }
+
+  .grid { display: grid; gap: 22px }
+  .g2 { grid-template-columns: repeat(2, 1fr) } .g3 { grid-template-columns: repeat(3, 1fr) } .g4 { grid-template-columns: repeat(4, 1fr) }
+
+  .hero-torch { border-radius: 3px; box-shadow: 0 50px 80px -40px #000c }
+  .torch-hint { position: absolute; z-index: 3; right: 16px; bottom: 14px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--uv-ink); background: #0008; padding: 6px 10px; border-radius: 99px; pointer-events: none }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px }
+  .sw { border-radius: 4px; overflow: hidden; background: #0003; font-size: 11px; transition: transform .18s var(--ease-out) }
+  .sw:hover { transform: translateY(-3px) }
+  .sw i { display: block; height: 84px; position: relative }
+  .sw i::after { content: attr(data-hex); position: absolute; right: 8px; bottom: 6px; font-style: normal; font-size: 10px; opacity: 0; transition: opacity .18s; color: #fff; mix-blend-mode: difference }
+  .sw:hover i::after { opacity: 1 }
+  .sw span { display: block; padding: 8px 10px; line-height: 1.4 } .sw b { font-weight: 600; display: block }
+  .spectrum { display: grid; grid-template-columns: repeat(6, 1fr); height: 64px; border-radius: 4px; overflow: hidden; margin-top: 14px }
+  .spectrum div { display: grid; place-items: end start; padding: 6px 8px; font-size: 10px; color: var(--ink) }
+
+  /* type */
+  .type .s1 { font: italic 400 clamp(54px, 8vw, 112px)/.95 var(--serif); letter-spacing: -.02em }
+  .type .s2 { font: 800 clamp(44px, 6vw, 84px)/.9 var(--display); font-stretch: 75%; text-transform: uppercase; letter-spacing: -.01em; color: var(--spark) }
+  .type .s3 { font: 400 15px/1.6 var(--mono); max-width: 60ch }
+  .type .row { padding: 22px 0; border-bottom: 1px solid #ffffff14 } .type .row small { display: block; font-size: 11px; color: var(--gilt); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px }
+
+  /* identity */
+  .id-tile { aspect-ratio: 4/3; display: grid; place-items: center; border-radius: 4px; padding: 28px }
+  .id-tile.paper { background: var(--paper) } .id-tile.wall { background: var(--wall) } .id-tile.night { background: var(--night) } .id-tile.uv { background: var(--uv-ground) }
+  .id-tile img { max-height: 70%; width: auto }
+
+  /* frames for products */
+  .wall-strip { background: url(extras/plaster-jade.webp) center / 512px; border-radius: 4px; padding: 56px 28px 36px; position: relative; overflow: hidden }
+  .retired { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 28px 22px; align-items: start }
+  .retired img { width: 100%; height: auto }
+  .retired figure { margin: 0; box-shadow: 0 18px 26px -14px #000b; transition: transform .25s var(--ease-out) }
+  .retired figure:hover { transform: rotate(-2deg) translateY(-4px) }
+
+  /* generative */
+  .live { display: grid; grid-template-columns: 1fr 280px; gap: 22px; align-items: start }
+  .live canvas { width: 100%; height: auto; border: 14px solid var(--paper); box-shadow: 0 0 0 1px #0004, 0 40px 60px -30px #000 }
+  .btns { display: flex; flex-wrap: wrap; gap: 8px } .btn { font: 600 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; background: #ffffff10; color: var(--paper); border: 1px solid #ffffff22; padding: 9px 12px; border-radius: 99px; cursor: pointer }
+  .btn[aria-pressed=true], .btn:hover { background: var(--spark); color: var(--ink); border-color: transparent }
+
+  .stage3d { height: min(70vh, 620px); border-radius: 4px; overflow: hidden; position: relative; background: var(--wall) }
+  .stage3d .ph { position: absolute; inset: 0; display: grid; place-items: center; opacity: .6 }
+
+  /* extras */
+  .stickers { display: flex; flex-wrap: wrap; gap: 26px; align-items: center; justify-content: center; padding: 40px 20px }
+  .stickers img { height: 110px; width: auto; transition: transform .25s var(--ease-out) } .stickers img:hover { transform: scale(1.06) rotate(-4deg) }
+  .checker { background: repeating-conic-gradient(#ffffff08 0 25%, transparent 0 50%) 0 0 / 22px 22px }
+
+  /* motion demos */
+  .demo { min-height: 260px; display: grid; place-items: center; position: relative; overflow: hidden }
+  .mini-frame { width: 150px; aspect-ratio: 4/5; background: var(--paper); border: 8px solid #111; box-shadow: 0 20px 30px -14px #000c }
+  .mini-frame img { width: 100%; height: 100%; object-fit: cover }
+  .lu { position: relative; width: 170px; isolation: isolate } .lu .pool { inset: -60% -50% auto; mix-blend-mode: screen; opacity: 0 }
+  .dot { width: 46px; height: 46px; background: url(extras/sticker-red-dot.svg) center / contain }
+
+  .grid > *, .intro > *, .live > * { min-width: 0 }
+  code { overflow-wrap: anywhere }
+  .cap { min-width: 0 } .cap span { min-width: 0; overflow-wrap: anywhere }
+  .hide { display: none !important }
+  footer { padding: 60px var(--gutter); opacity: .6; font-size: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px }
+
+  @media (max-width: 900px) {
+    .intro, .live { grid-template-columns: 1fr } .g3, .g4 { grid-template-columns: repeat(2, 1fr) } header.top nav { display: none }
+  }
+  @media (max-width: 560px) { .g2, .g3, .g4 { grid-template-columns: 1fr } }
+</style></head>
+<body class="grain">
+<header class="top"><img src="brand/lockup-on-dark.svg" alt="Albretsen AS">
+  <nav><a href="#halls">Hero</a><a href="#identity">Identity</a><a href="#palette">Palette</a><a href="#type">Type</a><a href="#products">Products</a><a href="#live">Live work</a><a href="#hung">3D</a><a href="#extras">Extras</a><a href="#motion">Motion</a></nav>
+</header>
+
+<main class="wrap">
+  <div class="intro">
+    <div><div class="kicker">Design 38 · asset kit · art direction</div>
+      <h1>Salon Refusé <b>after hours</b></h1></div>
+    <p>A gallery wall at night, lit like a museum. Every framed work is a canvas-2D program that paints itself; the products hang in the same light as the art. Put a UV torch to any frame and you see the underdrawing: the vector field, the catenaries, the construction grid. The craft is in the hidden layer. Everything on this sheet was rendered, generated or measured, not drawn by hand.</p>
+  </div>
+
+  <!-- ROOM 1: hero imagery -->
+  <section class="room" id="halls">
+    <div class="room-h"><span class="no">Room 01</span><h2>Hero imagery</h2><p>Three.js renders of the real CC0 gilt frame (Poly Haven) on a jade plaster wall, graded in Python (halation, split tone, matte, grain, lateral CA). Each shot has a pixel-aligned UV pass. Hover to use the torch.</p></div>
+    <figure class="torch hero-torch" tabindex="0" style="margin:0">
+      <picture><source type="image/avif" srcset="img/hero-salon-lit-1440.avif 1440w, img/hero-salon-lit-2880.avif 2880w"><img class="lit" src="img/hero-salon-lit-1440.webp" srcset="img/hero-salon-lit-1440.webp 1440w, img/hero-salon-lit-2880.webp 2880w" sizes="(max-width: 1320px) 100vw, 1320px" alt="A jade gallery wall at night, seven framed generative works under museum spotlights"></picture>
+      <img class="uv" src="img/hero-salon-uv-1440.webp" srcset="img/hero-salon-uv-1440.webp 1440w, img/hero-salon-uv-2880.webp 2880w" sizes="(max-width: 1320px) 100vw, 1320px" alt="">
+      <span class="torch-hint">hover · UV torch</span>
+    </figure>
+    <div class="cap"><span><code>img/hero-salon-lit|uv-{1440,2880}.{webp,avif}</code> Salon hang, 16:9</span><span>main hero, full bleed</span></div>
+    <div class="grid g2" style="margin-top:28px">
+      <div><figure class="torch" tabindex="0" style="margin:0;border-radius:3px">
+        <img class="lit" src="img/hero-room-lit-1440.webp" srcset="img/hero-room-lit-1440.webp 1440w, img/hero-room-lit-2880.webp 2880w" sizes="50vw" alt="One gilt-framed catenary study on the right of a dark jade wall, a pool of light on the left">
+        <img class="uv" src="img/hero-room-uv-1440.webp" srcset="img/hero-room-uv-1440.webp 1440w, img/hero-room-uv-2880.webp 2880w" sizes="50vw" alt=""></figure>
+        <div class="cap"><span><code>hero-room</code> "Tension, No. 1"</span><span>alt hero; empty pool left for headline</span></div></div>
+      <div class="grid g2">
+        <div><figure class="torch" tabindex="0" style="margin:0;border-radius:3px">
+          <img class="lit" src="img/detail-lit-800.webp" srcset="img/detail-lit-800.webp 800w, img/detail-lit-1600.webp 1600w" sizes="25vw" alt="Raking-light close-up of a gilt frame holding a flow-field drawing">
+          <img class="uv" src="img/detail-uv-800.webp" srcset="img/detail-uv-800.webp 800w, img/detail-uv-1600.webp 1600w" sizes="25vw" alt=""></figure>
+          <div class="cap"><span><code>detail</code> 4:5</span></div></div>
+        <div><img src="img/bust-gels-800.webp" srcset="img/bust-gels-800.webp 800w, img/bust-gels-1600.webp 1600w" sizes="25vw" alt="A CC0 marble bust lit with teal and rose gels against the jade wall" style="border-radius:3px">
+          <div class="cap"><span><code>bust-gels</code> 4:5</span><span>about / colophon</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOM 2: identity -->
+  <section class="room" id="identity">
+    <div class="room-h"><span class="no">Room 02</span><h2>Identity</h2><p>The mark is a work hung crooked on purpose: a nail, a taut wire, a frame at −7°, a spark inside. Wire plus the frame's top edge read as an A. The wordmark is Instrument Serif Italic, outlined, with the nail sitting on the A's apex.</p></div>
+    <div class="grid g4">
+      <div><div class="id-tile paper"><img src="brand/mark.svg" alt="mark" width="140" height="140"></div><div class="cap"><code>brand/mark.svg</code></div></div>
+      <div><div class="id-tile wall"><img src="brand/mark-on-dark.svg" alt="mark on dark" width="140" height="140"></div><div class="cap"><code>mark-on-dark.svg</code></div></div>
+      <div><div class="id-tile night"><img src="brand/mark-gilt.svg" alt="gilt mark" width="140" height="140"></div><div class="cap"><code>mark-gilt.svg</code></div></div>
+      <div><div class="id-tile uv" style="gap:16px;grid-auto-flow:column"><img src="brand/favicon.svg" alt="favicon" width="96" height="96"><img src="brand/favicon-180.png" alt="favicon png" width="60" height="60" style="border-radius:12px"></div><div class="cap"><code>favicon.svg · favicon-180.png</code></div></div>
+    </div>
+    <div class="grid g2" style="margin-top:22px">
+      <div><div class="id-tile paper" style="aspect-ratio:2/1"><img src="brand/wordmark.svg" alt="wordmark" style="width:80%;height:auto;max-height:80%;object-fit:contain"></div><div class="cap"><code>wordmark.svg</code></div></div>
+      <div><div class="id-tile night" style="aspect-ratio:2/1"><img src="brand/wordmark-on-dark.svg" alt="wordmark dark" style="width:80%;height:auto;max-height:80%;object-fit:contain"></div><div class="cap"><code>wordmark-on-dark.svg</code></div></div>
+      <div><div class="id-tile wall" style="aspect-ratio:2/1"><img src="brand/lockup-on-dark.svg" alt="lockup" style="width:86%;height:auto;max-height:80%;object-fit:contain"></div><div class="cap"><code>lockup(-on-dark).svg</code></div></div>
+      <div><img src="brand/og-image.jpg" alt="Open Graph image" style="border-radius:4px"><div class="cap"><code>brand/og-image.jpg</code> 1200×630</div></div>
+    </div>
+  </section>
+
+  <!-- ROOM 3: palette -->
+  <section class="room" id="palette">
+    <div class="room-h"><span class="no">Room 03</span><h2>Palette</h2><p>Jade wall from seed hue 168°. Full spectrum, with discipline: six hues 60° apart at one lightness and chroma. A work or a section uses its home hue, its opposite and neutrals. Only the brand spark gets the whole spectrum. UV inks belong to the hidden layer and nowhere else. Hover a swatch for hex.</p></div>
+    <div class="swatches" id="swatches"></div>
+    <div class="spectrum" id="spectrum"></div>
+  </section>
+
+  <!-- ROOM 4: type -->
+  <section class="room type" id="type">
+    <div class="room-h"><span class="no">Room 04</span><h2>Type</h2><p>All three on Google Fonts, OFL.</p></div>
+    <div class="row"><small>Instrument Serif Italic · display, titles, wall-label titles</small><div class="s1">Software that pays for itself.</div></div>
+    <div class="row"><small>Bricolage Grotesque 800, width 75 · stickers, rebellious accents, one per view</small><div class="s2">Please touch the works</div></div>
+    <div class="row"><small>JetBrains Mono 400/600 · body, labels, captions, data</small><div class="s3">MCP Emails, 2026. Email for AI agents. 17 tools, about 100 email providers, open source (AGPL). Fun Libs: 113,000+ installs, built at 17, no marketing.</div></div>
+  </section>
+
+  <!-- ROOM 5: products -->
+  <section class="room" id="products">
+    <div class="room-h"><span class="no">Room 05</span><h2>The collection</h2><p>Real product logos from <code>_shared/products</code>, unaltered, printed on a museum mat in their own ground colour, framed and lit on the wall with a wall label. Each has a UV pass showing a construction grid over the mark. Retired products hang in the storeroom as small stand-in prints.</p></div>
+    <div class="grid g2" id="productGrid"></div>
+    <h3 style="font:italic 400 32px var(--serif);margin:48px 0 16px">Storeroom, retired works</h3>
+    <div class="wall-strip"><div class="retired" id="retired"></div></div>
+  </section>
+
+  <!-- ROOM 6: live canvas -->
+  <section class="room" id="live">
+    <div class="room-h"><span class="no">Room 06</span><h2>The live work</h2><p><code>js/art.js</code>, the centrepiece: five seeded canvas-2D series (filaments, tension, weightless, spark, strata). Each draws itself stroke by stroke, and the same plan can be painted as its UV underdrawing.</p></div>
+    <div class="live">
+      <canvas id="art" width="1400" height="1050"></canvas>
+      <div class="card">
+        <div class="kicker" style="margin-bottom:10px">Series</div>
+        <div class="btns" id="series"></div>
+        <div class="kicker" style="margin:18px 0 10px">Pass</div>
+        <div class="btns"><button class="btn" data-pass="lit" aria-pressed="true">Lit</button><button class="btn" data-pass="uv" aria-pressed="false">UV</button></div>
+        <div class="kicker" style="margin:18px 0 10px">Home hue</div>
+        <div class="btns" id="hues"></div>
+        <p class="cap" style="display:block">compose → paint / animate. Deterministic: seed <code id="seedv">0x500a48</code>.</p>
+        <button class="btn" id="reseed">New seed</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOM 7: 3D -->
+  <section class="room" id="hung">
+    <div class="room-h"><span class="no">Room 07</span><h2>The hung work, in 3D</h2><p><code>3d/gallery-frame.js</code> + <code>3d/gilt-frame.glb</code> (Poly Haven, CC0, packed by <code>src/pack-glb.mjs</code>). The frame hangs from a nail on a wire with a live art.js canvas inside. Drag it to swing it, hold for the UV torch, double-click to hang a new work. Loads only when scrolled into view.</p></div>
+    <div class="stage3d" id="stage3d"><div class="ph">loading the frame…</div></div>
+    <div class="cap"><span><a href="3d/demo.html">3d/demo.html</a> standalone demo</span><span>three@0.170.0 via import map</span></div>
+  </section>
+
+  <!-- ROOM 8: extras -->
+  <section class="room" id="extras">
+    <div class="room-h"><span class="no">Room 08</span><h2>Things for the walls</h2><p>Flat exports of the generative series, stickers slapped on the wall, tape, a light pool you can put behind anything, plaster, grain.</p></div>
+    <div class="grid g4" id="works"></div>
+    <div class="card checker" style="margin-top:22px"><div class="stickers">
+      <img src="extras/sticker-red-dot.svg" alt="red dot" style="height:70px"><img src="extras/sticker-since-2016.svg" alt="since 2016 stamp"><img src="extras/sticker-please-touch.svg" alt="please touch sticker"><img src="extras/sticker-wet-code.svg" alt="wet code sticker"><img src="extras/wall-label-mcp-emails.svg" alt="wall label">
+    </div><div class="cap"><code>extras/sticker-*.svg · wall-label-mcp-emails.svg</code><span>outlined SVG, no fonts needed</span></div></div>
+    <div class="grid g4" style="margin-top:22px">
+      <div class="card checker"><img src="extras/tape-gaffer.png" alt="gaffer tape"><img src="extras/tape-masking.png" alt="masking tape" style="margin-top:18px"><div class="cap"><code>tape-gaffer.png · tape-masking.png</code></div></div>
+      <div class="card" style="background:var(--wall)"><img src="extras/light-pool.png" alt="light pool" style="max-height:220px;margin:auto"><div class="cap"><code>light-pool.png</code><span>screen blend</span></div></div>
+      <div class="card" style="background:url(extras/plaster-jade.webp) 0 0/256px;min-height:260px;display:flex;align-items:end"><div class="cap" style="width:100%"><code>plaster-jade.webp</code><span>seamless 1024</span></div></div>
+      <div class="card" style="background:url(extras/grain-256.png) var(--paper);color:var(--ink);min-height:260px;display:flex;align-items:end"><div class="cap" style="width:100%;opacity:1"><code style="color:var(--ink)">grain-256.png</code><span>overlay</span></div></div>
+    </div>
+  </section>
+
+  <!-- ROOM 9: motion -->
+  <section class="room" id="motion">
+    <div class="room-h"><span class="no">Room 09</span><h2>Motion study</h2><p><code>motion.js</code> (Web Animations API) + <code>motion.css</code>. Click a card to replay it.</p></div>
+    <div class="grid g3">
+      <div class="card demo" id="d-lights"><div class="lu" data-lightsup><div class="pool"></div><div class="art mini-frame" style="width:170px"><img src="extras/work-spark-lit-900.webp" alt=""></div></div></div>
+      <div class="card demo" id="d-swing"><div class="hung" id="swingme"><div class="mini-frame"><img src="extras/work-tension-lit-900.webp" alt=""></div></div></div>
+      <div class="card demo" id="d-rehang"><div class="hung"><div class="mini-frame" id="rA"><img src="extras/work-weightless-lit-900.webp" alt=""></div><div class="mini-frame" id="rB" hidden><img src="extras/work-strata-lit-900.webp" alt=""></div></div></div>
+    </div>
+    <div class="grid g3" style="margin-top:10px">
+      <div class="cap" style="display:block"><b>01 Lights up</b> · entrance. Lamp warm-up flicker on the pool, then a top-down <code>clip-path: inset()</code> unveil, 1000 ms <code>cubic-bezier(.77,0,.175,1)</code> after Emil Kowalski.</div>
+      <div class="cap" style="display:block"><b>02 Swing</b> · hover. Keyframes sampled from a damped pendulum (g/L, e<sup>−2.4t</sup>), rotating about the nail. Hover side sets direction.</div>
+      <div class="cap" style="display:block"><b>03 Rehang</b> · transition. Lift off the wall (shadow grows, fades), drop the next work on the nail, settle with a swing.</div>
+    </div>
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card demo" id="d-dot" style="min-height:160px"><div style="display:flex;gap:16px;align-items:center"><div class="mini-frame" style="width:90px"><img src="extras/work-filaments-lit-900.webp" alt=""></div><div class="dot" id="dot"></div></div></div>
+      <div class="card demo" style="min-height:160px"><button class="btn" id="press" style="font-size:14px;padding:14px 22px">Press me</button></div>
+      <div class="card demo" style="min-height:160px;padding:0"><figure class="torch" tabindex="0" style="margin:0;width:100%"><img class="lit" src="extras/work-filaments-lit-900.webp" alt="" style="aspect-ratio:16/9;object-fit:cover"><img class="uv" src="extras/work-filaments-uv-900.webp" alt=""></figure></div>
+    </div>
+    <div class="grid g3" style="margin-top:10px">
+      <div class="cap" style="display:block"><b>04 Red dot</b> · detail. The gallery "sold" sticker for products earning money. From scale .9 with 2px blur, overshoot 1.08, settle; 380 ms.</div>
+      <div class="cap" style="display:block"><b>05 Press</b> · tactile. Scale .97 on pointerdown, 120 ms ease-out; release 200 ms.</div>
+      <div class="cap" style="display:block"><b>06 UV torch</b> · signature hover. Registered <code>@property --torch-r</code> animated by WAAPI; pointer position lerped each frame; radial mask reveals the underdrawing.</div>
+    </div>
+  </section>
+</main>
+<footer><span>Albretsen AS · design 38 · Salon Refusé</span><span>See ASSETS.md for sources and licences</span></footer>
+
+<script type="module">
+import { compose, paint, animate, SERIES, SPECTRUM } from './js/art.js'
+import { lightsUp, uvTorch, swing, swingOnHover, rehang, redDot, pressable } from './motion.js'
+
+// palette
+const pal = await (await fetch('brand/palette.json')).json()
+const names = { wall: 'Wall', 'wall-deep': 'Wall, deep', night: 'Night', ink: 'Ink', paper: 'Paper', 'paper-2': 'Paper 2', gilt: 'Gilt', spark: 'Spark', 'red-dot': 'Red dot', 'uv-ground': 'UV ground', 'uv-ink': 'UV ink', 'uv-cyan': 'UV cyan', 'uv-rose': 'UV rose' }
+document.getElementById('swatches').innerHTML = Object.entries(names).map(([k, n]) => `<div class="sw"><i style="background:${pal[k].oklch}" data-hex="${pal[k].hex}"></i><span><b>${n}</b>${pal[k].oklch}<br>${pal[k].hex}</span></div>`).join('')
+document.getElementById('spectrum').innerHTML = SPECTRUM.map((h, i) => `<div style="background:oklch(0.72 0.15 ${h})">${h}° ${pal[`s${i}-${h}`].hex}</div>`).join('')
+
+// products
+const prods = [['mcp-emails', 'MCP Emails', 'gilt frame · live · $782 MRR'], ['fun-libs', 'Fun Libs', 'white box frame · live · 113,000+ installs'], ['toolrails', 'Toolrails', 'black box frame · building'], ['harbor', 'Harbor', 'oak frame · paused · 549 commits']]
+document.getElementById('productGrid').innerHTML = prods.map(([id, n, d]) => `<div><figure class="torch" tabindex="0" style="margin:0;border-radius:3px">
+  <img class="lit" src="products/product-${id}-lit-800.webp" srcset="products/product-${id}-lit-800.webp 800w, products/product-${id}-lit-1600.webp 1600w" sizes="(max-width:560px) 100vw, 50vw" alt="${n} logo, framed and lit on the gallery wall">
+  <img class="uv" src="products/product-${id}-uv-800.webp" srcset="products/product-${id}-uv-800.webp 800w, products/product-${id}-uv-1600.webp 1600w" sizes="50vw" alt=""></figure>
+  <div class="cap"><span><code>products/product-${id}-lit|uv</code> ${n}</span><span>${d}</span></div></div>`).join('')
+const ret = ['luma', 'polyglot-pilot', 'pinpoint', 'webvakt', 'joke-central', 'tryggere-hyring', 'early-apps']
+document.getElementById('retired').innerHTML = ret.map((id, i) => `<figure style="rotate:${[-1.5, 1, -0.5, 2, -1, 0.5, -2][i]}deg"><img src="products/retired-${id}.svg" alt="${id} stand-in print" width="240" height="300"></figure>`).join('')
+
+// works
+const works = ['filaments', 'tension', 'weightless', 'spark', 'strata']
+document.getElementById('works').innerHTML = works.map(w => `<div><img src="extras/work-${w}-lit-900.webp" alt="${w}" style="border:10px solid var(--paper);box-shadow:0 20px 30px -16px #000c"><div class="cap"><code>work-${w}-lit-900</code></div></div>`).join('') +
+  `<div><figure class="torch" tabindex="0" style="margin:0;border:10px solid var(--paper)"><img class="lit" src="extras/work-tension-lit-900.webp" alt=""><img class="uv" src="extras/work-tension-uv-900.webp" alt=""></figure><div class="cap"><code>work-tension-uv-900</code><span>pair for torch</span></div></div>`
+
+// torches
+document.querySelectorAll('.torch').forEach(el => uvTorch(el))
+
+// live art
+const canvas = document.getElementById('art'), ctx = canvas.getContext('2d')
+let st = { series: 'filaments', seed: 0x500a48, hue: 168, pass: 'lit' }, stop = () => {}
+const draw = (anim = true) => { stop(); const plan = compose({ ...st, w: canvas.width, h: canvas.height }); document.getElementById('seedv').textContent = '0x' + st.seed.toString(16)
+  if (anim && st.pass === 'lit') stop = animate(canvas, plan, { duration: 5000 }); else paint(ctx, plan, { pass: st.pass }) }
+const sBox = document.getElementById('series'); sBox.innerHTML = SERIES.map(s => `<button class="btn" data-s="${s}" aria-pressed="${s === st.series}">${s}</button>`).join('')
+sBox.onclick = e => { const s = e.target.dataset.s; if (!s) return; st.series = s; sBox.querySelectorAll('.btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.s === s)); draw() }
+const hBox = document.getElementById('hues'); hBox.innerHTML = SPECTRUM.map(h => `<button class="btn" data-h="${h}" aria-pressed="${h === st.hue}" style="--c:oklch(0.72 0.15 ${h})"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:6px"></span>${h}</button>`).join('')
+hBox.onclick = e => { const b = e.target.closest('[data-h]'); if (!b) return; st.hue = +b.dataset.h; hBox.querySelectorAll('.btn').forEach(x => x.setAttribute('aria-pressed', x === b)); draw() }
+document.querySelectorAll('[data-pass]').forEach(b => b.onclick = () => { st.pass = b.dataset.pass; document.querySelectorAll('[data-pass]').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(false) })
+document.getElementById('reseed').onclick = () => { st.seed = (Math.random() * 0xffffff) | 0; draw() }
+new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { draw(); io.disconnect() } }).observe(canvas)
+
+// 3D, lazy
+new IntersectionObserver(async (es, io) => { if (!es[0].isIntersecting) return; io.disconnect()
+  const el = document.getElementById('stage3d')
+  try { const { mountGalleryFrame } = await import('./3d/gallery-frame.js'); await mountGalleryFrame(el, { series: 'tension', hue: 228, seed: 0x500a49 }); el.querySelector('.ph').remove() }
+  catch (err) { el.querySelector('.ph').textContent = 'WebGL unavailable: ' + err.message }
+}, { rootMargin: '200px' }).observe(document.getElementById('stage3d'))
+
+// motion demos
+lightsUp(document)
+document.getElementById('d-lights').onclick = e => { const lu = e.currentTarget.querySelector('.lu'); lu.querySelectorAll('*').forEach(x => x.getAnimations().forEach(a => a.cancel())); const c = lu.cloneNode(true); lu.replaceWith(c); lightsUp(e.currentTarget) }
+const sw = document.getElementById('swingme'); swingOnHover(sw); document.getElementById('d-swing').onclick = () => swing(sw, 6)
+let flip = false; document.getElementById('d-rehang').onclick = () => { flip = !flip; const a = document.getElementById('rA'), b = document.getElementById('rB'); flip ? rehang(a, b) : rehang(b, a) }
+const dot = document.getElementById('dot'); new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { redDot(dot, 300); io.disconnect() } }).observe(dot)
+document.getElementById('d-dot').onclick = () => redDot(dot)
+pressable(document.getElementById('press'))
+</script>
+</body></html>

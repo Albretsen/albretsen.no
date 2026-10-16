@@ -1,0 +1,22 @@
+{
+  "name": "Sodium Orbit",
+  "tagline": "Earth at night from the ISS: a playable spark lights four lamps, and the lamps light the introduction.",
+  "summary": "Seen from orbit, cities at night are sodium-orange circuit boards under a thin blue airglow. The hero is a small game on a real NASA photograph: fly a molten spark through four cold lamps, one per product, and each lamp strikes neon pink, warms to sodium and lights one part of the sentence 'Asgeir Albretsen builds software that pays for itself.' It shows craft by doing rather than claiming, and keeps every figure real.",
+  "palette": ["#020513", "#051029", "#0c2348", "#52b5f4", "#bed4eb", "#f1f6fa", "#fb942a", "#ffe196", "#e63281"],
+  "type": ["Unbounded", "Inter Tight", "JetBrains Mono"],
+  "voice": "Calm, exact, a little dry; facts in place of adjectives. Example: 'Four lamps on. A few burned out on the way.'",
+  "motion": "Everything arrives the way a sodium lamp strikes: a neon flicker, then a slow warm-up to orange, then rest, all written with the Web Animations API and spring easings sampled into linear().",
+  "sound": "Off until asked for; then each lamp strikes with a synthesised starter click, a flickering neon buzz and a warm hum, and the live feed ticks quietly.",
+  "mark": "The arc of a thrown spark forms an A, with the glowing spark itself as the crossbar; the game's lamps sit on that arc and finishing the game draws it in particles.",
+  "inspiration": [
+    "https://earthobservatory.nasa.gov/Features/CitiesAtNight",
+    "https://images.nasa.gov/details/iss035e017619",
+    "https://en.wikipedia.org/wiki/Sodium-vapor_lamp",
+    "https://rauno.me/craft",
+    "https://www.radix-ui.com/primitives/docs/components/accordion",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+    "https://www.joshwcomeau.com/animation/3d-button/",
+    "https://tympanus.net/codrops/2024/12/19/crafting-a-dreamy-particle-effect-with-three-js-and-gpgpu/"
+  ]
+}

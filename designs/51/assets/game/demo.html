@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ignite — demo</title>
+<link rel="icon" href="../brand/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500&family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../motion.css">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; background: var(--void); color: var(--moon); font-family: 'Inter Tight', system-ui, sans-serif; }
+  .stage { position: relative; height: 100svh; min-height: 560px; overflow: hidden; isolation: isolate; }
+  .stage picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 40%; z-index: -2; opacity: .92; }
+  .stage::before { content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(90deg, oklch(0.12 0.035 268 / .92) 0%, oklch(0.12 0.035 268 / .55) 38%, transparent 70%),
+                linear-gradient(0deg, oklch(0.12 0.035 268) 0%, transparent 30%); }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: none; touch-action: none; }
+  header { position: absolute; top: 28px; left: clamp(16px, 5vw, 64px); right: clamp(16px, 5vw, 64px); display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+  header img { height: 18px; }
+  .mono { font: 500 11px/1.4 'JetBrains Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--mist); }
+  .copy { position: absolute; left: clamp(16px, 5vw, 64px); bottom: clamp(32px, 9vh, 96px); max-width: 560px; pointer-events: none; }
+  h1 { font: 300 clamp(34px, 5.4vw, 72px)/1.02 'Unbounded', sans-serif; letter-spacing: -.035em; color: var(--moon); }
+  .copy p { margin-top: 18px; max-width: 40ch; color: var(--mist); font-size: 17px; line-height: 1.5; }
+  .hud { margin-top: 26px; display: flex; gap: 10px; flex-wrap: wrap; pointer-events: auto; }
+  .hud button { font: 500 11px 'JetBrains Mono', monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--mist); background: oklch(0.18 0.055 264 / .6); border: 1px solid oklch(0.86 0.04 250 / .18); border-radius: 999px; padding: 9px 14px 9px 12px; display: inline-flex; gap: 8px; align-items: center; cursor: pointer; backdrop-filter: blur(8px); }
+  .hud button::before { content: ""; width: 7px; height: 7px; border-radius: 50%; border: 1px dashed var(--mist); }
+  .hud button[data-lit]::before { border: 0; background: var(--sodium); box-shadow: 0 0 10px var(--sodium); }
+  .hud button[data-lit] { color: var(--filament); border-color: oklch(0.76 0.165 60 / .5); }
+  .label { position: absolute; transform: translate(-50%, calc(-100% - 34px)); pointer-events: none; text-align: center; white-space: nowrap; }
+  .label b { display: block; font: 400 15px 'Unbounded', sans-serif; letter-spacing: -.01em; }
+  .label span { font: 500 10px 'JetBrains Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--sodium); }
+  .count { font-variant-numeric: tabular-nums; }
+  .secret { position: absolute; top: 50%; left: 50%; translate: -50% -50%; font: 300 13px 'JetBrains Mono', monospace; letter-spacing: .3em; color: var(--filament); opacity: 0; pointer-events: none; }
+  @media (max-width: 640px) { .copy p { font-size: 15px; } }
+</style>
+</head>
+<body>
+<section class="stage" id="stage">
+  <picture>
+    <source type="image/avif" srcset="../hero/earth-limb-2880.avif 2880w" sizes="100vw">
+    <img src="../hero/earth-limb-1440.webp" srcset="../hero/earth-limb-1440.webp 1440w, ../hero/earth-limb-2880.webp 2880w" sizes="100vw" alt="City lights at night seen from the International Space Station, with the blue airglow of the horizon.">
+  </picture>
+  <canvas id="game" aria-label="A playable spark. Move the pointer or use the arrow keys to fly it through the lamps."></canvas>
+  <header><img src="../brand/wordmark.svg" alt="Albretsen"><span class="mono"><span class="count" id="count">0 / 4</span> lamps lit</span></header>
+  <div class="copy">
+    <div class="mono spark-caret" style="margin-bottom:18px">Albretsen AS · Norway</div>
+    <h1 id="title">Software that pays for itself.</h1>
+    <p>Steer the spark through a lamp. Every lamp is a product I built.</p>
+    <div class="hud" id="hud"></div>
+  </div>
+  <div class="secret" id="secret">PUBLISHED ON GOOGLE PLAY SINCE 2016</div>
+</section>
+<script type="module">
+  import { createIgnite, DEFAULT_LAMPS } from './ignite.js';
+  import { ignite, strike } from '../motion.js';
+  const figures = { 'mcp-emails': '$782 MRR', 'fun-libs': '113,000+ installs', 'toolrails': '4 connectors', 'harbor': '549 commits', 'play-2016': 'since 2016' };
+  const canvas = document.getElementById('game');
+  const stage = document.getElementById('stage');
+  const narrow = matchMedia('(max-width: 640px)').matches;
+  const lamps = DEFAULT_LAMPS;
+  const game = createIgnite(canvas, narrow ? { markAt: [0.5, 0.33], markScale: 0.52 } : {});
+  const hud = document.getElementById('hud');
+  for (const l of lamps) {
+    const b = document.createElement('button'); b.textContent = l.name; b.dataset.id = l.id;
+    b.onclick = () => game.strike(l.id); hud.append(b);
+  }
+  ignite(document.getElementById('title'), { delay: 200 });
+  canvas.addEventListener('ignite:strike', ({ detail }) => {
+    document.getElementById('count').textContent = `${Math.min(detail.litCount, 4)} / 4`;
+    hud.querySelector(`[data-id="${detail.id}"]`)?.setAttribute('data-lit', '');
+    const [x, y] = game.positionOf(detail.id);
+    const el = document.createElement('div'); el.className = 'label';
+    el.style.left = x * 100 + '%'; el.style.top = y * 100 + '%';
+    if (detail.id === 'fun-libs') el.style.transform = 'translate(-50%, 34px)';
+    el.innerHTML = `<b>${detail.name}</b><span>${figures[detail.id] ?? ''}</span>`;
+    stage.append(el); strike(el.querySelector('b')); strike(el.querySelector('span'), { delay: 120 });
+  });
+  canvas.addEventListener('ignite:secret', () => {
+    document.getElementById('secret').animate([{ opacity: 0, letterSpacing: '.6em' }, { opacity: 1, offset: .2 }, { opacity: 1, offset: .8 }, { opacity: 0, letterSpacing: '.3em' }], { duration: 4200, easing: 'ease-out' });
+  });
+  window.game = game;
+  // #lit lights everything (useful for screenshots); #secret also fires the easter egg
+  if (location.hash === '#lit' || location.hash === '#secret') { lamps.forEach((l) => game.strike(l.id)); game.advance(2400); }
+  if (location.hash === '#secret') setTimeout(() => game.secret(), 1800);
+</script>
+</body>
+</html>

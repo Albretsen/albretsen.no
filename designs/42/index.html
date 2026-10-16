@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself. Same room since 2019, bigger builds every year.">
+<meta property="og:title" content="Asgeir Albretsen · Albretsen AS">
+<meta property="og:image" content="assets/identity/og.png">
+<link rel="icon" href="assets/identity/favicon.svg">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero/room-2019.webp" imagesrcset="assets/hero/room-2019.webp 1000w, assets/hero/room-2019@2x.webp 2000w" imagesizes="(min-width:1100px) 46vh, 92vw">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="top wrap">
+  <a href="./" class="brand" aria-label="Albretsen AS, home"><img src="assets/identity/lockup.svg" alt="" width="746" height="96"></a>
+  <nav aria-label="Main">
+    <a class="pill" href="#products" data-magnetic><span data-magnetic-label>Shelf</span></a>
+    <a class="pill" href="#retired" data-magnetic><span data-magnetic-label>Retired</span></a>
+    <button class="pill sound" type="button" aria-pressed="false" data-magnetic><span data-magnetic-label><i class="dot" aria-hidden="true"></i><span class="sl">Sound off</span></span></button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="sky" aria-hidden="true">
+    <img class="cloud c1" src="assets/objects/cloud.webp" alt="" width="320" height="236" data-bob style="--t:7s">
+    <img class="cloud c2" src="assets/objects/cloud.webp" alt="" width="320" height="236" data-bob style="--t:9s;--d:-3s">
+  </div>
+
+  <div class="wrap hero-grid">
+    <div class="then col">
+      <span class="chip lilac mono">2019 · age 17</span>
+      <h1 id="hero-title"><span class="h-a">Same room.</span><br><span class="h-b">Bigger builds.</span></h1>
+      <p class="blurb">A bedroom desk in Norway, one Android phone and a word game called Fun Libs. It went on to <b>113,000+ installs</b> with no marketing.</p>
+      <img class="sticker s17" src="assets/stickers/built-at-17.svg" alt="Sticker: built at 17, Fun Libs" width="525" height="150" data-bob style="--r:-4deg;--t:6s">
+    </div>
+
+    <figure class="room" id="room">
+      <div class="seam" data-room tabindex="0" role="slider" aria-label="Move between 2019 and today" aria-valuemin="2016" aria-valuemax="2026" aria-valuenow="2021" aria-valuetext="2021">
+        <img class="then-img" src="assets/hero/room-2019.webp" srcset="assets/hero/room-2019.webp 1000w, assets/hero/room-2019@2x.webp 2000w" sizes="(min-width:1100px) 46vh, 92vw" alt="Voxel bedroom in 2019: lilac walls at dusk, a small desk with a laptop and a phone showing the Fun Libs v4 icon, a sprout, one butter block hovering." width="1000" height="1152" fetchpriority="high">
+        <img class="now-img" src="assets/hero/room-today.webp" srcset="assets/hero/room-today.webp 1000w, assets/hero/room-today@2x.webp 2000w" sizes="(min-width:1100px) 46vh, 92vw" alt="The same room today: a studio desk with an ultrawide showing MCP Emails, the sprout grown into a tree, a shelf with four product cubes and an agent robot." width="1000" height="1152">
+        <i class="edge" aria-hidden="true"><b class="knob mono"><span class="yr">2021</span></b></i>
+        <span class="tag t-then mono" aria-hidden="true">then</span>
+        <span class="tag t-now mono" aria-hidden="true">now</span>
+      </div>
+      <figcaption class="milestone" aria-live="polite">
+        <span class="m-year mono">2021</span>
+        <span class="m-text">Consulting starts, alongside the first small utility apps.</span>
+        <span class="m-thumbs"></span>
+      </figcaption>
+      <p class="hint mono" aria-hidden="true"><span class="fine">Drag the edge</span><span class="coarse">Slide the edge</span> · or use ← →</p>
+    </figure>
+
+    <div class="now col">
+      <span class="chip lime mono">today · Albretsen AS</span>
+      <p class="who"><b>Asgeir Albretsen</b> builds software that pays for itself: apps, SaaS and infrastructure for AI agents, next to a day job writing software.</p>
+      <div class="ctas">
+        <a class="pill y big" href="#products" data-magnetic><span data-magnetic-label>See the shelf <span aria-hidden="true">↓</span></span></a>
+        <a class="pill big" href="mailto:asgeir@albretsen.no" data-magnetic><span data-magnetic-label>asgeir@albretsen.no</span></a>
+      </div>
+      <div class="cmd">
+        <code class="mono"><span aria-hidden="true">$ </span><span id="cmd">claude mcp add albretsen https://albretsen.no/mcp</span></code>
+        <button type="button" class="copy mono" data-magnetic aria-label="Copy the MCP command"><span data-magnetic-label>copy</span></button>
+      </div>
+      <div class="live" aria-label="Live activity from the products">
+        <img class="robot" src="assets/objects/agent-robot.webp" srcset="assets/objects/agent-robot.webp 1x, assets/objects/agent-robot@2x.webp 2x" alt="" width="320" height="402" data-bob style="--t:5s">
+        <div class="bubble">
+          <span class="lv mono"><i class="pulse" aria-hidden="true"></i>live on the shelf</span>
+          <ol class="feed mono" aria-live="off"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="drift-break" aria-hidden="true">
+  <img src="assets/objects/drift-blocks.webp" alt="" width="281" height="284" loading="lazy">
+</div>
+
+<section class="products wrap" id="products" aria-labelledby="p-title">
+  <div class="p-head">
+    <div>
+      <span class="eyebrow mono">01 · the shelf</span>
+      <h2 id="p-title">Four blocks, placed.</h2>
+      <p class="lede">The sprout became a tree and the shelf filled up. Each product earns its spot or comes down. Turn the shelf, hover a cube, pick one.</p>
+      <p class="since mono">Shipping on Google Play since 2016 · company since 2026</p>
+    </div>
+    <div class="shelf-wrap">
+      <div class="shelf" id="shelf" aria-hidden="true"></div>
+      <img class="shelf-still" src="assets/hero/room-seam.webp" alt="" width="1000" height="1152" loading="lazy">
+      <p class="shelf-hint mono" aria-hidden="true">drag to turn · click a cube</p>
+    </div>
+  </div>
+
+  <ul class="cards" id="cards" data-drop></ul>
+  <noscript><p class="lede">MCP Emails (<a href="https://mcpemails.com">mcpemails.com</a>), Fun Libs (<a href="https://funlibs.app">funlibs.app</a>), Toolrails (<a href="https://toolrails.com">toolrails.com</a>) and Harbor (<a href="https://harborknowledge.com">harborknowledge.com</a>).</p></noscript>
+
+  <div class="retired" id="retired">
+    <h3 class="acc-h">
+      <button type="button" class="acc-t" aria-expanded="false" aria-controls="ret-panel" id="ret-btn" data-state="closed">
+        <span class="acc-l"><img src="assets/objects/sprout.webp" alt="" width="302" height="406"> <span><b>Taken off the shelf</b><small class="mono">seven earlier builds, 2021–2026</small></span></span>
+        <span class="plus" aria-hidden="true"></span>
+      </button>
+    </h3>
+    <div class="acc-c" id="ret-panel" role="region" aria-labelledby="ret-btn" data-unstack data-state="closed" hidden>
+      <ul class="ret-grid"></ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="mark-stage-wrap">
+      <div class="mark-stage" id="mark" aria-hidden="true"></div>
+      <button type="button" class="pill drop-btn mono" data-magnetic><span data-magnetic-label>drop the next block</span></button>
+    </div>
+    <div class="foot-text">
+      <img class="wm" src="assets/identity/wordmark.svg" alt="Albretsen" width="486" height="76" loading="lazy">
+      <p class="avail">Takes one outside engagement at a time.</p>
+      <a class="mail" href="mailto:asgeir@albretsen.no" data-magnetic><span data-magnetic-label>asgeir@albretsen.no <img src="assets/objects/cursor.webp" alt="" width="255" height="384" loading="lazy"></span></a>
+      <p class="fine-print mono">Albretsen AS · Norway · every image on this page is code-built voxels, except the product logos</p>
+    </div>
+    <img class="mug" src="assets/objects/mug.webp" alt="" width="314" height="380" loading="lazy" data-bob style="--t:6s">
+  </div>
+</footer>
+
+<script src="assets/vendor/motion-12.23.12.js" defer></script>
+<script type="module" src="site.js"></script>
+</body>
+</html>

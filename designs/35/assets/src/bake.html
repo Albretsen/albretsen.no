@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>bake</title>
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+}}</script>
+<style>body{margin:0;background:#f6f0e8}canvas{display:block}</style>
+</head><body>
+<canvas id="c"></canvas>
+<pre id="out"></pre>
+<script type="module">
+// Offline baker. Run with headless Chrome --dump-dom; each line of #out is
+// "name|data:image/jpeg;base64,...". See src/bake.py.
+//   ?mode=seq&n=64&w=1920&h=1200&from=0&to=64
+//   ?mode=stills&set=hero|products|archive|og   (&w,&h override)
+//   ?mode=preview&view=bench&time=0.3&w=960&h=600   (render to canvas only)
+import { createRoom } from '../3d/room.js';
+const q = new URLSearchParams(location.search);
+const W = +(q.get('w') || 1920), H = +(q.get('h') || 1200);
+const canvas = document.getElementById('c');
+canvas.width = W; canvas.height = H; canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+const room = await createRoom(canvas, { base: '../', width: W, height: H, pixelRatio: 1, preserve: true });
+// let textures decode and upload
+await new Promise(r => setTimeout(r, 1500));
+room.render(); await new Promise(r => setTimeout(r, 300));
+const out = document.getElementById('out');
+const emit = name => { room.render(); out.textContent += name + '|' + canvas.toDataURL('image/jpeg', 0.94) + '\n'; };
+const mode = q.get('mode') || 'preview';
+const SETS = {
+  hero: [['hero-morning', 'wide', 0.22], ['hero-dusk', 'dusk', 0.93], ['hero-bench', 'bench', 0.42]],
+  products: [['product-mcp-emails', 'mcp-emails', 0.56], ['product-fun-libs', 'fun-libs', 0.46], ['product-toolrails', 'toolrails', 0.72], ['product-harbor', 'harbor', 0.05]],
+  archive: [['archive-tray', 'archive', 0.7], ['glass-niche', 'glass', 0.08]],
+};
+if (mode === 'seq') {
+  const n = +(q.get('n') || 64), from = +(q.get('from') || 0), to = +(q.get('to') || n);
+  for (let i = from; i < to; i++) { room.setProgress(i / (n - 1)); emit('f' + String(i).padStart(3, '0')); }
+} else if (mode === 'stills') {
+  for (const [name, view, time] of SETS[q.get('set')]) { room.setView(view); room.setTime(time); emit(name); }
+} else {
+  room.setView(q.get('view') || 'wide'); room.setTime(+(q.get('time') ?? 0.3));
+  if (q.get('p')) room.setProgress(+q.get('p'));
+  room.render();
+}
+document.title = 'done';
+</script>
+</body></html>

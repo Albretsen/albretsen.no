@@ -1,0 +1,123 @@
+/* ==========================================================================
+   Habit — motion study
+   Five named motions. Everything is quiet by default: short distances,
+   no bounce, one easing family. All of it switches off under
+   prefers-reduced-motion (see the bottom of the file).
+
+   Pair with motion.js (inkIn, typeTurn, lightsOut, pageTurn).
+   ========================================================================== */
+
+:root {
+  --ease-pen: cubic-bezier(.65, 0, .25, 1);   /* a pen stroke: slow start, decisive, settles */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --t-quick: 180ms;
+  --t-turn: 420ms;
+  --t-draw: 1100ms;
+}
+
+/* 1. INK-IN (entrance) ------------------------------------------------------
+   Any SVG marked [data-ink] draws itself when it scrolls into view.
+   Technique: pathLength="1" + stroke-dasharray/offset (Jake Archibald,
+   "Animated line drawing in SVG"; Codrops "SVG Drawing Animation").
+   motion.js adds pathLength and the .is-inked class; --i staggers strokes. */
+[data-ink] path, [data-ink] circle, [data-ink] line, [data-ink] polyline {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--t-draw) var(--ease-pen) calc(var(--i, 0) * 90ms);
+}
+[data-ink] circle[fill]:not([fill="none"]) { opacity: 0; transition: opacity 400ms var(--ease-out) calc(var(--i, 0) * 90ms + 500ms); }
+[data-ink].is-inked path, [data-ink].is-inked circle, [data-ink].is-inked line, [data-ink].is-inked polyline { stroke-dashoffset: 0; }
+[data-ink].is-inked circle[fill]:not([fill="none"]) { opacity: 1; }
+/* raster images (hero stills, product plates) "develop" instead: a soft wipe in the drawing direction */
+.ink-develop { clip-path: inset(0 100% 0 0); filter: blur(6px); opacity: .4;
+  transition: clip-path 1400ms var(--ease-pen), filter 900ms var(--ease-out) 300ms, opacity 600ms var(--ease-out); }
+.ink-develop.is-inked { clip-path: inset(0 0 0 0); filter: none; opacity: 1; }
+
+/* 2. TYPING TURN (conversation entrance) -----------------------------------
+   The site speaks in turns. A turn shows three pencil dots for a beat
+   proportional to its length, then the bubble unfolds from its own tail —
+   origin-aware, the way Radix Popover/Dropdown content grows from
+   var(--radix-*-transform-origin). Visitor turns grow from the right. */
+.turn { transform-origin: var(--turn-origin, 0% 100%); }
+.turn[data-from="you"] { --turn-origin: 100% 100%; }
+.turn[data-state="typing"] .turn-text { display: none; }
+.turn[data-state="typing"] .typing { display: inline-flex; }
+.typing { display: none; gap: 5px; align-items: center; height: 1em; }
+.typing i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .25;
+  animation: typing-dot 1.1s var(--ease-pen) infinite; }
+.typing i:nth-child(2) { animation-delay: .16s; }
+.typing i:nth-child(3) { animation-delay: .32s; }
+@keyframes typing-dot { 0%, 100% { opacity: .2; transform: translateY(0); } 40% { opacity: .85; transform: translateY(-2px); } }
+.turn[data-state="open"] { animation: turn-open var(--t-turn) var(--ease-out) both; }
+.turn[data-state="open"] .turn-text { animation: turn-text 600ms var(--ease-out) 60ms both; }
+@keyframes turn-open {
+  from { opacity: 0; transform: scale(.94) translateY(6px); clip-path: inset(30% 40% -12px -12px round 18px); }
+  to   { opacity: 1; transform: none; clip-path: inset(-12px -12px -12px -12px round 18px); }
+}
+@keyframes turn-text { from { opacity: 0; filter: blur(3px); } to { opacity: 1; filter: none; } }
+/* Radix primitives get the same unfold (Popover, Tooltip, DropdownMenu, HoverCard) */
+[data-radix-popper-content-wrapper] > [data-state="open"],
+[data-radix-popper-content-wrapper] > [data-state="delayed-open"] {
+  transform-origin: var(--radix-popover-content-transform-origin, var(--radix-tooltip-content-transform-origin, var(--radix-dropdown-menu-content-transform-origin, center)));
+  animation: turn-open var(--t-turn) var(--ease-out) both;
+}
+[data-radix-popper-content-wrapper] > [data-state="closed"] { animation: turn-close 160ms var(--ease-out) both; }
+@keyframes turn-close { to { opacity: 0; transform: scale(.97); } }
+/* Radix Accordion/Collapsible: height from --radix-*-content-height */
+[data-radix-collection-item] + [data-state="open"][role="region"] { animation: fold-open 360ms var(--ease-pen); }
+[data-radix-collection-item] + [data-state="closed"][role="region"] { animation: fold-close 260ms var(--ease-pen); }
+@keyframes fold-open { from { height: 0; opacity: 0; } to { height: var(--radix-accordion-content-height); opacity: 1; } }
+@keyframes fold-close { from { height: var(--radix-accordion-content-height); } to { height: 0; opacity: 0; } }
+
+/* 3. PENCIL UNDERLINE (hover) ----------------------------------------------
+   A hand-drawn underline (extras/annotations/underline.svg) is drawn under a
+   link left-to-right on hover and rubbed out (right-to-left) on leave — the
+   "hand-drawn underline" pattern, done with a mask so it inherits colour. */
+.pencil { position: relative; text-decoration: none; color: inherit; }
+.pencil::after {
+  content: ""; position: absolute; left: -2%; right: -2%; bottom: -.32em; height: .42em;
+  background: currentColor;
+  -webkit-mask: url(extras/annotations/underline.svg) center / 100% 100% no-repeat;
+          mask: url(extras/annotations/underline.svg) center / 100% 100% no-repeat;
+  clip-path: inset(0 100% 0 0); opacity: .9;
+  transition: clip-path 380ms var(--ease-pen);
+}
+.pencil:hover::after, .pencil:focus-visible::after { clip-path: inset(0 0 0 0); }
+
+/* 4. LIGHTS OUT (theme switch — the signature delight) ---------------------
+   View Transitions API. The new theme is revealed through a hand-drawn,
+   slightly wobbly circle that grows out of the lamp's bulb (motion.js
+   generates the polygon keyframes). Meanwhile the old page dims a touch and
+   the lamp's cord is pulled. Circle-reveal pattern via
+   rebeccamdeprey.com/blog/view-transition-api; the wobble is ours. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-image-pair(root) { isolation: auto; }
+html.lights-switching::view-transition-old(root) { animation: lights-dim 900ms var(--ease-pen) both; }
+@keyframes lights-dim { to { filter: brightness(.92) blur(.6px); } }
+.lamp #cord { transition: transform 260ms var(--ease-out); transform-box: fill-box; transform-origin: top; }
+.lamp.is-pulled #cord { transform: translateY(5px) scaleY(1.12); }
+.lamp #rays path { stroke-dasharray: 1 1; stroke-dashoffset: 0; transition: stroke-dashoffset 700ms var(--ease-pen) 250ms, opacity 400ms; }
+:root[data-theme="dark"] .lamp #rays path { stroke-dashoffset: 1; opacity: 0; }
+
+/* 5. PAGE TURN (section/route transition) ----------------------------------
+   Same-document View Transition between "pages" of the conversation (e.g.
+   opening a product). The old view lifts away like a turned sheet; the new
+   one settles in, and anything named with view-transition-name (a product
+   plate, the crystal) morphs in place. */
+::view-transition-old(page) { animation: page-out 320ms var(--ease-pen) both; }
+::view-transition-new(page) { animation: page-in 520ms var(--ease-out) 80ms both; }
+@keyframes page-out { to { opacity: 0; transform: translateY(-14px) rotate(-.4deg); filter: blur(2px); } }
+@keyframes page-in { from { opacity: 0; transform: translateY(18px); filter: blur(3px); } }
+::view-transition-group(*) { animation-duration: 520ms; animation-timing-function: var(--ease-pen); }
+
+/* + DRIFT (idle life for specimens) --------------------------------------- */
+.drift { animation: drift 14s ease-in-out infinite alternate; transform-origin: 50% 120%; }
+.drift:nth-of-type(2n) { animation-duration: 17s; animation-direction: alternate-reverse; }
+@keyframes drift { 0% { transform: translate(0, 0) rotate(-1.5deg); } 50% { transform: translate(4px, -6px) rotate(.5deg); } 100% { transform: translate(-3px, -2px) rotate(2deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after, ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+    animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; transition-delay: 0ms !important;
+  }
+  .ink-develop { clip-path: none; filter: none; opacity: 1; }
+}

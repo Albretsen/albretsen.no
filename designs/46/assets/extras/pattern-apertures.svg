@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <!-- Seamless tile of little lenses whose three-blade apertures form the brand "A". Half-drop repeat. -->
+  <defs>
+    <g id="l">
+      <circle r="27" fill="#FF99C2"/><circle r="19" fill="#381A13"/>
+      <polygon points="0,-11 9.5,5.5 -9.5,5.5" fill="#FFE97E" stroke="#FFE97E" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="0,1 3,6 -3,6" fill="#381A13"/>
+      <ellipse cx="-8" cy="-10" rx="4" ry="2.4" fill="#fff" opacity=".85" transform="rotate(-30 -8 -10)"/>
+    </g>
+  </defs>
+  <rect width="160" height="160" fill="#FFE97E"/>
+  <use href="#l" x="40" y="40"/>
+  <use href="#l" x="120" y="120"/>
+  <use href="#l" x="120" y="-40"/>
+  <use href="#l" x="-40" y="120"/>
+  <use href="#l" x="200" y="120"/>
+  <use href="#l" x="120" y="200"/>
+  <circle cx="120" cy="40" r="5" fill="#FC9E47"/><circle cx="40" cy="120" r="5" fill="#8DEFC5"/>
+</svg>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>glb export</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head><body><pre id="out">pending</pre>
+<script type="module">
+// Builds the Albretsen mark as a stack of extruded paper layers from
+// identity/logo-mark.svg and exports a binary glTF (base64 into #out, read with --dump-dom).
+import * as THREE from 'three';
+import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
+import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+// Same layers as identity/logo-mark.svg, with clip paths resolved by hand (SVGLoader ignores clipPath).
+const txt = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+<path fill="#0a1936" d="M30 6.5 L90.5 7 Q113.5 7.4 113.2 30.5 L113.6 90 Q113.4 113.4 90 113.2 L30.4 113.6 Q6.6 113.3 6.8 90.2 L6.4 30.2 Q6.9 6.4 30 6.5 Z"/>
+<path fill="#9ada5e" d="M7 37 C18 21 34 35 56 25 S92 13 113 20 L113 26 C96 20 84 32 58 32.5 S22 29 7 43 Z"/>
+<path fill="#9ada5e" fill-opacity=".5" d="M7 49 C22 37 40 45 62 39 S100 31 113 34 L113 37.5 C100 35 86 43 62 44 S24 42 7 52 Z"/>
+<path fill="#f68c26" d="M25.4 92 A36 36 0 1 1 94.6 92 Z"/>
+<path fill="#122a52" d="M6.8 89 C24 80 40 90 62 85 S98 77 113.5 83 L113.6 90 Q113.4 113.4 90 113.2 L30.4 113.6 Q6.6 113.3 6.8 90.2 Z"/>
+<path fill="#f5eede" fill-rule="evenodd" d="M20.5 98.2 L59.6 20.4 L100.2 97.6 L78.4 98.4 L72.3 86.1 L47.6 86.5 L41.9 98.0 Z M52.6 74.4 L60.1 59.2 L67.6 74.2 Z"/>
+<path fill="#1f4274" d="M13 98.6 C40 95.4 80 100.6 107 97.2 L107.4 104.6 C80 107 40 102.6 12.6 105.4 Z"/>
+</svg>`;
+const data = new SVGLoader().parse(txt);
+const root = new THREE.Group(); root.name = 'AlbretsenMark';
+let z = 0; const S = 1 / 60;
+data.paths.forEach((path, i) => {
+  const fill = path.userData.style.fill; if (!fill || fill === 'none') return;
+  const col = new THREE.Color().setStyle(fill);
+  const mat = new THREE.MeshStandardMaterial({ color: col, roughness: 0.9, metalness: 0, name: 'paper-' + col.getHexString(), side: THREE.DoubleSide });
+  SVGLoader.createShapes(path).forEach((shape) => {
+    const geo = new THREE.ExtrudeGeometry(shape, { depth: 1.2, bevelEnabled: false, curveSegments: 16 });
+    const m = new THREE.Mesh(geo, mat); m.position.z = z; m.name = 'layer-' + i; root.add(m);
+  });
+  z += 3.2; // gap between paper layers
+});
+root.scale.set(S, -S, S); root.position.set(-60 * S, 60 * S, 0);
+const scene = new THREE.Scene(); scene.add(root);
+const buf = await new GLTFExporter().parseAsync(scene, { binary: true });
+let s = ''; const u = new Uint8Array(buf); for (let i = 0; i < u.length; i++) s += String.fromCharCode(u[i]);
+document.getElementById('out').textContent = 'GLB:' + btoa(s) + ':END';
+</script></body></html>

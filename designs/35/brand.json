@@ -1,0 +1,20 @@
+{
+  "name": "Kiln Light",
+  "tagline": "A quiet sunlit room, one day of light, and the products fired as glazed tiles.",
+  "summary": "Albretsen AS is a small sunlit room built from three.js primitives, with each real product logo fired as a ceramic tile. Scrolling scrubs 64 pre-rendered frames: the camera walks in while one day passes, and further down the same room runs live so the visitor can turn it over. The calm and the honest materials let the technical depth speak without decoration, which suits one developer who ships, keeps what earns and archives the rest.",
+  "palette": ["#f6f0e8", "#e8dac9", "#d4b8a1", "#bf6d4c", "#e18344", "#614735", "#282019", "#357e9c", "#09181f"],
+  "type": ["Instrument Serif", "Geist", "Geist Mono"],
+  "voice": "Plain, unhurried and exact, with one warm word per line. Example: \"Quiet software that pays for itself.\"",
+  "motion": "Only the light moves on its own. Everything else enters with a focus pull (blur to sharp, a 14 px rise, expo-out) and settles with at most 4% overshoot.",
+  "sound": "Opt-in Web Audio synthesis tuned to A5: tok on a glazed tile, ting of glass, a glide in fifths, a clay thum, and embers crackling at dusk.",
+  "mark": "An arch with a ledge reads as a soft A, and a single glaze-blue sphere rests on the ledge. It is the room's window and the one drop of glaze that every icon carries.",
+  "inspiration": [
+    "https://hoverstat.es",
+    "https://polyhaven.com/a/brown_photostudio_05",
+    "https://ambientcg.com/view?id=Travertine002",
+    "https://images.nasa.gov/details/PIA11833",
+    "https://www.radix-ui.com/primitives/docs/guides/animation",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using"
+  ]
+}

@@ -1,0 +1,142 @@
+/* Albretsen AS — design 45 "Drift" — tokens + motion study (CSS half; springs live in motion.js).
+   Named animations in this file:
+     drift-surface  entrance for static content when JS is off (spring-shaped linear() easing)
+     drift-settle   Radix Dialog / Popover / DropdownMenu / Tooltip enter + exit via [data-state]
+     drift-gloss    studio-light highlight sweeping across a render on hover
+     drift-orbit    a bead orbiting an element (decor, e.g. around the 2026 pebble or a product tile)
+     drift-bob      the weightless idle float for images placed around the page
+*/
+
+/* ---------- palette: one hue (OKLCH 180), many shades ---------- */
+:root {
+  --teal-50: oklch(0.985 0.012 180);  /* #f2fdfa */
+  --teal-100: oklch(0.955 0.03 180);  /* #dcf7f1 */
+  --teal-200: oklch(0.90 0.055 180);  /* #b7ebdf */
+  --teal-300: oklch(0.83 0.085 180);  /* #87dac9 */
+  --teal-400: oklch(0.74 0.11 180);   /* #4bc1ad */
+  --teal-500: oklch(0.64 0.115 180);  /* #08a28f */
+  --teal-600: oklch(0.54 0.10 180);   /* #008171 */
+  --teal-700: oklch(0.44 0.08 180);   /* #006154 */
+  --teal-800: oklch(0.34 0.06 180);   /* #034239 */
+  --teal-900: oklch(0.25 0.042 180);  /* #042822 */
+  --teal-950: oklch(0.18 0.028 180);  /* #031612 */
+  --teal-990: oklch(0.13 0.018 180);  /* #020907 */
+
+  /* spring-shaped easings, sampled from motion.js presets (Spring.sample) */
+  --ease-weightless: linear(0, 0.0478, 0.1642, 0.3189, 0.48, 0.644, 0.7908, 0.9079, 1.0027, 1.0695, 1.1093, 1.1296, 1.1327, 1.124, 1.107, 1.0856, 1.0641, 1.0426, 1.0238, 1.009, 0.9972, 0.9892, 0.9846, 0.9824, 0.9825, 0.9839, 0.9864, 0.9893, 0.9921, 0.9949, 0.9973, 0.9992, 1.0007, 1.0016, 1.0022, 1.0024, 1.0023, 1.0021, 1.0017, 1.0013, 1);
+  --dur-weightless: 1500ms;
+  --ease-buoy: linear(0, 0.0542, 0.1816, 0.3472, 0.5229, 0.6777, 0.823, 0.9394, 1.025, 1.0781, 1.1105, 1.1221, 1.1184, 1.1046, 1.0866, 1.0652, 1.0442, 1.0257, 1.0115, 0.9998, 0.9919, 0.9872, 0.9852, 0.9852, 0.9866, 0.9888, 0.9914, 0.9938, 0.9962, 0.9982, 0.9997, 1.0008, 1.0014, 1.0018, 1.0018, 1.0017, 1.0015, 1.0012, 1.0008, 1.0005, 1);
+  --dur-buoy: 920ms;
+  --ease-tide: linear(0, 0.0166, 0.0566, 0.1121, 0.1772, 0.2471, 0.3185, 0.3889, 0.4566, 0.5142, 0.5739, 0.6287, 0.6783, 0.7229, 0.7626, 0.7978, 0.8286, 0.8529, 0.8765, 0.8969, 0.9144, 0.9293, 0.9419, 0.9526, 0.9616, 0.9684, 0.9747, 0.98, 0.9843, 0.9878, 0.9906, 0.993, 0.9948, 0.9961, 0.9973, 0.9982, 0.9989, 0.9995, 0.9999, 1.0001, 1);
+  --dur-tide: 660ms;
+  --ease-settle: linear(0, 0.0355, 0.1068, 0.2003, 0.3049, 0.4122, 0.5161, 0.6126, 0.6991, 0.7745, 0.8384, 0.8911, 0.9334, 0.9663, 0.9936, 1.0106, 1.022, 1.029, 1.0324, 1.0333, 1.0322, 1.0299, 1.0269, 1.0234, 1.0198, 1.0164, 1.0131, 1.0099, 1.0074, 1.0053, 1.0036, 1.0022, 1.0011, 1.0003, 0.9997, 0.9993, 0.999, 0.9989, 0.9989, 0.9989, 1);
+  --dur-settle: 540ms;
+
+  /* semantic, day */
+  --bg: var(--teal-100);
+  --bg-raised: var(--teal-50);
+  --ink: var(--teal-900);
+  --ink-soft: var(--teal-700);
+  --ink-faint: var(--teal-600);
+  --line: color-mix(in oklch, var(--teal-700) 18%, transparent);
+  --accent: var(--teal-500);
+  --glow: transparent;
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  --bg: var(--teal-990);
+  --bg-raised: var(--teal-950);
+  --ink: var(--teal-50);
+  --ink-soft: var(--teal-200);
+  --ink-faint: var(--teal-400);
+  --line: color-mix(in oklch, var(--teal-300) 16%, transparent);
+  --accent: var(--teal-300);
+  --glow: color-mix(in oklch, var(--teal-300) 45%, transparent);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: var(--teal-990); --bg-raised: var(--teal-950); --ink: var(--teal-50); --ink-soft: var(--teal-200);
+    --ink-faint: var(--teal-400); --line: color-mix(in oklch, var(--teal-300) 16%, transparent);
+    --accent: var(--teal-300); --glow: color-mix(in oklch, var(--teal-300) 45%, transparent); color-scheme: dark;
+  }
+}
+
+/* ---------- drift-surface: no-JS entrance (motion.js surface() is the spring version) ---------- */
+@keyframes drift-surface {
+  from { opacity: 0; transform: translate3d(0, 28px, 0) scale(.985); filter: blur(10px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+.drift-surface { animation: drift-surface var(--dur-weightless) var(--ease-weightless) both; }
+
+/* ---------- drift-settle: Radix primitives via data-state ----------
+   Radix keeps closed content mounted until the exit animation ends, so both directions animate.
+   Popover/Dropdown also expose --radix-*-content-transform-origin; we grow from there. */
+@keyframes drift-settle-in  { from { opacity: 0; transform: translateY(10px) scale(.94); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes drift-settle-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(6px) scale(.97); filter: blur(4px); } }
+@keyframes drift-veil-in  { from { opacity: 0; backdrop-filter: blur(0); } to { opacity: 1; backdrop-filter: blur(14px); } }
+@keyframes drift-veil-out { from { opacity: 1; } to { opacity: 0; } }
+[data-radix-popper-content-wrapper] > [data-state] { transform-origin: var(--radix-popover-content-transform-origin, var(--radix-dropdown-menu-content-transform-origin, var(--radix-tooltip-content-transform-origin, center))); }
+.drift-content[data-state='open'], .drift-content[data-state='delayed-open'] { animation: drift-settle-in var(--dur-settle) var(--ease-settle) both; }
+.drift-content[data-state='closed'] { animation: drift-settle-out 220ms cubic-bezier(.4, 0, 1, 1) both; }
+.drift-overlay[data-state='open'] { animation: drift-veil-in 420ms ease-out both; }
+.drift-overlay[data-state='closed'] { animation: drift-veil-out 240ms ease-in both; }
+/* Accordion / Collapsible height comes from Radix's measured CSS var */
+@keyframes drift-open  { from { height: 0; opacity: 0; } to { height: var(--radix-accordion-content-height, var(--radix-collapsible-content-height)); opacity: 1; } }
+@keyframes drift-close { from { height: var(--radix-accordion-content-height, var(--radix-collapsible-content-height)); } to { height: 0; opacity: 0; } }
+.drift-collapse[data-state='open'] { animation: drift-open var(--dur-settle) var(--ease-settle); overflow: hidden; }
+.drift-collapse[data-state='closed'] { animation: drift-close 260ms ease-in; overflow: hidden; }
+
+/* ---------- drift-gloss: a softbox reflection slides over a render on hover ---------- */
+.drift-gloss { position: relative; isolation: isolate; overflow: hidden; }
+.drift-gloss::after {
+  content: ''; position: absolute; inset: -20%; pointer-events: none; z-index: 2;
+  background: linear-gradient(105deg, transparent 38%, color-mix(in oklch, white 55%, transparent) 48%, color-mix(in oklch, white 12%, transparent) 54%, transparent 62%);
+  transform: translateX(-70%); opacity: 0; mix-blend-mode: soft-light;
+}
+.drift-gloss:hover::after, .drift-gloss:focus-visible::after { animation: drift-gloss 1.1s var(--ease-tide) forwards; }
+@keyframes drift-gloss { 0% { transform: translateX(-70%); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateX(70%); opacity: 0; } }
+
+/* ---------- drift-orbit: a bead circling an element (decor) ---------- */
+.drift-orbit { position: relative; }
+.drift-orbit::before {
+  content: ''; position: absolute; width: 10px; height: 10px; border-radius: 50%; left: 50%; top: 50%; margin: -5px;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--teal-300) 40%, var(--teal-600));
+  box-shadow: 0 0 14px var(--glow);
+  offset-path: ellipse(58% 22% at 50% 50%); offset-rotate: 0deg; animation: drift-orbit 9s linear infinite;
+}
+@keyframes drift-orbit { to { offset-distance: 100%; } }
+
+/* ---------- drift-bob: weightless idle float for images around the page ---------- */
+@keyframes drift-bob {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  33% { transform: translate3d(2px, -9px, 0) rotate(.8deg); }
+  66% { transform: translate3d(-3px, -4px, 0) rotate(-.6deg); }
+}
+.drift-bob { animation: drift-bob 11s ease-in-out infinite; will-change: transform; }
+.drift-bob:nth-child(2n) { animation-duration: 13s; animation-delay: -4s; }
+.drift-bob:nth-child(3n) { animation-duration: 17s; animation-delay: -9s; }
+
+/* ---------- tide turn: view transition defaults (motion.js drives the clip-path) ---------- */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 2; }
+
+/* ---------- <tide-switch> ---------- */
+.tide-switch { all: unset; cursor: pointer; display: inline-grid; border-radius: 999px; transition: transform var(--dur-buoy) var(--ease-buoy); }
+.tide-switch:hover { transform: translateY(-1px) scale(1.04); }
+.tide-switch:active { transform: scale(.96); }
+.tide-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.tide-switch .ts-glass { fill: color-mix(in oklch, var(--teal-50) 70%, transparent); }
+.tide-switch .ts-rim { fill: none; stroke: color-mix(in oklch, var(--teal-700) 30%, transparent); stroke-width: 1; }
+.tide-switch .ts-water { fill: var(--teal-300); transition: fill .8s; }
+.tide-switch .ts-p1 { stop-color: var(--teal-200); } .tide-switch .ts-p2 { stop-color: var(--teal-600); }
+.tide-switch .ts-glow { fill: var(--teal-300); filter: blur(3px); opacity: 0; }
+:root[data-theme='dark'] .tide-switch .ts-glass { fill: color-mix(in oklch, var(--teal-900) 80%, transparent); }
+:root[data-theme='dark'] .tide-switch .ts-water { fill: var(--teal-700); }
+:root[data-theme='dark'] .tide-switch .ts-rim { stroke: color-mix(in oklch, var(--teal-300) 30%, transparent); }
+:root[data-theme='dark'] .tide-switch .ts-p1 { stop-color: var(--teal-100); } :root[data-theme='dark'] .tide-switch .ts-p2 { stop-color: var(--teal-300); }
+
+@media (prefers-reduced-motion: reduce) {
+  .drift-surface, .drift-bob, .drift-orbit::before, .drift-gloss:hover::after { animation: none !important; }
+  .drift-content[data-state], .drift-overlay[data-state], .drift-collapse[data-state] { animation-duration: 1ms !important; }
+}

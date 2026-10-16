@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kiln Light — asset kit</title>
+<meta name="description" content="Design 35 for Albretsen AS: a sunlit diorama, a bespoke icon system and one day of light, scrubbed by scroll.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  :root {
+    --limewash: #f6f0e8; --sand: #e8dac9; --clay: #d4b8a1; --terracotta: #bf6d4c; --ember: #e18344;
+    --umber: #614735; --ink: #282019; --mist: #cddee6; --glaze: #357e9c; --deepglaze: #124356; --night: #09181f;
+    --bg: var(--limewash); --fg: var(--ink); --muted: color-mix(in oklch, var(--ink) 58%, var(--limewash));
+    --line: color-mix(in oklch, var(--ink) 12%, transparent); --card: color-mix(in oklch, white 45%, var(--limewash));
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+    --gutter: clamp(16px, 4vw, 56px);
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { margin: 0; background: var(--bg) url("extras/limewash-tile.webp") 0 0 / 512px; color: var(--fg); font: 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding-inline: var(--gutter); }
+  .k-icon { width: 1.15em; height: 1.15em; vertical-align: -0.2em; }
+  .eyebrow { font: 500 11.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: flex; gap: 10px; align-items: center; }
+  .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--glaze); }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; margin: 0; }
+  h2 { font-size: clamp(40px, 6vw, 84px); line-height: .95; }
+  h2 em, h1 em { font-style: italic; color: var(--terracotta); }
+  .lede { font-size: clamp(17px, 1.4vw, 20px); color: var(--muted); max-width: 56ch; }
+  section { padding-block: clamp(80px, 11vw, 150px); position: relative; }
+  .sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 48px; align-items: end; margin-bottom: 56px; }
+  @media (max-width: 820px) { .sec-head { grid-template-columns: 1fr; } }
+  .cap { font: 12px/1.45 var(--mono); color: var(--muted); margin-top: 12px; overflow-wrap: anywhere; }
+  .cap b { color: var(--fg); font-weight: 500; }
+  figure { margin: 0; }
+
+  /* top bar */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; justify-content: space-between; align-items: center; padding: 14px var(--gutter); background: linear-gradient(var(--bg), color-mix(in oklch, var(--bg) 0%, transparent)); }
+  .bar img { height: 30px; width: auto; }
+  .bar nav { display: flex; gap: 6px; align-items: center; }
+  .pill { font: 500 13px/1 var(--sans); border: 1px solid var(--line); background: color-mix(in oklch, var(--bg) 70%, transparent); backdrop-filter: blur(10px); color: var(--fg); padding: 9px 14px; border-radius: 999px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; text-decoration: none; }
+  .pill[aria-pressed="true"] { background: var(--ink); color: var(--limewash); }
+  @media (max-width: 640px) { .bar nav .hide-s { display: none; } }
+
+  /* hero scrub */
+  .scrub-track { height: 420vh; position: relative; }
+  .scrub-stick { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+  .scrub-stick canvas { width: 100%; height: 100%; display: block; }
+  .scrub-copy { position: absolute; left: var(--gutter); bottom: clamp(28px, 7vh, 72px); right: var(--gutter); display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; pointer-events: none; }
+  .scrub-copy h1 { font-size: clamp(54px, 9.5vw, 148px); line-height: .88; color: var(--ink); transition: color 1.2s; text-shadow: 0 1px 30px color-mix(in oklch, var(--limewash) 70%, transparent); }
+  .dusk .scrub-copy h1 { color: var(--limewash); text-shadow: 0 2px 40px rgba(0,0,0,.35); }
+  .clock { font: 500 12px/1.6 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); background: color-mix(in oklch, var(--limewash) 75%, transparent); backdrop-filter: blur(10px); border-radius: 14px; padding: 12px 14px; min-width: 210px; pointer-events: auto; }
+  .clock .meter { height: 2px; background: var(--line); margin-top: 10px; position: relative; overflow: hidden; border-radius: 2px; }
+  .clock .meter i { position: absolute; inset: 0 auto 0 0; width: var(--p, 0%); background: linear-gradient(90deg, var(--glaze), var(--ember)); }
+  .scrub-hint { position: absolute; top: 84px; left: 50%; transform: translateX(-50%); font: 12px var(--mono); color: var(--muted); letter-spacing: .08em; }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .sw { border-radius: 20px; overflow: hidden; background: var(--card); border: 1px solid var(--line); }
+  .sw i { display: block; aspect-ratio: 4/3; background: var(--c); }
+  .sw div { padding: 12px 14px 14px; font: 12px/1.5 var(--mono); }
+  .sw b { font: 500 14px var(--sans); display: block; margin-bottom: 4px; }
+
+  /* type */
+  .type { display: grid; gap: 14px; }
+  .spec { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; padding: 28px 0; border-top: 1px solid var(--line); align-items: baseline; }
+  @media (max-width: 720px) { .spec { grid-template-columns: 1fr; gap: 8px; } }
+  .spec .s1 { font: 400 clamp(56px, 9vw, 132px)/.9 var(--serif); letter-spacing: -0.015em; }
+  .spec .s2 { font: 400 clamp(22px, 2.4vw, 32px)/1.3 var(--sans); letter-spacing: -0.01em; max-width: 34ch; }
+  .spec .s3 { font: 400 15px/1.7 var(--mono); }
+
+  /* grids */
+  .g2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .g4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 960px) { .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .g3 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .g2, .g3 { grid-template-columns: 1fr; } .g4 { grid-template-columns: 1fr 1fr; gap: 12px; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 18px; }
+  .shot { border-radius: 18px; overflow: hidden; background: var(--sand); }
+  .shot img { width: 100%; height: auto; }
+
+  .id-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .id-grid { grid-template-columns: 1fr 1fr; } }
+  .id-tile { border-radius: 24px; border: 1px solid var(--line); min-height: 220px; display: grid; place-items: center; padding: 32px; position: relative; }
+  .id-tile .cap { position: absolute; left: 18px; bottom: 14px; margin: 0; }
+  .id-tile.dark { background: var(--night); border-color: transparent; }
+  .id-tile.dark .cap { color: #cddee6aa; }
+
+  /* products */
+  .prod { position: relative; }
+  .prod .shot { aspect-ratio: 4/5; }
+  .prod .shot img { height: 100%; object-fit: cover; transition: transform 1.4s var(--ease-out); }
+  .prod:hover .shot img { transform: scale(1.035); }
+  .prod h3 { font-size: 30px; margin-top: 14px; display: flex; justify-content: space-between; align-items: baseline; }
+  .prod h3 span { font: 500 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .prod p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+  .fig { font: 400 13px var(--mono); margin-top: 10px; display: inline-flex; gap: 8px; align-items: center; border-bottom: 1px dashed var(--line); cursor: help; }
+
+  /* icons */
+  .icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; }
+  .ic { aspect-ratio: 1; border-radius: 18px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; align-content: center; gap: 10px; font: 11px var(--mono); color: var(--muted); }
+  .ic svg { width: 40px; height: 40px; color: var(--ink); transition: transform .6s var(--ease-molten); }
+  .ic:hover svg { transform: translateY(-3px) scale(1.08); }
+  .ic:hover .g { fill: var(--ember); }
+  .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+  @media (max-width: 700px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  /* extras */
+  .masonry { columns: 3 300px; column-gap: 20px; }
+  .masonry > figure { break-inside: avoid; margin-bottom: 20px; }
+  .fracture-demo { aspect-ratio: 16/9; border-radius: 18px; background: var(--sand) url("extras/fracture-field.svg") center / cover; }
+  .light-demo { aspect-ratio: 16/10; border-radius: 18px; background: var(--sand); position: relative; overflow: hidden; }
+  .light-demo .k-windowlight { mix-blend-mode: normal; opacity: .85; }
+  .light-demo span { position: absolute; left: 20px; bottom: 16px; font: 400 34px/1 var(--serif); }
+
+  /* live room */
+  .live { aspect-ratio: 16/9; border-radius: 28px; overflow: hidden; background: var(--sand); position: relative; border: 1px solid var(--line); }
+  .live iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .live button { position: absolute; inset: 0; margin: auto; width: max-content; height: max-content; }
+  .live img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 600px) { .live { aspect-ratio: 3/4; } }
+
+  /* motion lab */
+  .lab { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 860px) { .lab { grid-template-columns: 1fr; } }
+  .lab .card { padding: 26px; min-height: 260px; }
+  .lab h3 { font-size: 30px; margin-bottom: 4px; }
+  .lab .cap { margin: 0 0 18px; }
+  [data-strata-item] { border-top: 1px solid var(--line); }
+  [data-strata-trigger] { all: unset; cursor: pointer; display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 14px 0; font: 500 16px var(--sans); }
+  [data-strata-trigger]:focus-visible { outline: 2px solid var(--glaze); outline-offset: 4px; border-radius: 4px; }
+  [data-strata-content] p { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
+  [data-niche] { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; }
+  [data-niche][hidden] { display: none; }
+  [data-niche-content] { position: relative; width: min(560px, 100%); background: var(--limewash); border-radius: 22px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(40,25,10,.5); }
+  [data-niche-content] img { aspect-ratio: 16/10; object-fit: cover; width: 100%; }
+  [data-niche-content] .in { padding: 22px 24px 24px; }
+  [data-niche-content] h3 { font-size: 34px; }
+  .k-tip { position: absolute; z-index: 60; background: var(--ink); color: var(--limewash); font: 12px/1.35 var(--mono); padding: 8px 11px; border-radius: 10px; pointer-events: none; max-width: 240px; }
+  [data-pebble-list] { display: inline-flex; flex-wrap: wrap; max-width: 100%; padding: 4px; border-radius: 999px; background: color-mix(in oklch, var(--ink) 6%, transparent); }
+  [data-pebble-list] [role="tab"] { all: unset; position: relative; z-index: 1; cursor: pointer; padding: 9px 16px; border-radius: 999px; font: 500 14px var(--sans); transition: color .42s; }
+  [data-pebble-panel][hidden] { display: none; }
+  [data-pebble-list] [role="tab"]:focus-visible { outline: 2px solid var(--glaze); }
+  [data-pebble-panel] { padding-top: 18px; display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: center; }
+  [data-pebble-panel] img { border-radius: 14px; }
+  [data-lift] { position: absolute; z-index: 55; width: 280px; background: var(--limewash); border: 1px solid var(--line); border-radius: 18px; padding: 10px; box-shadow: 0 24px 50px -20px rgba(60,40,20,.4); }
+  [data-lift] img { border-radius: 10px; }
+  [data-lift] p { margin: 10px 4px 2px; font-size: 14px; }
+  .glow-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .glow-row .kiln-glow { border-radius: 18px; border: 1px solid var(--line); padding: 18px; min-height: 130px; background: var(--card); display: flex; flex-direction: column; justify-content: space-between; }
+  .glow-row svg { width: 30px; height: 30px; }
+  @media (max-width: 600px) { .glow-row { grid-template-columns: 1fr; } }
+  .strata-divider { height: 36px; background: url("extras/strata-band.webp") center / cover; border-radius: 999px; margin: 0 var(--gutter); opacity: .9; }
+  @media (max-width: 600px) {
+    .scrub-copy { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .clock { min-width: 0; font-size: 10.5px; padding: 10px 12px; }
+    .bar img { height: 24px; }
+  }
+  footer { padding: 80px 0 120px; font: 12.5px/1.8 var(--mono); color: var(--muted); }
+  footer a { color: var(--fg); }
+</style>
+</head>
+<body>
+<div hidden id="sprite"></div>
+
+<header class="bar">
+  <img src="identity/wordmark.svg" alt="Albretsen AS">
+  <nav>
+    <a class="pill hide-s" href="#identity">Identity</a>
+    <a class="pill hide-s" href="#icons">Icons</a>
+    <a class="pill hide-s" href="#motion">Motion</a>
+    <button class="pill" id="snd" aria-pressed="false" data-tip="Opt-in sound: clay and glass, synthesised. Off until you turn it on." data-sound-hover="tok"><svg class="k-icon"><use href="#k-sound-off"/></svg><span>Sound off</span></button>
+  </nav>
+</header>
+
+<!-- 1. HERO: image-sequence scrub -->
+<div class="scrub-track" id="track">
+  <div class="scrub-stick" id="stick">
+    <canvas id="seq" aria-label="A sunlit diorama of Albretsen's products, from morning to dusk"></canvas>
+    <div class="scrub-hint">scroll — one day passes in the room</div>
+    <div class="scrub-copy">
+      <h1 data-focus-pull data-letters>Albretsen</h1>
+      <div class="clock" id="clock"><div id="clockT">06:40 · morning</div><div style="opacity:.6">frame <span id="clockF">000</span> / 063</div><div class="meter"><i></i></div></div>
+    </div>
+  </div>
+</div>
+
+<main>
+<section class="wrap" id="direction">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">Design 35 · Kiln Light</div>
+      <h2 data-focus-pull style="margin-top:18px">A quiet room,<br><em>one day</em> of light.</h2>
+    </div>
+    <p class="lede" data-focus-pull style="--i:2">The products are objects in a sunlit diorama built from three.js primitives, CC0 textures and a Poly Haven HDRI. Scroll and the camera walks in while the arch of light crosses the room: morning on the back wall, noon on the shelf, dusk on a fractured stone with a molten seam. Around it, a bespoke icon system: one stroke, one drop of glaze.</p>
+  </div>
+  <div class="g3">
+    <figure class="k-liftable shot"><img src="hero/hero-morning.webp" srcset="hero/hero-morning.webp 1280w, hero/hero-morning@2x.webp 2560w" sizes="(max-width:600px) 100vw, 33vw" alt="The room in the morning" loading="lazy"></figure>
+    <figure class="k-liftable shot"><img src="hero/hero-bench.webp" srcset="hero/hero-bench.webp 1280w, hero/hero-bench@2x.webp 2560w" sizes="(max-width:600px) 100vw, 33vw" alt="The walnut bench with MCP Emails and Fun Libs" loading="lazy"></figure>
+    <figure class="k-liftable shot"><img src="hero/hero-dusk.webp" srcset="hero/hero-dusk.webp 1280w, hero/hero-dusk@2x.webp 2560w" sizes="(max-width:600px) 100vw, 33vw" alt="The room at dusk, the seam glowing" loading="lazy"></figure>
+  </div>
+  <p class="cap"><b>hero/</b> hero-morning · hero-bench · hero-dusk — 1280×800 + @2x 2560×1600 (webp, avif for @2x). Baked from <b>3d/room.js</b>.</p>
+</section>
+
+<div class="strata-divider" aria-hidden="true"></div>
+
+<!-- palette -->
+<section class="wrap" id="palette">
+  <div class="sec-head"><div><div class="eyebrow">Palette</div><h2 style="margin-top:18px">Fired earth,<br>one <em style="color:var(--glaze)">glaze</em>.</h2></div>
+  <p class="lede">Warm limewash, sand and clay carry the page. Terracotta and ember are for warmth and the molten moments. The seed hue, 228°, appears only as glaze: one drop per icon, the sphere on the ledge, the dunes in the window.</p></div>
+  <div class="swatches" id="sw"></div>
+</section>
+
+<!-- type -->
+<section class="wrap" id="type">
+  <div class="sec-head"><div><div class="eyebrow">Type</div><h2 style="margin-top:18px">Tall serif,<br>quiet grotesk.</h2></div>
+  <p class="lede">Instrument Serif for display, set large and loose, italic for the warm word. Geist for text. Geist Mono for facts, figures and captions. All OFL, on Google Fonts.</p></div>
+  <div class="type">
+    <div class="spec"><div class="cap"><b>Instrument Serif</b><br>Display · 400 / italic<br>−1% tracking, 0.9 leading</div><div class="s1">Software that <em style="color:var(--terracotta)">pays</em> for itself.</div></div>
+    <div class="spec"><div class="cap"><b>Geist</b><br>Text · 300–700<br>17–20px, 1.55</div><div class="s2">Albretsen AS builds whatever is profitable: apps, SaaS and infrastructure for AI agents. Published on Google Play since 2016.</div></div>
+    <div class="spec"><div class="cap"><b>Geist Mono</b><br>Facts · 400/500<br>12–15px, caps +14%</div><div class="s3">$782 MRR · 113,000+ installs · 17 tools · 549 commits<br>claude mcp add albretsen https://albretsen.no/mcp</div></div>
+  </div>
+</section>
+
+<!-- identity -->
+<section class="wrap" id="identity">
+  <div class="sec-head"><div><div class="eyebrow">Identity</div><h2 style="margin-top:18px">An arch, a ledge,<br>a sphere at rest.</h2></div>
+  <p class="lede">The mark is a niche in a wall: the arch and ledge read as a soft A, and the glazed sphere is the work, set down carefully. The wordmark is Instrument Serif outlined to paths.</p></div>
+  <div class="id-grid">
+    <div class="id-tile" style="background:var(--card)"><img src="identity/wordmark.svg" alt="Albretsen wordmark" style="width:min(380px,90%)"><p class="cap">identity/wordmark.svg</p></div>
+    <div class="id-tile" style="background:var(--sand)"><img src="identity/mark.svg" alt="Albretsen mark" style="width:120px"><p class="cap">identity/mark.svg</p></div>
+    <div class="id-tile dark"><img src="identity/mark-reverse.svg" alt="Albretsen mark, reverse" style="width:120px"><p class="cap">identity/mark-reverse.svg</p></div>
+    <div class="id-tile dark"><img src="identity/wordmark-reverse.svg" alt="Albretsen wordmark, reverse" style="width:min(340px,90%)"><p class="cap">wordmark-reverse.svg</p></div>
+    <div class="id-tile" style="background:var(--card);gap:16px;grid-auto-flow:column"><img src="identity/favicon.svg" alt="" width="64"><img src="identity/apple-touch-icon-180.png" alt="" width="90" style="border-radius:20px"><p class="cap">favicon.svg (auto dark) · apple-touch-icon-180.png</p></div>
+    <div class="id-tile" style="background:var(--card);padding:16px 16px 40px"><img src="identity/og.jpg" alt="Open Graph image" style="border-radius:12px;width:100%"><p class="cap">identity/og.jpg · 1200×630</p></div>
+  </div>
+</section>
+
+<!-- products -->
+<section class="wrap" id="products">
+  <div class="sec-head"><div><div class="eyebrow">Products in the room</div><h2 style="margin-top:18px">Real logos,<br><em>fired</em> as tiles.</h2></div>
+  <p class="lede">Each live or building product is its real logo, unaltered, on a glazed ceramic tile in the room, photographed when the light reaches it. Hover the figures.</p></div>
+  <div class="g4">
+    <figure class="prod"><div class="shot"><img src="products/product-mcp-emails.webp" srcset="products/product-mcp-emails.webp 720w, products/product-mcp-emails@2x.webp 1440w" sizes="(max-width:960px) 50vw, 25vw" alt="MCP Emails logo tile on the walnut bench" loading="lazy"></div>
+      <h3>MCP Emails <span>live · 2026</span></h3><p>Email for AI agents.</p><span class="fig" data-tip="17 tools · about 100 email providers · open source (AGPL)"><svg class="k-icon"><use href="#k-revenue"/></svg>$782 MRR</span></figure>
+    <figure class="prod"><div class="shot"><img src="products/product-fun-libs.webp" srcset="products/product-fun-libs.webp 720w, products/product-fun-libs@2x.webp 1440w" sizes="(max-width:960px) 50vw, 25vw" alt="Fun Libs icon tile on the bench" loading="lazy"></div>
+      <h3>Fun Libs <span>live · 2019</span></h3><p>A fill-in-the-blanks word game.</p><span class="fig" data-tip="Built at 17 · no marketing · v5 shipped 2026"><svg class="k-icon"><use href="#k-install"/></svg>113,000+ installs</span></figure>
+    <figure class="prod"><div class="shot"><img src="products/product-toolrails.webp" srcset="products/product-toolrails.webp 720w, products/product-toolrails@2x.webp 1440w" sizes="(max-width:960px) 50vw, 25vw" alt="Toolrails tile on a travertine drum" loading="lazy"></div>
+      <h3>Toolrails <span>building</span></h3><p>One MCP URL that gives an agent every tool.</p><span class="fig" data-tip="Tool search · injection guard"><svg class="k-icon"><use href="#k-connector"/></svg>4 connectors</span></figure>
+    <figure class="prod"><div class="shot"><img src="products/product-harbor.webp" srcset="products/product-harbor.webp 720w, products/product-harbor@2x.webp 1440w" sizes="(max-width:960px) 50vw, 25vw" alt="Harbor mark tile on a travertine block" loading="lazy"></div>
+      <h3>Harbor <span>paused</span></h3><p>A private knowledge base shared by people and AI.</p><span class="fig" data-tip="Self-hostable · AI edits held for approval"><svg class="k-icon"><use href="#k-commit"/></svg>549 commits</span></figure>
+  </div>
+  <p class="cap"><b>products/</b> 720×900 + @2x 1440×1800 webp. Logos from designs/_shared/products, used as-is (Harbor's mark is currentColor by design, set in its banner cream).</p>
+</section>
+
+<!-- retired -->
+<section class="wrap" id="retired">
+  <div class="sec-head"><div><div class="eyebrow">The archive</div><h2 style="margin-top:18px">Retired, <em>kept</em><br>on a tray.</h2></div>
+  <p class="lede">Products without surviving brand assets get a clay token pressed with a glyph from the icon system. They sit on a walnut tray in the corner of the room: honest, small, not hidden.</p></div>
+  <div class="g2" style="align-items:center">
+    <figure class="shot k-liftable"><img src="retired/archive-tray.webp" srcset="retired/archive-tray.webp 1000w, retired/archive-tray@2x.webp 2000w" sizes="(max-width:600px) 100vw, 50vw" alt="Clay tokens of retired products on a walnut tray" loading="lazy"></figure>
+    <div class="g3" style="gap:14px" id="tokens"></div>
+  </div>
+</section>
+
+<!-- icons -->
+<section class="wrap" id="icons">
+  <div class="sec-head"><div><div class="eyebrow">Bespoke icon system · the main imagery</div><h2 style="margin-top:18px">One stroke,<br>one drop of <em style="color:var(--glaze)">glaze</em>.</h2></div>
+  <p class="lede">24px grid, 1.5 stroke, round joins, 2px keyline. Every glyph carries exactly one filled form in glaze blue: the object in the room. Used small in UI, huge as section art, pressed into clay as tiles, die-cut as stickers. Hover: the glaze turns ember.</p></div>
+  <div class="icons" id="iconGrid"></div>
+  <div class="tiles" id="tiles"></div>
+  <p class="cap"><b>icons/</b> icons.js (source of truth, svg() helper) · sprite.svg (&lt;use href="#k-name"&gt;) · svg/*.svg · <b>extras/tile-*.webp</b> pressed-clay tiles (SVG sources beside them).</p>
+</section>
+
+<div class="strata-divider" aria-hidden="true"></div>
+
+<!-- extras -->
+<section class="wrap" id="extras">
+  <div class="sec-head"><div><div class="eyebrow">Texture and life</div><h2 style="margin-top:18px">Things to place<br>around the room.</h2></div>
+  <p class="lede">The window looks out on real dunes in Proctor Crater, Mars (NASA/JPL/UArizona HiRISE). Crackle glaze, window light, limewash grain, a travertine band, stickers.</p></div>
+  <div class="masonry">
+    <figure><img src="extras/dunes-duotone.webp" alt="Mars dunes in an umber and glaze duotone" loading="lazy" style="border-radius:18px"><p class="cap"><b>dunes-duotone.webp</b> · full-bleed band behind facts</p></figure>
+    <figure><div class="fracture-demo"></div><p class="cap"><b>fracture-field.svg</b> · crackle-glaze network, one molten seam (section backgrounds)</p></figure>
+    <figure><img src="extras/stickers.webp" alt="Die-cut stickers from the icon system" loading="lazy"><p class="cap"><b>stickers.webp</b> · die-cut glazed stickers (scatter in footer / 404)</p></figure>
+    <figure><div class="light-demo"><div class="k-windowlight"></div><span>Window light</span></div><p class="cap"><b>window-light.webp</b> · gobo overlay that drifts over 38s (.k-windowlight)</p></figure>
+    <figure><img src="extras/glass-niche.webp" alt="Glass sphere in the arched niche" loading="lazy" style="border-radius:18px"><p class="cap"><b>glass-niche.webp</b> · clarity: the glass sphere in its niche</p></figure>
+    <figure><img src="extras/dunes-window.webp" alt="Mars dunes, natural colour, cropped as a window" loading="lazy" style="border-radius:200px 200px 18px 18px"><p class="cap"><b>dunes-window.webp</b> · crop for an arch-masked image</p></figure>
+    <figure><div style="aspect-ratio:2/1;border-radius:18px;background:url(extras/limewash-tile.webp) 0 0/256px;border:1px solid var(--line)"></div><p class="cap"><b>limewash-tile.webp</b> · seamless page grain (this page uses it)</p></figure>
+    <figure><img src="extras/strata-band.webp" alt="" loading="lazy" style="border-radius:999px"><p class="cap"><b>strata-band.webp</b> · travertine divider</p></figure>
+  </div>
+</section>
+
+<!-- live 3D -->
+<section class="wrap" id="live">
+  <div class="sec-head"><div><div class="eyebrow">Interactive · three.js r170</div><h2 style="margin-top:18px">The room, <em>live</em>.</h2></div>
+  <p class="lede">The same scene the frames were baked from, running in the browser: pointer parallax, objects lift when hovered, a time-of-day slider moves the sun. Loads only when asked.</p></div>
+  <div class="live" id="live3d"><img src="hero/hero-morning.webp" alt=""><button class="pill" id="loadLive" data-sound="ting" style="background:var(--ink);color:var(--limewash);padding:14px 20px"><svg class="k-icon"><use href="#k-plus"/></svg> Load the live room</button></div>
+  <p class="cap"><b>3d/room.js</b> createRoom(canvas) → setTime(t), setView(name), setProgress(p), start() · demo: <a href="3d/demo.html">3d/demo.html</a></p>
+</section>
+
+<!-- motion lab -->
+<section class="wrap" id="motion">
+  <div class="sec-head"><div><div class="eyebrow">Motion study · Radix-shaped</div><h2 style="margin-top:18px">Slow light,<br>soft <em>clay</em>.</h2></div>
+  <p class="lede">Every primitive keys off Radix's own data-state attributes and CSS variables, so motion.css drops onto @radix-ui components unchanged. Turn sound on for the full effect.</p></div>
+  <div class="lab">
+    <div class="card"><h3>Strata</h3><p class="cap">Accordion · height + sediment line + content settles</p>
+      <div data-strata>
+        <div data-strata-item data-open><button data-strata-trigger data-sound-hover>What does Albretsen AS make? <svg class="k-icon k-chev"><use href="#k-chevron"/></svg></button><div data-strata-content><p>Whatever is profitable: apps, SaaS and infrastructure for AI agents. Sometimes a consulting engagement.</p></div></div>
+        <div data-strata-item><button data-strata-trigger data-sound-hover>Since when? <svg class="k-icon k-chev"><use href="#k-chevron"/></svg></button><div data-strata-content><p>Published on Google Play since 2016. Consulting since 2021. The company since 2026.</p></div></div>
+        <div data-strata-item><button data-strata-trigger data-sound-hover>Outside work? <svg class="k-icon k-chev"><use href="#k-chevron"/></svg></button><div data-strata-content><p>Takes one outside engagement at a time.</p></div></div>
+      </div></div>
+    <div class="card"><h3>Niche open</h3><p class="cap">Dialog · grows out of an arch-shaped clip, closes back into it</p>
+      <button class="pill" data-niche-open="dlg" data-sound-hover style="background:var(--ink);color:var(--limewash)">Open the niche <svg class="k-icon"><use href="#k-arrow"/></svg></button>
+      <div style="margin-top:22px"><h3>Drip</h3><p class="cap">Tooltip · droops from its trigger, settles</p>
+        <span class="pill" data-tip="17 tools, about 100 email providers" tabindex="0">MCP Emails</span> <span class="pill" data-tip="Built at 17, no marketing" tabindex="0">Fun Libs</span></div></div>
+    <div class="card"><h3>Pebble</h3><p class="cap">Tabs · indicator glides like a stone on wet clay; panel focus-pulls</p>
+      <div data-pebble>
+        <div data-pebble-list role="tablist" aria-label="Products">
+          <button role="tab" aria-controls="t1" data-default>MCP Emails</button><button role="tab" aria-controls="t2">Fun Libs</button><button role="tab" aria-controls="t3">Toolrails</button></div>
+        <div id="t1" role="tabpanel" data-pebble-panel><img src="products/product-mcp-emails.webp" alt="" width="96"><p>Email for AI agents. 17 tools, about 100 providers, AGPL.</p></div>
+        <div id="t2" role="tabpanel" data-pebble-panel hidden><img src="products/product-fun-libs.webp" alt="" width="96"><p>A fill-in-the-blanks word game for Android and iOS. 113,000+ installs.</p></div>
+        <div id="t3" role="tabpanel" data-pebble-panel hidden><img src="products/product-toolrails.webp" alt="" width="96"><p>One MCP URL that gives an agent every tool. Tool search, injection guard.</p></div>
+      </div></div>
+    <div class="card"><h3>Lift &amp; Kiln glow</h3><p class="cap">Hover card rises; cards carry a cursor-tracked glaze sheen</p>
+      <p style="margin:0 0 16px">Hover <a href="#" data-lift-trigger="hc" style="text-decoration-style:dotted">Harbor</a> for a card.</p>
+      <div class="glow-row">
+        <div class="kiln-glow" data-sound-hover><svg><use href="#k-agent"/></svg><span>Agents</span></div>
+        <div class="kiln-glow" data-sound-hover><svg><use href="#k-app"/></svg><span>Apps</span></div>
+        <div class="kiln-glow" data-sound-hover><svg><use href="#k-saas"/></svg><span>SaaS</span></div>
+      </div></div>
+  </div>
+  <div style="margin-top:20px" class="card"><h3 style="font-size:30px">Focus pull</h3><p class="cap">Entrance · blur 10px → 0 and a 14px rise, letters staggered 32ms</p>
+    <button class="pill" id="replay" data-sound="tok"><svg class="k-icon"><use href="#k-launch"/></svg> Replay</button>
+    <div id="fpWrap" style="font:400 clamp(44px,7vw,96px)/1 var(--serif);margin-top:18px"></div></div>
+</section>
+</main>
+
+<div id="dlg" data-niche hidden role="dialog" aria-modal="true" aria-labelledby="dlgT">
+  <div data-niche-overlay></div>
+  <div data-niche-content>
+    <img src="extras/glass-niche.webp" alt="">
+    <div class="in"><h3 id="dlgT">Clarity</h3><p class="lede" style="font-size:16px">A dialog opens like light filling an arch. It closes back into the niche it came from.</p>
+      <button class="pill" data-niche-close><svg class="k-icon"><use href="#k-close"/></svg> Close</button></div>
+  </div>
+</div>
+<div id="hc" data-lift hidden><img src="products/product-harbor.webp" alt="" style="aspect-ratio:16/10;object-fit:cover;width:100%"><p><b>Harbor</b> · a private knowledge base shared by people and AI. 549 commits, paused.</p></div>
+
+<footer class="wrap">
+  <img src="identity/mark.svg" alt="" width="40" style="margin-bottom:18px">
+  Kiln Light · design 35 asset kit for Albretsen AS · full inventory and licences in <a href="ASSETS.md">ASSETS.md</a><br>
+  HDRI: Brown Photostudio 05 (Poly Haven, CC0) · textures: Grey Plaster (Poly Haven, CC0), Wood060 + Travertine002 (ambientCG, CC0) · dunes: PIA11833, NASA/JPL-Caltech/UArizona (public domain)
+</footer>
+
+<script type="module">
+  import { icons, groups, svg } from './icons/icons.js';
+  import { initMotion } from './motion.js';
+  import { sound } from './sound.js';
+  import { scrub } from './sequence.js';
+
+  // sprite from the source of truth
+  document.getElementById('sprite').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg">${Object.entries(icons).map(([n, b]) => `<symbol id="k-${n}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${b}</symbol>`).join('')}</svg>`;
+
+  // palette
+  const P = [['Limewash', '#f6f0e8', '0.958 0.012 78', 'page'], ['Sand', '#e8dac9', '0.895 0.028 72', 'surfaces'], ['Clay', '#d4b8a1', '0.80 0.045 60', 'quiet fills'],
+    ['Terracotta', '#bf6d4c', '0.62 0.115 42', 'warm word'], ['Ember', '#e18344', '0.70 0.14 52', 'molten, hover'], ['Umber', '#614735', '0.42 0.045 55', 'lines, wood'],
+    ['Ink', '#282019', '0.25 0.018 60', 'text'], ['Mist', '#cddee6', '0.89 0.022 228', 'dusk tint'], ['Glaze', '#357e9c', '0.56 0.085 228', 'seed · one drop'],
+    ['Deep glaze', '#124356', '0.36 0.06 228', 'dark accents'], ['Night', '#09181f', '0.20 0.025 228', 'dark mode bg']];
+  document.getElementById('sw').innerHTML = P.map(([n, h, o, u]) => `<div class="sw k-liftable" data-tip="${u}" data-sound-hover><i style="--c:${h}"></i><div><b>${n}</b>${h}<br>oklch(${o})</div></div>`).join('');
+
+  // icons
+  document.getElementById('iconGrid').innerHTML = Object.keys(icons).map(n => `<div class="ic" data-sound-hover>${svg(n, { size: 40 })}<span>${n}</span></div>`).join('');
+  document.getElementById('tiles').innerHTML = ['agent', 'app', 'saas', 'knowledge', 'molten', 'fracture', 'clarity', 'norway'].map(n => `<img src="extras/tile-${n}.webp" alt="${n} tile" loading="lazy" class="k-liftable" style="border-radius:40px">`).join('');
+  document.getElementById('tokens').innerHTML = [['polyglot-pilot', 'Polyglot Pilot'], ['pinpoint', 'PinPoint'], ['webvakt', 'WebVakt'], ['joke-central', 'Joke Central'], ['tryggere-hyring', 'Tryggere Hyring'], ['early-apps', 'Early apps']]
+    .map(([id, n]) => `<figure style="text-align:center"><img src="retired/${id}.svg" alt="${n} stand-in" class="k-liftable" style="border-radius:50%;margin:auto;width:100%;max-width:120px"><p class="cap" style="margin-top:6px">${n}</p></figure>`).join('');
+
+  // focus pull replay
+  const fp = () => { const w = document.getElementById('fpWrap'); w.innerHTML = '<span data-focus-pull data-letters>Clarity, molten, fracture.</span>'; initMotion(w); };
+  fp(); document.getElementById('replay').onclick = fp;
+
+  initMotion(document);
+
+  // sound toggle
+  const snd = document.getElementById('snd');
+  sound.onChange(on => { snd.setAttribute('aria-pressed', on); snd.querySelector('span').textContent = on ? 'Sound on' : 'Sound off'; snd.querySelector('use').setAttribute('href', on ? '#k-sound-on' : '#k-sound-off'); });
+  snd.onclick = () => sound.toggle();
+
+  // hero scrub
+  const clock = ['06:40 · morning', '09:15 · morning', '12:05 · noon', '14:30 · afternoon', '17:20 · evening', '19:45 · dusk'];
+  let crackled = false;
+  // ?still renders the poster frame without the scroll loop (for screenshots / reduced data)
+  if (new URLSearchParams(location.search).has('still')) {
+    document.getElementById('track').style.height = '900px'; document.getElementById('stick').style.height = '900px';
+    const c = document.getElementById('seq'), img = new Image(); img.src = 'sequence/room-024.webp';
+    img.onload = () => { c.width = c.clientWidth; c.height = c.clientHeight; const s = Math.max(c.width / img.width, c.height / img.height); c.getContext('2d').drawImage(img, (c.width - img.width * s) / 2, (c.height - img.height * s) / 2, img.width * s, img.height * s); };
+    document.querySelectorAll('[data-focus-pull]').forEach(e => e.classList.add('is-in'));
+  } else scrub(document.getElementById('seq'), {
+    src: i => `sequence/room-${String(i).padStart(3, '0')}.webp`, count: 64, track: document.getElementById('track'),
+    onFrame: (i, p) => {
+      document.getElementById('clockF').textContent = String(i).padStart(3, '0');
+      document.getElementById('clockT').textContent = clock[Math.min(5, Math.floor(p * 6))];
+      document.getElementById('clock').style.setProperty('--p', (p * 100).toFixed(1) + '%');
+      document.getElementById('stick').classList.toggle('dusk', p > 0.82);
+      if (p > 0.9 && !crackled) { crackled = true; sound.play('crackle'); } if (p < 0.6) crackled = false;
+    },
+  });
+
+  // lazy live room
+  document.getElementById('loadLive').onclick = () => {
+    const box = document.getElementById('live3d');
+    box.innerHTML = '<iframe src="3d/demo.html" title="The Room, live three.js scene" loading="lazy"></iframe>';
+  };
+  if (new URLSearchParams(location.search).has('live')) document.getElementById('loadLive').click();
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 28" width="81" height="28" role="img" aria-label="PAUSED">
+<rect x=".5" y=".5" width="80" height="27" rx="13.5" fill="#160b17" stroke="#fbd452" stroke-opacity=".55"/>
+<circle cx="14" cy="14" r="4" fill="#fbd452"/>
+<text x="25" y="18.4" font-family="Geist Mono, ui-monospace, monospace" font-size="11" font-weight="600" letter-spacing="1.6" fill="#fbd452">PAUSED</text>
+</svg>

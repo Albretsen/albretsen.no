@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Room — live</title>
+<style>
+  :root { --limewash:#f6f0e8; --ink:#282019; --glaze:#357e9c; }
+  html, body { margin:0; height:100%; background:var(--limewash); color:var(--ink); font:14px/1.4 "Geist", system-ui, sans-serif; }
+  canvas { display:block; width:100%; height:100%; touch-action:none; }
+  .hud { position:fixed; left:16px; bottom:16px; right:16px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .hud button { font:inherit; border:1px solid #28201922; background:#f6f0e8cc; backdrop-filter:blur(8px); padding:6px 12px; border-radius:999px; cursor:pointer; color:inherit; }
+  .hud button[aria-pressed="true"] { background:var(--ink); color:var(--limewash); }
+  .hud input { accent-color:var(--glaze); width:180px; }
+  #label { position:fixed; top:16px; left:16px; font-family:"Geist Mono", ui-monospace, monospace; font-size:12px; letter-spacing:.04em; text-transform:uppercase; opacity:.7; }
+</style>
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+}}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="label">The Room · drag-free parallax · hover an object</div>
+<div class="hud" id="hud">
+  <label>Time of day <input id="time" type="range" min="0" max="1" step="0.01" value="0.3"></label>
+</div>
+<script type="module">
+  import { createRoom, VIEWS } from './room.js';
+  const canvas = document.getElementById('c');
+  const room = await createRoom(canvas, { base: '../' });
+  let view = new URLSearchParams(location.search).get('view') || 'wide';
+  const hud = document.getElementById('hud');
+  for (const v of Object.keys(VIEWS)) {
+    const b = document.createElement('button'); b.textContent = v; b.setAttribute('aria-pressed', v === view);
+    b.onclick = () => { view = v; room.stop(); room.start({ view, time: +time.value }); hud.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); };
+    hud.append(b);
+  }
+  const time = document.getElementById('time');
+  time.oninput = () => room.setTime(+time.value);
+  addEventListener('resize', () => room.resize(innerWidth, innerHeight));
+  room.resize(innerWidth, innerHeight);
+  canvas.addEventListener('roomhover', e => document.getElementById('label').textContent = e.detail ? 'The Room · ' + e.detail : 'The Room · hover an object');
+  room.start({ view, time: +time.value });
+</script>
+</body>
+</html>

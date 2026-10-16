@@ -1,0 +1,20 @@
+{
+  "name": "Night Shift Paper",
+  "tagline": "A paper-cut desktop on a Norwegian night, where you can drag the sun up.",
+  "summary": "The homepage is a desktop operating system cut from paper and lit by one sodium-orange sun. Windows are taped sheets you can drag, the dock holds the real product icons, and a raw WebGL shader draws torn hills, aurora and a sun that rises as you scroll or drag it. Everything looks hand-cut but is built in code. That gap carries the brand: a builder with taste who ships.",
+  "palette": ["#0a1936", "#050d1c", "#1f4274", "#f68c26", "#9ada5e", "#f5eede", "#f9cc87"],
+  "type": ["Bricolage Grotesque", "Geist Mono", "Geist Mono"],
+  "voice": "Plain, warm and a little nocturnal, and always concrete about what shipped. Example: \"Builds software that pays for itself. Cut from scratch after the day job and shipped before morning.\"",
+  "motion": "Paper physics: sheets unfold, drop, lift and peel, and they swing against the direction you drag them, all on damped linear() springs.",
+  "sound": "Off by default. Once it is on: synthesized paper rustles on drops and dialogs, a dry tick on the dock and tabs, and a soft two-note chime when you click the sun.",
+  "mark": "A paper 'A' whose counter is a window onto a rising sodium sun under an aurora strip, stacked as seven real paper layers that fan apart in 3D.",
+  "inspiration": [
+    "https://www.radix-ui.com/primitives/docs/guides/animation",
+    "https://www.radix-ui.com/primitives/docs/components/hover-card",
+    "https://developer.chrome.com/docs/css-ui/css-linear-easing-function",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://lynnandtonic.com/thoughts/entries/fun-css-only-scrolling-effects-for-matterday",
+    "https://community.spline.design",
+    "https://vercel.com/home"
+  ]
+}

@@ -1,0 +1,17 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>bake</title>
+<style>html,body{margin:0;background:#fff}canvas{display:block;width:100vw;height:auto}pre{display:none}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+</head><body>
+<script type="module">
+  // Bake harness: bake.html?scene=roomThen  -> PNG data URL in <pre id="out">
+  import { bake } from './voxel.js';
+  import * as S from './scenes.js';
+  const q = new URLSearchParams(location.search);
+  const name = q.get('scene');
+  const { vox, opts } = S[name]();
+  if (q.get('bg')) opts.background = '#' + q.get('bg');
+  if (q.get('w')) { opts.width = +q.get('w'); opts.height = +q.get('h'); }
+  try { await bake(vox, opts); } catch (e) { document.title = 'error'; const p = document.createElement('pre'); p.id = 'out'; p.textContent = 'ERR ' + e.stack; document.body.appendChild(p); }
+</script>
+</body></html>

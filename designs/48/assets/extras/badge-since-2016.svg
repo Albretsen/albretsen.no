@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="On Google Play since 2016">
+<defs>
+<path id="r" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/>
+<radialGradient id="b" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#3a1840"/><stop offset="1" stop-color="#120813"/></radialGradient>
+<linearGradient id="m" x1=".2" y1="0" x2=".75" y2="1"><stop offset="0" stop-color="#f6b7fb"/><stop offset=".4" stop-color="#dc3aec"/><stop offset="1" stop-color="#861192"/></linearGradient>
+</defs>
+<circle cx="100" cy="100" r="96" fill="url(#b)"/>
+<circle cx="100" cy="100" r="95" fill="none" stroke="#dc3aec" stroke-opacity=".7"/>
+<circle cx="100" cy="100" r="56" fill="none" stroke="#423144"/>
+<text font-family="Geist Mono, ui-monospace, monospace" font-size="12.6" font-weight="600" letter-spacing="2.4" fill="#f8f1f8"><textPath href="#r">ON GOOGLE PLAY SINCE 2016 · ALBRETSEN AS · </textPath></text>
+<g transform="translate(70 66) scale(.94)"><path d="M28.63 11.14Q32.00 5.00 35.37 11.14L57.59 51.62Q60.00 56.00 55.00 56.00L48.00 56.00Q45.00 56.00 43.52 53.39L33.97 36.48Q32.00 33.00 30.03 36.48L20.48 53.39Q19.00 56.00 16.00 56.00L9.00 56.00Q4.00 56.00 6.41 51.62Z" fill="url(#m)"/><circle cx="32" cy="50.5" r="4.6" fill="#36dcec"/></g>
+</svg>

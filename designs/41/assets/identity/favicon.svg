@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Albretsen AS</title>
+  <defs><path id="a" d="M64 10 L118 114 L96 114 L86.6 96 L41.4 96 L32 114 L10 114 Z M64 52.4 L49.7 80 L78.3 80 Z" fill-rule="evenodd"/></defs>
+  <rect width="64" height="64" rx="14" fill="#011835"/>
+  <g transform="translate(5.5 7) scale(.4)" stroke-linejoin="round">
+    <use href="#a" transform="translate(14.0 7.00)" fill="#259cde"/>
+    <use href="#a" transform="translate(12.6 6.30)" fill="#259cde"/>
+    <use href="#a" transform="translate(11.2 5.60)" fill="#259cde"/>
+    <use href="#a" transform="translate(9.8 4.90)" fill="#259cde"/>
+    <use href="#a" transform="translate(8.4 4.20)" fill="#259cde"/>
+    <use href="#a" transform="translate(7.0 3.50)" fill="#259cde"/>
+    <use href="#a" transform="translate(5.6 2.80)" fill="#259cde"/>
+    <use href="#a" transform="translate(4.2 2.10)" fill="#259cde"/>
+    <use href="#a" transform="translate(2.8 1.40)" fill="#259cde"/>
+    <use href="#a" transform="translate(1.4 0.70)" fill="#259cde"/>
+    <use href="#a" fill="#ffffff"/>
+  </g>
+</svg>

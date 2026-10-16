@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cel Object Demo</title>
+<link rel="stylesheet" href="../motion.css">
+<style>
+  :root { --ink:#011835; --blue:#259cde; --paper:#e8f6fd; }
+  html,body { margin:0; height:100%; background:var(--ink); color:var(--paper); font:500 13px/1.4 "JetBrains Mono", ui-monospace, monospace; }
+  .stage { position:relative; height:100vh; overflow:hidden; background:url(../extras/cel-clouds-1280.webp) center/cover; }
+  .stage::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(1,11,29,.7), rgba(1,11,29,0) 35%, rgba(1,11,29,0) 70%, rgba(1,11,29,.7)); pointer-events:none; }
+  #obj { position:absolute; inset:0; z-index:2; }
+  .hud { position:absolute; z-index:3; left:16px; bottom:16px; display:flex; gap:8px; flex-wrap:wrap; }
+  button { font:inherit; color:var(--ink); background:var(--paper); border:2px solid var(--ink); border-radius:6px; padding:6px 10px; box-shadow:3px 3px 0 var(--blue); cursor:pointer; }
+  button[aria-pressed="true"] { background:var(--blue); }
+  .slate { position:absolute; z-index:3; top:16px; left:16px; letter-spacing:.08em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="slate">Cut 01 · grab, spin, throw · <span id="state">idle</span></div>
+  <div id="obj"></div>
+  <div class="hud">
+    <button id="twos" aria-pressed="true">On twos</button>
+    <button id="fling">Throw it</button>
+  </div>
+</div>
+<script src="../vendor/motion-12.23.24.js"></script>
+<script type="module">
+  import { mountCelObject } from './cel-object.js';
+  import { impactFrame } from '../motion.js';
+  const obj = await mountCelObject(document.getElementById('obj'), { shape: 'A', onTwos: true });
+  const state = document.getElementById('state');
+  obj.on('grab', () => state.textContent = 'held')
+     .on('release', ({ speed }) => state.textContent = `thrown ${speed.toFixed(1)} u/s`)
+     .on('impact', ({ speed }) => { if (speed > 6) impactFrame(document.getElementById('stage')); });
+  const t = document.getElementById('twos');
+  t.onclick = () => { const v = t.getAttribute('aria-pressed') !== 'true'; t.setAttribute('aria-pressed', v); obj.setOnTwos(v); t.textContent = v ? 'On twos' : 'On ones'; };
+  document.getElementById('fling').onclick = () => obj.fling(14 * (Math.random() > .5 ? 1 : -1), 9, 8);
+</script>
+</body>
+</html>

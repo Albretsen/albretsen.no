@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Tryggere Hyring (retired, stand-in)">
+  <rect width="128" height="128" rx="29" fill="#e7e5eb"/>
+  <path d="M64 26 L96 38 V62 Q96 88 64 102 Q32 88 32 62 V38 Z" fill="none" stroke="#56535d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M50 64 L60 74 L79 54" fill="none" stroke="#56535d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

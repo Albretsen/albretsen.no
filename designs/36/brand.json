@@ -1,0 +1,21 @@
+{
+  "name": "Infrared Fable",
+  "tagline": "A real landscape photographed in light you can't see, with a storybook living inside it.",
+  "summary": "Poly Haven photographs graded like Kodak Aerochrome infrared film, with the name set behind the treeline and a pointed-arch aperture that opens from the horizon into a second scene as you scroll. Hand-coloured public-domain plates (butterflies, ferns, Grandville's comet) and a spring-physics specimen deck make the products tangible. The craft is in the layering and physics; the copy stays dry and factual, which is how a company that keeps only what pays should sound.",
+  "palette": ["#170733", "#4a1a8c", "#6b1272", "#e8287f", "#ff7a3d", "#ffb36b", "#1abcb8", "#fff1e2"],
+  "type": ["Gloock", "Bricolage Grotesque", "Martian Mono"],
+  "voice": "Storybook warmth with ledger-dry facts: short, concrete, no adjectives doing the work of numbers. \"Whatever pays. If it earns its keep, it stays in the field.\"",
+  "motion": "Things rise from behind the horizon, open through arches and settle on springs: depth first, then tension, then release.",
+  "sound": "Off by default; once turned on, flipping a plate rings a soft three-partial chime pitched per product and sending a card away is a short paper swish.",
+  "mark": "A pointed-arch window onto an infrared treeline at sunset, where the road to the horizon forms the counter of an A, beside a Gloock wordmark with a magenta Martian Mono AS tab.",
+  "inspiration": [
+    "https://www.diyphotography.net/?p=115948",
+    "https://motion.dev/examples",
+    "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+    "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+    "https://tympanus.net/codrops/2020/08/05/magnetic-buttons",
+    "https://www.radix-ui.com/primitives/docs/components/tooltip",
+    "https://www.biodiversitylibrary.org",
+    "https://polyhaven.com/a/lilienstein"
+  ]
+}

@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Phone frame</title>
+<!-- QA helper: renders preview.html inside a true 390px viewport (headless Chrome has a minimum window width). -->
+<style>html,body{margin:0;background:#170733}iframe{border:0;width:390px;height:844px;display:block}</style></head>
+<body><iframe id="f"></iframe>
+<script>document.getElementById('f').src = '../preview.html' + (location.search || '?still&h=844&only=hero')</script>
+</body></html>

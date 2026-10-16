@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paper desk, live</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist+Mono:wght@400..700&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<style>html,body{margin:0;height:100%;background:#050d1c;color:#f5eede;font:500 13px "Geist Mono",monospace}
+#stage{position:fixed;inset:0}
+.hint{position:fixed;left:16px;bottom:14px;opacity:.7;pointer-events:none}
+.toggle{position:fixed;right:16px;bottom:12px;background:#f5eede;color:#050d1c;border:0;border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer;box-shadow:2px 3px 0 #050d1c80}</style>
+</head><body><div id="stage"></div><p class="hint">move the pointer (or tilt your phone)</p><button class="toggle" id="t">toggle desktop UI</button>
+<script type="module">
+import { mountPaperDesk } from './paper-desk.js';
+const stage = document.getElementById('stage');
+let ui = new URLSearchParams(location.search).get('ui') === '1';
+let desk = await mountPaperDesk(stage, { ui, productBase: '../../../_shared/products/' });
+document.getElementById('t').onclick = async () => { desk.destroy(); ui = !ui; desk = await mountPaperDesk(stage, { ui, productBase: '../../../_shared/products/' }); };
+</script></body></html>

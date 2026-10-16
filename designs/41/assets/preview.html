@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Key Frame Kit</title>
+<meta name="description" content="Design 41 asset kit for Albretsen AS: cel-shaded, duotone, drawn on twos.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  :root {
+    --ink:#011835; --ink950:#010b1d; --ink700:#042e57; --blue600:#085c96; --blue:#259cde; --blue200:#95ccef; --paper:#e8f6fd; --white:#fff;
+    --display:"Unbounded", system-ui, sans-serif; --body:"Instrument Sans", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace;
+    --gut: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing:border-box; }
+  html { background:var(--ink950); }
+  body { margin:0; color:var(--paper); background:var(--ink950); font:400 16px/1.55 var(--body); overflow-x:hidden; }
+  img { max-width:100%; display:block; }
+  .cels > *, .stills > *, .id-grid > *, .ex-grid > *, .lab > *, .type-grid > *, .retired > *, .sec-head > * { min-width:0; }
+  a { color:var(--blue200); }
+  .mono { font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; }
+  .wrap { padding:0 var(--gut); max-width:1520px; margin:0 auto; }
+  section { padding:clamp(56px, 9vw, 120px) 0; position:relative; }
+  .sec-head { display:flex; gap:20px; align-items:baseline; justify-content:space-between; flex-wrap:wrap; margin-bottom:clamp(24px, 4vw, 48px); border-bottom:2px solid var(--ink700); padding-bottom:16px; }
+  .sec-head h2 { font:800 clamp(28px, 4.4vw, 60px)/1 var(--display); margin:0; letter-spacing:-.01em; text-shadow:4px 4px 0 var(--blue); }
+  .sec-head p { margin:0; max-width:52ch; color:var(--blue200); }
+  .cut { color:var(--blue); }
+
+  /* paper "model sheet" sections */
+  .sheet { background:var(--paper); color:var(--ink); }
+  .sheet::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.55;
+    background-image:linear-gradient(var(--blue200) 1px, transparent 1px), linear-gradient(90deg, var(--blue200) 1px, transparent 1px);
+    background-size:48px 48px; mask-image:linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); }
+  .sheet .sec-head { border-color:var(--blue200); }
+  .sheet .sec-head h2 { color:var(--ink); text-shadow:4px 4px 0 var(--blue); }
+  .sheet .sec-head p { color:var(--ink700); }
+
+  /* top bar */
+  .top { position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px var(--gut); background:rgba(1,11,29,.86); backdrop-filter:blur(8px); border-bottom:1px solid var(--ink700); }
+  .top img { height:22px; width:auto; }
+  .top nav { display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; }
+  .top nav a { color:var(--blue200); text-decoration:none; font:500 11px/1 var(--mono); letter-spacing:.14em; text-transform:uppercase; }
+  .top nav a:hover { color:var(--paper); }
+  @media (max-width:760px) { .top nav { display:none; } }
+
+  /* HERO --------------------------------------------------------- */
+  .hero { position:relative; min-height:min(100svh, 980px); overflow:hidden; display:grid; isolation:isolate; padding:0; }
+  .hero .plate { position:absolute; inset:-4% 0 0; z-index:-3; }
+  .hero .plate img { width:100%; height:100%; object-fit:cover; }
+  .hero .burst { position:absolute; inset:-30%; z-index:-2; color:var(--ink950); opacity:.45; background:url(extras/impact-burst.svg) center/contain no-repeat; }
+  .hero .bars::before, .hero .bars::after { content:""; position:absolute; left:0; right:0; height:clamp(28px, 7vh, 72px); background:var(--ink950); z-index:3; }
+  .hero .bars::before { top:0 } .hero .bars::after { bottom:0 }
+  #hero3d { position:absolute; inset:0; z-index:1; }
+  .hero-copy { position:relative; z-index:2; align-self:end; padding:0 var(--gut) clamp(90px, 14vh, 150px); pointer-events:none; }
+  .hero-copy .kicker { display:inline-block; background:var(--ink); color:var(--paper); padding:8px 12px; border-radius:6px; box-shadow:4px 4px 0 var(--blue); margin-bottom:18px; }
+  .hero-copy h1 { margin:0; font:800 clamp(40px, 8.5vw, 132px)/.92 var(--display); letter-spacing:-.02em; color:var(--white); text-shadow:.06em .06em 0 var(--ink); max-width:12ch; }
+  .hero-copy h1 em { font-style:normal; color:var(--blue); text-shadow:none; background:var(--ink); padding:0 .14em .04em; border-radius:.12em; box-shadow:.06em .06em 0 var(--blue); -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  .hero-slate { position:absolute; z-index:4; left:var(--gut); right:var(--gut); bottom:clamp(8px, 2.2vh, 24px); display:flex; justify-content:space-between; color:var(--blue200); gap:12px; }
+  .hero-hint { position:absolute; z-index:4; left:var(--gut); top:calc(clamp(28px, 7vh, 72px) + 22px); transform:rotate(-8deg); }
+  .hero-hint img { width:clamp(110px, 11vw, 170px); }
+  .twos-toggle { pointer-events:auto; }
+
+  /* stills strip */
+  .stills { display:grid; grid-template-columns:1.25fr 1fr; gap:clamp(12px, 2vw, 24px); }
+  @media (max-width:860px) { .stills { grid-template-columns:1fr; } }
+  figure { margin:0; }
+  .frame { position:relative; border-radius:14px; overflow:hidden; outline:3px solid var(--ink); box-shadow:8px 8px 0 var(--blue); background:var(--ink); }
+  .sheet .frame { box-shadow:8px 8px 0 var(--ink); }
+  .frame img { width:100%; height:100%; object-fit:cover; }
+  figcaption { display:flex; justify-content:space-between; gap:12px; margin-top:14px; font:500 12px/1.4 var(--mono); letter-spacing:.06em; color:var(--blue200); }
+  .sheet figcaption { color:var(--ink700); }
+  figcaption b { color:inherit; font-weight:700; }
+
+  /* identity grid */
+  .id-grid { display:grid; grid-template-columns:repeat(12, 1fr); gap:clamp(12px, 2vw, 24px); position:relative; }
+  .tile { background:var(--white); border:3px solid var(--ink); border-radius:16px; padding:clamp(16px, 3vw, 36px); box-shadow:6px 6px 0 var(--ink); display:grid; place-items:center; min-height:220px; position:relative; }
+  .tile.ink { background:var(--ink); }
+  .tile.blue { background:var(--blue); }
+  .tile .lbl { position:absolute; left:14px; bottom:10px; font:500 10px/1 var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--ink700); }
+  .tile.ink .lbl { color:var(--blue200); }
+  .c4 { grid-column:span 4 } .c3 { grid-column:span 3 } .c5 { grid-column:span 5 } .c6 { grid-column:span 6 } .c7 { grid-column:span 7 } .c8 { grid-column:span 8 } .c12 { grid-column:span 12 }
+  @media (max-width:860px) { .id-grid > * { grid-column:span 12 !important; } }
+
+  /* palette */
+  .swatches { display:grid; grid-template-columns:repeat(6, 1fr); gap:0; border:3px solid var(--ink); border-radius:16px; overflow:hidden; box-shadow:6px 6px 0 var(--ink); }
+  .sw { min-height:220px; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; gap:4px; font:500 11px/1.35 var(--mono); }
+  .sw b { font:800 15px/1.1 var(--display); letter-spacing:0; text-transform:none; margin-bottom:6px; }
+  @media (max-width:860px) { .swatches { grid-template-columns:repeat(2, 1fr); } }
+  .ramp { margin-top:24px; height:64px; border:3px solid var(--ink); border-radius:12px; background:linear-gradient(90deg, #010b1d, #259cde 50%, #e8f6fd); position:relative; overflow:hidden; }
+  .ramp.cel { background:linear-gradient(90deg, #011835 0 20%, #042e57 20% 40%, #259cde 40% 60%, #95ccef 60% 80%, #e8f6fd 80%); margin-top:10px; }
+  .ramp span { position:absolute; left:12px; top:50%; transform:translateY(-50%); font:500 11px/1 var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--paper); }
+  .ramp.cel span { color:var(--paper); }
+
+  /* type */
+  .type-grid { display:grid; grid-template-columns:1.4fr 1fr; gap:clamp(16px, 3vw, 40px); position:relative; }
+  @media (max-width:860px) { .type-grid { grid-template-columns:1fr; } }
+  .spec-display { font:800 clamp(54px, 10vw, 150px)/.9 var(--display); letter-spacing:-.03em; margin:0; color:var(--ink); text-shadow:.05em .05em 0 var(--blue); }
+  .spec-display.light { font-weight:400; font-size:clamp(28px, 4vw, 54px); text-shadow:none; letter-spacing:-.01em; margin-top:18px; }
+  .spec-body { font:400 clamp(18px, 1.6vw, 22px)/1.5 var(--body); max-width:42ch; color:var(--ink); }
+  .spec-row { border-top:2px solid var(--ink); padding:14px 0; display:grid; grid-template-columns:140px 1fr; gap:12px; align-items:baseline; }
+  .spec-row .mono { color:var(--ink700); }
+  .spec-mono { font:500 14px/1.6 var(--mono); }
+
+  /* products */
+  .cels { display:grid; grid-template-columns:repeat(2, 1fr); gap:clamp(14px, 2.4vw, 32px); }
+  @media (max-width:760px) { .cels { grid-template-columns:1fr; } }
+  .cels > figure { cursor:grab; touch-action:none; }
+  .cels > figure.is-dragging { cursor:grabbing; }
+  .cels > figure.is-dragging .frame { box-shadow:16px 18px 0 var(--ink950); }
+  .cels .frame { aspect-ratio:4/3; }
+  .drag-hint { display:inline-flex; gap:8px; align-items:center; background:var(--blue); color:var(--ink); padding:6px 10px; border-radius:6px; font:700 11px/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+  .retired { margin-top:clamp(32px, 5vw, 64px); display:grid; grid-template-columns:repeat(7, 1fr); gap:14px; }
+  @media (max-width:860px) { .retired { grid-template-columns:repeat(3, 1fr); } }
+  .retired figure { background:var(--ink); border:2px solid var(--ink700); border-radius:14px; padding:14px; cursor:grab; touch-action:none; }
+  .retired figure img { width:100%; aspect-ratio:1; object-fit:contain; }
+  .retired figcaption { margin-top:8px; font-size:10px; flex-direction:column; gap:2px; }
+  .retired .real { background:#F4EFE6; display:grid; place-items:center; aspect-ratio:1; border-radius:10px; }
+  .retired .real img { width:80%; aspect-ratio:auto; }
+
+  /* extras */
+  .ex-grid { display:grid; grid-template-columns:repeat(12, 1fr); gap:clamp(12px, 2vw, 24px); }
+  @media (max-width:860px) { .ex-grid > * { grid-column:span 12 !important; } }
+  .ex { background:var(--ink); border:2px solid var(--ink700); border-radius:16px; overflow:hidden; position:relative; min-height:260px; }
+  .ex .lbl { position:absolute; left:14px; bottom:12px; z-index:3; font:500 10px/1.3 var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--paper); background:var(--ink); padding:5px 8px; border-radius:4px; }
+  .disc-stage { display:grid; place-items:center; padding:28px; background:radial-gradient(circle at 50% 50%, var(--ink700), var(--ink) 70%); }
+  .disc-stage img { width:min(100%, 360px); }
+  .gallop-stage { display:grid; place-items:center; background:var(--paper); }
+  .gallop-stage .kf-gallop { width:min(80%, 420px); }
+  .gallop-stage .ground { width:min(80%, 420px); height:4px; background:var(--ink); border-radius:2px; margin-top:-6px; }
+  .stickers { display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:center; padding:36px 24px 56px; background:var(--blue); }
+  .stickers img { height:auto; filter:drop-shadow(0 0 0 transparent); transition:transform .2s cubic-bezier(.2,1.4,.3,1); }
+  .stickers img:hover { transform:rotate(-6deg) scale(1.06); }
+  .pattern { background-color:var(--blue); color:var(--ink); }
+  .pattern.speed { background:var(--blue) url(extras/speed-lines.svg) center/100% 100%; }
+  .pattern.half { background:var(--blue200) url(extras/halftone.svg); background-size:14px 14px; }
+  .pattern.grain { background:var(--ink) url(extras/grain-256.png); }
+  .pattern.burst { background:var(--paper) url(extras/impact-burst.svg) center/150% no-repeat; }
+
+  /* motion lab */
+  .lab { display:grid; grid-template-columns:repeat(3, 1fr); gap:clamp(12px, 2vw, 24px); }
+  @media (max-width:960px) { .lab { grid-template-columns:1fr; } }
+  .exp { background:var(--ink); border:2px solid var(--ink700); border-radius:16px; padding:20px; display:grid; gap:14px; align-content:start; }
+  .exp h3 { margin:0; font:800 20px/1.1 var(--display); }
+  .exp p { margin:0; color:var(--blue200); font-size:14px; }
+  .exp .stage { height:180px; border-radius:10px; background:var(--ink950) url(extras/grain-256.png); display:grid; place-items:center; overflow:hidden; position:relative; border:1px solid var(--ink700); }
+  .exp button, .btn { justify-self:start; font:700 11px/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink); background:var(--paper); border:2px solid var(--ink); border-radius:6px; padding:9px 12px; box-shadow:3px 3px 0 var(--blue); cursor:pointer; }
+  .exp button:active, .btn:active { transform:translate(2px, 2px); box-shadow:1px 1px 0 var(--blue); }
+  .chip { display:inline-grid; place-items:center; width:96px; height:84px; border-radius:12px; background:var(--paper); color:var(--ink); border:3px solid var(--ink); font:800 18px/1 var(--display); }
+  .boil-card { width:170px; }
+  .multi { position:relative; height:180px; overflow:hidden; }
+  .multi > div { position:absolute; left:-10%; right:-10%; }
+  .ref { font:500 11px/1.5 var(--mono); color:var(--blue200); }
+  .ref a { color:var(--blue200); }
+
+  /* table */
+  .table-wrap { height:min(78vh, 720px); border-radius:18px; border:3px solid var(--ink700); position:relative; overflow:hidden; background:radial-gradient(ellipse at 50% 120%, rgba(37,156,222,.4), transparent 60%), url(extras/grain-256.png), var(--ink); }
+  .table-wrap .cel { width:min(34vw, 250px); aspect-ratio:4/3; border-radius:10px; outline:3px solid var(--ink); box-shadow:6px 6px 0 var(--ink950); overflow:hidden; }
+  .table-wrap .cel img { width:100%; height:100%; }
+  .table-wrap .disc { width:min(24vw, 160px); }
+  .table-wrap .hud { position:absolute; z-index:5; left:16px; top:16px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+  footer { padding:56px 0 80px; color:var(--blue200); border-top:2px solid var(--ink700); }
+  footer .wrap { display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:end; }
+  .gallop-mini { width:96px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <img src="identity/wordmark-on-ink.svg" alt="Albretsen AS">
+  <nav>
+    <a href="#hero">Hero</a><a href="#identity">Identity</a><a href="#palette">Palette</a><a href="#type">Type</a><a href="#products">Products</a><a href="#extras">Extras</a><a href="#motion">Motion</a><a href="#table">Light table</a>
+  </nav>
+</header>
+
+<!-- HERO: live cel-shaded 3D A over the cel cloud plate ------------------>
+<section class="hero" id="hero">
+  <div class="plate" data-plane=".18"><picture><source type="image/avif" srcset="extras/cel-clouds-1280.avif 1280w, extras/cel-clouds-2200.avif 2200w"><img src="extras/cel-clouds-2200.webp" srcset="extras/cel-clouds-1280.webp 1280w, extras/cel-clouds-2200.webp 2200w" sizes="100vw" alt=""></picture></div>
+  <div class="burst"></div>
+  <div class="bars"></div>
+  <div id="hero3d" aria-label="A cel-shaded letter A. Drag to spin it, throw it at the frame edges."></div>
+  <div class="hero-copy">
+    <div class="kicker mono">Design 41 · Key Frame · asset kit</div>
+    <h1 class="kf-smear-in">Software, <em>drawn</em> on twos.</h1>
+  </div>
+  <div class="hero-hint"><img src="extras/sticker-key.svg" alt="" class="kf-boil"></div>
+  <div class="hero-slate mono"><span><b style="color:var(--paper)">Albretsen AS</b> · Cut 01 · grab the A, spin it, throw it</span><button class="btn twos-toggle" id="twos" aria-pressed="true">On twos</button></div>
+</section>
+
+<section id="stills">
+  <div class="wrap">
+    <div class="sec-head"><h2>Hero stills</h2><p>Two cinematic plates for the hero and its fallbacks. Both duotone, both 1x/2x in AVIF and WebP.</p></div>
+    <div class="stills">
+      <figure>
+        <div class="frame" style="aspect-ratio:16/9"><picture><source type="image/avif" srcset="hero/keyframe-1280.avif 1280w, hero/keyframe-2560.avif 2560w"><img src="hero/keyframe-1280.webp" srcset="hero/keyframe-1280.webp 1280w, hero/keyframe-2560.webp 2560w" sizes="(max-width:860px) 100vw, 56vw" alt="A cel-shaded letter A above a cel-painted sea of cloud, impact lines radiating."></picture></div>
+        <figcaption><span><b>hero/keyframe</b> · the title card. Static fallback for the 3D hero, poster for slow devices.</span><span>2560×1440</span></figcaption>
+      </figure>
+      <figure>
+        <div class="frame" style="aspect-ratio:16/10.5"><picture><source type="image/avif" srcset="hero/marey-fencer-1280.avif 1280w, hero/marey-fencer-2560.avif 2560w"><img src="hero/marey-fencer-1280.webp" srcset="hero/marey-fencer-1280.webp 1280w, hero/marey-fencer-2560.webp 2560w" sizes="(max-width:860px) 100vw, 44vw" alt="Chronophotograph of a fencer's lunge, every phase of the motion overlaid, in deep blue."></picture></div>
+        <figcaption><span><b>hero/marey-fencer</b> · Demenÿ/Marey chronophotograph, 1906. Motion as a single frame: the "about" plate.</span><span>2560×1675</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- IDENTITY ---------------------------------------------------------------->
+<section class="sheet" id="identity">
+  <div class="wrap">
+    <div class="sec-head"><h2>Identity</h2><p>The cel A: the same extruded letter as the 3D object, inked and shaded in two flat tones. The wordmark carries a hard cel shadow, never a blur.</p></div>
+    <div class="id-grid">
+      <div class="tile c4" style="min-height:300px"><img src="identity/mark.svg" alt="Albretsen AS mark" style="width:min(70%,230px)" class="kf-boil"><span class="lbl">mark.svg · hover: line boil</span></div>
+      <div class="tile ink c4" style="min-height:300px"><img src="identity/favicon.svg" alt="favicon" style="width:120px"><span class="lbl">favicon.svg · favicon-180.png</span></div>
+      <div class="tile blue c4" style="min-height:300px"><img src="identity/mark-mono.svg" alt="One-colour mark" style="width:min(60%,190px)"><span class="lbl">mark-mono.svg · one colour</span></div>
+      <div class="tile c7"><img src="identity/wordmark.svg" alt="Albretsen AS wordmark" style="width:100%"><span class="lbl">wordmark.svg</span></div>
+      <div class="tile ink c5"><img src="identity/wordmark-on-ink.svg" alt="" style="width:100%"><span class="lbl">wordmark-on-ink.svg</span></div>
+      <figure class="c12" style="margin-top:12px">
+        <div class="frame" style="aspect-ratio:1200/630"><img src="identity/og-image.jpg" alt="Open Graph image" loading="lazy"></div>
+        <figcaption><span><b>identity/og-image.jpg</b> · Open Graph / social card, rendered from hero/keyframe-render.html?mode=og</span><span>1200×630</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- PALETTE ---------------------------------------------------------------->
+<section id="palette">
+  <div class="wrap">
+    <div class="sec-head"><h2>Palette</h2><p>Duotone from one seed hue, 240° in OKLCH. Night ink and cel blue are the two inks; everything else is a mix of them on acetate. No third hue, ever, except the real product logos.</p></div>
+    <div class="swatches">
+      <div class="sw" style="background:#010b1d;color:#95ccef"><b>Ink 950</b>oklch(0.15 0.045 255)<br>#010b1d</div>
+      <div class="sw" style="background:#011835;color:#95ccef"><b>Night ink</b>oklch(0.21 0.065 255)<br>#011835</div>
+      <div class="sw" style="background:#042e57;color:#95ccef"><b>Core shadow</b>oklch(0.30 0.085 252)<br>#042e57</div>
+      <div class="sw" style="background:#259cde;color:#011835"><b>Cel blue</b>oklch(0.66 0.14 240)<br>#259cde</div>
+      <div class="sw" style="background:#95ccef;color:#011835"><b>Rim light</b>oklch(0.82 0.075 236)<br>#95ccef</div>
+      <div class="sw" style="background:#e8f6fd;color:#011835"><b>Acetate</b>oklch(0.965 0.018 230)<br>#e8f6fd</div>
+    </div>
+    <div class="ramp"><span>Photo duotone map: ink 950 → cel blue → acetate</span></div>
+    <div class="ramp cel"><span>Cel bands: 5 hard stops, no gradients inside a shape</span></div>
+  </div>
+</section>
+
+<!-- TYPE ------------------------------------------------------------------->
+<section class="sheet" id="type">
+  <div class="wrap">
+    <div class="sec-head"><h2>Type</h2><p>Wide, heavy title cards; a calm grotesk for reading; a slate mono for everything that counts, numbers and timecodes.</p></div>
+    <div class="type-grid">
+      <div>
+        <p class="spec-display">Ship it.</p>
+        <p class="spec-display light">113,000+ installs, no marketing.</p>
+      </div>
+      <div>
+        <div class="spec-row"><span class="mono">Display</span><span><b style="font:800 22px var(--display)">Unbounded 800</b><br><span class="spec-mono">headlines, figures, wordmark. tracking −0.02em. Google Fonts, OFL.</span></span></div>
+        <div class="spec-row"><span class="mono">Body</span><span class="spec-body">Instrument Sans 400/500. Builds whatever is profitable: apps, SaaS, AI-agent infrastructure.</span></div>
+        <div class="spec-row"><span class="mono">Slate</span><span class="spec-mono">JETBRAINS MONO 500/700 · CUT 01 / 11 · 00:00:01:12 · claude mcp add albretsen https://albretsen.no/mcp</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS --------------------------------------------------------------->
+<section id="products">
+  <div class="wrap">
+    <div class="sec-head"><h2>Product cels</h2><p>Each live product is one painted cel: its real logo, untouched, raised as a cel-shaded tile on a plate in this kit's style. <span class="drag-hint">Drag to re-cut the order</span></p></div>
+    <div class="cels" data-cut="products" id="cels">
+      <figure data-id="mcp-emails"><div class="frame"><img src="products/cel-mcp-emails-800.webp" srcset="products/cel-mcp-emails-800.webp 800w, products/cel-mcp-emails-1600.webp 1600w" sizes="(max-width:760px) 100vw, 48vw" alt="MCP Emails cel" draggable="false"></div><figcaption><span><b>products/cel-mcp-emails</b> · plate: Marey, birds in flight (1886)</span><span>1600×1200</span></figcaption></figure>
+      <figure data-id="fun-libs"><div class="frame"><img src="products/cel-fun-libs-800.webp" srcset="products/cel-fun-libs-800.webp 800w, products/cel-fun-libs-1600.webp 1600w" sizes="(max-width:760px) 100vw, 48vw" alt="Fun Libs cel" draggable="false"></div><figcaption><span><b>products/cel-fun-libs</b> · plate: phenakistiscope disc (c. 1840)</span><span>1600×1200</span></figcaption></figure>
+      <figure data-id="toolrails"><div class="frame"><img src="products/cel-toolrails-800.webp" srcset="products/cel-toolrails-800.webp 800w, products/cel-toolrails-1600.webp 1600w" sizes="(max-width:760px) 100vw, 48vw" alt="Toolrails cel" draggable="false"></div><figcaption><span><b>products/cel-toolrails</b> · plate: drawn speed lines</span><span>1600×1200</span></figcaption></figure>
+      <figure data-id="harbor"><div class="frame"><img src="products/cel-harbor-800.webp" srcset="products/cel-harbor-800.webp 800w, products/cel-harbor-1600.webp 1600w" sizes="(max-width:760px) 100vw, 48vw" alt="Harbor cel" draggable="false"></div><figcaption><span><b>products/cel-harbor</b> · plate: cel cloud sea (NASA ISS photo)</span><span>1600×1200</span></figcaption></figure>
+    </div>
+    <div class="retired" data-cut="retired" id="retired">
+      <figure data-id="luma"><div class="real"><img src="../../_shared/products/luma/logo.png" alt="Luma logo (real)" draggable="false"></div><figcaption><b>Luma</b><span>real logo · 2026</span></figcaption></figure>
+      <figure data-id="polyglot"><img src="products/retired/standin-polyglot-pilot.svg" alt="" draggable="false"><figcaption><b>Polyglot Pilot</b><span>stand-in · 2025</span></figcaption></figure>
+      <figure data-id="pinpoint"><img src="products/retired/standin-pinpoint.svg" alt="" draggable="false"><figcaption><b>PinPoint</b><span>stand-in · 2025</span></figcaption></figure>
+      <figure data-id="webvakt"><img src="products/retired/standin-webvakt.svg" alt="" draggable="false"><figcaption><b>WebVakt</b><span>stand-in · 2024</span></figcaption></figure>
+      <figure data-id="jokes"><img src="products/retired/standin-joke-central.svg" alt="" draggable="false"><figcaption><b>Joke Central</b><span>stand-in · 2024</span></figcaption></figure>
+      <figure data-id="tryggere"><img src="products/retired/standin-tryggere-hyring.svg" alt="" draggable="false"><figcaption><b>Tryggere Hyring</b><span>stand-in · 2023</span></figcaption></figure>
+      <figure data-id="early"><img src="products/retired/standin-early-apps.svg" alt="" draggable="false"><figcaption><b>Early apps</b><span>stand-in · 2021</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRAS ----------------------------------------------------------------->
+<section id="extras">
+  <div class="wrap">
+    <div class="sec-head"><h2>Extras</h2><p>Texture and life for the rest of the site: the ancestors of animation, recut in two inks, plus stickers and patterns drawn for this kit.</p></div>
+    <div class="ex-grid">
+      <div class="ex disc-stage c5"><img class="kf-disc" id="disc" src="extras/phenakistiscope-600.webp" srcset="extras/phenakistiscope-600.webp 600w, extras/phenakistiscope-1200.webp 1200w" sizes="360px" alt="Phenakistiscope disc, c. 1840, spinning one slot per drawing"><span class="lbl">extras/phenakistiscope · steps(12): the 1840 toy animates again · click to pause</span></div>
+      <div class="ex c7" style="display:grid;grid-template-rows:auto 1fr">
+        <img src="extras/marey-birds-2400.webp" srcset="extras/marey-birds-1200.webp 1200w, extras/marey-birds-2400.webp 2400w" sizes="60vw" alt="Marey chronophotograph of a gull in flight" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+        <div class="gallop-stage" style="padding:22px 0 64px"><div class="kf-gallop" role="img" aria-label="Muybridge horse, 12 frames"></div><div class="ground"></div></div>
+        <span class="lbl">extras/marey-birds · extras/muybridge-gallop (12-frame strip, loader)</span>
+      </div>
+      <div class="ex c12" style="min-height:0"><picture><source type="image/avif" srcset="extras/cel-clouds-1280.avif 1280w, extras/cel-clouds-2200.avif 2200w"><img src="extras/cel-clouds-1280.webp" srcset="extras/cel-clouds-1280.webp 1280w, extras/cel-clouds-2200.webp 2200w" sizes="100vw" alt="Cloud sea seen from orbit, repainted as a five-band cel background" style="width:100%;aspect-ratio:21/8;object-fit:cover" loading="lazy"></picture><span class="lbl">extras/cel-clouds · background painting, multiplane layer 0</span></div>
+      <div class="ex stickers c12">
+        <img src="extras/sticker-key.svg" width="150" alt="Key sticker" class="kf-boil">
+        <img src="extras/sticker-on-twos.svg" width="300" alt="On twos sticker">
+        <img src="extras/sticker-since-2016.svg" width="160" alt="Shipping since 2016 sticker">
+        <img src="extras/sticker-norway.svg" width="300" alt="Albretsen AS Norway tag">
+        <img src="extras/sticker-sparkle.svg" width="90" alt="Sparkle">
+        <span class="lbl">extras/sticker-*.svg · outlined text, works as &lt;img&gt;</span>
+      </div>
+      <div class="ex pattern speed c3"><span class="lbl">speed-lines.svg</span></div>
+      <div class="ex pattern burst c3"><span class="lbl">impact-burst.svg</span></div>
+      <div class="ex pattern half c3"><span class="lbl">halftone.svg</span></div>
+      <div class="ex pattern grain c3"><span class="lbl">grain-256.png</span></div>
+      <div class="ex c12" style="min-height:0;background:var(--ink950)"><div style="position:relative;aspect-ratio:4/3;max-width:560px;margin:24px auto 48px"><img src="hero/marey-fencer-1280.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px" loading="lazy"><img src="extras/cel-frame.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%"></div><span class="lbl">extras/cel-frame.svg · overlay that turns any image into a cel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTION ----------------------------------------------------------------->
+<section id="motion">
+  <div class="wrap">
+    <div class="sec-head"><h2>Motion study</h2><p>Drawn, not tweened. Poses hold for two frames (12 a second), shadows stay hard, nothing blurs. motion.css + motion.js, on Motion 12.</p></div>
+    <div class="lab">
+      <div class="exp">
+        <div class="mono cut">01 · entrance</div><h3>Smear-in</h3>
+        <div class="stage"><div style="display:flex;gap:14px" id="smearRow"><span class="chip">MCP</span><span class="chip">Libs</span><span class="chip">Rails</span></div></div>
+        <p>Six drawings on twos: a stretched smear frame, the squash on landing, one overshoot, settle. Stagger 60 ms.</p>
+        <button id="smearBtn">Replay</button>
+        <div class="ref">Ref: <a href="https://www.slashfilm.com/562748/into-the-spider-verse-technique">Spider-Verse, animating on twos</a></div>
+      </div>
+      <div class="exp">
+        <div class="mono cut">02 · hover</div><h3>Line boil</h3>
+        <div class="stage"><img src="identity/mark.svg" class="boil-card kf-boil" alt="" style="width:130px"></div>
+        <p>Hover anything inked and its lines tremble like hand-traced drawings: three turbulence filters swapped every two frames.</p>
+        <button id="boilBtn">Toggle boil</button>
+        <div class="ref">Ref: hand-drawn line boil, <a href="https://3danimationcrystal.myblog.arts.ac.uk/2021/01/19/research-presentation/">AUB research on Spider-Verse line work</a></div>
+      </div>
+      <div class="exp">
+        <div class="mono cut">03 · hover</div><h3>Peg lift</h3>
+        <div class="stage"><div class="chip kf-peg" tabindex="0" style="width:180px;--peg-shadow:#259cde">Lift me</div></div>
+        <p>A cel lifts off the peg bar: the hard shadow grows, tiny tilt, spring settle. CSS fallback, Motion spring in JS.</p>
+        <button disabled style="opacity:.5">Hover the card</button>
+        <div class="ref">Ref: animation cel layering, <a href="https://en.wikipedia.org/wiki/Animation_of_Royal_Space_Force:_The_Wings_of_Honn%C3%AAamise">Wings of Honnêamise production</a></div>
+      </div>
+      <div class="exp">
+        <div class="mono cut">04 · feedback</div><h3>Impact frame</h3>
+        <div class="stage" id="impactStage"><img src="products/cel-fun-libs-800.webp" alt="" style="width:62%;border-radius:8px;outline:3px solid var(--ink)" loading="lazy"></div>
+        <p>Two inverted drawings, then a three-drawing shake. Fired when the 3D A or a light-table cel hits hard.</p>
+        <button id="impactBtn">Hit it</button>
+        <div class="ref">Ref: <a href="https://80.lv/articles/learn-how-to-add-accents-to-your-animations-with-impact-frames">80.lv on impact frames</a></div>
+      </div>
+      <div class="exp">
+        <div class="mono cut">05 · transition</div><h3>Cel wipe</h3>
+        <div class="stage" id="wipeStage"><span class="mono" id="wipeLabel" style="font-size:22px;color:var(--paper)">Scene 01</span></div>
+        <p>A blue leading band and an ink panel cross on a diagonal in eight drawings; content swaps while covered.</p>
+        <button id="wipeBtn">Change scene</button>
+        <div class="ref">Ref: anime scene-change wipes and eyecatches</div>
+      </div>
+      <div class="exp">
+        <div class="mono cut">06 · scroll</div><h3>Multiplane</h3>
+        <div class="stage multi" id="multi"><div data-depth="0" style="top:0;bottom:0;background:url(extras/cel-clouds-1280.webp) center/cover"></div><div data-depth="1" style="top:20%;height:60%;background:url(extras/speed-lines.svg) center/100% 100%;color:var(--ink950);opacity:.6"></div><div data-depth="2" style="top:30%;display:grid;place-items:center"><img src="identity/mark.svg" alt="" style="width:90px"></div></div>
+        <p>Layers move at different rates, updated on twos. Here driven by the pointer; on the site by scroll with [data-plane].</p>
+        <button disabled style="opacity:.5">Move the pointer over it</button>
+        <div class="ref">Ref: <a href="https://en.wikipedia.org/wiki/Cinematography_of_Royal_Space_Force:_The_Wings_of_Honn%C3%AAamise">12-layer cel compositing</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHT TABLE -------------------------------------------------------->
+<section id="table">
+  <div class="wrap">
+    <div class="sec-head"><h2>Light table</h2><p>The centrepiece toy: matter.js turns any element into a physical cel. Grab, throw, stack. Free cels are drawn on twos; the one in your hand updates every frame. Positions persist.</p></div>
+    <div class="table-wrap" id="tableWrap">
+      <div class="hud"><button class="btn" id="shake">Shake</button><button class="btn" id="reset">Reset</button><span class="mono" style="color:var(--blue200)">interactive/cel-table.js</span></div>
+      <div class="cel" data-cel data-x=".05" data-y=".2" data-angle="-6"><img src="products/cel-mcp-emails-800.webp" alt="" draggable="false"></div>
+      <div class="cel" data-cel data-x=".32" data-y=".05" data-angle="4"><img src="products/cel-fun-libs-800.webp" alt="" draggable="false"></div>
+      <div class="cel" data-cel data-x=".6" data-y=".25" data-angle="-3"><img src="products/cel-toolrails-800.webp" alt="" draggable="false"></div>
+      <div class="cel" data-cel data-x=".86" data-y=".1" data-angle="7"><img src="products/cel-harbor-800.webp" alt="" draggable="false"></div>
+      <div class="disc" data-cel data-shape="circle" data-x=".45" data-y=".5"><img class="kf-disc is-slow" src="extras/phenakistiscope-600.webp" alt="" draggable="false"></div>
+      <img data-cel src="extras/sticker-key.svg" width="110" height="110" data-shape="circle" data-x=".2" data-y=".55" alt="">
+      <img data-cel src="extras/sticker-on-twos.svg" width="200" data-x=".7" data-y=".6" alt="">
+      <img data-cel src="extras/sticker-since-2016.svg" width="120" height="120" data-shape="circle" data-x=".9" data-y=".6" alt="">
+      <img data-cel src="identity/mark.svg" width="110" height="110" data-x=".08" data-y=".65" alt="">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><img src="identity/wordmark-on-ink.svg" alt="Albretsen AS" style="width:min(420px,80vw)"><p class="mono" style="margin-top:16px">Design 41 · Key Frame · read ASSETS.md for sources and licences</p></div>
+    <div class="kf-gallop gallop-mini" role="img" aria-label="Loader: Muybridge gallop" style="filter:invert(1) hue-rotate(180deg)"></div>
+  </div>
+</footer>
+
+<script src="vendor/motion-12.23.24.js"></script>
+<script src="vendor/matter-0.20.0.min.js"></script>
+<script type="module">
+  import { smearIn, installBoil, pegLift, impactFrame, celWipe, multiplane, rearrangeable } from './motion.js';
+  // ?only=<section id> shows a single section (used for headless review shots)
+  const only = new URLSearchParams(location.search).get('only');
+  if (only) document.querySelectorAll('body > section').forEach(s => { if (s.id !== only) s.style.display = 'none'; });
+  installBoil();
+  multiplane();
+  pegLift('.kf-peg');
+  rearrangeable(document.getElementById('cels'));
+  rearrangeable(document.getElementById('retired'));
+
+  // hero: live 3D object, loaded lazily
+  const hero = document.getElementById('hero3d');
+  if (!only || only === 'hero') import('./interactive/cel-object.js').then(async ({ mountCelObject }) => {
+    const narrow = innerWidth < 760;
+    const obj = await mountCelObject(hero, { onTwos: true, offset: narrow ? [0.6, 0.9] : [2.3, 0.45], scale: narrow ? 0.62 : 0.86, light: [0.55, 0.5, 0.75] });
+    obj.on('impact', ({ speed }) => { if (speed > 7) impactFrame(document.getElementById('hero')); });
+    const t = document.getElementById('twos');
+    t.onclick = () => { const v = t.getAttribute('aria-pressed') !== 'true'; t.setAttribute('aria-pressed', v); obj.setOnTwos(v); t.textContent = v ? 'On twos' : 'On ones'; };
+  });
+
+  // motion lab
+  const smear = () => smearIn([...document.querySelectorAll('#smearRow .chip')]);
+  document.getElementById('smearBtn').onclick = smear;
+  new IntersectionObserver((e, io) => { if (e[0].isIntersecting) { smear(); io.disconnect(); } }).observe(document.getElementById('smearRow'));
+  document.getElementById('boilBtn').onclick = () => document.querySelector('.boil-card').classList.toggle('is-boiling');
+  document.getElementById('impactBtn').onclick = () => impactFrame(document.getElementById('impactStage'));
+  let scene = 1;
+  document.getElementById('wipeBtn').onclick = async () => {
+    const w = celWipe(); await w.covered;
+    scene = scene % 9 + 1; document.getElementById('wipeLabel').textContent = `Scene 0${scene}`;
+  };
+  const multi = document.getElementById('multi');
+  let lastT = 0;
+  multi.addEventListener('pointermove', e => {
+    if (performance.now() - lastT < 83) return; lastT = performance.now();
+    const r = multi.getBoundingClientRect(), dx = (e.clientX - r.left) / r.width - .5, dy = (e.clientY - r.top) / r.height - .5;
+    multi.querySelectorAll('[data-depth]').forEach(l => { const d = +l.dataset.depth; l.style.transform = `translate(${-dx * d * 26}px, ${-dy * d * 14}px)`; });
+  });
+  const disc = document.getElementById('disc');
+  disc.onclick = () => disc.classList.toggle('kf-disc-paused');
+
+  // light table, mounted when it scrolls near
+  const tw = document.getElementById('tableWrap');
+  const settle = new URLSearchParams(location.search).has('settle');
+  const mountTable = async () => {
+    await Promise.all([...tw.querySelectorAll('img')].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+    const { mountCelTable } = await import('./interactive/cel-table.js');
+    const table = mountCelTable(tw, { onTwos: true, persist: 'preview', settle: true });
+    table.on('impact', ({ speed }) => { if (speed > 16) impactFrame(tw); });
+    document.getElementById('shake').onclick = () => table.shake();
+    document.getElementById('reset').onclick = () => table.reset();
+  };
+  if (settle) mountTable();
+  else new IntersectionObserver((e, io) => { if (e[0].isIntersecting) { mountTable(); io.disconnect(); } }, { rootMargin: '300px' }).observe(tw);
+</script>
+</body>
+</html>

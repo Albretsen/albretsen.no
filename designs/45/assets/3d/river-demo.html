@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>River of Time</title>
+<link rel="icon" href="../identity/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../motion.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: Geist, system-ui, sans-serif; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+  .ui { position: fixed; left: clamp(16px, 5vw, 72px); top: clamp(16px, 5vw, 64px); max-width: min(30rem, calc(100vw - 110px)); pointer-events: none; }
+  .ui h1 { font: 400 clamp(2.4rem, 6vw, 4.6rem)/1 'Instrument Serif', serif; font-style: italic; margin: 0 0 .6rem; letter-spacing: -.01em; }
+  .ui p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; }
+  .switch { position: fixed; right: 16px; top: 16px; }
+  .year { position: fixed; left: 0; top: 0; font: 11px/1 'Geist Mono', monospace; letter-spacing: .08em; color: var(--ink-soft); pointer-events: none; transform: translate(-50%, -100%); white-space: nowrap; transition: opacity .4s; }
+  .year::after { content: ''; display: block; width: 1px; height: 18px; margin: 6px auto 0; background: currentColor; opacity: .35; }
+</style>
+</head>
+<body>
+<canvas id="river" aria-label="Interactive river of time from 2016 to today. Move the pointer to stir it, click to send a ripple."></canvas>
+<div class="ui"><h1>2016 → now</h1><p>Move to stir the current. Click for a ripple. The switch turns the tide.</p></div>
+<div class="switch"><tide-switch></tide-switch></div>
+<div id="years"></div>
+<script type="module">
+  if (location.hash === '#dark') document.documentElement.dataset.theme = 'dark';
+  import { createRiver } from './river.js';
+  import { defineTideSwitch } from '../motion.js';
+  defineTideSwitch();
+  const holder = document.getElementById('years'); const labels = new Map();
+  const river = await createRiver(document.getElementById('river'), {
+    theme: document.documentElement.dataset.theme,
+    onFrame(years) {
+      for (const y of years) {
+        let el = labels.get(y.year); if (!el) { el = document.createElement('div'); el.className = 'year'; el.textContent = y.year; holder.append(el); labels.set(y.year, el); }
+        el.style.transform = `translate(${y.x.toFixed(1)}px, ${(y.y - 26).toFixed(1)}px) translate(-50%, -100%)`; el.style.opacity = y.visible ? 1 : 0;
+      }
+    },
+  });
+  addEventListener('themechange', (e) => river.setTheme(e.detail.theme));
+</script>
+</body>
+</html>

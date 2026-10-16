@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paper mark, 3D</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>html,body{margin:0;height:100%;background:radial-gradient(circle at 50% 60%,#1f4274,#050d1c 70%);display:grid;place-items:center}
+#m{width:min(80vmin,560px);aspect-ratio:1;cursor:grab}</style>
+</head><body><div id="m"></div>
+<script type="module">
+import { mountMark3D } from './mark-3d.js';
+const el = document.getElementById('m');
+await mountMark3D(el);
+if (new URLSearchParams(location.search).has('explode')) el.dispatchEvent(new PointerEvent('pointerenter'));
+</script></body></html>

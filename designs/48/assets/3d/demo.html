@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Select Stage Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500;600&family=Unbounded:wght@600&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+  html,body{margin:0;height:100%;background:#0b050c;color:#f8f1f8;font:500 13px/1.4 "Geist Mono",ui-monospace,monospace}
+  #stage{position:fixed;inset:0;outline:none}
+  .hud{position:fixed;left:0;right:0;bottom:28px;text-align:center;pointer-events:none}
+  .hud b{display:block;font:600 clamp(28px,5vw,56px)/1 Unbounded,sans-serif;letter-spacing:-.02em}
+  .hud span{color:#ae9faf;letter-spacing:.14em;text-transform:uppercase;font-size:11px}
+</style></head><body>
+<div id="stage" aria-label="Product select. Use left and right arrows."></div>
+<div class="hud"><span>← → or click · drag to spin</span><b id="name">&nbsp;</b></div>
+<script type="module">
+  import { mountSelect } from './select-stage.js';
+  import { PRODUCTS } from './studio.js';
+  const el = document.getElementById('stage');
+  await mountSelect(el, { selected: 1, onSelect: id => document.getElementById('name').textContent = PRODUCTS[id].name });
+  el.focus();
+</script></body></html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Specimen Deck</title>
+<link rel="icon" href="../identity/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=Martian+Mono:wdth,wght@87.5,400&display=swap" rel="stylesheet">
+<style>
+  :root { --night:#170733; --cream:#fff1e2; --magenta:#e8287f; }
+  * { box-sizing:border-box; margin:0; }
+  body { min-height:100vh; background:var(--night) url(../textures/endpaper-marble.webp) center/cover fixed; color:var(--cream); font-family:'Bricolage Grotesque', sans-serif; display:grid; place-items:center; padding:40px 16px; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; background:radial-gradient(60% 60% at 50% 45%, rgba(23,7,51,.55), rgba(23,7,51,.92)); }
+  main { position:relative; text-align:center; width:100%; max-width:520px; }
+  h1 { font:400 clamp(36px,6vw,56px)/1 'Gloock', serif; margin-bottom:8px; }
+  p.hint { font:400 12px/1.6 'Martian Mono', monospace; letter-spacing:.1em; text-transform:uppercase; opacity:.75; margin-bottom:36px; }
+  .deck { width:100%; }
+  .sd-back h3 { font:400 34px/1 'Gloock', serif; color:var(--cream); margin-bottom:10px; }
+  .sd-back p { font:400 16px/1.45 'Bricolage Grotesque'; color:var(--cream); }
+  .sd-back .f { font:400 12px/1.6 'Martian Mono', monospace; letter-spacing:.08em; text-transform:uppercase; color:var(--cream); opacity:.85; margin-top:14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Specimen deck</h1>
+  <p class="hint">Drag &amp; fling · tap to flip · arrow keys</p>
+  <div class="deck" id="deck"></div>
+</main>
+<script type="module">
+  import { createDeck } from './specimen-deck.js'
+  import { content } from '../../../_shared/content.js'
+  const ids = ['mcp-emails', 'fun-libs', 'toolrails', 'harbor']
+  const cards = ids.map(id => {
+    const p = content.products.find(x => x.id === id)
+    return { front: `../products/plate-${id}.webp`, alt: p.name,
+      back: `<h3>${p.name}</h3><p>${p.line}</p><p class="f">${p.figure ? p.figure.value + ' ' + p.figure.label + ' · ' : ''}${(p.facts || []).join(' · ')}</p>` }
+  })
+  const w = Math.min(360, window.innerWidth - 64)
+  createDeck(document.getElementById('deck'), cards, { width: w })
+</script>
+</body>
+</html>

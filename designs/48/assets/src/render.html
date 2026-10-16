@@ -1,0 +1,115 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>bake</title>
+<style>html,body{margin:0;background:transparent;overflow:hidden}canvas{display:block;width:100vw;height:100vh}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head><body><canvas id="c"></canvas>
+<script type="module">
+// Bake page: renders one still per ?scene=. Screenshot with Chrome at DPR 2 (see ASSETS.md "How the renders are made").
+import * as S from '../3d/studio.js';
+const { THREE, C } = S;
+const q = new URLSearchParams(location.search);
+const scene = q.get('scene') || 'hero-select';
+const alpha = q.has('alpha');
+const canvas = document.getElementById('c');
+const W = innerWidth, H = innerHeight;
+const renderer = S.createRenderer(canvas, { alpha });
+renderer.setPixelRatio(devicePixelRatio); renderer.setSize(W, H, false);
+const sc = new THREE.Scene();
+sc.environment = S.studioEnvironment(renderer, { magenta: +(q.get('mag') || 2.2), ion: +(q.get('ion') || 1.4) });
+if (!alpha) { sc.background = new THREE.Color(C.void); sc.fog = new THREE.Fog(C.void, 9, 22); }
+const cam = new THREE.PerspectiveCamera(30, W / H, 0.1, 100);
+
+async function heroSelect() {
+  const ids = ['mcp-emails', 'fun-libs', 'toolrails', 'harbor'];
+  const sel = q.get('sel') || 'fun-libs';
+  sc.add(S.stageFloor());
+  const xs = [-3.3, -1.1, 1.1, 3.3];
+  for (let i = 0; i < 4; i++) {
+    const id = ids[i]; const on = id === sel;
+    const pl = S.plinth({ radius: 0.86, height: 0.34, seam: on ? C.glow : S.PRODUCTS[id].rim, seamIntensity: on ? 4 : 1.2 });
+    const z = -Math.abs(xs[i]) * 0.28; pl.position.set(xs[i], 0, z); sc.add(pl);
+    const ch = await S.character(id, { size: 1.2, depth: 0.5 });
+    ch.position.set(xs[i], 0.34 + 0.6 + (on ? 0.32 : 0.02), z);
+    ch.rotation.y = -xs[i] * 0.09 + (on ? 0.18 : 0); ch.rotation.x = on ? -0.06 : 0; ch.rotation.z = on ? -0.05 : 0;
+    sc.add(ch);
+    if (on) {
+      const gd = S.glowDisc(C.glow, 1.9, 0.75); gd.position.set(xs[i], 0.345, z); sc.add(gd);
+      const gd2 = S.glowDisc(C.glow, 3.2, 0.35); gd2.position.set(xs[i], 0.01, z); sc.add(gd2);
+      const mk = S.markObject(); mk.scale.setScalar(0.36); mk.rotation.set(Math.PI, 0.5, 0); // pointing down: the P1 pointer
+      mk.position.set(xs[i], 2.55, z); sc.add(mk);
+      const hl = S.halo(C.glow, 2.3, 0.32); hl.position.set(xs[i], 1.5, z - 1.6); sc.add(hl);
+    }
+  }
+  // floating toys
+  const toys = [['torus', C.glow, -4.1, 0.75, 2.6, 0.9], ['pill', C.ion, 4.3, 2.75, -2.6, 0.7], ['sphere', C.glowDeep, -4.4, 3.0, -4.5, 0.75], ['cube', C.lilac, 3.9, 0.45, 2.4, 0.5]];
+  for (const [k, col, x, y, z, s] of toys) { const m = S.primitive(k, col); m.position.set(x, y, z); m.scale.setScalar(s); m.rotation.set(0.6, 0.8, 0.3); sc.add(m); }
+  S.keyLights(sc, { target: new THREE.Vector3(0, 0.8, 0), key: 55 });
+  cam.fov = 23; cam.position.set(0, 2.3, 11.6); cam.lookAt(0, 1.2, 0); cam.updateProjectionMatrix();
+}
+
+async function heroMark() {
+  const floor = S.stageFloor(); floor.position.y = -1.7; sc.add(floor);
+  const mk = S.markObject(); mk.scale.setScalar(1.55); mk.rotation.set(-0.12, -0.42, 0.08); mk.position.set(0.55, 0.15, 0); sc.add(mk);
+  const gd = S.glowDisc(C.glow, 4.5, 0.55); gd.position.y = -1.69; sc.add(gd);
+  const toys = [['sphere', C.ion, -2.9, 1.5, -0.6, 0.7], ['pill', C.glowHi, 3.4, -0.9, 0.9, 0.95], ['torus', C.glowDeep, -3.6, -1.15, 1.2, 0.9]];
+  for (const [k, col, x, y, z, s] of toys) { const m = S.primitive(k, col); m.position.set(x, y, z); m.scale.setScalar(s); m.rotation.set(0.9, 0.4 + x, 0.5); sc.add(m); }
+  S.keyLights(sc, { target: new THREE.Vector3(0, 0, 0), key: 60, rimL: 30, rimR: 20 });
+  cam.fov = 30; cam.position.set(0, 0.5, 9.2); cam.lookAt(0.2, 0.1, 0); cam.updateProjectionMatrix();
+}
+
+async function portrait() {
+  const id = q.get('id');
+  const P = S.PRODUCTS[id];
+  sc.background = null; if (!alpha) { sc.background = new THREE.Color(C.void); sc.fog = new THREE.Fog(C.void, 7, 16); }
+  sc.add(S.stageFloor());
+  const pl = S.plinth({ radius: 1.15, height: 0.42, seam: P.rim, seamIntensity: 3 }); sc.add(pl);
+  const gd = S.glowDisc(P.rim, 2.0, 0.35); gd.position.y = 0.425; sc.add(gd);
+  const gd2 = S.glowDisc(P.rim, 3.4, 0.1); gd2.position.y = 0.01; sc.add(gd2);
+  const hl = S.halo(P.rim, 2.6, 0.22); hl.position.set(0, 1.5, -2.2); sc.add(hl);
+  const ch = await S.character(id, { size: 1.55, depth: 0.6 }); ch.position.y = 0.42 + 0.95; ch.rotation.set(-0.04, -0.32, -0.04); sc.add(ch);
+  // product-tinted backlight
+  const back = new THREE.PointLight(P.rim, 26, 12, 1.6); back.position.set(0, 2.4, -2.6); sc.add(back);
+  const m = S.primitive(q.get('toy') || 'sphere', P.rim); m.scale.setScalar(0.36); m.position.set(1.25, 2.55, -0.4); m.rotation.set(0.7, 0.5, 0.2); sc.add(m);
+  S.keyLights(sc, { target: new THREE.Vector3(0, 1.2, 0), key: 50, rimL: 14, rimR: 10 });
+  cam.fov = 28; cam.position.set(0, 2.1, 7.6); cam.lookAt(0, 1.3, 0); cam.updateProjectionMatrix();
+}
+
+const GLYPHS = '../products/retired/glyphs/';
+async function ghost() {
+  const id = q.get('id');
+  sc.add(S.stageFloor({ color: C.stage }));
+  const pl = S.plinth({ radius: 1.05, height: 0.3, seam: C.line, seamIntensity: 1.5 }); sc.add(pl);
+  const block = new THREE.Mesh(new (await import('three/addons/geometries/RoundedBoxGeometry.js')).RoundedBoxGeometry(1.5, 1.5, 0.62, 10, 0.3), S.resin(0xffffff, { roughness: 0.14, attenuation: 0xeedcf2, attDist: 3.5, thickness: 0.6 }));
+  block.castShadow = true; block.position.y = 0.3 + 0.95; sc.add(block);
+  let inner;
+  if (id === 'luma') {
+    const tex = await S.labelTexture('luma');
+    inner = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 0.9), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.5, emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: 0.4 }));
+  } else {
+    const svg = await (await fetch(GLYPHS + id + '.svg')).text();
+    inner = S.glyphObject(svg, { depth: 5, bevel: 1.4, material: S.plastic(C.paper, { roughness: 0.4, sheen: 0.3, extra: { emissive: new THREE.Color(C.glow), emissiveIntensity: 0.25 } }) });
+    inner.scale.setScalar(0.4);
+  }
+  inner.position.y = block.position.y; sc.add(inner);
+  block.rotation.set(-0.05, -0.38, -0.03); inner.rotation.copy(block.rotation);
+  const light = new THREE.PointLight(C.glow, 6, 6, 1.5); light.position.set(0, 1.25, -0.9); sc.add(light);
+  S.keyLights(sc, { target: new THREE.Vector3(0, 1.1, 0), key: 45, rimL: 10, rimR: 8 });
+  cam.fov = 28; cam.position.set(0, 1.9, 6.4); cam.lookAt(0, 1.05, 0); cam.updateProjectionMatrix();
+}
+
+async function sprite() {
+  const kind = q.get('kind'); const col = parseInt(q.get('color'), 16);
+  let m;
+  if (kind === 'mark') { m = S.markObject(); m.scale.setScalar(1.1); m.rotation.set(0.15, -0.35, 0); }
+  else { m = S.primitive(kind, col); m.scale.setScalar(+(q.get('s') || 1.6)); m.rotation.set(+(q.get('rx') ?? 0.5), +(q.get('ry') ?? 0.7), +(q.get('rz') ?? 0.2)); }
+  sc.add(m);
+  S.keyLights(sc, { target: new THREE.Vector3(0, 0, 0), key: 40, rimL: 20, rimR: 14 });
+  cam.fov = 22; cam.position.set(0, 0, 6.2); cam.lookAt(0, 0, 0); cam.updateProjectionMatrix();
+}
+
+await ({ 'hero-select': heroSelect, 'hero-mark': heroMark, portrait, ghost, sprite })[scene]();
+// Size from the live viewport at draw time (headless Chrome can resize the viewport after load).
+function draw() { const w = innerWidth, h = innerHeight; renderer.setPixelRatio(devicePixelRatio); renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); renderer.render(sc, cam); }
+draw(); addEventListener('resize', draw); requestAnimationFrame(() => requestAnimationFrame(draw));
+document.title = 'done';
+</script></body></html>

@@ -1,0 +1,58 @@
+/* motion.css — design 38 "Salon Refusé". Pairs with motion.js (Web Animations API).
+   Tokens, the UV-torch mask, frames that hang from a nail, and reduced-motion fallbacks. */
+
+@property --torch-r { syntax: '<length>'; inherits: true; initial-value: 0px; }
+@property --tx { syntax: '<length-percentage>'; inherits: true; initial-value: 50%; }
+@property --ty { syntax: '<length-percentage>'; inherits: true; initial-value: 50%; }
+
+:root {
+  --ease-reveal: cubic-bezier(.77, 0, .175, 1);
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --dur-ui: 180ms;
+  --dur-reveal: 1000ms;
+}
+
+/* ---- UV torch: <figure class="torch" tabindex="0"><img class="lit"><img class="uv"></figure> */
+.torch { position: relative; overflow: hidden; isolation: isolate; cursor: none; }
+.torch > img { display: block; width: 100%; height: auto; }
+.torch > .uv {
+  position: absolute; inset: 0; height: 100%; object-fit: cover;
+  -webkit-mask: radial-gradient(circle var(--torch-r) at var(--tx) var(--ty), #000 0 55%, #0008 72%, transparent 100%);
+          mask: radial-gradient(circle var(--torch-r) at var(--tx) var(--ty), #000 0 55%, #0008 72%, transparent 100%);
+}
+/* the torch's ring of violet spill on the lit image */
+.torch::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(circle calc(var(--torch-r) * 1.25) at var(--tx) var(--ty), transparent 62%, oklch(0.55 0.2 292 / .35) 78%, transparent 100%);
+}
+.torch:focus-visible { outline: 2px solid oklch(0.9 0.21 140); outline-offset: 4px; }
+
+/* ---- hung frame: rotate around the nail, wire drawn with a pseudo element */
+.hung { transform-origin: 50% -36px; position: relative; }
+.hung::before {
+  content: ''; position: absolute; left: 50%; top: -36px; width: 62%; height: 38px; translate: -50% 0;
+  background:
+    radial-gradient(circle 4px at 50% 4px, oklch(0.74 0.11 82) 0 3.5px, transparent 4px),
+    linear-gradient(to bottom right, transparent calc(50% - .7px), oklch(0.2 0.02 168) 50%, transparent calc(50% + .7px)) left / 50% 100% no-repeat,
+    linear-gradient(to bottom left, transparent calc(50% - .7px), oklch(0.2 0.02 168) 50%, transparent calc(50% + .7px)) right / 50% 100% no-repeat;
+}
+
+/* ---- light pool over any element (uses extras/light-pool.png) */
+.pool { position: absolute; inset: -18% -22% auto; aspect-ratio: 10 / 13; pointer-events: none; z-index: -1;
+  background: url(extras/light-pool.png) center top / 100% 100% no-repeat; mix-blend-mode: soft-light; }
+
+/* ---- grain overlay */
+.grain::after { content: ''; position: fixed; inset: -50%; pointer-events: none; z-index: 100;
+  background: url(extras/grain-256.png); opacity: .16; mix-blend-mode: overlay; animation: grain 1s steps(6) infinite; }
+@keyframes grain { 0%{transform:translate(0,0)} 20%{transform:translate(-7%,4%)} 40%{transform:translate(5%,-9%)} 60%{transform:translate(-3%,8%)} 80%{transform:translate(9%,2%)} 100%{transform:translate(0,0)} }
+
+/* ---- hover detail: label slides out from behind a frame */
+.label-peek { transition: translate var(--dur-ui) var(--ease-out), opacity var(--dur-ui) var(--ease-out); translate: -8px 0; opacity: 0; }
+:hover > .label-peek, :focus-within > .label-peek { translate: 0 0; opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .grain::after { animation: none; }
+  .label-peek { transition: none; }
+  .torch { cursor: auto; }
+}

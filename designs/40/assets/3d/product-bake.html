@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product plate bake</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#17482f;overflow:hidden}canvas{display:block}#gl{position:absolute;left:-99999px}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head>
+<body>
+<canvas id="out"></canvas>
+<script type="module">
+// "Specimen plate" photograph for each product: the REAL product logo printed on
+// a cream specimen card, a brass-rimmed loupe resting over it, on forest baize.
+// ?p=mcp-emails|fun-libs|toolrails|harbor&w=&h=&frames=
+import * as THREE from 'three';
+import { studioEnvironment } from './specimen-core.js';
+
+const q = new URLSearchParams(location.search);
+const W = +q.get('w') || 1600, H = +q.get('h') || 1200, N = +q.get('frames') || 32;
+const SRC = '../../../_shared/products/';
+const P = {
+  'mcp-emails': { no: '01', name: 'MCP Emails', logo: 'mcp-emails/icon.png', since: 2026, status: 'Live', line: 'Email for AI agents.', fig: '$782 MRR', facts: ['17 tools', '~100 providers', 'AGPL'], seed: 1, logoScale: 0.5 },
+  'fun-libs':   { no: '02', name: 'Fun Libs', logo: 'fun-libs/icon.png', since: 2019, status: 'Live', line: 'A fill-in-the-blanks word game.', fig: '113,000+ installs', facts: ['built at 17', 'no marketing', 'v5 · 2026'], seed: 2, logoScale: 0.5, round: 0.22 },
+  'toolrails':  { no: '03', name: 'Toolrails', logo: 'toolrails/icon.svg', since: 2026, status: 'Building', line: 'One MCP URL, every tool.', fig: '4 connectors', facts: ['tool search', 'injection guard'], seed: 3, logoScale: 0.5 },
+  'harbor':     { no: '04', name: 'Harbor', logo: 'harbor/harbor-mark.svg', since: 2026, status: 'Paused', line: 'A knowledge base for people and AI.', fig: '549 commits', facts: ['self-hostable', 'AI edits held for approval'], seed: 4, logoScale: 0.42 },
+}[q.get('p') || 'fun-libs'];
+
+await document.fonts.load('600 80px Fraunces'); await document.fonts.load('400 30px Fraunces'); await document.fonts.load('500 24px "Geist Mono"');
+const logo = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = SRC + P.logo; });
+
+// ---- card texture (print) ----
+const CW = 1200, CH = 1600;
+const cv = document.createElement('canvas'); cv.width = CW; cv.height = CH;
+const c = cv.getContext('2d');
+c.fillStyle = '#f4ecda'; c.fillRect(0, 0, CW, CH);
+// paper fibre
+let s = P.seed * 9301;
+const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+for (let i = 0; i < 9000; i++) { c.fillStyle = `rgba(${r() > .5 ? '120,100,60' : '255,255,255'},${r() * 0.05})`; c.fillRect(r() * CW, r() * CH, 1 + r() * 3, 1); }
+const ink = '#17482f', mono = '"Geist Mono", monospace';
+c.strokeStyle = ink; c.lineWidth = 2; c.globalAlpha = 0.85;
+c.strokeRect(60, 60, CW - 120, CH - 120);
+c.lineWidth = 1; c.strokeRect(72, 72, CW - 144, CH - 144);
+c.globalAlpha = 1;
+c.fillStyle = ink; c.font = `500 30px ${mono}`; c.textBaseline = 'alphabetic';
+c.letterSpacing = '4px';
+c.fillText(`SPECIMEN NO. ${P.no}`, 120, 150);
+c.textAlign = 'right'; c.fillText(`COLL. ${P.since}`, CW - 120, 150); c.textAlign = 'left';
+c.beginPath(); c.moveTo(120, 180); c.lineTo(CW - 120, 180); c.stroke();
+// logo, as-is
+const L = CW * P.logoScale, lx = (CW - L) / 2, ly = 300;
+if (P.round) { c.save(); const rr = L * P.round; c.beginPath(); c.roundRect(lx, ly, L, L, rr); c.clip(); c.drawImage(logo, lx, ly, L, L); c.restore(); }
+else c.drawImage(logo, lx, ly, L, L);
+// name and line
+c.textAlign = 'center'; c.letterSpacing = '0px';
+c.font = `600 104px Fraunces`; c.fillText(P.name, CW / 2, ly + L + 170);
+c.font = `400 40px Fraunces`; c.globalAlpha = 0.8; c.fillText(P.line, CW / 2, ly + L + 236); c.globalAlpha = 1;
+// figure row
+c.font = `500 40px ${mono}`; c.letterSpacing = '3px';
+const by = CH - 300;
+c.beginPath(); c.moveTo(120, by - 74); c.lineTo(CW - 120, by - 74); c.stroke();
+c.textAlign = 'left'; c.fillText(P.fig.toUpperCase(), 120, by);
+c.globalAlpha = 0.75; c.font = `500 26px ${mono}`;
+P.facts.forEach((f, i) => c.fillText(f.toUpperCase(), 120, by + 56 + i * 40)); c.globalAlpha = 1;
+// status stamp (eosin rubber stamp), sits where the loupe will magnify it
+const STAMP = [CW - 270, CH - 250];
+c.save(); c.translate(...STAMP); c.rotate(-0.12);
+c.strokeStyle = '#c444ac'; c.fillStyle = '#c444ac'; c.globalAlpha = 0.85; c.lineWidth = 5;
+c.beginPath(); c.roundRect(-130, -46, 260, 80, 14); c.stroke();
+c.font = `500 34px ${mono}`; c.textAlign = 'center'; c.letterSpacing = '7px'; c.fillText(P.status.toUpperCase(), 4, 8);
+c.restore();
+c.textAlign = 'left'; c.font = `500 24px ${mono}`; c.letterSpacing = '3px'; c.globalAlpha = 0.6; c.fillText('ALBRETSEN AS · NORGE', 120, CH - 100); c.globalAlpha = 1;
+
+// ---- scene ----
+const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true });
+renderer.domElement.id = 'gl'; document.body.appendChild(renderer.domElement);
+renderer.setPixelRatio(1); renderer.setSize(W, H, false);
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.0;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x17482f);
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(studioEnvironment(THREE), 0.02).texture;
+scene.environmentIntensity = 0.8;
+
+// baize
+const bz = document.createElement('canvas'); bz.width = bz.height = 512; const bc = bz.getContext('2d');
+bc.fillStyle = '#7f7f7f'; bc.fillRect(0, 0, 512, 512);
+for (let i = 0; i < 60000; i++) { const v = 100 + r() * 60 | 0; bc.fillStyle = `rgb(${v},${v},${v})`; bc.fillRect(r() * 512, r() * 512, 1, 1 + r() * 2); }
+const bTex = new THREE.CanvasTexture(bz); bTex.wrapS = bTex.wrapT = THREE.RepeatWrapping; bTex.repeat.set(10, 10);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshStandardMaterial({ color: 0x1d4431, roughness: 1, bumpMap: bTex, bumpScale: 1.2, envMapIntensity: 0.3 }));
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+
+const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+const paper = new THREE.MeshStandardMaterial({ color: 0xf4ecda, roughness: 0.92 });
+const face = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.85 });
+const cardW = 3, cardH = 4;
+const card = new THREE.Mesh(new THREE.BoxGeometry(cardW, 0.025, cardH), paper);
+card.position.y = 0.0125; card.rotation.y = (P.seed % 2 ? -1 : 1) * 0.07; card.castShadow = card.receiveShadow = true; scene.add(card);
+const facePlane = new THREE.Mesh(new THREE.PlaneGeometry(cardW, cardH), face);
+facePlane.rotation.x = -Math.PI / 2; facePlane.position.y = 0.0128; facePlane.receiveShadow = true; card.add(facePlane);
+card.updateMatrixWorld(true);
+
+// brass loupe lying on the card, magnifying the status stamp (real UV magnification)
+const brass = new THREE.MeshPhysicalMaterial({ color: 0xdcb46a, metalness: 1, roughness: 0.16, clearcoat: 0.6 });
+const LR = 0.5, MAG = 1.75;
+const loupe = new THREE.Group();
+const ring = new THREE.Mesh(new THREE.TorusGeometry(LR, 0.045, 24, 96), brass); ring.rotation.x = Math.PI / 2; loupe.add(ring);
+const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.07, 1.4, 24), new THREE.MeshPhysicalMaterial({ color: 0x0f2d1f, roughness: 0.35, clearcoat: 0.8 }));
+handle.rotation.z = Math.PI / 2; handle.position.x = LR + 0.78; loupe.add(handle);
+const ferrule = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.16, 24), brass); ferrule.rotation.z = Math.PI / 2; ferrule.position.x = LR + 0.1; loupe.add(ferrule);
+const bead = new THREE.Mesh(new THREE.SphereGeometry(0.07, 24, 16), new THREE.MeshPhysicalMaterial({ color: 0xc444ac, roughness: 0.15, clearcoat: 1 })); bead.position.x = LR + 1.5; loupe.add(bead);
+loupe.traverse(o => { o.castShadow = true; });
+// centre the loupe on the stamp: canvas px -> card local -> world
+const sLocal = new THREE.Vector3((STAMP[0] / CW - 0.5) * cardW, 0, (STAMP[1] / CH - 0.5) * cardH);
+const sWorld = card.localToWorld(sLocal.clone());
+loupe.position.set(sWorld.x, 0.075, sWorld.z); loupe.rotation.y = [-0.35, 0.5, -0.8, 0.2][P.seed - 1]; scene.add(loupe);
+loupe.updateMatrixWorld(true);
+// magnified disc: its UVs sample the card texture around the stamp, scaled by 1/MAG
+const disc = new THREE.Mesh(new THREE.CircleGeometry(LR - 0.01, 96), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.6 }));
+disc.rotation.x = -Math.PI / 2; disc.position.y = -0.02; loupe.add(disc); disc.updateMatrixWorld(true);
+const uv = disc.geometry.attributes.uv, dp = disc.geometry.attributes.position, v3 = new THREE.Vector3();
+const toUV = w => { const l = card.worldToLocal(w.clone()); return [l.x / cardW + 0.5, -l.z / cardH + 0.5]; };
+const cUV = toUV(new THREE.Vector3().setFromMatrixPosition(disc.matrixWorld));
+for (let i = 0; i < dp.count; i++) {
+  v3.fromBufferAttribute(dp, i); disc.localToWorld(v3);
+  const [u, v] = toUV(v3); uv.setXY(i, cUV[0] + (u - cUV[0]) / MAG, cUV[1] + (v - cUV[1]) / MAG);
+}
+uv.needsUpdate = true;
+const glass = new THREE.Mesh(new THREE.CircleGeometry(LR, 96), new THREE.MeshPhysicalMaterial({ color: 0xffffff, transparent: true, opacity: 0.12, roughness: 0, clearcoat: 1, envMapIntensity: 3, depthWrite: false }));
+glass.rotation.x = -Math.PI / 2; glass.position.y = 0.01; loupe.add(glass);
+
+// a brass lattice node (pin) at the top of the card
+const pin = new THREE.Mesh(new THREE.SphereGeometry(0.07, 24, 16), brass); pin.position.set(0, 0.07, -cardH / 2 + 0.3); pin.castShadow = true; scene.add(pin);
+
+scene.add(new THREE.HemisphereLight(0xfff6e6, 0x1a3a2a, 0.9));
+const sun = new THREE.DirectionalLight(0xfff0d8, 3.2); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -5, right: 5, top: 5, bottom: -5, near: 1, far: 30 }); sun.shadow.camera.updateProjectionMatrix();
+sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.01;
+scene.add(sun);
+
+const cam = new THREE.PerspectiveCamera(24, W / H, 0.1, 100);
+const target = new THREE.Vector3(0, 0, 0.1);
+const camBase = new THREE.Vector3(1.4, 11.5, 5.2);
+const acc = new Float32Array(W * H * 4), px = new Uint8Array(W * H * 4);
+const right = new THREE.Vector3(), up = new THREE.Vector3();
+const disk = (i, n) => { const rr = Math.sqrt((i + 0.5) / n), a = i * 2.39996323; return [rr * Math.cos(a), rr * Math.sin(a)]; };
+for (let i = 0; i < N; i++) {
+  const [lx2, ly2] = disk(i, N);
+  sun.position.set(-4 + lx2 * 0.9, 8, -2 + ly2 * 0.9);
+  const [ax, ay] = disk((i * 7) % N, N);
+  cam.position.copy(camBase); cam.lookAt(target);
+  right.setFromMatrixColumn(cam.matrixWorld, 0); up.setFromMatrixColumn(cam.matrixWorld, 1);
+  cam.position.addScaledVector(right, ax * 0.012).addScaledVector(up, ay * 0.012); cam.lookAt(target);
+  cam.setViewOffset(W, H, Math.random() - 0.5, Math.random() - 0.5, W, H);
+  renderer.render(scene, cam);
+  const gl = renderer.getContext(); gl.readPixels(0, 0, W, H, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  for (let k = 0; k < px.length; k++) acc[k] += px[k];
+}
+const out = document.getElementById('out'); out.width = W; out.height = H;
+const ctx = out.getContext('2d'); const img = ctx.createImageData(W, H);
+let sd = 99;
+const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+  const i = ((H - 1 - y) * W + x) * 4, o = (y * W + x) * 4;
+  let rr = acc[i] / N / 255, g = acc[i + 1] / N / 255, b = acc[i + 2] / N / 255;
+  const dx = x / W - 0.5, dy = y / H - 0.5; const v = 1 - 0.38 * Math.pow(Math.min(1, (dx * dx + dy * dy) * 2.2), 1.4);
+  const n = (rnd() + rnd() - 1) * 0.022;
+  img.data[o] = (rr * v + n) * 255; img.data[o + 1] = (g * v + n) * 255; img.data[o + 2] = (b * v + n) * 255; img.data[o + 3] = 255;
+}
+ctx.putImageData(img, 0, 0);
+renderer.domElement.remove();
+</script>
+</body>
+</html>

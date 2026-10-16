@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>render</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist+Mono:wght@400..700&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:transparent;overflow:hidden}canvas{display:block;width:100vw;height:100vh}
+.f1{font:800 20px "Bricolage Grotesque";position:absolute;opacity:0}.f2{font:500 20px "Geist Mono";position:absolute;opacity:0}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+</head><body><span class="f1">Albretsen</span><span class="f2">mono</span><canvas id="c"></canvas>
+<script type="module">
+// Bake page: ?scene=desktop|wallpaper|layer&only=sky,aurora...&shadowcatch=1
+import * as THREE from 'three';
+import { buildNight, buildDesktopUI, buildProduct, makeRenderer, PRODUCT_ICONS } from '../live/paperkit.js';
+const q = new URLSearchParams(location.search);
+const W = innerWidth, H = innerHeight, pr = devicePixelRatio;
+await document.fonts.load('800 20px "Bricolage Grotesque"'); await document.fonts.load('500 20px "Geist Mono"');
+const scene = q.get('scene') || 'desktop';
+const transparent = scene === 'layer';
+const r = makeRenderer(THREE, { canvas: document.getElementById('c'), width: W, height: H, pixelRatio: pr, alpha: transparent });
+const N = scene === 'product'
+  ? await buildProduct(THREE, q.get('id'), '../../../_shared/products/')
+  : await buildNight(THREE, { aspect: W / H, camZ: +(q.get('camz') || 34), fov: +(q.get('fov') || 24) });
+if (scene === 'desktop') await buildDesktopUI(THREE, N.scene, { products: PRODUCT_ICONS('../../../_shared/products/') });
+if (scene === 'wallpaper') N.layers.plane.visible = q.get('plane') !== '0';
+if (transparent) {
+  const only = (q.get('only') || 'sky').split(',');
+  Object.values(N.layers).forEach((g) => (g.visible = only.includes(g.name)));
+  N.scene.background = null;
+  // shadow catcher just behind the lowest visible layer, so the cast shadow bakes into alpha
+  const zs = []; N.scene.traverse((o) => { if (o.isMesh && o.parent && only.some((n) => N.layers[n] && isIn(o, N.layers[n]))) zs.push(o.getWorldPosition(new THREE.Vector3()).z); });
+  if (q.get('catch') !== '0' && !only.includes('sky')) {
+    const sc = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.ShadowMaterial({ opacity: 0.5 }));
+    sc.position.z = Math.min(...zs) - 0.25; sc.receiveShadow = true; N.scene.add(sc);
+  }
+}
+function isIn(o, g) { while (o) { if (o === g) return true; o = o.parent; } return false; }
+r.render(N.scene, N.camera);
+document.title = 'done';
+</script></body></html>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Albretsen AS</title><defs>
+  <linearGradient id="gL" x1="0" y1="0" x2="0.35" y2="1">
+    <stop offset="0" stop-color="#f5f372"/><stop offset=".45" stop-color="#aced37"/><stop offset="1" stop-color="#46ac2a"/>
+  </linearGradient>
+  <linearGradient id="gR" x1="1" y1="0" x2="0.6" y2="1">
+    <stop offset="0" stop-color="#ff9fc6"/><stop offset=".5" stop-color="#fa4095"/><stop offset="1" stop-color="#935edf"/>
+  </linearGradient>
+  <linearGradient id="gB" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#99e6f9"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#d6bef5"/>
+  </linearGradient>
+  <radialGradient id="spec" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter>
+
+  <radialGradient id="glow" cx=".5" cy=".95" r=".75"><stop offset="0" stop-color="#fa4095" stop-opacity=".75"/><stop offset=".5" stop-color="#935edf" stop-opacity=".35"/><stop offset="1" stop-color="#10081d" stop-opacity="0"/></radialGradient></defs><rect width="100" height="100" rx="22" fill="#10081d"/><rect width="100" height="100" rx="22" fill="url(#glow)"/>
+<g transform="translate(50 50) scale(1.08) translate(-50 -52)"><g>
+  <rect transform="translate(33 51) rotate(14)" x="-11" y="-37" width="22" height="74" rx="4" fill="url(#gL)"/>
+  <ellipse transform="translate(33 51) rotate(14) rotate(-8)" cx="-4" cy="-18" rx="3.2" ry="11" fill="url(#spec)" filter="url(#soft)" opacity=".85"/>
+  <rect transform="translate(67 51) rotate(-14)" x="-11" y="-37" width="22" height="74" rx="4" fill="url(#gR)"/>
+  <ellipse transform="translate(67 51) rotate(-14) rotate(8)" cx="4" cy="-18" rx="3.2" ry="11" fill="url(#spec)" filter="url(#soft)" opacity=".7"/>
+  <rect transform="translate(33 51) rotate(14)" x="-11" y="-37" width="22" height="74" rx="4" fill="none" stroke="#10081d" stroke-opacity=".22" stroke-width=".8"/>
+  <rect transform="translate(67 51) rotate(-14)" x="-11" y="-37" width="22" height="74" rx="4" fill="none" stroke="#10081d" stroke-opacity=".22" stroke-width=".8"/>
+  <g transform="translate(33 51) rotate(14)" fill="none" stroke="#fff" stroke-opacity=".85"><circle cx="-4.5" cy="-29.5" r="1.6" fill="#fff"/><circle cx="-4.5" cy="-29.5" r="3.6" stroke-width=".8"/></g>
+  <g transform="translate(67 51) rotate(-14)" fill="none" stroke="#fff" stroke-opacity=".85"><circle cx="4.5" cy="29.5" r="1.6" fill="#fff"/><circle cx="4.5" cy="29.5" r="3.6" stroke-width=".8"/></g>
+  <rect x="20" y="60" width="60" height="6.5" rx="3.25" fill="url(#gB)"/>
+  <rect x="20" y="60" width="60" height="6.5" rx="3.25" fill="none" stroke="#10081d" stroke-opacity=".25" stroke-width=".8"/>
+</g></g></svg>

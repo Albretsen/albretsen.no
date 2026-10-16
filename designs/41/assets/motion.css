@@ -1,0 +1,101 @@
+/* motion.css — design 41 "Key Frame"
+   Motion is drawn, not tweened. Poses are held "on twos" (12 drawings a
+   second), shadows are hard, and nothing ever blurs. Pair with motion.js.
+
+   Tokens -------------------------------------------------------------- */
+:root {
+  --kf-ink: #011835;      /* oklch(0.21 0.065 255) */
+  --kf-ink-950: #010b1d;  /* oklch(0.15 0.045 255) */
+  --kf-ink-700: #042e57;  /* oklch(0.30 0.085 252) */
+  --kf-blue: #259cde;     /* oklch(0.66 0.14 240)  */
+  --kf-blue-200: #95ccef; /* oklch(0.82 0.075 236) */
+  --kf-paper: #e8f6fd;    /* oklch(0.965 0.018 230) */
+  --kf-two: 83ms;         /* one drawing held on twos at 24 fps */
+  --kf-ease-snap: cubic-bezier(.2, 1.4, .3, 1);
+}
+
+/* 1. SMEAR-IN — entrance ---------------------------------------------
+   Six drawings, held on twos: a stretched smear frame, the squash on
+   landing, one overshoot, settle. Ref: Spider-Verse animating on twos,
+   classic smear frames. Add .kf-smear-in; stagger with --kf-delay.      */
+@keyframes kf-smear-in {
+  0%     { transform: translateY(-46px) scale(.72, 1.55); opacity: 0; }
+  16.66% { transform: translateY(-46px) scale(.72, 1.55); opacity: 1; }
+  33.33% { transform: translateY(6px) scale(1.16, .8); }
+  50%    { transform: translateY(-5px) scale(.96, 1.05); }
+  66.66% { transform: translateY(1px) scale(1.02, .98); }
+  83.33%, 100% { transform: none; opacity: 1; }
+}
+.kf-smear-in {
+  animation: kf-smear-in calc(var(--kf-two) * 6) steps(1, end) both;
+  animation-delay: var(--kf-delay, 0ms);
+  transform-origin: 50% 100%;
+}
+
+/* 2. LINE BOIL — hover -------------------------------------------------
+   Ink lines tremble like hand-traced drawings: three turbulence filters
+   swapped every 2 frames. Filters are injected by motion.js installBoil(). */
+@keyframes kf-boil {
+  0%   { filter: url(#kf-boil-0); }
+  33%  { filter: url(#kf-boil-1); }
+  66%  { filter: url(#kf-boil-2); }
+}
+.kf-boil:hover, .kf-boil.is-boiling, .kf-boil-always {
+  animation: kf-boil calc(var(--kf-two) * 3) steps(1, end) infinite;
+}
+
+/* 3. PEG LIFT — hover on cards -----------------------------------------
+   A cel lifts off the peg bar: hard offset shadow grows, tiny tilt.      */
+.kf-peg {
+  --lift: 0;
+  transition: transform 240ms var(--kf-ease-snap), box-shadow 240ms var(--kf-ease-snap);
+  box-shadow: calc(4px + var(--lift) * 6px) calc(4px + var(--lift) * 6px) 0 var(--peg-shadow, var(--kf-ink));
+}
+.kf-peg:hover, .kf-peg:focus-visible { --lift: 1; transform: translate(-3px, -6px) rotate(-1.2deg); }
+
+/* 4. IMPACT FRAME — feedback --------------------------------------------
+   Two drawings inverted, then a three-drawing shake. Triggered from JS
+   (impactFrame(el)) when a thrown object hits a frame edge.              */
+@keyframes kf-impact {
+  0%     { filter: invert(1) hue-rotate(180deg) contrast(1.4); transform: translate(6px, -4px); }
+  14%    { filter: invert(1) hue-rotate(180deg) contrast(1.4); transform: translate(-5px, 3px); }
+  28%    { filter: none; transform: translate(4px, 2px); }
+  42%    { transform: translate(-2px, -2px); }
+  57%, 100% { filter: none; transform: none; }
+}
+.kf-impact { animation: kf-impact calc(var(--kf-two) * 7) steps(1, end); }
+
+/* 5. CEL WIPE — page / section transition --------------------------------
+   An ink panel with a cel-blue leading band crosses on a diagonal.
+   motion.js celWipe() drives it; these are the layers.                   */
+.kf-wipe { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
+.kf-wipe > i { position: absolute; inset: -10%; display: block; }
+.kf-wipe > i:nth-child(1) { background: var(--kf-blue); }
+.kf-wipe > i:nth-child(2) { background: var(--kf-ink); }
+
+/* 6. PHENAKISTISCOPE — idle loop ------------------------------------------
+   Rotating exactly one slot (30deg) per drawing makes the 1840 disc's
+   figures animate in place, the way the original toy did.                */
+@keyframes kf-disc { to { transform: rotate(360deg); } }
+.kf-disc { animation: kf-disc 1s steps(12, end) infinite; }
+.kf-disc.is-slow { animation-duration: 2s; }
+.kf-disc-paused { animation-play-state: paused; }
+
+/* 7. GALLOP — loader -------------------------------------------------------
+   Muybridge's 12 frames from a sprite strip (extras/muybridge-gallop-*.webp). */
+@keyframes kf-gallop { to { background-position-x: 109.0909%; } } /* 12 frames: offset k/11 per frame */
+.kf-gallop {
+  width: 240px; aspect-ratio: 6 / 5;
+  background: url(extras/muybridge-gallop-2880.webp) 0 0 / 1200% 100% no-repeat;
+  animation: kf-gallop 1s steps(12) infinite;
+}
+@media (min-resolution: 2dppx) { .kf-gallop { background-image: url(extras/muybridge-gallop-5760.webp); } }
+
+/* 8. ON-TWOS MARQUEE — ambient ------------------------------------------- */
+@keyframes kf-marquee { to { transform: translateX(-50%); } }
+.kf-marquee { display: flex; width: max-content; animation: kf-marquee 24s steps(288) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .kf-smear-in, .kf-impact, .kf-boil:hover, .kf-boil-always, .kf-disc, .kf-gallop, .kf-marquee { animation: none !important; }
+  .kf-peg { transition: none; }
+}

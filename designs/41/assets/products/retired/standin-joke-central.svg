@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Daily Jokes / Joke Central">
+  <title>Daily Jokes / Joke Central (stand-in, design 41)</title>
+  <rect x="21.6" y="20" width="92" height="92" rx="22" fill="#259cde" stroke="#011835" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="21.6" y="20.0" width="92" height="92" rx="22" fill="#259cde"/><rect x="20.4" y="19.0" width="92" height="92" rx="22" fill="#259cde"/><rect x="19.2" y="18.0" width="92" height="92" rx="22" fill="#259cde"/><rect x="18.0" y="17.0" width="92" height="92" rx="22" fill="#259cde"/><rect x="16.8" y="16.0" width="92" height="92" rx="22" fill="#259cde"/><rect x="15.6" y="15.0" width="92" height="92" rx="22" fill="#259cde"/><rect x="14.4" y="14.0" width="92" height="92" rx="22" fill="#259cde"/><rect x="13.2" y="13.0" width="92" height="92" rx="22" fill="#259cde"/>
+  <rect x="12" y="12" width="92" height="92" rx="22" fill="#ffffff" stroke="#011835" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  
+  <circle cx="58" cy="58" r="32" fill="#259cde" stroke="#011835" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M76 36 a32 32 0 0 1 8 34" fill="none" stroke="#042e57" stroke-width="6" stroke-linecap="round"/>
+  <path d="M43 52 q5 -7 10 0 M63 52 q5 -7 10 0" fill="none" stroke="#011835" stroke-width="4" stroke-linecap="round"/>
+  <path d="M40 62 h36 a18 16 0 0 1 -36 0 z" fill="#ffffff" stroke="#011835" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M46 72 q12 8 24 0" fill="none" stroke="#259cde" stroke-width="4" stroke-linecap="round"/>
+  <path d="M86 26 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" fill="#ffffff" stroke="#011835" stroke-width="2.4" stroke-linejoin="round"/>
+</svg>

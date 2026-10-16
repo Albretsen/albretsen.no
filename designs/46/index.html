@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Albretsen AS · Say Cheese</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself: apps, SaaS and AI-agent infrastructure from Norway.">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself. Apps, SaaS and AI-agent infrastructure from Norway.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<meta name="theme-color" content="#FFF6E4">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero/viewfinder-dawn.webp" imagesrcset="assets/hero/viewfinder-dawn.webp 1440w, assets/hero/viewfinder-dawn@2x.webp 2880w" imagesizes="(min-width: 960px) 58vw, 100vw">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <a class="brand" href="./" aria-label="Albretsen AS, home"><img src="assets/identity/lockup.svg" alt="Albretsen AS" width="183" height="40"></a>
+  <nav class="nav" aria-label="Main">
+    <a href="#products" class="nav-link">Products</a>
+    <a href="#shoebox" class="nav-link">Retired</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+  <button class="sound" type="button" aria-pressed="false" aria-label="Toggle sound"><span class="sound-dot" aria-hidden="true"></span><span data-label>sound off</span></button>
+</header>
+
+<main id="main">
+<!-- ============ HERO: you are the photographer ============ -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="kicker mono"><span class="rec-dot" aria-hidden="true"></span> Albretsen AS · Norway · on Google Play since 2016</p>
+    <h1 id="hero-title" class="headline" data-plane="near">
+      <span class="hl-line">Asgeir Albretsen</span>
+      <span class="hl-line">builds software</span>
+      <span class="hl-line">that <em>pays for</em></span>
+      <span class="hl-line"><em>itself.</em></span>
+    </h1>
+    <p class="sub">Apps, SaaS and the plumbing AI agents run on. One developer, one company, a lot of shipped things. Grab the lens and pull focus.</p>
+
+    <div class="mcp" data-copy>
+      <span class="mcp-label mono">for your agent</span>
+      <code class="mcp-cmd" id="mcp-cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button type="button" class="copy" aria-describedby="mcp-cmd">
+        <span class="copy-ico copy-a" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><rect x="8" y="8" width="12" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 5.5A2.5 2.5 0 0 0 13.5 3H6.5A3.5 3.5 0 0 0 3 6.5v7A2.5 2.5 0 0 0 5.5 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+        <span class="copy-ico copy-b" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M4.5 12.5l5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="copy-txt" aria-live="polite">copy</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="camera">
+    <!-- clay props & stickers loose on the table -->
+    <img class="prop prop-sun" src="assets/extras/clay-sun.webp" alt="" width="800" height="800" data-depth="0.6">
+      <img class="sticker st-cheese drag" src="assets/extras/sticker-say-cheese.webp" alt="Sticker: Say cheese!" width="444" height="444" data-m="slap" data-rot="-9" data-delay="900" draggable="false">
+    <img class="sticker st-2016 drag" src="assets/extras/sticker-since-2016.webp" alt="Sticker: since 2016 on Google Play" width="480" height="293" data-m="slap" data-rot="6" data-delay="1150" draggable="false">
+    <img class="sticker st-norway drag" src="assets/extras/sticker-made-in-norway.webp" alt="Sticker: made in Norway" width="415" height="415" data-m="slap" data-rot="-4" data-delay="1350" draggable="false">
+    <figure class="vf" id="vf" aria-label="Live viewfinder: Blink, a clay camera, at dawn">
+      <img class="vf-poster" alt="Blink, a butter-yellow clay camera with a pink lens, standing sharp in front of a blurred sunrise over a misty field"
+        src="assets/hero/viewfinder-dawn.webp" srcset="assets/hero/viewfinder-dawn.webp 1440w, assets/hero/viewfinder-dawn@2x.webp 2880w"
+        sizes="(min-width: 960px) 58vw, 100vw" width="1440" height="900" fetchpriority="high">
+      <canvas class="vf-canvas" id="blink" aria-hidden="true"></canvas>
+      <div class="vf-hud" aria-hidden="true">
+        <span class="hud-tl mono"><i class="hud-rec"></i>LIVE</span>
+        <span class="hud-tr mono" id="hud-iso">ISO 100</span>
+        <span class="hud-bl mono"><b id="hud-f">f/1.8</b> <span id="hud-s">1/250</span></span>
+        <span class="hud-br mono" id="hud-dist">FOCUS · BLINK</span>
+        <span class="hud-corner c1"></span><span class="hud-corner c2"></span><span class="hud-corner c3"></span><span class="hud-corner c4"></span>
+        <span class="af" id="af"><span class="af-box"></span></span>
+        <span class="meter"><span class="meter-scale"></span><span class="meter-needle" id="needle"></span></span>
+        <span class="feed-line mono" id="feed-line">metering the room…</span>
+        <div class="tags" id="tags"></div>
+      </div>
+      <button class="live-btn mono" type="button" id="live-btn" hidden>Open the live lens</button>
+      <figcaption class="sr-only">Pull focus with the lens ring, set exposure, and press the shutter to take a print.</figcaption>
+    </figure>
+
+    <div class="deck" role="group" aria-label="Camera controls">
+      <div class="ctl ctl-focus">
+        <div class="ctl-head mono"><span id="focus-label-id">Focus</span><span class="ctl-val" id="focus-val">Blink</span></div>
+        <div class="ring" id="ring" role="slider" tabindex="0" aria-labelledby="focus-label-id" aria-valuemin="0" aria-valuemax="100" aria-valuenow="35" aria-valuetext="Blink">
+          <div class="ring-grip" id="ring-grip"></div>
+          <div class="ring-marks mono" aria-hidden="true"><span>name</span><span>Blink</span><span>dawn ∞</span></div>
+          <span class="ring-idx" id="ring-idx" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="ctl ctl-exp">
+        <div class="ctl-head mono"><span id="exp-label-id">Exposure</span><span class="ctl-val" id="exp-val">±0 EV</span></div>
+        <div class="ev" role="slider" id="ev" tabindex="0" aria-labelledby="exp-label-id" aria-valuemin="-2" aria-valuemax="2" aria-valuenow="0" aria-valuetext="0 EV">
+          <span class="ev-track"></span><span class="ev-knob" id="ev-knob"></span>
+        </div>
+      </div>
+      <button class="shutter" type="button" id="shutter" aria-describedby="shutter-hint">
+        <span class="shutter-cap" aria-hidden="true"></span>
+        <span class="shutter-txt">Say cheese</span>
+      </button>
+      <p class="hint mono" id="shutter-hint">Space also works. Each print carries a fact.</p>
+    </div>
+  </div>
+
+  <div class="tray" id="tray" aria-live="polite" aria-label="Prints you have taken"></div>
+
+</section>
+
+<!-- ============ CONTACT STRIP (scroll-driven) ============ -->
+<section class="strip" aria-label="Contact strip">
+  <div class="strip-track" id="strip-track">
+    <figure class="frame"><img src="assets/photo/dawn-field.webp" alt="Sunrise over a misty field" width="1200" height="899" loading="lazy"><figcaption class="mono">01 · first light</figcaption></figure>
+    <figure class="frame"><img src="assets/hero/blink-dawn.webp" alt="Blink waving on a candy dawn stage under a clay sun" width="1440" height="900" loading="lazy"><figcaption class="mono">02 · Blink, waving</figcaption></figure>
+    <figure class="frame"><img src="assets/photo/sunflower-sky.webp" alt="A sunflower against a blue summer sky" width="1200" height="796" loading="lazy"><figcaption class="mono">03 · sunlit</figcaption></figure>
+    <figure class="frame"><img src="assets/products/fun-libs.webp" alt="Blink holding the Fun Libs app icon in a pink clay world" width="800" height="600" loading="lazy"><figcaption class="mono">04 · built at 17</figcaption></figure>
+    <figure class="frame"><img src="assets/photo/orbital-sunrise.webp" alt="Sunrise seen from orbit over the curve of the Earth" width="960" height="539" loading="lazy"><figcaption class="mono">05 · dawn from the ISS</figcaption></figure>
+    <figure class="frame"><img src="assets/photo/snow-sunrise.webp" alt="Snow field under pink clouds at sunrise" width="1000" height="750" loading="lazy"><figcaption class="mono">06 · Norway, early</figcaption></figure>
+    <figure class="frame"><img src="assets/products/mcp-emails.webp" alt="Blink holding the MCP Emails icon in a sky-blue clay world" width="800" height="600" loading="lazy"><figcaption class="mono">07 · email for agents</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="products" id="products" aria-labelledby="products-title">
+  <div class="p-head">
+    <div>
+      <p class="kicker mono">Roll 01 · in the developer tray</p>
+      <h2 id="products-title" class="h2" data-m="focus">Four things,<br><em>developing.</em></h2>
+      <p class="p-lede">Every one is real, shipped or shipping, and paid for by the one before it. Numbers are counted, not rounded up.</p>
+    </div>
+    <img class="prop prop-star" src="assets/extras/clay-star.webp" alt="" width="800" height="800" loading="lazy" data-depth="0.5">
+    <div class="toy" id="toy" aria-label="A clay camera you can spin. Drag to spin, double-click for the shutter.">
+      <img class="toy-poster" src="assets/extras/clay-lens.webp" alt="" width="800" height="800" loading="lazy">
+      <span class="toy-hint mono">drag to spin · double-click</span>
+      <img class="toy-heart" src="assets/extras/clay-heart.webp" alt="" width="800" height="800" loading="lazy">
+    </div>
+  </div>
+
+  <div class="cards" id="cards"><!-- rendered from content.js; static fallback below --></div>
+  <noscript><p class="mono">MCP Emails · Fun Libs · Toolrails · Harbor. Enable JavaScript for the full roll.</p></noscript>
+
+  <div class="shoebox" id="shoebox" aria-labelledby="shoebox-title">
+    <div class="sb-head">
+      <img class="sb-sheet" src="assets/products/retired/tokens-sheet.webp" srcset="assets/products/retired/tokens-sheet.webp 800w, assets/products/retired/tokens-sheet@2x.webp 1600w" sizes="(min-width: 900px) 360px, 70vw" alt="Six clay coins, one for each retired product" width="800" height="600" loading="lazy" data-m="iris">
+      <div>
+        <h3 id="shoebox-title" class="h3">The shoebox.</h3>
+        <p>Retired products, kept like old negatives. Each one taught the next. Flip a coin.</p>
+      </div>
+    </div>
+    <ul class="coins" id="coins"></ul>
+  </div>
+</section>
+</main>
+
+<footer class="foot" id="contact">
+  <div class="foot-card">
+    <img class="foot-photo" src="assets/photo/snow-sunrise.webp" srcset="assets/photo/snow-sunrise.webp 1000w, assets/photo/snow-sunrise@2x.webp 2000w" sizes="100vw" alt="" width="1000" height="750" loading="lazy">
+    <div class="foot-inner">
+      <img class="foot-cloud" src="assets/extras/clay-cloud.webp" alt="" width="800" height="800" loading="lazy">
+      <img class="foot-wink" src="assets/hero/blink-wink-cutout.webp" alt="Blink, winking" width="600" height="600" loading="lazy">
+      <div class="foot-copy">
+        <img class="foot-word" src="assets/identity/wordmark-candy.svg" alt="albretsen" width="428" height="96" loading="lazy">
+        <p class="avail"><span class="rec-dot" aria-hidden="true"></span> Takes one outside engagement at a time.</p>
+        <a class="mail m-squish" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+      </div>
+      <img class="sticker st-rec drag" src="assets/extras/sticker-rec.webp" alt="Sticker: REC, one outside engagement at a time" width="473" height="248" loading="lazy" draggable="false">
+    </div>
+  </div>
+  <p class="credits mono">Albretsen AS · Norway · photos CC0 via Wikimedia Commons and NASA (public domain) · clay camera model CC0, Poly Haven</p>
+</footer>
+
+<script type="module" src="site.js"></script>
+</body>
+</html>

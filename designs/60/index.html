@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds small software that pays for itself: apps, SaaS and the plumbing AI agents run on. Albretsen AS, Norway.">
+<meta name="theme-color" content="#05080c">
+<meta property="og:title" content="Asgeir Albretsen · Albretsen AS">
+<meta property="og:description" content="A pocket-sized planet of software that keeps working.">
+<meta property="og:image" content="assets/brand/og.jpg">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/unbounded-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" imagesrcset="assets/hero/hero-planet-1600.avif 1600w, assets/hero/hero-planet-3200.avif 3200w" imagesizes="106vw" media="(min-width: 761px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="hero pp-grain" id="top">
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="layer still" data-depth="-14">
+      <picture>
+        <source media="(max-width: 760px)" srcset="assets/hero/planet-cutout-1000.webp" type="image/webp">
+        <source type="image/avif" srcset="assets/hero/hero-planet-1600.avif 1600w, assets/hero/hero-planet-3200.avif 3200w" sizes="106vw">
+        <source type="image/webp" srcset="assets/hero/hero-planet-1600.webp 1600w, assets/hero/hero-planet-3200.webp 3200w" sizes="106vw">
+        <img src="assets/hero/hero-planet-1600.webp" alt="" width="1600" height="900" fetchpriority="high" decoding="async">
+      </picture>
+    </div>
+    <div class="layer live3d" id="live" data-depth="-6"></div>
+    <div class="layer cutout" data-depth="-18"><img src="assets/hero/planet-cutout-1000.webp" alt="" width="1000" height="1000"></div>
+    <div class="layer debris" data-depth="34"><img src="assets/extras/voxel-debris-900.webp" srcset="assets/extras/voxel-debris-900.webp 900w, assets/extras/voxel-debris-1800.webp 1800w" sizes="60vw" alt="" width="900" height="600" loading="lazy"></div>
+  </div>
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <a class="brand pp-pop" href="#top" aria-label="Albretsen AS, home" id="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620.7 160"  aria-hidden="true" focusable="false"><g><polygon points="22.26,121.33 41.51,132.44 41.51,110.22 22.26,99.11" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="137.74,121.33 137.74,99.11 118.49,110.22 118.49,132.44" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><polygon points="80.00,21.33 99.25,32.44 80.00,43.56 60.75,32.44" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="41.51,132.44 60.75,143.56 60.75,121.33 41.51,110.22" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="118.49,132.44 118.49,110.22 99.25,121.33 99.25,143.56" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><polygon points="22.26,99.11 41.51,110.22 41.51,88.00 22.26,76.89" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="137.74,99.11 137.74,76.89 118.49,88.00 118.49,110.22" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><polygon points="60.75,32.44 80.00,43.56 60.75,54.67 41.51,43.56" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="99.25,32.44 118.49,43.56 99.25,54.67 80.00,43.56" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="60.75,143.56 80.00,154.67 80.00,132.44 60.75,121.33" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="99.25,143.56 99.25,121.33 80.00,132.44 80.00,154.67" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><polygon points="41.51,110.22 60.75,121.33 60.75,99.11 41.51,88.00" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="118.49,110.22 118.49,88.00 99.25,99.11 99.25,121.33" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><polygon points="41.51,43.56 60.75,54.67 41.51,65.78 22.26,54.67" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="22.26,76.89 41.51,88.00 41.51,65.78 22.26,54.67" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="80.00,43.56 99.25,54.67 80.00,65.78 60.75,54.67" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="118.49,43.56 137.74,54.67 118.49,65.78 99.25,54.67" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="137.74,76.89 137.74,54.67 118.49,65.78 118.49,88.00" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><polygon points="80.00,88.00 99.25,99.11 80.00,110.22 60.75,99.11" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="60.75,121.33 80.00,132.44 80.00,110.22 60.75,99.11" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="99.25,121.33 99.25,99.11 80.00,110.22 80.00,132.44" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><polygon points="60.75,54.67 80.00,65.78 60.75,76.89 41.51,65.78" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="41.51,88.00 60.75,99.11 60.75,76.89 41.51,65.78" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="80.00,88.00 80.00,65.78 60.75,76.89 60.75,99.11" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><polygon points="99.25,54.67 118.49,65.78 99.25,76.89 80.00,65.78" fill="#eef2f7" stroke="#eef2f7" stroke-width="0.6" stroke-linejoin="round"/><polygon points="80.00,88.00 99.25,99.11 99.25,76.89 80.00,65.78" fill="#8494a8" stroke="#8494a8" stroke-width="0.6" stroke-linejoin="round"/><polygon points="118.49,88.00 118.49,65.78 99.25,76.89 99.25,99.11" fill="#3c4958" stroke="#3c4958" stroke-width="0.6" stroke-linejoin="round"/><g class="pp-pop-lines"><line x1="64.60" y1="72.89" x2="64.60" y2="46.22" stroke="#0790ff" stroke-width="2.89" stroke-linecap="round"/><line x1="95.40" y1="72.89" x2="95.40" y2="46.22" stroke="#0790ff" stroke-width="2.89" stroke-linecap="round"/><line x1="80.00" y1="72.89" x2="80.00" y2="51.78" stroke="#0790ff" stroke-width="2.89" stroke-linecap="round"/></g><g class="pp-pop-cube"><polygon points="80.00,4.67 99.25,15.78 80.00,26.89 60.75,15.78" fill="#80bcff" stroke="#80bcff" stroke-width="0.6" stroke-linejoin="round"/><polygon points="60.75,38.00 80.00,49.11 80.00,26.89 60.75,15.78" fill="#0790ff" stroke="#0790ff" stroke-width="0.6" stroke-linejoin="round"/><polygon points="99.25,38.00 99.25,15.78 80.00,26.89 80.00,49.11" fill="#0559a8" stroke="#0559a8" stroke-width="0.6" stroke-linejoin="round"/></g></g><path d="M212.608 102.0 210.94400000000002 88.816 212.672 83.75999999999999 210.94400000000002 78.70400000000001 212.608 65.45599999999999H226.176L223.872 83.696L226.176 102.0ZM215.68 83.75999999999999Q214.784 89.52 212.128 93.872Q209.472 98.224 205.40800000000002 100.624Q201.344 103.024 196.16 103.024Q190.784 103.024 186.72 100.624Q182.656 98.224 180.352 93.84Q178.048 89.456 178.048 83.75999999999999Q178.048 77.936 180.352 73.584Q182.656 69.232 186.72 66.8Q190.784 64.368 196.16 64.368Q201.344 64.368 205.40800000000002 66.768Q209.472 69.168 212.16000000000003 73.488Q214.848 77.80799999999999 215.68 83.75999999999999ZM191.296 83.75999999999999Q191.296 86.44800000000001 192.416 88.56Q193.536 90.672 195.51999999999998 91.856Q197.504 93.03999999999999 200.064 93.03999999999999Q202.752 93.03999999999999 205.12 91.856Q207.488 90.672 209.28 88.56Q211.072 86.44800000000001 211.96800000000002 83.75999999999999Q211.072 81.008 209.28 78.89599999999999Q207.488 76.78399999999999 205.12 75.568Q202.752 74.352 200.064 74.352Q197.504 74.352 195.51999999999998 75.568Q193.536 76.78399999999999 192.416 78.89599999999999Q191.296 81.008 191.296 83.75999999999999Z M231.168 52.72H244.288V102.0H231.168Z M250.176 52.72H263.296V76.08L261.568 79.408V88.624L263.296 91.824V102.0H250.176ZM259.072 83.75999999999999Q259.96799999999996 77.80799999999999 262.592 73.488Q265.216 69.168 269.344 66.768Q273.472 64.368 278.592 64.368Q283.96799999999996 64.368 288.032 66.8Q292.096 69.232 294.368 73.584Q296.64 77.936 296.64 83.75999999999999Q296.64 89.456 294.368 93.84Q292.096 98.224 288.032 100.624Q283.96799999999996 103.024 278.592 103.024Q273.40799999999996 103.024 269.312 100.624Q265.216 98.224 262.592 93.872Q259.96799999999996 89.52 259.072 83.75999999999999ZM283.456 83.75999999999999Q283.456 81.008 282.336 78.89599999999999Q281.216 76.78399999999999 279.23199999999997 75.568Q277.248 74.352 274.62399999999997 74.352Q272.0 74.352 269.632 75.568Q267.264 76.78399999999999 265.472 78.89599999999999Q263.68 81.008 262.71999999999997 83.75999999999999Q263.68 86.44800000000001 265.472 88.56Q267.264 90.672 269.632 91.856Q272.0 93.03999999999999 274.62399999999997 93.03999999999999Q277.248 93.03999999999999 279.23199999999997 91.856Q281.216 90.672 282.336 88.56Q283.456 86.44800000000001 283.456 83.75999999999999Z M299.264 65.45599999999999H312.576L314.752 78.512V102.0H301.696V77.744ZM331.904 64.88V76.01599999999999Q329.98400000000004 75.632 328.288 75.47200000000001Q326.59200000000004 75.312 325.184 75.312Q322.368 75.312 320.0 76.43199999999999Q317.632 77.55199999999999 316.192 80.112Q314.752 82.672 314.752 86.96L312.25600000000003 83.888Q312.76800000000003 79.92 313.79200000000003 76.432Q314.81600000000003 72.944 316.576 70.22399999999999Q318.336 67.50399999999999 320.96000000000004 65.93599999999999Q323.584 64.368 327.36 64.368Q328.44800000000004 64.368 329.6 64.496Q330.752 64.624 331.904 64.88Z M356.544 103.024Q349.888 103.024 344.67199999999997 100.592Q339.45599999999996 98.16 336.448 93.776Q333.44 89.392 333.44 83.568Q333.44 77.872 336.32 73.55199999999999Q339.2 69.232 344.224 66.8Q349.248 64.368 355.584 64.368Q362.176 64.368 366.816 67.216Q371.45599999999996 70.064 373.984 75.24799999999999Q376.512 80.432 376.512 87.472H344.0V79.6H369.152L364.864 82.352Q364.608 79.536 363.456 77.584Q362.304 75.632 360.41599999999994 74.608Q358.52799999999996 73.584 355.904 73.584Q353.024 73.584 350.976 74.736Q348.928 75.888 347.77599999999995 77.904Q346.62399999999997 79.92 346.62399999999997 82.608Q346.62399999999997 86.064 348.192 88.464Q349.76 90.864 352.79999999999995 92.144Q355.84 93.424 360.256 93.424Q364.288 93.424 368.288 92.368Q372.288 91.312 375.55199999999996 89.392V97.712Q371.77599999999995 100.272 366.94399999999996 101.648Q362.11199999999997 103.024 356.544 103.024Z M377.6 75.12V69.424L385.024 66.416L390.656 55.6H398.08V65.45599999999999H413.44V75.12H398.08V85.872Q398.08 89.84 399.68 91.44Q401.28000000000003 93.03999999999999 405.504 93.03999999999999Q408.192 93.03999999999999 410.27200000000005 92.56Q412.35200000000003 92.08 414.08000000000004 91.312V101.168Q412.16 101.872 409.024 102.44800000000001Q405.88800000000003 103.024 402.56 103.024Q396.48 103.024 392.608 101.168Q388.736 99.312 386.88 95.824Q385.024 92.336 385.024 87.664V75.12Z M460.48 90.096Q460.48 94.32 457.92 97.19999999999999Q455.36 100.08 450.624 101.55199999999999Q445.88800000000003 103.024 439.232 103.024Q432.384 103.024 427.232 101.36Q422.08000000000004 99.696 419.20000000000005 96.688Q416.32 93.68 416.12800000000004 89.712H429.37600000000003Q429.824 91.184 431.136 92.24Q432.44800000000004 93.29599999999999 434.624 93.84Q436.8 94.384 439.808 94.384Q443.71200000000005 94.384 445.72800000000007 93.616Q447.744 92.848 447.744 91.312Q447.744 90.096 446.208 89.488Q444.672 88.88 440.96000000000004 88.56L434.49600000000004 88.048Q428.03200000000004 87.6 424.22400000000005 86.096Q420.416 84.592 418.752 82.19200000000001Q417.088 79.792 417.088 76.72Q417.088 72.56 419.68000000000006 69.84Q422.27200000000005 67.12 426.91200000000003 65.744Q431.552 64.368 437.76 64.368Q443.904 64.368 448.704 65.96799999999999Q453.504 67.568 456.384 70.416Q459.264 73.264 459.712 77.104H446.464Q446.144 75.888 445.05600000000004 74.896Q443.968 73.904 442.048 73.264Q440.12800000000004 72.624 437.12 72.624Q433.6 72.624 431.776 73.392Q429.952 74.16 429.952 75.568Q429.952 76.656 431.072 77.296Q432.192 77.936 435.264 78.19200000000001L443.776 78.832Q450.112 79.21600000000001 453.76 80.656Q457.408 82.096 458.944 84.464Q460.48 86.832 460.48 90.096Z M486.144 103.024Q479.488 103.024 474.272 100.592Q469.056 98.16 466.048 93.776Q463.04 89.392 463.04 83.568Q463.04 77.872 465.92 73.55199999999999Q468.8 69.232 473.824 66.8Q478.848 64.368 485.184 64.368Q491.776 64.368 496.416 67.216Q501.056 70.064 503.584 75.24799999999999Q506.112 80.432 506.112 87.472H473.6V79.6H498.752L494.464 82.352Q494.208 79.536 493.05600000000004 77.584Q491.904 75.632 490.01599999999996 74.608Q488.128 73.584 485.504 73.584Q482.624 73.584 480.576 74.736Q478.528 75.888 477.376 77.904Q476.224 79.92 476.224 82.608Q476.224 86.064 477.79200000000003 88.464Q479.36 90.864 482.4 92.144Q485.44 93.424 489.856 93.424Q493.88800000000003 93.424 497.88800000000003 92.368Q501.88800000000003 91.312 505.152 89.392V97.712Q501.376 100.272 496.544 101.648Q491.712 103.024 486.144 103.024Z M508.672 65.45599999999999H521.792L524.1600000000001 80.048V102.0H511.10400000000004V78.064ZM537.6 64.368Q542.8480000000001 64.368 546.5600000000001 66.47999999999999Q550.272 68.592 552.224 72.43199999999999Q554.176 76.27199999999999 554.176 81.52V102.0H541.12V83.44Q541.12 79.344 539.04 77.168Q536.96 74.992 533.056 74.992Q530.368 74.992 528.3520000000001 76.144Q526.336 77.29599999999999 525.248 79.40799999999999Q524.1600000000001 81.52 524.1600000000001 84.4L520.128 82.288Q520.8960000000001 76.464 523.392 72.464Q525.888 68.464 529.5360000000001 66.416Q533.1840000000001 64.368 537.6 64.368Z" fill="#eef2f7"/><path d="M576.064 98.832V95.158H587.438V98.832ZM584.842 85.5 592.344 102.0H587.482L581.19 87.436H582.51L576.196 102.0H571.3340000000001L578.836 85.5Z M594.918 96.588H599.56Q599.67 97.27 600.198 97.776Q600.726 98.282 601.617 98.55699999999999Q602.5079999999999 98.832 603.718 98.832Q605.39 98.832 606.358 98.40299999999999Q607.326 97.974 607.326 97.138Q607.326 96.5 606.7760000000001 96.148Q606.226 95.796 604.664 95.642L601.584 95.356Q598.174 95.048 596.634 93.805Q595.0939999999999 92.562 595.0939999999999 90.45Q595.0939999999999 88.734 596.095 87.54599999999999Q597.096 86.358 598.9110000000001 85.753Q600.726 85.148 603.146 85.148Q605.5219999999999 85.148 607.3699999999999 85.81899999999999Q609.218 86.49 610.307 87.72200000000001Q611.396 88.95400000000001 611.4839999999999 90.582H606.864Q606.776 89.988 606.3029999999999 89.559Q605.8299999999999 89.13 605.016 88.899Q604.202 88.668 603.058 88.668Q601.518 88.668 600.616 89.075Q599.7139999999999 89.482 599.7139999999999 90.274Q599.7139999999999 90.846 600.2529999999999 91.19800000000001Q600.792 91.55 602.1999999999999 91.682L605.478 92.012Q607.832 92.232 609.24 92.771Q610.648 93.31 611.2860000000001 94.256Q611.924 95.202 611.924 96.61Q611.924 98.348 610.89 99.63499999999999Q609.856 100.922 607.986 101.637Q606.116 102.352 603.63 102.352Q601.078 102.352 599.131 101.637Q597.184 100.922 596.084 99.613Q594.9839999999999 98.304 594.918 96.588Z" fill="#0790ff"/></svg></a>
+      <ul>
+        <li class="hide-s"><a class="link mag" href="#products">Products</a></li>
+        <li class="hide-s"><a class="link mag" href="#writing">Writing</a></li>
+        <li><button class="chipbtn mag" id="sound" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span>Sound</span></button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap hero-copy">
+    <p class="eyebrow mono"><i aria-hidden="true"></i>Albretsen AS · Norway · on Google Play since 2016</p>
+    <h1><span class="first">Asgeir</span><span class="last">Albretsen<button class="stop" id="stop" type="button" aria-label="The full stop. Go on, knock it loose."><svg viewBox="0 0 20 22" aria-hidden="true"><path d="M10 0 20 5.5 10 11 0 5.5Z" fill="#80bcff"/><path d="M0 5.5 10 11v11L0 16.5Z" fill="#0790ff"/><path d="M20 5.5 10 11v11l10-5.5Z" fill="#0559a8"/></svg></button></span></h1>
+    <p class="lede">Builds small software that <b>pays for itself</b>: apps, SaaS and the plumbing AI agents run on. One company, a handful of products, never quite idle.</p>
+    <div class="cmd mag" id="cmd">
+      <code id="cmd-text">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button type="button" id="copy" aria-describedby="cmd-note">Copy</button>
+    </div>
+    <span class="cmd-note mono" id="cmd-note">One line plugs your agent into this site</span>
+  </div>
+
+  <img class="since" id="since" src="assets/extras/sticker-since-2016.svg" alt="Sticker: shipping on Google Play since 2016" width="340" height="340" draggable="false">
+
+  <div class="pile" id="pile" aria-hidden="true"></div>
+  <div class="pile-static" id="pile-static" aria-hidden="true"></div>
+  <ol class="sr" id="feed-sr" aria-label="Recent activity across the products"></ol>
+
+  <div class="wrap hero-foot">
+    <span class="hint mono" id="hint">Live activity from the products lands here. Grab a block and throw it.</span>
+    <button class="chipbtn" id="pause" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Pause</button>
+    <button class="chipbtn" id="shake" type="button">Shake</button>
+    <button class="chipbtn" id="reroll" type="button" title="Swap the world behind the page">New planet</button>
+  </div>
+</header>
+
+<div class="divider" aria-hidden="true"></div>
+
+<main id="main">
+<section class="products" id="products" aria-labelledby="products-h">
+  <div class="horizon" aria-hidden="true">
+    <picture>
+      <source type="image/avif" srcset="assets/hero/hero-surface-1600.avif 1600w, assets/hero/hero-surface-3200.avif 3200w" sizes="100vw">
+      <img src="assets/hero/hero-surface-1600.webp" srcset="assets/hero/hero-surface-1600.webp 1600w, assets/hero/hero-surface-3200.webp 3200w" sizes="100vw" alt="" width="1600" height="900" loading="lazy" decoding="async">
+    </picture>
+  </div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mono">01 · What is on the planet</span>
+      <h2 id="products-h">Four towers up. <em>Seven</em> powered down.</h2>
+      <p>Every tower is something shipped and still standing. Each one runs without being watched, which is the point: the next one gets built while these keep working.</p>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <div class="tablist" role="tablist" aria-label="Products" hidden>
+        <button class="tab pp-lift" role="tab" id="t-mcp-emails" aria-controls="p-mcp-emails" aria-selected="true" tabindex="0" data-i="0"><img src="../_shared/products/mcp-emails/icon.png" alt="" width="44" height="44"><b>MCP Emails</b><span class="status live">Live · 2026</span></button>
+        <button class="tab pp-lift" role="tab" id="t-fun-libs" aria-controls="p-fun-libs" aria-selected="false" tabindex="-1" data-i="1"><img src="../_shared/products/fun-libs/icon.png" alt="" width="44" height="44"><b>Fun Libs</b><span class="status live">Live · 2019</span></button>
+        <button class="tab pp-lift" role="tab" id="t-toolrails" aria-controls="p-toolrails" aria-selected="false" tabindex="-1" data-i="2"><img src="../_shared/products/toolrails/icon.svg" alt="" width="44" height="44"><b>Toolrails</b><span class="status building">Building · 2026</span></button>
+        <button class="tab pp-lift" role="tab" id="t-harbor" aria-controls="p-harbor" aria-selected="false" tabindex="-1" data-i="3"><span class="ico"><img src="assets/src/tex/harbor-mark.png" alt=""></span><b>Harbor</b><span class="status paused">Paused · 2026</span></button>
+      </div>
+
+      <article class="panel" role="tabpanel" id="p-mcp-emails" aria-labelledby="t-mcp-emails">
+        <div class="plinth tiltable">
+          <div class="halo"></div>
+          <picture data-depth="10"><source type="image/webp" srcset="assets/products/product-mcp-emails-800.webp 800w, assets/products/product-mcp-emails-1600.webp 1600w" sizes="(min-width: 900px) 46vw, 92vw"><img src="assets/products/product-mcp-emails-800.webp" alt="The MCP Emails icon on an isometric plinth, envelopes streaming into an inbox tray" width="800" height="800" loading="lazy"></picture>
+          <img class="stk wide" data-depth="28" src="assets/extras/sticker-mcp-command.svg" alt="" width="633" height="132" loading="lazy">
+        </div>
+        <div class="copy">
+          <div class="top"><img src="../_shared/products/mcp-emails/icon.png" alt="MCP Emails logo" width="64" height="64"><span class="mono status live">Live · since 2026</span></div>
+          <h3>MCP Emails</h3>
+          <p class="line">Email for AI agents.</p>
+          <div class="figure"><strong>$782</strong><span class="mono">MRR</span></div>
+          <ul class="facts mono"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+          <a class="visit mag" href="https://mcpemails.com" rel="noopener">mcpemails.com <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></a>
+        </div>
+      </article>
+
+      <article class="panel" role="tabpanel" id="p-fun-libs" aria-labelledby="t-fun-libs">
+        <div class="plinth tiltable">
+          <div class="halo"></div>
+          <picture data-depth="10"><source type="image/webp" srcset="assets/products/product-fun-libs-800.webp 800w, assets/products/product-fun-libs-1600.webp 1600w" sizes="(min-width: 900px) 46vw, 92vw"><img src="assets/products/product-fun-libs-800.webp" alt="The Fun Libs icon on an isometric plinth beside word tiles with glowing blanks" width="800" height="800" loading="lazy"></picture>
+          <img class="stk" data-depth="30" src="assets/extras/sticker-113k.svg" alt="" width="300" height="300" loading="lazy">
+        </div>
+        <div class="copy">
+          <div class="top"><img src="../_shared/products/fun-libs/icon.png" alt="Fun Libs logo" width="64" height="64"><span class="mono status live">Live · since 2019</span></div>
+          <h3>Fun Libs</h3>
+          <p class="line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <div class="figure"><strong>113,000+</strong><span class="mono">installs</span></div>
+          <ul class="facts mono"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+          <a class="visit mag" href="https://funlibs.app" rel="noopener">funlibs.app <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></a>
+        </div>
+      </article>
+
+      <article class="panel" role="tabpanel" id="p-toolrails" aria-labelledby="t-toolrails">
+        <div class="plinth tiltable">
+          <div class="halo"></div>
+          <picture data-depth="10"><source type="image/webp" srcset="assets/products/product-toolrails-800.webp 800w, assets/products/product-toolrails-1600.webp 1600w" sizes="(min-width: 900px) 46vw, 92vw"><img src="assets/products/product-toolrails-800.webp" alt="The Toolrails icon on an isometric plinth, seven tool blocks converging through one glowing port" width="800" height="800" loading="lazy"></picture>
+        </div>
+        <div class="copy">
+          <div class="top"><img src="../_shared/products/toolrails/icon.svg" alt="Toolrails logo" width="64" height="64"><span class="mono status building">Building · since 2026</span></div>
+          <h3>Toolrails</h3>
+          <p class="line">One MCP URL that gives an agent every tool.</p>
+          <div class="figure"><strong>4</strong><span class="mono">connectors</span></div>
+          <ul class="facts mono"><li>tool search</li><li>injection guard</li></ul>
+          <a class="visit mag" href="https://toolrails.com" rel="noopener">toolrails.com <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></a>
+        </div>
+      </article>
+
+      <article class="panel" role="tabpanel" id="p-harbor" aria-labelledby="t-harbor">
+        <div class="plinth tiltable">
+          <div class="halo"></div>
+          <picture data-depth="10"><source type="image/webp" srcset="assets/products/product-harbor-800.webp 800w, assets/products/product-harbor-1600.webp 1600w" sizes="(min-width: 900px) 46vw, 92vw"><img src="assets/products/product-harbor-800.webp" alt="The Harbor mark on an isometric plinth, a shelf of knowledge blocks with one AI edit held for approval" width="800" height="800" loading="lazy"></picture>
+        </div>
+        <div class="copy">
+          <div class="top"><span class="ico"><img src="assets/src/tex/harbor-mark.png" alt="Harbor logo"></span><span class="mono status paused">Paused · since 2026</span></div>
+          <h3>Harbor</h3>
+          <p class="line">A private knowledge base shared by people and AI.</p>
+          <div class="figure"><strong>549</strong><span class="mono">commits</span></div>
+          <ul class="facts mono"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+          <a class="visit mag" href="https://harborknowledge.com" rel="noopener">harborknowledge.com <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="well">
+      <div class="well-copy">
+        <span class="mono" style="color:var(--pp-volt-hi)">Gravity well</span>
+        <h3>Hold the whole lineup in orbit.</h3>
+        <p>The real product icons circle the planet under an inverse-square pull. Grab one and fling it. Tap empty space to add a block of activity.</p>
+        <div class="row">
+          <button class="chipbtn" id="well-shake" type="button">Perturb</button>
+          <button class="chipbtn" id="well-pause" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Freeze</button>
+        </div>
+      </div>
+      <div class="well-box">
+        <div class="well-stage" id="well-stage">
+          <div class="poster" id="well-poster" aria-hidden="true"><img src="assets/hero/planet-cutout-1000.webp" alt="" width="1000" height="1000" loading="lazy"></div>
+          <canvas id="well" aria-label="Physics toy: product icons orbiting a voxel planet. Drag to fling them." role="img"></canvas>
+        </div>
+        <img class="mascot" src="assets/extras/cursor-3d-700.webp" alt="" width="700" height="700" loading="lazy">
+      </div>
+    </div>
+
+    <div class="retired-head">
+      <h3>Powered down</h3>
+      <p class="mono">Shipped, learned from, switched off</p>
+    </div>
+    <ul class="retired">
+      <li><div class="luma"><img src="../_shared/products/luma/logo.png" alt="Luma logo" loading="lazy"></div><b>Luma</b><small>Norwegian budgeting app with open banking.</small><span class="mono">2026 · 378 commits</span></li>
+      <li><img src="assets/products/retired/retired-polyglot-pilot.svg" alt="" loading="lazy" width="320" height="320"><b>Polyglot Pilot</b><small>Agents that localised entire codebases, with a dashboard for human reviewers.</small><span class="mono">2025</span></li>
+      <li><img src="assets/products/retired/retired-pinpoint.svg" alt="" loading="lazy" width="320" height="320"><b>PinPoint</b><small>GeoGuessr with your own photos: friends guess where your pictures were taken.</small><span class="mono">2025 · 16 commits</span></li>
+      <li><img src="assets/products/retired/retired-webvakt.svg" alt="" loading="lazy" width="320" height="320"><b>WebVakt</b><small>Website change monitoring.</small><span class="mono">2024</span></li>
+      <li><img src="assets/products/retired/retired-joke-central.svg" alt="" loading="lazy" width="320" height="320"><b>Daily Jokes / Joke Central</b><small>Joke apps for iOS and Android.</small><span class="mono">2024</span></li>
+      <li><img src="assets/products/retired/retired-tryggere-hyring.svg" alt="" loading="lazy" width="320" height="320"><b>Tryggere Hyring</b><small>Background checks for hiring.</small><span class="mono">2023</span></li>
+      <li><img src="assets/products/retired/retired-early-apps.svg" alt="" loading="lazy" width="320" height="320"><b>IAGO HMS, Rentekalkulator, Prosentkalkulator</b><small>Early apps.</small><span class="mono">2021</span></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer class="foot" id="writing">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="avail">Takes one outside engagement at a time.</p>
+        <a class="mail mag" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+        <div class="stickers">
+          <img src="assets/extras/sticker-norway.svg" alt="Sticker: made in Norway" width="470" height="150" loading="lazy">
+          <img src="assets/extras/sticker-mcp-command.svg" alt="Sticker: claude mcp add albretsen https://albretsen.no/mcp" width="633" height="132" loading="lazy">
+        </div>
+      </div>
+      <div>
+        <p class="mono" style="color:var(--pp-volt-hi);margin:0 0 10px">Writing</p>
+        <ul class="posts">
+          <li><a href="/blog/stop-caring-about-all-time-highs">Stop caring about all-time highs <time class="mono" datetime="2026-08-19">Aug 2026</time></a></li>
+          <li><a href="/blog/fun-libs-113000-installs">Fun Libs: 113,000 installs later <time class="mono" datetime="2026-07-28">Jul 2026</time></a></li>
+          <li><a href="/blog/why-i-built-mcp-emails">Why I built MCP Emails <time class="mono" datetime="2026-07-28">Jul 2026</time></a></li>
+          <li><a href="/blog/personal-finance-should-be-boring">Personal finance should be boring <time class="mono" datetime="2026-07-28">Jul 2026</time></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal mono"><span>© Albretsen AS · Norway</span><span>Built in true isometric</span></div>
+  </div>
+</footer>
+
+<script type="module" src="site.js"></script>
+</body>
+</html>

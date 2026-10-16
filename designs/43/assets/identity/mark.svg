@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen AS">
+  <defs><linearGradient id="dawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8e18a"/><stop offset="1" stop-color="#fbd1b6"/></linearGradient></defs>
+  <g>
+    <polygon points="32,4 32,21 26.2,33.5" fill="#4a8ea3" stroke="#4a8ea3" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="32,4 26.2,33.5 17.6,33.5" fill="#32728a" stroke="#32728a" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="32,4 46.4,33.5 37.8,33.5" fill="#8fd0da" stroke="#8fd0da" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="32,4 37.8,33.5 32,21" fill="#6ab9c7" stroke="#6ab9c7" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="17.6,33.5 26.2,33.5 32,42" fill="#4a8ea3" stroke="#4a8ea3" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="17.6,33.5 32,42 19.5,60" fill="#32728a" stroke="#32728a" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="17.6,33.5 19.5,60 4,60" fill="#2c5f74" stroke="#2c5f74" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="46.4,33.5 32,42 37.8,33.5" fill="#6ab9c7" stroke="#6ab9c7" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="46.4,33.5 44.5,60 32,42" fill="#8fd0da" stroke="#8fd0da" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="46.4,33.5 60,60 44.5,60" fill="#b5e5ea" stroke="#b5e5ea" stroke-width="0.35" stroke-linejoin="round"/>
+    <polygon points="26.2,33.5 37.8,33.5 32,42" fill="url(#dawn)" stroke="url(#dawn)" stroke-width="0.35" stroke-linejoin="round"/>
+  </g>
+  <path d="M52.5 6.3 Q53.436 10.564 57.7 11.5 Q53.436 12.436 52.5 16.7 Q51.564 12.436 47.3 11.5 Q51.564 10.564 52.5 6.3Z" fill="#efc65a"/>
+</svg>

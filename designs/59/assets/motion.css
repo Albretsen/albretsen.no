@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Cover Story · motion study (design 59)
+   Six named motions. Pair with motion.js (tilt, slap-on-view, page turn, Lottie).
+   Every motion collapses to a fade or nothing under prefers-reduced-motion.
+   ========================================================================== */
+
+:root {
+  --ink: #0f0b22;
+  --paper: #f3f2fb;
+  --violet: #6c35ec;
+  --glow: #bab0ff;
+  --lime: #cefd3e;
+  /* easing: a sticker lands fast and settles (overshoot), paper turns slow-in slow-out */
+  --ease-slap: cubic-bezier(.2, 1.6, .35, 1);
+  --ease-lift: cubic-bezier(.3, .7, .2, 1);
+  --ease-page: cubic-bezier(.65, 0, .25, 1);
+  --shadow: 6px;
+}
+
+/* 1. SLAP (entrance) ------------------------------------------------------
+   A sticker is slapped onto the page: it arrives large and rotated, overshoots,
+   then its hard shadow "lands" a beat later. Researched from the stamp/sticker
+   entrances on neo-brutalist landing pages (lapa.ninja's brutalism category)
+   and the spring settle of magicui.design's blur-fade, re-timed to feel physical.
+   Use: <img class="m-slap" style="--rot:-8deg">; motion.js adds .is-in on view,
+   with --i for stagger. */
+.m-slap {
+  --rot: 0deg;
+  transform: rotate(var(--rot));
+  filter: drop-shadow(0 0 0 var(--ink));
+}
+.js .m-slap:not(.is-in) { opacity: 0; transform: scale(1.7) rotate(calc(var(--rot) - 22deg)); }
+.m-slap.is-in {
+  animation: m-slap 620ms var(--ease-slap) both, m-slap-shadow 280ms 300ms ease-out both;
+  animation-delay: calc(var(--i, 0) * 90ms), calc(var(--i, 0) * 90ms + 300ms);
+}
+@keyframes m-slap {
+  0%   { opacity: 0; transform: scale(1.7) rotate(calc(var(--rot) - 22deg)); }
+  35%  { opacity: 1; }
+  60%  { transform: scale(.94) rotate(calc(var(--rot) + 3deg)); }
+  100% { opacity: 1; transform: scale(1) rotate(var(--rot)); }
+}
+@keyframes m-slap-shadow {
+  from { filter: drop-shadow(0 0 0 var(--ink)); }
+  to   { filter: drop-shadow(var(--shadow) var(--shadow) 0 var(--ink)); }
+}
+
+/* 2. LIFT (hover / press) -------------------------------------------------
+   Neo-brutalist hard-shadow lift: on hover the card rises toward the pointer and
+   the offset shadow grows; on press it is pushed flat into the page. The pattern
+   is the one popularised by Gumroad's 2021 redesign and catalogued on
+   neobrutalism.dev; here it is slower and springier so it reads as paper, not UI. */
+.m-lift {
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 220ms var(--ease-lift), box-shadow 220ms var(--ease-lift);
+}
+.m-lift:hover, .m-lift:focus-visible { transform: translate(-3px, -3px) rotate(var(--lift-rot, -.6deg)); box-shadow: 9px 9px 0 var(--ink); }
+.m-lift:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); transition-duration: 60ms; }
+
+/* 3. PEEL (hover) ---------------------------------------------------------
+   The brand mark's gesture as an interaction: hovering a card peels its top-right
+   corner back to show the lime underside. Pure CSS (a clipped gradient pseudo-element).
+   Use on any positioned element: <article class="m-peel">. */
+.m-peel { position: relative; }
+.m-peel::after {
+  content: ""; position: absolute; top: -3px; right: -3px; width: 0; height: 0;
+  background: linear-gradient(225deg, var(--paper) 0 50%, var(--lime) 50% 72%, #e7ff9a 100%);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  border-bottom-left-radius: 16px;
+  box-shadow: -4px 4px 0 rgba(15, 11, 34, .25);
+  transition: width 260ms var(--ease-lift), height 260ms var(--ease-lift);
+  pointer-events: none;
+}
+.m-peel:hover::after, .m-peel:focus-within::after { width: 64px; height: 64px; }
+
+/* 4. TURN (page / section transition) -------------------------------------
+   The cover opens on its spine. With the View Transitions API (motion.js
+   pageTurn()) the old page rotates away on the left edge while the new one is
+   revealed underneath, like the hero's three.js cover. Without the API the
+   .m-turn-out / .m-turn-in classes do the same on a single element. */
+::view-transition-old(root) { animation: m-turn-out 700ms var(--ease-page) both; transform-origin: left center; z-index: 2; }
+::view-transition-new(root) { animation: m-turn-in 700ms var(--ease-page) both; }
+.m-turn-out { animation: m-turn-out 700ms var(--ease-page) both; transform-origin: left center; }
+.m-turn-in  { animation: m-turn-in 700ms var(--ease-page) both; }
+@keyframes m-turn-out {
+  from { transform: perspective(1800px) rotateY(0); filter: brightness(1); }
+  to   { transform: perspective(1800px) rotateY(-100deg); filter: brightness(.6); }
+}
+@keyframes m-turn-in {
+  from { transform: scale(.97); filter: brightness(.7); }
+  to   { transform: none; filter: none; }
+}
+
+/* 5. GLINT (hover, the crystal) ---------------------------------------------
+   A dispersive spectrum sweeps across a surface once, like light through the
+   protein crystals on the cover. Related to magicui.design's shine-border and
+   magic-card spotlight, but a single pass of a full-spectrum band, not a loop.
+   Use: <figure class="m-glint">. */
+.m-glint { position: relative; overflow: hidden; isolation: isolate; }
+.m-glint::before {
+  content: ""; position: absolute; inset: -20%; z-index: 1; pointer-events: none;
+  background: linear-gradient(115deg, transparent 38%,
+    oklch(.85 .15 25 / .0) 40%, oklch(.85 .15 60 / .45) 44%, oklch(.9 .18 125 / .5) 47%,
+    oklch(.86 .14 203 / .5) 50%, oklch(.75 .18 288 / .5) 53%, oklch(.72 .2 352 / .35) 56%, transparent 60%);
+  mix-blend-mode: screen;
+  transform: translateX(-70%);
+}
+.m-glint:hover::before { animation: m-glint 900ms var(--ease-lift) both; }
+@keyframes m-glint { to { transform: translateX(70%); } }
+
+/* 6. RHYTHM (ambient) -------------------------------------------------------
+   A sticker belt: a row of labels runs past at a fixed tempo and pauses under
+   the pointer. The infinite marquee is a staple (magicui.design "Marquee");
+   ours alternates sticker tilt per item so the row has a beat.
+   Markup: <div class="m-rhythm"><div class="m-rhythm-track"> items ×2 </div></div> */
+.m-rhythm { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.m-rhythm-track { display: flex; gap: 28px; width: max-content; animation: m-rhythm 38s linear infinite; align-items: center; padding: 18px 0; }
+.m-rhythm:hover .m-rhythm-track { animation-play-state: paused; }
+.m-rhythm-track > * { flex: none; }
+.m-rhythm-track > :nth-child(odd) { transform: rotate(-4deg); }
+.m-rhythm-track > :nth-child(even) { transform: rotate(3deg) translateY(6px); }
+@keyframes m-rhythm { to { transform: translateX(-50%); } }
+
+/* tilt layers (driven by motion.js: sets --tx/--ty in -1..1 on [data-tilt]) */
+[data-tilt] { transform-style: preserve-3d; }
+[data-tilt] > .m-tilt-plane {
+  transform: perspective(1200px) rotateX(calc(var(--ty, 0) * -7deg)) rotateY(calc(var(--tx, 0) * 9deg));
+  transform-style: preserve-3d; will-change: transform;
+}
+[data-depth] { transform: translate3d(calc(var(--tx, 0) * var(--depth-px, 0px)), calc(var(--ty, 0) * var(--depth-px, 0px)), 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-slap.is-in { animation: m-fade 200ms ease both; filter: drop-shadow(var(--shadow) var(--shadow) 0 var(--ink)); }
+  .js .m-slap:not(.is-in) { transform: rotate(var(--rot)); }
+  .m-lift, .m-peel::after { transition: none; }
+  .m-rhythm-track { animation: none; }
+  .m-glint:hover::before { animation: none; }
+  ::view-transition-old(root), ::view-transition-new(root), .m-turn-out, .m-turn-in { animation: m-fade 200ms ease both; }
+  [data-tilt] > .m-tilt-plane, [data-depth] { transform: none; }
+}
+@keyframes m-fade { from { opacity: 0; } }

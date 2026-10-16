@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Nocturne Select: motion study (design 48)
+   Five named signatures. Every one degrades to a static, visible state under
+   prefers-reduced-motion and in browsers without scroll-driven animations.
+   ========================================================================== */
+
+:root {
+  --void: oklch(0.13 0.022 324);   /* #0b050c */
+  --stage: oklch(0.17 0.03 324);   /* #160b17 */
+  --panel: oklch(0.23 0.035 324);  /* #251726 */
+  --line: oklch(0.34 0.04 324);    /* #423144 */
+  --mist: oklch(0.72 0.03 324);    /* #ae9faf */
+  --paper: oklch(0.965 0.012 324); /* #f8f1f8 */
+  --glow: oklch(0.66 0.27 324);    /* #dc3aec */
+  --glow-hi: oklch(0.80 0.17 324); /* #f295fb */
+  --glow-deep: oklch(0.45 0.2 324);/* #861192 */
+  --ion: oklch(0.82 0.13 205);     /* #36dcec */
+
+  /* Easing: "soft plastic" settles with a touch of overshoot; "lock" is decisive. */
+  --ease-plastic: cubic-bezier(.34, 1.56, .64, 1);
+  --ease-lock: cubic-bezier(.2, .9, .1, 1);
+  --ease-glide: cubic-bezier(.65, 0, .35, 1);
+  --t-fast: 180ms; --t-mid: 420ms; --t-slow: 900ms;
+}
+
+/* 1. POWER-ON (entrance)
+   An element boots like a select screen lighting up: a horizontal scan opens it from a
+   1px line, it de-blurs, and the glow overshoots once before settling.
+   Reference: arcade boot / CRT-on reveals; Codrops "reveal" demos (tympanus.net/codrops/demos). */
+@keyframes power-on {
+  0%   { clip-path: inset(49.5% 0 49.5% 0); filter: blur(10px) brightness(2.2); transform: scale(1.04); opacity: .2; }
+  35%  { clip-path: inset(0 0 0 0);        filter: blur(4px) brightness(1.6); opacity: 1; }
+  100% { clip-path: inset(0 0 0 0);        filter: none; transform: none; opacity: 1; }
+}
+.power-on { animation: power-on var(--t-slow) var(--ease-lock) both; animation-delay: calc(var(--i, 0) * 90ms); }
+
+/* 2. SELECT-LOCK (hover)
+   The hovered character lifts and its seam glows; the card tilts toward the pointer
+   (motion.js writes --rx/--ry). Pairs with the cursor reticle in cursor.js.
+   Reference: console character-select highlight; Cuberto magnetic cursor (cuberto.com/blog/cursor-magnetic-js-component). */
+.select-lock {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(0);
+  transition: transform var(--t-mid) var(--ease-plastic), box-shadow var(--t-mid) var(--ease-lock);
+  box-shadow: 0 0 0 1px var(--line), 0 30px 60px -30px oklch(0 0 0 / .8);
+  will-change: transform;
+}
+.select-lock:hover, .select-lock:focus-visible, .select-lock[aria-selected="true"] {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-10px);
+  box-shadow: 0 0 0 1px var(--glow), 0 0 40px -6px oklch(0.66 0.27 324 / .55), 0 40px 70px -30px oklch(0 0 0 / .9);
+}
+.select-lock img { transition: transform var(--t-mid) var(--ease-plastic); }
+.select-lock:hover img { transform: scale(1.04) translateY(-4px); }
+
+/* 3. GLOW-BREATHE (ambient)
+   The selected thing breathes at 5.5s, never faster: nocturne, not nightclub. */
+@keyframes glow-breathe {
+  0%, 100% { box-shadow: 0 0 0 1px var(--glow), 0 0 24px -8px oklch(0.66 0.27 324 / .5); }
+  50%      { box-shadow: 0 0 0 1px var(--glow-hi), 0 0 48px -6px oklch(0.66 0.27 324 / .8); }
+}
+.glow-breathe { animation: glow-breathe 5.5s var(--ease-glide) infinite; }
+
+/* 4. ROSTER-RISE (scroll-driven, CSS only)
+   As a roster card enters the viewport it rises out of the stage floor, rotating up from
+   18deg like a figure stood on a turntable. Uses animation-timeline: view(); Lenis only
+   smooths the scroll that drives it.
+   Reference: MDN scroll-driven animations, timeline range names. */
+@keyframes roster-rise {
+  from { transform: perspective(1000px) translateY(80px) rotateX(18deg) scale(.94); opacity: 0; filter: blur(6px); }
+  to   { transform: none; opacity: 1; filter: none; }
+}
+@supports (animation-timeline: view()) {
+  .roster-rise { animation: roster-rise linear both; animation-timeline: view(); animation-range: entry 5% cover 35%; }
+  /* Parallax for floating sprites: drift against the scroll. */
+  @keyframes drift { from { translate: 0 calc(var(--depth, 1) * 60px); } to { translate: 0 calc(var(--depth, 1) * -60px); } }
+  .drift { animation: drift linear both; animation-timeline: view(); }
+}
+
+/* 5. VERSUS-WIPE (transition)
+   Between sections (or on route change) a magenta blade sweeps diagonally across, then
+   reveals the next screen. motion.js toggles .is-wiping on a fixed overlay.
+   Reference: fighting-game "versus" transitions; GSAP showcase page transitions (gsap.com/showcase). */
+.versus-wipe { position: fixed; inset: 0; pointer-events: none; z-index: 90; background: linear-gradient(105deg, var(--glow-deep), var(--glow) 45%, var(--glow-hi) 50%, var(--glow) 55%, var(--glow-deep)); clip-path: polygon(-20% 0, -10% 0, -30% 100%, -40% 100%); }
+@keyframes versus-wipe {
+  0%   { clip-path: polygon(-20% 0, -10% 0, -30% 100%, -40% 100%); }
+  45%  { clip-path: polygon(-20% 0, 120% 0, 100% 100%, -40% 100%); }
+  55%  { clip-path: polygon(-20% 0, 120% 0, 100% 100%, -40% 100%); }
+  100% { clip-path: polygon(130% 0, 140% 0, 120% 100%, 110% 100%); }
+}
+.versus-wipe.is-wiping { animation: versus-wipe 1s var(--ease-glide) both; }
+
+/* Stat roll (supporting): figures count up digit by digit when revealed (motion.js). */
+.stat-roll { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .power-on, .roster-rise, .drift, .glow-breathe { animation: none !important; opacity: 1 !important; filter: none !important; clip-path: none !important; transform: none !important; }
+  .select-lock, .select-lock img { transition: none; }
+  .versus-wipe { display: none; }
+}

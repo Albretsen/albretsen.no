@@ -1,0 +1,268 @@
+/* Continue. — two colours, one size, one screen. */
+
+:root {
+  /* The only two colours. Hex first for old engines, OKLCH where understood. */
+  --night: #221d05;
+  --dawn: #fee47a;
+  --night: oklch(0.23 0.04 96);
+  --dawn: oklch(0.92 0.13 96);
+  --bg: var(--night);
+  --fg: var(--dawn);
+
+  /* One size for everything but the name. */
+  --size: clamp(15px, 0.6rem + 0.42vw, 21px);
+  --name: clamp(54px, min(10.5vw, 15.5vh), 200px);
+
+  --pad: clamp(16px, 2.4vw, 48px);
+  --rule: 1px solid var(--fg);
+  --dots: 1px dotted var(--fg);
+
+  --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --display: 'Instrument Serif', 'Newsreader', Georgia, serif;
+  --mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: dark;
+}
+
+/* First light: the same two colours, the other way round. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { --bg: var(--dawn); --fg: var(--night); color-scheme: light; }
+}
+:root[data-theme="light"] { --bg: var(--dawn); --fg: var(--night); color-scheme: light; }
+:root[data-theme="dark"] { --bg: var(--night); --fg: var(--dawn); color-scheme: dark; }
+
+*, *::before, *::after { box-sizing: border-box; }
+* { font-size: inherit; font-weight: 400; line-height: inherit; margin: 0; padding: 0; }
+
+html { background: var(--bg); color: var(--fg); -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: var(--size) / 1.42 var(--serif);
+  font-optical-sizing: auto;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--fg); color: var(--bg); }
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, .item:focus-visible { outline: 1px solid var(--fg); outline-offset: 3px; }
+em { font-style: italic; }
+ol { list-style: none; }
+
+.label, .hud, .meta, .tally, .who, time, .mcp, .sound { font-family: var(--mono); letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+.label { text-transform: lowercase; }
+
+/* ---------------------------------------------------------------- screen */
+
+.screen { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+
+.hud {
+  display: flex; align-items: baseline; gap: .5em 2em; flex-wrap: wrap;
+  padding: .85em var(--pad);
+}
+.hud.top { border-bottom: var(--rule); }
+.hud.bottom { border-top: var(--rule); justify-content: space-between; }
+
+.brand { display: inline-flex; align-items: center; gap: .6em; margin-right: auto; }
+.dot, .cur::before {
+  display: inline-block; width: .5em; height: .5em; border-radius: 50%;
+  background: var(--fg);
+}
+.clock time { display: inline-block; min-width: 5ch; }
+
+.sound {
+  appearance: none; background: none; color: inherit; border: 0; cursor: pointer;
+  padding: 0 0 .1em; border-bottom: var(--dots); visibility: hidden;
+}
+.sound.ready { visibility: visible; }
+.sound[aria-pressed="true"] { border-bottom-style: solid; }
+.sound .state { display: inline-block; min-width: 3ch; text-align: left; }
+
+.stage { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); }
+.hero { display: contents; }
+
+/* ----------------------------------------------------------------- name */
+
+.intro { overflow-x: clip; padding: clamp(28px, 6vh, 96px) var(--pad) clamp(24px, 4vh, 56px); }
+.name {
+  font: var(--name) / .84 var(--display);
+  letter-spacing: -.012em;
+  margin-left: -.04em;
+}
+.name .last { display: block; }
+.mark { display: inline-block; transform-origin: 50% 82%; }
+.line { margin-top: 1.3em; max-width: 31em; text-wrap: pretty; }
+.line em { display: block; }
+
+/* ----------------------------------------------------------------- feed */
+
+.feed {
+  position: relative; display: flex; flex-direction: column;
+  margin: 0 var(--pad) 2.5em; padding: .9em 1em 1em;
+  border: var(--dots);
+}
+/* HUD corners */
+.feed::before, .feed::after {
+  content: ''; position: absolute; width: .9em; height: .9em; pointer-events: none;
+}
+.feed::before { top: -1px; left: -1px; border-top: var(--rule); border-left: var(--rule); }
+.feed::after { right: -1px; bottom: -1px; border-right: var(--rule); border-bottom: var(--rule); }
+.feed .label { margin-bottom: .9em; display: flex; align-items: center; gap: .6em; }
+.feed .label::before {
+  content: ''; width: .5em; height: .5em; border-radius: 50%; border: var(--rule);
+}
+
+.chat {
+  position: relative; overflow: hidden; height: 26em;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 10px;
+}
+.b {
+  align-self: flex-start; max-width: min(88%, 30em);
+  padding: .45em .85em .5em;
+  border: var(--rule);
+  border-radius: 1.15em 1.15em 1.15em .2em;
+  text-wrap: pretty;
+}
+.b.self { align-self: flex-end; background: var(--fg); color: var(--bg); border-radius: 1.15em 1.15em .2em 1.15em; }
+.b.run { border-radius: 1.15em; }
+.who { display: block; }
+.b time { margin-left: .6em; white-space: nowrap; }
+
+.chat.live > .b { position: absolute; bottom: 0; left: 0; will-change: transform; }
+.chat.live > .b.self { left: auto; right: 0; }
+.chat.ready > .b { transition: transform .5s var(--ease); }
+
+.b.enter { animation: say .55s var(--ease) both; }
+.b.self.enter { animation-name: say-self; }
+@keyframes say { from { clip-path: inset(0 100% 0 0 round 1.15em); } to { clip-path: inset(0 0 0 0 round 0); } }
+@keyframes say-self { from { clip-path: inset(0 0 0 100% round 1.15em); } to { clip-path: inset(0 0 0 0 round 0); } }
+
+/* -------------------------------------------------------------- products */
+
+.products { display: flex; flex-direction: column; border-top: var(--rule); }
+.ph {
+  display: flex; align-items: center; gap: .5em 1.5em; flex-wrap: wrap;
+  padding: .85em var(--pad); border-bottom: var(--rule);
+}
+.tally { margin-right: auto; }
+
+/* Dawn: a dot that rises over the horizon as the menu is read. */
+.dawn {
+  position: relative; width: 2.6em; height: 1.3em; flex: none; overflow: hidden;
+  border-bottom: var(--rule);
+}
+.dawn::before {
+  content: ''; position: absolute; left: .2em; right: .2em; top: .25em; height: 2.1em;
+  border: var(--dots); border-radius: 50%;
+}
+.dawn i {
+  position: absolute; left: 50%; bottom: 0; width: 0; height: 1.05em;
+  transform-origin: 50% 100%; transform: rotate(-90deg);
+}
+.dawn i::after {
+  content: ''; position: absolute; top: -.25em; left: -.25em;
+  width: .5em; height: .5em; border-radius: 50%; background: var(--fg);
+}
+@keyframes rise { from { transform: rotate(-90deg); } to { transform: rotate(90deg); } }
+
+.menu { padding: 0 0 2em; }
+.row + .row .item { border-top: var(--dots); }
+.item {
+  display: grid; align-items: baseline;
+  grid-template-columns: 1.6em minmax(0, 1fr) auto;
+  column-gap: .4em;
+  padding: .7em var(--pad) .75em calc(var(--pad) - .3em);
+  outline-offset: -4px !important;
+}
+.cur { grid-row: 1; grid-column: 1; }
+.cur::before { content: ''; vertical-align: .05em; }
+.nm { grid-column: 2; }
+.meta { grid-column: 3; text-align: right; white-space: nowrap; }
+.ln { grid-column: 2 / -1; text-wrap: pretty; }
+
+.row[data-status="building"] .cur::before { background: none; border: var(--rule); }
+.row[data-status="paused"] .cur::before { background: none; border: var(--dots); }
+.row[data-status="retired"] .cur::before { visibility: hidden; }
+.row[data-status="retired"] .nm { font-style: italic; }
+
+/* The menu cursor: the selected item inverts, as menus do. */
+.item:hover, .item:focus-visible { background: var(--fg); color: var(--bg); }
+.item:hover .cur::before, .item:focus-visible .cur::before { visibility: visible; background: var(--bg); border-color: var(--bg); }
+a.item:hover .nm, a.item:focus-visible .nm { text-decoration: underline 1px; text-underline-offset: .18em; }
+
+@media (max-width: 520px) {
+  .item { grid-template-columns: 1.6em minmax(0, 1fr); }
+  .meta { grid-column: 2; grid-row: 2; text-align: left; white-space: normal; }
+  .ln { grid-row: 3; }
+  .hud.bottom { flex-direction: column; }
+}
+
+.avail a { border-bottom: var(--dots); margin-left: .4em; }
+.avail a:hover { border-bottom-style: solid; }
+.mcp { user-select: all; overflow-wrap: anywhere; }
+
+/* ---------------------------------------------------------- one screen */
+
+@media (min-width: 960px) and (min-height: 600px) {
+  html, body { height: 100%; overflow: hidden; }
+  .screen { height: 100vh; height: 100dvh; min-height: 0; }
+  .stage {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1.6fr) minmax(19em, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas: "intro feed" "products feed";
+  }
+  .intro { grid-area: intro; }
+  .products { grid-area: products; min-height: 0; }
+  .feed { grid-area: feed; min-height: 0; margin: var(--pad); }
+  .chat { height: auto; flex: 1; min-height: 0; }
+  .menu {
+    flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-width: none; scroll-snap-type: y proximity;
+    scroll-timeline: --menu block;
+  }
+  .menu::-webkit-scrollbar { display: none; }
+  .row { scroll-snap-align: start; }
+  .stage > .products, .stage .intro { border-right: var(--rule); }
+}
+
+/* ------------------------------------------------- scroll-driven motion */
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .screen { timeline-scope: --menu; }
+    .dawn i { animation: rise linear both; animation-timeline: scroll(root block); }
+    @media (min-width: 960px) and (min-height: 600px) {
+      .dawn i { animation-timeline: --menu; }
+    }
+
+    /* Items are written in from the left as they enter, and erased as they leave. */
+    .item {
+      animation: write linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% entry 100%;
+    }
+    .row {
+      animation: erase linear both;
+      animation-timeline: view(block);
+      animation-range: exit 0% exit 100%;
+    }
+    @keyframes write { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes erase { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
+
+    /* On a phone the name sets as the page rises. */
+    @media not ((min-width: 960px) and (min-height: 600px)) {
+      .name .last {
+        animation: drift linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 60vh;
+      }
+      @keyframes drift { to { transform: translateX(.18em); } }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

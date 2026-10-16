@@ -1,0 +1,17 @@
+{
+  "name": "Widescreen",
+  "tagline": "A name drawn in pixels on a Crouwel lattice, two screens wide, run sideways like film.",
+  "summary": "Albretsen is set as a 55 by 7 pixel wordmark on a visible grid, and the grid's unit is the wordmark's own pixel, so every panel and column lands on the same lattice. The page scrolls sideways through three frames: the name and a live stack of real events, the products as a run of poster columns, and the address. It is near-black and still. The only things that move are the feed cards, and the only colour is one electric violet spark.",
+  "palette": ["#08060b", "#100e15", "#1c1923", "#2f2c37", "#87848f", "#aca9b4", "#f2f1f5", "#ae59ff"],
+  "type": ["Martian Mono 112.5% wide, 600 (display)", "Martian Mono 87.5% wide, 400 (text)", "Martian Mono 75% condensed, 300 to 600 (figures)"],
+  "voice": "Short, flat, declarative. States what exists and stops. Example: \"Eleven products. Four in motion. Seven retired, kept in view.\"",
+  "motion": "The page itself never moves; only new feed cards drop onto the stack, and with reduced motion they appear without transition.",
+  "sound": "Opt-in generative ambience: a low D drone that opens up as real activity rises, with each event striking one note of a D pentatonic lattice in a register owned by its product.",
+  "mark": "A favicon-first pixel A on a 16 px grid with one violet spark pixel at its upper right; the same spark ends the 55 by 7 wordmark.",
+  "inspiration": [
+    "https://www.experimentaljetset.nl",
+    "https://www.typeroom.eu/article/all-hail-true-king-grid-and-tdc-medal-recipient-2019-wim-crouwel",
+    "https://www.thefoundrytypes.com/fonts/new-alphabet/",
+    "https://www.dezeen.com/2013/05/21/whitney-graphic-identity-by-experimental-jetset/"
+  ]
+}

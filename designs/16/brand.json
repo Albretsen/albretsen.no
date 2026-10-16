@@ -1,0 +1,17 @@
+{
+  "name": "Full Stop",
+  "tagline": "Ink, paper and one dot that takes the colour of whatever just happened.",
+  "summary": "A New Wave page in the Weingart and Greiman line: stretched-wide type, stepped lines, the grid drawn on the paper, every scale labelled. The page has no colour of its own. Colour arrives only when a product does something, so the live feed is drawn as a piano roll, and the logo, a single dot, always shows the hue of the latest event. Retired work stays on the timeline beside the live products, because a record with 7 retired entries and 2 live ones is more convincing than any adjective.",
+  "palette": ["#f3f2ef", "#120e11", "#cd32b3", "#e7c61f", "#00accd", "#00b66a"],
+  "type": ["Unbounded (250 and 900)", "IBM Plex Mono", "IBM Plex Mono"],
+  "voice": "Numbers first, adjectives never; every claim is a count, a year or a unit. \"Shipping software since 2016: 11 products, 2 live, 1 building, 1 paused, 7 retired.\"",
+  "motion": "Teletype: text arrives one character at a time behind a cursor in the live colour, and notes drift left at the speed of the wall clock.",
+  "sound": "Off until asked; then each typed character is a 28 ms band-passed noise click synthesized in Web Audio, with a lower thud for spaces.",
+  "mark": "A single full stop, a filled circle whose colour is the hue of the most recent event (the favicon follows it too).",
+  "inspiration": [
+    "https://collections.lacma.org/object/207626",
+    "https://www.moma.org/collection/works/172729",
+    "https://en.wikipedia.org/wiki/New_Wave_(design)",
+    "https://fonts.google.com/specimen/Unbounded"
+  ]
+}

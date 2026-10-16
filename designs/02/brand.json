@@ -1,0 +1,16 @@
+{
+  "name": "Continue.",
+  "tagline": "A title screen at first light: one dot, two colours, one size, products that talk.",
+  "summary": "The homepage is a game's title screen just before dawn: one viewport, a HUD frame, a menu of every product ever shipped, and a party chat where the live products report in. Everything is set in two colours and one type size, so the only loud thing is the name, and the full stop after it, which beats once for every real event. It reads as someone who has been playing for a long time and is still pressing Continue.",
+  "palette": ["#221d05", "#fee47a"],
+  "type": ["Instrument Serif", "Newsreader", "DM Mono"],
+  "voice": "Poetic and minimal; few words, each one load-bearing. \"Most of it is awake before he is.\"",
+  "motion": "Nothing moves on a timer: menu items are written in and erased by the scroll itself, the dawn dot rises with the menu's scroll timeline, and new messages slide in only when something real happens.",
+  "sound": "Opt-in: each product sings one note of an A major pentatonic (MCP Emails A4, Toolrails C#5, Fun Libs E5, the site A5) through a single fading echo, so the feed becomes a slow chord.",
+  "mark": "A single dot: the full stop after the name, also the menu cursor, the status light and the rising sun.",
+  "inspiration": [
+    "https://www.mobiusdigitalgames.com/news/concepting-ui",
+    "https://rauno.me",
+    "https://developer.mozilla.org/docs/Web/CSS/animation-timeline/view"
+  ]
+}

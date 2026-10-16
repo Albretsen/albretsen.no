@@ -1,0 +1,17 @@
+{
+  "name": "Surface Tension",
+  "tagline": "Every product is a surface; every real event lands on it as a chrome drop.",
+  "summary": "A dark, single-hue (OKLCH 180) world of wet chrome and translucent gel, Y2K futurism with the volume turned down. The hero is a full-bleed, real-time strip of the last fifteen minutes across MCP Emails, Fun Libs, Toolrails and the site itself, and the name above it is set in a variable font whose width is literally the traffic of the last five minutes. It reads as one person running several working systems at once, and shows it instead of saying it.",
+  "palette": ["#02110e", "#041a16", "#144039", "#499688", "#78baac", "#5addc7", "#50f5db", "#daf6ef", "#f5fefc"],
+  "type": ["Anybody (variable wdth + wght)", "Geist", "Geist Mono"],
+  "voice": "Terse engineer with an indie grin: short declaratives, numbers over adjectives, one dry joke per screen. \"Shipped. Including the dead ones.\"",
+  "motion": "Time moves at the speed of the clock and nothing else; drops fall and ripple on arrival, type tightens as you scroll away, all of it driven by CSS scroll timelines and real events.",
+  "sound": "Off by default; switching it on plays 'the drop', a synthesized sine that breaks the surface and rings into a glassy fifth, then each event lands as a near-silent pentatonic drip per product.",
+  "mark": "The Drop: a chrome-and-gel blob shaped by three low harmonics from a random 24-bit seed, so every visit gets a different, always-recognisable drop (and favicon).",
+  "inspiration": [
+    "https://www.warp.dev",
+    "https://www.webdesignmuseum.org/exhibitions/y2k-aesthetic-in-web-design",
+    "https://joshwcomeau.com/animation/scroll-driven-animations",
+    "https://press.stripe.com"
+  ]
+}

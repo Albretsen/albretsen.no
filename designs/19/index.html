@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen ships software to see what happens, and keeps whatever earns its keep.">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('a19-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<a class="skip" href="#made">Skip to products</a>
+
+<header class="row masthead">
+  <div class="l">
+    <a class="brand" href="#top" id="top" aria-label="Albretsen AS, top of page">
+      <span class="mark" id="mark"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100" height="100" fill="var(--ink)"/><circle cx="18" cy="18" r="1.95" fill="var(--paper)"/><circle cx="34" cy="18" r="3.16" fill="var(--paper)"/><circle cx="50" cy="18" r="3.50" fill="var(--paper)"/><circle cx="66" cy="18" r="2.82" fill="var(--paper)"/><circle cx="82" cy="18" r="2.64" fill="var(--paper)"/><circle cx="18" cy="34" r="3.10" fill="var(--paper)"/><circle cx="34" cy="34" r="4.11" fill="var(--paper)"/><circle cx="50" cy="34" r="5.57" fill="var(--paper)"/><circle cx="66" cy="34" r="4.29" fill="var(--paper)"/><circle cx="82" cy="34" r="2.89" fill="var(--paper)"/><circle cx="18" cy="50" r="3.75" fill="var(--paper)"/><circle cx="34" cy="50" r="5.64" fill="var(--paper)"/><circle cx="50" cy="50" r="7.60" fill="var(--spot)"/><circle cx="66" cy="50" r="5.90" fill="var(--paper)"/><circle cx="82" cy="50" r="3.49" fill="var(--paper)"/><circle cx="18" cy="66" r="2.73" fill="var(--paper)"/><circle cx="34" cy="66" r="4.58" fill="var(--paper)"/><circle cx="50" cy="66" r="5.25" fill="var(--paper)"/><circle cx="66" cy="66" r="4.45" fill="var(--paper)"/><circle cx="82" cy="66" r="2.82" fill="var(--paper)"/><circle cx="18" cy="82" r="2.10" fill="var(--paper)"/><circle cx="34" cy="82" r="3.56" fill="var(--paper)"/><circle cx="50" cy="82" r="3.74" fill="var(--paper)"/><circle cx="66" cy="82" r="2.75" fill="var(--paper)"/><circle cx="82" cy="82" r="2.52" fill="var(--paper)"/></svg></span>
+      <span class="wordmark">Albretsen <span class="sc">as</span></span>
+    </a>
+  </div>
+  <div class="m"><p class="no">Nº <span data-seed>945F</span></p></div>
+  <div class="r switches">
+    <button class="switch" id="sound" type="button" aria-pressed="false" aria-label="Sound">
+      <svg class="sw-glyph" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7.5" width="17" height="9" rx="1.5"/><path d="M7 12h.01M10 12h.01M13 12h.01M16 12h.01"/></svg>
+      <span>Sound <i id="sound-word">off</i></span>
+    </button>
+    <button class="switch theme" id="theme" type="button" aria-pressed="false" aria-label="Paper on ink" title="The spot stays where it is">
+      <svg class="disc" viewBox="0 0 40 40" aria-hidden="true">
+        <g class="halves"><path d="M2 20a18 18 0 0 1 36 0z" class="h-paper"/><path d="M38 20a18 18 0 0 1-36 0z" class="h-ink"/></g>
+        <circle cx="20" cy="20" r="18" class="rim"/>
+        <circle cx="20" cy="20" r="5" class="centre"/>
+      </svg>
+      <span id="theme-word">Ink on paper</span>
+    </button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="who">
+  <div class="row">
+    <div class="l">
+      <span class="num">0</span>
+      <p class="note">Norway.</p>
+      <p class="note">On Google Play since 2016. Albretsen <span class="sc">as</span> since 2026.</p>
+    </div>
+    <div class="m">
+      <h1 id="who">Asgeir<br>Albretsen</h1>
+      <p class="line" id="line">Ships software to see what happens, and keeps whatever earns its keep.</p>
+    </div>
+    <div class="r"></div>
+  </div>
+
+  <div class="row world">
+    <div class="l">
+      <p class="label">Right now</p>
+      <p class="note legend">
+        <span><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="3.4" class="lg-fill"/></svg>Fun Libs</span>
+        <span><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="3" class="lg-ring"/></svg>MCP Emails</span>
+        <span><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="3" y="3" width="6" height="6" class="lg-fill"/></svg>Toolrails</span>
+        <span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.4 6h7.2M6 2.4v7.2" class="lg-plus"/></svg>albretsen.no</span>
+      </p>
+    </div>
+    <figure class="m map-wrap">
+      <svg id="map" viewBox="0 0 1200 500" role="img" aria-labelledby="map-cap">
+        <path id="land" class="land" d="M235 5h110M375 5h160M645 5h40M215 15h120M375 15h160M655 15h10M805 15h10M915 15h40M205 25h130M415 25h110M795 25h0M865 25h130M65 35h110M255 35h110M425 35h100M675 35h20M825 35h350M5 45h0M55 45h330M425 45h70M655 45h80M765 45h430M5 55h10M55 55h330M425 55h40M525 55h20M635 55h560M55 65h260M345 65h20M425 65h30M625 65h30M675 65h500M75 75h20M135 75h150M345 75h40M585 75h0M625 75h30M675 75h440M1135 75h0M155 85h150M345 85h50M575 85h20M625 85h10M665 85h390M1125 85h10M175 95h230M565 95h500M1125 95h0M185 105h220M595 105h470M195 115h200M595 115h460M185 125h190M575 125h470M1075 125h0M185 135h170M575 135h20M645 135h390M195 145h150M565 145h20M615 145h10M645 145h0M675 145h0M695 145h300M1025 145h0M205 155h130M585 155h50M725 155h270M1025 155h0M1045 155h10M215 165h110M575 165h70M675 165h320M1035 165h0M225 175h70M325 175h0M555 175h450M245 185h30M545 185h220M795 185h200M255 195h20M545 195h250M835 195h150M255 205h20M295 205h10M545 205h240M845 205h30M915 205h40M275 215h30M545 215h180M745 215h30M845 215h20M925 215h30M1005 215h0M295 225h20M545 225h190M755 225h0M855 225h10M925 225h40M1005 225h0M315 235h10M345 235h40M555 235h210M855 235h10M925 235h10M955 235h0M1015 235h0M335 245h70M565 245h190M865 245h0M935 245h0M1015 245h0M345 255h80M575 255h170M935 255h0M985 255h10M345 265h80M635 265h110M925 265h0M965 265h20M1005 265h0M335 275h110M635 275h100M935 275h0M965 275h20M1005 275h0M1045 275h10M335 285h140M645 285h80M945 285h0M1005 285h0M1055 285h20M335 295h150M645 295h80M955 295h20M1065 295h20M345 305h130M645 305h80M1095 305h0M355 315h110M645 315h90M765 315h0M1035 315h20M1075 315h0M365 325h100M645 325h80M755 325h10M1015 325h70M365 335h100M645 335h70M745 335h10M995 335h90M365 345h90M645 345h70M745 345h10M985 345h110M365 355h80M655 355h50M985 355h120M365 365h70M655 365h50M985 365h120M365 375h60M665 375h30M985 375h120M365 385h50M675 385h0M995 385h10M1055 385h50M355 395h50M1075 395h20M1175 395h10M355 405h30M1185 405h0M355 415h30M355 425h20M355 435h10M365 445h0"/>
+        <path class="nowhere" d="M5 488h1190"/>
+        <path class="rule" d="M0 470.5h1200"/>
+        <g id="dots"></g>
+      </svg>
+      <figcaption id="map-cap">Each mark is something happening in one of the products. Players have countries. Agents don’t, so they live on the bottom line.</figcaption>
+    </figure>
+    <aside class="r log-wrap" aria-label="Live events">
+      <p class="label"><span id="feed-state">Waiting for the feed.</span></p>
+      <ol id="log" class="log" aria-live="off">
+        <li><span class="t"></span><span class="p"></span><span class="d">The feed wakes when scripts run.</span></li>
+        <li><span class="t"></span><span class="p"></span><span class="d"></span></li>
+        <li><span class="t"></span><span class="p"></span><span class="d"></span></li>
+        <li><span class="t"></span><span class="p"></span><span class="d"></span></li>
+        <li><span class="t"></span><span class="p"></span><span class="d"></span></li>
+        <li><span class="t"></span><span class="p"></span><span class="d"></span></li>
+      </ol>
+      <p class="note tally">Since you arrived:
+        Fun Libs <b data-tally="fun-libs">0</b>,
+        MCP Emails <b data-tally="mcp-emails">0</b>,
+        Toolrails <b data-tally="toolrails">0</b>,
+        this site <b data-tally="albretsen.no">0</b>.</p>
+    </aside>
+  </div>
+
+  <div class="row quiet">
+    <div class="l"></div>
+    <div class="m"><button class="mcp" id="mcp" type="button" aria-label="Copy: claude mcp add albretsen https://albretsen.no/mcp">claude mcp add albretsen https://albretsen.no/mcp</button></div>
+    <div class="r"></div>
+  </div>
+</section>
+
+<section class="made" id="products" data-built="static" aria-labelledby="made">
+<!--products-->
+<header class="row sec-head">
+  <div class="l"><span class="num">1</span></div>
+  <div class="m"><h2 id="made">Things made</h2></div>
+  <div class="r"><p class="note">11 entries since 2019. 4 still standing.</p></div>
+</header>
+<ol class="plist" aria-labelledby="made">
+<li class="row product" data-status="live">
+  <div class="l"><span class="year">2026</span></div>
+  <div class="m">
+    <h3 class="pname"><a href="https://mcpemails.com">MCP Emails</a></h3>
+    <p class="pline">Email for AI agents.</p>
+    <p class="pfacts">17 tools<span class="sep"> · </span>about 100 email providers<span class="sep"> · </span>open source (AGPL)</p>
+  </div>
+  <div class="r">
+    <p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.6" class="g-spot"/></svg><span>live</span></p>
+    <p class="figure"><span class="fv">$782</span> <span class="fl">MRR</span></p>
+  </div>
+</li>
+<li class="row product" data-status="live">
+  <div class="l"><span class="year">2019</span></div>
+  <div class="m">
+    <h3 class="pname"><a href="https://funlibs.app">Fun Libs</a></h3>
+    <p class="pline">A fill-in-the-blanks word game for Android and iOS.</p>
+    <p class="pfacts">built at 17<span class="sep"> · </span>no marketing<span class="sep"> · </span>v5 shipped 2026</p>
+  </div>
+  <div class="r">
+    <p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.6" class="g-spot"/></svg><span>live</span></p>
+    <p class="figure"><span class="fv">113,000+</span> <span class="fl">installs</span></p>
+  </div>
+</li>
+<li class="row product" data-status="building">
+  <div class="l"><span class="year">2026</span></div>
+  <div class="m">
+    <h3 class="pname"><a href="https://toolrails.com">Toolrails</a></h3>
+    <p class="pline">One MCP URL that gives an agent every tool.</p>
+    <p class="pfacts">tool search<span class="sep"> · </span>injection guard</p>
+  </div>
+  <div class="r">
+    <p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.2" class="g-ring"/><path d="M6 1.8a4.2 4.2 0 0 1 0 8.4z" class="g-ink"/></svg><span>building</span></p>
+    <p class="figure"><span class="fv">4</span> <span class="fl">connectors</span></p>
+  </div>
+</li>
+<li class="row product" data-status="paused">
+  <div class="l"><span class="year">2026</span></div>
+  <div class="m">
+    <h3 class="pname"><a href="https://harborknowledge.com">Harbor</a></h3>
+    <p class="pline">A private knowledge base shared by people and AI.</p>
+    <p class="pfacts">self-hostable<span class="sep"> · </span>AI edits held for approval</p>
+  </div>
+  <div class="r">
+    <p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.2" class="g-ring"/></svg><span>paused</span></p>
+    <p class="figure"><span class="fv">549</span> <span class="fl">commits</span></p>
+  </div>
+</li>
+</ol>
+<div class="row sub-head">
+  <div class="l"><span class="label">Retired</span></div>
+  <div class="m"><p class="note">Switched off, still listed.</p></div>
+  <div class="r"></div>
+</div>
+<ol class="plist plist-retired" aria-label="Retired products">
+<li class="row retired">
+  <div class="l"><span class="year">2026</span></div>
+  <div class="m"><p><span class="rname">Luma</span> <span class="rline">Norwegian budgeting app with open banking.</span></p></div>
+  <div class="r"><p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9" class="g-line"/></svg><span>retired</span><span class="rfig">378 commits</span></p></div>
+</li>
+<li class="row retired">
+  <div class="l"><span class="year">2025</span></div>
+  <div class="m"><p><span class="rname">Polyglot Pilot</span> <span class="rline">Agents that localised entire codebases, with a dashboard for human reviewers.</span></p></div>
+  <div class="r"><p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9" class="g-line"/></svg><span>retired</span></p></div>
+</li>
+<li class="row retired">
+  <div class="l"><span class="year">2025</span></div>
+  <div class="m"><p><span class="rname">PinPoint</span> <span class="rline">GeoGuessr with your own photos: friends guess where your pictures were taken.</span></p></div>
+  <div class="r"><p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9" class="g-line"/></svg><span>retired</span><span class="rfig">16 commits</span></p></div>
+</li>
+<li class="row retired">
+  <div class="l"><span class="year">2024</span></div>
+  <div class="m"><p><span class="rname">WebVakt</span> <span class="rline">Website change monitoring.</span></p></div>
+  <div class="r"><p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9" class="g-line"/></svg><span>retired</span></p></div>
+</li>
+<li class="row retired">
+  <div class="l"><span class="year">2024</span></div>
+  <div class="m"><p><span class="rname">Daily Jokes / Joke Central</span> <span class="rline">Joke apps for iOS and Android.</span></p></div>
+  <div class="r"><p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9" class="g-line"/></svg><span>retired</span></p></div>
+</li>
+<li class="row retired">
+  <div class="l"><span class="year">2023</span></div>
+  <div class="m"><p><span class="rname">Tryggere Hyring</span> <span class="rline">Background checks for hiring.</span></p></div>
+  <div class="r"><p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9" class="g-line"/></svg><span>retired</span></p></div>
+</li>
+<li class="row retired">
+  <div class="l"><span class="year">2021</span></div>
+  <div class="m"><p><span class="rname">IAGO HMS, Rentekalkulator, Prosentkalkulator</span> <span class="rline">Early apps.</span></p></div>
+  <div class="r"><p class="status"><svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9" class="g-line"/></svg><span>retired</span></p></div>
+</li>
+</ol>
+<!--/products-->
+</section>
+</main>
+
+<footer class="row foot">
+  <div class="l"><span class="num">2</span></div>
+  <div class="m">
+    <p class="avail">Takes one outside engagement at a time.</p>
+    <p><a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+  </div>
+  <div class="r">
+    <p class="note colophon">Set in Newsreader, one family, every weight. Ink, paper and one spot at 120°. The mark above is Nº <span data-seed>945F</span>, drawn for this visit. <button type="button" id="redraw" class="inline">Draw another.</button></p>
+  </div>
+</footer>
+</body>
+</html>

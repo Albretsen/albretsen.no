@@ -1,0 +1,17 @@
+{
+  "name": "room 24",
+  "tagline": "a one-man exhibition on a red wall, labelled in pixels, lowercase, with the failures still hanging",
+  "summary": "albretsen.no as a gallery room painted one saturated red (oklch hue 24): wall text for the hero, a stack of black object labels for the live feed, and the products hung as a permanent collection where the retired works stay on the wall. it fits albretsen as because it is self-made and a bit cheeky, and the work is shown, labelled and left to speak for itself.",
+  "palette": ["#fe3c45", "#2c0808", "#ffede5", "#dcb2ab", "#d01b2d"],
+  "type": ["Bitcount Prop Single (variable, wght + ELSH)", "Bitcount Prop Single", "Bitcount Grid Single"],
+  "voice": "dry curatorial understatement, all lowercase, never selling: \"the retired works stay on the wall. taking them down would be marketing.\"",
+  "motion": "everything arrives like house lights coming up: 1.6–2.2 s fades, a wordmark whose pixels slowly settle from round to square, and feed labels sliding in behind each other at walking pace.",
+  "sound": "opt-in only: soft synthesized keyboard clicks (filtered noise plus a low sine thock) as each new feed label types itself in, with a deeper click for spaces.",
+  "mark": "a pure lowercase wordmark, 'albretsen', in bold bitcount, letter-spaced to the full width of its wall like an exhibition title, so the spacing is the room divided evenly.",
+  "inspiration": [
+    "https://ciechanow.ski",
+    "https://whitney.org/whitney-stories/words-on-walls",
+    "https://collection.cooperhewitt.org/objects/18732757",
+    "https://atypi.org/?p=34784"
+  ]
+}

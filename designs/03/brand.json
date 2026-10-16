@@ -1,0 +1,17 @@
+{
+  "name": "Gravity Issue",
+  "tagline": "A sideways magazine printed in two inks, where every real event lands on the cover.",
+  "summary": "albretsen.no reads like the current issue of a bright, curious magazine: a cover story, a contents spread and a colophon, turned sideways and printed in just Sol orange and Umber. The products are the articles and the live feed is the cover photo, made of real events falling onto a timeline. Everything is type and CSS, which quietly shows the craft without having to say so.",
+  "palette": ["#ff8b44", "#301000"],
+  "type": ["Bricolage Grotesque 800 / wdth 75 (display, up to 27svh)", "Bricolage Grotesque 450 / wdth 90 (text)", "Bricolage Grotesque 600 / wdth 100, 11px caps (labels; no mono)"],
+  "voice": "Playful, curious and forward-looking, written like a good magazine standfirst: \"Every product here began as a question: would anyone want this?\"",
+  "motion": "Events land on the strip with real gravity: they fall, bounce twice and settle, while a slow halftone vector field drifts behind the cover and dents wherever something lands.",
+  "sound": "No sound on the page; the sonic logo is a rising major sixth on two soft sine voices followed by a low felt thump, an idea landing.",
+  "mark": "Four bars, one per product (MCP Emails, Fun Libs, Toolrails, albretsen.no), whose heights are each product's share of the last twelve live events, so the logo and favicon are redrawn by the data.",
+  "inspiration": [
+    "https://www.commercialtype.com",
+    "https://trends.daisyui.com/trend/type-first-design/",
+    "https://contra.com/p/gkvXcmLN-lumiere-horizontal-magazine-concept",
+    "https://draw-down.com/products/duotone-limited-colour-schemes-in-graphic-design"
+  ]
+}

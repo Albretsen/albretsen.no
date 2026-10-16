@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>albretsen</title>
+<meta name="description" content="asgeir albretsen builds software that pays for itself. albretsen as, norway.">
+<meta name="theme-color" content="#fe3c45">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/bitcount-prop-single.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/bitcount-grid-single.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<a class="skip" href="#collection">skip to the collection</a>
+
+<header class="signage reveal" style="--d:0">
+  <p>albretsen as <span class="sep" aria-hidden="true">/</span> norway</p>
+  <p>admission free <span class="sep" aria-hidden="true">/</span> no gift shop</p>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="name">
+  <div class="identity">
+    <p class="kicker reveal" style="--d:1">a solo exhibition, ongoing since 2016</p>
+    <h1 id="name" class="name">
+      <span class="name-first reveal" style="--d:2">asgeir</span>
+      <span class="wordmark reveal" style="--d:3" aria-hidden="true"><span>a</span><span>l</span><span>b</span><span>r</span><span>e</span><span>t</span><span>s</span><span>e</span><span>n</span></span><span class="sr">albretsen</span>
+    </h1>
+    <p class="lede reveal" style="--d:4">i build software that pays for itself, and retire the rest without ceremony.</p>
+
+    <dl class="caption reveal" style="--d:5">
+      <div><dt>artist</dt><dd>asgeir albretsen, norway</dd></div>
+      <div><dt>medium</dt><dd>apps, saas, infrastructure for ai agents</dd></div>
+      <div><dt>dates</dt><dd>google play since 2016. consulting since 2021. albretsen as since 2026.</dd></div>
+      <div><dt>note</dt><dd>made alongside a day job. self-published.</dd></div>
+    </dl>
+
+    <p class="accession reveal" style="--d:6"><code data-mcp>claude mcp add albretsen https://albretsen.no/mcp</code></p>
+  </div>
+
+  <aside class="feed reveal" style="--d:3" aria-labelledby="feed-title">
+    <div class="feed-head">
+      <h2 id="feed-title" class="feed-title">now showing</h2>
+      <p class="feed-note">live from the works below. nothing is staged. when it is quiet, it is quiet.</p>
+      <div class="feed-bar">
+        <p class="feed-status"><svg class="orbit" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 2"/><rect class="orbit-body" x="7" y="0.5" width="2" height="2"/></svg><span data-since>feed starts when javascript does</span></p>
+        <button class="sound" type="button" aria-pressed="false" data-sound hidden>sound <span data-sound-state>off</span></button>
+      </div>
+    </div>
+    <ol class="stack" data-stack>
+      <li class="card card-static is-front" style="--k:0">
+        <div class="card-face">
+          <p class="card-product">albretsen.no</p>
+          <p class="card-text">silence, for now.</p>
+          <p class="card-detail">the feed needs javascript. the works below do not.</p>
+        </div>
+        <p class="card-meta"><span class="card-time">--:--:--</span><span class="card-sum">waiting</span></p>
+      </li>
+    </ol>
+  </aside>
+</section>
+
+<section id="collection" class="collection" aria-labelledby="collection-title">
+  <header class="collection-head">
+    <h2 id="collection-title" class="collection-title">the permanent collection</h2>
+    <p class="collection-summary" data-summary><!--summary:start-->eleven works: two live, one in progress, one paused and seven retired.<!--summary:end--></p>
+    <p class="collection-note">the retired works stay on the wall. taking them down would be marketing.</p>
+  </header>
+  <ol class="works" data-works>
+<!--products:start-->
+<li class="work" data-status="live">
+  <p class="work-no" aria-hidden="true">01</p>
+  <h3 class="work-name"><a href="https://mcpemails.com" rel="noopener">mcp emails</a></h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>live</span><span class="work-since">2026</span></p>
+  <p class="work-line">email for ai agents.</p>
+  <p class="work-medium">17 tools, about 100 email providers, open source (agpl)</p>
+  <p class="work-figure"><span class="work-figure-value">$782</span> <span class="work-figure-label">mrr</span></p>
+</li>
+<li class="work" data-status="live">
+  <p class="work-no" aria-hidden="true">02</p>
+  <h3 class="work-name"><a href="https://funlibs.app" rel="noopener">fun libs</a></h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>live</span><span class="work-since">2019</span></p>
+  <p class="work-line">a fill-in-the-blanks word game for android and ios.</p>
+  <p class="work-medium">built at 17, no marketing, v5 shipped 2026</p>
+  <p class="work-figure"><span class="work-figure-value">113,000+</span> <span class="work-figure-label">installs</span></p>
+</li>
+<li class="work" data-status="building">
+  <p class="work-no" aria-hidden="true">03</p>
+  <h3 class="work-name"><a href="https://toolrails.com" rel="noopener">toolrails</a></h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>building</span><span class="work-since">2026</span></p>
+  <p class="work-line">one mcp url that gives an agent every tool.</p>
+  <p class="work-medium">tool search, injection guard</p>
+  <p class="work-figure"><span class="work-figure-value">4</span> <span class="work-figure-label">connectors</span></p>
+</li>
+<li class="work" data-status="paused">
+  <p class="work-no" aria-hidden="true">04</p>
+  <h3 class="work-name"><a href="https://harborknowledge.com" rel="noopener">harbor</a></h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>paused</span><span class="work-since">2026</span></p>
+  <p class="work-line">a private knowledge base shared by people and ai.</p>
+  <p class="work-medium">self-hostable, ai edits held for approval</p>
+  <p class="work-figure"><span class="work-figure-value">549</span> <span class="work-figure-label">commits</span></p>
+</li>
+<li class="work" data-status="retired">
+  <p class="work-no" aria-hidden="true">05</p>
+  <h3 class="work-name">luma</h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>retired</span><span class="work-since">2026</span></p>
+  <p class="work-line">norwegian budgeting app with open banking.</p>
+  
+  <p class="work-figure"><span class="work-figure-value">378</span> <span class="work-figure-label">commits</span></p>
+</li>
+<li class="work" data-status="retired">
+  <p class="work-no" aria-hidden="true">06</p>
+  <h3 class="work-name">polyglot pilot</h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>retired</span><span class="work-since">2025</span></p>
+  <p class="work-line">agents that localised entire codebases, with a dashboard for human reviewers.</p>
+  
+  <p class="work-figure work-figure-none" aria-hidden="true"></p>
+</li>
+<li class="work" data-status="retired">
+  <p class="work-no" aria-hidden="true">07</p>
+  <h3 class="work-name">pinpoint</h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>retired</span><span class="work-since">2025</span></p>
+  <p class="work-line">geoguessr with your own photos: friends guess where your pictures were taken.</p>
+  
+  <p class="work-figure"><span class="work-figure-value">16</span> <span class="work-figure-label">commits</span></p>
+</li>
+<li class="work" data-status="retired">
+  <p class="work-no" aria-hidden="true">08</p>
+  <h3 class="work-name">webvakt</h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>retired</span><span class="work-since">2024</span></p>
+  <p class="work-line">website change monitoring.</p>
+  
+  <p class="work-figure work-figure-none" aria-hidden="true"></p>
+</li>
+<li class="work" data-status="retired">
+  <p class="work-no" aria-hidden="true">09</p>
+  <h3 class="work-name">daily jokes / joke central</h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>retired</span><span class="work-since">2024</span></p>
+  <p class="work-line">joke apps for ios and android.</p>
+  
+  <p class="work-figure work-figure-none" aria-hidden="true"></p>
+</li>
+<li class="work" data-status="retired">
+  <p class="work-no" aria-hidden="true">10</p>
+  <h3 class="work-name">tryggere hyring</h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>retired</span><span class="work-since">2023</span></p>
+  <p class="work-line">background checks for hiring.</p>
+  
+  <p class="work-figure work-figure-none" aria-hidden="true"></p>
+</li>
+<li class="work" data-status="retired">
+  <p class="work-no" aria-hidden="true">11</p>
+  <h3 class="work-name">iago hms, rentekalkulator, prosentkalkulator</h3>
+  <p class="work-date"><span class="work-status"><i class="dot" aria-hidden="true"></i>retired</span><span class="work-since">2021</span></p>
+  <p class="work-line">early apps.</p>
+  
+  <p class="work-figure work-figure-none" aria-hidden="true"></p>
+</li>
+<!--products:end-->
+  </ol>
+</section>
+</main>
+
+<footer class="colophon">
+  <p class="availability" data-availability>takes one outside engagement at a time.</p>
+  <p><a class="email" href="mailto:asgeir@albretsen.no" data-email>asgeir@albretsen.no</a></p>
+  <p class="small">albretsen as, norway. set in bitcount, a pixel face that began as a question about how small a lowercase can get.</p>
+</footer>
+</body>
+</html>

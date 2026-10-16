@@ -1,0 +1,17 @@
+{
+  "name": "fullt hus",
+  "tagline": "a full-house data front page where the live feed sets every colour, weight and width",
+  "summary": "albretsen.no as one dense, joyful data-journalism front page that fits a single screen: the name is a live chart, a ticker tape runs every real event, and each product owns a hue that only appears when the feed puts it there. it shows range and output at a glance and sounds plain about it, the way a norwegian would.",
+  "palette": ["#eef9fc", "#051d2b", "#0083a1", "#d12b7e", "#9e8500", "#05893e", "#566670"],
+  "type": ["Anybody (variable, wght 100-900, wdth 50-150)", "Anybody at wdth 86-92", "IBM Plex Mono"],
+  "voice": "lowercase, plain, a little dry, with a norwegian word where it fits. 'stille · nothing for 20 s'",
+  "motion": "kinetic type driven by data: each event ripples weight through the name, and the font trades weight for width so the layout never moves.",
+  "sound": "no sound on the page; the sonic logo is four plucked notes, one per product hue, landing on a held fifth.",
+  "mark": "a single-storey lowercase a: the bowl is an orbit with a moon in its aperture, and the stem is a stacked bar of the live product mix.",
+  "inspiration": [
+    "https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md",
+    "https://flowingdata.com/2018/03/14/needle-of-uncertainty",
+    "https://fonts.google.com/knowledge/using_type/styling_type_on_the_web_with_variable_fonts",
+    "https://www.grillitype.com"
+  ]
+}

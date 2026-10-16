@@ -1,0 +1,331 @@
+/* ==========================================================================
+   04 / CARRIER  -  Albretsen AS
+   One hue (348), one pixel face (VT323), one grid: 1 cell = 0.4em x 1.2em.
+   At 25px the font's pixel is exactly 1px, so every size is an integer
+   multiple of that: type scales by whole pixels, never by fractions.
+   ========================================================================== */
+
+@font-face {
+  font-family: "VT323";
+  src: url("vt323-latin.woff2") format("woff2");
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212;
+}
+/* Metric-matched fallback: same advance (0.4em) so the swap moves nothing. */
+@font-face {
+  font-family: "VT fallback";
+  src: local("Courier New"), local("CourierNewPSMT"), local("Courier"), local("Menlo"), local("DejaVu Sans Mono");
+  size-adjust: 66.667%;
+}
+
+:root {
+  /* the grid */
+  --fs: 25px;
+  --cw: 10px;          /* one character cell, = 0.4 * --fs */
+  --row: 30px;         /* one line, = 1.2 * --fs */
+  --k: 3;              /* display scale, whole pixels only */
+  --tk: 1;             /* tape scale */
+
+  /* one hue, many shades: oklch(L C 348) */
+  --ink0: oklch(0.13 0.028 348);   /* #0f0409 night */
+  --ink1: oklch(0.165 0.038 348);  /* #1a0711 sheet */
+  --ink2: oklch(0.21 0.05 348);    /* #280d1c raised */
+  --line: oklch(0.30 0.06 348);    /* #432033 rules, dots */
+  --faint: oklch(0.46 0.07 348);   /* #75475f decoration only */
+  --quiet: oklch(0.62 0.08 348);   /* quiet text, 4.9:1 */
+  --dim: oklch(0.70 0.07 348);     /* secondary text */
+  --text: oklch(0.93 0.025 348);   /* #f6e1eb */
+  --accent: oklch(0.70 0.19 348);  /* #ef64b3 carrier */
+  --hot: oklch(0.80 0.13 348);     /* #fea4d2-ish */
+  --pale: oklch(0.88 0.07 348);    /* #fcc5e0 */
+
+  /* product shades on the tape */
+  --c-mcp-emails: var(--accent);
+  --c-fun-libs: var(--pale);
+  --c-toolrails: var(--hot);
+  --c-albretsen-no: var(--dim);
+
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--ink0);
+  color: var(--text);
+  font-family: "VT323", "VT fallback", ui-monospace, monospace;
+  font-size: var(--fs);
+  line-height: var(--row);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-synthesis: none;
+  font-kerning: none;
+  font-variant-ligatures: none;
+}
+body { margin: 0; overflow-x: hidden; }
+p, h1, h2, ul { margin: 0; padding: 0; font-weight: 400; font-size: inherit; }
+b, i { font-weight: 400; font-style: normal; }
+code { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; line-height: inherit; }
+::selection { background: var(--accent); color: var(--ink0); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+
+.vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* A container that is always a whole number of cells wide. */
+.wrap {
+  --gut: 4;
+  width: calc(100% - var(--gut) * var(--cw));
+  max-width: calc(240 * var(--cw));
+  margin-inline: auto;
+}
+@media (min-width: 1000px) {
+  .wrap { --gut: 8; }
+}
+@supports (width: round(down, 101px, 10px)) {
+  .wrap {
+    --w: min(round(down, 100% - var(--gut) * var(--cw), var(--cw)), 240 * var(--cw));
+    width: var(--w);
+    max-width: none;
+    /* left edge on a whole pixel, so the bitmap stays crisp */
+    margin-inline: round(down, (100% - var(--w)) / 2, 1px) 0;
+  }
+}
+
+/* ASCII rules: a row of real characters, clipped to the cell grid. */
+.rule { height: var(--row); overflow: hidden; white-space: nowrap; color: var(--line); user-select: none; }
+.rule::before { content: "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"; }
+.rule--hot { color: var(--accent); }
+.rule--hot::before { content: "================================================================================================================================================================================================================================================================================"; }
+
+/* ------------------------------------------------------------------ hero */
+.hero {
+  position: sticky;
+  top: 0;               /* main.js lowers this when the hero is taller than the screen */
+  z-index: 0;
+}
+.hero__in {
+  min-height: calc(100vh);
+  min-height: round(down, 100svh, var(--row));
+  display: flex;
+  flex-direction: column;
+  /* the grid, faintly: one dot every 4 cells on every line */
+  background-image: radial-gradient(circle, var(--line) 0.9px, transparent 1.3px);
+  background-size: calc(4 * var(--cw)) var(--row);
+  background-position: calc(-2 * var(--cw)) calc(-0.5 * var(--row));
+}
+
+.bar {
+  display: flex; flex-wrap: wrap; justify-content: space-between;
+  column-gap: calc(2 * var(--cw));
+  margin-top: var(--row);
+  background: var(--ink0);
+}
+.bar__domain { color: var(--quiet); margin-right: auto; }
+.bar__r { display: flex; column-gap: calc(2 * var(--cw)); }
+.bar__r a, .snd { color: var(--dim); }
+.bar__r a:hover, .snd:hover { color: var(--text); }
+.bar__r a:active, .snd:active { background: var(--accent); color: var(--ink0); }
+.snd[aria-pressed="true"] { color: var(--accent); }
+
+.mark { color: var(--text); }
+.mark__cur { display: inline-block; width: var(--cw); color: var(--accent); }
+.mark:hover .mark__cur, .mark:focus-visible .mark__cur { background: var(--accent); color: var(--accent); }
+.mark:active { color: var(--accent); }
+
+.hero__space { flex: 1 0 calc(2 * var(--row)); }
+
+/* The name: VT323 at k x 25px, so one pixel = k px and one cell = k cells. */
+.name {
+  font-size: calc(var(--k) * var(--fs));
+  line-height: calc(var(--k) * var(--row));
+  color: var(--text);
+  letter-spacing: 0;
+  margin-bottom: var(--row);
+  /* optical nudge: VT323 sits a pixel left in its cell; keep its left edge on the grid */
+}
+.ln { display: block; position: relative; width: max-content; }
+.ln__sp { display: none; }
+@media (min-width: 1000px) {
+  .ln { display: inline-block; }
+  .ln__sp { display: inline; white-space: pre; }
+}
+/* fracture: on hover the lower half slips one cell right, in the carrier colour */
+.ln::after {
+  content: attr(data-text);
+  position: absolute; left: 0; top: 0;
+  color: var(--accent);
+  clip-path: inset(56% 0 0 0);
+  visibility: hidden;
+}
+.ln:hover .ln__t { clip-path: inset(0 0 44% 0); }
+.ln:hover::after { visibility: visible; transform: translateX(var(--cw)); }
+
+.lede { max-width: calc(46 * var(--cw)); color: var(--text); }
+.meta { color: var(--quiet); margin-bottom: calc(2 * var(--row)); }
+
+/* -------------------------------------------------------------- the tape */
+.tape__live { background: var(--accent); color: var(--ink0); padding-inline: var(--cw); margin-right: var(--cw); }
+.tape__note { color: var(--quiet); }
+
+.tape__win {
+  position: relative;
+  height: calc(var(--tk) * var(--row));
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 calc(12 * var(--cw)));
+  mask-image: linear-gradient(to right, transparent, #000 calc(12 * var(--cw)));
+  cursor: default;
+}
+.tape__win:focus-visible { outline-offset: -2px; }
+.tape__track {
+  position: absolute; right: 0; top: 0;
+  white-space: pre;
+  font-size: calc(var(--tk) * var(--fs));
+  line-height: calc(var(--tk) * var(--row));
+  transform: translateX(calc(var(--off, 0) * var(--tk) * var(--cw)));
+}
+.ev { color: var(--text); }
+.ev__t { color: var(--quiet); }
+.ev__p { color: var(--pc, var(--dim)); }
+.ev__x { color: var(--dim); }
+.ev__s { color: var(--faint); }
+.ev--quiet { color: var(--quiet); }
+.ev--mcp-emails { --pc: var(--c-mcp-emails); }
+.ev--fun-libs { --pc: var(--c-fun-libs); }
+.ev--toolrails { --pc: var(--c-toolrails); }
+.ev--albretsen-no { --pc: var(--c-albretsen-no); }
+.ev:hover .ev__b { background: var(--pc, var(--dim)); color: var(--ink0); }
+.ev:hover .ev__b * { color: var(--ink0); }
+.tape__cur { color: var(--accent); }
+.tape__win:hover .tape__cur, .tape__win:focus-visible .tape__cur { color: var(--quiet); }
+
+.tape__legend { display: flex; flex-wrap: wrap; column-gap: calc(3 * var(--cw)); color: var(--dim); }
+.lg b { color: var(--pc); }
+.lg i { color: var(--text); }
+.lg--mcp-emails { --pc: var(--c-mcp-emails); }
+.lg--fun-libs { --pc: var(--c-fun-libs); }
+.lg--toolrails { --pc: var(--c-toolrails); }
+.lg--albretsen-no { --pc: var(--c-albretsen-no); }
+.lg--since { color: var(--quiet); }
+.lg.is-hit i { background: var(--pc); color: var(--ink0); }
+
+.mcp { margin-block: var(--row); color: var(--quiet); }
+.mcp code { user-select: all; }
+.mcp code:hover { color: var(--dim); }
+
+/* --------------------------------------------------- display scale steps */
+/* narrow: two lines, "Albretsen" is 9 cells x k */
+@media (min-width: 420px) { :root { --k: 4; } }
+@media (min-width: 490px) { :root { --k: 5; } }
+@media (min-width: 580px) and (min-height: 560px) { :root { --k: 6; } }
+@media (min-width: 760px) { :root { --tk: 2; } }
+/* wide: one line, "Asgeir Albretsen" is 16 cells x k */
+@media (min-width: 1000px) { :root { --k: 6; } }
+@media (min-width: 1360px) and (min-height: 860px) { :root { --k: 8; } }
+@media (min-width: 1680px) and (min-height: 960px) { :root { --k: 10; } }
+@media (min-width: 2000px) and (min-height: 1080px) { :root { --k: 12; } }
+@media (min-width: 2320px) and (min-height: 1200px) { :root { --k: 14; } }
+@media (min-width: 1360px) {
+  .tape + .mcp { margin-top: calc(-1 * var(--row)); text-align: right; }
+  .tape__legend { padding-right: calc(52 * var(--cw)); }
+}
+
+/* --------------------------------------------- the sheet that slides over */
+.sheet {
+  position: relative;
+  z-index: 1;
+  background: var(--ink1);
+  box-shadow: 0 calc(-1 * var(--row)) calc(3 * var(--row)) oklch(0.06 0.02 348 / 0.7);
+  padding-bottom: calc(2 * var(--row));
+}
+.sheet__h { margin-top: var(--row); color: var(--text); }
+.sheet__prompt { color: var(--accent); }
+.sheet__sub { color: var(--dim); margin-bottom: calc(2 * var(--row)); }
+
+/* the directory listing */
+.dir { list-style: none; }
+.p__row {
+  display: grid;
+  grid-template-columns: calc(3 * var(--cw)) calc(6 * var(--cw)) 1fr auto;
+  grid-template-areas: "cur name name status" ". since fig fig" ". line line line";
+  column-gap: 0;
+}
+.p__cur { grid-area: cur; }
+.p__name { grid-area: name; color: var(--text); padding-right: var(--cw); }
+.p__status { grid-area: status; }
+.p__since { grid-area: since; color: var(--dim); }
+.p__fig { grid-area: fig; color: var(--dim); }
+.p__fig b { color: var(--text); }
+.p__line { grid-area: line; color: var(--dim); }
+.p__facts { display: none; color: var(--quiet); }
+.p__none { color: var(--faint); }
+.p + .p { margin-top: var(--row); }
+.p--head { display: none; }
+.p--head + .p { margin-top: 0; }
+
+.p--live .p__status { color: var(--accent); }
+.p--building .p__status { color: var(--hot); }
+.p--paused .p__status { color: var(--dim); }
+.p--retired .p__status, .p--retired .p__name { color: var(--quiet); }
+.p--retired .p__fig b { color: var(--dim); }
+.p--live .p__cur, .p--building .p__cur { color: var(--accent); }
+
+a.p__row:hover, a.p__row:focus-visible { background: var(--ink2); }
+.p__row:hover .p__cur { background: var(--accent); color: var(--ink0); }
+a.p__row:hover .p__name { color: var(--pale); }
+a.p__row:active { background: var(--accent); }
+a.p__row:active * { color: var(--ink0) !important; }
+div.p__row:hover { background: oklch(0.19 0.044 348); }
+
+.p--shelf .p__row { display: block; overflow: hidden; white-space: nowrap; color: var(--faint); }
+.p--shelf .p__shelf::before { content: "-- "; }
+.p--shelf .p__shelf::after { content: " ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"; }
+.p--shelf { margin-top: calc(2 * var(--row)) !important; }
+.p--shelf + .p { margin-top: var(--row); }
+.p--shelf .p__shelf { color: var(--quiet); }
+
+.dir__sum { color: var(--quiet); margin-top: calc(2 * var(--row)); }
+
+@media (min-width: 680px) {
+  .p__row {
+    grid-template-columns: calc(3 * var(--cw)) 1fr calc(22 * var(--cw)) calc(12 * var(--cw)) calc(6 * var(--cw));
+    grid-template-areas: "cur name fig status since" ". line line line line";
+  }
+}
+@media (min-width: 1160px) {
+  .p--head { display: block; color: var(--quiet); }
+  .p--head .p__row > * { color: var(--quiet); }
+  .p + .p { margin-top: 0; }
+  .p--head + .p { margin-top: 0; }
+  .p--shelf + .p { margin-top: 0; }
+  .p--shelf { margin-top: var(--row) !important; margin-bottom: 0; }
+  .p__row {
+    grid-template-columns: calc(3 * var(--cw)) calc(30 * var(--cw)) calc(12 * var(--cw)) calc(7 * var(--cw)) calc(20 * var(--cw)) 1fr;
+    grid-template-areas: "cur name status since fig line";
+  }
+  .p__name { padding-right: calc(2 * var(--cw)); }
+  .p__line { padding-right: var(--cw); }
+}
+@media (min-width: 1500px) { .p__facts { display: inline; } .p__facts::before { content: "\00b7  "; color: var(--faint); } }
+
+/* footer */
+.foot { margin-top: calc(2 * var(--row)); }
+.foot__avail { color: var(--text); }
+.foot__mail { color: var(--dim); }
+.foot__mail a, .foot__ring a { color: var(--accent); }
+.foot__mail a:hover, .foot__ring a:hover { background: var(--accent); color: var(--ink0); }
+.foot__mail a:active, .foot__ring a:active { background: var(--pale); color: var(--ink0); }
+.foot__ring { color: var(--quiet); margin-top: var(--row); }
+.foot__fine { color: var(--quiet); }
+
+/* short screens: let the hero scroll normally rather than cover anything */
+@media (max-height: 480px) { .hero { position: relative; } }
+
+@media (prefers-reduced-motion: reduce) {
+  /* the tape still updates, it just never slides: see main.js */
+  * { transition: none !important; animation: none !important; }
+}
+@media (forced-colors: active) {
+  .tape__live, .mark__cur { forced-color-adjust: none; }
+}

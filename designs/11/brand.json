@@ -1,0 +1,12 @@
+{
+  "name": "Low Sun",
+  "tagline": "A vermilion broadsheet whose masthead casts the real shadow of the sun over Oslo.",
+  "summary": "The page is the colour of the Nordic sun sitting on the horizon, and the name Albretsen fills the first screen like a masthead, casting a long shadow computed from the actual sun over Oslo. Below it every product plays on a live musical score, and the masthead's variable weight thickens when the products are busy. It reads like a serious publication with a sense of humour: proof of taste, delivered as telemetry.",
+  "palette": ["#fd4800", "#020c2a", "#b8301a", "#fef0d8", "#2b519c"],
+  "type": ["Fraunces (variable: opsz, wght, SOFT, WONK)", "Fraunces at text optical size", "IBM Plex Mono"],
+  "voice": "Warm, witty and exact, like a good newspaper column. Example: \"Busier days get bolder type; quiet ones get a lighter touch.\"",
+  "motion": "Nothing moves unless something happened: a real event pulses one letter and tears a thin slice of the masthead for a tenth of a second, then everything settles.",
+  "sound": "An opt-in music box: each event plucks the pentatonic pitch of its row on the score, a deploy plays a soft chord, a glitch ticks.",
+  "mark": "An abstract low sun: a disc above a horizon line with its long shadow below, reused as the status glyph (up, rising, on the horizon, set).",
+  "inspiration": ["https://www.grillitype.com", "https://pangrampangram.com", "https://github.com/googlefonts/fraunces", "https://www.hurtigruten.com/en/explore-norway/polar-night"]
+}

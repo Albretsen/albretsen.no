@@ -1,1 +1,916 @@
-[]
+[
+ {
+  "name": "Bloom Edition",
+  "tagline": "A loud long-form magazine that never goes to print: every live event blooms into a star.",
+  "summary": "Albretsen AS presented as a continuous edition of a dense, joyful magazine: ultra-wide display type, a literary serif, drop caps and marginalia on warm earth paper, with one cobalt for what is happening now. The hero's cover plate is a living constellation where each product grows as a sunflower spiral, one real event at a time. It reads as a body of work with range and output, and it holds all that density together with strict editorial control.",
+  "palette": [
+   "#faeee1",
+   "#2a1b11",
+   "#a74f21",
+   "#dea645",
+   "#7b773d",
+   "#1f150d",
+   "#1957d2"
+  ],
+  "type": [
+   "Anybody (wdth 150, wght 900)",
+   "Newsreader",
+   "ui-monospace"
+  ],
+  "voice": "Confident and declarative, short sentences that state facts and stop. Example: \"Eleven entries. Two live, one building, one paused, seven retired. Nothing is taken down to look tidier.\"",
+  "motion": "Slow cinematic fades and blooms, all of them pure CSS: nothing moves faster than its fact arrived, and nothing loops for show.",
+  "sound": "A two-second sonic logo, 'Bloom' (a rising filtered breath that opens into three FM bell tones and a held fifth), plays when sound is switched on. After that, each product sounds one soft bell per event.",
+  "mark": "The Seed: an abstract teardrop in flight with a cobalt satellite. It is a particle with velocity and the first star of a constellation, and it works from 16 px to poster size.",
+  "inspiration": [
+   "https://edwardtufte.github.io/tufte-css/",
+   "https://gwern.net/sidenote",
+   "https://fonts.google.com/specimen/Anybody",
+   "https://emilkowal.ski"
+  ],
+  "id": "01",
+  "path": "01/"
+ },
+ {
+  "name": "Continue.",
+  "tagline": "A title screen at first light: one dot, two colours, one size, products that talk.",
+  "summary": "The homepage is a game's title screen just before dawn: one viewport, a HUD frame, a menu of every product ever shipped, and a party chat where the live products report in. Everything is set in two colours and one type size, so the only loud thing is the name, and the full stop after it, which beats once for every real event. It reads as someone who has been playing for a long time and is still pressing Continue.",
+  "palette": [
+   "#221d05",
+   "#fee47a"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Newsreader",
+   "DM Mono"
+  ],
+  "voice": "Poetic and minimal; few words, each one load-bearing. \"Most of it is awake before he is.\"",
+  "motion": "Nothing moves on a timer: menu items are written in and erased by the scroll itself, the dawn dot rises with the menu's scroll timeline, and new messages slide in only when something real happens.",
+  "sound": "Opt-in: each product sings one note of an A major pentatonic (MCP Emails A4, Toolrails C#5, Fun Libs E5, the site A5) through a single fading echo, so the feed becomes a slow chord.",
+  "mark": "A single dot: the full stop after the name, also the menu cursor, the status light and the rising sun.",
+  "inspiration": [
+   "https://www.mobiusdigitalgames.com/news/concepting-ui",
+   "https://rauno.me",
+   "https://developer.mozilla.org/docs/Web/CSS/animation-timeline/view"
+  ],
+  "id": "02",
+  "path": "02/"
+ },
+ {
+  "name": "Gravity Issue",
+  "tagline": "A sideways magazine printed in two inks, where every real event lands on the cover.",
+  "summary": "albretsen.no reads like the current issue of a bright, curious magazine: a cover story, a contents spread and a colophon, turned sideways and printed in just Sol orange and Umber. The products are the articles and the live feed is the cover photo, made of real events falling onto a timeline. Everything is type and CSS, which quietly shows the craft without having to say so.",
+  "palette": [
+   "#ff8b44",
+   "#301000"
+  ],
+  "type": [
+   "Bricolage Grotesque 800 / wdth 75 (display, up to 27svh)",
+   "Bricolage Grotesque 450 / wdth 90 (text)",
+   "Bricolage Grotesque 600 / wdth 100, 11px caps (labels; no mono)"
+  ],
+  "voice": "Playful, curious and forward-looking, written like a good magazine standfirst: \"Every product here began as a question: would anyone want this?\"",
+  "motion": "Events land on the strip with real gravity: they fall, bounce twice and settle, while a slow halftone vector field drifts behind the cover and dents wherever something lands.",
+  "sound": "No sound on the page; the sonic logo is a rising major sixth on two soft sine voices followed by a low felt thump, an idea landing.",
+  "mark": "Four bars, one per product (MCP Emails, Fun Libs, Toolrails, albretsen.no), whose heights are each product's share of the last twelve live events, so the logo and favicon are redrawn by the data.",
+  "inspiration": [
+   "https://www.commercialtype.com",
+   "https://trends.daisyui.com/trend/type-first-design/",
+   "https://contra.com/p/gkvXcmLN-lumiere-horizontal-magazine-concept",
+   "https://draw-down.com/products/duotone-limited-colour-schemes-in-graphic-design"
+  ],
+  "id": "03",
+  "path": "03/"
+ },
+ {
+  "name": "Carrier",
+  "tagline": "A 1990s personal homepage rebuilt as tomorrow's interface: one pixel face, one hue, one character grid.",
+  "summary": "Carrier takes the honest bits of the 90s homepage (the marquee, the hit counter, the directory listing, the guestbook) and rebuilds them on a strict monospace grid where type only scales in whole pixels. Everything is VT323 on shades of a single rose hue, so the precision does the showing off. It suits Albretsen AS because the page behaves like the work: small, exact, fast, and a bit funny about itself.",
+  "palette": [
+   "#0f0409",
+   "#1a0711",
+   "#280d1c",
+   "#432033",
+   "#aa728f",
+   "#c08da6",
+   "#ef64b3",
+   "#fb9acc",
+   "#fcc5e0",
+   "#f6e1eb"
+  ],
+  "type": [
+   "VT323 at whole-pixel multiples (display)",
+   "VT323 at 25px, 1 font pixel = 1 screen pixel (text)",
+   "VT323 (it is already mono)"
+  ],
+  "voice": "Warm, dry and exact, like a friend who reads changelogs for fun: \"The tape only moves when something happens.\"",
+  "motion": "Nothing moves unless it is answering you or reporting a real event: hovers invert a cell, presses fill it, and the tape steps left one whole character at a time.",
+  "sound": "Opt-in square-wave notes on the A major pentatonic, one per product (MCP Emails A4, Toolrails C#5, Fun Libs E5, albretsen.no A3), played as real events arrive.",
+  "mark": "A:\\>_ : the DOS prompt for drive A, read as Albretsen, with a cursor that fills on hover; the favicon is the same prompt drawn on a 16-pixel grid.",
+  "inspiration": [
+   "https://owickstrom.github.io/the-monospace-web/",
+   "https://www.oxide.computer",
+   "https://vercel.com/font?type=pixel",
+   "https://www.framer.com/blog/90s-websites/"
+  ],
+  "id": "04",
+  "path": "04/"
+ },
+ {
+  "name": "Stille",
+  "tagline": "A quiet terminal that keeps score: every product playing in one six-minute piano roll.",
+  "summary": "Stille (Norwegian for still, quiet) treats albretsen.no as a terminal pane drawn on a visible, asymmetric grid. The live feed is set as a score in box-drawing characters, one lane per kind of event, so the mix of products reads as music and the rests read as honest silence. Light and dark trade places at every section, the wordmark slows letter by letter into space, and the visitor has a lane of their own.",
+  "palette": [
+   "#f6f7fb",
+   "#141728",
+   "#0d0f1e",
+   "#e9ebf3",
+   "#4b4cd1",
+   "#99a8ff",
+   "#0072a9",
+   "#bb4d2a",
+   "#067d4d"
+  ],
+  "type": [
+   "Saira Extra Condensed",
+   "JetBrains Mono",
+   "JetBrains Mono"
+  ],
+  "voice": "Poetic and minimal, plain Norwegian understatement, never selling. Example: \"I build software, quietly, and keep what earns its place.\"",
+  "motion": "Nothing moves by itself; only hover, focus and press answer the hand, and the score redraws one column at a time like a terminal.",
+  "sound": "Off until asked; turning it on plays three bells stacked in fifths, a rest, then one low D, and afterwards each event rings a soft pentatonic note for its lane.",
+  "mark": "A pure wordmark, ALBRETSEN in condensed light capitals, with tracking that widens letter by letter (0 to 0.23 em) so the name slows into silence.",
+  "inspiration": [
+   "https://vercel.com",
+   "https://abduzeedo.com/visual-identity-website-design-grid-layout-lundgrenlindqvist",
+   "https://strudel.cc/learn/visual-feedback/",
+   "https://fonts.google.com/specimen/Saira+Extra+Condensed"
+  ],
+  "id": "05",
+  "path": "05/"
+ },
+ {
+  "name": "Current",
+  "tagline": "The name, drawn only by lines that shift half a step. Live events pass through it as pulses.",
+  "summary": "A field of warm umber lines after Bridget Riley's Current. The name fills the first screen, and the only thing that draws it is lines shifting phase. The cursor works as a lens and every real event from the products sends one pulse through the field. It reads as control, not decoration: one rule, applied exactly, which suits a company that ships quietly and keeps only what works.",
+  "palette": [
+   "#ede5d9",
+   "#282019",
+   "#006972",
+   "#d3c5b2",
+   "#6a5a4c",
+   "#1d1712",
+   "#57c4ce"
+  ],
+  "type": [
+   "Fraunces 800, opsz 144 (display)",
+   "Fraunces 380, optical size auto (text)",
+   "Fraunces 520, opsz 10, tabular (log)"
+  ],
+  "voice": "Dry understatement. States the fact and stops. Example: \"Builds software. Keeps what pays for itself.\"",
+  "motion": "Nothing moves on its own: the field bends under the cursor like a lens and sends one pulse per real event, and it stays still under reduced motion.",
+  "sound": "Opt-in Web Audio: each product has its own note in D major pentatonic (MCP Emails D4, Toolrails E4, Fun Libs A4, the site B4), struck once per event.",
+  "mark": "A monogram A drawn by the field's rule: inside the letter, the stripes shift half a period and thicken. Nothing outlines it.",
+  "inspiration": [
+   "https://www.moma.org/collection/works/79998",
+   "https://www.artchive.com/artwork/vega-victor-vasarely-1957/",
+   "https://visualarts.britishcouncil.org/collection/portfolios/coloured-greys",
+   "https://paco.me"
+  ],
+  "id": "06",
+  "path": "06/"
+ },
+ {
+  "name": "Blue Hour",
+  "tagline": "A festival bill set as a quiet document, in nine depths of one blue.",
+  "summary": "The products are billed like acts on a festival poster: live ones as headliners, building and paused below, retired ones in small print and still on the bill. The page is laid out like a document with wide margins, where the numbers sit in the margin and the products talk to each other in a group chat. It works through absence: one hue, one rounded typeface, no lines, and the size of the type sets the order.",
+  "palette": [
+   "#010917",
+   "#031225",
+   "#041d38",
+   "#092c4f",
+   "#16416d",
+   "#7395bc",
+   "#9cbbdd",
+   "#8fc9ff",
+   "#e5f0fc"
+  ],
+  "type": [
+   "Nunito 900-1000 (display)",
+   "Nunito 500 (text)",
+   "ui-monospace (system, one line)"
+  ],
+  "voice": "Numbers first, adjectives never. \"2 live. 1 building. 1 paused. 7 retired. Since 2016, software built to pay for itself.\"",
+  "motion": "Kinetic weight: type blooms from hairline to black as it arrives, and words in the chat come out of a blur, all on transforms and font weight with no layout shift.",
+  "sound": "An opt-in generative ambient drone in D that opens its filter as activity rises, with one soft pentatonic note per real event, pitched by product.",
+  "mark": "A lowercase Nunito 800 wordmark, 'albretsen', with spacing set by hand per letter (tight at 'al', opening through 'bret', even to the end), so it reads like the top line of a poster.",
+  "inspiration": [
+   "https://rauno.me",
+   "https://www.gwern.net/Sidenotes",
+   "https://mchkhikvadze29.myportfolio.com/typography-poster-design",
+   "https://en.wikipedia.org/wiki/Bloom_(software)"
+  ],
+  "id": "07",
+  "path": "07/"
+ },
+ {
+  "name": "Threshold",
+  "tagline": "The page is a heat grid of product by minute; the name is set on top of the silence.",
+  "summary": "Every product writes into one full-bleed grid: four bands, one column per minute, lit in a single electric cyan when someone uses something Asgeir built. Three typefaces that clash on purpose (a wide grotesk, a condensed italic serif and a mono) sit on that grid with New Wave nerve and Swiss discipline underneath. Quiet minutes are drawn as honestly as busy ones, so the page shows real use without having to say so.",
+  "palette": [
+   "#050c0b",
+   "#0c1615",
+   "#0ff6f1",
+   "#ebf6f5",
+   "#9dafae",
+   "#f3f8f8",
+   "#006d6b"
+  ],
+  "type": [
+   "Syne (signal: wide, variable 400-800)",
+   "Instrument Serif (poem: condensed italic)",
+   "Space Mono (machine: data, labels)"
+  ],
+  "voice": "Poetic and minimal: short, exact, a little amused by itself. \"Each square is a minute. Each light, someone.\"",
+  "motion": "Nothing moves unless something real happens or the cursor asks: a cell flashes when an event lands, the name gains weight near the pointer, and the theme crosses the page one column at a time.",
+  "sound": "Opt-in Web Audio: a soft sine note per product on each live event (a pentatonic per row), a dry tick when the cursor crosses a cell, and a falling sweep of ticks as the theme crosses the page.",
+  "mark": "Four right-aligned bars against a vertical 'now' line, their lengths taken from the last fifteen minutes of each product, so the logo (and the favicon) changes shape with the data.",
+  "inspiration": [
+   "https://en.wikipedia.org/wiki/New_Wave_(design)",
+   "https://collections.lacma.org/object/207619",
+   "https://readymag.com/designstories/april-greiman/design-quarterly-133",
+   "https://www.cssdesignawards.com"
+  ],
+  "id": "08",
+  "path": "08/"
+ },
+ {
+  "name": "Afterimage",
+  "tagline": "A letter set on a pixel grid, with the software's activity in orbit around the name.",
+  "summary": "Afterimage treats Albretsen AS like a piece of creative code: one narrow column, everything set on a pixel grid, and the only thing that moves is the real activity of the products, landing on concentric rings around his name. It borrows Vera Molnár's habit of building a strict system and then breaking it by one pixel. The work is the evidence; nothing on the page has to brag.",
+  "palette": [
+   "#fcf1dc",
+   "#1a150d",
+   "#110e08",
+   "#f3e6ce",
+   "#ffc935",
+   "#7e5d07"
+  ],
+  "type": [
+   "Custom 5x7 bitmap wordmark",
+   "DotGothic16",
+   "Silkscreen"
+  ],
+  "voice": "Playful and curious, says little, leaves things for you to find. \"I build software, then watch what it does.\"",
+  "motion": "Completely still, except the feed: when something real happens, every event steps one slot outward along its ring in six hard frames.",
+  "sound": "Opt-in square-wave blips through a short echo, tuned to A major pentatonic, one note per product.",
+  "mark": "An A drawn twice on a 9x9 grid, the inner stroke an echo of the outer, with the top-right pixel left out on purpose.",
+  "inspiration": [
+   "https://dam.org/museum/artists_ui/artists/molnar-vera/des-ordres/",
+   "https://collections.vam.ac.uk/item/O1193775/interruptions-drawing-molnar-vera",
+   "https://departuremono.com",
+   "https://en.wikipedia.org/wiki/After_Dark_(software)"
+  ],
+  "id": "09",
+  "path": "09/"
+ },
+ {
+  "name": "Pust",
+  "tagline": "A front page set in a terminal: two greens, one monospace grid, events orbiting the name.",
+  "summary": "Pust (Norwegian for breath) treats albretsen.no like a serious publication printed on a phosphor screen. The name is set huge, cropped and overlapped like a masthead cut from type, while real events from every product drift around it in a slow orbit. Two colours and monospace only: the restraint shows the taste, and the live orbit shows the output.",
+  "palette": [
+   "#0c290d",
+   "#cffdcd"
+  ],
+  "type": [
+   "Space Mono 700",
+   "IBM Plex Mono 400/500",
+   "Space Mono 400"
+  ],
+  "voice": "Norwegian plainness: short, declarative, a little dry, with a Norwegian word where it is the plainer one. \"Apps, SaaS and infrastructure for AI agents. Built in Norway, kept if it pays for itself.\"",
+  "motion": "Everything moves in CSS at the pace of breathing: a 7-minute orbit, typing in steps, a collage that leans toward the cursor, nothing driven by JavaScript.",
+  "sound": "Opt-in soft key clicks synthesized from filtered noise, one per character as each new event types itself in.",
+  "mark": "a░: a bold lowercase a followed by a light-shade block, the cursor waiting for the next breath.",
+  "inspiration": [
+   "https://eyeondesign.aiga.org/its-not-just-you-the-neon-glow-of-terminal-green-really-is-ubiquitous/",
+   "https://www.typewolf.com/space-mono",
+   "https://blog.master.dev/hover-proximity-using-modern-css/",
+   "https://unicodefyi.com/guide/box-drawing-guide/"
+  ],
+  "id": "10",
+  "path": "10/"
+ },
+ {
+  "name": "Low Sun",
+  "tagline": "A vermilion broadsheet whose masthead casts the real shadow of the sun over Oslo.",
+  "summary": "The page is the colour of the Nordic sun sitting on the horizon, and the name Albretsen fills the first screen like a masthead, casting a long shadow computed from the actual sun over Oslo. Below it every product plays on a live musical score, and the masthead's variable weight thickens when the products are busy. It reads like a serious publication with a sense of humour: proof of taste, delivered as telemetry.",
+  "palette": [
+   "#fd4800",
+   "#020c2a",
+   "#b8301a",
+   "#fef0d8",
+   "#2b519c"
+  ],
+  "type": [
+   "Fraunces (variable: opsz, wght, SOFT, WONK)",
+   "Fraunces at text optical size",
+   "IBM Plex Mono"
+  ],
+  "voice": "Warm, witty and exact, like a good newspaper column. Example: \"Busier days get bolder type; quiet ones get a lighter touch.\"",
+  "motion": "Nothing moves unless something happened: a real event pulses one letter and tears a thin slice of the masthead for a tenth of a second, then everything settles.",
+  "sound": "An opt-in music box: each event plucks the pentatonic pitch of its row on the score, a deploy plays a soft chord, a glitch ticks.",
+  "mark": "An abstract low sun: a disc above a horizon line with its long shadow below, reused as the status glyph (up, rising, on the horizon, set).",
+  "inspiration": [
+   "https://www.grillitype.com",
+   "https://pangrampangram.com",
+   "https://github.com/googlefonts/fraunces",
+   "https://www.hurtigruten.com/en/explore-norway/polar-night"
+  ],
+  "id": "11",
+  "path": "11/"
+ },
+ {
+  "name": "Afterimage",
+  "tagline": "Op Art restraint: one silent half, one half under tension, and one blue line.",
+  "summary": "The page is a field of black bands that begin dead straight and slowly bend, the way a Bridget Riley painting builds energy until it reaches maximum tension. The name sits half on silence and half inside the field, inverted by it. Albretsen AS should read as precise and quietly ambitious: the effect is technical, the luxury is in what has been left out.",
+  "palette": [
+   "#070707",
+   "#fafafa",
+   "#006aaa",
+   "#52b5f4",
+   "#868686"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Newsreader",
+   "IBM Plex Mono"
+  ],
+  "voice": "Confident and declarative. Short sentences that state facts and stop. Example: \"Everything shipped, still running or retired. Nothing removed.\"",
+  "motion": "A generative band field that starts straight, takes on tension over six seconds and then moves no faster than breathing; the feed is a constant-speed tape where empty stretches are real time passing.",
+  "sound": "Opt-in Web Audio only: a struck sine per live event, pitched by product with a faint glassy partial, plus a dry tick when a product comes into focus.",
+  "mark": "Seven parallel lines bent by a seeded wave, one of them blue; a new seed every visit, so no two visitors see the same mark, and the seed is printed in the footer.",
+  "inspiration": [
+   "https://bridget-riley.publications.britishart.yale.edu/catalogue/10/",
+   "https://www.moma.org/collection/works/79998",
+   "https://gsfineart.com/gallery-news/tag/workoftheweek/page/7",
+   "https://bellard.org"
+  ],
+  "id": "12",
+  "path": "12/"
+ },
+ {
+  "name": "Bloom Index",
+  "tagline": "Paper, ink and one magenta signal: an Are.na-style index of everything built, with a live log typing beside it.",
+  "summary": "The site is an index of blocks on a visible 12-column grid. Three typefaces that clash on purpose (a condensed italic serif, an expanded black grotesk and a mono) are held in line by that grid. Everything is paper and ink, and the single spot colour means one thing only: something is happening right now. That reads as clarity and taste for a builder whose products keep running while he works on the next one.",
+  "palette": [
+   "#fcf9fc",
+   "#1b131b",
+   "#c526d5",
+   "#a419b1",
+   "#5b525c",
+   "#d6ced7",
+   "#f9ddfb"
+  ],
+  "type": [
+   "Instrument Serif (italic display)",
+   "Archivo Expanded 800 (display grotesk)",
+   "JetBrains Mono (log, labels)"
+  ],
+  "voice": "Terse engineer. Short declaratives, units and dates, no adjectives that cannot be measured. \"Builds software that pays for itself.\"",
+  "motion": "Teletype: each new log line arrives one character every 18 ms behind a magenta caret, the mark blooms once per event, and nothing moves when nothing happens.",
+  "sound": "Opt-in ambient drone in D that opens up as activity rises, and each real event blooms one pentatonic note voiced by its product.",
+  "mark": "The Bloom Point: an ink disc overprinted by a magenta disc, with the overlap left as a darker lens. It is drawn only with CSS and swells briefly on each live event.",
+  "inspiration": [
+   "https://www.are.na/editorial/introducing-areal-are-nas-new-typeface",
+   "https://linear.app",
+   "https://generativemusic.com/bloom.html",
+   "https://maxibestof.one/typefaces/instrument-serif/pairing/jetbrains-mono"
+  ],
+  "id": "13",
+  "path": "13/"
+ },
+ {
+  "name": "Bitspark",
+  "tagline": "A 1-bit desktop where every product sings its own note.",
+  "summary": "Albretsen AS as a bright System 7 desktop: black ink, white paper, one hot crimson spark, a grid you can see. One live event fills the window at a time in an ultra-wide face, while a four-lane chorus shows the rhythm of every product at once. It reads as optimistic, exact and fast, someone who ships and keeps shipping.",
+  "palette": [
+   "#000000",
+   "#ffffff",
+   "#e00655",
+   "#fa2564"
+  ],
+  "type": [
+   "Anybody (wdth 150, 800)",
+   "IBM Plex Mono",
+   "Silkscreen"
+  ],
+  "voice": "Terse engineer, upbeat. States what shipped and what it does, never sells. Example: \"Ships software that pays for itself.\"",
+  "motion": "Still by default; each real event gets one 360 ms pass of sliced, offset, dithered glitch, then holds dead still.",
+  "sound": "Opt-in square-wave beeps: MCP Emails C5, Fun Libs E5, Toolrails G5, albretsen.no C6, so the feed plays a C-major chorus at the speed of real traffic.",
+  "mark": "A 16x16 pixel A with a five-pixel crimson spark at its shoulder, drawn for the favicon first and only ever scaled by whole pixels.",
+  "inspiration": [
+   "https://www.guidebookgallery.org/guis/macos/macos70",
+   "https://www.moma.org/collection/works/188392",
+   "https://eyeondesign.aiga.org/the-ever-changing-art-of-the-screensaver/",
+   "https://rauno.me"
+  ],
+  "id": "14",
+  "path": "14/"
+ },
+ {
+  "name": "Surface Tension",
+  "tagline": "Every product is a surface; every real event lands on it as a chrome drop.",
+  "summary": "A dark, single-hue (OKLCH 180) world of wet chrome and translucent gel, Y2K futurism with the volume turned down. The hero is a full-bleed, real-time strip of the last fifteen minutes across MCP Emails, Fun Libs, Toolrails and the site itself, and the name above it is set in a variable font whose width is literally the traffic of the last five minutes. It reads as one person running several working systems at once, and shows it instead of saying it.",
+  "palette": [
+   "#02110e",
+   "#041a16",
+   "#144039",
+   "#499688",
+   "#78baac",
+   "#5addc7",
+   "#50f5db",
+   "#daf6ef",
+   "#f5fefc"
+  ],
+  "type": [
+   "Anybody (variable wdth + wght)",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Terse engineer with an indie grin: short declaratives, numbers over adjectives, one dry joke per screen. \"Shipped. Including the dead ones.\"",
+  "motion": "Time moves at the speed of the clock and nothing else; drops fall and ripple on arrival, type tightens as you scroll away, all of it driven by CSS scroll timelines and real events.",
+  "sound": "Off by default; switching it on plays 'the drop', a synthesized sine that breaks the surface and rings into a glassy fifth, then each event lands as a near-silent pentatonic drip per product.",
+  "mark": "The Drop: a chrome-and-gel blob shaped by three low harmonics from a random 24-bit seed, so every visit gets a different, always-recognisable drop (and favicon).",
+  "inspiration": [
+   "https://www.warp.dev",
+   "https://www.webdesignmuseum.org/exhibitions/y2k-aesthetic-in-web-design",
+   "https://joshwcomeau.com/animation/scroll-driven-animations",
+   "https://press.stripe.com"
+  ],
+  "id": "15",
+  "path": "15/"
+ },
+ {
+  "name": "Full Stop",
+  "tagline": "Ink, paper and one dot that takes the colour of whatever just happened.",
+  "summary": "A New Wave page in the Weingart and Greiman line: stretched-wide type, stepped lines, the grid drawn on the paper, every scale labelled. The page has no colour of its own. Colour arrives only when a product does something, so the live feed is drawn as a piano roll, and the logo, a single dot, always shows the hue of the latest event. Retired work stays on the timeline beside the live products, because a record with 7 retired entries and 2 live ones is more convincing than any adjective.",
+  "palette": [
+   "#f3f2ef",
+   "#120e11",
+   "#cd32b3",
+   "#e7c61f",
+   "#00accd",
+   "#00b66a"
+  ],
+  "type": [
+   "Unbounded (250 and 900)",
+   "IBM Plex Mono",
+   "IBM Plex Mono"
+  ],
+  "voice": "Numbers first, adjectives never; every claim is a count, a year or a unit. \"Shipping software since 2016: 11 products, 2 live, 1 building, 1 paused, 7 retired.\"",
+  "motion": "Teletype: text arrives one character at a time behind a cursor in the live colour, and notes drift left at the speed of the wall clock.",
+  "sound": "Off until asked; then each typed character is a 28 ms band-passed noise click synthesized in Web Audio, with a lower thud for spaces.",
+  "mark": "A single full stop, a filled circle whose colour is the hue of the most recent event (the favicon follows it too).",
+  "inspiration": [
+   "https://collections.lacma.org/object/207626",
+   "https://www.moma.org/collection/works/172729",
+   "https://en.wikipedia.org/wiki/New_Wave_(design)",
+   "https://fonts.google.com/specimen/Unbounded"
+  ],
+  "id": "16",
+  "path": "16/"
+ },
+ {
+  "name": "Albedo",
+  "tagline": "A pale instrument that reports what happened, and very little else.",
+  "summary": "Albretsen AS presented the way a lab presents its findings: a high-key, nearly white page where the only thing that moves is real activity, arriving as pixel dots on a world map and as lines of type. Lots of air, very small type and one condensed name. Asgeir comes across as someone who measures before he speaks, and the evidence is live.",
+  "palette": [
+   "#f5fbfe",
+   "#e4f3fa",
+   "#bad6e3",
+   "#172e40",
+   "#495e6d",
+   "#5fb7dc",
+   "#e6a0ba",
+   "#8ad7b6",
+   "#ebd28f"
+  ],
+  "type": [
+   "Saira Extra Condensed",
+   "IBM Plex Sans",
+   "IBM Plex Mono"
+  ],
+  "voice": "Dry understatement in the register of a methods section: it states the observation and leaves the reader to be impressed. Example: \"Positions approximate to country or city. Quiet periods are real.\"",
+  "motion": "Text arrives character by character like a teletype, a new dot gets one square ring of signal, and nothing else moves unless something actually happened.",
+  "sound": "Silent page. The sonic logo, written up in BRAND.md, is a 228 Hz sine with a short return ping two octaves up, like a sensor registering an echo.",
+  "mark": "An 8 by 8 pixel A drawn for 16 px first, with one detached pixel in the top-right corner as the signal; on the site that pixel changes colour when the site deploys.",
+  "inspiration": [
+   "https://press.stripe.com",
+   "https://www.takram.com",
+   "https://github.com/rameerez/mappo",
+   "https://www.dezeen.com/2017/12/13/kenya-hara-exclusive-interview-muji-us-expansion-brand-aesthetic/"
+  ],
+  "id": "17",
+  "path": "17/"
+ },
+ {
+  "name": "Preprint",
+  "tagline": "The company as a working paper: greys, margins and figures, with colour only when something happens.",
+  "summary": "Albretsen AS presented the way a careful researcher presents results: one narrow column, sidenotes in the margin, a live figure and a table of every product, retired ones included. The page is greyscale; colour belongs to live events and fades to grey with a 120-second half-life, so you can read how recent an event is from its colour. The tone is calm because the numbers carry the argument.",
+  "palette": [
+   "#f6f6f6",
+   "#fdfdfd",
+   "#181818",
+   "#4d4d4d",
+   "#6c6c6c",
+   "#cacaca",
+   "#736d00",
+   "#008088",
+   "#6756b9",
+   "#ae3b47"
+  ],
+  "type": [
+   "Archivo Expanded 800",
+   "EB Garamond",
+   "IBM Plex Mono"
+  ],
+  "voice": "Numbers first, adjectives never; short declaratives a referee could check. Example: \"113,000+ installs, $782 MRR, 2 products live, 1 building.\"",
+  "motion": "Every card is a damped spring (stiffness 210, damping 22): new events drop onto the stack, the rest are pushed down and keep some of that momentum, and a sideways pull lets the stack flow and settle back with inertia.",
+  "sound": "Opt-in sonification of the feed: each product has its own sine note from D major pentatonic (Fun Libs A4, MCP Emails B4, Toolrails E5, the site D4), with a few milliseconds of synthesized grain on the attack.",
+  "mark": "A 7 x 7 field of short strokes, like grain under a lens: the base flow is fixed, and each visit adds a seeded perturbation, printed in a sidenote, so the mark is slightly different every time.",
+  "inspiration": [
+   "https://edwardtufte.github.io/tufte-css/",
+   "https://gwern.net/sidenote",
+   "https://rive.app",
+   "https://www.are.na/explore"
+  ],
+  "id": "18",
+  "path": "18/"
+ },
+ {
+  "name": "One Spot",
+  "tagline": "A printed document with one ink, one paper and one spot of signal green.",
+  "summary": "The site reads like a Dutch exhibition catalogue: a strict three-column page with wide margins, a single serif family, and marginalia doing the quiet work. One spot colour at hue 120 marks only what is happening now (the newest event on a dot-grid world, the live products, the thing under your cursor), so the eye learns that green-yellow means signal. Saying little and showing density suits a builder whose work speaks through live numbers and a long, honest list of what he has made.",
+  "palette": [
+   "#fafbf5",
+   "#171a0f",
+   "#caed21",
+   "#686a61",
+   "#11120c"
+  ],
+  "type": [
+   "Newsreader Display (opsz 72, Light 300)",
+   "Newsreader Text (opsz 16, Regular 400)",
+   "Newsreader Caption (opsz 8, tabular lining figures)"
+  ],
+  "voice": "Few words, curious and a little playful, never selling. \"Players have countries. Agents don't, so they live on the bottom line.\"",
+  "motion": "Nothing moves unless you touch it: hover, focus and press get small, exact responses, and the page itself stays still.",
+  "sound": "Opt-in soft key clicks, synthesised in Web Audio, as each new event types itself into the margin.",
+  "mark": "The Field: 25 dots on a 5x5 grid whose sizes follow a random point of density, with the densest dot in spot colour, drawn fresh and numbered for every visit.",
+  "inspiration": [
+   "https://fontsinuse.com/designers/1038/experimental-jetset",
+   "https://www.dezeen.com/?p=1435348",
+   "https://gwern.net/sidenotes",
+   "https://productiontype.com/family/newsreader"
+  ],
+  "id": "19",
+  "path": "19/"
+ },
+ {
+  "name": "Brev",
+  "tagline": "A letter written in a code editor, signed by a constellation of live data.",
+  "summary": "Brev (Norwegian for letter) presents Asgeir as a person writing to you: one narrow column of warm serif text with editor line numbers in the gutter, set on a strict character grid. In the middle of the letter, a night editor pane holds a constellation in which every real product event is a star that drifts out along its product's vector as it ages. Plain words, a lot of craft, and proof that the work is running right now.",
+  "palette": [
+   "#06070a",
+   "#f9fafd",
+   "#194fe3",
+   "#5b8cff"
+  ],
+  "type": [
+   "Newsreader Display (opsz 72)",
+   "Newsreader Text",
+   "Newsreader Caption (no monospace, the grid does that job)"
+  ],
+  "voice": "Norwegian plainness: short, true sentences, warm without being sweet, with a Norwegian word where it fits. Example: \"I build software in Norway, and I keep what pays for itself.\"",
+  "motion": "Motion comes from the scroll and from real time only: rows type in by four character cells as they enter view, the sky dims as you leave it, and stars move one cell at a time because they really did get older.",
+  "sound": "Opt-in ambient drone (A and E) whose filter opens with activity, a fourth voice above the threshold of eight events a minute, and one soft bell per event from that product's own little scale.",
+  "mark": "Four stars, the newest event from each product, joined into a figure; the logo is literally the current shape of the data, with a fixed snapshot used for the favicon.",
+  "inspiration": [
+   "https://wickstrom.tech/2024-09-26-how-i-built-the-monospace-web.html",
+   "https://productiontype.com/family/newsreader",
+   "https://www.warp.dev",
+   "https://developer.mozilla.org/docs/Web/CSS/animation-timeline/view"
+  ],
+  "id": "20",
+  "path": "20/"
+ },
+ {
+  "name": "Dot Plot",
+  "tagline": "A data-journalism graphic about one company, set entirely in monospace, with a full stop for a logo.",
+  "summary": "Albretsen AS presented the way The Pudding or the FT graphics desk would present a dataset: paper, ink, one spot colour, annotations and an honest chart of every product including the retired ones. The live feed is the lead story, one event at a time and very large, and every sentence on the page ends in the brand mark. It reads as someone who measures things, ships things, and finds the whole business quietly funny.",
+  "palette": [
+   "#f3f8f6",
+   "#131a17",
+   "#00a57c",
+   "#016b50",
+   "#4f5754",
+   "#d7f0e6"
+  ],
+  "type": [
+   "Martian Mono 700, width 75 (display)",
+   "Martian Mono 400, width 87.5 (text)",
+   "Martian Mono 400 (labels, figures, code)"
+  ],
+  "voice": "Dry understatement, written like a chart annotation: short, exact, slightly amused. \"Builds software in Norway. Some of it is running right now.\"",
+  "motion": "A dot-grid sheet drifts behind the page; each real event drops a spot dot that echoes outward in rings, nudges the grid as they pass, then drifts and fades over ten minutes.",
+  "sound": "Opt-in Web Audio: the sonic logo is one clean dot of a note followed by four echoes that drift slightly flat and darker, then a low full stop.",
+  "mark": "A full stop in the spot colour: it is the logo, the favicon, and the last character of every headline and every live event.",
+  "inspiration": [
+   "https://pudding.cool/process/scrollytelling-sticky/",
+   "https://owickstrom.github.io/the-monospace-web/",
+   "https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md",
+   "https://press.stripe.com"
+  ],
+  "id": "21",
+  "path": "21/"
+ },
+ {
+  "name": "Hjemmeside",
+  "tagline": "A 1996 personal homepage, rebuilt by someone with 2026 taste.",
+  "summary": "The site is a hjemmeside: a fixed index frame, a plain page, underlined blue links and a log of what is happening right now, built with care and no decoration. The products and the live log do the talking, which suits a person who ships quietly and keeps the honest record, retired experiments included.",
+  "palette": [
+   "#faf3ee",
+   "#f3e9e3",
+   "#d7c7c1",
+   "#735d59",
+   "#312224",
+   "#a46070",
+   "#1d60bc"
+  ],
+  "type": [
+   "Nunito 800 (the name only)",
+   "Nunito",
+   "DM Mono"
+  ],
+  "voice": "Plain, light and unhurried, with a Norwegian word where a Norwegian would use one. 'Hei. Every product, as it happens. Nothing is replayed or sped up.'",
+  "motion": "Everything that moves is a damped spring that keeps its velocity, so a burst of events pushes the log down with real inertia, and quiet hours stay still.",
+  "sound": "Off until asked; then a soft synthesised sine tick per event, pitched per product, plus a two-note chime for the toggle.",
+  "mark": "An 8 by 8 pixel capital A with one blue pixel beside it, drawn for the 16 px favicon first; the blue pixel is the pulse and springs each time an event arrives.",
+  "inspiration": [
+   "https://www.typewolf.com",
+   "https://joshwcomeau.com/animation/a-friendly-introduction-to-spring-physics/",
+   "https://www.raycast.com",
+   "https://www.framer.com/ja/blog/90s-websites/"
+  ],
+  "id": "22",
+  "path": "22/"
+ },
+ {
+  "name": "Exhale",
+  "tagline": "The name takes the shape of your screen; the page breathes from paper to ink as you scroll.",
+  "summary": "Web brutalism with a warm pulse: a stretched editorial serif name that fills the first viewport exactly, then a page that inhales (paper) and exhales (ink) section by section, with one live event at a time set huge. The cursor is the underscore from the a_ mark, a person mid-sentence, which stretches with velocity and breathes when still. It reads as one person who ships, counts and keeps the record honest.",
+  "palette": [
+   "#fff0df",
+   "#1a1209",
+   "#fcaa2b",
+   "#8b5600",
+   "#685b4b",
+   "#b1a291"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Instrument Serif",
+   "IBM Plex Mono"
+  ],
+  "voice": "Numbers first, adjectives never; warm because it is plain and first-person. Example: \"10 years of building software that pays for itself.\"",
+  "motion": "Slow cinematic fades from blur, 1.4 to 2.4 seconds, and a whole-page colour inversion that crossfades as each section crosses the middle of the screen.",
+  "sound": "Silent page; the sonic logo is two breaths, a filtered-noise inhale and a sine exhale on a falling fourth, 1.8 seconds in total.",
+  "mark": "a_ : a lowercase serif a followed by a typing underscore in amber; the underscore is also the site's cursor.",
+  "inspiration": [
+   "https://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/",
+   "https://bureauborsche.com/projects/balenciaga/visual-identity",
+   "https://paco.me",
+   "https://www.cosmos.so"
+  ],
+  "id": "23",
+  "path": "23/"
+ },
+ {
+  "name": "Daylight Lattice",
+  "tagline": "A title card in daylight: one grotesk at cinema scale over a living lattice of minutes.",
+  "summary": "Albretsen AS is shown as a lattice of products and minutes, with each square lit by real activity. The name is set like the opening title of a film, in warm daylight and pastel mint, so the ambition reads as big while the tone stays calm and generous. The mark is an A made from the busiest cells of that lattice, so the logo and the live data share one language.",
+  "palette": [
+   "#fbfaf3",
+   "#ebf7ed",
+   "#dfeee4",
+   "#9addb2",
+   "#3cb178",
+   "#10271d",
+   "#f4e8bb",
+   "#e7ddfa"
+  ],
+  "type": [
+   "Schibsted Grotesk 800 at 23-26cqi",
+   "Schibsted Grotesk 450",
+   "Schibsted Grotesk 600 caps at 11px"
+  ],
+  "voice": "Warm and witty, with no swagger: it states facts and then smiles. Example: \"Four in play. Seven retired with honours.\"",
+  "motion": "Everything moves on damped springs: cells pop when an event lands, the lattice glides one minute left with inertia, and links lean in and settle.",
+  "sound": "Off until asked. Switching it on plays \"A in daylight\", an A-major arpeggio strummed upward that lands on the octave over a soft A bed, after which each event gives a quiet pitched tick.",
+  "mark": "A 5x5 lattice in which the hottest cells spell the letter A. It doubles as the favicon, and each cell answers a different product live.",
+  "inspiration": [
+   "https://type.today/en/journal/anthropic",
+   "https://www.joshwcomeau.com/animation/linear-timing-function/",
+   "https://styles.refero.design/style/cbb335e5-c8df-49be-a0fc-0ec5dfa0d61f",
+   "https://brand.gocardless.com/typography"
+  ],
+  "id": "24",
+  "path": "24/"
+ },
+ {
+  "name": "fullt hus",
+  "tagline": "a full-house data front page where the live feed sets every colour, weight and width",
+  "summary": "albretsen.no as one dense, joyful data-journalism front page that fits a single screen: the name is a live chart, a ticker tape runs every real event, and each product owns a hue that only appears when the feed puts it there. it shows range and output at a glance and sounds plain about it, the way a norwegian would.",
+  "palette": [
+   "#eef9fc",
+   "#051d2b",
+   "#0083a1",
+   "#d12b7e",
+   "#9e8500",
+   "#05893e",
+   "#566670"
+  ],
+  "type": [
+   "Anybody (variable, wght 100-900, wdth 50-150)",
+   "Anybody at wdth 86-92",
+   "IBM Plex Mono"
+  ],
+  "voice": "lowercase, plain, a little dry, with a norwegian word where it fits. 'stille · nothing for 20 s'",
+  "motion": "kinetic type driven by data: each event ripples weight through the name, and the font trades weight for width so the layout never moves.",
+  "sound": "no sound on the page; the sonic logo is four plucked notes, one per product hue, landing on a held fifth.",
+  "mark": "a single-storey lowercase a: the bowl is an orbit with a moon in its aperture, and the stem is a stacked bar of the live product mix.",
+  "inspiration": [
+   "https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md",
+   "https://flowingdata.com/2018/03/14/needle-of-uncertainty",
+   "https://fonts.google.com/knowledge/using_type/styling_type_on_the_web_with_variable_fonts",
+   "https://www.grillitype.com"
+  ],
+  "id": "25",
+  "path": "25/"
+ },
+ {
+  "name": "Widescreen",
+  "tagline": "A name drawn in pixels on a Crouwel lattice, two screens wide, run sideways like film.",
+  "summary": "Albretsen is set as a 55 by 7 pixel wordmark on a visible grid, and the grid's unit is the wordmark's own pixel, so every panel and column lands on the same lattice. The page scrolls sideways through three frames: the name and a live stack of real events, the products as a run of poster columns, and the address. It is near-black and still. The only things that move are the feed cards, and the only colour is one electric violet spark.",
+  "palette": [
+   "#08060b",
+   "#100e15",
+   "#1c1923",
+   "#2f2c37",
+   "#87848f",
+   "#aca9b4",
+   "#f2f1f5",
+   "#ae59ff"
+  ],
+  "type": [
+   "Martian Mono 112.5% wide, 600 (display)",
+   "Martian Mono 87.5% wide, 400 (text)",
+   "Martian Mono 75% condensed, 300 to 600 (figures)"
+  ],
+  "voice": "Short, flat, declarative. States what exists and stops. Example: \"Eleven products. Four in motion. Seven retired, kept in view.\"",
+  "motion": "The page itself never moves; only new feed cards drop onto the stack, and with reduced motion they appear without transition.",
+  "sound": "Opt-in generative ambience: a low D drone that opens up as real activity rises, with each event striking one note of a D pentatonic lattice in a register owned by its product.",
+  "mark": "A favicon-first pixel A on a 16 px grid with one violet spark pixel at its upper right; the same spark ends the 55 by 7 wordmark.",
+  "inspiration": [
+   "https://www.experimentaljetset.nl",
+   "https://www.typeroom.eu/article/all-hail-true-king-grid-and-tdc-medal-recipient-2019-wim-crouwel",
+   "https://www.thefoundrytypes.com/fonts/new-alphabet/",
+   "https://www.dezeen.com/2013/05/21/whitney-graphic-identity-by-experimental-jetset/"
+  ],
+  "id": "26",
+  "path": "26/"
+ },
+ {
+  "name": "Full Stop",
+  "tagline": "One violet field, one Garamond voice, and a full stop for every thing that happens.",
+  "summary": "Albretsen AS as a quiet operator: a page that is completely still except for the work itself. Every real event from every product lands as one full stop in a constellation drawn without lines, set in classical book typography on a fully saturated violet. The tone is calm and literary, like a modern AI lab. The effect is someone who finishes things and does not need to say so.",
+  "palette": [
+   "#5719c8",
+   "#f9f1e2",
+   "#cdc1f7",
+   "#6a43dd",
+   "#381285",
+   "#a090e3"
+  ],
+  "type": [
+   "EB Garamond Italic (display, collage)",
+   "EB Garamond with true small caps and old-style figures (text)",
+   "None: commands are set in the book face, lining figures"
+  ],
+  "voice": "Terse engineer. Short declaratives that end in a period, facts before adjectives. \"I build software, ship it, and keep what pays.\"",
+  "motion": "Nothing moves except the feed: a new full stop fades in over 900 ms (or appears instantly with reduced motion), and the page itself never animates.",
+  "sound": "Silent on the page. The sonic logo, described in BRAND.md, is a single soft felt-piano note with a sung fifth above it: a full stop you can hear.",
+  "mark": "The EB Garamond full stop, drawn from the font's own outline: cream on violet, used tiny after the name and enormous as cropped image.",
+  "inspiration": [
+   "https://type.today/en/journal/anthropic",
+   "https://fontsinuse.com/uses/75489/beating-the-bounds-exhibition-poster",
+   "https://eguide.ch/en/objekt/moderne-franzoesische-knuepfteppiche/?pdf=1505",
+   "https://cursor.com"
+  ],
+  "id": "27",
+  "path": "27/"
+ },
+ {
+  "name": "Colophon",
+  "tagline": "A Swiss grid set in book type, where the only colour on the page is something happening right now.",
+  "summary": "Colophon treats albretsen.no like the last page of a well-made book: the note that says exactly how the thing was made. Twelve visible columns, Garamond with true small capitals and old-style figures, and a monospace log; everything is grey until an event arrives, and then, briefly, it is green. It reads as rigorous, quiet and quietly busy, which is what a company that ships many products alone should look like.",
+  "palette": [
+   "#f4f4f4",
+   "#161616",
+   "#5b5b5b",
+   "#dcdcdc",
+   "#437a00",
+   "#61a900"
+  ],
+  "type": [
+   "EB Garamond (display, small caps)",
+   "EB Garamond (text, old-style figures)",
+   "IBM Plex Mono"
+  ],
+  "voice": "Confident, declarative, understated; states and stops. Example: \"Keeps what earns its place, retires what doesn't.\"",
+  "motion": "Kinetic typography driven only by real events: the current sentence types itself, the newest log line types in, the name ripples once, and the orbit mark turns once a minute because a minute passes.",
+  "sound": "Opt-in soft keyboard clicks, synthesized with Web Audio from filtered noise, one per character as the sentence types.",
+  "mark": "The Orbit: four concentric rings, one per product in the feed, with a grain for each recent event placed by its second within the minute, so the mark is the shape of the data and the favicon redraws itself.",
+  "inspiration": [
+   "https://www.cooperhewitt.org/2013/11/26/gridnik/",
+   "https://practicaltypography.com/small-caps.html",
+   "https://www.dezeen.com/2013/05/21/whitney-graphic-identity-by-experimental-jetset/",
+   "https://www.colophon-foundry.org"
+  ],
+  "id": "28",
+  "path": "28/"
+ },
+ {
+  "name": "room 24",
+  "tagline": "a one-man exhibition on a red wall, labelled in pixels, lowercase, with the failures still hanging",
+  "summary": "albretsen.no as a gallery room painted one saturated red (oklch hue 24): wall text for the hero, a stack of black object labels for the live feed, and the products hung as a permanent collection where the retired works stay on the wall. it fits albretsen as because it is self-made and a bit cheeky, and the work is shown, labelled and left to speak for itself.",
+  "palette": [
+   "#fe3c45",
+   "#2c0808",
+   "#ffede5",
+   "#dcb2ab",
+   "#d01b2d"
+  ],
+  "type": [
+   "Bitcount Prop Single (variable, wght + ELSH)",
+   "Bitcount Prop Single",
+   "Bitcount Grid Single"
+  ],
+  "voice": "dry curatorial understatement, all lowercase, never selling: \"the retired works stay on the wall. taking them down would be marketing.\"",
+  "motion": "everything arrives like house lights coming up: 1.6–2.2 s fades, a wordmark whose pixels slowly settle from round to square, and feed labels sliding in behind each other at walking pace.",
+  "sound": "opt-in only: soft synthesized keyboard clicks (filtered noise plus a low sine thock) as each new feed label types itself in, with a deeper click for spaces.",
+  "mark": "a pure lowercase wordmark, 'albretsen', in bold bitcount, letter-spaced to the full width of its wall like an exhibition title, so the spacing is the room divided evenly.",
+  "inspiration": [
+   "https://ciechanow.ski",
+   "https://whitney.org/whitney-stories/words-on-walls",
+   "https://collection.cooperhewitt.org/objects/18732757",
+   "https://atypi.org/?p=34784"
+  ],
+  "id": "29",
+  "path": "29/"
+ },
+ {
+  "name": "Uncut",
+  "tagline": "Opening titles for a company that shows the whole reel, outtakes included.",
+  "summary": "Albretsen AS presented as the opening titles of a film that is still being shot: condensed capitals rising over a horizon, a raw tail -f of every product running underneath, and a cast list where retired experiments keep their credit. Everything is grey; colour only appears when something real happens while you are watching, so the page itself proves the work is alive.",
+  "palette": [
+   "#070707",
+   "#121212",
+   "#242424",
+   "#636363",
+   "#868686",
+   "#b1b1b1",
+   "#eeeeee",
+   "#ce79fd",
+   "#fb98d7",
+   "#908ffe",
+   "#e1c4f3"
+  ],
+  "type": [
+   "Big Shoulders Display",
+   "JetBrains Mono",
+   "JetBrains Mono"
+  ],
+  "voice": "Playful, curious and unvarnished: says the quiet part, shows the failures, never sells. \"I build software to find out what pays. Some of it does. The rest is listed below anyway.\"",
+  "motion": "Titles rise over the horizon once; after that the only motion is a controlled glitch and a decoding line, each fired by a real event and never by a timer.",
+  "sound": "Opt-in projector-room drone whose filter opens with real activity, with one pentatonic pluck per event through a dark tape delay.",
+  "mark": "_/\\_ : an ASCII peak standing on a horizon line, typed in mono; in the favicon the horizon lights up in the colour of the latest event.",
+  "inspiration": [
+   "https://www.artofthetitle.com/title/se7en/",
+   "https://www.artofthetitle.com/designer/saul-bass",
+   "https://zed.dev",
+   "https://tympanus.net/codrops/2025/10/15/from-blank-canvas-to-mayhem-eloy-benoffis-brutalist-glitchy-portfolio-built-with-webflow-and-gsap/"
+  ],
+  "id": "30",
+  "path": "30/"
+ }
+]

@@ -1,0 +1,17 @@
+{
+  "name": "Bloom Index",
+  "tagline": "Paper, ink and one magenta signal: an Are.na-style index of everything built, with a live log typing beside it.",
+  "summary": "The site is an index of blocks on a visible 12-column grid. Three typefaces that clash on purpose (a condensed italic serif, an expanded black grotesk and a mono) are held in line by that grid. Everything is paper and ink, and the single spot colour means one thing only: something is happening right now. That reads as clarity and taste for a builder whose products keep running while he works on the next one.",
+  "palette": ["#fcf9fc", "#1b131b", "#c526d5", "#a419b1", "#5b525c", "#d6ced7", "#f9ddfb"],
+  "type": ["Instrument Serif (italic display)", "Archivo Expanded 800 (display grotesk)", "JetBrains Mono (log, labels)"],
+  "voice": "Terse engineer. Short declaratives, units and dates, no adjectives that cannot be measured. \"Builds software that pays for itself.\"",
+  "motion": "Teletype: each new log line arrives one character every 18 ms behind a magenta caret, the mark blooms once per event, and nothing moves when nothing happens.",
+  "sound": "Opt-in ambient drone in D that opens up as activity rises, and each real event blooms one pentatonic note voiced by its product.",
+  "mark": "The Bloom Point: an ink disc overprinted by a magenta disc, with the overlap left as a darker lens. It is drawn only with CSS and swells briefly on each live event.",
+  "inspiration": [
+    "https://www.are.na/editorial/introducing-areal-are-nas-new-typeface",
+    "https://linear.app",
+    "https://generativemusic.com/bloom.html",
+    "https://maxibestof.one/typefaces/instrument-serif/pairing/jetbrains-mono"
+  ]
+}

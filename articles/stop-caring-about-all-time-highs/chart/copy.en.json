@@ -1,0 +1,63 @@
+{
+  "eyebrow": "Interactive",
+  "title": "S&P Composite, 1871–2026",
+  "hint": "Move the start year. The axes refit to whatever is left. Watch how little the shape changes.",
+  "startLabel": "Start year",
+  "presets": [
+    {
+      "label": "1871",
+      "year": "first"
+    },
+    {
+      "label": "1928",
+      "year": 1928
+    },
+    {
+      "label": "1950",
+      "year": 1950
+    },
+    {
+      "label": "1980",
+      "year": 1980
+    },
+    {
+      "label": "2000",
+      "year": 2000
+    },
+    {
+      "label": "2016",
+      "year": 2016
+    }
+  ],
+  "seriesLabel": "Measure",
+  "series": {
+    "nominal": "Nominal",
+    "real": "Inflation-adjusted",
+    "tr": "Total return"
+  },
+  "seriesNote": {
+    "nominal": "The index level as quoted in the headlines.",
+    "real": "The same price in August-2026 dollars.",
+    "tr": "Dividends reinvested and inflation removed. January 1871 = 100."
+  },
+  "scaleLabel": "Axis",
+  "scale": {
+    "lin": "Linear",
+    "log": "Logarithmic"
+  },
+  "scaleNote": {
+    "lin": "Equal point moves take equal space, so growth late in the series looks explosive.",
+    "log": "Equal percentage moves take equal space. The curve turns into a steady slope."
+  },
+  "recordsLegend": "Months that closed higher than every other month in view",
+  "stats": {
+    "window": "Window",
+    "growth": "Growth",
+    "annual": "Annualised",
+    "records": "Months at a new high"
+  },
+  "windowUnit": "years",
+  "tooltipRecord": "Record",
+  "source": "Source: Robert J. Shiller’s long-run US stock market dataset, monthly observations, January 1871 – August 2026. Prices are monthly averages of daily closes.",
+  "a11y": "Line chart of the S&P Composite from the selected start year to 2026, with the months that set new highs marked."
+}

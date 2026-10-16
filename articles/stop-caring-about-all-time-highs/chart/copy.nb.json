@@ -1,0 +1,63 @@
+{
+  "eyebrow": "Interaktivt",
+  "title": "S&P Composite, 1871–2026",
+  "hint": "Flytt startåret. Aksene tilpasser seg det som er igjen. Legg merke til hvor lite formen endrer seg.",
+  "startLabel": "Startår",
+  "presets": [
+    {
+      "label": "1871",
+      "year": "first"
+    },
+    {
+      "label": "1928",
+      "year": 1928
+    },
+    {
+      "label": "1950",
+      "year": 1950
+    },
+    {
+      "label": "1980",
+      "year": 1980
+    },
+    {
+      "label": "2000",
+      "year": 2000
+    },
+    {
+      "label": "2016",
+      "year": 2016
+    }
+  ],
+  "seriesLabel": "Måling",
+  "series": {
+    "nominal": "Nominelt",
+    "real": "Inflasjonsjustert",
+    "tr": "Totalavkastning"
+  },
+  "seriesNote": {
+    "nominal": "Indeksnivået slik det står i overskriftene.",
+    "real": "Den samme kursen målt i dollar fra august 2026.",
+    "tr": "Utbytte reinvestert og inflasjon fjernet. Januar 1871 = 100."
+  },
+  "scaleLabel": "Akse",
+  "scale": {
+    "lin": "Lineær",
+    "log": "Logaritmisk"
+  },
+  "scaleNote": {
+    "lin": "Like store poengbevegelser tar like mye plass, så vekst sent i serien ser eksplosiv ut.",
+    "log": "Like store prosentbevegelser tar like mye plass. Kurven blir til en jevn helning."
+  },
+  "recordsLegend": "Måneder som endte høyere enn alle andre måneder i utsnittet",
+  "stats": {
+    "window": "Utsnitt",
+    "growth": "Vekst",
+    "annual": "Årlig",
+    "records": "Måneder på ny topp"
+  },
+  "windowUnit": "år",
+  "tooltipRecord": "Rekord",
+  "source": "Kilde: Robert J. Shillers lange datasett for det amerikanske aksjemarkedet, månedlige observasjoner, januar 1871 – august 2026. Kursene er månedsgjennomsnitt av daglige sluttkurser.",
+  "a11y": "Linjediagram over S&P Composite fra valgt startår til 2026, med månedene som satte ny toppnotering markert."
+}

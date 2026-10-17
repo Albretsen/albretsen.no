@@ -59,7 +59,9 @@ export async function mountDiorama(el, { grain = './textures/paper-grain.webp', 
   let lab = null; if (label) { lab = document.createElement('div'); lab.className = 'dio-label'; el.appendChild(lab); }
 
   let override = null, lastAlt = null, lastAz = null, raf = 0;
-  function draw(alt, az) {
+  // Only the sky and the sea respond to the sun (the palette is fixed), so a sun move redraws two layers, not six.
+  const SUN_LAYERS = new Set(['sky', 'sea']);
+  function draw(alt, az, sunOnly = false) {
     // The palette is locked to afterglow: only the sun moves, the colours never change.
     const L = { ...AFTERGLOW, sun: '#ffd6a0', sunA: Math.max(0, Math.min(1, (alt + 4) / 4)) };
     const W = el.clientWidth, H = el.clientHeight; if (!W) return;
@@ -67,7 +69,9 @@ export async function mountDiorama(el, { grain = './textures/paper-grain.webp', 
     const sunX = 830 + alt * 1.5;
     const sunY = 560 - alt * 14;
     canvases.forEach((c) => { const k = c.dataset.layer;
-      if (c.width !== Math.round(W * dpr)) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
+      const resized = c.width !== Math.round(W * dpr);
+      if (sunOnly && !resized && !SUN_LAYERS.has(k)) return;
+      if (resized) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
       const ctx = c.getContext('2d'); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, c.width, c.height);
       const s = Math.max(c.width / 1600, c.height / 900); ctx.translate((c.width - 1600 * s) / 2, (c.height - 900 * s) * 0.65); ctx.scale(s, s);
       drawHero(ctx, { light: L, layers: [k], sunX, sunDiscX: sunX, sunY });
@@ -77,7 +81,7 @@ export async function mountDiorama(el, { grain = './textures/paper-grain.webp', 
   function stars(ctx, a) { let s = 7; const r = () => ((s = (s * 16807) % 2147483647) / 2147483647);
     for (let i = 0; i < 120; i++) { const x = r() * 1600, y = r() * 480, z = r(); ctx.fillStyle = rgba('#fff4e0', a * (0.3 + z * 0.7)); ctx.beginPath(); ctx.arc(x, y, 0.6 + z * 1.3, 0, Math.PI * 2); ctx.fill(); } }
   function tick() { raf = 0; const p = override ?? sunPosition(new Date(), lat, lon); const alt = override ? override.altitude : p.altitude, az = override ? override.azimuth : p.azimuth;
-    if (lastAlt == null || Math.abs(alt - lastAlt) > 0.25 || Math.abs(az - lastAz) > 1) { lastAlt = alt; lastAz = az; draw(alt, az); } }
+    if (lastAlt == null || Math.abs(alt - lastAlt) > 0.15) { const first = lastAlt == null; lastAlt = alt; lastAz = az; draw(alt, az, !first); } }
   const schedule = () => { if (!raf) raf = requestAnimationFrame(tick); };
 
   // turning: drag, or follow the pointer gently on fine pointers

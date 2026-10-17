@@ -13,6 +13,7 @@
   },
   "durable_objects": { "bindings": [{ "name": "FEED", "class_name": "Feed" }] },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Feed"] }],
-  "routes": [{ "pattern": "albretsen.no", "custom_domain": true }]
+  // Zone routes put the Worker in front of the existing proxied DNS record, so no DNS change is needed.
+  "routes": [{ "pattern": "albretsen.no/*", "zone_name": "albretsen.no" }, { "pattern": "www.albretsen.no/*", "zone_name": "albretsen.no" }]
   // Secret: npx wrangler secret put FEED_KEY   (products send it as "Authorization: Bearer <key>")
 }

@@ -18,9 +18,9 @@ html.js .stage { position: sticky; top: 0; }
 @media (max-aspect-ratio: 4/5) { .world img { object-position: 50% 50%; } }
 
 .name { position: absolute; z-index: 1; left: 0; right: 0; top: 22.5%; margin: 0; text-align: center; pointer-events: none; }
-.name-word { display: block; font: 600 clamp(54px, 12vw, 280px)/1 var(--sans); letter-spacing: .16em; margin-right: -.16em; color: #F8E9D6; text-shadow: 0 1px 0 rgba(255, 255, 255, .25), 0 10px 40px rgba(60, 30, 80, .25); }
-@media (min-aspect-ratio: 16/9) { .name { top: max(64px, calc(100svh - 43.6vw)); } .name-word { font-size: min(12vw, 21svh, 280px); } }
-@media (max-aspect-ratio: 4/5) { .name { top: 13%; } .name-word { font-size: 14.2vw; letter-spacing: .1em; margin-right: -.1em; } }
+.name-word { display: block; font: 600 clamp(44px, 9.4vw, 226px)/1 var(--sans); letter-spacing: .16em; margin-right: -.16em; color: #F8E9D6; text-shadow: 0 1px 0 rgba(255, 255, 255, .25), 0 10px 40px rgba(60, 30, 80, .25); }
+@media (min-aspect-ratio: 16/9) { .name { top: max(64px, calc(100svh - 43.6vw)); } .name-word { font-size: min(9.4vw, 18svh, 226px); } }
+@media (max-aspect-ratio: 4/5) { .name { top: 13%; } .name-word { font-size: 12.6vw; letter-spacing: .1em; margin-right: -.1em; } }
 
 .intro { position: absolute; z-index: 5; left: var(--gutter); bottom: clamp(26px, 6vh, 64px); max-width: min(580px, 86vw); color: var(--paper); }
 .intro .kicker { color: #F3D9BF; }
@@ -61,10 +61,10 @@ html.js .hint { transform: translate(-50%, calc(var(--p, 0) * -40px)); }
 @media (max-width: 560px) { .mini-ctl { grid-template-columns: minmax(0, 1fr) 9ch auto; } .mini-ctl label { grid-column: 1 / -1; justify-self: center; } }
 
 html.js .mini-head, html.js .mini-ctl { opacity: clamp(0, calc((var(--p, 0) - .62) * 5), 1); transform: translateY(calc(clamp(0, calc(.82 - var(--p, 0)), .2) * 60px)); }
-html.js .dio-slot { opacity: clamp(0, calc((var(--p, 0) - .8) * 8), 1); }
+html.js .dio-slot { opacity: clamp(0, calc((var(--p, 0) - .84) * 16), 1); }
 html.js .mini { pointer-events: none; }
 html.js .stage.is-mini .mini { pointer-events: auto; }
-html.js .world-wrap { opacity: clamp(0, calc((.95 - var(--p, 0)) * 10), 1); }
+html.js .world-wrap { opacity: clamp(0, calc((.98 - var(--p, 0)) * 20), 1); }
 
 /* ---------------------------------------------------------------- SUNDOWN
    The divider: the sun sets behind three cut-paper ridges as you scroll past. */

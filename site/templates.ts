@@ -63,7 +63,7 @@ function nav(current = '') {
 }
 
 function brand() {
-  return `<a class="brand" href="/" aria-label="Albretsen AS, home"><img class="brand-mark" src="/assets/identity/mark.svg" width="34" height="34" alt=""><img class="brand-word" src="/assets/identity/wordmark-paper.svg" width="160" height="13" alt=""></a>`
+  return `<a class="brand" href="/" aria-label="Albretsen AS, home"><img class="brand-mark" src="/assets/identity/mark.svg" width="34" height="34" alt=""><img class="brand-word" src="/assets/identity/wordmark-paper.svg" width="170" height="13" alt=""></a>`
 }
 
 function footer() {

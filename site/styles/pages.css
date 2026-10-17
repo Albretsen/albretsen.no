@@ -57,7 +57,7 @@
 .prose li + li { margin-top: .4em; }
 .prose code { font: 400 .82em/1 var(--mono); background: var(--paper-2); padding: .15em .35em; border-radius: 4px; }
 .prose hr { border: 0; height: 1px; background: rgba(46, 34, 64, .2); margin: 2.4em 0; }
-.prose .figure-wide { max-width: min(1100px, calc(100vw - 2 * var(--gutter))); margin-left: 50%; transform: translateX(-50%); width: max-content; }
+.prose .figure-wide { width: min(1100px, calc(100vw - 2 * var(--gutter))); margin: 2.4em 0 2.4em 50%; transform: translateX(-50%); }
 .post-end { max-width: 42rem; margin: clamp(60px, 8vw, 100px) auto 0; padding-top: 28px; border-top: 1px solid rgba(46, 34, 64, .2); display: flex; justify-content: space-between; gap: 20px; font: 600 11px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; }
 .post-end a { text-decoration: none; }
 

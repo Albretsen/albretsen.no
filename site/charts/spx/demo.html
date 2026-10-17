@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S&amp;P chart demo</title>
+<link rel="preload" href="/archive/designs/74/assets/fonts/dm-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/archive/designs/74/assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Josefin Sans"; src: url(/archive/designs/74/assets/fonts/josefin-sans-var.woff2) format("woff2"); font-weight: 100 700; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url(/archive/designs/74/assets/fonts/instrument-serif.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "Instrument Serif"; font-style: italic; src: url(/archive/designs/74/assets/fonts/instrument-serif-italic.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "DM Mono"; src: url(/archive/designs/74/assets/fonts/dm-mono-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Mono"; src: url(/archive/designs/74/assets/fonts/dm-mono-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+html { background: #F5EBDC; color: #2E2240; }
+body { margin: 0; font: 21px/1.55 "Instrument Serif", Georgia, serif; }
+main { max-width: 1120px; margin: 0 auto; padding: 48px 16px 96px; }
+main > p { max-width: 34em; margin: 1em auto; }
+.wide { margin: 40px 0; }
+</style>
+<link rel="stylesheet" href="chart.css">
+</head>
+<body>
+<main>
+<p>The chart below is the S&amp;P Composite from 1871 to today, measured monthly. Drag the start year and the view refits to whatever is left.</p>
+<!-- In the article, the contents of demo-data/spx-shell.en.html go inside this element (zero layout shift). -->
+<div class="wide" id="chart"></div>
+<p>The shape survives every cut. Whichever decade you start from, you get the same picture.</p>
+</main>
+<script type="module">
+import { mountSpxChart } from './chart.js'
+const q = new URLSearchParams(location.search)
+const el = document.getElementById('chart')
+if (q.has('w')) el.style.maxWidth = q.get('w') + 'px'
+if (q.has('shell')) el.innerHTML = await (await fetch(`demo-data/spx-shell.${q.get('lang') || 'en'}.html`)).text()
+if (!q.has('nojs')) {
+  const chart = await mountSpxChart(el, { lang: q.get('lang') || 'en', dataUrl: 'demo-data/spx.json' })
+  window.spxChart = chart
+  const o = {}
+  for (const k of ['start', 'series', 'scale']) if (q.has(k)) o[k] = k === 'start' ? +q.get(k) : q.get(k)
+  if (Object.keys(o).length) chart.set(o)
+  if (q.has('key')) { const p = el.querySelector('.spx-plot'); p.focus(); for (const k of q.get('key').split(',')) p.dispatchEvent(new KeyboardEvent('keydown', { key: k, shiftKey: true })) }
+}
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 // Pages are rendered to static HTML with their CSS inlined; static assets are
 // copied; every page gets a Markdown twin; budgets are checked at the end.
 import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { brotliCompressSync, constants } from 'node:zlib'
 import { execFileSync } from 'node:child_process'
@@ -50,9 +50,11 @@ const CHART_DIR = join(SITE, 'charts', 'spx')
 const hasChart = () => ['chart.js', 'chart.css', 'build-data.ts'].every((f) => existsSync(join(CHART_DIR, f))) && !process.env.NO_CHART
 function chartFigure(lang: 'en' | 'nb') {
   if (!hasChart()) return ''
-  return `<figure class="figure-wide spx-slot" data-spx data-lang="${lang}"><img src="/assets/charts/spx/spx-fallback.svg" alt="${lang === 'nb' ? 'S&amp;P Composite 1871–2026 på logaritmisk akse, med rekordmånedene markert.' : 'S&amp;P Composite 1871–2026 on a log axis, with the months that set new highs marked.'}" width="1100" height="620" loading="lazy" decoding="async"></figure>`
+  // The pre-rendered chart markup: the live module redraws it in exactly the same box.
+  const shell = readFileSync(join(DIST, 'assets', 'charts', 'spx', `spx-shell.${lang}.html`), 'utf8')
+  return `<div class="figure-wide spx-slot" data-spx data-lang="${lang}">${shell}</div>`
 }
-const CHART_SCRIPT = `<link rel="stylesheet" href="/assets/charts/spx/chart.css" media="print" onload="this.media='all'"><script type="module">const el=document.querySelector('[data-spx]');if(el){const go=async()=>{const{mountSpxChart}=await import('/assets/charts/spx/chart.js');mountSpxChart(el,{lang:el.dataset.lang,dataUrl:'/assets/charts/spx/spx.json'})};new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){o.disconnect();go()}},{rootMargin:'400px'}).observe(el)}</script>`
+const CHART_SCRIPT = `<script type="module">const el=document.querySelector('[data-spx]');if(el){const go=async()=>{const{mountSpxChart}=await import('/assets/charts/spx/chart.js');mountSpxChart(el,{lang:el.dataset.lang,dataUrl:'/assets/charts/spx/spx.json'})};new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){o.disconnect();go()}},{rootMargin:'600px'}).observe(el)}</script>`
 
 /* ---------------------------------------------------------------- markdown twins */
 const mdHome = (posts: Post[]) => `# ${site.person} · ${site.company}
@@ -98,8 +100,7 @@ async function main() {
     const out = join(DIST, 'assets', 'charts', 'spx')
     await mkdir(out, { recursive: true })
     await cp(join(CHART_DIR, 'chart.js'), join(out, 'chart.js'))
-    await cp(join(CHART_DIR, 'chart.css'), join(out, 'chart.css'))
-    execFileSync(process.execPath, [join(CHART_DIR, 'build-data.ts'), out], { stdio: 'inherit' })
+    execFileSync(process.execPath, [join(CHART_DIR, 'build-data.ts'), out, '/assets/charts/spx/'], { stdio: 'inherit' })
   }
 
   const posts = await loadPosts()
@@ -114,9 +115,12 @@ async function main() {
   await write('404.html', notFound(pageCss))
   for (const p of posts) {
     const hasSpx = p.html.includes('data-spx')
-    await write(p.path + 'index.html', postPage(p, pageCss, hasSpx ? CHART_SCRIPT : ''))
+    const postCss = hasSpx ? pageCss + minifyCss(await readFile(join(CHART_DIR, 'chart.css'), 'utf8')) : pageCss
+    await write(p.path + 'index.html', postPage(p, postCss, hasSpx ? CHART_SCRIPT : ''))
     await write(p.path.replace(/\/$/, '.md'), p.md)
   }
+
+  if (hasChart()) for (const l of ['en', 'nb']) await rm(join(DIST, 'assets', 'charts', 'spx', `spx-shell.${l}.html`), { force: true })
 
   // Markdown twins and machine files
   await write('index.md', mdHome(posts))

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uranographia compositor</title>
+<!-- Generator for the baked plates. Usage: compose.html?plate=<product-id|og|hero|obsolete-sheet>
+     Screenshot at DPR 2, then encode to webp. Kept in the kit so the builder can re-bake. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  html, body { margin: 0; background: var(--u-night); color: var(--u-vellum); }
+  body { font-family: var(--u-sans); -webkit-font-smoothing: antialiased; }
+  .plate { position: relative; overflow: hidden; background: var(--u-night); }
+  .plate .bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .62; }
+  .plate .shade { position: absolute; inset: 0; background:
+      radial-gradient(120% 70% at 50% 38%, transparent 30%, rgba(11,9,12,.75) 80%),
+      linear-gradient(180deg, rgba(11,9,12,.0) 45%, rgba(11,9,12,.92) 74%); }
+  .plate .grain { position: absolute; inset: 0; background: url(../extras/grain-256.webp); mix-blend-mode: overlay; opacity: .22; }
+  .frame { position: absolute; inset: 26px; border: 1px solid rgba(236,234,238,.32); }
+  .frame::after { content: ''; position: absolute; inset: 5px; border: .5px solid rgba(236,234,238,.18); }
+  .band { position: absolute; left: 52px; right: 52px; top: 46px; display: flex; justify-content: space-between; align-items: baseline;
+          font: 500 11px/1 var(--u-mono); letter-spacing: .22em; text-transform: uppercase; color: var(--u-haze); }
+  .band .latin { font: italic 400 21px/1 var(--u-serif); letter-spacing: .01em; text-transform: none; color: var(--u-vellum); }
+  svg.fig { position: absolute; left: 0; top: 0; width: 100%; height: 100%; color: var(--u-vellum); overflow: visible; }
+  .caption { position: absolute; left: 52px; right: 52px; bottom: 52px; }
+  .caption h1 { font: 400 84px/.92 var(--u-serif); letter-spacing: -.01em; margin: 0 0 14px; }
+  .caption p { margin: 0 0 22px; font: 300 18px/1.4 var(--u-sans); color: var(--u-haze); max-width: 30ch; }
+  .facts { display: flex; gap: 22px; font: 500 11px/1 var(--u-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--u-haze);
+           border-top: 1px solid rgba(236,234,238,.22); padding-top: 14px; }
+  .facts b { color: var(--u-vellum); font-weight: 500; }
+  .lens { position: absolute; right: 54px; bottom: 150px; width: 128px; height: 128px; }
+  .lens .disc { position: absolute; inset: 22px; border-radius: 50%; background: var(--u-vellum); display: grid; place-items: center; overflow: hidden;
+                box-shadow: 0 0 0 1px rgba(236,234,238,.4), 0 18px 50px rgba(0,0,0,.6); }
+  .lens .disc img { width: 62%; height: 62%; object-fit: contain; }
+  .lens .disc.full img { width: 100%; height: 100%; object-fit: cover; }
+  .lens svg { position: absolute; inset: 0; color: var(--u-haze); }
+  .datum { position: absolute; font: 500 10px/1.3 var(--u-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--u-haze); }
+  .datum::before { content: ''; position: absolute; width: 38px; height: 1px; background: currentColor; opacity: .6; top: 6px; left: -46px; }
+  /* OG */
+  .og h1 { font: 400 112px/.9 var(--u-serif); margin: 0; letter-spacing: -.012em; }
+  .og h1 i { color: var(--u-haze); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="module">
+import { PRODUCTS, OBSOLETE, ASTERISM, fieldPoints, logoURL } from '../js/sky-data.js';
+import { el, NS, drawFigure, defs, graticule, sparklePath } from '../js/draw.js';
+
+const q = new URLSearchParams(location.search);
+const id = q.get('plate') || 'mcp-emails';
+const root = document.getElementById('root');
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+const yearRoman = (y) => ({ 2016: 'MMXVI', 2019: 'MMXIX', 2021: 'MMXXI', 2023: 'MMXXIII', 2024: 'MMXXIV', 2025: 'MMXXV', 2026: 'MMXXVI' })[y] || y;
+const BG = { 'mcp-emails': ['../hero/orion-plate-2000.webp', '64% 40%;background-size:auto 112%'], 'fun-libs': ['../hero/hercules-square-1600.webp', '56% 34%;background-size:auto 128%'],
+             'toolrails': ['../extras/meteors-portrait-1200.webp', '50% 30%'], 'harbor': ['../extras/saturn-plate-1800.webp', '50% 88%;background-size:118% auto;background-repeat:no-repeat;opacity:.42;-webkit-mask-image:linear-gradient(180deg,transparent 28%,black 52%)'] };
+const LINES = { 'mcp-emails': 'Email for AI agents.', 'fun-libs': 'A fill-in-the-blanks word game for Android and iOS.',
+                'toolrails': 'One MCP URL that gives an agent every tool.', 'harbor': 'A private knowledge base shared by people and AI.' };
+const FACTS = { 'mcp-emails': ['17 tools', '~100 providers', 'AGPL'], 'fun-libs': ['built at 17', 'no marketing', 'v5 · 2026'],
+                'toolrails': ['tool search', 'injection guard'], 'harbor': ['self-hostable', 'AI edits held for approval'] };
+
+function lensRing() {
+  const s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 128 128');
+  let d = '';
+  for (let i = 0; i < 120; i++) { const a = i / 120 * Math.PI * 2, l = i % 10 === 0 ? 7 : 3.5;
+    d += `M${64 + Math.cos(a) * 58} ${64 + Math.sin(a) * 58}L${64 + Math.cos(a) * (58 - l)} ${64 + Math.sin(a) * (58 - l)}`; }
+  el('path', { d, stroke: 'currentColor', 'stroke-width': .7, fill: 'none', opacity: .8 }, s);
+  el('circle', { cx: 64, cy: 64, r: 61, stroke: 'currentColor', 'stroke-width': .6, fill: 'none', opacity: .6 }, s);
+  return s;
+}
+
+function productPlate(p, idx) {
+  const W = 800, H = 1000;
+  const plate = Object.assign(document.createElement('div'), { className: 'plate' });
+  plate.style.cssText = `width:${W}px;height:${H}px`;
+  const [bg, pos] = BG[p.id];
+  plate.innerHTML = `<div class="bg" style="background-image:url(${bg});background-position:${pos}"></div><div class="shade"></div><div class="grain"></div><div class="frame"></div>
+    <div class="band"><span>Tab. ${ROMAN[idx]}</span><span class="latin">${p.latin}</span><span>${yearRoman(p.since)}</span></div>
+    <div class="caption"><h1>${p.name}</h1><p>${LINES[p.id]}</p>
+      <div class="facts"><span><b>${p.figure}</b></span>${FACTS[p.id].map((f) => `<span>${f}</span>`).join('')}<span style="margin-left:auto">${p.status}</span></div></div>
+    <div class="lens"><div class="disc ${p.id === 'fun-libs' ? 'full' : ''}"><img src="${logoURL(p)}" alt=""></div></div>`;
+  plate.querySelector('.lens').appendChild(lensRing());
+  const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'fig'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  defs(svg);
+  const g = el('g', {}, svg);
+  graticule(g, 400, 400, 300, { opacity: .16, rings: 4, spokes: 12 });
+  const field = p.field ? fieldPoints(p, idx + 3) : null;
+  drawFigure(g, p, { x: 150, y: 150, size: 500, starScale: 2.1, lineWidth: 1.3, lineOpacity: .7, field });
+  plate.appendChild(svg);
+  const dt = Object.assign(document.createElement('div'), { className: 'datum', textContent: p.datum });
+  dt.style.cssText = 'left: 104px; top: 690px';
+  plate.appendChild(dt);
+  root.appendChild(plate);
+}
+
+function ogPlate() {
+  const W = 1200, H = 630;
+  const plate = Object.assign(document.createElement('div'), { className: 'plate og' });
+  plate.style.cssText = `width:${W}px;height:${H}px`;
+  plate.innerHTML = `<div class="bg" style="background-image:url(../hero/orion-wide-2400.webp);background-size:auto 120%;background-position:10% 55%;opacity:.9"></div>
+    <div class="shade" style="background:linear-gradient(90deg, rgba(11,9,12,.95) 25%, rgba(11,9,12,.2) 70%)"></div><div class="grain"></div><div class="frame"></div>
+    <div class="band"><span>albretsen.no</span><span class="latin">Uranographia</span><span>Norway</span></div>
+    <div style="position:absolute;left:64px;top:170px">
+      <img src="../identity/lockup.svg" style="height:46px;filter:invert(1);opacity:.95;margin-bottom:46px;display:block" alt="">
+      <h1>Software that<br><i>pays for itself.</i></h1>
+    </div>
+    <div class="facts" style="position:absolute;left:64px;right:64px;bottom:58px"><span><b>MCP Emails</b></span><span><b>Fun Libs</b></span><span><b>Toolrails</b></span><span><b>Harbor</b></span><span style="margin-left:auto">On Google Play since 2016</span></div>`;
+  const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'fig'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  defs(svg);
+  const g = el('g', {}, svg);
+  graticule(g, 930, 300, 230, { opacity: .2, rings: 4, spokes: 12, ticks: 180 });
+  drawFigure(g, PRODUCTS[0], { x: 760, y: 96, size: 140, starScale: 1.2 });
+  drawFigure(g, PRODUCTS[1], { x: 900, y: 330, size: 170, starScale: 1.15, field: fieldPoints(PRODUCTS[1], 4) });
+  drawFigure(g, PRODUCTS[2], { x: 735, y: 300, size: 120, starScale: 1.1 });
+  drawFigure(g, PRODUCTS[3], { x: 1000, y: 120, size: 110, starScale: 1.1 });
+  plate.appendChild(svg);
+  root.appendChild(plate);
+}
+
+function obsoletePlate(o) {
+  // single retired constellation, transparent, as a small circular "obsoleta" medal (600x600 @2x)
+  const W = 300;
+  const wrap = document.createElement('div'); wrap.style.cssText = `width:${W}px;height:${W}px;position:relative`;
+  document.body.style.background = 'transparent'; document.documentElement.style.background = 'transparent';
+  const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${W}`); svg.setAttribute('width', W); svg.setAttribute('height', W);
+  svg.style.color = '#aca9ae';
+  defs(svg, '#aca9ae');
+  const g = el('g', {}, svg);
+  el('circle', { cx: 150, cy: 150, r: 146, fill: '#141215', stroke: '#3f3c41', 'stroke-width': 1 }, g);
+  el('circle', { cx: 150, cy: 150, r: 138, fill: 'none', stroke: '#3f3c41', 'stroke-width': .6, 'stroke-dasharray': '1 3' }, g);
+  drawFigure(g, o, { x: 80, y: 62, size: 140, starScale: 1.25, lineOpacity: .5, ink: '#aca9ae' });
+  const t = el('text', { x: 150, y: 248, 'text-anchor': 'middle', fill: '#eceaee', 'font-family': 'Instrument Serif', 'font-size': 22 }, g);
+  t.textContent = o.short || o.name;
+  const t2 = el('text', { x: 150, y: 268, 'text-anchor': 'middle', fill: '#737076', 'font-family': 'Geist Mono', 'font-size': 8.5, 'letter-spacing': 2 }, g);
+  t2.textContent = `${o.latin.toUpperCase()} · ${o.since}`;
+  if (o.logo) { // the real retired logo, kept as-is on a small vellum label
+    el('rect', { x: 116, y: 30, width: 68, height: 24, rx: 12, fill: '#eceaee', opacity: .92 }, g);
+    el('image', { href: logoURL(o), x: 127, y: 36, width: 46, height: 12, preserveAspectRatio: 'xMidYMid meet' }, g); }
+  wrap.appendChild(svg); root.appendChild(wrap);
+}
+
+await document.fonts.ready;
+const pi = PRODUCTS.findIndex((p) => p.id === id);
+if (pi >= 0) productPlate(PRODUCTS[pi], pi);
+else if (id === 'og') ogPlate();
+else if (id.startsWith('obs-')) obsoletePlate(OBSOLETE.find((o) => o.id === id.slice(4)));
+</script>
+</body>
+</html>

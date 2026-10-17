@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cloud Chamber render bench</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>html,body{margin:0;height:100%;overflow:hidden;background:transparent}canvas{display:block;width:100vw;height:100vh}</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "cannon-es": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"
+} }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+// Render bench: bakes the stills in ../hero, ../products, ../extras.
+// Usage: render.html?scene=pile|fracture|dish|standin|sprite|since  (+ params below)
+import * as THREE from 'three';
+import * as CANNON from 'cannon-es';
+import { P, rng, makeEnvironment, materials, glyphMesh, fracturedMark, prims, loadFont, makeRenderer } from './lab.js';
+
+const q = new URLSearchParams(location.search);
+const scene = q.get('scene') || 'pile';
+const W = +(q.get('w') || innerWidth), H = +(q.get('h') || innerHeight);
+const cvs = document.getElementById('c'); cvs.style.width = W + 'px'; cvs.style.height = H + 'px';
+const transparent = q.has('alpha');
+const renderer = makeRenderer(document.getElementById('c'), { alpha: transparent });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H, false);
+const font = await loadFont('../3d/glyphs-unbounded-800.json');
+const S = new THREE.Scene();
+const R = rng(parseInt(q.get('seed') || '04246b', 16));
+let cam = new THREE.PerspectiveCamera(30, W / H, 0.1, 200);
+
+function floor(color, y = 0, receive = true) {
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.MeshStandardMaterial({ color, roughness: 0.62, metalness: 0, envMapIntensity: 0.0 }));
+  m.rotation.x = -Math.PI / 2; m.position.y = y; m.receiveShadow = receive; S.add(m); return m;
+}
+function sun(x, y, z, intensity = 2.2, size = 8) {
+  const d = new THREE.DirectionalLight(0xffffff, intensity); d.position.set(x, y, z); d.castShadow = true;
+  d.shadow.mapSize.set(4096, 4096); d.shadow.radius = 6; d.shadow.bias = -0.0004;
+  Object.assign(d.shadow.camera, { left: -size, right: size, top: size, bottom: -size, near: 0.5, far: 60 });
+  S.add(d); return d;
+}
+
+// ---------- physics pile: letters + primitives dropped with cannon-es ----------
+function pile({ word = 'ALBRETSEN', extra = 14, spreadX = 4.6, spreadZ = 1.8, size = 1.05 }) {
+  const world = new CANNON.World({ gravity: new CANNON.Vec3(0, -9.82, 0) });
+  world.allowSleep = true;
+  world.defaultContactMaterial.friction = 0.5; world.defaultContactMaterial.restitution = 0.15;
+  world.addBody(new CANNON.Body({ mass: 0, shape: new CANNON.Plane(), quaternion: new CANNON.Quaternion().setFromEuler(-Math.PI / 2, 0, 0) }));
+  const wall = (x, z, ry) => { const b = new CANNON.Body({ mass: 0, shape: new CANNON.Plane() }); b.position.set(x, 0, z); b.quaternion.setFromEuler(0, ry, 0); world.addBody(b); };
+  wall(-spreadX - 0.8, 0, Math.PI / 2); wall(spreadX + 0.8, 0, -Math.PI / 2); wall(0, -spreadZ - 0.8, 0); wall(0, spreadZ + 0.8, Math.PI);
+  const pairs = [];
+  const mats = [materials.chrome, materials.irid, materials.chrome, materials.rose, materials.irid, materials.chrome, materials.wine];
+  const add = (mesh, shape, mass, i, pos, faceUp) => {
+    mesh.castShadow = true; mesh.receiveShadow = true; S.add(mesh);
+    const b = new CANNON.Body({ mass, shape, linearDamping: 0.05, angularDamping: 0.1 });
+    if (pos) b.position.set(pos[0], pos[1], pos[2]);
+    else b.position.set((R() * 2 - 1) * spreadX, 1.2 + i * 0.35 + R() * 1.5, (R() * 2 - 1) * spreadZ);
+    if (faceUp) b.quaternion.setFromEuler(-Math.PI / 2 + (R() - .5) * 0.5, (R() - .5) * 0.4, (R() - .5) * 0.9);
+    else b.quaternion.setFromEuler(R() * 6.28, R() * 6.28, R() * 6.28);
+    world.addBody(b); pairs.push([mesh, b]);
+  };
+  const letters = [...word];
+  letters.forEach((ch, i) => {
+    const m = glyphMesh(font, ch, mats[i % mats.length](), { size });
+    m.geometry.computeBoundingBox(); const bb = m.geometry.boundingBox; const s = new THREE.Vector3(); bb.getSize(s);
+    const t = letters.length > 1 ? i / (letters.length - 1) : 0.5;
+    const x = (t * 2 - 1) * spreadX * 0.92 + (R() - .5) * 0.35;
+    const z = Math.sin(i * 1.9) * spreadZ * 0.45 + (R() - .5) * 0.4;
+    add(m, new CANNON.Box(new CANNON.Vec3(s.x / 2, s.y / 2, s.z / 2)), 1, i, [x, 0.5 + R() * 0.6, z], true);
+  });
+  const kinds = ['sphere', 'box', 'capsule', 'torus', 'sphere', 'cone', 'box', 'sphere'];
+  for (let i = 0; i < extra; i++) {
+    const k = kinds[i % kinds.length]; const r = 0.22 + R() * 0.32; const mat = mats[(i + 3) % mats.length]();
+    let geo, shape;
+    if (k === 'sphere') { geo = prims.sphere(r); shape = new CANNON.Sphere(r); }
+    else if (k === 'box') { geo = prims.box(r * 1.6, r * 0.25); shape = new CANNON.Box(new CANNON.Vec3(r * .8, r * .8, r * .8)); }
+    else if (k === 'capsule') { geo = prims.capsule(r * 0.55, r * 1.6); geo.rotateZ(Math.PI / 2); shape = new CANNON.Box(new CANNON.Vec3(r * 1.35, r * .55, r * .55)); }
+    else if (k === 'torus') { geo = prims.torus(r, r * 0.36); shape = new CANNON.Cylinder(r * 1.36, r * 1.36, r * 0.72, 16); geo.rotateX(Math.PI / 2); }
+    else { geo = prims.cone(r * 0.8, r * 1.6); shape = new CANNON.Cylinder(0.01, r * 0.8, r * 1.6, 16); }
+    add(new THREE.Mesh(geo, mat), shape, 0.6, i);
+  }
+  for (let i = 0; i < 1400; i++) world.step(1 / 120);
+  for (const [m, b] of pairs) { m.position.copy(b.position); m.quaternion.copy(b.quaternion); }
+}
+
+if (scene === 'pile') {
+  const dark = q.get('mood') === 'dark';
+  S.environment = makeEnvironment(renderer, dark ? 'dark' : 'light');
+  const bg = dark ? P[950] : P[200]; // fog + sky
+  S.background = new THREE.Color(bg); S.fog = new THREE.Fog(bg, 16, 34);
+  floor(dark ? P[900] : P[200]);
+  S.add(new THREE.HemisphereLight(P[50], P[700], dark ? 0.4 : 0.9));
+
+  const spot = new THREE.SpotLight(0xffffff, dark ? 110 : 130, 40, 0.62, 0.85, 1.4); spot.position.set(-3, 13, 3); spot.target.position.set(0.5, 0, -0.3);
+  spot.castShadow = true; spot.shadow.mapSize.set(4096, 4096); spot.shadow.radius = 14; spot.shadow.blurSamples = 24; spot.shadow.bias = -0.0005; spot.shadow.camera.near = 4; spot.shadow.camera.far = 30;
+  S.add(spot, spot.target);
+  const portrait = H > W;
+  pile(portrait ? { spreadX: 1.9, spreadZ: 1.6, extra: 9, size: 0.9 } : { spreadX: 4.3, spreadZ: 1.3, extra: 11, size: 1.1 });
+  cam.fov = portrait ? 42 : 26;
+  cam.position.set(portrait ? 0.6 : 0.8, portrait ? 9.5 : 7.4, portrait ? 7 : 11.5); cam.lookAt(0, -0.2, portrait ? -0.8 : -1.7);
+  if (q.get('cam') === 'low') { cam.position.set(-2, 2.2, 9); cam.lookAt(0.6, 0.6, 0); }
+  cam.updateProjectionMatrix();
+}
+
+if (scene === 'fracture') {
+  S.environment = makeEnvironment(renderer, 'light');
+  S.environmentIntensity = 0.9;
+  { const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 576; const c = cv.getContext('2d');
+    const g = c.createRadialGradient(W > H ? 700 : 512, 250, 20, 600, 300, 760);
+    g.addColorStop(0, '#5e1942'); g.addColorStop(0.45, '#2a0c1d'); g.addColorStop(1, '#0e0409');
+    c.fillStyle = g; c.fillRect(0, 0, 1024, 576);
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; S.background = t; }
+  const m = fracturedMark(font, materials.chrome(), materials.irid(), { size: 4, depth: 0.35, gap: 2.2 });
+  m.rotation.set(-0.08, -0.42, 0.04); S.add(m); if (W > H) m.position.x = 1.5;
+  m.userData.hi.rotation.z = 0.05; m.userData.hi.position.z += 0.25;
+  // shards from the break line
+  for (let i = 0; i < 26; i++) {
+    const g = new THREE.TetrahedronGeometry(0.03 + R() ** 2 * 0.16, 0);
+    const s = new THREE.Mesh(g, (i % 3 ? materials.irid : materials.chrome)());
+    const t = R();
+    s.position.set(-2.2 + t * 4.6 + (R() - .5) * 0.6, 0.55 - t * 0.85 + (R() - .5) * 0.9, (R() - .5) * 1.8);
+    s.rotation.set(R() * 6, R() * 6, R() * 6); m.add(s);
+  }
+  // floating specimen spheres for scale
+  const sp = new THREE.Mesh(prims.sphere(0.32), materials.rose()); sp.position.set(2.9, -1.6, -1); S.add(sp);
+  const sp2 = new THREE.Mesh(prims.sphere(0.12), materials.chrome()); sp2.position.set(-2.8, 1.9, -0.5); S.add(sp2);
+  const ring = new THREE.Mesh(prims.torus(0.5, 0.04), materials.chrome()); ring.position.set(-3.1, -1.7, -1.2); ring.rotation.set(1.1, 0.3, 0); S.add(ring);
+  cam.fov = 46; cam.position.set(0.4, 0.6, 7.6); cam.lookAt(0.1, 0, 0);
+  if (H > W) { cam.fov = 62; cam.position.set(0.2, 0.2, 9); }
+  cam.updateProjectionMatrix();
+  const rim = new THREE.PointLight(P[400], 30, 20); rim.position.set(3, 3, -3); S.add(rim);
+}
+
+if (scene === 'dish') {
+  // A real product logo, unaltered, set into a chrome specimen mount.
+  S.environment = makeEnvironment(renderer, q.get('mood') === 'dark' ? 'dark' : 'light');
+  const bg = q.get('mood') === 'dark' ? P[900] : P[100];
+  S.background = new THREE.Color(bg); S.fog = new THREE.Fog(bg, 11, 19); floor(bg); sun(-3, 9, 5, 2.4, 5);
+  S.add(new THREE.HemisphereLight(P[50], P[600], 0.5));
+  const logo = q.get('logo'); const tileBg = q.get('tile'); const pad = parseFloat(q.get('pad') || '0');
+  const img = new Image(); img.src = logo; await img.decode();
+  const cv = document.createElement('canvas'); cv.width = cv.height = 1024; const cx = cv.getContext('2d');
+  const rr = parseFloat(q.get('radius') || '0.225') * 1024;
+  cx.beginPath(); cx.roundRect(0, 0, 1024, 1024, rr); cx.clip();
+  if (tileBg) { cx.fillStyle = tileBg; cx.fillRect(0, 0, 1024, 1024); }
+  const p = pad * 1024, box = 1024 - 2 * p; const ar = (img.naturalWidth || 1) / (img.naturalHeight || 1);
+  if (Math.abs(ar - 1) < 0.02) cx.drawImage(img, p, p, box, box); else { const w = ar > 1 ? box : box * ar, h = ar > 1 ? box / ar : box; cx.drawImage(img, (1024 - w) / 2, (1024 - h) / 2, w, h); }
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const tile = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false }));
+  // chrome mount: a shallow dish with a thick lip
+  const mount = new THREE.Group(); S.add(mount);
+  const base = new THREE.Mesh(prims.cyl(1.75, 0.16), materials.wine()); base.position.y = 0.08; base.castShadow = base.receiveShadow = true;
+  const lip = new THREE.Mesh(prims.torus(1.75, 0.13), materials.chrome()); lip.rotation.x = Math.PI / 2; lip.position.y = 0.17; lip.castShadow = true;
+  // tile standing in a chrome cradle, leaning back
+  const stand = new THREE.Group(); stand.position.set(0, 0.2, -0.1); stand.rotation.set(-0.2, -0.42, 0, 'YXZ'); mount.add(stand);
+  tile.position.set(0, 1.08, 0.095); stand.add(tile);
+  const backing = new THREE.Mesh(prims.box(1, 0.12), materials.chrome()); backing.scale.set(2.12, 2.12, 0.16); backing.position.set(0, 1.08, 0); backing.castShadow = true; stand.add(backing);
+  mount.add(base, lip);
+  const r = rng(parseInt(q.get('seed') || '7', 10));
+  const balls = [[1.95, 0.25, 1.2, 0.25, 'irid'], [-2.0, 0.18, 0.9, 0.18, 'chrome'], [2.3, 0.1, 0.3, 0.1, 'rose']];
+  for (const [x, y, z, rad, m] of balls) { const b = new THREE.Mesh(prims.sphere(rad), materials[m]()); b.position.set(x, y, z); b.castShadow = true; S.add(b); }
+  cam.fov = 24; cam.position.set(1.2, 3.6, 9.5); cam.lookAt(0.1, 0.95, 0); cam.updateProjectionMatrix();
+}
+
+if (scene === 'standin') {
+  // Retired products: a single chrome specimen each, on transparent.
+  S.environment = makeEnvironment(renderer, 'light');
+  const kind = q.get('kind');
+  const g = new THREE.Group(); S.add(g);
+  const add = (geo, mat, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); g.add(m); return m; };
+  if (kind === 'polyglot') { add(prims.knot(0.8, 0.22), materials.irid()); }
+  if (kind === 'pinpoint') { const c = add(prims.cone(0.55, 1.5), materials.chrome(), 0, -0.4); c.rotation.x = Math.PI; add(prims.sphere(0.62), materials.rose(), 0, 0.6); add(prims.sphere(0.2), materials.chrome(), 0, 0.62, 0.52); }
+  if (kind === 'webvakt') { add(prims.torus(0.95, 0.2), materials.chrome()); add(prims.sphere(0.42), materials.irid()); add(prims.sphere(0.17), materials.wine(), 0, 0, 0.36); }
+  if (kind === 'jokes') { const a = add(prims.capsule(0.45, 0.9), materials.irid(), -0.35, 0); a.rotation.z = 0.6; const b = add(prims.sphere(0.4), materials.rose(), 0.6, 0.45); }
+  if (kind === 'hyring') { const sh = new THREE.Shape(); sh.moveTo(0, 1); sh.quadraticCurveTo(0.6, 0.85, 0.9, 0.95); sh.quadraticCurveTo(0.95, -0.4, 0, -1.05); sh.quadraticCurveTo(-0.95, -0.4, -0.9, 0.95); sh.quadraticCurveTo(-0.6, 0.85, 0, 1);
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.25, bevelEnabled: true, bevelThickness: 0.12, bevelSize: 0.1, bevelSegments: 8, curveSegments: 48 }); geo.center(); add(geo, materials.irid()); add(prims.sphere(0.2), materials.chrome(), 0, 0.05, 0.3); }
+  if (kind === 'early') { [0, 1, 2].forEach(i => { const b = add(prims.box(0.9, 0.2), [materials.chrome, materials.rose, materials.irid][i](), 0, -0.6 + i * 0.6, 0); b.scale.set(1.4 - i * 0.2, 0.5, 1.1 - i * 0.15); b.rotation.y = i * 0.25; }); }
+  if (kind === 'luma') { const L = glyphMesh(font, 'L', materials.irid(), { size: 1.7, depth: 0.4 }); g.add(L); add(prims.sphere(0.2), materials.rose(), 0.75, -0.6, 0.15); }
+  g.rotation.set(0.35, -0.5, 0.1);
+  if (kind === 'polyglot') g.rotation.set(0.6, 0.2, 0);
+  if (kind === 'hyring') g.rotation.set(-0.35, -0.55, 0.05);
+  cam.fov = 30; cam.position.set(0, 0, 6.2); cam.lookAt(0, 0, 0); cam.updateProjectionMatrix();
+}
+
+if (scene === 'sprite') {
+  // One chrome letter, straight-on with slight tilt, transparent — for the 2D chamber.
+  S.environment = makeEnvironment(renderer, 'light');
+  const ch = q.get('ch') || 'A';
+  const mat = materials[q.get('mat') || 'chrome']();
+  const m = ch === 'mark' ? fracturedMark(font, materials.chrome(), materials.irid(), { size: 1.25, depth: 0.2 }) : glyphMesh(font, ch, mat, { size: 1.25 });
+  m.rotation.set(-0.38, 0.42, 0.05); S.add(m);
+  cam.fov = 24; cam.aspect = W / H; cam.position.set(0, 0, 5.2); cam.lookAt(0, 0, 0); cam.updateProjectionMatrix();
+}
+
+if (scene === 'since') {
+  // "2016" — chrome numerals tumbling; extras sticker
+  S.environment = makeEnvironment(renderer, 'light');
+  const g = new THREE.Group(); S.add(g);
+  [...'2016'].forEach((ch, i) => { const m = glyphMesh(font, ch, [materials.chrome, materials.irid, materials.rose, materials.chrome][i](), { size: 1.2, depth: 0.4 }); m.position.set(-1.65 + i * 1.1, Math.sin(i * 1.7) * 0.18, 0); m.rotation.set(0.2 * Math.sin(i * 2), 0.35 * Math.cos(i * 1.3), 0.12 * Math.sin(i * 3.1)); g.add(m); });
+  g.rotation.set(-0.15, -0.3, 0);
+  cam.fov = 30; cam.position.set(0, 0, 5.4); cam.lookAt(0, 0, 0); cam.updateProjectionMatrix();
+}
+
+renderer.render(S, cam);
+document.title = 'done';
+</script>
+</body>
+</html>

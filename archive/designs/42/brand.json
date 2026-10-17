@@ -1,0 +1,20 @@
+{
+  "name": "Same Room",
+  "tagline": "One voxel room, 2019 and today, with a time scrubber as the split edge",
+  "summary": "The hero is a single isometric voxel room rendered twice from the same camera: the bedroom desk where Fun Libs was built at 17 and the studio it became. Dragging the edge between them scrubs through real milestones from 2016 to 2026, shedding pastel blocks as it moves. It reads as an optimistic builder who keeps placing the next block, and the craft (code-baked voxels, a CSS-3D shelf with the real product logos, spring physics everywhere) carries the skill without saying so.",
+  "palette": ["#fefaed", "#faf4da", "#fee891", "#f3d761", "#d8b736", "#a5ce6f", "#6d944b", "#2b3116", "#bae5fd", "#daccf7", "#fcbfc2", "#fed0b2"],
+  "type": ["Bricolage Grotesque 800", "Bricolage Grotesque 400/500", "Geist Mono"],
+  "voice": "Plain, sunny and concrete: say what got built and what it did, then stop. Example: \"Same room. Bigger builds.\"",
+  "motion": "Everything is a block that is either placed or about to be: springs that land with a small overshoot (Stack Drop), an edge that follows on a spring and sheds voxels (Edge Drift), and pills that lean toward the cursor (Magnetic Pull).",
+  "sound": "Off by default; when switched on, a short wooden block click whose pitch rises with each year the seam passes, and a soft tick when a shelf cube lifts.",
+  "mark": "A 2×2×2 butter block with its front corner missing and a leaf-green block dropping into the gap, beside a pixel wordmark with a butter voxel extrusion.",
+  "inspiration": [
+    "https://threejs.org/examples/",
+    "https://vercel.com/home",
+    "https://www.radix-ui.com/primitives/docs/components/accordion",
+    "https://www.radix-ui.com/primitives/docs/components/tabs",
+    "https://motion.dev/docs/spring",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view",
+    "https://godly.website"
+  ]
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Daily Jokes / Joke Central (retired, stand-in)">
+  <rect width="128" height="128" rx="29" fill="#e7e5eb"/>
+  <circle cx="48" cy="54" r="4.5" fill="#56535d"/>
+  <circle cx="80" cy="54" r="4.5" fill="#56535d"/>
+  <path d="M40 72 Q64 96 88 72" fill="none" stroke="#56535d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

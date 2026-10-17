@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Escape Vector 3D</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../motion.css">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--ev-ink);color:#fff;font-family:var(--ev-mono);min-height:100%}
+main{display:grid;grid-template-columns:1.6fr 1fr;min-height:100vh}
+section{position:relative;border-right:1px solid rgba(255,255,255,.12)}
+.cap{position:absolute;top:20px;left:24px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);z-index:2;line-height:1.7}
+.cap b{color:var(--ev-burn);font-weight:600}
+#terrain,#ico{position:absolute;inset:0}
+@media (max-width:760px){main{grid-template-columns:1fr;grid-template-rows:70vh 60vh}}
+</style></head>
+<body><main>
+<section><p class="cap"><b>escape-terrain.js</b><br>move to probe / hold to switch gravity off</p><div id="terrain"></div></section>
+<section><p class="cap"><b>radiolarian.js</b><br>throw it / click to take it apart</p><div id="ico"></div></section>
+</main>
+<script type="module">
+import { mountTerrain } from './escape-terrain.js'
+import { mountRadiolarian } from './radiolarian.js'
+mountTerrain(document.getElementById('terrain'))
+mountRadiolarian(document.getElementById('ico'), { radius: 150, texture: '../img/radiolarian-icosa-ink-450.webp' })
+</script>
+</body></html>

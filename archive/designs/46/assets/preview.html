@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Say Cheese — asset kit 46</title>
+<link rel="icon" href="identity/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  :root{
+    --butter:#FFE97E;--apricot:#FC9E47;--tangerine:#ED6E12;--gum:#FF99C2;--mint:#8DEFC5;--lilac:#B6ADF3;--sky:#93D5F5;
+    --cream:#FFF6E4;--paper:#FBE8CE;--ink:#381A13;--cocoa:#6D3F2F;--cherry:#ED3F4B;--white:#FFFDF7;
+    --r:28px;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--cream)}
+  body{margin:0;color:var(--ink);font:400 17px/1.5 'Bricolage Grotesque',system-ui,sans-serif;font-variation-settings:'opsz' 14}
+  body::before{content:"";position:fixed;inset:0;background:url(extras/clay-grain.webp);mix-blend-mode:soft-light;opacity:.12;pointer-events:none;z-index:100}
+  .mono{font-family:'DM Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 16px}
+  @media(min-width:800px){.wrap{padding:0 40px}}
+  h1,h2,h3{font-family:'Bricolage Grotesque';font-weight:800;font-stretch:76%;line-height:.88;letter-spacing:-.015em;margin:0}
+  h2{font-size:clamp(44px,8vw,112px)}
+  h3{font-size:28px;font-stretch:85%}
+  p{margin:.4em 0}
+  section{padding:72px 0;border-top:3px dashed #381a1322}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+  .sec-head p{max-width:520px;color:var(--cocoa)}
+  .num{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--butter);font:500 14px 'DM Mono';margin-bottom:14px}
+  img{max-width:100%;display:block}
+  .card{border-radius:var(--r);overflow:hidden;background:var(--paper);position:relative}
+  .cap{display:flex;justify-content:space-between;gap:12px;padding:10px 4px 0;color:var(--cocoa)}
+  .grid{display:grid;gap:20px}
+  @media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g6{grid-template-columns:repeat(6,1fr)}}
+  .g3m{grid-template-columns:repeat(2,1fr)}@media(min-width:760px){.g3m{grid-template-columns:repeat(3,1fr)}}
+  .g4m{grid-template-columns:repeat(2,1fr)}@media(min-width:760px){.g4m{grid-template-columns:repeat(4,1fr)}}
+  .g6m{grid-template-columns:repeat(3,1fr)}@media(min-width:760px){.g6m{grid-template-columns:repeat(6,1fr)}}
+
+  /* top bar */
+  .bar{position:sticky;top:0;z-index:50;background:#FFF6E4e6;backdrop-filter:blur(10px);border-bottom:2px solid #381a1312}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px}
+  .bar img{height:40px;width:auto}
+  .snd{border:0;cursor:pointer;display:flex;gap:10px;align-items:center;background:var(--ink);color:var(--butter);padding:10px 16px;border-radius:99px;font:500 13px 'DM Mono';letter-spacing:.06em;text-transform:uppercase}
+  .snd i{width:10px;height:10px;border-radius:50%;background:#ffffff44}
+  .snd[data-on="1"] i{background:var(--cherry);box-shadow:0 0 0 4px #ED3F4B44}
+
+  /* hero */
+  .hero{padding:28px 0 60px}
+  .hero-grid{display:grid;gap:24px;align-items:end}
+  @media(min-width:980px){.hero-grid{grid-template-columns:1fr 1.25fr}}
+  .kicker{display:inline-flex;gap:10px;align-items:center;background:var(--butter);padding:8px 14px;border-radius:99px;margin-bottom:22px}
+  .kicker b{width:9px;height:9px;border-radius:50%;background:var(--cherry);animation:rec-blink 1.2s steps(1) infinite}
+  .title{font-size:clamp(68px,13vw,184px);line-height:.8}
+  .title span{display:block}
+  .title .o{color:var(--tangerine)}
+  .lede{font-size:21px;max-width:520px;margin-top:22px}
+  .live{aspect-ratio:16/11;border-radius:36px;overflow:hidden;position:relative;background:#2b1a12;box-shadow:0 30px 60px -30px #6d3f2f88}
+  .live canvas{width:100%;height:100%;display:block}
+  .live .hud{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .live .ctrls{position:absolute;left:16px;right:16px;top:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;transform:translateY(0)}
+  .pillc{display:flex;align-items:center;gap:10px;background:#FFFDF7d9;backdrop-filter:blur(8px);padding:8px 14px;border-radius:99px}
+  input[type=range]{accent-color:var(--tangerine);width:120px}
+  @media(max-width:700px){.live{overflow:visible;margin-bottom:110px}.live canvas,.live .hud{border-radius:36px}.live .ctrls{top:auto;bottom:-104px;left:0;right:0}}
+
+  /* swatches */
+  .sw{border-radius:24px;padding:16px;min-height:170px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 -10px 0 #0000000d, inset 0 6px 0 #ffffff55}
+  .sw h3{font-size:30px}
+  .sw .mono{font-size:12px;line-height:1.5;text-transform:none}
+
+  /* type */
+  .spec{background:var(--white);border-radius:var(--r);padding:28px}
+  .spec .big{font-size:clamp(72px,11vw,160px);font-weight:800;font-stretch:75%;line-height:.82;letter-spacing:-.02em}
+  .spec .wide{font-size:44px;font-weight:300;font-stretch:100%;font-variation-settings:'opsz' 96}
+  .axis{display:flex;gap:24px;flex-wrap:wrap;margin-top:18px}
+  .axis span{font-size:40px;line-height:1}
+
+  /* identity */
+  .id-tile{border-radius:var(--r);display:grid;place-items:center;padding:28px;min-height:240px}
+  .id-tile img{max-height:170px}
+  .tiny{display:flex;gap:18px;align-items:end}
+
+  /* stickers & props */
+  .stickers{position:relative;min-height:520px;background:url(extras/pattern-sprinkles.svg) 0 0/220px;border-radius:36px;overflow:hidden}
+  .stickers img{position:absolute;width:clamp(120px,18vw,230px);cursor:grab}
+  .props{background:linear-gradient(#FFE97E,#FFF6E4);border-radius:36px;padding:24px}
+  .props img{transition:transform .6s var(--ease-spring-bouncy)}
+  .props img:hover{transform:translateY(-10px) rotate(-4deg) scale(1.06)}
+  .swatch-tile{height:220px;border-radius:var(--r)}
+
+  /* motion lab */
+  .lab{background:var(--ink);color:var(--cream);border-radius:36px;padding:24px}
+  .lab .cell{background:#ffffff0d;border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:14px;min-height:300px}
+  .lab .stage{flex:1;display:grid;place-items:center;border-radius:18px;background:#ffffff0a;overflow:hidden;min-height:180px}
+  .lab .stage img{max-width:70%;max-height:170px}
+  .lab button{align-self:start;border:0;background:var(--butter);color:var(--ink);font:500 12px 'DM Mono';letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border-radius:99px;cursor:pointer}
+  .lab p{color:#fff6e4bb;font-size:15px}
+  .toy{aspect-ratio:16/9;min-height:320px;border-radius:36px;background:radial-gradient(circle at 50% 75%,#FFFDF7 0,#FFE97E 70%);overflow:hidden;position:relative}
+  .toy .mono{position:absolute;left:18px;bottom:16px;z-index:2}
+  footer{padding:60px 0 90px;text-align:center}
+  a{color:inherit}
+</style></head>
+<body>
+<header class="bar"><div class="wrap">
+  <img src="identity/lockup.svg" alt="Albretsen AS">
+  <button class="snd m-squish" id="snd" aria-pressed="false"><i></i><span data-label>sound off</span></button>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <div class="hero-grid">
+    <div>
+      <div class="kicker mono"><b></b>Art direction 46 · asset kit</div>
+      <h1 class="title"><span>Say</span><span class="o">cheese.</span></h1>
+      <p class="lede">Albretsen AS through a viewfinder. A loud, candy-coloured clay world starring <b>Blink</b>, a squishy camera whose aperture is the letter A. Everything is lit like the first sunlit minute of dawn: warm key, lilac shadows, fingerprints left in.</p>
+      <p class="mono" style="margin-top:20px;color:var(--cocoa)">Raw WebGL2 raymarcher · Web Animations API · opt-in synthesised sound</p>
+    </div>
+    <div>
+      <div class="live" id="live">
+        <canvas id="blink" aria-label="Blink, a live clay camera mascot. Click to take a picture."></canvas>
+        <object class="hud" data="extras/viewfinder-overlay.svg" type="image/svg+xml" aria-hidden="true"></object>
+        <div class="ctrls mono">
+          <label class="pillc">focus <input id="focus" type="range" min="0" max="1" step="0.01" value="0.9"></label>
+          <label class="pillc">exposure <input id="exp" type="range" min="-1.5" max="1.5" step="0.01" value="0"></label>
+        </div>
+      </div>
+      <div class="cap mono"><span>3d/blink-live.js · live raymarched clay</span><span>click Blink = shutter</span></div>
+    </div>
+  </div>
+</div>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><span class="num">01</span><h2>Identity</h2></div>
+    <p>The mark is Blink's face: a butter clay camera pebble, gum lens ring, and a three-blade aperture whose opening is an <b>A</b>. The wordmark is rolled from clay coils.</p></div>
+  <div class="grid g3">
+    <div><div class="id-tile" style="background:var(--white)"><img src="identity/logo-mark.svg" alt="Mark, dimensional"></div><div class="cap mono"><span>logo-mark.svg</span><span>dimensional</span></div></div>
+    <div><div class="id-tile" style="background:var(--lilac)"><img src="identity/logo-mark-flat.svg" alt="Mark, flat"></div><div class="cap mono"><span>logo-mark-flat.svg</span><span>flat</span></div></div>
+    <div><div class="id-tile" style="background:var(--ink)"><div class="tiny"><img src="identity/favicon.svg" style="width:96px" alt="favicon"><img src="identity/favicon.svg" style="width:32px" alt=""><img src="identity/favicon.svg" style="width:16px" alt=""><img src="identity/favicon-180.png" style="width:60px;border-radius:14px" alt="touch icon"></div></div><div class="cap mono"><span>favicon.svg · favicon-180.png</span><span>96 / 32 / 16</span></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:20px">
+    <div><div class="id-tile" style="background:var(--paper);min-height:200px"><img src="identity/wordmark.svg" alt="wordmark" style="width:90%"></div><div class="cap mono"><span>wordmark.svg</span><span>cocoa coil</span></div></div>
+    <div><div class="id-tile" style="background:var(--ink);min-height:200px"><img src="identity/wordmark-candy.svg" alt="wordmark candy" style="width:90%"></div><div class="cap mono"><span>wordmark-candy.svg</span><span>loud version</span></div></div>
+  </div>
+  <div style="margin-top:20px"><div class="card"><img src="identity/og-image.jpg" alt="Open Graph image"></div><div class="cap mono"><span>og-image.jpg</span><span>1200 × 630</span></div></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><span class="num">02</span><h2>Candy at dawn</h2></div>
+    <p>Seed hue 60° in OKLCH (apricot). Everything around it is a sugared pastel at high chroma, anchored by a warm cocoa ink instead of black. Shadows are never grey: they are lilac.</p></div>
+  <div class="grid g4m" style="gap:14px">
+    <div class="sw" style="background:var(--apricot)"><h3>Apricot</h3><span class="mono">seed · oklch(.78 .15 60)<br>#FC9E47</span></div>
+    <div class="sw" style="background:var(--butter)"><h3>Butter</h3><span class="mono">Blink · oklch(.93 .13 98)<br>#FFE97E</span></div>
+    <div class="sw" style="background:var(--gum)"><h3>Bubblegum</h3><span class="mono">lens ring · oklch(.80 .13 355)<br>#FF99C2</span></div>
+    <div class="sw" style="background:var(--mint)"><h3>Mint</h3><span class="mono">oklch(.88 .11 165)<br>#8DEFC5</span></div>
+    <div class="sw" style="background:var(--lilac)"><h3>Lilac</h3><span class="mono">shadows · oklch(.78 .10 290)<br>#B6ADF3</span></div>
+    <div class="sw" style="background:var(--sky)"><h3>Sky</h3><span class="mono">oklch(.84 .08 230)<br>#93D5F5</span></div>
+    <div class="sw" style="background:var(--tangerine);color:var(--white)"><h3>Tangerine</h3><span class="mono">accent text · oklch(.68 .18 48)<br>#ED6E12</span></div>
+    <div class="sw" style="background:var(--cherry);color:var(--white)"><h3>Cherry</h3><span class="mono">REC / shutter · oklch(.63 .21 22)<br>#ED3F4B</span></div>
+    <div class="sw" style="background:var(--cream);outline:2px solid #381a1318;outline-offset:-2px"><h3>Cream</h3><span class="mono">page · oklch(.975 .025 85)<br>#FFF6E4</span></div>
+    <div class="sw" style="background:var(--paper)"><h3>Paper</h3><span class="mono">cards · oklch(.94 .04 75)<br>#FBE8CE</span></div>
+    <div class="sw" style="background:var(--cocoa);color:var(--cream)"><h3>Cocoa</h3><span class="mono">secondary text · oklch(.42 .07 40)<br>#6D3F2F</span></div>
+    <div class="sw" style="background:var(--ink);color:var(--butter)"><h3>Ink</h3><span class="mono">text · oklch(.26 .05 35)<br>#381A13</span></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><span class="num">03</span><h2>Type</h2></div>
+    <p>Bricolage Grotesque does everything from shouting headlines (800, width 75) to body text (opsz 14). DM Mono plays the camera's readouts: f-stops, ISO, captions.</p></div>
+  <div class="spec">
+    <div class="mono" style="color:var(--cocoa)">Display · Bricolage Grotesque 800 · wdth 75 · Google Fonts (OFL)</div>
+    <div class="big">Pays for <span style="color:var(--tangerine)">itself.</span></div>
+    <div class="wide" style="margin-top:18px">Apps, SaaS and agent infrastructure, shipped since 2016.</div>
+    <div class="axis"><span style="font-weight:300">Aa</span><span style="font-weight:500">Aa</span><span style="font-weight:700;font-stretch:85%">Aa</span><span style="font-weight:800;font-stretch:75%">Aa</span></div>
+    <p style="max-width:640px;margin-top:22px">Body · Bricolage Grotesque 400 at optical size 14. Fun Libs is a fill-in-the-blanks word game for Android and iOS, built at 17, with 113,000+ installs and no marketing.</p>
+    <p class="mono" style="margin-top:18px">Readout · DM Mono 500 · f/1.8 · 1/250 · ISO 100 · claude mcp add albretsen https://albretsen.no/mcp</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><span class="num">04</span><h2>Hero imagery</h2></div>
+    <p>Baked from the same shader that runs live, at 2880 × 1800 with 4× supersampling. Every image ships as 1× and @2x WebP.</p></div>
+  <div class="card m-squish" data-m="iris"><img src="hero/blink-dawn.webp" srcset="hero/blink-dawn.webp 1440w, hero/blink-dawn@2x.webp 2880w" sizes="100vw" alt="Blink waving in a candy dawn"></div>
+  <div class="cap mono"><span>hero/blink-dawn(@2x).webp</span><span>desktop hero · 2880 × 1800</span></div>
+  <div class="grid g2" style="margin-top:20px;grid-template-columns:1.6fr 1fr">
+    <div><div class="card" data-m="focus"><img src="hero/viewfinder-dawn.webp" srcset="hero/viewfinder-dawn.webp 1440w, hero/viewfinder-dawn@2x.webp 2880w" sizes="60vw" alt="Blink in front of a real dawn photo, background out of focus"></div><div class="cap mono"><span>hero/viewfinder-dawn(@2x).webp</span><span>photo backdrop, racked focus</span></div></div>
+    <div><div class="card" data-m="focus"><img src="hero/blink-dawn-tall.webp" srcset="hero/blink-dawn-tall.webp 540w, hero/blink-dawn-tall@2x.webp 1080w" sizes="40vw" alt="Phone hero"></div><div class="cap mono"><span>hero/blink-dawn-tall</span><span>phone · 3:4</span></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:20px">
+    <div><div class="card" style="background:url(extras/pattern-apertures.svg) 0 0/120px"><img class="m-squish" data-m="squish" src="hero/blink-cutout.webp" srcset="hero/blink-cutout.webp 800w, hero/blink-cutout@2x.webp 1600w" sizes="50vw" alt="Blink cut-out"></div><div class="cap mono"><span>hero/blink-cutout (alpha)</span><span>layer over anything</span></div></div>
+    <div><div class="card" style="background:var(--gum)"><img data-m="squish" src="hero/blink-wink-cutout.webp" srcset="hero/blink-wink-cutout.webp 600w, hero/blink-wink-cutout@2x.webp 1200w" sizes="50vw" alt="Blink winking cut-out"></div><div class="cap mono"><span>hero/blink-wink-cutout (alpha)</span><span>404 / footer / avatar</span></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><span class="num">05</span><h2>Products, presented</h2></div>
+    <p>Blink holds up each product's <b>real</b> app icon, mapped untouched onto a glossy tile, in a world tinted for that product. Props tell the story without words.</p></div>
+  <div class="grid g2">
+    <div><div class="card" data-m="focus"><img src="products/mcp-emails.webp" srcset="products/mcp-emails.webp 800w, products/mcp-emails@2x.webp 1600w" sizes="50vw" alt="MCP Emails"></div><div class="cap mono"><span>MCP Emails · live</span><span>$782 MRR · 17 tools</span></div></div>
+    <div><div class="card" data-m="focus"><img src="products/fun-libs.webp" srcset="products/fun-libs.webp 800w, products/fun-libs@2x.webp 1600w" sizes="50vw" alt="Fun Libs"></div><div class="cap mono"><span>Fun Libs · live</span><span>113,000+ installs</span></div></div>
+    <div><div class="card" data-m="focus"><img src="products/toolrails.webp" srcset="products/toolrails.webp 800w, products/toolrails@2x.webp 1600w" sizes="50vw" alt="Toolrails"></div><div class="cap mono"><span>Toolrails · building</span><span>4 connectors</span></div></div>
+    <div><div class="card" data-m="focus"><img src="products/harbor.webp" srcset="products/harbor.webp 800w, products/harbor@2x.webp 1600w" sizes="50vw" alt="Harbor"></div><div class="cap mono"><span>Harbor · paused</span><span>549 commits</span></div></div>
+  </div>
+  <h3 style="margin:48px 0 18px">Retired, kept as clay tokens</h3>
+  <div class="grid g6m" style="gap:12px">
+    <figure style="margin:0"><img src="products/retired/polyglot-pilot.webp" alt="Polyglot Pilot token" class="m-sticker"><figcaption class="mono" style="text-align:center">Polyglot Pilot</figcaption></figure>
+    <figure style="margin:0"><img src="products/retired/pinpoint.webp" alt="PinPoint token" class="m-sticker"><figcaption class="mono" style="text-align:center">PinPoint</figcaption></figure>
+    <figure style="margin:0"><img src="products/retired/webvakt.webp" alt="WebVakt token" class="m-sticker"><figcaption class="mono" style="text-align:center">WebVakt</figcaption></figure>
+    <figure style="margin:0"><img src="products/retired/joke-central.webp" alt="Joke Central token" class="m-sticker"><figcaption class="mono" style="text-align:center">Joke Central</figcaption></figure>
+    <figure style="margin:0"><img src="products/retired/tryggere-hyring.webp" alt="Tryggere Hyring token" class="m-sticker"><figcaption class="mono" style="text-align:center">Tryggere Hyring</figcaption></figure>
+    <figure style="margin:0"><img src="products/retired/early-apps.webp" alt="Early apps token" class="m-sticker"><figcaption class="mono" style="text-align:center">Early apps</figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:20px;align-items:center">
+    <div class="card" style="background:var(--paper)"><img src="products/retired/luma.webp" alt="Luma's real wordmark on a clay plaque"></div>
+    <div><div class="card"><img src="products/retired/tokens-sheet.webp" srcset="products/retired/tokens-sheet.webp 800w, products/retired/tokens-sheet@2x.webp 1600w" sizes="50vw" alt="All retired tokens"></div></div>
+  </div>
+  <div class="cap mono"><span>retired/luma.webp (real Luma wordmark) · tokens-sheet(@2x).webp</span><span>stand-ins for products without surviving brands</span></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><span class="num">06</span><h2>Things to scatter</h2></div>
+    <p>Clay props (alpha cut-outs), die-cut stickers with real facts, two seamless patterns, a fingerprint grain overlay, and four freely licensed sunlit photographs.</p></div>
+  <div class="props grid g6m" style="gap:10px">
+    <img src="extras/clay-sun.webp" alt="clay sun"><img src="extras/clay-cloud.webp" alt="clay cloud"><img src="extras/clay-print.webp" alt="clay instant print"><img src="extras/clay-lens.webp" alt="clay lens"><img src="extras/clay-heart.webp" alt="clay heart"><img src="extras/clay-star.webp" alt="clay star">
+  </div>
+  <div class="cap mono"><span>extras/clay-*.webp</span><span>sun · cloud · print · lens · heart · star</span></div>
+  <div class="stickers" id="stickers" style="margin-top:28px">
+    <img src="extras/sticker-say-cheese.webp" style="left:3%;top:6%" data-rot="-8" alt="">
+    <img src="extras/sticker-f18.webp" style="left:26%;top:30%" data-rot="6" alt="">
+    <img src="extras/sticker-installs.webp" style="left:48%;top:4%" data-rot="-4" alt="">
+    <img src="extras/sticker-since-2016.webp" style="left:72%;top:12%" data-rot="-10" alt="">
+    <img src="extras/sticker-17-tools.webp" style="left:6%;top:56%" data-rot="7" alt="">
+    <img src="extras/sticker-made-in-norway.webp" style="left:44%;top:52%" data-rot="-5" alt="">
+    <img src="extras/sticker-open-source.webp" style="left:64%;top:48%" data-rot="8" alt="">
+    <img src="extras/sticker-rec.webp" style="left:76%;top:76%" data-rot="-3" alt="">
+  </div>
+  <div class="cap mono"><span>extras/sticker-*.webp on extras/pattern-sprinkles.svg</span><span>drag them</span></div>
+  <div class="grid g3" style="margin-top:20px">
+    <div><div class="swatch-tile" style="background:url(extras/pattern-apertures.svg) 0 0/120px"></div><div class="cap mono"><span>pattern-apertures.svg</span><span>tile 160</span></div></div>
+    <div><div class="swatch-tile" style="background:url(extras/pattern-sprinkles.svg) 0 0/200px"></div><div class="cap mono"><span>pattern-sprinkles.svg</span><span>tile 240</span></div></div>
+    <div><div class="swatch-tile" style="background:url(extras/clay-grain.webp) 0 0/256px"></div><div class="cap mono"><span>clay-grain.webp</span><span>soft-light overlay</span></div></div>
+  </div>
+  <div class="grid g4m" style="margin-top:20px;gap:14px">
+    <div><div class="card"><img src="photo/dawn-field.webp" alt="Dawn over a misty field"></div><div class="cap mono"><span>dawn-field</span><span>CC0</span></div></div>
+    <div><div class="card"><img src="photo/sunflower-sky.webp" alt="Sunflower against blue sky"></div><div class="cap mono"><span>sunflower-sky</span><span>CC0</span></div></div>
+    <div><div class="card"><img src="photo/snow-sunrise.webp" alt="Snow field at sunrise"></div><div class="cap mono"><span>snow-sunrise</span><span>CC0</span></div></div>
+    <div><div class="card"><img src="photo/orbital-sunrise.webp" alt="Orbital sunrise from the ISS"></div><div class="cap mono"><span>orbital-sunrise</span><span>NASA · PD</span></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><span class="num">07</span><h2>Play with it</h2></div>
+    <p>Poly Haven's CC0 rangefinder, re-cast in candy clay as a .glb. Drag to spin, it springs back; double-click fires the shutter. Loaded lazily with three.js r170.</p></div>
+  <div class="toy" id="toy"><span class="mono">3d/clay-camera.glb · 3d/clay-camera.js · drag / double-click</span></div>
+  <p class="mono" style="margin-top:12px"><a href="3d/demo.html">3d/demo.html</a> · standalone demo of both 3D modules</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div><span class="num">08</span><h2>Motion</h2></div>
+    <p>Five signature moves in motion.js (Web Animations API), CSS fallbacks in motion.css. Sounds play here only if you switch sound on.</p></div>
+  <div class="lab grid g3">
+    <div class="cell"><h3>Iris Open</h3><div class="stage"><img id="mv-iris" src="hero/blink-dawn.webp" alt="" style="max-width:100%;max-height:none;border-radius:14px"></div><p>Entrance. A hexagonal aperture rotates open over the image, over-exposed at first, like a lens stopping down. Inspired by the film iris wipe.</p><button data-play="iris">replay</button></div>
+    <div class="cell"><h3>Squish</h3><div class="stage"><img id="mv-squish" src="hero/blink-cutout.webp" alt=""></div><p>Hover and press. Clay squash-and-stretch that rebounds on a spring baked into CSS linear(). After Josh Comeau's "boop".</p><button data-play="squish">squish</button></div>
+    <div class="cell"><h3>Rack Focus</h3><div class="stage"><img id="mv-focus" src="products/fun-libs.webp" alt="" style="max-width:100%;max-height:none;border-radius:14px"></div><p>Section transition. Soft and over-exposed to sharp, hunting once before it locks, with an AF double beep.</p><button data-play="focus">replay</button></div>
+    <div class="cell"><h3>Shutter Flash</h3><div class="stage"><img src="extras/clay-lens.webp" alt=""></div><p>Click. A white flash over the whole page and a burst of candy sprinkles from the pointer.</p><button data-play="flash">take a picture</button></div>
+    <div class="cell"><h3>Sticker Slap</h3><div class="stage"><img id="mv-slap" src="extras/sticker-say-cheese.webp" alt=""></div><p>Entrance for stickers and badges: dropped from above, overshoots, shadow tightens on impact.</p><button data-play="slap">slap</button></div>
+    <div class="cell"><h3>Blink</h3><div class="stage"><img id="mv-blink" src="hero/blink-wink-cutout.webp" alt=""></div><p>The mascot's own idle: random blinks every 2 to 5 s, gaze follows the pointer, breathing squash. Built into blink-live.js.</p><button data-play="blink">open live hero</button></div>
+  </div>
+</div></section>
+</main>
+<footer class="wrap"><img src="identity/wordmark-candy.svg" alt="albretsen" style="width:min(520px,80%);margin:0 auto 18px"><p class="mono">Kit 46 · Say Cheese · inventory and licences in ASSETS.md</p></footer>
+
+<script type="module">
+  import * as M from './motion.js';
+  import { sound } from './sound.js';
+  sound.bindToggle(document.getElementById('snd'));
+  M.autoWire(document);
+
+  // live hero
+  const live = document.getElementById('live');
+  let blink = null;
+  try {
+    const { mountBlink } = await import('./3d/blink-live.js');
+    blink = await mountBlink(document.getElementById('blink'), { scene: 'viewfinder', scale: 0.7 });
+    focus.oninput = () => { blink.focus(+focus.value); sound.play('tick'); };
+    exp.oninput = () => blink.exposure(+exp.value);
+    live.addEventListener('blink:shutter', e => { sound.play('shutter'); const r = live.getBoundingClientRect(); M.shutterFlash({ x: r.left + r.width / 2, y: r.top + r.height / 2 }); });
+  } catch (err) { live.style.background = 'url(hero/viewfinder-dawn.webp) center/cover'; console.warn(err); }
+
+  // lazy 3D toy
+  const toy = document.getElementById('toy');
+  new IntersectionObserver(async ([e], o) => { if (!e.isIntersecting) return; o.disconnect();
+    const { mountClayCamera } = await import('./3d/clay-camera.js'); mountClayCamera(toy);
+    toy.addEventListener('blink:shutter', ev => { sound.play('shutter'); M.shutterFlash({ x: innerWidth / 2, y: innerHeight / 2 }); });
+  }, { rootMargin: '300px' }).observe(toy);
+
+  // motion lab
+  const $ = id => document.getElementById(id);
+  document.querySelectorAll('[data-play]').forEach(b => b.addEventListener('click', ev => {
+    const k = b.dataset.play;
+    if (k === 'iris') { M.irisOpen($('mv-iris')); sound.play('shutter'); }
+    if (k === 'squish') { M.squish($('mv-squish'), { amount: 1.5 }); sound.play('squish'); }
+    if (k === 'focus') { M.rackFocus($('mv-focus')); setTimeout(() => sound.play('focus'), 600); }
+    if (k === 'flash') { M.shutterFlash({ x: ev.clientX, y: ev.clientY }); sound.play('shutter'); }
+    if (k === 'slap') { M.stickerSlap($('mv-slap'), { rotate: -8 }); setTimeout(() => sound.play('slap'), 330); }
+    if (k === 'blink') live.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }));
+  document.querySelectorAll('[data-m="squish"], .m-squish').forEach(el => el.addEventListener('pointerenter', () => sound.play('squish')));
+
+  // stickers: slap in on view, draggable
+  const box = $('stickers');
+  new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect();
+    box.querySelectorAll('img').forEach((s, i) => { M.stickerSlap(s, { delay: i * 110, rotate: +s.dataset.rot }); setTimeout(() => sound.play('slap'), i * 110 + 330); });
+  }, { threshold: .3 }).observe(box);
+  box.querySelectorAll('img').forEach(s => {
+    s.draggable = false;
+    s.addEventListener('pointerdown', e => {
+      s.setPointerCapture(e.pointerId); s.style.zIndex = Date.now() % 100000; const r = box.getBoundingClientRect();
+      const ox = e.clientX - s.offsetLeft, oy = e.clientY - s.offsetTop; M.squish(s, { amount: .6 });
+      const mv = ev => { s.style.left = ev.clientX - ox + 'px'; s.style.top = ev.clientY - oy + 'px'; };
+      const up = () => { s.removeEventListener('pointermove', mv); s.removeEventListener('pointerup', up); sound.play('slap'); };
+      s.addEventListener('pointermove', mv); s.addEventListener('pointerup', up);
+    });
+  });
+</script>
+</body></html>

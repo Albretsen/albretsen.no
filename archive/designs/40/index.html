@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" data-phase="dag">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS · Specimen Atlas</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself. Albretsen AS makes apps, SaaS and infrastructure for AI agents, from Norway.">
+<meta name="theme-color" content="#f6f0e0">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself, catalogued.">
+<meta property="og:image" content="assets/identity/og-image.png">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<script>
+/* Daylight before first paint: NOAA solar elevation over Oslo picks the phase,
+   so the right baked photograph is the first thing requested. ?phase= pins it. */
+(function () {
+  var d = new Date(), rad = Math.PI / 180, lat = 59.9139, lon = 10.7522;
+  var doy = (d - Date.UTC(d.getUTCFullYear(), 0, 0)) / 864e5;
+  var g = 2 * Math.PI / 365 * (doy - 1 + (d.getUTCHours() - 12) / 24);
+  var eqt = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+  var dec = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+  var tst = d.getUTCHours() * 60 + d.getUTCMinutes() + eqt + 4 * lon, ha = (tst / 4 - 180) * rad;
+  var cz = Math.sin(lat * rad) * Math.sin(dec) + Math.cos(lat * rad) * Math.cos(dec) * Math.cos(ha);
+  var el = 90 - Math.acos(Math.max(-1, Math.min(1, cz))) / rad;
+  var p = el > 12 ? 'dag' : el > 0 ? 'gulltime' : el > -8 ? 'blåtime' : 'natt';
+  var pin = new URLSearchParams(location.search).get('phase');
+  if (pin === 'blatime') pin = 'blåtime';
+  if (pin && /^(dag|gulltime|blåtime|natt)$/.test(pin)) { p = pin; document.documentElement.dataset.pinned = pin; }
+  document.documentElement.dataset.phase = p;
+  document.documentElement.style.setProperty('--sun-elev', el.toFixed(1));
+  document.documentElement.classList.add('js');
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50;1,9..144,300..700,50&family=Geist+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body class="paper">
+<a class="skip" href="#atlas">Skip to the atlas</a>
+
+<header class="top">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img class="wm wm-ink" src="assets/identity/logo-wordmark.svg" alt="" width="190" height="40">
+    <img class="wm wm-cream" src="assets/identity/logo-wordmark-cream.svg" alt="" width="190" height="40">
+  </a>
+  <div class="top-right">
+    <p class="sun" aria-live="off"><span class="horizon" aria-hidden="true"><i></i></span><span data-daylight>Reading the sun over Oslo</span></p>
+    <button class="sound-toggle" type="button" aria-pressed="false" data-sound><span class="sr">Sound</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8h3l4-3v10l-4-3H3z" fill="currentColor"/><path class="w1" d="M13 7.5a3.5 3.5 0 0 1 0 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="w2" d="M15 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="off" d="M13 7l5 6M18 7l-5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="sound-label">Sound off</span></button>
+  </div>
+</header>
+
+<main>
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="hero" aria-labelledby="hero-name">
+  <div class="hero-photo" role="img" aria-label="Specimen No. 1: a brass lattice radiolarian with eosin-pink beads and a magenta glass core, photographed in the current light over Oslo."></div>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="stage" id="stage" aria-hidden="true"></div>
+
+  <!-- the loupe: a draggable lens that shows Haeckel's 1887 engraving under the render -->
+  <button class="loupe-tool" id="loupe" type="button" aria-label="Brass loupe. Shows Haeckel's 1887 engraving beneath the specimen. Drag it, or use the arrow keys.">
+    <span class="lens"><span class="lens-img"></span><span class="lens-glass"></span><span class="lens-reticle"></span></span>
+    <span class="handle"></span>
+  </button>
+  <p class="loupe-hint mono" id="loupe-hint" aria-hidden="true">Drag the loupe <span class="arr">↗</span></p>
+
+  <div class="hero-foot">
+    <div class="label settle-css" style="--i:1">
+      <div class="label-row mono"><span>Specimen No. 1</span><span>Norge</span></div>
+      <h1 id="hero-name">Asgeir Albretsen</h1>
+      <p class="label-line"><em>builds software that pays for itself.</em></p>
+      <p class="label-desc">Albretsen AS makes apps, SaaS and infrastructure for AI agents. On Google Play since 2016.</p>
+      <div class="label-row label-rule mono"><span>Coll. Albretsen AS</span><span class="stamp">Live</span></div>
+    </div>
+
+    <div class="hero-side settle-css" style="--i:3">
+      <div class="modes" role="radiogroup" aria-label="How to view the specimen">
+        <span class="modes-pill" aria-hidden="true"></span>
+        <button type="button" role="radio" aria-checked="true" data-mode="still">Photograph</button>
+        <button type="button" role="radio" aria-checked="false" data-mode="live">Live, in hand</button>
+      </div>
+      <div class="cmd">
+        <code id="cmd-text">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button class="copy" type="button" data-copy="#cmd-text" aria-describedby="cmd-tip"><span class="sr">Copy command</span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3 10V4.5A1.5 1.5 0 0 1 4.5 3H10" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></button>
+        <span class="tip mono" id="cmd-tip" role="status"></span>
+      </div>
+      <p class="signal mono" aria-live="polite"><span class="signal-dot" aria-hidden="true"></span><span class="signal-k">Signal</span> <span class="signal-text" id="signal-text">listening</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ATLAS ============================ -->
+<section class="atlas" id="atlas" aria-labelledby="atlas-h">
+  <div class="atlas-in">
+    <header class="atlas-head" data-settle>
+      <p class="mono kicker">Plates I–IV · Coll. 2019–2026</p>
+      <h2 id="atlas-h">The atlas <em>four specimens, under glass.</em></h2>
+      <p class="lede">Everything Albretsen AS builds is pinned, labelled and kept running. Pull the top plate aside to see the next one, or tap it to read the back of the card.</p>
+    </header>
+
+    <div class="atlas-grid">
+      <div class="stack-wrap">
+        <div class="stack" id="stack" role="group" aria-roledescription="plate stack" aria-label="Product plates. Arrow keys shuffle, Enter turns the plate over."></div>
+        <p class="stack-hint mono" aria-hidden="true"><span>← → shuffle</span><span>tap · turn over</span></p>
+      </div>
+      <div class="index">
+        <ol class="index-list" id="index-list" aria-label="Plates"></ol>
+        <article class="detail" id="detail" aria-live="polite"></article>
+      </div>
+    </div>
+  </div>
+  <img class="atlas-orn" src="assets/museum/haeckel-circopus.webp" alt="" width="600" height="600" loading="lazy" decoding="async">
+</section>
+
+<!-- ============================ DRAWER ============================ -->
+<section class="drawer-sec" aria-labelledby="drawer-h">
+  <div class="drawer-top">
+    <div class="drawer-head" data-settle>
+      <p class="mono kicker">Drawer V · Retired</p>
+      <h2 id="drawer-h">The drawer <em>kept, labelled, at rest.</em></h2>
+      <p class="lede">Earlier specimens, each one shipped. Rummage freely: the tags can be picked up and thrown.</p>
+    </div>
+    <figure class="drawer-print loupe">
+      <img src="assets/museum/haeckel-phaeodaria.webp" alt="Ernst Haeckel's colour plate of Phaeodaria: spiny, latticed single-celled organisms." width="1200" height="1734" loading="lazy" decoding="async">
+      <figcaption class="mono">Phaeodaria · E. Haeckel, Kunstformen der Natur</figcaption>
+    </figure>
+  </div>
+  <div class="drawer" id="drawer">
+    <ul class="tags" id="tags"></ul>
+  </div>
+</section>
+
+<!-- ============================ METHOD ============================ -->
+<section class="method" aria-labelledby="method-h">
+  <figure class="fig fig-a loupe" data-settle>
+    <img src="assets/museum/haeckel-circogonia.webp" alt="Ernst Haeckel's engraving of Circogonia icosahedra: a lattice sphere with six forked spines." width="1200" height="1331" loading="lazy" decoding="async">
+    <figcaption class="mono"><b>Fig. 1</b> Circogonia icosahedra. Ernst Haeckel, 1887.</figcaption>
+  </figure>
+  <div class="method-text" data-settle>
+    <p class="mono kicker">Method</p>
+    <h2 id="method-h">Small parts, <em>put together with care.</em></h2>
+    <p>The organism at the top of this page is Haeckel’s plate, rebuilt from nothing but cylinders and spheres in three.js, photographed over forty exposures and lit by wherever the sun over Oslo is right now.</p>
+    <p>It is the same method as the products: a few well-chosen primitives, assembled precisely, kept running long after launch.</p>
+    <img class="since" src="assets/stickers/since-2016.svg" alt="On Google Play since 2016" width="200" height="120" loading="lazy">
+  </div>
+  <figure class="fig fig-b loupe" data-settle>
+    <img src="assets/hero/specimen-macro.webp" srcset="assets/hero/specimen-macro.webp 1200w, assets/hero/specimen-macro@2x.webp 2400w" sizes="(max-width: 800px) 92vw, 42vw" alt="Close-up of the brass lattice, its magenta core out of focus." width="1200" height="800" loading="lazy" decoding="async">
+    <figcaption class="mono"><b>Fig. 2</b> Specimen No. 1, macro. Albretsen AS, 2026.</figcaption>
+  </figure>
+</section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot" aria-labelledby="foot-h">
+  <div class="foot-in">
+    <figure class="print">
+      <img src="assets/museum/bentley-snowflake-342.webp" alt="A snow crystal photographed by Wilson A. Bentley, plate number 342 handwritten on the print." width="1200" height="1000" loading="lazy" decoding="async">
+      <figcaption class="mono">Snow crystal No. 342 · W. A. Bentley</figcaption>
+    </figure>
+    <div class="foot-main">
+      <img class="foot-mark" src="assets/identity/logo-wordmark-cream.svg" alt="Albretsen AS" width="220" height="46">
+      <h2 id="foot-h" class="avail">Takes one outside engagement at a time.</h2>
+      <p class="mail"><a class="magnetic" href="mailto:asgeir@albretsen.no" id="mail">asgeir@albretsen.no</a></p>
+      <p class="mono foot-sun"><span data-daylight></span></p>
+    </div>
+    <img class="seal" src="assets/stickers/seal.svg" alt="" width="160" height="160" loading="lazy">
+  </div>
+  <p class="credits mono">Engravings: Ernst Haeckel, 1887, public domain. Snow crystals: Wilson A. Bentley, Smithsonian Institution Archives, CC0. Specimen No. 1: three.js primitives, Albretsen AS.</p>
+</footer>
+
+<noscript><style>.loupe-tool,.loupe-hint,.modes,.stack-hint{display:none}</style></noscript>
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds software at Albretsen AS. Eleven products dealt so far: two pay, one is being built, one is paused, seven folded. All of them face up.">
+<meta name="theme-color" content="#10081d">
+<meta property="og:title" content="Albretsen AS: every bet, face up">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<link rel="icon" href="assets/identity/favicon.svg">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Martian+Mono:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/sequence/wide/deal-000.webp" media="(min-aspect-ratio: 4/5)">
+<link rel="preload" as="image" href="assets/sequence/tall/deal-000.webp" media="(max-aspect-ratio: 4/5)">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-scrub");</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+</head>
+<body>
+<a class="skip" href="#hand">Skip to the products</a>
+
+<header class="bar" id="bar">
+  <a class="bar__brand" href="#top" aria-label="Albretsen AS, back to top"><img src="assets/identity/wordmark.svg" alt="Albretsen AS" width="979" height="120"></a>
+  <nav class="bar__nav" aria-label="Sections">
+    <a href="#hand">The hand</a>
+    <a href="#folded">Folded</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="bar__tools">
+    <button class="pill" id="sound" type="button" aria-pressed="false" title="Sound (M)"><span class="pill__dot" aria-hidden="true"></span>Sound <b>off</b></button>
+  </div>
+</header>
+
+<main>
+<!-- ============================================================ HERO: the deal, scrubbed -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__stage">
+    <picture class="hero__poster">
+      <source media="(prefers-reduced-motion: reduce) and (max-aspect-ratio: 4/5)" srcset="assets/hero/hero-tall.avif" type="image/avif">
+      <source media="(prefers-reduced-motion: reduce)" srcset="assets/hero/hero-deal.avif 2560w, assets/hero/hero-deal-1280.webp 1280w" sizes="100vw">
+      <source media="(max-aspect-ratio: 4/5)" srcset="assets/sequence/tall/deal-000.webp">
+      <img src="assets/sequence/wide/deal-000.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
+    </picture>
+    <canvas class="hero__canvas" id="scrub" aria-hidden="true"></canvas>
+    <div class="hero__shade" aria-hidden="true"></div>
+
+    <div class="hud" id="hud" aria-hidden="true">
+      <div class="hud__row"><span>Frame <b id="hud-frame">000</b> / <span id="hud-count">063</span></span><span class="hud__hint"><kbd class="hd-key" style="--key:var(--hd-ice)">J</kbd><kbd class="hd-key" style="--key:var(--hd-bubble)">K</kbd> step</span></div>
+      <div class="hud__ticks" id="hud-ticks"></div>
+      <p class="hud__note">Pre-rendered frames, not live. The live deck is further down.</p>
+    </div>
+
+    <img class="hero__sticker" src="assets/extras/sticker-no-bluff.svg" alt="" width="250" height="254">
+    <div class="hero__intro">
+      <p class="eyebrow"><img src="assets/extras/suit-signal.svg" alt="" width="18" height="18">Asgeir Albretsen · Albretsen AS · Norway</p>
+      <h1 id="hero-title">Every bet,<br><span class="hd-chrome">face&nbsp;up.</span></h1>
+      <p class="hero__lede">I build software and keep score in public. Eleven products dealt so far: <b>two pay</b>, one is being built, one is paused, <b>seven folded</b>. They all go on the table.</p>
+      <div class="hero__score" role="list" aria-label="The score">
+        <span role="listitem" class="chip chip--live">2 live</span>
+        <span role="listitem" class="chip chip--build">1 building</span>
+        <span role="listitem" class="chip chip--pause">1 paused</span>
+        <span role="listitem" class="chip chip--fold">7 folded</span>
+      </div>
+      <p class="hero__scroll" aria-hidden="true"><span class="hero__arrow"></span>Scroll to deal</p>
+    </div>
+
+  </div>
+
+  <div class="hero__beats">
+    <article class="beat beat--a" data-deal>
+      <header><span class="beat__idx">01</span><img src="assets/extras/suit-density.svg" alt="" width="20" height="20"><span>The deal</span></header>
+      <p>No highlight reel. Every product gets dealt, the losers too. Retired ones land face up, stamped <b class="stamp">FOLDED</b>.</p>
+    </article>
+
+    <article class="beat beat--b" data-deal>
+      <header><span class="beat__idx">02</span><img src="assets/extras/suit-echo.svg" alt="" width="20" height="20"><span>The numbers</span></header>
+      <p><b class="fig">$782</b> MRR. <b class="fig">113,000+</b> installs. <b class="fig">549</b> commits on one that is paused. What the cards say, nothing rounded up.</p>
+    </article>
+
+    <article class="beat beat--c" data-deal>
+      <header><span class="beat__idx">03</span><img src="assets/extras/suit-a.svg" alt="" width="20" height="20"><span>For your agent</span></header>
+      <div class="cmd">
+        <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button class="cmd__copy hd-echo" type="button" data-copy="#cmd" aria-label="Copy the command">Copy</button>
+      </div>
+      <p class="beat__small">Day job in software, Albretsen AS on the side, on Google Play since 2016.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================ THE HAND: products -->
+<section class="hand" id="hand" aria-labelledby="hand-title">
+  <div class="wrap hand__head">
+    <div>
+      <p class="eyebrow eyebrow--ink"><img src="assets/extras/suit-signal.svg" alt="" width="18" height="18">Section 01 · Products</p>
+      <h2 id="hand-title">The hand.<br><span>Two pay. Two don't yet.</span></h2>
+      <p class="lede">Each card shows the one number that matters for it, and nothing else. When a number is small, it stays small.</p>
+    </div>
+    <figure class="photo-card" data-tilt>
+      <picture>
+        <source srcset="assets/photo/echo-1960-candy.avif" type="image/avif">
+        <img src="assets/photo/echo-1960-candy.webp" alt="NASA's Project Echo balloon inflated inside a hangar, tinted lilac" width="1200" height="903" loading="lazy" decoding="async">
+      </picture>
+      <figcaption><b>Project Echo, 1960.</b> A balloon in orbit that relayed signals by reflecting them. Nothing added. Same rule here. <span>Photo: NASA</span></figcaption>
+    </figure>
+    <img class="orb" src="assets/extras/echo-orb.webp" alt="" width="800" height="831" loading="lazy" aria-hidden="true">
+  </div>
+
+  <!-- the four face-up cards -->
+  <div class="wrap">
+    <ol class="faceup" aria-label="Active products">
+      <li class="pcard" style="--accent:var(--hd-apple)">
+        <a class="pcard__shot" href="https://mcpemails.com" data-tilt aria-label="MCP Emails, mcpemails.com">
+          <picture><source srcset="assets/products/mcp-emails.avif" type="image/avif"><img src="assets/products/mcp-emails-600.webp" alt="" width="600" height="750" loading="lazy" decoding="async"></picture>
+        </a>
+        <div class="pcard__body">
+          <div class="pcard__top"><img class="pcard__logo" src="../_shared/products/mcp-emails/logo-mark.svg" alt="" width="28" height="28"><h3>MCP Emails</h3><span class="chip chip--live">Live</span></div>
+          <p class="pcard__fig"><b>$782</b> MRR</p>
+          <p class="pcard__line">Email for AI agents.</p>
+          <ul class="pcard__facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+          <p class="pcard__meta">Since 2026 · <a href="https://mcpemails.com">mcpemails.com</a></p>
+        </div>
+      </li>
+      <li class="pcard" style="--accent:var(--hd-lemon)">
+        <a class="pcard__shot" href="https://funlibs.app" data-tilt aria-label="Fun Libs, funlibs.app">
+          <picture><source srcset="assets/products/fun-libs.avif" type="image/avif"><img src="assets/products/fun-libs-600.webp" alt="" width="600" height="750" loading="lazy" decoding="async"></picture>
+        </a>
+        <div class="pcard__body">
+          <div class="pcard__top"><img class="pcard__logo pcard__logo--round" src="../_shared/products/fun-libs/icon.png" alt="" width="28" height="28"><h3>Fun Libs</h3><span class="chip chip--live">Live</span></div>
+          <p class="pcard__fig"><b>113,000+</b> installs</p>
+          <p class="pcard__line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <ul class="pcard__facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+          <p class="pcard__meta">Since 2019 · <a href="https://funlibs.app">funlibs.app</a></p>
+        </div>
+      </li>
+      <li class="pcard" style="--accent:var(--hd-ice)">
+        <a class="pcard__shot" href="https://toolrails.com" data-tilt aria-label="Toolrails, toolrails.com">
+          <picture><source srcset="assets/products/toolrails.avif" type="image/avif"><img src="assets/products/toolrails-600.webp" alt="" width="600" height="750" loading="lazy" decoding="async"></picture>
+        </a>
+        <div class="pcard__body">
+          <div class="pcard__top"><img class="pcard__logo" src="../_shared/products/toolrails/icon.svg" alt="" width="28" height="28"><h3>Toolrails</h3><span class="chip chip--build">Building</span></div>
+          <p class="pcard__fig"><b>4</b> connectors</p>
+          <p class="pcard__line">One MCP URL that gives an agent every tool.</p>
+          <ul class="pcard__facts"><li>tool search</li><li>injection guard</li></ul>
+          <p class="pcard__meta">Since 2026 · <a href="https://toolrails.com">toolrails.com</a></p>
+        </div>
+      </li>
+      <li class="pcard pcard--dark" style="--accent:var(--hd-lilac)">
+        <a class="pcard__shot" href="https://harborknowledge.com" data-tilt aria-label="Harbor, harborknowledge.com">
+          <picture><source srcset="assets/products/harbor.avif" type="image/avif"><img src="assets/products/harbor-600.webp" alt="" width="600" height="750" loading="lazy" decoding="async"></picture>
+        </a>
+        <div class="pcard__body">
+          <div class="pcard__top"><span class="pcard__logo pcard__logo--harbor" aria-hidden="true"><i></i></span><h3>Harbor</h3><span class="chip chip--pause">Paused</span></div>
+          <p class="pcard__fig"><b>549</b> commits</p>
+          <p class="pcard__line">A private knowledge base shared by people and AI.</p>
+          <ul class="pcard__facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+          <p class="pcard__meta">Since 2026 · <a href="https://harborknowledge.com">harborknowledge.com</a></p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- the live table -->
+  <div class="wrap table" id="table">
+    <div class="table__frame">
+      <img class="table__poster" src="assets/hero/hero-airborne-1280.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+      <canvas id="deck" class="table__canvas" tabindex="-1" aria-label="A live three.js deck of the product cards. D deals, S shuffles, F folds. Press ? for all keys."></canvas>
+      <div class="table__tag"><span class="live-dot" aria-hidden="true"></span>Live, built from primitives in three.js</div>
+      <div class="table__info" id="deck-info" aria-live="polite">Hover a card.</div>
+      <div class="table__keys" role="group" aria-label="Deck controls">
+        <button class="hd-key hd-echo" type="button" data-deck="deal" style="--key:var(--hd-apple)" aria-label="Deal (D)">D<span>deal</span></button>
+        <button class="hd-key hd-echo" type="button" data-deck="shuffle" style="--key:var(--hd-bubble)" aria-label="Shuffle (S)">S<span>shuffle</span></button>
+        <button class="hd-key hd-echo" type="button" data-deck="fold" style="--key:var(--hd-tang)" aria-label="Fold (F)">F<span>fold</span></button>
+      </div>
+    </div>
+    <aside class="talk" aria-labelledby="talk-title">
+      <header><h3 id="talk-title">Table talk</h3><span class="live-dot" aria-hidden="true"></span></header>
+      <p class="talk__sub">What the live ones are doing right now.</p>
+      <ol class="talk__list" id="talk" aria-live="off"></ol>
+    </aside>
+  </div>
+
+  <!-- the folded pile -->
+  <div class="wrap folded" id="folded" aria-labelledby="folded-title">
+    <div class="folded__head">
+      <p class="eyebrow eyebrow--ink"><img src="assets/extras/suit-a.svg" alt="" width="18" height="18">Section 01b · Retired</p>
+      <h2 id="folded-title">The folded pile.</h2>
+      <p class="lede">Seven products that did not make it. Kept on the table on purpose: the record is the record. Drag them around. Tab to one and press Enter to read it.</p>
+    </div>
+    <div class="pile-wrap">
+      <div class="felt" id="felt">
+        <button class="fcard" type="button" data-name="Luma" data-since="2026" data-fig="378 commits" data-line="Norwegian budgeting app with open banking.">
+          <span class="fcard__luma"><img src="../_shared/products/luma/logo.png" alt="" width="782" height="217" draggable="false"><span><b>Luma</b>open-banking budgets<br><em>since 2026</em></span><img class="fcard__stamp" src="assets/extras/sticker-folded.svg" alt="" width="280" height="110" draggable="false"></span>
+          <span class="sr">Luma, 2026, folded. Norwegian budgeting app with open banking. 378 commits.</span>
+        </button>
+        <button class="fcard" type="button" data-name="Polyglot Pilot" data-since="2025" data-line="Agents that localised entire codebases, with a dashboard for human reviewers.">
+          <img src="assets/retired/polyglot-pilot.svg" alt="" width="300" height="420" draggable="false"><span class="sr">Polyglot Pilot, 2025, folded. Agents that localised entire codebases, with a dashboard for human reviewers.</span>
+        </button>
+        <button class="fcard" type="button" data-name="PinPoint" data-since="2025" data-fig="16 commits" data-line="GeoGuessr with your own photos: friends guess where your pictures were taken.">
+          <img src="assets/retired/pinpoint.svg" alt="" width="300" height="420" draggable="false"><span class="sr">PinPoint, 2025, folded. GeoGuessr with your own photos. 16 commits.</span>
+        </button>
+        <button class="fcard" type="button" data-name="WebVakt" data-since="2024" data-line="Website change monitoring.">
+          <img src="assets/retired/webvakt.svg" alt="" width="300" height="420" draggable="false"><span class="sr">WebVakt, 2024, folded. Website change monitoring.</span>
+        </button>
+        <button class="fcard" type="button" data-name="Daily Jokes / Joke Central" data-since="2024" data-line="Joke apps for iOS and Android.">
+          <img src="assets/retired/joke-central.svg" alt="" width="300" height="420" draggable="false"><span class="sr">Daily Jokes and Joke Central, 2024, folded. Joke apps for iOS and Android.</span>
+        </button>
+        <button class="fcard" type="button" data-name="Tryggere Hyring" data-since="2023" data-line="Background checks for hiring.">
+          <img src="assets/retired/tryggere-hyring.svg" alt="" width="300" height="420" draggable="false"><span class="sr">Tryggere Hyring, 2023, folded. Background checks for hiring.</span>
+        </button>
+        <button class="fcard" type="button" data-name="IAGO HMS, Rentekalkulator, Prosentkalkulator" data-since="2021" data-line="Early apps.">
+          <img src="assets/retired/early-apps.svg" alt="" width="300" height="420" draggable="false"><span class="sr">IAGO HMS, Rentekalkulator and Prosentkalkulator, 2021, folded. Early apps.</span>
+        </button>
+      </div>
+      <aside class="pickup" id="pickup" aria-live="polite">
+        <img src="assets/extras/card-back.svg" alt="" width="300" height="420" class="pickup__back">
+        <div class="pickup__text">
+          <p class="pickup__label">Picked up</p>
+          <h3 id="pickup-name">Nothing yet</h3>
+          <p id="pickup-line">Grab a card from the pile.</p>
+          <p class="pickup__meta" id="pickup-meta"></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot" id="contact">
+  <div class="wrap foot__grid">
+    <figure class="foot__photo">
+      <picture><source srcset="assets/photo/holmdel-horn-candy.avif" type="image/avif"><img src="assets/photo/holmdel-horn-candy.webp" alt="The Holmdel horn antenna in New Jersey, tinted green and pink" width="1200" height="944" loading="lazy" decoding="async"></picture>
+      <figcaption>Holmdel horn antenna, built to catch Echo's bounce. Photo: NASA.</figcaption>
+    </figure>
+    <div class="foot__text">
+      <div class="foot__badges"><img class="foot__mark" src="assets/identity/mark.svg" alt="" width="100" height="100">
+        <img class="foot__sticker" src="assets/extras/sticker-since-2016.svg" alt="On Google Play since 2016" width="248" height="252" loading="lazy">
+      </div>
+      <p class="foot__avail">Takes one outside engagement at a time.</p>
+      <a class="foot__mail hd-echo" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+      <p class="foot__small">Albretsen AS · Norway · albretsen.no</p>
+    </div>
+  </div>
+  <div class="wrap foot__credits">
+    <span>Photos: NASA, public domain, via Wikimedia Commons.</span>
+    <span>Scene: three.js, primitives only. Motion: motion.dev.</span>
+    <span>Press <kbd class="hd-key" style="--key:var(--hd-lemon)">?</kbd> for the house rules.</span>
+  </div>
+</footer>
+
+<script type="module" src="site.js"></script>
+</body>
+</html>

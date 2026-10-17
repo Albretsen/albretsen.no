@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Tryggere Hyring (retired)">
+<title>Tryggere Hyring</title>
+<rect width="400" height="400" rx="20" fill="#1a1918"/>
+<rect x="12.5" y="12.5" width="375" height="375" rx="12" fill="none" stroke="#2c2a29"/>
+<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(200 205) scale(1)" d="M0 -80 L64 -56 V0 C64 44 34 70 0 84 C-34 70 -64 44 -64 0 V-56 Z" stroke="#dcdad7" stroke-width="3.00" opacity="1.00"/><path transform="translate(200 205) scale(0.74)" d="M0 -80 L64 -56 V0 C64 44 34 70 0 84 C-34 70 -64 44 -64 0 V-56 Z" stroke="#8d8a86" stroke-width="4.05" opacity="0.38"/><path transform="translate(200 205) scale(0.5)" d="M0 -80 L64 -56 V0 C64 44 34 70 0 84 C-34 70 -64 44 -64 0 V-56 Z" stroke="#8d8a86" stroke-width="6.00" opacity="0.26"/><path transform="translate(200 205) scale(0.28)" d="M0 -80 L64 -56 V0 C64 44 34 70 0 84 C-34 70 -64 44 -64 0 V-56 Z" stroke="#8d8a86" stroke-width="10.71" opacity="0.14"/></g>
+<g font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing=".06em" fill="#8d8a86">
+<text x="32" y="364">Tryggere Hyring</text><text x="368" y="48" text-anchor="end">2023</text>
+<text x="32" y="48" fill="#2c2a29">&#8212; retired</text></g>
+</svg>

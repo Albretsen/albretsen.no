@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tension Prism Kit</title>
+<meta name="description" content="Asset kit for design 34 of albretsen.no: glass, refraction and a wordmark made of a thousand facets.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  :root {
+    --ink: #060807; --ink-2: #0b120e; --ink-3: #121c16;
+    --paper: #f4fff8; --mute: rgb(244 255 248 / .58); --line: rgb(244 255 248 / .12);
+    --mint: #39fd9e; --mint-deep: #0d8750;
+    --display: 'Anybody', 'Arial Black', sans-serif;
+    --sans: 'Geist', system-ui, sans-serif;
+    --mono: 'Geist Mono', ui-monospace, monospace;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ink); }
+  body { margin: 0; background: var(--ink); color: var(--paper); font: 400 16px/1.55 var(--sans); overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  ::selection { background: var(--mint); color: var(--ink); }
+  .wrap { width: min(1360px, 100% - 32px); margin-inline: auto; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .mute { color: var(--mute); }
+  .mint { color: var(--mint); }
+
+  /* ── top bar ───────────────────────────── */
+  .bar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 14px 16px; backdrop-filter: blur(14px) saturate(1.3); background: rgb(6 8 7 / .66); border-bottom: 1px solid var(--line); }
+  .bar .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .bar .brand img { width: 26px; }
+  .bar nav { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+  .bar nav a { text-decoration: none; color: var(--mute); }
+  .bar nav a:hover { color: var(--mint); }
+  @media (max-width: 760px) { .bar nav { display: none; } .bar .kit { display: none; } }
+
+  /* ── hero ──────────────────────────────── */
+  .hero { position: relative; min-height: min(100svh, 980px); display: grid; align-content: center; overflow: hidden; isolation: isolate; padding: 72px 0 56px; }
+  .hero picture, .hero picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(90% 70% at 50% 45%, rgb(6 8 7 / .35), rgb(6 8 7 / .92) 75%), linear-gradient(transparent 60%, var(--ink)); }
+  .hero .kicker { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  #wordmark { width: 100%; }
+  .hero .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+  .chip { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--paper); background: rgb(6 8 7 / .55);
+    border: 1px solid var(--line); padding: 10px 14px; border-radius: 999px; backdrop-filter: blur(8px); }
+  .chip:hover, .chip[aria-pressed="true"] { border-color: var(--mint); color: var(--mint); }
+  .hero .line { font: 300 clamp(22px, 3vw, 40px)/1.15 var(--sans); letter-spacing: -.015em; margin: 36px 0 0; max-width: 18em; }
+  .hero .line b { font-weight: 600; color: var(--mint); }
+
+  /* ── sections ──────────────────────────── */
+  section.s { padding: clamp(72px, 10vw, 140px) 0; border-top: 1px solid var(--line); position: relative; }
+  .s-head { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: baseline; margin-bottom: 48px; }
+  .s-head .n { font: 800 14px/1 var(--mono); color: var(--mint); letter-spacing: .1em; }
+  .s-head h2 { margin: 0; font: 900 clamp(40px, 7vw, 104px)/.9 var(--display); font-variation-settings: "wdth" var(--w, 125); letter-spacing: -.02em; text-transform: uppercase;
+    transition: font-variation-settings .7s var(--ts-ease-tension); }
+  .s-head h2:hover { --w: 150; }
+  .s-head p { grid-column: 2; margin: 14px 0 0; max-width: 62ch; color: var(--mute); }
+  @media (max-width: 760px) { .s-head { grid-template-columns: 1fr; } .s-head p { grid-column: 1; } }
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .g6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  @media (max-width: 960px) { .g3, .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .g6 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } .g6 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .card { background: var(--ink-2); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; position: relative; }
+  .card .pad { padding: 20px; }
+  .cap { display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; border-top: 1px solid var(--line); align-items: baseline; flex-wrap: wrap; }
+  .cap b { font-weight: 600; }
+  .cap code { font: 500 11px/1.3 var(--mono); color: var(--mute); word-break: break-all; }
+  .stage { display: grid; place-items: center; padding: 40px; min-height: 280px; }
+  .span2 { grid-column: span 2; } .span3 { grid-column: span 3; } .span4 { grid-column: 1 / -1; }
+  @media (max-width: 560px) { .span2, .span3 { grid-column: auto; } }
+
+  /* identity */
+  .id-mark { background: radial-gradient(70% 70% at 50% 40%, var(--ink-3), var(--ink)); }
+  .id-mint { background: var(--mint); color: var(--ink); }
+  .id-paper { background: var(--paper); color: var(--ink); }
+  .fav-row { display: flex; align-items: end; gap: 22px; flex-wrap: wrap; }
+  .fav-row img { image-rendering: auto; }
+
+  /* palette */
+  .sw { border-radius: 18px; padding: 18px; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); }
+  .sw h3 { margin: 0; font: 900 28px/1 var(--display); font-stretch: 125%; text-transform: uppercase; }
+  .sw .v { font: 500 12px/1.6 var(--mono); }
+
+  /* type */
+  .spec { padding: 28px; }
+  .spec .big { font: 900 clamp(64px, 12vw, 200px)/.85 var(--display); letter-spacing: -.03em; text-transform: uppercase; font-variation-settings: "wdth" var(--w, 125);
+    transition: font-variation-settings .8s var(--ts-ease-tension); }
+  .spec:hover .big { --w: 50; }
+  .spec .row { display: flex; gap: 24px; flex-wrap: wrap; align-items: baseline; border-top: 1px solid var(--line); padding-top: 14px; margin-top: 18px; }
+  .t-sans { font: 300 clamp(26px, 3.4vw, 46px)/1.1 var(--sans); letter-spacing: -.02em; }
+  .t-mono { font: 400 15px/1.6 var(--mono); }
+
+  /* imagery */
+  .img-hero { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+  .img-sq { aspect-ratio: 1; object-fit: cover; width: 100%; }
+  .img-wide { aspect-ratio: 16 / 7; object-fit: cover; width: 100%; }
+
+  /* products */
+  .prod img { aspect-ratio: 16 / 10; object-fit: cover; width: 100%; transition: transform 1.2s var(--ts-ease-out); }
+  .prod:hover img { transform: scale(1.04); }
+  .prod .meta { padding: 18px; display: grid; gap: 6px; }
+  .prod .meta h3 { margin: 0; font: 900 30px/1 var(--display); font-stretch: 125%; text-transform: uppercase; }
+  .prod .fig { font: 900 44px/1 var(--display); color: var(--mint); font-stretch: 110%; }
+  .prod .facts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .prod .facts span { font: 500 11px/1 var(--mono); letter-spacing: .08em; border: 1px solid var(--line); border-radius: 999px; padding: 6px 9px; color: var(--mute); }
+  .status { font: 600 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; background: var(--mint); color: var(--ink); justify-self: start; }
+  .status.paused, .status.building { background: transparent; color: var(--mint); border: 1px solid var(--mint); }
+  .retired .card { background: var(--ink); }
+  .retired .card img { width: 100%; aspect-ratio: 1; }
+  .luma-tile { aspect-ratio: 1; display: grid; place-items: center; background: #F4EFE6; padding: 22%; }
+
+  /* extras */
+  .pattern { min-height: 320px; background: url(extras/pattern-lattice.svg) 0 0 / 320px auto; }
+  .frost { min-height: 320px; background: url(texture/frost-cells.webp) 0 0 / 512px; animation: drift 40s linear infinite; }
+  @keyframes drift { to { background-position: 512px 512px; } }
+  .stickers { position: relative; min-height: 520px; background: var(--ink-2) url(extras/pattern-lattice.svg) 0 0 / 240px; overflow: hidden; }
+  .stickers img { position: absolute; filter: drop-shadow(0 18px 30px rgb(0 0 0 / .6)); transition: transform .5s var(--ts-ease-spring); }
+  .stickers img:hover { transform: rotate(0deg) scale(1.06) !important; }
+  .lens-demo { position: relative; min-height: 360px; background: url(photo/prism-mint.webp) center / cover; display: grid; place-items: center; }
+  .lens { width: min(380px, 80%); aspect-ratio: 1.4; border-radius: 26px; backdrop-filter: url(#ts-refract-strong) saturate(1.6) brightness(1.15);
+    -webkit-backdrop-filter: blur(6px); border: 1px solid rgb(255 255 255 / .3); box-shadow: inset 0 1px 0 rgb(255 255 255 / .5), 0 40px 80px -30px #000; display: grid; place-items: center; }
+
+  /* 3d */
+  #crystal { height: min(78vh, 760px); min-height: 420px; position: relative; }
+  #crystal .hint { position: absolute; left: 18px; bottom: 16px; z-index: 2; }
+
+  /* motion lab */
+  .lab { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+  @media (max-width: 960px) { .lab { grid-template-columns: 1fr; } }
+  .lab .card { padding: 22px; }
+  .lab h3 { margin: 0 0 4px; font: 800 20px/1.1 var(--display); font-stretch: 120%; text-transform: uppercase; }
+  .lab .what { margin: 0 0 18px; color: var(--mute); font-size: 14px; }
+  .ts-acc-trigger { all: unset; display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); font: 500 16px/1.2 var(--sans); }
+  .ts-acc-trigger:focus-visible { outline: 2px solid var(--mint); outline-offset: 4px; }
+  .ts-chev { width: 12px; height: 12px; }
+  .ts-acc-content > div { padding: 12px 0 18px; color: var(--mute); font-size: 14px; }
+  .ts-tabs-list { display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
+  .ts-tabs-list [role=tab] { all: unset; padding: 10px 12px; font: 600 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
+  .ts-tabs-list [role=tab][data-state=active] { color: var(--paper); }
+  [role=tabpanel] { padding: 18px 0 0; }
+  [role=tabpanel] .fig { font: 900 56px/1 var(--display); color: var(--mint); font-stretch: 115%; }
+  .btn { all: unset; display: inline-flex; gap: 10px; align-items: center; padding: 12px 18px; border-radius: 999px; border: 1px solid var(--mint); color: var(--mint); font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .btn:hover { background: var(--mint); color: var(--ink); }
+  .btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
+  .ts-tooltip { font: 500 12px/1.3 var(--mono); background: var(--mint); color: var(--ink); padding: 8px 10px; border-radius: 6px; max-width: 240px; }
+  .ts-hovercard { width: 300px; border-radius: 18px; padding: 16px; color: var(--paper); background-color: rgb(11 18 14 / .55); }
+  .ts-hovercard img { border-radius: 10px; margin-bottom: 10px; }
+  .ts-dialog .inner { border-radius: 24px; padding: 28px; background: rgb(11 18 14 / .72); }
+  .ts-dialog h3 { margin: 0 0 8px; font: 900 34px/1 var(--display); font-stretch: 125%; text-transform: uppercase; }
+  .entr { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .entr div { aspect-ratio: 1; border-radius: 12px; background: var(--ink-3) center / cover; border: 1px solid var(--line); }
+  .dispo { font: 900 clamp(34px, 4vw, 58px)/1 var(--display); font-stretch: 130%; text-transform: uppercase; display: inline-block; }
+  .sheen-card { padding: 22px; border-radius: 18px; min-height: 160px; display: grid; align-content: end; }
+
+  .inv { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .inv td, .inv th { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
+  .inv th { font: 600 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+  .inv td:first-child { font: 500 12px/1.4 var(--mono); color: var(--mint); white-space: nowrap; }
+  .scroll-x { overflow-x: auto; }
+  footer { padding: 80px 0 120px; border-top: 1px solid var(--line); }
+  footer img { width: min(900px, 100%); opacity: .9; }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="#top"><img src="identity/mark.svg" alt=""><span class="mono">Albretsen AS<span class="kit"> · Kit 34 · Tension Prism</span></span></a>
+  <nav class="mono">
+    <a href="#identity">Identity</a><a href="#palette">Palette</a><a href="#type">Type</a><a href="#imagery">Imagery</a>
+    <a href="#products">Products</a><a href="#extras">Extras</a><a href="#crystal-s">3D</a><a href="#motion">Motion</a><a href="#inventory">Inventory</a>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO: live centrepiece -->
+  <section class="hero">
+    <picture>
+      <source type="image/avif" srcset="hero/shards@2x.avif 2880w" sizes="100vw">
+      <img src="hero/shards.webp" srcset="hero/shards.webp 1440w, hero/shards@2x.webp 2880w" sizes="100vw" alt="">
+    </picture>
+    <div class="wrap">
+      <div class="kicker mono"><span class="mint">▲ Centrepiece · prism-wordmark.js</span><span class="mute">Move over it · click to burst · chips morph</span></div>
+      <div id="wordmark" aria-label="Albretsen"></div>
+      <div class="chips" id="chips"></div>
+      <p class="line">I build software that <b>pays for itself.</b></p>
+    </div>
+  </section>
+
+  <!-- 01 IDENTITY -->
+  <section class="s" id="identity">
+    <div class="wrap">
+      <div class="s-head"><span class="n">01</span><div><h2>Identity</h2><p>The Prism A: a five-row crystal lattice with the counter and the leg gap knocked out. Light enters at the apex (mint) and exits through two facets on the right, a ray through the prism. The wordmark is ALBRETSEN set in Anybody Black Expanded and re-cut onto the same lattice, 1,900 facets.</p></div></div>
+      <div class="grid g3">
+        <div class="card id-mark ts-crystallize" style="--i:0"><div class="stage"><img src="identity/mark.svg" alt="Prism A mark" style="width:min(260px,70%)"></div><div class="cap"><b>Mark, facets</b><code>identity/mark.svg</code></div></div>
+        <div class="card id-mint ts-crystallize" style="--i:1"><div class="stage" style="color:var(--ink)"><img src="identity/mark-solid.svg" alt="" style="width:min(240px,64%);filter:brightness(0)"></div><div class="cap" style="border-color:rgb(6 8 7/.2)"><b>Mark, solid (currentColor)</b><code style="color:var(--ink)">identity/mark-solid.svg</code></div></div>
+        <div class="card ts-crystallize" style="--i:2"><div class="stage"><div class="fav-row"><img src="identity/favicon.svg" width="128" height="128" alt="Favicon"><img src="identity/apple-touch-icon-180.png" width="64" height="64" alt=""><img src="identity/favicon-small.svg" width="32" height="32" alt=""><img src="identity/favicon-small.svg" width="16" height="16" alt=""></div></div><div class="cap"><b>Favicon · 128 / 64 / 32 / 16</b><code>favicon.svg (≥48px) · favicon-small.svg + favicon-32.png (16/32) · apple-touch-icon-180.png</code></div></div>
+        <div class="card span3 id-mark ts-crystallize" style="--i:3"><div class="stage" style="padding:56px 32px"><img src="identity/wordmark-facets.svg" alt="ALBRETSEN wordmark" style="width:100%"></div><div class="cap"><b>Wordmark, facets (beam through the T and S)</b><code>identity/wordmark-facets.svg</code></div></div>
+        <div class="card span2 id-paper ts-crystallize" style="--i:4"><div class="stage" style="padding:56px 32px;color:var(--ink)"><img src="identity/wordmark-solid.svg" alt="" style="width:100%;filter:brightness(0)"></div><div class="cap" style="border-color:rgb(6 8 7/.15)"><b>Wordmark, solid (currentColor, for small sizes)</b><code style="color:var(--ink)">identity/wordmark-solid.svg</code></div></div>
+        <div class="card ts-crystallize" style="--i:5"><img src="identity/og-image.jpg" alt="Open Graph image" style="aspect-ratio:1200/630;width:100%"><div class="cap"><b>Open Graph 1200×630</b><code>identity/og-image.jpg</code></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PALETTE -->
+  <section class="s" id="palette">
+    <div class="wrap">
+      <div class="s-head"><span class="n">02</span><div><h2>Palette</h2><p>Black, white and one primary at hue 156° in OKLCH. Every photograph is graded into these three: neutral tones ramp ink to white, every saturated colour collapses into mint, so a rainbow becomes one beam.</p></div></div>
+      <div class="grid g4">
+        <div class="sw" style="background:var(--ink)"><h3>Ink</h3><div class="v">#060807<br>oklch(0.12 0.005 156)<br>backgrounds</div></div>
+        <div class="sw" style="background:var(--ink-3)"><h3>Ink 3</h3><div class="v">#121C16<br>oklch(0.21 0.02 156)<br>raised surfaces</div></div>
+        <div class="sw" style="background:var(--paper);color:var(--ink)"><h3>Paper</h3><div class="v">#F4FFF8<br>oklch(0.99 0.015 156)<br>type, light facets</div></div>
+        <div class="sw" style="background:var(--mint);color:var(--ink)"><h3>Mint</h3><div class="v">#39FD9E<br>oklch(0.88 0.20 156)<br>the beam · one per view</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 TYPE -->
+  <section class="s" id="type">
+    <div class="wrap">
+      <div class="s-head"><span class="n">03</span><div><h2>Type</h2><p>Anybody (variable width 50–150) carries the tension: headlines stretch and compress on interaction. Geist for reading, Geist Mono for labels and the terminal voice. All from Google Fonts, OFL.</p></div></div>
+      <div class="card spec"><div class="mono mint">Anybody · 900 · wdth 125 → 50 on hover</div><div class="big">Prism&nbsp;Tension</div>
+        <div class="row"><span class="t-sans">Geist 300. Software that pays for itself, shipped since 2016.</span></div>
+        <div class="row"><span class="t-mono">Geist Mono 400 — claude mcp add albretsen https://albretsen.no/mcp</span></div></div>
+    </div>
+  </section>
+
+  <!-- 04 IMAGERY -->
+  <section class="s" id="imagery">
+    <div class="wrap">
+      <div class="s-head"><span class="n">04</span><div><h2>Imagery</h2><p>Two hero renders made in three.js with physically based glass (transmission, dispersion), lit by a CC0 Poly Haven studio HDRI, plus two CC0 Wikimedia Commons photographs graded into the palette.</p></div></div>
+      <div class="grid g2">
+        <div class="card span2 ts-crystallize"><picture><source type="image/avif" srcset="hero/crystal-a@2x.avif"><img class="img-hero" src="hero/crystal-a.webp" srcset="hero/crystal-a.webp 1440w, hero/crystal-a@2x.webp 2880w" sizes="(max-width:1360px) 100vw, 1360px" alt="The Prism A mark built from glass prisms, a mint ray leaving it"></picture><div class="cap"><b>Crystal A — hero render</b><code>hero/crystal-a(@2x).webp · @2x.avif</code></div></div>
+        <div class="card span2 ts-crystallize"><picture><source type="image/avif" srcset="hero/shards@2x.avif"><img class="img-hero" src="hero/shards.webp" srcset="hero/shards.webp 1440w, hero/shards@2x.webp 2880w" sizes="(max-width:1360px) 100vw, 1360px" alt="Glass triangles bursting apart in front of a slatted light"></picture><div class="cap"><b>Burst — hero background render</b><code>hero/shards(@2x).webp · @2x.avif</code></div></div>
+        <div class="card ts-crystallize" style="grid-row: span 2"><img src="hero/crystal-a-portrait.webp" srcset="hero/crystal-a-portrait.webp 780w, hero/crystal-a-portrait@3x.webp 1170w" sizes="(max-width:560px) 100vw, 680px" alt="Crystal A, portrait framing with the incoming white ray" style="width:100%;aspect-ratio:1170/2100;object-fit:cover"><div class="cap"><b>Crystal A — portrait (phone hero)</b><code>hero/crystal-a-portrait(@3x).webp</code></div></div>
+        <div class="card ts-crystallize"><img class="img-sq" src="photo/prism-mint.webp" srcset="photo/prism-mint.webp 1000w, photo/prism-mint@2x.webp 2000w" sizes="(max-width:560px) 100vw, 680px" alt="A glass prism splitting a beam of light into one mint band"><div class="cap"><b>Prism, graded (CC0, Kelvinsong)</b><code>photo/prism-mint(@2x).webp</code></div></div>
+        <div class="card ts-crystallize"><img class="img-sq" src="photo/crystal-macro.webp" srcset="photo/crystal-macro.webp 1200w, photo/crystal-macro@2x.webp 2400w" sizes="(max-width:560px) 100vw, 680px" alt="Macro of ice crystals glittering"><div class="cap"><b>Crystal macro, graded (CC0, W.carter)</b><code>photo/crystal-macro(@2x).webp</code></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 PRODUCTS -->
+  <section class="s" id="products">
+    <div class="wrap">
+      <div class="s-head"><span class="n">05</span><div><h2>Products</h2><p>Each live product's real app icon, untouched, rendered as a tile on black glass with a glass prism beside it bending the light box behind. The faces are unlit and not tone-mapped, so the logos keep their true colours.</p></div></div>
+      <div class="grid g2" id="prodGrid"></div>
+      <h3 class="mono mute" style="margin:56px 0 16px">Retired · lattice-glyph stand-ins (Luma keeps its real logo)</h3>
+      <div class="grid g6 retired" id="retired"></div>
+    </div>
+  </section>
+
+  <!-- 06 EXTRAS -->
+  <section class="s" id="extras">
+    <div class="wrap">
+      <div class="s-head"><span class="n">06</span><div><h2>Extras</h2><p>Texture and life for the rest of the site: a tileable lattice, a frost-cell texture graded from ambientCG Ice002, four stickers, and a refracting lens that uses the Ice002 normal map as an SVG displacement map.</p></div></div>
+      <div class="grid g3">
+        <div class="card"><div class="pattern"></div><div class="cap"><b>Lattice pattern (tileable)</b><code>extras/pattern-lattice.svg</code></div></div>
+        <div class="card"><div class="frost"></div><div class="cap"><b>Frost cells (tileable)</b><code>texture/frost-cells.webp</code></div></div>
+        <div class="card"><div class="lens-demo"><div class="lens"><span class="mono">feDisplacementMap · Ice002</span></div></div><div class="cap"><b>Refraction lens</b><code>texture/ice-normal.webp → #ts-refract</code></div></div>
+        <div class="card span3 stickers">
+          <img src="extras/sticker-seal.svg" alt="Seal sticker" style="width:210px;left:6%;top:40px;transform:rotate(-12deg)">
+          <img src="extras/sticker-since-2016.svg" alt="On Google Play since 2016" style="width:230px;left:30%;top:150px;transform:rotate(7deg)">
+          <img src="extras/sticker-installs.svg" alt="113,000+ Fun Libs installs" style="width:330px;right:6%;top:46px;transform:rotate(3deg)">
+          <img src="extras/sticker-mcp-command.svg" alt="MCP command" style="width:520px;right:8%;bottom:48px;transform:rotate(-3deg)">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 3D -->
+  <section class="s" id="crystal-s">
+    <div class="wrap">
+      <div class="s-head"><span class="n">07</span><div><h2>Crystal A, live</h2><p>prism-scene.js: 21 glass prisms with dispersion, lit by the shipped 17 KB studio environment. The pointer tilts the crystal; hovering raises the tension and the facets separate in depth. three.js loads lazily from a pinned CDN.</p></div></div>
+      <div class="card" id="crystal"><span class="hint mono mute">Move the pointer over the crystal</span></div>
+    </div>
+  </section>
+
+  <!-- 08 MOTION -->
+  <section class="s" id="motion">
+    <div class="wrap">
+      <div class="s-head"><span class="n">08</span><div><h2>Motion</h2><p>motion.css + motion.js: seven named animations keyed to Radix data-state attributes. Try each one. The cursor is prism-cursor.js: it disperses into a mint and a white ghost with speed and fills mint over targets.</p></div></div>
+      <div class="lab">
+        <div class="card">
+          <h3>ts-facet-fold</h3><p class="what">Accordion. Height via --radix-accordion-content-height, a clip that opens like a facet, the triangle chevron flips with overshoot.</p>
+          <div data-ts-accordion="single">
+            <div data-ts-item data-open><button class="ts-acc-trigger">What Albretsen AS builds <svg class="ts-chev" viewBox="0 0 12 12"><path d="M1 3h10L6 10z" fill="currentColor"/></svg></button><div class="ts-acc-content"><div>Apps, SaaS and AI-agent infrastructure. Whatever is profitable.</div></div></div>
+            <div data-ts-item><button class="ts-acc-trigger">Since when <svg class="ts-chev" viewBox="0 0 12 12"><path d="M1 3h10L6 10z" fill="currentColor"/></svg></button><div class="ts-acc-content"><div>On Google Play since 2016. Consulting since 2021. The company since 2026.</div></div></div>
+            <div data-ts-item><button class="ts-acc-trigger">Outside work <svg class="ts-chev" viewBox="0 0 12 12"><path d="M1 3h10L6 10z" fill="currentColor"/></svg></button><div class="ts-acc-content"><div>Takes one outside engagement at a time.</div></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>ts-beam</h3><p class="what">Tabs. The indicator is a beam under tension: it stretches toward the new tab and settles. Panels crystallize in.</p>
+          <div data-ts-tabs>
+            <div class="ts-tabs-list" role="tablist">
+              <button role="tab" aria-controls="tp1" data-default>MCP Emails</button><button role="tab" aria-controls="tp2">Fun Libs</button><button role="tab" aria-controls="tp3">Harbor</button>
+            </div>
+            <div role="tabpanel" id="tp1"><div class="fig">$782</div><div class="mono mute">MRR · 17 tools</div></div>
+            <div role="tabpanel" id="tp2"><div class="fig">113,000+</div><div class="mono mute">installs · built at 17</div></div>
+            <div role="tabpanel" id="tp3"><div class="fig">549</div><div class="mono mute">commits · paused</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>ts-prism-split</h3><p class="what">Dialog. Opens out of a triangular aperture; the overlay refracts the page through the Ice002 displacement map.</p>
+          <button class="btn" data-ts-dialog-open="#dlg" data-cursor="Open">Open dialog ▲</button>
+          <div id="dlg" class="ts-dialog" hidden><div class="inner ts-glass"><h3>Albretsen AS</h3><p class="mute">Software that pays for itself. Norway.</p><p class="mono">asgeir@albretsen.no</p><button class="btn" data-ts-dialog-close>Close</button></div></div>
+        </div>
+        <div class="card">
+          <h3>ts-facet-pop</h3><p class="what">Tooltip and hover card. Reveal from the arrow tip as a widening triangle. The hover card is a glass pane.</p>
+          <p style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn" data-ts-tooltip="AGPL. About 100 email providers.">Tooltip</button><button class="btn" data-ts-hovercard="#hc">Hover card</button></p>
+          <template id="hc"><img src="products/mcp-emails.webp" alt=""><b>MCP Emails</b><div class="mono mute" style="margin-top:6px">Email for AI agents · $782 MRR</div></template>
+        </div>
+        <div class="card">
+          <h3>ts-disperse</h3><p class="what">Hover. Type splits into a mint and a white ghost, like light through a prism, and snaps back.</p>
+          <a href="#motion" class="dispo ts-disperse" style="text-decoration:none">Hover me</a>
+        </div>
+        <div class="card">
+          <h3>ts-sheen + ts-crystallize</h3><p class="what">A facet of light slides across glass on hover. Below, tiles crystallize in on scroll (replay).</p>
+          <div class="sheen-card ts-glass"><span class="mono">Glass card · hover</span></div>
+          <div class="entr" id="entr" style="margin-top:12px"></div>
+          <button class="btn" id="replay" style="margin-top:12px">Replay entrance</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVENTORY -->
+  <section class="s" id="inventory">
+    <div class="wrap">
+      <div class="s-head"><span class="n">09</span><div><h2>Inventory</h2><p>Every file, its use and source. Full detail in ASSETS.md.</p></div></div>
+      <div class="scroll-x"><table class="inv" id="inv"><thead><tr><th>File</th><th>What</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><img src="identity/wordmark-facets.svg" alt="Albretsen"><p class="mono mute" style="margin-top:28px">albretsen.no · Norway · Kit 34 “Tension Prism”</p></div></footer>
+
+<script type="module">
+  import { content } from '../../_shared/content.js';
+  import { PrismWordmark } from './interactive/prism-wordmark.js';
+  import { initPrismCursor } from './interactive/prism-cursor.js';
+  import { initMotion, crystallize } from './motion.js';
+
+  // products from canonical content
+  const pg = document.getElementById('prodGrid');
+  for (const id of ['mcp-emails', 'fun-libs', 'toolrails', 'harbor']) {
+    const p = content.products.find((x) => x.id === id);
+    const el = document.createElement('article'); el.className = 'card prod ts-crystallize';
+    el.innerHTML = `<img src="products/${id}.webp" srcset="products/${id}.webp 1200w, products/${id}@2x.webp 2400w" sizes="(max-width:560px) 100vw, 680px" alt="${p.name} app icon beside a glass prism">
+      <div class="meta"><span class="status ${p.status}">${p.status}</span><h3>${p.name}</h3><div class="mute">${p.line}</div>
+      ${p.figure ? `<div><span class="fig">${p.figure.value}</span> <span class="mono mute">${p.figure.label}</span></div>` : ''}
+      <div class="facts">${(p.facts || []).map((f) => `<span>${f}</span>`).join('')}</div></div>
+      <div class="cap"><code>products/${id}(@2x).webp</code></div>`;
+    pg.append(el);
+  }
+  const rg = document.getElementById('retired');
+  const luma = content.products.find((x) => x.id === 'luma');
+  rg.insertAdjacentHTML('beforeend', `<div class="card" data-ts-tooltip="${luma.line}"><div class="luma-tile"><img src="../../_shared/products/luma/logo.png" alt="Luma logo"></div><div class="cap"><b>Luma</b><code>${luma.since} · real logo</code></div></div>`);
+  for (const [id, file] of [['polyglot-pilot', 'polyglot-pilot'], ['pinpoint', 'pinpoint'], ['webvakt', 'webvakt'], ['joke-central', 'joke-central'], ['tryggere-hyring', 'tryggere-hyring'], ['early-apps', 'early-apps']]) {
+    const p = content.products.find((x) => x.id === id);
+    rg.insertAdjacentHTML('beforeend', `<div class="card" data-ts-tooltip="${p.line}"><img src="retired/${file}.svg" alt="${p.name} stand-in"></div>`);
+  }
+  // entrance tiles
+  const entr = document.getElementById('entr');
+  ['hero/crystal-a.webp', 'photo/prism-mint.webp', 'texture/frost-cells.webp', 'photo/crystal-macro.webp', 'hero/shards.webp', 'products/toolrails.webp']
+    .forEach((src, i) => entr.insertAdjacentHTML('beforeend', `<div class="ts-crystallize" style="--i:${i};background-image:url(${src})"></div>`));
+  document.getElementById('replay').onclick = () => entr.querySelectorAll('.ts-crystallize').forEach((e) => { e.classList.remove('is-in'); void e.offsetWidth; e.classList.add('is-in'); });
+
+  initMotion(document);
+  initPrismCursor();
+
+  // hero centrepiece
+  const words = ['ALBRETSEN', 'MCP EMAILS', 'FUN LIBS', 'TOOLRAILS', 'HARBOR'];
+  const pw = await PrismWordmark.mount(document.getElementById('wordmark'), { words });
+  const chips = document.getElementById('chips');
+  words.forEach((w, i) => {
+    const b = document.createElement('button'); b.className = 'chip'; b.textContent = w; b.dataset.cursor = 'Morph';
+    b.setAttribute('aria-pressed', i === 0);
+    b.onclick = () => { pw.morphTo(w); chips.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', c === b)); };
+    chips.append(b);
+  });
+
+  // 3D, lazily
+  const crystalEl = document.getElementById('crystal');
+  const io = new IntersectionObserver(async ([e]) => {
+    if (!e.isIntersecting) return; io.disconnect();
+    const { mountPrismScene } = await import('./interactive/prism-scene.js');
+    const still = new URLSearchParams(location.search).has('still');
+    mountPrismScene(crystalEl, still ? { once: true, preserve: true } : {});
+  }, { rootMargin: '200px' });
+  if (new URLSearchParams(location.search).has('still')) {
+    // contact-sheet capture mode: mount now and render a single frame
+    import('./interactive/prism-scene.js').then(({ mountPrismScene }) => mountPrismScene(crystalEl, { once: true, preserve: true }));
+  } else io.observe(crystalEl);
+
+  // inventory (short form)
+  const inv = [
+    ['identity/mark.svg', 'Prism A mark, faceted', 'Generated (_build/mark.py)'],
+    ['identity/mark-solid.svg', 'Mark, single colour', 'Generated'],
+    ['identity/wordmark-facets.svg', 'Wordmark, 1,900 facets', 'Generated from Anybody 900 on a lattice'],
+    ['identity/wordmark-solid.svg', 'Wordmark, single colour', 'Generated'],
+    ['identity/favicon.svg / apple-touch-icon-180.png', 'Favicon', 'Generated, rsvg-convert'],
+    ['identity/og-image.jpg', 'Open Graph 1200×630', 'Composed + headless Chrome'],
+    ['hero/crystal-a*', 'Hero render: glass A', 'three.js r170 render, Poly Haven HDRI (CC0)'],
+    ['hero/shards*', 'Hero background: burst', 'three.js r170 render'],
+    ['photo/prism-mint*', 'Graded prism photograph', 'Wikimedia Commons, Kelvinsong, CC0'],
+    ['photo/crystal-macro*', 'Graded crystal macro', 'Wikimedia Commons, W.carter, CC0'],
+    ['products/*.webp', 'Product visuals (real icons)', 'three.js render of designs/_shared/products'],
+    ['retired/*.svg', 'Retired stand-ins', 'Generated (_build/extras.py)'],
+    ['extras/*.svg', 'Pattern + 4 stickers', 'Generated'],
+    ['texture/frost-cells.webp', 'Frost cells texture', 'ambientCG Ice002 (CC0), graded'],
+    ['texture/ice-normal.webp', 'Displacement map', 'ambientCG Ice002 NormalGL (CC0)'],
+    ['texture/studio-env-1k.webp', 'Environment map', 'Poly Haven Monochrome Studio 02 (CC0)'],
+    ['interactive/*.js', 'Wordmark, cursor, 3D scene', 'Hand-written, three.js 0.170.0 CDN'],
+    ['motion.css / motion.js', 'Seven named animations', 'Hand-written'],
+  ];
+  document.querySelector('#inv tbody').innerHTML = inv.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+  crystallize(document);
+  if (new URLSearchParams(location.search).has('still')) document.querySelectorAll('.ts-crystallize').forEach((e) => e.classList.add('is-in'));
+</script>
+</body>
+</html>

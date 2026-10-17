@@ -1,0 +1,20 @@
+{
+  "name": "Uranographia",
+  "tagline": "A star atlas of working software: every product is a constellation drawn from its own number.",
+  "summary": "The site is a 19th-century star atlas rendered with modern data craft. MCP Emails is 17 stars for 17 tools, Fun Libs carries 113 cluster stars for 113,000 installs, Toolrails has 4 bright feeders for 4 connectors and Harbor holds 549 grains of dust for 549 commits; retired products stay on the rim as constellationes obsoletae. Every live event from the products falls into its constellation as a meteor, so the sky visibly grows while you read and says 'prolific and exact' without claiming it.",
+  "palette": ["#0b090c", "#141215", "#221f24", "#3f3c41", "#737076", "#aca9ae", "#eceaee", "#f8f6f9"],
+  "type": ["Instrument Serif", "Geist", "Geist Mono"],
+  "voice": "Calm, exact, catalogue-like; the numbers carry the boast. Example: \"Seventeen stars for seventeen tools.\"",
+  "motion": "Everything moves the way the sky does: gravity for arrivals, slow precession for transitions, and the pointer as a mass that stars lean toward, all on the Web Animations API.",
+  "sound": "Off until asked; then each live event that lands in a constellation rings one soft sine bell, pitched per product.",
+  "mark": "The asterism A: an A drawn as a constellation with gapped atlas lines, a diffraction sparkle at the apex and the crossbar running on as a dotted vector.",
+  "inspiration": [
+    "https://commons.wikimedia.org/wiki/File:Trouvelot-_The_great_nebula_in_Orion_-_1875.jpg",
+    "https://commons.wikimedia.org/wiki/File:Cellarius_Harmonia_Macrocosmica_-_Haemisphaerium_Stellatum_Boreale_Antiquum.jpg",
+    "https://www.biodiversitylibrary.org/",
+    "https://www.oldbookillustrations.com/illustrations/new-star/",
+    "https://www.radix-ui.com/primitives/docs/components/accordion",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://www.apple.com/macbook-pro/"
+  ]
+}

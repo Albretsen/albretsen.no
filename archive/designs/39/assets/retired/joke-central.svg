@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Joke Central (retired)">
+<title>Joke Central</title>
+<rect width="400" height="400" rx="20" fill="#1a1918"/>
+<rect x="12.5" y="12.5" width="375" height="375" rx="12" fill="none" stroke="#2c2a29"/>
+<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0 -64)" opacity="0.10" stroke="#8d8a86"><path d="M140 222 q60 62 120 0"/></g><g transform="translate(0 -48)" opacity="0.22" stroke="#8d8a86"><path d="M140 222 q60 62 120 0"/></g><g transform="translate(0 -32)" opacity="0.34" stroke="#8d8a86"><path d="M140 222 q60 62 120 0"/></g><g transform="translate(0 -16)" opacity="0.46" stroke="#8d8a86"><path d="M140 222 q60 62 120 0"/></g><g stroke="#dcdad7"><path d="M140 222 q60 62 120 0"/></g><circle cx="166" cy="150" r="5" fill="#dcdad7" stroke="none"/><circle cx="234" cy="150" r="5" fill="#dcdad7" stroke="none"/></g>
+<g font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing=".06em" fill="#8d8a86">
+<text x="32" y="364">Joke Central</text><text x="368" y="48" text-anchor="end">2024</text>
+<text x="32" y="48" fill="#2c2a29">&#8212; retired</text></g>
+</svg>

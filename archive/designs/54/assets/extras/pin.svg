@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 220" width="40" height="220" role="img" aria-label="Specimen pin">
+  <defs><radialGradient id="h" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#7bc47a"/><stop offset=".55" stop-color="#408742"/><stop offset="1" stop-color="#1c4a1f"/></radialGradient>
+  <linearGradient id="s" x1="0" x2="1"><stop offset="0" stop-color="#8a8f88"/><stop offset=".5" stop-color="#e9ece6"/><stop offset="1" stop-color="#6c716a"/></linearGradient></defs>
+  <path d="M18.6 26 L20 214 L21.4 26 Z" fill="url(#s)" stroke="#162118" stroke-width=".6"/>
+  <circle cx="20" cy="18" r="13" fill="url(#h)" stroke="#162118" stroke-width="1.4"/>
+  <ellipse cx="15.5" cy="12.5" rx="4" ry="2.6" fill="#fff" opacity=".7" transform="rotate(-30 15.5 12.5)"/></svg>

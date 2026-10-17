@@ -1,0 +1,20 @@
+{
+  "name": "Cloud Chamber",
+  "tagline": "A calm rose lab where chrome letters fall, collide and leave particle tracks",
+  "summary": "The hero is a working physics chamber: ALBRETSEN in liquid chrome drops onto a measured floor, can be grabbed and thrown, and every hard impact draws bubble-chamber spirals in canvas 2D. Live product events (MCP Emails, Fun Libs, Toolrails) enter as labelled tracks and are written to a detector log. It turns real activity into visible physics, which suits a builder whose work runs quietly in the background and is judged by what it leaves behind.",
+  "palette": ["#fff8fb", "#fceaf3", "#f4b0d2", "#d64d9d", "#b43481", "#5e1942", "#1e0915", "#0e0409", "#b49da8", "#7b606d"],
+  "type": ["Unbounded 800", "Geist 300-600", "Geist Mono 400-500"],
+  "voice": "Scientific calm: plain sentences, numbers set like measurements, nothing raised. \"Shipped, measured, stopped. Each taught something the live ones use.\"",
+  "motion": "Long, even easing with at most one overshoot; text decodes into place out of a churn of brand glyphs, and sections open along the logo's break line.",
+  "sound": "Off until asked; then glassy two-partial pings, pitched by impact speed, and a soft low tick when a product event crosses the chamber.",
+  "mark": "Unbounded's A cut along one slanted line with the upper shard shifted; the break line is reused as the section transition and the specimen's hover state.",
+  "inspiration": [
+    "https://bruno-simon.com",
+    "https://ui.aceternity.com/components/lens",
+    "https://hoverstat.es",
+    "https://www.typohypergraphicobject.page/",
+    "https://www.radix-ui.com/primitives/docs/components/accordion",
+    "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+    "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access"
+  ]
+}

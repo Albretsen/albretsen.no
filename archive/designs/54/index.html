@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · The Vivarium</title>
+<meta name="description" content="Asgeir Albretsen runs Albretsen AS, a small technology company in Norway that keeps a vivarium of software: apps, SaaS and infrastructure for AI agents.">
+<meta name="theme-color" content="#f8f4ea">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon.png">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Small software, kept alive under glass.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,50;1,9..144,300..500,100&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="assets/live/diorama.css">
+<link rel="stylesheet" href="css/site.css">
+<noscript><style>.germinate-loader{display:none}.germinate{clip-path:none;transform:none;opacity:1}.germinate-line>span{transform:none}</style></noscript>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }</script>
+<script src="https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie_light.min.js" defer></script>
+<script type="module" src="js/site.js"></script>
+</head>
+<body>
+
+<div class="germinate-loader" data-loader aria-hidden="true">
+  <div class="germinate-loader__jar" data-lottie></div>
+  <p class="germinate-loader__label"><span>Germinating</span><span class="germinate-loader__count" data-count>000</span></p>
+  <p class="loader-latin">Vivarium albretsenii</p>
+</div>
+
+<a class="skip" href="#specimens">Skip to the specimens</a>
+
+<header class="mast">
+  <a class="mast__home" href="./" aria-label="Albretsen AS, home"><img src="assets/identity/lockup.svg" alt="Albretsen AS" width="184" height="36"></a>
+  <nav class="mast__nav" aria-label="Sections">
+    <a href="#specimens">Specimens</a>
+    <a href="#herbarium">Herbarium</a>
+    <a href="#log">Field log</a>
+    <button class="sound" type="button" aria-pressed="false" data-sound><span class="sound__dot" aria-hidden="true"></span><span data-sound-label>Sound off</span></button>
+  </nav>
+</header>
+
+<main>
+  <!-- ============================== HERO ============================== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__fern" aria-hidden="true"></div>
+    <figure class="pinned pinned--moth" aria-hidden="true">
+      <img src="assets/extras/pin.svg" class="pinned__pin" alt="" width="20" height="110">
+      <img src="assets/extras/specimens/moth-struyk.webp" alt="" class="pinned__img" loading="lazy">
+    </figure>
+
+    <div class="hero__text">
+      <p class="eyebrow germinate" style="--i:1"><span class="dot" aria-hidden="true"></span> Vivarium No. 1 · Norway · On Google Play since 2016</p>
+      <h1 id="hero-title" class="hero__title">
+        <span class="germinate-line" style="--i:2"><span>Small software,</span></span>
+        <span class="germinate-line" style="--i:3"><span><em>kept alive</em></span></span>
+        <span class="germinate-line" style="--i:4"><span>under glass.</span></span>
+      </h1>
+      <p class="hero__lede germinate" style="--i:6">Asgeir Albretsen runs Albretsen AS, a small technology company that builds whatever earns its keep: apps, SaaS and infrastructure for AI agents. Four creatures live in the case. Seven are pressed and filed.</p>
+
+      <div class="feeder germinate" style="--i:7">
+        <div class="feeder__body">
+          <p class="mono feeder__label">Feeding instructions · for your agent</p>
+          <code class="feeder__cmd" data-cmd>claude mcp add albretsen https://albretsen.no/mcp</code>
+          <button class="copy magnetic" type="button" data-copy aria-describedby="copy-tip">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6" y="6" width="10" height="11" rx="2"/><path d="M4 13V5a2 2 0 0 1 2-2h7"/></svg>
+            <span>Copy</span>
+          </button>
+          <span class="tip" id="copy-tip" role="status" data-state="closed" data-side="top"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__stage">
+      <div class="stage" data-stage tabindex="0" role="group" aria-roledescription="3D model" aria-label="The Wardian case: a glass terrarium built from CSS 3D planes. Drag or use the arrow keys to turn it; select a creature to read its label.">
+        <div class="stage__spores" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div id="case" class="case"></div>
+        <noscript><img src="assets/hero/terrarium-portrait@1x.webp" alt="A bell-jar terrarium with four small creatures" class="stage__fallback"></noscript>
+      </div>
+      <p class="stage__hint mono" aria-hidden="true"><span class="hint-hand">↔</span> Drag to turn the case · tap a creature</p>
+
+      <aside class="obs" aria-live="polite" aria-label="Latest observation">
+        <span class="obs__thread" aria-hidden="true"></span>
+        <div class="obs__tag" data-obs>
+          <p class="mono obs__head"><span class="dot dot--live" aria-hidden="true"></span> Observed <time data-obs-time>just now</time></p>
+          <p class="obs__latin" data-obs-latin>Noctua epistolaris</p>
+          <p class="obs__text" data-obs-text>drafted a reply</p>
+        </div>
+      </aside>
+    </div>
+
+    <figure class="pinned pinned--stag" aria-hidden="true">
+      <img src="assets/extras/pin.svg" class="pinned__pin" alt="" width="20" height="110">
+      <img src="assets/extras/specimens/stag-beetle-redoute.webp" alt="" class="pinned__img" loading="lazy">
+    </figure>
+  </section>
+
+  <!-- ============================== FIELD LOG ============================== -->
+  <section class="log" id="log" aria-labelledby="log-title">
+    <div class="log__head">
+      <h2 id="log-title" class="mono">Field log · live</h2>
+      <p class="log__note">What the creatures did in the last few minutes, as noted by the keeper.</p>
+    </div>
+    <ol class="log__list" data-log></ol>
+  </section>
+
+  <img class="divider" src="assets/extras/divider-frond.svg" alt="" aria-hidden="true" loading="lazy" width="1200" height="60">
+
+  <!-- ============================== SPECIMENS ============================== -->
+  <section class="specimens" id="specimens" aria-labelledby="spec-title">
+    <img class="wander wander--moth flutter" src="assets/hero/creatures/moth.webp" alt="" aria-hidden="true" loading="lazy">
+    <header class="sec-head">
+      <p class="mono sec-head__num germinate" style="--i:0">01 · Specimens</p>
+      <h2 id="spec-title" class="sec-head__title germinate" style="--i:1">Four under glass, <em>catalogued.</em></h2>
+      <p class="sec-head__lede germinate" style="--i:2">Each product is pinned beside the old drawing it most resembles, with its own logo on the tag. Two are live, one is still growing, one is asleep.</p>
+    </header>
+
+    <figure class="plate germinate" style="--i:1" data-loupe>
+      <div class="plate__frame">
+        <picture>
+          <source type="image/avif" srcset="assets/hero/plate-i@1x.avif 1440w, assets/hero/plate-i@2x.avif 2880w" sizes="(min-width: 1400px) 1280px, 92vw">
+          <img class="plate__img" src="assets/hero/plate-i@1x.webp" srcset="assets/hero/plate-i@1x.webp 1440w, assets/hero/plate-i@2x.webp 2880w" sizes="(min-width: 1400px) 1280px, 92vw" alt="Plate I: four 17th and 18th century insect drawings from The Met arranged around Maria Sibylla Merian's study of capers, each numbered with its product's Latin name." width="2880" height="1800" loading="lazy" decoding="async">
+        </picture>
+        <div class="loupe" aria-hidden="true"><span class="loupe__mag mono">×2.5</span></div>
+      </div>
+      <figcaption class="mono"><span>Plate I · The collection, after the old masters</span><span class="plate__hint">Move across the plate to inspect it</span></figcaption>
+    </figure>
+
+    <ol class="cards" data-cards></ol>
+  </section>
+
+  <!-- ============================== HERBARIUM ============================== -->
+  <section class="herb" id="herbarium" aria-labelledby="herb-title">
+    <img class="wander wander--snail doze" src="assets/hero/creatures/snail.webp" alt="" aria-hidden="true" loading="lazy">
+    <header class="sec-head">
+      <p class="mono sec-head__num germinate" style="--i:0">02 · Herbarium</p>
+      <h2 id="herb-title" class="sec-head__title germinate" style="--i:1">Seven, <em>pressed.</em></h2>
+      <p class="sec-head__lede germinate" style="--i:2">Nothing is thrown away. Retired products are pressed flat and filed with a date. Turn a sheet to read its label.</p>
+    </header>
+    <ol class="sheets" data-sheets></ol>
+  </section>
+
+  <!-- ============================== NIGHT BAND ============================== -->
+  <section class="night" aria-labelledby="night-title">
+    <div class="night__text">
+      <img src="assets/identity/mark-reversed.svg" alt="" width="56" height="56" class="night__mark">
+      <h2 id="night-title" class="night__title">After hours, the jar <em>keeps going.</em></h2>
+      <p>The same terrarium, rendered live: every pebble, fern and creature is a WebGL primitive with an ink outline. No models were downloaded to make it.</p>
+      <p class="mono night__meta">three.js · toon shading · 0 KB of meshes</p>
+    </div>
+    <div class="night__jar" data-jar>
+      <picture>
+        <source type="image/avif" srcset="img/jar-night@1x.avif 1x, img/jar-night@2x.avif 2x">
+        <img src="img/jar-night@1x.jpg" srcset="img/jar-night@2x.jpg 2x" alt="A bell jar on a dark plinth holding moss, ferns, a sprout and four toy-like creatures." width="1200" height="1500" loading="lazy" decoding="async">
+      </picture>
+      <canvas aria-hidden="true"></canvas>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <img class="foot__stamp" src="assets/extras/stamp-vivarium.svg" alt="" aria-hidden="true" width="160" height="160" loading="lazy">
+  <div class="foot__main">
+    <img src="assets/identity/wordmark.svg" alt="Albretsen AS" class="foot__word" width="220" height="40" loading="lazy">
+    <p class="foot__avail"><span class="dot dot--live" aria-hidden="true"></span> Takes one outside engagement at a time.</p>
+    <a class="foot__mail magnetic" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+  </div>
+  <p class="foot__credit mono">Specimen drawings: The Metropolitan Museum of Art, Open Access (CC0): Struyk, van der Vinne, Redouté, Holsteyn II, Merian. Creatures and glass: own. Product logos: the products' own.</p>
+</footer>
+
+<div class="pop" data-pop tabindex="-1" role="dialog" aria-modal="false" aria-labelledby="pop-name" hidden data-state="closed" data-side="top">
+  <span class="pop__arrow" aria-hidden="true"></span>
+  <p class="mono pop__num" data-pop-num></p>
+  <p class="pop__latin" data-pop-latin></p>
+  <p class="pop__name" id="pop-name"><img data-pop-logo alt="" width="20" height="20"><span data-pop-title></span></p>
+  <p class="pop__line" data-pop-line></p>
+  <p class="pop__fig"><strong data-pop-fig></strong> <span class="mono" data-pop-figl></span></p>
+  <a class="pop__link" href="#specimens" data-pop-link>See the plate ↓</a>
+  <button class="pop__close" type="button" aria-label="Close label" data-pop-close>×</button>
+</div>
+
+</body>
+</html>

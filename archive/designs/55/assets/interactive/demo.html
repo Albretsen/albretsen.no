@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loose Panes demo</title>
+<style>
+  @font-face { font-family:"Geist"; src:url(../fonts/geist-normal.woff2) format("woff2"); font-weight:300 700; }
+  @font-face { font-family:"Geist Mono"; src:url(../fonts/geist-mono-normal.woff2) format("woff2"); font-weight:400 500; }
+  @font-face { font-family:"Instrument Serif"; src:url(../fonts/instrument-serif-italic.woff2) format("woff2"); font-style:italic; }
+  html, body { margin:0; height:100%; background:#090706; color:#ede7df; font-family:Geist, system-ui, sans-serif; }
+  #hero { position:fixed; inset:0; }
+  .ui { position:fixed; left:24px; right:24px; bottom:22px; display:flex; justify-content:space-between; align-items:center; gap:16px; pointer-events:none;
+        font:500 11px/1.4 "Geist Mono", monospace; letter-spacing:.14em; text-transform:uppercase; color:#8e847e; }
+  .ui > * { pointer-events:auto; }
+  button { font:inherit; letter-spacing:inherit; text-transform:inherit; color:#ede7df; background:rgba(18,14,12,.7); border:1px solid rgba(237,231,223,.25);
+           border-radius:999px; padding:9px 14px 9px 12px; display:inline-flex; gap:8px; align-items:center; cursor:pointer; backdrop-filter:blur(8px); }
+  button[data-state=on] { border-color:#ff7e22; }
+  button i { width:7px; height:7px; border-radius:50%; background:#8e847e; }
+  button[data-state=on] i { background:#ff7e22; box-shadow:0 0 10px #ff7e22; }
+  h1 { position:fixed; left:clamp(16px, 5vw, 72px); top:50%; transform:translateY(-50%); margin:0; max-width:min(520px, 80vw); pointer-events:none;
+       font:italic 400 clamp(40px, 6vw, 88px)/.98 "Instrument Serif", serif; letter-spacing:-.015em; }
+  h1 em { color:#ff7e22; }
+  @media (max-width:700px) { h1 { top:auto; bottom:90px; transform:none; } }
+</style>
+</head>
+<body>
+<div id="hero" aria-label="Interactive photograph: a lightning plate from 1886 under two loose panes of glass"></div>
+<h1>Software, developed <em>after dark.</em></h1>
+<div class="ui">
+  <span>Drag a pane · click the dark for a spark</span>
+  <button data-sound-toggle type="button"><i></i><span data-label>Sound off</span></button>
+</div>
+<script type="module">
+  import { mountLoosePanes } from './loose-panes.js';
+  import { sound, bindSoundToggle } from './sound.js';
+  const narrow = innerWidth < 700;
+  const hero = mountLoosePanes(document.getElementById('hero'), narrow ? {
+    focus: [0.55, 0.42], photoH: 1.05,
+    panes: [ { x:.1, y:.2, w:.62, h:.24, dx:.055, dy:0, s:1.05, label:'Pane 1' }, { x:.32, y:.42, w:.6, h:.2, dx:-.04, dy:.01, s:1.03, label:'Pane 2' } ],
+    sound,
+  } : { sound });
+  bindSoundToggle(document.querySelector('[data-sound-toggle]'));
+  if (new URLSearchParams(location.search).has('auto')) setTimeout(() => hero.discharge(0.6), 4700);
+</script>
+</body>
+</html>

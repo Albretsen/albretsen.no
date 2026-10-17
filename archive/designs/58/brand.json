@@ -1,0 +1,20 @@
+{
+  "name": "Specimen Drop",
+  "tagline": "A product-drop page for a whole company: every product is a crystal on a live lapis geode.",
+  "summary": "Albretsen AS is presented as a naturalist's cabinet released like a product drop. Public-domain botanical and natural-history plates are re-inked in ultramarine, which was once ground from lapis lazuli. The hero is a live three.js geode: each crystal is a product you can pull off and re-seat, and a museum label hangs beside it on a spring. It reads as skilled, warm and careful, and it is clearly technology, because the specimens are software and the cabinet runs live.",
+  "palette": ["#073fe3", "#082593", "#061457", "#97b7f8", "#cadbfd", "#faf3e3", "#f4e6ce", "#ec3d5f", "#f4cd4b"],
+  "type": ["Fraunces (SOFT 100, WONK 1)", "Instrument Sans", "Martian Mono"],
+  "voice": "A careful collector in the first person: warm, specific and unhurried, and never selling. Example: \"Software, grown & mounted.\"",
+  "motion": "Every movement uses one hand-rolled damped spring: crystals drop and re-seat, stickers dangle while carried, the label swings like a pendulum, and cards settle onto the page.",
+  "sound": "Off until the visitor turns it on. After that, synthesised glass tinks play when a crystal re-seats or the label is let go, and a soft paper rustle plays when a card is laid down.",
+  "mark": "A cut-stone A with bevelled facets lit from the upper left, beside a Fraunces wordmark outlined to paths with an italic AS.",
+  "inspiration": [
+    "https://commons.wikimedia.org/wiki/File:Haeckel_Diatomea.jpg",
+    "https://www.oldbookillustrations.com/illustrations/kamchatka-rose/",
+    "https://www.biodiversitylibrary.org/item/128814",
+    "https://blog.maximeheckel.com/posts/the-physics-behind-spring-animations/",
+    "https://www.radix-ui.com/primitives/docs/components/tooltip",
+    "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+    "https://threejs.org/docs/#api/en/materials/MeshPhysicalMaterial"
+  ]
+}

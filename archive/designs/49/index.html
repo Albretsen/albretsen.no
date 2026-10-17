@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself: apps, SaaS and the plumbing AI agents need. Albretsen AS, Norway.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="I build software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<script>
+  // theme before first paint: stored choice, else the OS
+  (function () {
+    var t, q = /[?&]theme=(light|dark)/.exec(location.search);
+    try { t = q ? q[1] : localStorage.getItem('habit-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+    var d = document.documentElement; d.classList.add('js');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]still/.test(location.search)) d.classList.add('static');
+    // if the module never runs, show the conversation as plain text
+    setTimeout(function () { if (!d.classList.contains('ready')) d.classList.add('static'); }, 3500);
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+<script type="importmap">{"imports":{"three":"./assets/vendor/three.module.min.js"}}</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="bar">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img class="only-light" src="assets/identity/lockup.svg" alt="" width="326" height="72">
+    <img class="only-dark" src="assets/identity/lockup-chalk.svg" alt="" width="326" height="72">
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a class="pencil" href="#products">Products</a>
+    <a class="pencil" href="#drawer">Retired</a>
+    <a class="pencil" href="#colophon">Write</a>
+  </nav>
+  <div class="bar-tools">
+    <button class="sound" id="sound" type="button" aria-pressed="false" title="Pencil sounds, off by default">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8h3l4-3.5v11L6 12H3z"/><path class="w" d="M13 7.5c1.2 1.4 1.2 3.6 0 5M15.4 5.5c2.3 2.6 2.3 6.4 0 9"/></svg>
+      <span class="vh">Sound</span><span class="sound-state" aria-hidden="true">off</span>
+    </button>
+    <button class="lamp-btn" id="lamp" type="button" aria-label="Switch the lights (theme)"><span class="lamp-holder" id="lamp-holder"></span></button>
+  </div>
+</header>
+
+<main id="top">
+<!-- ================= HERO: the site talks to you ================= -->
+<section class="hero" aria-labelledby="hello">
+  <div class="hero-art" aria-hidden="false">
+    <picture class="only-light hero-pic">
+      <source type="image/avif" srcset="assets/hero/desk-light@2x.avif 2880w" sizes="(max-width: 860px) 180vw, min(100vw, 1760px)">
+      <img src="assets/hero/desk-light.webp" srcset="assets/hero/desk-light.webp 1440w, assets/hero/desk-light@2x.webp 2880w" sizes="(max-width: 860px) 180vw, min(100vw, 1760px)" width="1440" height="810" fetchpriority="high" alt="Pen drawing of a quiet desk: a monitor showing a typing bubble, a lamp, books, a chair and a plant. An 1806 hand-coloured mineral sits on the desk as a paperweight.">
+    </picture>
+    <picture class="only-dark hero-pic">
+      <source type="image/avif" srcset="assets/hero/desk-dark@2x.avif 2880w" sizes="(max-width: 860px) 180vw, min(100vw, 1760px)">
+      <img src="assets/hero/desk-dark.webp" srcset="assets/hero/desk-dark.webp 1440w, assets/hero/desk-dark@2x.webp 2880w" sizes="(max-width: 860px) 180vw, min(100vw, 1760px)" width="1440" height="810" loading="lazy" alt="Chalk drawing of the same desk at night.">
+    </picture>
+
+    <!-- the live crystal hangs above the lamp; a static drawing stands in until three.js arrives -->
+    <figure class="crystal" id="crystal">
+      <div class="crystal-stage" id="crystal-stage">
+        <img class="crystal-still only-light" src="assets/identity/mark.svg" alt="" width="64" height="64">
+        <img class="crystal-still only-dark" src="assets/identity/mark-chalk.svg" alt="" width="64" height="64">
+      </div>
+      <figcaption class="crystal-cap"><span class="fig">Fig. 1</span> <span id="habit-name">Octahedral</span><span class="habit-facts" id="habit-facts">8 faces, 12 edges</span></figcaption>
+      <span class="note note-turn" aria-hidden="true"><span class="note-ink" data-svg="assets/extras/annotations/arrow-curve.svg"></span><em>turn it</em></span>
+    </figure>
+  </div>
+
+  <div class="talk">
+    <p class="who"><img class="only-light" src="assets/identity/mark.svg" alt="" width="18" height="18"><img class="only-dark" src="assets/identity/mark-chalk.svg" alt="" width="18" height="18"> <span>albretsen.no</span> <span class="who-state" id="who-state">online</span></p>
+
+    <div class="log" id="log" role="log" aria-live="polite" aria-label="Conversation">
+      <div class="turn pre big" data-from="site" data-state="open"><div class="turn-text"><h1 id="hello">Hi. I’m Asgeir.</h1></div></div>
+      <div class="turn pre big" data-from="site" data-state="open"><span class="turn-text">I build software that <i>pays for itself</i>: apps, SaaS, and the plumbing AI agents need.</span></div>
+      <div class="turn pre small" data-from="site" data-state="open"><span class="turn-text">Albretsen AS, from Norway. <i>On Google Play since 2016.</i></span></div>
+    </div>
+
+    <div class="reply" id="reply">
+      <div class="chips" id="chips" role="group" aria-label="Replies">
+        <button class="chip" type="button" data-q="live">What’s live?</button>
+        <button class="chip" type="button" data-q="agent">I’m an agent.</button>
+        <button class="chip" type="button" data-q="crystal">Why the crystal?</button>
+        <button class="chip" type="button" data-q="day">Day job?</button>
+        <button class="chip" type="button" data-q="reach">Where do I write?</button>
+      </div>
+      <form class="ask" id="ask" autocomplete="off">
+        <label class="vh" for="ask-input">Or ask in your own words</label>
+        <input id="ask-input" name="q" type="text" maxlength="120" placeholder="or write something…" enterkeyhint="send">
+        <button type="submit" aria-label="Send">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10.2 16 4.4l-4.7 12.1-2.2-5.1z"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <p class="overheard" id="overheard" aria-live="off"><span class="dot" aria-hidden="true"></span><span class="ov-label">overheard</span> <span class="ov-text" id="ov-text">the products are quiet right now</span></p>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="products" id="products" aria-labelledby="products-h" data-view="drawn">
+  <div class="plate-band">
+    <div class="plate-head">
+      <p class="eyebrow">Plate II</p>
+      <h2 id="products-h">Things that keep <i>their shape.</i></h2>
+      <p class="lede">A habit is the form a crystal keeps growing into. Mine is shipping small, useful software, and keeping what pays for itself.</p>
+      <div class="view-toggle" role="group" aria-label="How to show the products">
+        <button type="button" data-view="drawn" aria-pressed="true">Drawn</button>
+        <button type="button" data-view="plain" aria-pressed="false">Plain, for agents</button>
+        <span class="vt-thumb" aria-hidden="true"></span>
+      </div>
+    </div>
+    <figure class="plate-fig" aria-hidden="true">
+      <picture class="only-light"><source type="image/avif" srcset="assets/hero/plate-light@2x.avif"><img src="assets/hero/plate-light.webp" srcset="assets/hero/plate-light.webp 1440w, assets/hero/plate-light@2x.webp 2880w" sizes="(max-width: 860px) 160vw, 70vw" width="1440" height="810" alt="" loading="lazy"></picture>
+      <picture class="only-dark"><source type="image/avif" srcset="assets/hero/plate-dark@2x.avif"><img src="assets/hero/plate-dark.webp" srcset="assets/hero/plate-dark.webp 1440w, assets/hero/plate-dark@2x.webp 2880w" sizes="(max-width: 860px) 160vw, 70vw" width="1440" height="810" alt="" loading="lazy"></picture>
+    </figure>
+  </div>
+
+  <ol class="plates" id="plates"><!-- filled from content.js; a static fallback follows for no-JS --></ol>
+  <noscript><p class="lede">MCP Emails (email for AI agents), Fun Libs (113,000+ installs), Toolrails (building) and Harbor (paused).</p></noscript>
+
+  <div class="drawer" id="drawer">
+    <img class="drawer-specimen drift" src="assets/specimens/red-dodecahedron.webp" alt="" width="280" height="307" loading="lazy">
+    <details id="drawer-details">
+      <summary>
+        <span class="eyebrow">The drawer</span>
+        <span class="drawer-title">Seven retired specimens, <i>kept for reference.</i></span>
+        <span class="drawer-plus" aria-hidden="true"></span>
+      </summary>
+      <div class="drawer-body">
+        <ul class="retired" id="retired"></ul>
+      </div>
+    </details>
+  </div>
+</section>
+</main>
+
+<footer class="colophon" id="colophon">
+  <div class="colophon-in">
+    <img class="foot-specimen drift" src="assets/specimens/olive-prism.webp" alt="A hand-coloured prismatic crystal from Sowerby's British Mineralogy, 1804." width="680" height="788" loading="lazy">
+    <div>
+      <p class="foot-line">Takes one outside engagement at a time.</p>
+      <p class="foot-mail"><a class="pencil" id="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+      <div class="cmd">
+        <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button type="button" class="copy" data-copy="#cmd">copy</button>
+      </div>
+    </div>
+    <figure class="foot-orbit" aria-hidden="true"><img src="assets/extras/orbit-diagram.svg" alt="" width="520" height="360" loading="lazy"></figure>
+    <p class="foot-small"><span>Albretsen AS · Norway</span><span>Specimens: James Sowerby, <i>British Mineralogy</i>, 1804, public domain. Furniture: Kenney, CC0.</span></p>
+  </div>
+</footer>
+
+<!-- product conversation: a page turn into one product -->
+<dialog class="talkback" id="talkback" aria-labelledby="tb-title">
+  <div class="tb-in">
+    <button class="tb-close" type="button" id="tb-close" aria-label="Close">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5.3 15 14.8M14.8 5 5.2 15"/></svg>
+    </button>
+    <div class="tb-art" id="tb-art"></div>
+    <div class="tb-talk">
+      <p class="tb-head"><img id="tb-logo" alt="" width="28" height="28"> <span id="tb-title"></span></p>
+      <div class="log tb-log" id="tb-log" aria-live="polite"></div>
+      <div class="tb-foot"><p class="eyebrow">Ask about</p><div class="chips tb-more" id="tb-more"></div></div>
+    </div>
+  </div>
+</dialog>
+
+<div class="grain" aria-hidden="true"></div>
+<script type="module" src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Sticker sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* Each sticker sits in a 480x480 cell; bake script crops cells into transparent webp. */
+  html,body{margin:0;background:transparent}
+  .sheet{display:grid;grid-template-columns:repeat(4,480px);grid-auto-rows:480px;width:1920px}
+  .cell{display:grid;place-items:center}
+  svg{overflow:visible;filter:drop-shadow(0 10px 14px rgba(109,63,47,.28)) drop-shadow(0 2px 2px rgba(109,63,47,.2))}
+  .t{font-family:'Bricolage Grotesque';font-weight:800;font-stretch:78%}
+  .m{font-family:'DM Mono';font-weight:500;letter-spacing:.06em}
+</style></head><body>
+<div class="sheet">
+  <!-- 1 SAY CHEESE! scalloped burst -->
+  <div class="cell"><svg width="400" height="400" viewBox="-200 -200 400 400" style="transform:rotate(-8deg)">
+    <path id="burst" d="" fill="#fff"/><path id="burst2" d="" fill="#ED6E12"/>
+    <text class="t" x="0" y="-12" text-anchor="middle" font-size="86" fill="#FFE97E">SAY</text>
+    <text class="t" x="0" y="66" text-anchor="middle" font-size="86" fill="#FFE97E">CHEESE!</text>
+  </svg></div>
+  <!-- 2 f/1.8 aperture badge -->
+  <div class="cell"><svg width="360" height="360" viewBox="-180 -180 360 360" style="transform:rotate(6deg)">
+    <circle r="170" fill="#fff"/><circle r="152" fill="#B6ADF3"/>
+    <g id="iris" transform="translate(0,-28)"></g>
+    <text class="t" x="0" y="112" text-anchor="middle" font-size="64" fill="#381A13">f/1.8</text>
+  </svg></div>
+  <!-- 3 113,000+ installs flower -->
+  <div class="cell"><svg width="420" height="420" viewBox="-210 -210 420 420" style="transform:rotate(-4deg)">
+    <path id="flower" d="" fill="#fff"/><path id="flower2" d="" fill="#FF99C2"/>
+    <text class="t" x="0" y="8" text-anchor="middle" font-size="76" fill="#381A13">113,000+</text>
+    <text class="m" x="0" y="52" text-anchor="middle" font-size="19" fill="#381A13">FUN LIBS INSTALLS</text>
+  </svg></div>
+  <!-- 4 since 2016 pill -->
+  <div class="cell"><svg width="440" height="220" viewBox="-220 -110 440 220" style="transform:rotate(-10deg)">
+    <rect x="-210" y="-92" width="420" height="184" rx="92" fill="#fff"/><rect x="-194" y="-76" width="388" height="152" rx="76" fill="#8DEFC5"/>
+    <text class="m" x="0" y="-22" text-anchor="middle" font-size="24" fill="#381A13">ON GOOGLE PLAY</text>
+    <text class="t" x="0" y="48" text-anchor="middle" font-size="76" fill="#381A13">since 2016</text>
+  </svg></div>
+  <!-- 5 17 tools ticket -->
+  <div class="cell"><svg width="380" height="300" viewBox="-190 -150 380 300" style="transform:rotate(7deg)">
+    <path d="M-170 -110 h340 a20 20 0 0 1 20 20 v40 a40 40 0 0 0 0 80 v40 a20 20 0 0 1 -20 20 h-340 a20 20 0 0 1 -20 -20 v-40 a40 40 0 0 0 0 -80 v-40 a20 20 0 0 1 20 -20z" fill="#fff"/>
+    <path d="M-156 -94 h312 a12 12 0 0 1 12 12 v34 a40 40 0 0 0 0 96 v34 a12 12 0 0 1 -12 12 h-312 a12 12 0 0 1 -12 -12 v-34 a40 40 0 0 0 0 -96 v-34 a12 12 0 0 1 12 -12z" fill="#93D5F5"/>
+    <text class="t" x="0" y="28" text-anchor="middle" font-size="96" fill="#2547E5" style="font-stretch:70%">17 tools</text>
+    <text class="m" x="0" y="72" text-anchor="middle" font-size="22" fill="#381A13">MCP EMAILS</text>
+  </svg></div>
+  <!-- 6 made in Norway squircle with sun -->
+  <div class="cell"><svg width="360" height="360" viewBox="-180 -180 360 360" style="transform:rotate(-5deg)">
+    <rect x="-168" y="-168" width="336" height="336" rx="110" fill="#fff"/><rect x="-152" y="-152" width="304" height="304" rx="96" fill="#FFE97E"/>
+    <circle cx="0" cy="-44" r="46" fill="#FC9E47"/>
+    <g stroke="#FC9E47" stroke-width="12" stroke-linecap="round" id="rays"></g>
+    <text class="t" x="0" y="66" text-anchor="middle" font-size="56" fill="#381A13">made in</text>
+    <text class="t" x="0" y="118" text-anchor="middle" font-size="56" fill="#381A13">Norway</text>
+  </svg></div>
+  <!-- 7 open source heart -->
+  <div class="cell"><svg width="380" height="360" viewBox="-190 -180 380 360" style="transform:rotate(8deg)">
+    <path d="M0 150 C-120 70 -175 10 -175 -60 C-175 -125 -125 -160 -80 -160 C-40 -160 -12 -138 0 -110 C12 -138 40 -160 80 -160 C125 -160 175 -125 175 -60 C175 10 120 70 0 150Z" fill="#fff" transform="scale(1.04)"/>
+    <path d="M0 150 C-120 70 -175 10 -175 -60 C-175 -125 -125 -160 -80 -160 C-40 -160 -12 -138 0 -110 C12 -138 40 -160 80 -160 C125 -160 175 -125 175 -60 C175 10 120 70 0 150Z" fill="#ED3F4B" transform="scale(.94)"/>
+    <text class="t" x="0" y="-20" text-anchor="middle" font-size="64" fill="#FFF6E4">open</text>
+    <text class="t" x="0" y="42" text-anchor="middle" font-size="64" fill="#FFF6E4">source</text>
+    <text class="m" x="0" y="84" text-anchor="middle" font-size="20" fill="#FFF6E4">AGPL</text>
+  </svg></div>
+  <!-- 8 REC dot / one at a time -->
+  <div class="cell"><svg width="420" height="200" viewBox="-210 -100 420 200" style="transform:rotate(-3deg)">
+    <rect x="-200" y="-80" width="400" height="160" rx="36" fill="#fff"/><rect x="-186" y="-66" width="372" height="132" rx="26" fill="#381A13"/>
+    <circle cx="-138" cy="0" r="22" fill="#ED3F4B"/>
+    <text class="m" x="-100" y="-8" font-size="18" fill="#FFE97E">REC · ONE OUTSIDE</text>
+    <text class="m" x="-100" y="22" font-size="18" fill="#FFE97E">ENGAGEMENT AT A TIME</text>
+  </svg></div>
+</div>
+<script>
+  // generated shapes: scalloped burst, flower, iris blades, sun rays
+  const scallop = (n, r, a, inner) => { let d = ''; for (let i = 0; i <= 360; i += 2) { const t = i * Math.PI / 180; const rr = r + a * Math.cos(n * t); d += (i ? 'L' : 'M') + (rr * Math.cos(t)).toFixed(1) + ' ' + (rr * Math.sin(t)).toFixed(1); } return d + 'Z'; };
+  burst.setAttribute('d', scallop(14, 178, 14)); burst2.setAttribute('d', scallop(14, 162, 12));
+  flower.setAttribute('d', scallop(8, 182, 24)); flower2.setAttribute('d', scallop(8, 164, 22));
+  iris.innerHTML = `<circle r="70" fill="#FF99C2"/><circle r="50" fill="#381A13"/><polygon points="0,-30 26,15 -26,15" fill="#FFE97E" stroke="#FFE97E" stroke-width="8" stroke-linejoin="round"/><polygon points="0,-3 8,11 -8,11" fill="#381A13"/><ellipse cx="-20" cy="-26" rx="10" ry="6" fill="#fff" opacity=".8" transform="rotate(-30 -20 -26)"/>`;
+  let r = ''; for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4; r += `<line x1="${(Math.cos(a) * 62).toFixed(1)}" y1="${(-44 + Math.sin(a) * 62).toFixed(1)}" x2="${(Math.cos(a) * 82).toFixed(1)}" y2="${(-44 + Math.sin(a) * 82).toFixed(1)}"/>`; }
+  rays.innerHTML = r;
+  document.fonts.ready.then(() => document.title = 'ready');
+</script>
+</body></html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" data-tone="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asgeir Albretsen — Albretsen AS</title>
+<meta name="description" content="10 years of building software that pays for itself: apps, SaaS and infrastructure for AI agents, made in Norway.">
+<meta name="theme-color" content="#fff0df">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="tone-light" data-tone="light" id="top">
+  <div class="top mono">
+    <a class="mark" href="#top" aria-label="Albretsen AS, home" data-cursor="a_">a<i>_</i></a>
+    <span>albretsen.no</span>
+    <span>Norway <span id="clock"></span></span>
+  </div>
+  <h1 class="name">
+    <span class="vh">Asgeir Albretsen</span>
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <text x="8" y="381" font-size="518" textLength="984" lengthAdjust="spacingAndGlyphs">Asgeir</text>
+      <text x="8" y="986" font-size="650" textLength="984" lengthAdjust="spacingAndGlyphs">Albretsen</text>
+    </svg>
+  </h1>
+</header>
+
+<main>
+  <section class="now tone-dark" data-tone="dark" id="now" aria-labelledby="lede">
+    <div>
+      <div class="label-row">
+        <p class="mono">02 / now</p>
+        <p class="mono">every product, 1 event at a time</p>
+      </div>
+      <p class="lede" id="lede"><span class="num">10</span> years of building software that pays for itself: apps, SaaS and infrastructure for AI agents, made in Norway.</p>
+      <p class="tally mono"><span><b data-tally="live">2</b> live</span><span><b data-tally="building">1</b> building</span><span><b data-tally="paused">1</b> paused</span><span><b data-tally="retired">7</b> retired</span><span>Google Play since <b>2016</b></span></p>
+    </div>
+
+    <figure class="feed" aria-label="Live events from MCP Emails, Fun Libs, Toolrails and albretsen.no">
+      <figcaption class="mono" id="event-meta"><span>live</span><span class="prod">MCP Emails, Fun Libs, Toolrails, albretsen.no</span></figcaption>
+      <div class="stage" id="stage">
+        <p class="event static">Events arrive here as they happen.</p>
+      </div>
+    </figure>
+
+    <div>
+      <div class="controls mono">
+        <button type="button" id="older" data-cursor="older">&larr; older</button>
+        <button type="button" id="newer" data-cursor="newer" disabled>newer &rarr;</button>
+        <span id="pos">01 / 12</span>
+        <span id="since"><noscript>The feed needs JavaScript. Nothing else here does.</noscript></span>
+      </div>
+      <p class="cmd mono">claude mcp add albretsen https://albretsen.no/mcp</p>
+    </div>
+  </section>
+
+  <section class="products tone-light" data-tone="light" id="products" aria-labelledby="products-title">
+    <header>
+      <div class="label-row">
+        <p class="mono">03 / products</p>
+        <p class="mono">year, status, 1 figure</p>
+      </div>
+      <h2 id="products-title"><span data-count>11</span> rows. <em>0 deleted.</em></h2>
+      <p>Retired experiments stay on the list, with the year they started.</p>
+    </header>
+    <ol id="ledger">
+<li class="row is-live" data-reveal><p class="idx"><span class="n">01</span><span class="yr">2026</span></p><h3 class="pname"><a href="https://mcpemails.com" data-cursor="mcpemails.com &#8599;">MCP Emails</a></h3><p class="fig"><b>$782</b><span>MRR</span></p><div class="pbody"><p class="st"><span>live</span></p><p class="pline">Email for AI agents.</p><ul class="facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul></div></li>
+<li class="row is-live" data-reveal><p class="idx"><span class="n">02</span><span class="yr">2019</span></p><h3 class="pname"><a href="https://funlibs.app" data-cursor="funlibs.app &#8599;">Fun Libs</a></h3><p class="fig"><b>113,000+</b><span>installs</span></p><div class="pbody"><p class="st"><span>live</span></p><p class="pline">A fill-in-the-blanks word game for Android and iOS.</p><ul class="facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul></div></li>
+<li class="row is-building" data-reveal><p class="idx"><span class="n">03</span><span class="yr">2026</span></p><h3 class="pname"><a href="https://toolrails.com" data-cursor="toolrails.com &#8599;">Toolrails</a></h3><p class="fig"><b>4</b><span>connectors</span></p><div class="pbody"><p class="st"><span>building</span></p><p class="pline">One MCP URL that gives an agent every tool.</p><ul class="facts"><li>tool search</li><li>injection guard</li></ul></div></li>
+<li class="row is-paused" data-reveal><p class="idx"><span class="n">04</span><span class="yr">2026</span></p><h3 class="pname"><a href="https://harborknowledge.com" data-cursor="harborknowledge.com &#8599;">Harbor</a></h3><p class="fig"><b>549</b><span>commits</span></p><div class="pbody"><p class="st"><span>paused</span></p><p class="pline">A private knowledge base shared by people and AI.</p><ul class="facts"><li>self-hostable</li><li>AI edits held for approval</li></ul></div></li>
+<li class="row is-retired" data-reveal><p class="idx"><span class="n">05</span><span class="yr">2026</span></p><h3 class="pname">Luma</h3><p class="fig"><b>378</b><span>commits</span></p><div class="pbody"><p class="st"><span>retired</span></p><p class="pline">Norwegian budgeting app with open banking.</p></div></li>
+<li class="row is-retired" data-reveal><p class="idx"><span class="n">06</span><span class="yr">2025</span></p><h3 class="pname">Polyglot Pilot</h3><p class="fig fig-none"><b aria-hidden="true">&#8212;</b><span>no figure</span></p><div class="pbody"><p class="st"><span>retired</span></p><p class="pline">Agents that localised entire codebases, with a dashboard for human reviewers.</p></div></li>
+<li class="row is-retired" data-reveal><p class="idx"><span class="n">07</span><span class="yr">2025</span></p><h3 class="pname">PinPoint</h3><p class="fig"><b>16</b><span>commits</span></p><div class="pbody"><p class="st"><span>retired</span></p><p class="pline">GeoGuessr with your own photos: friends guess where your pictures were taken.</p></div></li>
+<li class="row is-retired" data-reveal><p class="idx"><span class="n">08</span><span class="yr">2024</span></p><h3 class="pname">WebVakt</h3><p class="fig fig-none"><b aria-hidden="true">&#8212;</b><span>no figure</span></p><div class="pbody"><p class="st"><span>retired</span></p><p class="pline">Website change monitoring.</p></div></li>
+<li class="row is-retired" data-reveal><p class="idx"><span class="n">09</span><span class="yr">2024</span></p><h3 class="pname">Daily Jokes / Joke Central</h3><p class="fig fig-none"><b aria-hidden="true">&#8212;</b><span>no figure</span></p><div class="pbody"><p class="st"><span>retired</span></p><p class="pline">Joke apps for iOS and Android.</p></div></li>
+<li class="row is-retired" data-reveal><p class="idx"><span class="n">10</span><span class="yr">2023</span></p><h3 class="pname">Tryggere Hyring</h3><p class="fig fig-none"><b aria-hidden="true">&#8212;</b><span>no figure</span></p><div class="pbody"><p class="st"><span>retired</span></p><p class="pline">Background checks for hiring.</p></div></li>
+<li class="row is-retired" data-reveal><p class="idx"><span class="n">11</span><span class="yr">2021</span></p><h3 class="pname">IAGO HMS, Rentekalkulator, Prosentkalkulator</h3><p class="fig fig-none"><b aria-hidden="true">&#8212;</b><span>no figure</span></p><div class="pbody"><p class="st"><span>retired</span></p><p class="pline">Early apps.</p></div></li>
+    </ol>
+  </section>
+</main>
+
+<footer class="foot tone-dark" data-tone="dark" id="terms">
+  <div>
+    <div class="label-row">
+      <p class="mono">04 / terms</p>
+      <p class="mono">Albretsen AS</p>
+    </div>
+    <p class="avail" style="margin-top:1.25rem"><span class="num">1</span> outside engagement at a time.</p>
+    <a class="mail" href="mailto:asgeir@albretsen.no" data-cursor="write">asgeir@albretsen.no</a>
+  </div>
+  <div class="colophon mono">
+    <span class="mark">a<i>_</i> Albretsen AS</span>
+    <span>Norway</span>
+    <span>Play developer since 2016 / consulting since 2021 / company since 2026</span>
+  </div>
+</footer>
+
+<div id="caret" aria-hidden="true"><span class="bar"></span><span class="label"></span></div>
+</body>
+</html>

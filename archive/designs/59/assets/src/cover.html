@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover master</title>
+<!-- Source for hero/cover-*.webp. Render at 1000x1333 CSS px, DPR 2. ?bare hides stickers (used by the 3D scene, which places stickers as their own layers). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wdth,wght@125,700;125,900&family=JetBrains+Mono:wght@500;700&display=block" rel="stylesheet">
+<style>
+  :root { --ink:#0f0b22; --paper:#f3f2fb; --violet:#6c35ec; --glow:#bab0ff; --lime:#cefd3e; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1000px; height:1333px; overflow:hidden; background:var(--paper); }
+  .cover { position:relative; width:1000px; height:1333px; overflow:hidden; color:var(--ink);
+    background:url(../hero/photo-crystal-2000.webp) center/cover; }
+  .cover::after { content:""; position:absolute; inset:0; background:url(../textures/grain-overlay.png); opacity:.22; mix-blend-mode:multiply; pointer-events:none; }
+  .rail { position:absolute; left:0; right:0; top:0; padding:11px 44px 9px; background:var(--ink); color:var(--paper); display:flex; justify-content:space-between;
+    font:700 13px/1 'JetBrains Mono', monospace; letter-spacing:.22em; text-transform:uppercase; }
+  .mast { position:absolute; left:34px; top:62px; width:932px; color:var(--ink); }
+  .mast svg { width:100%; height:auto; display:block; }
+  .dek { position:absolute; left:46px; top:330px; background:rgba(243,242,251,.86); padding:14px 16px 16px; border-left:6px solid var(--violet); font:italic 400 34px/1.05 'Instrument Serif', serif; max-width:420px; }
+  .dek b { font:700 12px/1 'JetBrains Mono', monospace; letter-spacing:.24em; display:block; margin-bottom:10px; font-style:normal; color:var(--violet); }
+  .lines { position:absolute; left:46px; top:520px; width:310px; display:grid; gap:22px; }
+  .lines div { background:var(--paper); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--ink); padding:12px 14px 14px; }
+  .lines div:nth-child(1){ transform:rotate(-1.2deg) } .lines div:nth-child(2){ transform:rotate(.8deg) translateX(10px) } .lines div:nth-child(3){ transform:rotate(-.6deg) }
+  .lines span { font:700 11px/1 'JetBrains Mono', monospace; letter-spacing:.22em; color:var(--violet); text-transform:uppercase; display:block; margin-bottom:8px; }
+  .lines p { font:400 28px/1.02 'Instrument Serif', serif; }
+  .hed { position:absolute; left:42px; bottom:58px; width:640px; font:400 128px/.86 'Instrument Serif', serif; letter-spacing:-.025em; }
+  .hed i { color:var(--violet); }
+  .kicker { position:absolute; left:46px; bottom:318px; background:var(--ink); color:var(--lime);
+    font:700 13px/1 'JetBrains Mono', monospace; letter-spacing:.22em; padding:9px 12px 8px; text-transform:uppercase; }
+  .st { position:absolute; filter:drop-shadow(0 1px 0 rgba(15,11,34,.15)); }
+  .bare .st { display:none; }
+</style>
+</head>
+<body>
+<div class="cover" id="cover">
+  <div class="rail"><span>Albretsen AS</span><span>Norway</span><span>Apps · SaaS · Agent infrastructure</span></div>
+  <div class="mast" id="mast"></div>
+  <p class="dek"><b>The software issue</b>Ten years of shipping, from a first app on Google Play to infrastructure for AI agents.</p>
+  <div class="lines">
+    <div><span>MCP Emails</span><p>Email for AI agents, open source, seventeen tools</p></div>
+    <div><span>Fun Libs</span><p>113,000 installs and not one ad bought</p></div>
+    <div><span>Toolrails</span><p>One MCP URL that gives an agent every tool</p></div>
+  </div>
+  <div class="kicker">Asgeir Albretsen</div>
+  <h1 class="hed">Software that <i>pays</i> for itself.</h1>
+
+  <img class="st" src="../stickers/burst-installs.svg" style="left:700px; top:430px; width:250px; transform:rotate(9deg)">
+  <img class="st" src="../stickers/seal-mrr.svg" style="left:752px; top:880px; width:210px; transform:rotate(-8deg)">
+  <img class="st" src="../stickers/tape-built-at-17.svg" style="left:560px; top:745px; width:300px; transform:rotate(-6deg)">
+  <img class="st" src="../stickers/barcode.svg" style="left:830px; top:1150px; width:132px">
+  <img class="st" src="../stickers/stamp-since-2016.svg" style="left:820px; top:300px; width:130px; transform:rotate(12deg)">
+</div>
+<script>
+  if (location.search.includes('bare')) document.body.classList.add('bare')
+  fetch('../identity/masthead.svg').then(r => r.text()).then(t => { document.getElementById('mast').innerHTML = t })
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 68" width="68" height="68" role="img" aria-label="Albretsen AS">
+  <title>Albretsen AS mark</title>
+  <path d="M14 4H34Q54 8 60 28V50Q60 60 50 60H14Q4 60 4 50V14Q4 4 14 4Z" transform="translate(3.5 3.5)" fill="#0f0b22"/>
+  <path d="M14 4H34Q54 8 60 28V50Q60 60 50 60H14Q4 60 4 50V14Q4 4 14 4Z" fill="#6c35ec" stroke="#0f0b22" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M19.15 49.01L10.99 49.01L21.65 26.99L30.35 26.99L41.01 49.01L32.53 49.01L31.22 46.10L20.43 46.10L19.15 49.01ZM24.37 36.91L22.83 40.62L28.82 40.62L27.28 36.91Q27.18 36.66 27.02 36.22Q26.86 35.79 26.67 35.25Q26.48 34.70 26.30 34.16Q26.13 33.62 25.97 33.17L25.97 33.17L25.74 33.17Q25.55 33.71 25.30 34.42Q25.04 35.12 24.80 35.79Q24.56 36.46 24.37 36.91L24.37 36.91Z" fill="#f3f2fb"/>
+  <path d="M60 28Q50 33 40 34Q43 38 52 37Q58 34 60 28Z" fill="#0f0b22" opacity=".35"/>
+  <path d="M34 4Q54 8 60 28Q50 33 40 34Q35 20 34 4Z" fill="#cefd3e" stroke="#0f0b22" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M38.5 9Q41 22 44 29" stroke="#0f0b22" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".28"/>
+</svg>

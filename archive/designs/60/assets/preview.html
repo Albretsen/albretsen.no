@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Planet — asset kit 60</title>
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="motion.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+  :root { color-scheme: dark; --gut: clamp(16px, 4vw, 56px); --max: 1320px; }
+  * { box-sizing: border-box; }
+  html { background: var(--pp-void); }
+  body { margin: 0; background: var(--pp-void); color: var(--pp-mist); font: 400 16px/1.55 Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: var(--pp-volt-hi); }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gut); }
+  .mono, .k { font: 500 12px/1.4 'Geist Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--pp-fog); }
+  h1, h2, h3 { font-family: Unbounded, Geist, sans-serif; color: var(--pp-paper); letter-spacing: -.03em; margin: 0; }
+  h2 { font-size: clamp(28px, 4.4vw, 56px); font-weight: 700; line-height: 1; }
+  h3 { font-size: 18px; font-weight: 500; letter-spacing: -.01em; }
+  section { padding: clamp(72px, 10vw, 140px) 0 0; }
+  .sec-head { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: end; margin-bottom: 40px; border-bottom: 1px solid var(--pp-rim); padding-bottom: 20px; }
+  .sec-head .num { font: 700 14px Unbounded; color: var(--pp-volt); }
+  .sec-head p { margin: 10px 0 0; max-width: 62ch; color: var(--pp-fog); }
+  @media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  figcaption b { font: 500 13px Geist; color: var(--pp-mist); }
+  .tile { background: var(--pp-ink); border: 1px solid var(--pp-rim); border-radius: 18px; overflow: hidden; }
+  .checker { background: conic-gradient(#0e1721 25%, #0b131c 0 50%, #0e1721 0 75%, #0b131c 0) 0 0/24px 24px; }
+
+  /* ---------- top: tilt stage ---------- */
+  .top { position: relative; min-height: min(100svh, 980px); display: grid; grid-template-columns: minmax(0, 1fr); align-items: end; overflow: clip; }
+  .stage { position: absolute; inset: 0; }
+  .stage .layer { position: absolute; pointer-events: none; will-change: transform; }
+  .stage .bg { inset: -4%; background: url(hero/hero-surface-1600.webp) center 70%/cover; opacity: .2; }
+  .stage .grid { inset: -10%; background: url(extras/iso-grid.svg); opacity: .5; mask: radial-gradient(70% 60% at 65% 45%, #000, transparent 75%); }
+  .stage .planet { width: min(64vw, 800px); right: -4vw; top: -2vh; }
+  .stage .debris { width: min(80vw, 980px); right: -10vw; top: -4vh; opacity: .8; }
+  .stage .cursor { width: min(30vw, 330px); right: 34vw; top: 8vh; }
+  @media (max-width: 700px) { .stage .planet { width: 120vw; right: -38vw; top: 10vh; } .stage .cursor { width: 44vw; right: 46vw; top: 12vh; } .stage .debris { width: 150vw; right: -40vw; } }
+  .top .copy { position: relative; z-index: 3; padding-bottom: clamp(40px, 8vh, 96px); }
+  .top .lock { height: clamp(40px, 5vw, 60px); width: auto; margin-bottom: clamp(28px, 6vh, 72px); }
+  .top h1 { font-size: clamp(40px, 8.2vw, 124px); font-weight: 700; line-height: .92; max-width: 11ch; }
+  .top h1 em { font-style: normal; color: var(--pp-volt); }
+  .top .sub { margin-top: 28px; display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
+  .top .sub p { margin: 0; max-width: 46ch; color: var(--pp-mist); flex: 1 1 280px; min-width: 0; }
+  .pill { display: inline-flex; max-width: 100%; align-items: center; gap: 10px; padding: 10px 16px; border: 1px solid var(--pp-rim); border-radius: 999px; background: rgb(8 14 21 / .7); backdrop-filter: blur(8px); }
+  .pill i { flex: none; width: 8px; height: 8px; background: var(--pp-volt); box-shadow: 0 0 12px var(--pp-volt); transform: rotate(45deg); }
+
+  /* ---------- direction ---------- */
+  .lede { font: 500 clamp(20px, 2.4vw, 30px)/1.35 Unbounded; letter-spacing: -.02em; color: var(--pp-paper); max-width: 34ch; }
+  .lede em { font-style: normal; color: var(--pp-volt-hi); }
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
+  .cols p { margin: 8px 0 0; color: var(--pp-fog); font-size: 15px; }
+  @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+
+  /* ---------- palette ---------- */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .sw { border-radius: 14px; overflow: hidden; border: 1px solid var(--pp-rim); }
+  .sw div { height: 112px; }
+  .sw p { margin: 0; padding: 10px 12px; background: var(--pp-ink); }
+  .sw p b { display: block; font: 500 13px Geist; color: var(--pp-paper); }
+  .sw.big { grid-column: span 2; } .sw.big div { height: 112px; }
+  @media (max-width: 500px) { .sw.big { grid-column: span 1; } }
+
+  /* ---------- type ---------- */
+  .type { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; }
+  .type .tile { padding: 28px; }
+  .spec-xl { font: 700 clamp(64px, 11vw, 168px)/.86 Unbounded; letter-spacing: -.05em; color: var(--pp-paper); }
+  .spec-xl span { color: var(--pp-volt); }
+  .glyphs { font: 500 22px/1.5 Unbounded; color: var(--pp-mist); word-break: break-all; margin-top: 18px; }
+  .body-spec { font: 400 18px/1.55 Geist; color: var(--pp-mist); }
+  .mono-spec { font: 500 15px/1.6 'Geist Mono'; color: var(--pp-volt-hi); background: var(--pp-void); border-radius: 10px; padding: 14px 16px; margin-top: 18px; overflow-x: auto; white-space: nowrap; }
+  @media (max-width: 860px) { .type { grid-template-columns: 1fr; } }
+
+  /* ---------- identity ---------- */
+  .ident { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .ident > figure { grid-column: span 4; }
+  .ident .wide { grid-column: span 8; }
+  .ident .tile { display: grid; place-items: center; min-height: 260px; padding: 28px; }
+  .ident .paper { background: var(--pp-paper); border-color: var(--pp-paper); }
+  .ident svg { width: 70%; height: auto; max-width: 220px; cursor: pointer; }
+  @media (max-width: 860px) { .ident > figure, .ident .wide { grid-column: span 12; } }
+  .fav-row { display: flex; gap: 28px; align-items: end; }
+  .fav-row img:nth-child(1) { width: 32px; } .fav-row img:nth-child(2) { width: 64px; } .fav-row img:nth-child(3) { width: 120px; border-radius: 26px; }
+
+  /* ---------- heroes ---------- */
+  .heroes { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+  .heroes .full { grid-column: 1 / -1; }
+  .heroes img { width: 100%; height: auto; }
+  @media (max-width: 860px) { .heroes { grid-template-columns: 1fr; } }
+
+  /* ---------- products ---------- */
+  .prods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .prod { background: var(--pp-ink); border-radius: 18px; overflow: hidden; border: 1px solid var(--pp-rim); }
+  .prod .body { padding: 18px 18px 20px; }
+  .prod .fig { font: 700 26px Unbounded; color: var(--pp-paper); letter-spacing: -.03em; }
+  .prod .fig small { font: 500 12px 'Geist Mono'; color: var(--pp-fog); letter-spacing: .06em; margin-left: 6px; text-transform: uppercase; }
+  .prod p { margin: 6px 0 0; font-size: 14px; color: var(--pp-fog); }
+  .status { float: right; font: 500 11px 'Geist Mono'; letter-spacing: .08em; text-transform: uppercase; color: var(--pp-volt-hi); border: 1px solid var(--pp-rim); padding: 3px 8px; border-radius: 99px; }
+  @media (max-width: 1000px) { .prods { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .prods { grid-template-columns: 1fr; } }
+  .retired { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 36px; }
+  .retired figure { background: var(--pp-ink); border: 1px solid var(--pp-rim); border-radius: 14px; padding: 10px 10px 14px; }
+  .retired img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+  .retired figcaption { margin-top: 4px; display: block; }
+  .retired figcaption b { display: block; font-size: 12px; line-height: 1.3; }
+  .luma { display: grid; place-items: center; aspect-ratio: 1; }
+  .luma { background: #F4EFE6; border-radius: 10px; opacity: .55; }
+  .luma img { width: 78%; aspect-ratio: auto; }
+  @media (max-width: 1000px) { .retired { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 520px) { .retired { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ---------- extras ---------- */
+  .extras { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .extras > figure { grid-column: span 4; }
+  .extras .s8 { grid-column: span 8; } .extras .s12 { grid-column: span 12; } .extras .s6 { grid-column: span 6; }
+  .extras .tile { min-height: 240px; display: grid; place-items: center; position: relative; }
+  .stickers { position: relative; height: 420px; }
+  .stickers img { position: absolute; filter: drop-shadow(0 10px 18px rgb(0 0 0 / .4)); transition: transform .5s var(--pp-spring); }
+  .stickers img:hover { transform: rotate(-6deg) scale(1.06); }
+  @media (max-width: 860px) { .extras > figure, .extras .s8, .extras .s6 { grid-column: span 12; } .stickers { height: 560px; } }
+  .swatch-tex { width: 100%; height: 240px; }
+
+  /* ---------- interactive ---------- */
+  .inter { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .inter .tile { position: relative; aspect-ratio: 1 / 1; }
+  .inter canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  .inter .hint { position: absolute; left: 16px; bottom: 14px; z-index: 2; pointer-events: none; }
+  .btn { font: 500 12px 'Geist Mono'; letter-spacing: .08em; text-transform: uppercase; color: var(--pp-paper); background: var(--pp-rim); border: 1px solid var(--pp-slate); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
+  .btn:hover { background: var(--pp-volt-lo); border-color: var(--pp-volt); }
+  .inter .ctl { position: absolute; right: 14px; top: 14px; z-index: 2; display: flex; gap: 8px; }
+  @media (max-width: 860px) { .inter { grid-template-columns: 1fr; } }
+
+  /* ---------- motion ---------- */
+  .motion { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .motion .tile { padding: 24px; min-height: 300px; display: flex; flex-direction: column; gap: 18px; }
+  .motion .tile p { margin: 0; color: var(--pp-fog); font-size: 14px; }
+  .sling-row { display: flex; gap: 12px; flex-wrap: wrap; flex: 1; align-items: center; }
+  .chip { padding: 12px 16px; border-radius: 12px; background: var(--pp-rim); font: 500 14px Unbounded; color: var(--pp-paper); }
+  .chip.v { background: var(--pp-volt); }
+  .lift-row { display: flex; gap: 28px; flex-wrap: wrap; flex: 1; align-items: center; padding: 10px 0 18px; }
+  .lift-row .pp-lift { width: 140px; padding: 18px; border-radius: 14px; background: var(--pp-deep); border: 1px solid var(--pp-slate); outline: none; }
+  .lift-row .pp-lift b { font: 700 22px Unbounded; color: var(--pp-paper); display: block; }
+  .worm { flex: 1; border-radius: 14px; overflow: hidden; position: relative; min-height: 220px; }
+  .worm .view { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 16px; padding: 16px; }
+  .worm .view img { width: 100%; border-radius: 10px; }
+  .worm .view.a { background: var(--pp-deep); } .worm .view.b { background: #0b2340; }
+  .worm .view h3 { font-size: 20px; }
+  .pop-wrap { flex: 1; display: grid; place-items: center; }
+  .pop-wrap .pp-pop { width: 150px; cursor: pointer; }
+  .pp-pop svg { width: 100%; height: auto; overflow: visible; }
+  @media (max-width: 860px) { .motion { grid-template-columns: 1fr; } }
+
+  /* ---------- footer / inventory ---------- */
+  footer { padding: 120px 0 80px; }
+  .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: end; border-top: 1px solid var(--pp-rim); padding-top: 28px; }
+  .dl { display: flex; gap: 10px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<!-- ================= TOP: the tilt stage (signature delight) ================= -->
+<header class="top pp-grain" id="top">
+  <div class="stage" id="stage">
+    <div class="layer bg" data-depth="-14"></div>
+    <div class="layer grid" data-depth="-6"></div>
+    <img class="layer planet" data-depth="12" src="hero/planet-cutout-1000.webp" srcset="hero/planet-cutout-1000.webp 1000w, hero/planet-cutout-2000.webp 2000w" sizes="74vw" alt="">
+    <img class="layer debris" data-depth="34" src="extras/voxel-debris-900.webp" srcset="extras/voxel-debris-900.webp 900w, extras/voxel-debris-1800.webp 1800w" sizes="80vw" alt="">
+    <img class="layer cursor" data-depth="56" src="extras/cursor-3d-700.webp" srcset="extras/cursor-3d-700.webp 700w, extras/cursor-3d-1400.webp 1400w" sizes="30vw" alt="">
+  </div>
+  <div class="wrap copy">
+    <img class="lock pp-sling" style="--i:0" src="brand/lockup.svg" alt="Albretsen AS">
+    <h1 class="pp-sling" style="--i:1">Pocket <em>Planet.</em></h1>
+    <div class="sub pp-sling" style="--i:2">
+      <p>Asset kit 60 for albretsen.no. A tiny voxel world, always busy, that someone keeps poking with a giant cursor. Move the pointer (or tilt the phone): every layer here is a real file in this folder.</p>
+      <span class="pill mono"><i></i> isometric · matter.js · view transitions</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= 01 DIRECTION ================= -->
+<section id="direction">
+  <div class="sec-head"><span class="num">01</span><div><h2>Direction</h2><p>Mischievous genius, drawn in true isometric. One near-black, one electric blue, grain on everything.</p></div></div>
+  <p class="lede">A globe of activity you could hold in one hand: every block is axis-aligned, every tower is a thing shipped, and the cursor that built it <em>never stops fiddling</em> with it.</p>
+  <div class="cols">
+    <div><span class="k">Tension</span><p>One voxel is always out of place: lifted from its slot in the mark, pried loose on the planet, jumping the track in the orbit divider. Order with one deliberate break.</p></div>
+    <div><span class="k">Grain</span><p>CC0 terrazzo (ambientCG) is mapped onto every block, and every still gets film grain in post. Surfaces feel made rather than rendered.</p></div>
+    <div><span class="k">Velocity</span><p>Things are flung, not faded: spring overshoot, orbit trails, a View Transition that swallows the page into the pointer. All of it stays legible and stops for reduced motion.</p></div>
+  </div>
+</section>
+
+<!-- ================= 02 PALETTE ================= -->
+<section id="palette">
+  <div class="sec-head"><span class="num">02</span><div><h2>Palette</h2><p>Seed hue 252° in OKLCH. Eight neutrals share the hue so the blacks feel cold and the greys feel lit. Volt is the only colour; product logos bring their own.</p></div></div>
+  <div class="swatches" id="swatches"></div>
+</section>
+
+<!-- ================= 03 TYPE ================= -->
+<section id="type">
+  <div class="sec-head"><span class="num">03</span><div><h2>Type</h2><p>Unbounded for display: wide, geometric, a little cheeky. Geist for reading. Geist Mono for facts, labels and the MCP command. All OFL, vendored in fonts/.</p></div></div>
+  <div class="type">
+    <div class="tile"><span class="k">Unbounded 700 · display</span><div class="spec-xl">Ab<span>.</span></div><div class="glyphs">abcdefghijklmnopqrstuvwxyz 0123456789 $782 113,000+</div></div>
+    <div class="tile"><span class="k">Geist 400 / 600 · body</span>
+      <p class="body-spec">I build software that pays for itself. <b style="color:var(--pp-paper)">Published on Google Play since 2016.</b> Takes one outside engagement at a time.</p>
+      <span class="k">Geist Mono 500 · facts</span>
+      <div class="mono-spec"><span style="color:var(--pp-volt)">$</span> claude mcp add albretsen https://albretsen.no/mcp</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 IDENTITY ================= -->
+<section id="identity">
+  <div class="sec-head"><span class="num">04</span><div><h2>Identity</h2><p>The mark is a 3×3×3 voxel cube with its near corner launched out of its slot. Hover or tap the mark to make it pop. Text is outlined from Unbounded so the SVGs need no fonts.</p></div></div>
+  <div class="ident">
+    <figure><div class="tile"><span class="pp-pop" id="markLive" data-src="brand/logo-mark.svg"></span></div><figcaption><b>logo-mark.svg</b><span class="mono">dark ground · animatable</span></figcaption></figure>
+    <figure><div class="tile paper"><img src="brand/logo-mark-light.svg" alt="" style="width:62%;max-width:200px"></div><figcaption><b>logo-mark-light.svg</b><span class="mono">light ground</span></figcaption></figure>
+    <figure><div class="tile"><div class="fav-row"><img src="brand/favicon.svg" alt=""><img src="brand/favicon.svg" alt=""><img src="brand/apple-touch-icon.png" alt=""></div></div><figcaption><b>favicon.svg · apple-touch-icon.png</b><span class="mono">32 · 64 · 180</span></figcaption></figure>
+    <figure class="wide"><div class="tile"><img src="brand/lockup.svg" alt="Albretsen AS" style="width:86%"></div><figcaption><b>lockup.svg</b><span class="mono">mark + wordmark + AS</span></figcaption></figure>
+    <figure><div class="tile"><img src="brand/wordmark.svg" alt="albretsen" style="width:86%"></div><figcaption><b>wordmark.svg</b><span class="mono">+ wordmark-light.svg</span></figcaption></figure>
+    <figure class="wide" style="grid-column:1/-1"><div class="tile" style="padding:0;min-height:0"><img src="brand/og.jpg" alt="Open Graph image" style="width:100%"></div><figcaption><b>og.jpg</b><span class="mono">1200 × 630 · composed from src/og.html</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= 05 HERO IMAGERY ================= -->
+<section id="hero">
+  <div class="sec-head"><span class="num">05</span><div><h2>Hero imagery</h2><p>Rendered in three.js with an orthographic camera at the true isometric angle (35.26°), lit by a Poly Haven studio HDRI, then graded in Python: bloom, accent halo, vignette, film grain. 1600 and 3200 wide, WebP + AVIF.</p></div></div>
+  <div class="heroes">
+    <figure class="full"><picture><source type="image/avif" srcset="hero/hero-planet-1600.avif 1600w, hero/hero-planet-3200.avif 3200w"><img class="tile" src="hero/hero-planet-1600.webp" srcset="hero/hero-planet-1600.webp 1600w, hero/hero-planet-3200.webp 3200w" sizes="(max-width: 1320px) 100vw, 1320px" alt="An isometric voxel planet with glowing activity arcs and a giant cursor prying blocks loose" loading="lazy"></picture>
+      <figcaption><b>hero-planet</b><span class="mono">planet sits right · copy goes left · 16:9</span></figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="hero/hero-surface-1600.avif 1600w, hero/hero-surface-3200.avif 3200w"><img class="tile" src="hero/hero-surface-1600.webp" srcset="hero/hero-surface-1600.webp 1600w, hero/hero-surface-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 650px" alt="Close-up of the voxel planet's horizon with towers and arcs" loading="lazy"></picture>
+      <figcaption><b>hero-surface</b><span class="mono">horizon close-up · section backdrop</span></figcaption></figure>
+    <figure><div class="tile checker" style="aspect-ratio:16/9;display:grid;place-items:center"><img src="hero/planet-cutout-1000.webp" alt="" style="height:94%;width:auto" loading="lazy"></div>
+      <figcaption><b>planet-cutout</b><span class="mono">alpha · 1000 / 2000 · for parallax layers</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= 06 PRODUCTS ================= -->
+<section id="products">
+  <div class="sec-head"><span class="num">06</span><div><h2>Products</h2><p>Each live product gets a plinth in the same isometric world. The real logos are mapped unaltered onto the front face of a thick app-icon tile; the props around them explain the product without words.</p></div></div>
+  <div class="prods" id="prods"></div>
+  <div class="retired" id="retired"></div>
+</section>
+
+<!-- ================= 07 EXTRAS ================= -->
+<section id="extras">
+  <div class="sec-head"><span class="num">07</span><div><h2>Extras</h2><p>Texture and life for the rest of the site: stickers with real facts, the 3D cursor, loose voxels, grain, a regraded CC0 terrazzo and an isometric grid.</p></div></div>
+  <div class="extras">
+    <figure class="s8"><div class="tile stickers" id="stickers">
+      <img class="pp-sling" style="--i:0;left:4%;top:8%;width:min(36%,260px)" src="extras/sticker-since-2016.svg" alt="Shipping since 2016 sticker">
+      <img class="pp-sling" style="--i:1;left:42%;top:4%;width:min(30%,230px);--from-r:14" src="extras/sticker-113k.svg" alt="113,000+ installs sticker">
+      <img class="pp-sling" style="--i:2;left:54%;top:44%;width:min(42%,330px);--from-x:60" src="extras/sticker-norway.svg" alt="Made in Norway sticker">
+      <img class="pp-sling" style="--i:3;left:3%;top:72%;width:min(70%,520px);--from-y:80" src="extras/sticker-mcp-command.svg" alt="MCP command sticker">
+    </div><figcaption><b>sticker-*.svg ×4</b><span class="mono">die-cut · facts from content.js</span></figcaption></figure>
+    <figure><div class="tile checker"><img src="extras/cursor-3d-700.webp" alt="" style="width:80%" loading="lazy"></div><figcaption><b>cursor-3d</b><span class="mono">alpha · 700 / 1400</span></figcaption></figure>
+    <figure class="s6"><div class="tile checker"><img src="extras/voxel-debris-900.webp" alt="" style="width:100%" loading="lazy"></div><figcaption><b>voxel-debris</b><span class="mono">alpha · section-edge confetti</span></figcaption></figure>
+    <figure class="s6"><div class="tile" style="background:url(extras/terrazzo-ink-512.webp) 0 0/256px"></div><figcaption><b>terrazzo-ink-512.webp</b><span class="mono">CC0 ambientCG Terrazzo005, regraded</span></figcaption></figure>
+    <figure class="s6"><div class="tile" style="background:var(--pp-ink) url(extras/iso-grid.svg)"></div><figcaption><b>iso-grid.svg</b><span class="mono">tileable 60° lattice</span></figcaption></figure>
+    <figure class="s6"><div class="tile" style="background:#3c4958 url(extras/grain-256.png)"><span class="mono" style="color:var(--pp-paper)">grain-256.png on slate</span></div><figcaption><b>grain-256.png</b><span class="mono">tileable alpha noise · .pp-grain</span></figcaption></figure>
+    <figure class="s12"><div class="tile" style="min-height:0;padding:30px 0"><img src="extras/orbit-divider.svg" alt="" style="width:100%"></div><figcaption><b>orbit-divider.svg</b><span class="mono">section divider · one block jumps the track</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= 08 INTERACTIVE ================= -->
+<section id="interactive">
+  <div class="sec-head"><span class="num">08</span><div><h2>Interactive</h2><p>Left: the live planet (planet3d.js, three.js 0.170). Right: Gravity Well (orbit-physics.js), real products orbiting the planet on matter.js with a hand-written inverse-square attractor. Grab and fling a product; tap empty space to add a block of activity.</p></div></div>
+  <div class="inter">
+    <figure><div class="tile" id="p3d"><canvas id="planetCanvas"></canvas><div class="ctl"><button class="btn" id="p3dScene">surface</button></div><span class="hint mono">move pointer · tilt phone</span></div><figcaption><b>interactive/planet3d.js</b><span class="mono">scenes: hero · surface · planet · product:* · cursor · debris</span></figcaption></figure>
+    <figure><div class="tile" id="orbitTile" style="background:radial-gradient(60% 60% at 50% 50%, #0b1a2d, var(--pp-ink))"><canvas id="orbitCanvas"></canvas><div class="ctl"><button class="btn" id="shake">shake</button><button class="btn" id="pause">pause</button></div><span class="hint mono">drag · fling · tap</span></div><figcaption><b>interactive/orbit-physics.js</b><span class="mono">matter.js 0.20.0 vendored</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= 09 MOTION ================= -->
+<section id="motion">
+  <div class="sec-head"><span class="num">09</span><div><h2>Motion</h2><p>motion.css + motion.js. Four named signatures plus ambient grain. All of them collapse to instant changes under prefers-reduced-motion.</p></div></div>
+  <div class="motion">
+    <div class="tile"><span class="k">01 · Slingshot · entrance</span><p>Flung in on a curve with a CSS linear() spring that overshoots once and settles.</p>
+      <div class="sling-row" id="slingDemo"><span class="chip pp-sling" style="--i:0">ships</span><span class="chip v pp-sling" style="--i:1;--from-r:12">pays</span><span class="chip pp-sling" style="--i:2">for itself</span><span class="chip pp-sling" style="--i:3;--from-y:-50">since 2016</span></div>
+      <button class="btn" id="replaySling" style="align-self:start">replay</button></div>
+    <div class="tile"><span class="k">02 · Iso lift · hover</span><p>Rises along the isometric axis while a stepped extrusion grows underneath. Driven by a registered custom property.</p>
+      <div class="lift-row"><a class="pp-lift" tabindex="0"><b>17</b><span class="mono">tools</span></a><a class="pp-lift" tabindex="0"><b>$782</b><span class="mono">MRR</span></a><a class="pp-lift" tabindex="0"><b>549</b><span class="mono">commits</span></a></div></div>
+    <div class="tile"><span class="k">03 · Wormhole · transition</span><p>View Transitions API: the old view is sucked into the pointer with a quarter twist while the new one opens from it.</p>
+      <div class="worm" id="worm"></div>
+      <button class="btn" id="wormBtn" style="align-self:start">next product</button></div>
+    <div class="tile"><span class="k">04 · Pop-out · micro</span><p>The mark's loose voxel squashes, springs out of its slot and lands. Use on the nav mark and on load.</p>
+      <div class="pop-wrap"><span class="pp-pop" id="markPop" data-src="brand/logo-mark.svg"></span></div></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <div class="foot">
+    <div><img src="brand/wordmark.svg" alt="albretsen" style="height:28px;width:auto"><p class="mono" style="margin-top:12px">Kit 60 · Pocket Planet · every file listed in ASSETS.md</p></div>
+    <div class="dl"><a class="btn" href="ASSETS.md">ASSETS.md</a><a class="btn" href="#top">top</a></div>
+  </div>
+</footer>
+
+<script type="module">
+import { content } from '../../_shared/content.js';
+import { observeSling, replaySling, tilt, wormhole, popMark } from './motion.js';
+const Q = new URLSearchParams(location.search);
+
+// palette
+const PAL = [
+  ['Void', 'oklch(0.13 0.012 252)', '#05080c', 'page ground', true], ['Ink', 'oklch(0.16 0.018 252)', '#080e15', 'cards'], ['Deep', 'oklch(0.20 0.025 252)', '#0e1721', 'raised'],
+  ['Rim', 'oklch(0.27 0.03 252)', '#1c2735', 'hairlines'], ['Slate', 'oklch(0.40 0.03 252)', '#3c4958', 'block sides'], ['Fog', 'oklch(0.62 0.03 252)', '#798898', 'secondary text'],
+  ['Mist', 'oklch(0.86 0.015 252)', '#cad2db', 'body text'], ['Paper', 'oklch(0.96 0.008 252)', '#eef2f7', 'headings, block tops'],
+  ['Volt', 'oklch(0.65 0.192 252)', '#0790ff', 'the one accent', true], ['Volt hi', 'oklch(0.78 0.115 252)', '#80bcff', 'accent on dark'], ['Volt lo', 'oklch(0.47 0.14 252)', '#0559a8', 'accent shadow side'],
+];
+document.getElementById('swatches').innerHTML = PAL.map(([n, o, h, u, big]) => `<div class="sw${big ? ' big' : ''}"><div style="background:${o}"></div><p><b>${n}</b><span class="mono">${h}</span><br><span class="mono" style="text-transform:none;letter-spacing:0">${o}</span><br><span class="mono" style="color:var(--pp-slate)">${u}</span></p></div>`).join('');
+
+// products from the shared facts
+const live = content.products.filter(p => ['live', 'building', 'paused'].includes(p.status));
+document.getElementById('prods').innerHTML = live.map((p, i) => `
+  <article class="prod pp-sling" style="--i:${i}">
+    <picture><img src="products/product-${p.id}-800.webp" srcset="products/product-${p.id}-800.webp 800w, products/product-${p.id}-1600.webp 1600w" sizes="(max-width:520px) 100vw, 320px" alt="${p.name} logo on an isometric plinth" loading="lazy" style="view-transition-name: none"></picture>
+    <div class="body"><span class="status">${p.status}</span><h3>${p.name}</h3>
+      <div class="fig" style="margin-top:12px">${p.figure?.value ?? ''}<small>${p.figure?.label ?? ''}</small></div><p>${p.line}</p></div>
+  </article>`).join('');
+const retiredFiles = { 'polyglot-pilot': 1, pinpoint: 1, webvakt: 1, 'joke-central': 1, 'tryggere-hyring': 1, 'early-apps': 1 };
+document.getElementById('retired').innerHTML = content.products.filter(p => p.status === 'retired').map(p => p.id === 'luma'
+  ? `<figure><div class="luma"><img src="../../_shared/products/luma/logo.png" alt="Luma logo"></div><figcaption><b>${p.name}</b><span class="mono">real logo, dimmed</span></figcaption></figure>`
+  : `<figure><img src="products/retired/retired-${p.id}.svg" alt="" loading="lazy"><figcaption><b>${p.name}</b><span class="mono">${p.since} · stand-in</span></figcaption></figure>`).join('');
+
+// inline the mark so the voxel can pop
+for (const el of document.querySelectorAll('[data-src]')) {
+  el.innerHTML = await (await fetch(el.dataset.src)).text();
+  el.addEventListener('click', () => popMark(el));
+}
+setTimeout(() => popMark(document.getElementById('markLive')), 900);
+
+observeSling();
+if (Q.has('only')) { const keep = Q.get('only').split(','); document.querySelectorAll('header.top, main > section, footer').forEach(e => { if (!keep.includes(e.id || e.tagName.toLowerCase())) e.style.display = 'none'; }); document.querySelectorAll('.pp-sling').forEach(e => e.classList.add('is-in')); }
+tilt(document.getElementById('stage'), { scope: window });
+document.getElementById('replaySling').onclick = () => replaySling(document.getElementById('slingDemo'));
+
+// wormhole demo: cycle the live products
+const worm = document.getElementById('worm'); let wi = 0;
+const renderWorm = () => { const p = live[wi % live.length]; worm.innerHTML = `<div class="view ${wi % 2 ? 'b' : 'a'}"><img src="products/product-${p.id}-800.webp" alt=""><div><span class="k">${p.status} · since ${p.since}</span><h3>${p.name}</h3><p style="margin-top:6px">${p.line}</p></div></div>`; };
+renderWorm();
+document.getElementById('wormBtn').onclick = e => wormhole(e, () => { wi++; renderWorm(); });
+
+// lazy-mount the heavy interactive pieces when they scroll near (?still skips them, for screenshots)
+const lazy = (el, fn) => { if (Q.has('still')) return; const io = new IntersectionObserver(([en]) => { if (en.isIntersecting) { io.disconnect(); fn(); } }, { rootMargin: '400px' }); io.observe(el); };
+let planet = null, scene = 'hero';
+const mountP = async () => { const { mountPlanet } = await import('./interactive/planet3d.js'); planet?.dispose(); planet = await mountPlanet(document.getElementById('planetCanvas'), { scene, interactive: true, bloom: false }); };
+lazy(document.getElementById('p3d'), mountP);
+document.getElementById('p3dScene').onclick = e => { const order = ['hero', 'surface', 'product:fun-libs', 'product:mcp-emails', 'planet']; scene = order[(order.indexOf(scene) + 1) % order.length]; e.target.textContent = order[(order.indexOf(scene) + 1) % order.length].replace('product:', ''); const c = document.getElementById('planetCanvas'); const n = c.cloneNode(); c.replaceWith(n); mountP(); };
+lazy(document.getElementById('orbitTile'), async () => {
+  const { mountOrbit } = await import('./interactive/orbit-physics.js');
+  const o = await mountOrbit(document.getElementById('orbitCanvas'), { tiltTarget: document.getElementById('orbitTile') });
+  document.getElementById('shake').onclick = () => o.shake();
+  const pb = document.getElementById('pause'); pb.textContent = o.running ? 'pause' : 'play'; pb.onclick = () => { o.running ? o.pause() : o.play(); pb.textContent = o.running ? 'pause' : 'play'; };
+});
+</script>
+</body>
+</html>

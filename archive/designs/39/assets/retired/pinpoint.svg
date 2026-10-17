@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="PinPoint (retired)">
+<title>PinPoint</title>
+<rect width="400" height="400" rx="20" fill="#1a1918"/>
+<rect x="12.5" y="12.5" width="375" height="375" rx="12" fill="none" stroke="#2c2a29"/>
+<g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="200" cy="200" r="22" stroke="#dcdad7" opacity="1.00"/><circle cx="200" cy="200" r="44" stroke="#8d8a86" opacity="0.43"/><circle cx="200" cy="200" r="70" stroke="#8d8a86" opacity="0.33"/><circle cx="200" cy="200" r="100" stroke="#8d8a86" opacity="0.22"/><circle cx="200" cy="200" r="132" stroke="#8d8a86" opacity="0.12"/><circle cx="200" cy="200" r="5" fill="#dcdad7" stroke="none"/></g>
+<g font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing=".06em" fill="#8d8a86">
+<text x="32" y="364">PinPoint</text><text x="368" y="48" text-anchor="end">2025</text>
+<text x="32" y="48" fill="#2c2a29">&#8212; retired</text></g>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="joke-central (retired) stand-in" color="#070707">
+  <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <ellipse cx="80" cy="80" rx="74" ry="22" fill="none" stroke="#F34046" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" transform="rotate(8 80 80)"/>
+  <circle cx="153.27983708687623" cy="90.29880947104485" r="4.5" fill="#F34046"/>
+  <path d="M48 78 A32 32 0 0 0 112 78" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="miter" stroke-linecap="butt"/><path d="M56 78 A24 18 0 0 0 104 78" fill="#F34046"/><path d="M58 58 V66 M102 58 V66" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="miter" stroke-linecap="butt"/>
+</svg>

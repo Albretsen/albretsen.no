@@ -1,0 +1,17 @@
+{
+  "name": "Bitspark",
+  "tagline": "A 1-bit desktop where every product sings its own note.",
+  "summary": "Albretsen AS as a bright System 7 desktop: black ink, white paper, one hot crimson spark, a grid you can see. One live event fills the window at a time in an ultra-wide face, while a four-lane chorus shows the rhythm of every product at once. It reads as optimistic, exact and fast, someone who ships and keeps shipping.",
+  "palette": ["#000000", "#ffffff", "#e00655", "#fa2564"],
+  "type": ["Anybody (wdth 150, 800)", "IBM Plex Mono", "Silkscreen"],
+  "voice": "Terse engineer, upbeat. States what shipped and what it does, never sells. Example: \"Ships software that pays for itself.\"",
+  "motion": "Still by default; each real event gets one 360 ms pass of sliced, offset, dithered glitch, then holds dead still.",
+  "sound": "Opt-in square-wave beeps: MCP Emails C5, Fun Libs E5, Toolrails G5, albretsen.no C6, so the feed plays a C-major chorus at the speed of real traffic.",
+  "mark": "A 16x16 pixel A with a five-pixel crimson spark at its shoulder, drawn for the favicon first and only ever scaled by whole pixels.",
+  "inspiration": [
+    "https://www.guidebookgallery.org/guis/macos/macos70",
+    "https://www.moma.org/collection/works/188392",
+    "https://eyeondesign.aiga.org/the-ever-changing-art-of-the-screensaver/",
+    "https://rauno.me"
+  ]
+}

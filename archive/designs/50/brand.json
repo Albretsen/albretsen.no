@@ -1,0 +1,19 @@
+{
+  "name": "IR//PEEL",
+  "tagline": "Pixel stickers on glossy vinyl. Peel one and an infrared underdrawing is underneath.",
+  "summary": "The homepage is a sheet of die-cut vinyl stickers: the Albretsen AS mark, the four real product logos and a set of pixel sprites. Visitors can peel every one of them. Under each sticker is a fact, and under the mark is an infrared, Bayer-dithered plate of a public-domain museum object. The surface is playful, but there is always a deliberate layer under it, which suits a builder who ships toys and infrastructure with the same care.",
+  "palette": ["#0d031e", "#4b1788", "#f315a2", "#fa8233", "#fec766", "#f2ed2b", "#f6f3fc"],
+  "type": ["Geist 650", "Geist 400", "Geist Mono + Silkscreen (micro labels only)"],
+  "voice": "Terse and dry, the way a late-night terminal talks. Lowercase confidence that never shouts. Example: \"Every sticker on this sheet peels. Underneath is the work.\"",
+  "motion": "Objects behave like vinyl: they SLAP down on a spring, LIFT with a holographic glint, peel along a real fold line, and screens dissolve in Bayer-ordered infrared.",
+  "sound": "Off until the visitor turns it on. Then a band-passed noise sweep plays when vinyl lifts off the liner, there is a low thump on re-stick, and 8-bit square-wave blips on UI.",
+  "mark": "A 16×16 pixel tile in violet with its corner folded back and an A carrying a one-pixel magenta offset, set beside a pixel wordmark with an orange AS.",
+  "inspiration": [
+    "https://gsap.com/docs/v3/HelperFunctions/helpers/imageSequenceScrub",
+    "https://motion.dev/examples",
+    "https://github.com/simeydotme/pokemon-cards-css",
+    "https://www.radix-ui.com/primitives/docs/guides/animation",
+    "https://codemyui.com/peel-away-sticker-text-effect/",
+    "https://www.metmuseum.org/openaccess"
+  ]
+}

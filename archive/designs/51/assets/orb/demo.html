@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sodium Orb — demo</title>
+<link rel="icon" href="../brand/favicon.svg">
+<style>
+  html, body { margin: 0; height: 100%; background: radial-gradient(120% 90% at 50% 100%, #0c2348 0%, #051029 45%, #020513 100%); color: #bed4eb; font: 500 11px/1.4 ui-monospace, 'JetBrains Mono', monospace; letter-spacing: .14em; text-transform: uppercase; }
+  #orb { position: absolute; inset: 0; }
+  p { position: absolute; left: 0; right: 0; bottom: 28px; text-align: center; margin: 0; opacity: .7; pointer-events: none; }
+</style></head>
+<body>
+<div id="orb"></div>
+<p>Drag to turn · press to strike</p>
+<script type="module">
+  import { mountOrb } from './sodium-orb.js';
+  const orb = await mountOrb(document.getElementById('orb'));
+  if (location.hash === '#strike') setTimeout(() => orb.strike(), 600);
+  if (location.hash === '#poster') document.querySelector('p').remove();
+  window.orb = orb;
+</script>
+</body></html>

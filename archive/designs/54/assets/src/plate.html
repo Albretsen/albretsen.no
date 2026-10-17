@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Specimen plate (composition source)</title>
+<!-- Composition source for the baked product plates. ?p=mcp-emails|fun-libs|toolrails|harbor  &z=2 for retina -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,50;1,9..144,300..500,100&family=Spline+Sans+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+  :root { --paper:#f8f4ea; --deep:#ede5d6; --ink:#162118; --soft:#525e54; --moss:#408742; --rule:#c4c5b7; }
+  html, body { margin: 0; }
+  body { width: 1200px; height: 1500px; overflow: hidden; position: relative; color: var(--ink); font-family: Fraunces, Georgia, serif;
+    background: radial-gradient(70% 55% at 50% 42%, #fffdf7, var(--paper) 60%, var(--deep)); }
+  body::after { content: ""; position: absolute; inset: 0; background: url(../extras/paper-grain.webp) 0 0/512px; mix-blend-mode: multiply; pointer-events: none; }
+  .frame { position: absolute; inset: 36px; border: 1px solid color-mix(in oklch, var(--ink) 22%, transparent); }
+  .frame::before { content: ""; position: absolute; inset: 6px; border: 1px solid color-mix(in oklch, var(--ink) 10%, transparent); }
+  .mono { font-family: "Spline Sans Mono", monospace; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+  .top { position: absolute; left: 80px; right: 80px; top: 74px; display: flex; justify-content: space-between; }
+  .top b { color: var(--moss); font-weight: 500; }
+  .spec { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%) rotate(var(--rot, 0deg)); filter: drop-shadow(10px 18px 14px rgba(22,33,24,.16)); }
+  .spec #img { display: block; width: var(--w, 720px); height: auto; }
+  .pin { position: absolute; width: 22px; height: auto; left: var(--px); top: var(--py); transform: translate(-50%, -14px) rotate(-8deg); transform-origin: 50% 8%; filter: drop-shadow(14px 18px 6px rgba(22,33,24,.25)); }
+  .latin { position: absolute; left: 80px; bottom: 150px; }
+  .latin h1 { margin: 0; font-style: italic; font-weight: 340; font-size: 64px; letter-spacing: -.02em; line-height: 1; font-variation-settings: "SOFT" 100, "opsz" 144; }
+  .latin p { margin: 14px 0 0; font-size: 22px; font-weight: 360; color: var(--soft); max-width: 30ch; }
+  .fig { position: absolute; left: 80px; bottom: 82px; }
+  .tag { position: absolute; right: 92px; bottom: 112px; width: 300px; padding: 22px 24px 20px 46px; background: #fffdf6;
+    clip-path: polygon(22px 0, 100% 0, 100% 100%, 22px 100%, 0 50%); transform: rotate(-4deg); filter: drop-shadow(0 6px 10px rgba(22,33,24,.12)); }
+  .tag::before { content: ""; position: absolute; left: 14px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; border: 1.5px solid var(--ink); }
+  .tag .logo { height: 64px; display: block; margin-bottom: 14px; }
+  .tag .name { font-size: 26px; font-weight: 420; letter-spacing: -.01em; }
+  .tag .row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; border-top: 1px dashed var(--rule); padding-top: 10px; }
+  .tag .fig-v { font-family: "Spline Sans Mono", monospace; font-size: 18px; color: var(--ink); }
+  .status { font-family: "Spline Sans Mono", monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--moss); }
+  .status::before { content: "\25CF  "; }
+  .status.paused { color: #8a6a4a; }
+  .thread { position: absolute; inset: 0; pointer-events: none; }
+  .living { position: absolute; right: 96px; top: 140px; width: 190px; text-align: center; }
+  .living .disc { width: 190px; height: 190px; border-radius: 50%; display: grid; place-items: center; border: 1px solid color-mix(in oklch, var(--ink) 25%, transparent); background: radial-gradient(circle at 50% 40%, #fffdf6, var(--deep)); }
+  .living img { width: 72%; height: auto; }
+  .living .cap { margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="frame"></div>
+<div class="top mono"><span>Specimen <b id="no"></b></span><span>Albretsen AS &middot; Vivarium</span></div>
+<svg class="thread" viewBox="0 0 1200 1500"><path id="thread" fill="none" stroke="#162118" stroke-width="1.2" opacity=".55"/></svg>
+<div class="spec" id="spec"><img id="img" alt=""><img class="pin" src="../extras/pin.svg" alt="" id="pin"></div>
+<div class="living"><div class="disc"><img id="live" alt=""></div><div class="cap mono">fig. b &mdash; kept alive</div></div>
+<div class="latin"><h1 id="latin"></h1><p id="line"></p></div>
+<div class="fig mono" id="figa"></div>
+<div class="tag"><img class="logo" id="logo" alt=""><div class="name" id="name"></div>
+  <div class="row"><span class="fig-v" id="figure"></span><span class="status" id="status"></span></div></div>
+<script>
+  const P = {
+    'mcp-emails': { no: '001', img: 'moth-struyk', w: 760, rot: -6, px: '50%', py: '42%', latin: 'Noctua epistolaris', line: 'MCP Emails. Email for AI agents. Night-flying; carries letters between agents and inboxes.', logo: 'mcp-emails-icon.png', name: 'MCP Emails', figure: '$782 MRR', status: 'Live', live: 'moth', figa: 'fig. a &mdash; Nicolaas Struyk, A Moth, 18th c. The Met, CC0' },
+    'fun-libs': { no: '002', img: 'longhorn-vandervinne', w: 900, rot: 4, px: '46%', py: '44%', latin: 'Cerambyx lusor', line: 'Fun Libs. A fill-in-the-blanks word game for Android and iOS. Found in the wild since 2019.', logo: 'fun-libs-icon.png', name: 'Fun Libs', figure: '113,000+ installs', status: 'Live', live: 'beetle', figa: 'fig. a &mdash; Vincent Laurensz van der Vinne, Green Beetle, late 17th c. The Met, CC0' },
+    'toolrails': { no: '003', img: 'stag-beetle-redoute', w: 760, rot: -3, px: '50%', py: '46%', latin: 'Lucanus instrumentarius', line: 'Toolrails. One MCP URL that gives an agent every tool. Mandibles fit any handle.', logo: 'toolrails-icon.svg', name: 'Toolrails', figure: '4 connectors', status: 'Building', live: 'ant', figa: 'fig. a &mdash; Pierre-Joseph Redouté, A Stag Beetle. The Met, CC0' },
+    'harbor': { no: '004', img: 'dung-beetle-holsteyn', w: 900, rot: 2, px: '62%', py: '30%', latin: 'Scarabaeus custos', line: 'Harbor. A private knowledge base shared by people and AI. Dormant, not extinct.', logo: 'harbor-mark.svg', name: 'Harbor', figure: '549 commits', status: 'Paused', live: 'snail', figa: 'fig. a &mdash; Pieter Holsteyn II, Studies of a Blue Beetle, c. 1650. The Met, CC0' },
+  };
+  const q = new URLSearchParams(location.search); const d = P[q.get('p') || 'mcp-emails'];
+  if (q.get('z')) document.documentElement.style.zoom = q.get('z');
+  const $ = id => document.getElementById(id);
+  $('no').textContent = 'No. ' + d.no; $('img').src = '../extras/specimens/' + d.img + '.webp';
+  $('spec').style.setProperty('--w', d.w + 'px'); $('spec').style.setProperty('--rot', d.rot + 'deg');
+  $('pin').style.setProperty('--px', d.px); $('pin').style.setProperty('--py', d.py);
+  $('latin').textContent = d.latin; $('line').textContent = d.line; $('logo').src = '../products/real/' + d.logo;
+  $('name').textContent = d.name; $('figure').textContent = d.figure; $('status').textContent = d.status;
+  if (d.status === 'Paused') $('status').classList.add('paused');
+  $('live').src = '../hero/creatures/' + d.live + '.webp'; $('figa').innerHTML = d.figa;
+  addEventListener('load', () => {
+    const pr = $('pin').getBoundingClientRect(), tg = document.querySelector('.tag').getBoundingClientRect();
+    const x1 = pr.left + pr.width / 2, y1 = pr.top + 14, x2 = tg.left + 18, y2 = tg.top + tg.height / 2;
+    $('thread').setAttribute('d', `M${x1} ${y1} C ${x1 + 40} ${y1 + 200}, ${x2 - 160} ${y2 - 40}, ${x2} ${y2}`);
+    document.title = 'ready';
+  });
+</script>
+</body>
+</html>

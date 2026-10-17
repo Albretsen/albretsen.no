@@ -1,0 +1,33 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>OG card</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#FFF6E4}
+  .card{position:relative;width:1200px;height:630px;overflow:hidden}
+  .bg{position:absolute;inset:0;background:url(../hero/blink-dawn@2x.webp) 250px -170px/1300px auto no-repeat}
+  .fade{position:absolute;inset:0;background:linear-gradient(90deg,#FFF6E4 0,#FFF6E4ee 34%,#FFF6E400 54%)}
+  .grain{position:absolute;inset:0;background:url(../extras/clay-grain.webp);mix-blend-mode:soft-light;opacity:.16}
+  .copy{position:absolute;left:64px;top:64px;width:560px;color:#381A13}
+  .copy img{width:440px;display:block}
+  h1{font-family:'Bricolage Grotesque';font-weight:800;font-stretch:76%;font-size:84px;line-height:.9;letter-spacing:-.01em;margin:44px 0 0}
+  h1 em{font-style:normal;color:#ED6E12}
+  .meta{position:absolute;left:64px;bottom:52px;font:500 20px 'DM Mono',monospace;letter-spacing:.08em;color:#6D3F2F;display:flex;gap:18px;align-items:center}
+  .meta b{display:inline-block;width:14px;height:14px;border-radius:50%;background:#ED3F4B}
+  .vf{position:absolute;inset:28px;border-radius:0;pointer-events:none}
+  .vf i{position:absolute;width:56px;height:56px;border:5px solid #fff;filter:drop-shadow(0 1px 2px #381A1355)}
+  .vf i:nth-child(1){right:0;top:0;border-left:0;border-bottom:0;border-top-right-radius:14px}
+  .vf i:nth-child(2){right:0;bottom:0;border-left:0;border-top:0;border-bottom-right-radius:14px}
+  .sticker{position:absolute;left:600px;top:330px;width:150px;transform:rotate(-10deg)}
+</style></head><body>
+<div class="card">
+  <div class="bg"></div><div class="fade"></div><div class="grain"></div>
+  <div class="vf"><i></i><i></i></div>
+  <img class="sticker" src="../extras/sticker-say-cheese.webp" alt="">
+  <div class="copy">
+    <img src="../identity/lockup.svg" alt="Albretsen AS">
+    <h1>I build software that <em>pays for itself.</em></h1>
+  </div>
+  <div class="meta"><b></b>ALBRETSEN.NO · NORWAY · APPS, SAAS, AGENT INFRA</div>
+</div>
+<script>document.fonts.ready.then(()=>document.title='ready')</script>
+</body></html>

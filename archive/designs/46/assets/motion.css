@@ -1,0 +1,47 @@
+/* Motion study, design 46 "Say Cheese": CSS half. Tokens + CSS-only fallbacks for the WAAPI moves in motion.js.
+   The JS versions are the signature; these keep things alive without JS and give the builder easings to reuse. */
+
+:root {
+  /* baked springs (from motion.js springEasing) */
+  --ease-spring-bouncy: linear(0, 0.0804, 0.2815, 0.5424, 0.808, 1.0364, 1.202, 1.295, 1.3195, 1.2889, 1.2217, 1.1373, 1.053, 0.9818, 0.9312, 0.9039, 0.8981, 0.9094, 0.9318, 0.959, 0.9857, 1.0078, 1.0233, 1.0312, 1.0324, 1.0284, 1.021, 1.0122, 1.0038, 0.9969, 0.9922, 0.9899, 0.9897, 0.9911, 0.9936, 0.9964, 0.9991, 1.0012, 1.0026, 1.0033, 1.0033, 1.0028, 1.002, 1.0011, 1.0002, 0.9996, 0.9991, 0.9989, 1); /* 1260ms */
+  --ease-out-lens: cubic-bezier(.2, .7, .2, 1);
+  --ease-shutter: cubic-bezier(.1, .6, .3, 1);
+  --dur-blink: 180ms;
+}
+
+/* 1. Iris Open (CSS fallback uses a circle; motion.js uses a rotating hexagon) */
+@keyframes iris-open {
+  from { clip-path: circle(0% at 50% 50%); filter: brightness(1.6); }
+  to   { clip-path: circle(75% at 50% 50%); filter: brightness(1); }
+}
+.m-iris { animation: iris-open 1s var(--ease-out-lens) both; }
+
+/* 2. Squish on hover (CSS-only boop; motion.js adds the springy rebound) */
+.m-squish { transition: transform 600ms var(--ease-spring-bouncy); transform-origin: 50% 100%; }
+.m-squish:hover { transform: scale(1.06, .94); }
+.m-squish:active { transform: scale(1.12, .86); transition-duration: 120ms; }
+
+/* 3. Rack Focus reveal */
+@keyframes rack-focus {
+  0%   { filter: blur(16px) brightness(1.5) saturate(1.3); transform: scale(1.06); opacity: 0; }
+  55%  { filter: blur(4px) brightness(1.15); transform: scale(.995); opacity: 1; }
+  75%  { filter: blur(3px) brightness(1.05); transform: scale(1.004); }
+  100% { filter: none; transform: none; opacity: 1; }
+}
+.m-focus { animation: rack-focus 900ms var(--ease-out-lens) both; }
+
+/* 4. Recording dot + viewfinder focus box breathing (for the hero HUD) */
+@keyframes rec-blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: .15 } }
+@keyframes af-hunt { 0%, 100% { transform: scale(1) } 30% { transform: scale(1.12) } 55% { transform: scale(.96) } }
+#vf-rec { animation: rec-blink 1.2s steps(1) infinite; }
+#vf-focus { transform-box: fill-box; transform-origin: center; animation: af-hunt 2.6s var(--ease-out-lens) infinite; }
+
+/* 5. Sticker hover: peel up a corner */
+.m-sticker { transition: transform 500ms var(--ease-spring-bouncy), filter 300ms; }
+.m-sticker:hover { transform: rotate(var(--rot, -4deg)) translateY(-6px) scale(1.04); filter: drop-shadow(0 18px 18px rgba(109, 63, 47, .3)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-iris, .m-focus { animation: none; }
+  .m-squish, .m-sticker { transition: none; }
+  #vf-rec, #vf-focus { animation: none; }
+}

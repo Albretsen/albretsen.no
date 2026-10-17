@@ -1,0 +1,12 @@
+{
+  "name": "Albedo",
+  "tagline": "A pale instrument that reports what happened, and very little else.",
+  "summary": "Albretsen AS presented the way a lab presents its findings: a high-key, nearly white page where the only thing that moves is real activity, arriving as pixel dots on a world map and as lines of type. Lots of air, very small type and one condensed name. Asgeir comes across as someone who measures before he speaks, and the evidence is live.",
+  "palette": ["#f5fbfe", "#e4f3fa", "#bad6e3", "#172e40", "#495e6d", "#5fb7dc", "#e6a0ba", "#8ad7b6", "#ebd28f"],
+  "type": ["Saira Extra Condensed", "IBM Plex Sans", "IBM Plex Mono"],
+  "voice": "Dry understatement in the register of a methods section: it states the observation and leaves the reader to be impressed. Example: \"Positions approximate to country or city. Quiet periods are real.\"",
+  "motion": "Text arrives character by character like a teletype, a new dot gets one square ring of signal, and nothing else moves unless something actually happened.",
+  "sound": "Silent page. The sonic logo, written up in BRAND.md, is a 228 Hz sine with a short return ping two octaves up, like a sensor registering an echo.",
+  "mark": "An 8 by 8 pixel A drawn for 16 px first, with one detached pixel in the top-right corner as the signal; on the site that pixel changes colour when the site deploys.",
+  "inspiration": ["https://press.stripe.com", "https://www.takram.com", "https://github.com/rameerez/mappo", "https://www.dezeen.com/2017/12/13/kenya-hara-exclusive-interview-muji-us-expansion-brand-aesthetic/"]
+}

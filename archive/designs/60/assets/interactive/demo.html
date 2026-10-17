@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Planet — interactive demo</title>
+<link rel="icon" href="../brand/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; background: #05080c; color: #cad2db; font: 400 15px Geist, system-ui, sans-serif; }
+  main { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+  .pane { position: relative; overflow: hidden; }
+  .pane + .pane { border-left: 1px solid #1c2735; background: radial-gradient(60% 60% at 50% 50%, #0b1a2d, #080e15); }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  .tag { position: absolute; left: 16px; top: 14px; z-index: 2; font: 500 12px 'Geist Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: #798898; }
+  .tag b { color: #80bcff; font-weight: 500; }
+  @media (max-width: 760px) { main { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; } .pane + .pane { border-left: 0; border-top: 1px solid #1c2735; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="pane"><span class="tag"><b>planet3d.js</b> · scene=<span id="sc">hero</span> · ?scene=surface|planet|product:fun-libs|cursor|debris</span><canvas id="a"></canvas></div>
+  <div class="pane" id="orbitPane"><span class="tag"><b>orbit-physics.js</b> · drag, fling, tap</span><canvas id="b"></canvas></div>
+</main>
+<script type="module">
+import { mountPlanet } from './planet3d.js';
+import { mountOrbit } from './orbit-physics.js';
+const scene = new URLSearchParams(location.search).get('scene') || 'hero';
+document.getElementById('sc').textContent = scene;
+mountPlanet(document.getElementById('a'), { scene, interactive: true, bloom: new URLSearchParams(location.search).has('bloom') });
+mountOrbit(document.getElementById('b'), { tiltTarget: document.getElementById('orbitPane') });
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halflight mark Lottie</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #160d06; display: grid; place-items: center; color: #deac37; font: 12px ui-monospace, monospace; letter-spacing: .2em; text-transform: uppercase; }
+  #m { width: min(60vmin, 420px); aspect-ratio: 1; cursor: pointer; }
+  p { position: fixed; bottom: 16px; left: 0; right: 0; text-align: center; margin: 0; opacity: .7; }
+</style>
+</head>
+<body>
+<div id="m" title="click to replay"></div>
+<p>intro, then the reflection breathes · click to replay</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
+<script>
+  const q = new URLSearchParams(location.search);
+  const anim = lottie.loadAnimation({ container: document.getElementById('m'), renderer: 'svg', loop: false, autoplay: false, path: '../motion/mark-sunrise.json' });
+  anim.addEventListener('DOMLoaded', () => {
+    if (q.has('f')) return anim.goToAndStop(+q.get('f'), true);   // ?f=75 freezes a frame
+    anim.playSegments([0, 150], true);
+  });
+  // intro once, then the reflection breathes forever
+  anim.addEventListener('complete', () => { anim.loop = true; anim.playSegments([150, 270], true); });
+  document.getElementById('m').onclick = () => { anim.loop = false; anim.playSegments([0, 150], true); };
+</script>
+</body>
+</html>

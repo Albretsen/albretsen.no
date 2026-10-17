@@ -1,0 +1,21 @@
+{
+  "name": "Honest Deck",
+  "tagline": "Every bet, face up: a self-dealing deck of candy cards under an airbrushed sunset.",
+  "summary": "Every product Asgeir has shipped is a glossy card in a three.js deck that deals itself as you scroll, live ones face up with their real numbers and retired ones stamped FOLDED. Showing the losers next to the winners is the point: it reads as someone who places many bets, keeps score in public and has nothing to hide. The 80s chrome-and-airbrush look in a candy palette keeps it optimistic, technical and nothing like a finance firm.",
+  "palette": ["#aced37", "#46ac2a", "#f5f372", "#ffa75a", "#ff9fc6", "#fa4095", "#935edf", "#d6bef5", "#99e6f9", "#f5f9ea", "#10081d"],
+  "type": ["Unbounded", "Hanken Grotesk", "Martian Mono"],
+  "voice": "Brutally honest and short, numbers before adjectives, losses stated plainly: \"Eleven products dealt so far: two pay, one is being built, one is paused, seven folded.\"",
+  "motion": "Things move like cards in a dealer's hands: they leave a deck, flip face up mid-air and land on a spring, and the hero deal is 64 pre-rendered frames scrubbed by scroll.",
+  "sound": "Off by default; when switched on, every deal, shuffle, shortcut and dropped card gives a short synthesised card snap, riffled for multi-card moves.",
+  "mark": "A house-of-cards A, two leaning cards with a third lying across them edge-on, next to an 80s chrome ALBRETSEN wordmark outlined from Unbounded 800.",
+  "inspiration": [
+    "https://tympanus.net/codrops/demos/",
+    "https://magicui.design/docs/components/magic-card",
+    "https://bruno-simon.com",
+    "https://activetheory.net",
+    "https://motion.dev/docs/scroll",
+    "https://www.radix-ui.com/primitives/docs/components/hover-card",
+    "https://linear.app/changelog/2021-03-25-keyboard-shortcuts-help",
+    "https://commons.wikimedia.org/wiki/File:Echo_-_A_Passive_Communications_Satellite_-_GPN-2002-000122.jpg"
+  ]
+}

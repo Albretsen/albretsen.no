@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prism field demo</title>
+<style>
+  html,body{margin:0;height:100%;background:#141312;color:#b7b4b0;font:13px/1.5 ui-monospace,monospace}
+  canvas{display:block;width:100vw;height:100vh;cursor:crosshair;touch-action:none}
+  p{position:fixed;left:24px;bottom:20px;margin:0;letter-spacing:.04em;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  button{font:inherit;color:inherit;background:none;border:1px solid #3a3836;border-radius:999px;padding:4px 12px;cursor:pointer}
+</style></head>
+<body>
+<canvas id="c"></canvas>
+<p>move: a lens through the glass &middot; click: send an echo &middot; <button data-src="../hero/prism@2x.webp">prism</button><button data-src="../hero/echo@2x.webp">echo</button><button data-src="../hero/norden-night@2x.avif">norden</button></p>
+<script type="module">
+  import { mountPrismField } from './prism-field.js'
+  const q = new URLSearchParams(location.search)
+  let c = document.getElementById('c')
+  const start = src => mountPrismField(c, { src, restingLens: q.has('lens') ? .18 : 0 })
+  let f = await start(q.get('src') || '../hero/prism@2x.webp')
+  document.querySelectorAll('button').forEach(b => b.onclick = async () => { f.destroy(); const n = c.cloneNode(); c.replaceWith(n); c = n; f = await start(b.dataset.src) })
+</script>
+</body></html>

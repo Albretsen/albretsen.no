@@ -1,0 +1,341 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Bake</title>
+<style>html,body{margin:0;background:transparent}canvas{display:block}#out{display:none}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head><body><pre id="out"></pre>
+<script type="module">
+// Albretsen AS / design 45 "Drift" — offline bake of every 3D still.
+// Usage: bake.html?scene=river-light&w=2880&h=1620  → canvas PNG dumped into #out (read with chrome --dump-dom).
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const P = new URLSearchParams(location.search);
+const W = +P.get('w') || 1600, H = +P.get('h') || 900, SCENE = P.get('scene') || 'river-light';
+const T = { 50:'#f2fdfa',100:'#dcf7f1',200:'#b7ebdf',300:'#87dac9',400:'#4bc1ad',500:'#08a28f',600:'#008171',700:'#006154',800:'#034239',900:'#042822',950:'#031612',990:'#020907' };
+const PROD = '../../../_shared/products/';
+
+// seeded random so bakes are repeatable
+let seed = 47 * 0xd63d; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const range = (a, b) => a + (b - a) * rnd();
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1); renderer.setSize(W, H);
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.0;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+const camera = new THREE.PerspectiveCamera(30, W / H, 0.1, 200);
+
+// ---------- materials ----------
+const plastic = (color, o = {}) => new THREE.MeshPhysicalMaterial({
+  color, roughness: 0.34, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.14,
+  sheen: 0.35, sheenRoughness: 0.55, sheenColor: new THREE.Color(T[50]), ...o });
+const jelly = (color, o = {}) => new THREE.MeshPhysicalMaterial({
+  color, roughness: 0.12, transmission: 0.92, thickness: 1.4, ior: 1.42,
+  attenuationColor: new THREE.Color(color), attenuationDistance: 1.6, clearcoat: 1, clearcoatRoughness: 0.05, ...o });
+
+function cycGeo(back = -12, R = 14) {
+  // seamless studio sweep: floor that bends up into a wall
+  const prof = []; for (let z = 120; z > back; z -= 2) prof.push([z, 0]);
+  for (let i = 0; i <= 40; i++) { const a = (i / 40) * Math.PI / 2; prof.push([back - Math.sin(a) * R, R - Math.cos(a) * R]); }
+  for (let y = R + 4; y < 160; y += 8) prof.push([back - R, y]);
+  const pos = [], idx = []; const X = [-160, -80, -40, -20, 0, 20, 40, 80, 160];
+  prof.forEach(([z, y]) => X.forEach((x) => pos.push(x, y, z)));
+  for (let i = 0; i < prof.length - 1; i++) for (let j = 0; j < X.length - 1; j++) { const a = i * X.length + j, b = a + X.length; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  if (g.attributes.normal.getY(0) < 0) { g.setIndex(idx.map((v, i) => idx[i - (i % 3) + (2 - (i % 3))])); g.computeVertexNormals(); }
+  return g;
+}
+function studio({ bg = T[100], floor = T[100], fogNear = 18, fogFar = 60, key = 2.6, envI = 1, floorY = 0, cycZ = -12, shadows = true } = {}) {
+  renderer.shadowMap.enabled = shadows;
+  scene.background = new THREE.Color(bg);
+  scene.fog = new THREE.Fog(bg, fogNear, fogFar);
+  scene.environmentIntensity = envI;
+  const f = new THREE.Mesh(cycGeo(cycZ), new THREE.MeshStandardMaterial({ color: floor, roughness: 0.92, envMapIntensity: 0.35 }));
+  f.position.y = floorY; f.receiveShadow = true; scene.add(f);
+  const k = new THREE.DirectionalLight('#ffffff', key);
+  k.position.set(-6, 14, 8); k.castShadow = true;
+  k.shadow.mapSize.set(2048, 2048); k.shadow.radius = 14; k.shadow.blurSamples = 24; k.shadow.bias = -0.0004;
+  const s = k.shadow.camera; s.left = -18; s.right = 18; s.top = 18; s.bottom = -18; s.near = 1; s.far = 60;
+  scene.add(k);
+  scene.add(new THREE.HemisphereLight(T[50], T[300], 0.35));
+  const rim = new THREE.DirectionalLight(T[200], 0.9); rim.position.set(8, 4, -10); scene.add(rim);
+  return { floor: f, key: k };
+}
+let blobTex;
+function blob(x, z, size, opacity = 0.35, y = 0.012) {
+  if (!blobTex) { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); const r = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+    for (let i = 0; i <= 32; i++) { const t = i / 32; const a = Math.round(255 * Math.exp(-t * t * 5.5) * (1 - t)); r.addColorStop(t, `rgb(${a},${a},${a})`); } g.fillStyle = r; g.fillRect(0, 0, 256, 256); blobTex = new THREE.CanvasTexture(c); }
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(size, size), new THREE.MeshBasicMaterial({ color: T[800], alphaMap: blobTex, transparent: true, opacity, depthWrite: false }));
+  m.rotation.x = -Math.PI / 2; m.position.set(x, y, z); scene.add(m); return m;
+}
+const shadowUnder = (o, s = 1, k = 1) => { const h = Math.max(0.2, o.position.y); blob(o.position.x + h * 0.18, o.position.z - h * 0.1, s * (1.2 + h * 0.55), k * 0.42 / (1 + h * 0.35)); };
+const add = (m, cast = true) => { m.castShadow = cast; m.receiveShadow = true; scene.add(m); return m; };
+
+function pebbleGeo(r = 1, squash = 0.62, wob = 0.08) {
+  const g = new THREE.SphereGeometry(r, 96, 64); const p = g.attributes.position; const v = new THREE.Vector3();
+  const a1 = range(0, 6), a2 = range(0, 6);
+  for (let i = 0; i < p.count; i++) {
+    v.fromBufferAttribute(p, i); const n = v.clone().normalize();
+    const w = 1 + wob * Math.sin(n.x * 2.1 + a1) * Math.cos(n.z * 1.7 + a2);
+    v.multiplyScalar(w); v.y *= squash; p.setXYZ(i, v.x, v.y, v.z);
+  }
+  g.computeVertexNormals(); return g;
+}
+
+async function tex(url, { w = 1024, h = 1024, bg = null, pad = 0, radius = 0, color = null } = {}) {
+  const img = new Image(); img.crossOrigin = 'anonymous';
+  if (color) { // svg with currentColor → inline colour
+    let s = await (await fetch(url)).text(); s = s.replace(/currentColor/g, color);
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s);
+  } else img.src = url;
+  await img.decode();
+  const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d');
+  if (radius) { x.beginPath(); x.roundRect(0, 0, w, h, radius); x.clip(); }
+  if (bg) { x.fillStyle = bg; x.fillRect(0, 0, w, h); }
+  const ar = (img.naturalWidth || 1) / (img.naturalHeight || 1); let dw = w - pad * 2, dh = dw / ar; if (dh > h - pad * 2) { dh = h - pad * 2; dw = dh * ar; }
+  x.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+const decal = (t, size, o = {}) => new THREE.Mesh(new THREE.PlaneGeometry(size, size),
+  new THREE.MeshBasicMaterial({ map: t, transparent: true, toneMapped: false, ...o }));
+
+// ---------- river ----------
+function riverCurve() {
+  return new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-6, 0, -44), new THREE.Vector3(6, 0, -32), new THREE.Vector3(1, 0, -21),
+    new THREE.Vector3(8, 0, -12), new THREE.Vector3(4, 0, -4), new THREE.Vector3(8.5, 0, 2.5),
+    new THREE.Vector3(5, 0, 8), new THREE.Vector3(7.5, 0, 13), new THREE.Vector3(13, 0, 18)], false, 'catmullrom', 0.5);
+}
+function ribbonGeo(curve, width = (u) => 0.4 + 2.4 * u, height = 0.16, NU = 600, NV = 40, cA = null, cB = null) {
+  const pos = [], idx = [], uvs = [], col = []; const ca = new THREE.Color(cA || '#fff'), cb = new THREE.Color(cB || cA || '#fff'), cc = new THREE.Color(); const up = new THREE.Vector3(0, 1, 0);
+  for (let i = 0; i <= NU; i++) {
+    const u = i / NU, c = curve.getPointAt(u), t = curve.getTangentAt(u), n = new THREE.Vector3().crossVectors(up, t).normalize();
+    const w = width(u);
+    for (let j = 0; j <= NV; j++) {
+      const a = (j / NV) * Math.PI * 2; const sx = Math.cos(a), sy = Math.sin(a);
+      // superellipse cross-section: flat top, soft rounded edge
+      const e = 0.35, px = Math.sign(sx) * Math.pow(Math.abs(sx), e), py = Math.sign(sy) * Math.pow(Math.abs(sy), e);
+      pos.push(c.x + n.x * px * w, c.y + py * height + height * 0.6, c.z + n.z * px * w); uvs.push(u, j / NV); cc.copy(ca).lerp(cb, Math.pow(u, 1.3)); col.push(cc.r, cc.g, cc.b);
+    }
+  }
+  for (let i = 0; i < NU; i++) for (let j = 0; j < NV; j++) { const a = i * (NV + 1) + j, b = a + NV + 1; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2)); g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
+const DS = { side: THREE.DoubleSide };
+function riverScene(dark) {
+  const curve = riverCurve();
+  const width = (u) => 0.35 + 2.2 * Math.pow(u, 1.4);
+  if (dark) studio({ bg: T[990], floor: T[950], fogNear: 14, fogFar: 52, key: 0.5, envI: 0.18, cycZ: -80 });
+  else studio({ bg: T[100], floor: T[100], fogNear: 16, fogFar: 58, key: 3.2, envI: 1, cycZ: -80 });
+  camera.fov = 30; camera.position.set(1.5, 10.5, 21); camera.lookAt(1.2, 0.5, -3); camera.updateProjectionMatrix();
+  const river = add(new THREE.Mesh(dark ? ribbonGeo(curve, width, 0.16, 600, 40, T[900], T[700]) : ribbonGeo(curve, width, 0.16, 600, 40, T[200], T[400]), dark
+    ? plastic('#ffffff', { vertexColors: true, roughness: 0.2, emissive: new THREE.Color(T[800]), emissiveIntensity: 0.5, sheen: 0.2, ...DS })
+    : plastic('#ffffff', { vertexColors: true, roughness: 0.16, clearcoatRoughness: 0.05, ...DS })), false);
+  // inner current: thinner raised lane
+  add(new THREE.Mesh(ribbonGeo(curve, (u) => width(u) * 0.34, 0.2, 600, 32, dark ? T[700] : T[100], dark ? T[500] : T[200]), dark
+    ? plastic('#ffffff', { vertexColors: true, emissive: new THREE.Color(T[400]), emissiveIntensity: 0.6, roughness: 0.2, ...DS })
+    : plastic('#ffffff', { vertexColors: true, roughness: 0.22, ...DS })), false);
+
+  // the chorus: thousands of beads carried by the current
+  const N = 520, geo = new THREE.SphereGeometry(1, 20, 14);
+  const beadMats = dark
+    ? [plastic(T[300], { emissive: new THREE.Color(T[300]), emissiveIntensity: 1.6 }), plastic(T[100], { emissive: new THREE.Color(T[200]), emissiveIntensity: 2.2 }), plastic(T[500], { emissive: new THREE.Color(T[400]), emissiveIntensity: 1.2 })]
+    : [plastic(T[50]), plastic(T[500]), plastic(T[700]), plastic(T[200])];
+  const meshes = beadMats.map((m) => { const im = new THREE.InstancedMesh(geo, m, N); im.castShadow = !dark; im.count = 0; scene.add(im); return im; });
+  const M = new THREE.Matrix4(), q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0);
+  for (let i = 0; i < N * beadMats.length; i++) {
+    const u = Math.pow(rnd(), 0.75); const c = curve.getPointAt(u), t = curve.getTangentAt(u);
+    const nrm = new THREE.Vector3().crossVectors(up, t).normalize(); const w = width(u);
+    const off = (rnd() + rnd() + rnd() - 1.5) / 1.5 * w * 0.95;
+    const lift = 0.3 + Math.pow(rnd(), 3.2) * (0.5 + 2.8 * u) * (1 - Math.abs(off) / (w + 0.01) * 0.6);
+    const s = (0.02 + Math.pow(rnd(), 4) * 0.09) * (0.5 + u);
+    const p = c.clone().addScaledVector(nrm, off); p.y = lift;
+    M.compose(p, q, new THREE.Vector3(s, s, s));
+    const im = meshes[Math.floor(rnd() * meshes.length)]; if (im.count < N) { im.setMatrixAt(im.count++, M); }
+  }
+  meshes.forEach((m) => (m.instanceMatrix.needsUpdate = true));
+
+  // year pebbles 2016 → 2026, weightless above the current
+  const years = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+  const big = { 2016: 1.05, 2019: 1.25, 2021: 1.0, 2024: 1.0, 2026: 1.15 };
+  const cols = [T[50], T[200], T[500], T[50], T[700], T[300], T[50], T[600], T[200], T[800], T[50]];
+  years.forEach((y, i) => {
+    const u = 0.06 + 0.78 * (i / (years.length - 1)); const c = curve.getPointAt(u);
+    const r = (0.3 + 0.42 * u) * (big[y] || 0.7);
+    const m = dark ? plastic(cols[i], { emissive: new THREE.Color(T[400]), emissiveIntensity: i === 10 ? 0.25 : 0.05, envMapIntensity: 1 }) : plastic(cols[i]);
+    const peb = add(new THREE.Mesh(pebbleGeo(r, 0.6, 0.09), m));
+    peb.position.set(c.x + range(-0.4, 0.4), 1.1 + u * 1.9 + range(-0.2, 0.3), c.z); peb.rotation.set(range(-0.4, 0.4), range(0, 6), range(-0.3, 0.3));
+    if (y === 2026) {
+      const ring = add(new THREE.Mesh(new THREE.TorusGeometry(r * 1.9, r * 0.05, 32, 220), dark ? plastic(T[200], { emissive: new THREE.Color(T[300]), emissiveIntensity: 1.2 }) : plastic(T[600])));
+      ring.position.copy(peb.position); ring.rotation.set(1.25, 0.2, -0.35);
+      const ring2 = add(new THREE.Mesh(new THREE.TorusGeometry(r * 2.5, r * 0.025, 24, 260), dark ? plastic(T[400], { emissive: new THREE.Color(T[400]), emissiveIntensity: 1 }) : plastic(T[50])));
+      ring2.position.copy(peb.position); ring2.rotation.set(1.45, -0.25, 0.4);
+      const moon = add(new THREE.Mesh(new THREE.SphereGeometry(r * 0.2, 48, 32), dark ? plastic(T[100], { emissive: new THREE.Color(T[100]), emissiveIntensity: 1.5 }) : plastic(T[800])));
+      moon.position.copy(peb.position).add(new THREE.Vector3(r * 1.85, r * 0.55, r * 0.4));
+    }
+  });
+  if (dark) {
+    const composer = new EffectComposer(renderer); composer.setSize(W, H);
+    composer.addPass(new RenderPass(scene, camera));
+    composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.75, 0.6, 0.62));
+    composer.addPass(new OutputPass());
+    return () => composer.render();
+  }
+}
+
+// ---------- diatom / radiolarian ----------
+function lattice(radius, detail, edgeR, nodeR, mat, group) {
+  const g = new THREE.IcosahedronGeometry(radius, detail); const p = g.attributes.position;
+  const verts = [], key = (v) => v.toArray().map((n) => n.toFixed(3)).join(',');
+  const map = new Map(), edges = new Set();
+  const vi = []; for (let i = 0; i < p.count; i++) { const v = new THREE.Vector3().fromBufferAttribute(p, i); const k = key(v); if (!map.has(k)) { map.set(k, verts.length); verts.push(v); } vi.push(map.get(k)); }
+  for (let i = 0; i < vi.length; i += 3) { const t = [vi[i], vi[i + 1], vi[i + 2]]; for (let j = 0; j < 3; j++) { const a = t[j], b = t[(j + 1) % 3]; edges.add(a < b ? a + '_' + b : b + '_' + a); } }
+  const cyl = new THREE.CylinderGeometry(edgeR, edgeR, 1, 12, 1, true); const E = new THREE.InstancedMesh(cyl, mat, edges.size);
+  const M = new THREE.Matrix4(), q = new THREE.Quaternion(), Y = new THREE.Vector3(0, 1, 0); let i = 0;
+  edges.forEach((e) => { const [a, b] = e.split('_').map(Number); const A = verts[a], B = verts[b]; const mid = A.clone().add(B).multiplyScalar(0.5); const d = B.clone().sub(A); q.setFromUnitVectors(Y, d.clone().normalize()); M.compose(mid, q, new THREE.Vector3(1, d.length(), 1)); E.setMatrixAt(i++, M); });
+  const S = new THREE.InstancedMesh(new THREE.SphereGeometry(nodeR, 16, 12), mat, verts.length);
+  verts.forEach((v, j) => { M.compose(v, new THREE.Quaternion(), new THREE.Vector3(1, 1, 1)); S.setMatrixAt(j, M); });
+  [E, S].forEach((m) => { m.castShadow = true; m.receiveShadow = true; group.add(m); });
+  return verts;
+}
+function radiolarian(group, { outer = 1.6, matA, matB, matCore, spikes = 12 }) {
+  lattice(outer, 2, outer * 0.026, outer * 0.048, matA, group);
+  lattice(outer * 0.6, 1, outer * 0.034, outer * 0.06, matB, group);
+  const core = new THREE.Mesh(new THREE.IcosahedronGeometry(outer * 0.3, 8), matCore); core.castShadow = true; group.add(core);
+  const base = new THREE.IcosahedronGeometry(1, 0).attributes.position; const seen = new Set();
+  for (let i = 0; i < base.count; i++) {
+    const v = new THREE.Vector3().fromBufferAttribute(base, i).normalize(); const k = v.toArray().map((n) => n.toFixed(2)).join(); if (seen.has(k)) continue; seen.add(k);
+    const len = outer * range(0.45, 0.7); const cone = new THREE.Mesh(new THREE.ConeGeometry(outer * 0.05, len, 32), matA);
+    cone.position.copy(v.clone().multiplyScalar(outer * 0.95 + len / 2)); cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v); cone.castShadow = true; group.add(cone);
+    const tip = new THREE.Mesh(new THREE.SphereGeometry(outer * 0.06, 32, 24), matB); tip.position.copy(v.clone().multiplyScalar(outer * 0.95 + len)); group.add(tip);
+  }
+}
+function diatomScene() {
+  studio({ bg: T[200], floor: T[200], fogNear: 20, fogFar: 70, key: 2.2, cycZ: -7, shadows: false });
+  camera.fov = 26; camera.position.set(0, 2.6, 13); camera.lookAt(0, 2.4, 0); camera.updateProjectionMatrix();
+  const g = new THREE.Group(); scene.add(g);
+  radiolarian(g, { outer: 1.7, matA: plastic(T[50], { roughness: 0.3 }), matB: plastic(T[400]), matCore: jelly(T[500], { thickness: 2 }) });
+  g.position.set(1.9, 3.0, 0); g.rotation.set(0.35, 0.6, 0.15);
+  // small companion specimens & beads in orbit
+  const g2 = new THREE.Group(); scene.add(g2); radiolarian(g2, { outer: 0.55, matA: plastic(T[700]), matB: plastic(T[300]), matCore: plastic(T[50]) });
+  g2.position.set(-3.1, 4.4, -2); g2.rotation.set(1, 0.2, 0.4);
+  const orbit = new THREE.EllipseCurve(0, 0, 3.4, 3.4); const pts = orbit.getPoints(64);
+  pts.forEach((p, i) => { if (i % 3) return; const s = 0.04 + 0.05 * Math.abs(Math.sin(i)); const b = add(new THREE.Mesh(new THREE.SphereGeometry(s, 24, 16), plastic(i % 2 ? T[50] : T[600]))); const v = new THREE.Vector3(p.x, 0, p.y).applyEuler(new THREE.Euler(1.2, 0, -0.3)); b.position.copy(v).add(g.position); });
+  const peb = add(new THREE.Mesh(pebbleGeo(0.5, 0.55), plastic(T[800]))); peb.position.set(-2.4, 1.1, 1.6); peb.rotation.y = 0.6;
+}
+
+// ---------- products ----------
+async function productScene(id) {
+  studio({ bg: T[100], floor: T[100], fogNear: 20, fogFar: 70, key: 2.3, cycZ: -6, shadows: false });
+  camera.fov = 24; camera.position.set(0, 4.2, 13.5); camera.lookAt(0, 1.75, 0); camera.updateProjectionMatrix();
+  const tile = (bodyColor, faceTex, { size = 2.0, depth = 0.4, r = 0.36, faceK = 0.86 } = {}) => {
+    const g = new THREE.Group();
+    const body = new THREE.Mesh(new RoundedBoxGeometry(size, size, depth, 10, r), plastic(bodyColor, { roughness: 0.3 })); body.castShadow = true; g.add(body);
+    // logo printed on the face: lit like a real object, emissive keeps the brand colours true
+    const d = new THREE.Mesh(new THREE.PlaneGeometry(size * faceK, size * faceK), new THREE.MeshPhysicalMaterial({ map: faceTex, emissiveMap: faceTex, emissive: '#ffffff', emissiveIntensity: 0.3, transparent: true, roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.08 }));
+    d.position.z = depth / 2 + 0.003; g.add(d);
+    scene.add(g); return g;
+  };
+  const bead = (r, c, p) => { const b = add(new THREE.Mesh(new THREE.SphereGeometry(r, 32, 24), plastic(c))); b.position.copy(p); return b; };
+  if (id === 'mcp-emails') {
+    const t = tile(T[50], await tex(PROD + 'mcp-emails/logo-mark.svg', { w: 1024, h: 1024, bg: '#ffffff', pad: 190, radius: 170 }));
+    t.position.set(0.3, 2.15, 0.4); t.rotation.set(-0.28, -0.42, 0.06);
+    for (let i = 0; i < 4; i++) { const s = add(new THREE.Mesh(new RoundedBoxGeometry(2.3, 1.55, 0.06, 6, 0.03), i % 2 ? jelly(T[300]) : plastic(i ? T[200] : T[400]))); s.position.set(-1.25 - i * 0.05, 0.6 + i * 0.34, -1.4 + i * 0.1); s.rotation.set(-1.35 + i * 0.05, 0, 0.2 + i * 0.12); }
+    [[1.9, 3.6, -0.6, 0.12, T[600]], [2.3, 1.2, 0.8, 0.07, T[50]], [-1.8, 3.4, 0.6, 0.09, T[300]], [1.6, 0.55, 1.6, 0.18, T[700]]].forEach(([x, y, z, r, c]) => bead(r, c, new THREE.Vector3(x, y, z)));
+  }
+  if (id === 'fun-libs') {
+    const t = tile(T[50], await tex(PROD + 'fun-libs/icon.png', { w: 1024, h: 1024, radius: 225 }), { size: 2.5 });
+    t.position.set(-0.45, 2.0, 0); t.rotation.set(-0.12, 0.38, -0.08);
+    // the blanks: soft capsules waiting to be filled
+    [[1.85, 2.9, -0.4, 1.0, T[700]], [2.05, 1.95, 0.3, 0.7, T[300]], [1.55, 1.1, 0.9, 1.25, T[50]]].forEach(([x, y, z, l, c], i) => {
+      const cap = add(new THREE.Mesh(new THREE.CapsuleGeometry(0.17, l, 12, 32), plastic(c))); cap.position.set(x, y, z); cap.rotation.set(0.2, 0.5 * i, Math.PI / 2 + 0.15 * (i - 1)); });
+    bead(0.08, T[500], new THREE.Vector3(-2.3, 3.4, 0.3)); bead(0.13, T[200], new THREE.Vector3(-2.0, 0.6, 1.4));
+  }
+  if (id === 'toolrails') {
+    const t = tile(T[900], await tex(PROD + 'toolrails/icon.svg', { w: 1024, h: 1024 }), { size: 2.3 });
+    t.position.set(0, 2.05, 0); t.rotation.set(-0.3, -0.2, 0.04);
+    // every tool, one orbit: a halo of mixed primitives
+    const shapes = [new THREE.SphereGeometry(0.13, 32, 24), new RoundedBoxGeometry(0.24, 0.24, 0.24, 4, 0.06), new THREE.TorusGeometry(0.12, 0.05, 16, 48), new THREE.CapsuleGeometry(0.07, 0.18, 8, 24), new THREE.OctahedronGeometry(0.15, 0), new THREE.CylinderGeometry(0.11, 0.11, 0.18, 32)];
+    const cols = [T[50], T[400], T[700], T[200], T[600], T[300]];
+    for (let i = 0; i < 18; i++) { const a = (i / 18) * Math.PI * 2; const v = new THREE.Vector3(Math.cos(a) * 2.25, 0, Math.sin(a) * 2.25).applyEuler(new THREE.Euler(0.42, 0, 0.22)); const m = add(new THREE.Mesh(shapes[i % shapes.length], plastic(cols[(i * 5) % cols.length]))); m.position.copy(v).add(new THREE.Vector3(0, 2.05, 0)); m.rotation.set(range(0, 6), range(0, 6), range(0, 6)); }
+  }
+  if (id === 'harbor') {
+    const t = tile('#1b1b1b', await tex(PROD + 'harbor/harbor-mark.svg', { w: 1024, h: 1024, bg: '#1b1b1b', pad: 230, color: '#F2EEE6', radius: 170 }), { size: 1.7, depth: 0.32, r: 0.3 });
+    t.position.set(0, 2.05, 0); t.rotation.set(-0.18, -0.5, 0.1);
+    // paused: held still inside a clear bubble
+    const bub = add(new THREE.Mesh(new THREE.SphereGeometry(1.75, 96, 64), new THREE.MeshPhysicalMaterial({ color: T[50], roughness: 0.03, transparent: true, opacity: 0.22, depthWrite: false, clearcoat: 1, iridescence: 0.6, iridescenceIOR: 1.3, specularIntensity: 1, envMapIntensity: 1.6 })), false);
+    bub.renderOrder = 2;
+    bub.position.set(0, 2.05, 0);
+    bead(0.1, T[600], new THREE.Vector3(2.4, 3.3, -0.4)); bead(0.06, T[300], new THREE.Vector3(-2.3, 2.9, 0.4)); bead(0.16, T[50], new THREE.Vector3(-2.1, 0.5, 1.2));
+  }
+}
+
+// ---------- retired riverbed ----------
+async function retiredScene() {
+  studio({ bg: T[100], floor: T[100], fogNear: 20, fogFar: 70, key: 2.4, cycZ: -6, shadows: false });
+  camera.fov = 17; camera.position.set(0, 8.5, 12.5); camera.lookAt(0, 0.2, 0.2); camera.updateProjectionMatrix();
+  const items = ['luma', 'polyglot-pilot', 'pinpoint', 'webvakt', 'joke-central', 'tryggere-hyring', 'early-apps'];
+  const cols = [T[50], T[200], T[50], T[300], T[50], T[200], T[50]];
+  for (let i = 0; i < items.length; i++) {
+    const id = items[i]; const r = 0.62 + (i % 3) * 0.06;
+    const peb = add(new THREE.Mesh(pebbleGeo(r, 0.42, 0.06), plastic(cols[i], { roughness: 0.4 })));
+    const x = (i - 3) * 1.55, z = Math.sin(i * 1.7) * 0.5; peb.position.set(x, r * 0.42 * 0.98, z); peb.rotation.y = range(0, 6);
+    const url = id === 'luma' ? PROD + 'luma/logo.png' : `../products/standins/${id}.svg`;
+    const t = await tex(url, { w: 512, h: 512, radius: id === 'luma' ? 256 : 0, bg: id === 'luma' ? '#ffffff' : null, pad: id === 'luma' ? 110 : 0 });
+    const d = decal(t, r * 1.18); d.rotation.x = -Math.PI / 2; d.position.set(x, r * 0.42 * 2.0 + 0.012, z); scene.add(d);
+  }
+  for (let i = 0; i < 26; i++) { const r = range(0.03, 0.12); const b = add(new THREE.Mesh(new THREE.SphereGeometry(r, 24, 16), plastic([T[400], T[600], T[50], T[800]][i % 4]))); b.position.set(range(-6, 6), r, range(-1.6, 1.8)); }
+}
+
+// ---------- transparent objects (stickers) ----------
+function objectScene(kind) {
+  scene.add(new THREE.HemisphereLight(T[50], T[300], 0.6));
+  const k = new THREE.DirectionalLight('#fff', 2.4); k.position.set(-5, 8, 6); scene.add(k);
+  const rim = new THREE.DirectionalLight(T[200], 1); rim.position.set(6, 2, -6); scene.add(rim);
+  camera.fov = 24; camera.position.set(0, 0, kind === 'orbit' ? 13 : 10); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
+  if (kind === 'orbit') {
+    const peb = new THREE.Mesh(pebbleGeo(1.2, 0.66, 0.08), plastic(T[500])); peb.rotation.set(0.5, 0.4, 0.1); scene.add(peb);
+    const r1 = new THREE.Mesh(new THREE.TorusGeometry(2.1, 0.06, 32, 240), plastic(T[50])); r1.rotation.set(1.2, 0.25, -0.4); scene.add(r1);
+    const m = new THREE.Mesh(new THREE.SphereGeometry(0.22, 48, 32), plastic(T[800])); m.position.set(1.7, 0.9, 0.6); scene.add(m);
+  }
+  if (kind === 'chorus') {
+    for (let i = 0; i < 64; i++) { const a = i * 2.39996, rr = 0.25 * Math.sqrt(i); const s = 0.19 * (1 - i / 90) + 0.03; const b = new THREE.Mesh(new THREE.SphereGeometry(Math.max(0.08, s), 40, 28), plastic([T[50], T[300], T[600], T[200], T[800]][i % 5])); b.position.set(Math.cos(a) * rr, Math.sin(a) * rr * 0.92, -rr * 0.25); scene.add(b); }
+  }
+  if (kind === 'specimen') {
+    const g = new THREE.Group(); radiolarian(g, { outer: 1.5, matA: plastic(T[700]), matB: plastic(T[300]), matCore: plastic(T[50]) }); g.rotation.set(0.3, 0.5, 0); g.scale.setScalar(0.88); scene.add(g);
+  }
+  if (kind === 'capsule') {
+    const c = new THREE.Mesh(new THREE.CapsuleGeometry(0.62, 1.6, 16, 64), jelly(T[400], { thickness: 1.6 })); c.rotation.set(0.3, 0.2, 1.05); scene.add(c);
+    for (let i = 0; i < 7; i++) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.16 + 0.04 * (i % 3), 32, 24), plastic(i % 2 ? T[50] : T[700])); b.position.set(-1.2 + i * 0.4, -0.6 + i * 0.2, range(-0.3, 0.3)); scene.add(b); }
+  }
+}
+
+function autoShadows(k = 1) {
+  const list = scene.children.filter((o) => (o.isMesh || o.isGroup) && !o.isInstancedMesh && !o.userData.noBlob && o.geometry?.type !== 'PlaneGeometry' && !(o.material && o.material.alphaMap));
+  for (const o of list) { const b = new THREE.Box3().setFromObject(o); const sz = b.getSize(new THREE.Vector3()); const c = b.getCenter(new THREE.Vector3());
+    if (b.min.y < 0.02 && sz.y < 0.3) continue; if (sz.x > 12) continue;
+    const h = Math.max(0.05, b.min.y); const w = Math.max(sz.x, sz.z);
+    blob(c.x + h * 0.25, c.z - h * 0.12, w * (1.5 + h * 0.22), k * 0.34 / (1 + h * 0.5)); }
+}
+const renderers = {
+  'river-light': () => riverScene(false), 'river-dark': () => riverScene(true), 'diatom': diatomScene,
+  'retired': retiredScene,
+};
+let custom;
+if (SCENE.startsWith('product-')) { await productScene(SCENE.slice(8)); autoShadows(); }
+else if (SCENE.startsWith('object-')) objectScene(SCENE.slice(7));
+else { custom = await renderers[SCENE](); if (SCENE !== 'river-dark') autoShadows(SCENE === 'retired' ? 1.2 : 0.8); }
+// render twice so shadow maps and transmission settle
+for (let i = 0; i < 2; i++) custom ? custom() : renderer.render(scene, camera);
+document.getElementById('out').textContent = renderer.domElement.toDataURL('image/png');
+document.title = 'done';
+</script></body></html>

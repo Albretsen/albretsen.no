@@ -1,0 +1,17 @@
+{
+  "name": "Afterimage",
+  "tagline": "Op Art restraint: one silent half, one half under tension, and one blue line.",
+  "summary": "The page is a field of black bands that begin dead straight and slowly bend, the way a Bridget Riley painting builds energy until it reaches maximum tension. The name sits half on silence and half inside the field, inverted by it. Albretsen AS should read as precise and quietly ambitious: the effect is technical, the luxury is in what has been left out.",
+  "palette": ["#070707", "#fafafa", "#006aaa", "#52b5f4", "#868686"],
+  "type": ["Instrument Serif", "Newsreader", "IBM Plex Mono"],
+  "voice": "Confident and declarative. Short sentences that state facts and stop. Example: \"Everything shipped, still running or retired. Nothing removed.\"",
+  "motion": "A generative band field that starts straight, takes on tension over six seconds and then moves no faster than breathing; the feed is a constant-speed tape where empty stretches are real time passing.",
+  "sound": "Opt-in Web Audio only: a struck sine per live event, pitched by product with a faint glassy partial, plus a dry tick when a product comes into focus.",
+  "mark": "Seven parallel lines bent by a seeded wave, one of them blue; a new seed every visit, so no two visitors see the same mark, and the seed is printed in the footer.",
+  "inspiration": [
+    "https://bridget-riley.publications.britishart.yale.edu/catalogue/10/",
+    "https://www.moma.org/collection/works/79998",
+    "https://gsfineart.com/gallery-news/tag/workoftheweek/page/7",
+    "https://bellard.org"
+  ]
+}

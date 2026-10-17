@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crystal Morph</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--violet:#462eeb;--deep:#170a62;--ink:#f3f6ff;--spark:#ddf93c}
+  html,body{margin:0;min-height:100%;background:var(--violet);color:var(--ink);font-family:'Geist Mono',monospace}
+  .stage{width:min(80vmin,640px);aspect-ratio:1;margin:6vh auto 0}
+  .hud{display:flex;gap:16px;justify-content:center;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:16px}
+  input[type=range]{accent-color:var(--spark);width:min(360px,60vw)}
+  h1{font:italic 500 26px 'Bodoni Moda',serif;text-align:center;margin:24px 0 0}
+</style></head><body>
+<h1>Tab. IX. <span style="color:var(--spark)">Habit to mark</span></h1>
+<div class="stage" id="m"></div>
+<div class="hud"><input id="p" type="range" min="0" max="4" step="0.001" value="0"><label><input id="auto" type="checkbox" checked> play</label></div>
+<script type="module">
+  import { mountCrystalMorph } from './crystal-morph.js';
+  const q = new URLSearchParams(location.search);
+  const m = mountCrystalMorph(document.getElementById('m'));
+  const p = document.getElementById('p'), auto = document.getElementById('auto');
+  if (q.has('p')) { auto.checked = false; p.value = q.get('p'); m.setProgress(+p.value); } else m.play();
+  p.oninput = () => { auto.checked = false; m.setProgress(+p.value); };
+  auto.onchange = () => auto.checked ? m.play() : m.setProgress(+p.value);
+</script>
+</body></html>

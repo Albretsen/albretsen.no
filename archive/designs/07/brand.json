@@ -1,0 +1,17 @@
+{
+  "name": "Blue Hour",
+  "tagline": "A festival bill set as a quiet document, in nine depths of one blue.",
+  "summary": "The products are billed like acts on a festival poster: live ones as headliners, building and paused below, retired ones in small print and still on the bill. The page is laid out like a document with wide margins, where the numbers sit in the margin and the products talk to each other in a group chat. It works through absence: one hue, one rounded typeface, no lines, and the size of the type sets the order.",
+  "palette": ["#010917", "#031225", "#041d38", "#092c4f", "#16416d", "#7395bc", "#9cbbdd", "#8fc9ff", "#e5f0fc"],
+  "type": ["Nunito 900-1000 (display)", "Nunito 500 (text)", "ui-monospace (system, one line)"],
+  "voice": "Numbers first, adjectives never. \"2 live. 1 building. 1 paused. 7 retired. Since 2016, software built to pay for itself.\"",
+  "motion": "Kinetic weight: type blooms from hairline to black as it arrives, and words in the chat come out of a blur, all on transforms and font weight with no layout shift.",
+  "sound": "An opt-in generative ambient drone in D that opens its filter as activity rises, with one soft pentatonic note per real event, pitched by product.",
+  "mark": "A lowercase Nunito 800 wordmark, 'albretsen', with spacing set by hand per letter (tight at 'al', opening through 'bret', even to the end), so it reads like the top line of a poster.",
+  "inspiration": [
+    "https://rauno.me",
+    "https://www.gwern.net/Sidenotes",
+    "https://mchkhikvadze29.myportfolio.com/typography-poster-design",
+    "https://en.wikipedia.org/wiki/Bloom_(software)"
+  ]
+}

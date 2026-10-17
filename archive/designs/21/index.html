@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen.</title>
+<meta name="description" content="Asgeir Albretsen builds software in Norway. Some of it is running right now.">
+<meta name="theme-color" content="#f3f8f6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,400..700&amp;display=optional">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.className = 'js'</script>
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<canvas id="field" aria-hidden="true"></canvas>
+
+<aside class="side">
+  <a class="brand" href="#now" aria-label="Albretsen AS, top of page"><span class="dot" aria-hidden="true"></span>Albretsen AS</a>
+  <button class="sound" id="sound" type="button" aria-pressed="false">Sound <span>off</span></button>
+  <nav aria-label="Index">
+    <ol class="idx">
+      <li><a href="#now"><span class="n">00</span>Now</a></li>
+      <li><a href="#products"><span class="n">01</span>Products</a>
+        <ul class="sub" id="sub"><li class="s-live"><a href="#p-mcp-emails"><span class="mk" aria-hidden="true"></span>MCP Emails</a></li><li class="s-live"><a href="#p-fun-libs"><span class="mk" aria-hidden="true"></span>Fun Libs</a></li><li class="s-building"><a href="#p-toolrails"><span class="mk" aria-hidden="true"></span>Toolrails</a></li><li class="s-paused"><a href="#p-harbor"><span class="mk" aria-hidden="true"></span>Harbor</a></li><li class="s-retired"><a href="#p-luma"><span class="mk" aria-hidden="true"></span>Luma</a></li><li class="s-retired"><a href="#p-polyglot-pilot"><span class="mk" aria-hidden="true"></span>Polyglot Pilot</a></li><li class="s-retired"><a href="#p-pinpoint"><span class="mk" aria-hidden="true"></span>PinPoint</a></li><li class="s-retired"><a href="#p-webvakt"><span class="mk" aria-hidden="true"></span>WebVakt</a></li><li class="s-retired"><a href="#p-joke-central"><span class="mk" aria-hidden="true"></span>Daily Jokes</a></li><li class="s-retired"><a href="#p-tryggere-hyring"><span class="mk" aria-hidden="true"></span>Tryggere Hyring</a></li><li class="s-retired"><a href="#p-early-apps"><span class="mk" aria-hidden="true"></span>Early apps</a></li></ul>
+      </li>
+      <li><a href="#contact"><span class="n">02</span>Contact</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main id="main">
+  <section class="hero" id="now" aria-labelledby="name">
+    <p class="kicker"><span>00 · Now</span></p>
+    <h1 id="name">Asgeir Albretsen<span class="stop">.</span></h1>
+    <p class="lede">Builds software in Norway. <em>Some of it is running right now.</em></p>
+
+    <figure class="feed" aria-labelledby="feedcap">
+      <figcaption class="cap" id="feedcap"><span class="pulse" aria-hidden="true"></span>Live. One event at a time, at the speed it actually happens.</figcaption>
+      <div class="stage" id="stage">
+        <p class="big" id="big">Waiting for the next event<span class="stop">.</span></p>
+      </div>
+      <p class="meta"><span class="prod" id="prod">All products</span><span id="when">--:--:--</span><span id="detail">no events yet</span><span id="ago"></span></p>
+
+      <div class="strip" aria-label="The last twelve events, by product, over five minutes" role="group">
+        <div class="head"><span>Last 12 events, by product</span><span>5 min</span></div>
+        <div class="lanes">
+          <div class="lane-l">MCP Emails</div><div class="lane" data-p="mcp-emails"></div>
+          <div class="lane-l">Fun Libs</div><div class="lane" data-p="fun-libs"></div>
+          <div class="lane-l">Toolrails</div><div class="lane" data-p="toolrails"></div>
+          <div class="lane-l">albretsen.no</div><div class="lane" data-p="albretsen.no"></div>
+          <div class="axis" aria-hidden="true"><span>−5 min</span><span>−2½</span><span>now</span></div>
+        </div>
+      </div>
+      <p class="note tally" id="tally">Nothing is faked or sped up. Quiet hours look quiet.</p>
+    </figure>
+  </section>
+
+  <section class="products" id="products" aria-labelledby="ph">
+    <p class="kicker"><span>01 · Products</span></p>
+    <h2 id="ph">Things that shipped, and a few that stopped<span class="stop">.</span></h2>
+    <p class="intro">On Google Play since 2016. Dots mark the year each one started; lines run to today. <span id="ptally">2 live, 1 building, 1 paused, 7 retired. The retired ones stay on the chart.</span></p>
+
+    <ul class="legend" aria-label="Legend">
+      <li class="s-live"><span class="mk" aria-hidden="true"></span>live</li>
+      <li class="s-building"><span class="mk" aria-hidden="true"></span>building</li>
+      <li class="s-paused"><span class="mk" aria-hidden="true"></span>paused</li>
+      <li class="s-retired"><span class="mk" aria-hidden="true"></span>retired</li>
+    </ul>
+
+    <div class="chart">
+      <div class="row-head" aria-hidden="true">
+        <span class="h-who">Product</span>
+        <div class="ticks" id="ticks"><span style="--x:0.0%">2016</span><span style="--x:18.2%">2018</span><span style="--x:36.4%">2020</span><span style="--x:54.5%">2022</span><span style="--x:72.7%">2024</span><span class="today">today</span></div>
+        <span class="h-st">Status</span>
+        <span class="h-fig">Figure</span>
+      </div>
+      <ol id="rows"><li class="row s-live" id="p-mcp-emails">
+<div class="who"><h3><a href="https://mcpemails.com" rel="noopener">MCP Emails</a></h3><p>Email for AI agents.</p><p class="facts">17 tools <span aria-hidden="true">·</span> about 100 email providers <span aria-hidden="true">·</span> open source (AGPL)</p></div>
+<div class="track" style="--x:90.9%" role="img" aria-label="started 2026, live"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>live<small>since 2026</small></div>
+<div class="fig"><b>$782</b><small>MRR</small></div>
+</li>
+<li class="row s-live" id="p-fun-libs">
+<div class="who"><h3><a href="https://funlibs.app" rel="noopener">Fun Libs</a></h3><p>A fill-in-the-blanks word game for Android and iOS.</p><p class="facts">built at 17 <span aria-hidden="true">·</span> no marketing <span aria-hidden="true">·</span> v5 shipped 2026</p></div>
+<div class="track" style="--x:27.3%" role="img" aria-label="started 2019, live"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>live<small>since 2019</small></div>
+<div class="fig"><b>113,000+</b><small>installs</small></div>
+</li>
+<li class="row s-building" id="p-toolrails">
+<div class="who"><h3><a href="https://toolrails.com" rel="noopener">Toolrails</a></h3><p>One MCP URL that gives an agent every tool.</p><p class="facts">tool search <span aria-hidden="true">·</span> injection guard</p></div>
+<div class="track" style="--x:90.9%" role="img" aria-label="started 2026, building"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>building<small>since 2026</small></div>
+<div class="fig"><b>4</b><small>connectors</small></div>
+</li>
+<li class="row s-paused" id="p-harbor">
+<div class="who"><h3><a href="https://harborknowledge.com" rel="noopener">Harbor</a></h3><p>A private knowledge base shared by people and AI.</p><p class="facts">self-hostable <span aria-hidden="true">·</span> AI edits held for approval</p></div>
+<div class="track" style="--x:90.9%" role="img" aria-label="started 2026, paused"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>paused<small>since 2026</small></div>
+<div class="fig"><b>549</b><small>commits</small></div>
+</li>
+<li class="row s-retired" id="p-luma">
+<div class="who"><h3>Luma</h3><p>Norwegian budgeting app with open banking.</p></div>
+<div class="track" style="--x:90.9%" role="img" aria-label="started 2026, retired"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>retired<small>since 2026</small></div>
+<div class="fig"><b>378</b><small>commits</small></div>
+</li>
+<li class="row s-retired" id="p-polyglot-pilot">
+<div class="who"><h3>Polyglot Pilot</h3><p>Agents that localised entire codebases, with a dashboard for human reviewers.</p></div>
+<div class="track" style="--x:81.8%" role="img" aria-label="started 2025, retired"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>retired<small>since 2025</small></div>
+<div class="fig"><b class="none" aria-label="no figure">&middot;</b></div>
+</li>
+<li class="row s-retired" id="p-pinpoint">
+<div class="who"><h3>PinPoint</h3><p>GeoGuessr with your own photos: friends guess where your pictures were taken.</p></div>
+<div class="track" style="--x:81.8%" role="img" aria-label="started 2025, retired"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>retired<small>since 2025</small></div>
+<div class="fig"><b>16</b><small>commits</small></div>
+</li>
+<li class="row s-retired" id="p-webvakt">
+<div class="who"><h3>WebVakt</h3><p>Website change monitoring.</p></div>
+<div class="track" style="--x:72.7%" role="img" aria-label="started 2024, retired"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>retired<small>since 2024</small></div>
+<div class="fig"><b class="none" aria-label="no figure">&middot;</b></div>
+</li>
+<li class="row s-retired" id="p-joke-central">
+<div class="who"><h3>Daily Jokes / Joke Central</h3><p>Joke apps for iOS and Android.</p></div>
+<div class="track" style="--x:72.7%" role="img" aria-label="started 2024, retired"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>retired<small>since 2024</small></div>
+<div class="fig"><b class="none" aria-label="no figure">&middot;</b></div>
+</li>
+<li class="row s-retired" id="p-tryggere-hyring">
+<div class="who"><h3>Tryggere Hyring</h3><p>Background checks for hiring.</p></div>
+<div class="track" style="--x:63.6%" role="img" aria-label="started 2023, retired"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>retired<small>since 2023</small></div>
+<div class="fig"><b class="none" aria-label="no figure">&middot;</b></div>
+</li>
+<li class="row s-retired" id="p-early-apps">
+<div class="who"><h3>IAGO HMS, Rentekalkulator, Prosentkalkulator</h3><p>Early apps.</p></div>
+<div class="track" style="--x:45.5%" role="img" aria-label="started 2021, retired"><i></i></div>
+<div class="st"><span class="mk" aria-hidden="true"></span>retired<small>since 2021</small></div>
+<div class="fig"><b class="none" aria-label="no figure">&middot;</b></div>
+</li></ol>
+    </div>
+  </section>
+
+  <footer id="contact" aria-labelledby="ch">
+    <p class="kicker"><span id="ch">02 · Contact</span></p>
+    <p class="avail">Takes one outside engagement at a time<span class="stop">.</span></p>
+    <a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    <p class="colophon">Albretsen AS · Norway · Set in Martian Mono, one ink and one spot colour.</p>
+    <p class="quiet"><code>claude mcp add albretsen https://albretsen.no/mcp</code></p>
+  </footer>
+</main>
+</body>
+</html>

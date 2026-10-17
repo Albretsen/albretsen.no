@@ -1,0 +1,17 @@
+{
+  "name": "Dot Plot",
+  "tagline": "A data-journalism graphic about one company, set entirely in monospace, with a full stop for a logo.",
+  "summary": "Albretsen AS presented the way The Pudding or the FT graphics desk would present a dataset: paper, ink, one spot colour, annotations and an honest chart of every product including the retired ones. The live feed is the lead story, one event at a time and very large, and every sentence on the page ends in the brand mark. It reads as someone who measures things, ships things, and finds the whole business quietly funny.",
+  "palette": ["#f3f8f6", "#131a17", "#00a57c", "#016b50", "#4f5754", "#d7f0e6"],
+  "type": ["Martian Mono 700, width 75 (display)", "Martian Mono 400, width 87.5 (text)", "Martian Mono 400 (labels, figures, code)"],
+  "voice": "Dry understatement, written like a chart annotation: short, exact, slightly amused. \"Builds software in Norway. Some of it is running right now.\"",
+  "motion": "A dot-grid sheet drifts behind the page; each real event drops a spot dot that echoes outward in rings, nudges the grid as they pass, then drifts and fades over ten minutes.",
+  "sound": "Opt-in Web Audio: the sonic logo is one clean dot of a note followed by four echoes that drift slightly flat and darker, then a low full stop.",
+  "mark": "A full stop in the spot colour: it is the logo, the favicon, and the last character of every headline and every live event.",
+  "inspiration": [
+    "https://pudding.cool/process/scrollytelling-sticky/",
+    "https://owickstrom.github.io/the-monospace-web/",
+    "https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md",
+    "https://press.stripe.com"
+  ]
+}

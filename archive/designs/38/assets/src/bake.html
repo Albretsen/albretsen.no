@@ -1,0 +1,299 @@
+<!doctype html>
+<!-- Bake studio for design 38. Renders the "photographs" with three.js, then
+     scripts/shot.sh screenshots the canvas. Python grade.py adds film grade.
+     Usage: bake.html?shot=salon&pass=lit|uv  (window size = output size) -->
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head><body>
+<script type="module">
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
+import { compose, paint, rng } from '../js/art.js'
+
+const q = new URLSearchParams(location.search)
+const SHOT = q.get('shot') || 'salon'
+const PASS = q.get('pass') || 'lit'
+const UV = PASS === 'uv'
+const W = +(q.get('w') || innerWidth), H = +(q.get('h') || innerHeight)
+
+await document.fonts.load('italic 40px "Instrument Serif"')
+await document.fonts.load('40px "Instrument Serif"')
+await document.fonts.load('600 20px "JetBrains Mono"')
+await document.fonts.load('800 40px "Bricolage Grotesque"')
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true })
+renderer.setPixelRatio(1); renderer.setSize(W, H)
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap
+renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.toneMappingExposure = UV ? 1.25 : 1.0
+renderer.outputColorSpace = THREE.SRGBColorSpace
+document.body.append(renderer.domElement)
+
+const scene = new THREE.Scene()
+const pmrem = new THREE.PMREMGenerator(renderer)
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+scene.environmentIntensity = UV ? 0.02 : 0.10
+
+const col = s => { const c = document.createElement('canvas').getContext('2d'); c.fillStyle = s; c.fillRect(0, 0, 1, 1); const d = c.getImageData(0, 0, 1, 1).data; return new THREE.Color().setRGB(d[0] / 255, d[1] / 255, d[2] / 255, THREE.SRGBColorSpace) }
+
+// ---------- wall: jade plaster, procedural bump
+function plasterCanvas(size = 1024, seed = 7) {
+  const c = document.createElement('canvas'); c.width = c.height = size
+  const x = c.getContext('2d'), r = rng(seed)
+  x.fillStyle = '#808080'; x.fillRect(0, 0, size, size)
+  for (let i = 0; i < 9000; i++) {
+    const px = r() * size, py = r() * size, rad = Math.pow(r(), 3) * 26 + 1
+    const g = x.createRadialGradient(px, py, 0, px, py, rad)
+    const v = r() < 0.5 ? 0 : 255
+    g.addColorStop(0, `rgba(${v},${v},${v},${0.05 + r() * 0.07})`); g.addColorStop(1, `rgba(${v},${v},${v},0)`)
+    x.fillStyle = g; x.fillRect(px - rad, py - rad, rad * 2, rad * 2)
+  }
+  // trowel sweeps
+  x.globalAlpha = 0.035
+  for (let i = 0; i < 260; i++) { x.strokeStyle = r() < 0.5 ? '#000' : '#fff'; x.lineWidth = 10 + r() * 50; x.beginPath(); const a = r() * size, b = r() * size; x.arc(a, b, 60 + r() * 220, r() * 6, r() * 6 + 0.8); x.stroke() }
+  x.globalAlpha = 1
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t
+}
+const bump = plasterCanvas()
+bump.repeat.set(4, 2)
+const wallMat = new THREE.MeshStandardMaterial({ color: UV ? col('oklch(0.16 0.05 292)') : col('oklch(0.36 0.06 168)'), roughness: 0.96, bumpMap: bump, bumpScale: 1.2 })
+const wall = new THREE.Mesh(new THREE.PlaneGeometry(14, 6), wallMat)
+wall.position.set(0, 3, 0); wall.receiveShadow = true; scene.add(wall)
+const floorMat = new THREE.MeshStandardMaterial({ color: UV ? col('oklch(0.1 0.03 292)') : col('oklch(0.42 0.02 80)'), roughness: 0.38, metalness: 0.0 })
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(14, 8), floorMat)
+floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, 4); floor.receiveShadow = true; scene.add(floor)
+// skirting
+const skirt = new THREE.Mesh(new THREE.BoxGeometry(14, 0.09, 0.02), new THREE.MeshStandardMaterial({ color: UV ? 0x0c0718 : col('oklch(0.3 0.05 168)'), roughness: 0.7 }))
+skirt.position.set(0, 0.045, 0.01); skirt.receiveShadow = true; scene.add(skirt)
+
+scene.add(new THREE.HemisphereLight(UV ? 0x2a1660 : 0xbfd8d0, UV ? 0x05020c : 0x1a1410, UV ? 0.35 : 0.13))
+
+// ---------- prints
+function canvasTex(c, rot = 0) {
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8
+  if (rot) { t.center.set(0.5, 0.5); t.rotation = rot }
+  return t
+}
+function artPrint(series, seed, hue, aspect, px = 1400) {
+  const w = aspect >= 1 ? px : Math.round(px * aspect), h = aspect >= 1 ? Math.round(px / aspect) : px
+  const c = document.createElement('canvas'); c.width = w; c.height = h
+  paint(c.getContext('2d'), compose({ series, seed, hue, w, h }), { pass: UV ? 'uv' : 'lit' })
+  return c
+}
+async function loadImg(src, recolor) {
+  let url = src
+  if (recolor) { const t = (await (await fetch(src)).text()).replaceAll('currentColor', recolor); url = URL.createObjectURL(new Blob([t], { type: 'image/svg+xml' })) }
+  const im = new Image(); im.src = url; await im.decode(); return im
+}
+// product print: real logo on a museum mat. ground = product's own ground colour.
+function logoPrint({ img, ground = '#fff', mat = 'oklch(0.965 0.008 95)', aspect = 4 / 3, art = 0.62, px = 1400, rounded = 0, uvLabel = '', icon = true }) {
+  const w = aspect >= 1 ? px : Math.round(px * aspect), h = aspect >= 1 ? Math.round(px / aspect) : px
+  const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d')
+  const S = Math.min(w, h)
+  if (UV) {
+    x.fillStyle = 'oklch(0.17 0.07 292)'; x.fillRect(0, 0, w, h)
+    const win = S * art, wx = (w - win) / 2, wy = (h - win) / 2 - S * 0.02
+    x.strokeStyle = 'oklch(0.9 0.21 140)'; x.lineWidth = 2
+    // construction: grid, golden circles, diagonals
+    x.globalAlpha = 0.5
+    for (let i = 0; i <= 12; i++) { const t = wx + win * i / 12; x.beginPath(); x.moveTo(t, wy); x.lineTo(t, wy + win); x.stroke(); const u = wy + win * i / 12; x.beginPath(); x.moveTo(wx, u); x.lineTo(wx + win, u); x.stroke() }
+    x.globalAlpha = 1
+    x.strokeStyle = 'oklch(0.86 0.13 205)'; x.lineWidth = 2.5
+    for (const k of [0.5, 0.309, 0.191]) { x.beginPath(); x.arc(w / 2, wy + win / 2, win * k, 0, 7); x.stroke() }
+    x.beginPath(); x.moveTo(wx, wy); x.lineTo(wx + win, wy + win); x.moveTo(wx + win, wy); x.lineTo(wx, wy + win); x.stroke()
+    x.globalAlpha = 0.35; x.filter = ground === '#1b1b1b' ? 'grayscale(1) brightness(1.2)' : 'grayscale(1) invert(1) brightness(1.4)'; x.drawImage(img, wx + win * 0.1, wy + win * 0.1, win * 0.8, win * 0.8 * img.height / img.width); x.filter = 'none'; x.globalAlpha = 1
+    x.fillStyle = 'oklch(0.9 0.21 140)'; x.font = `${Math.round(S * 0.032)}px "JetBrains Mono"`
+    x.fillText(uvLabel, S * 0.06, h - S * 0.06)
+    x.fillStyle = 'oklch(0.74 0.2 340)'; x.fillText('12 × 12 · φ circles', S * 0.06, S * 0.09)
+    return c
+  }
+  x.fillStyle = mat; x.fillRect(0, 0, w, h)
+  // mat paper fibre
+  const r = rng(11); x.globalAlpha = 0.05; for (let i = 0; i < 4000; i++) { x.fillStyle = r() < 0.5 ? '#000' : '#fff'; x.fillRect(r() * w, r() * h, 1 + r() * 2, 1) } x.globalAlpha = 1
+  const win = S * art, wx = (w - win) / 2, wy = (h - win) / 2 - S * 0.02
+  // bevel
+  x.fillStyle = 'oklch(0.99 0.004 95)'; x.fillRect(wx - 5, wy - 5, win + 10, win + 10)
+  x.fillStyle = 'rgba(0,0,0,0.18)'; x.fillRect(wx - 5, wy - 5, win + 10, 3); x.fillRect(wx - 5, wy - 5, 3, win + 10)
+  x.fillStyle = ground; x.fillRect(wx, wy, win, win)
+  if (icon) {
+    const k = rounded ? 1 : 0.62
+    const iw = win * k, ih = iw * img.height / img.width
+    x.drawImage(img, wx + (win - iw) / 2, wy + (win - ih) / 2, iw, ih)
+  }
+  // pencil signature on mat
+  x.fillStyle = 'rgba(40,40,40,0.55)'; x.font = `italic ${Math.round(S * 0.034)}px "Instrument Serif"`
+  x.fillText('A. Albretsen', wx + win - S * 0.2, wy + win + S * 0.055)
+  x.font = `${Math.round(S * 0.022)}px "Instrument Serif"`; x.fillText('1/1', wx, wy + win + S * 0.05)
+  return c
+}
+
+// ---------- frames
+const gltf = await new GLTFLoader().loadAsync('../3d/gilt-frame.glb')
+const giltProto = gltf.scene
+giltProto.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; if (!o.name.includes('canvas')) { o.material.metalness = UV ? 0.2 : 0.75; o.material.roughness = 1; o.material.envMapIntensity = 2.2; if (UV) o.material.color = new THREE.Color(0.25, 0.2, 0.4) } } })
+const art = { w: 0.5398, h: 0.4003 } // canvas plane of the model
+function rotCanvas(c) {
+  const r = document.createElement('canvas'); r.width = c.height; r.height = c.width
+  const x = r.getContext('2d'); x.translate(r.width / 2, r.height / 2); x.rotate(Math.PI / 2); x.drawImage(c, -c.width / 2, -c.height / 2)
+  return r
+}
+function giltFrame(canvas, width, height) {
+  const g = giltProto.clone(true)
+  const portrait = height > width
+  const holder = new THREE.Group(); holder.add(g)
+  if (portrait) g.rotation.z = Math.PI / 2
+  const sx = (portrait ? height : width) / art.w, sy = (portrait ? width : height) / art.h
+  g.scale.set(sx, sy, Math.min(sx, sy))
+  g.traverse(o => {
+    if (o.isMesh && o.name.includes('canvas')) {
+      o.material = o.material.clone()
+      const t = canvasTex(portrait ? rotCanvas(canvas) : canvas)
+      // model UVs cover u .032-.969, v .125-.820 of the canvas texture (glTF, v down)
+      t.flipY = false; t.repeat.set(1 / 0.937, 1 / 0.695); t.offset.set(-0.032 / 0.937, -0.125 / 0.695)
+      o.material.map = t
+      o.material.color = new THREE.Color(1, 1, 1); o.material.roughness = 0.78; o.material.metalness = 0
+      o.material.normalScale = new THREE.Vector2(0.6, 0.6)
+      if (UV) { o.material.emissive = new THREE.Color(1, 1, 1); o.material.emissiveMap = o.material.map; o.material.emissiveIntensity = 0.9 }
+    } else if (o.isMesh) o.material = o.material.clone()
+  })
+  return holder
+}
+const boxMats = {
+  black: () => new THREE.MeshStandardMaterial({ color: UV ? 0x110a1e : 0x111312, roughness: 0.45 }),
+  white: () => new THREE.MeshStandardMaterial({ color: UV ? 0x2a2440 : 0xe8e4da, roughness: 0.6 }),
+  oak: () => new THREE.MeshStandardMaterial({ color: UV ? 0x1d1530 : col('oklch(0.62 0.07 70)'), roughness: 0.62 }),
+  jade: () => new THREE.MeshStandardMaterial({ color: UV ? 0x1d1530 : col('oklch(0.5 0.1 168)'), roughness: 0.35, metalness: 0.2 }),
+}
+function boxFrame(canvas, width, height, style = 'black', bar = 0.035, depth = 0.045, matPad = 0) {
+  const g = new THREE.Group(), m = boxMats[style]()
+  const add = (w, h, x, y) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, depth), m); b.position.set(x, y, depth / 2); b.castShadow = b.receiveShadow = true; g.add(b) }
+  add(width, bar, 0, height / 2 - bar / 2); add(width, bar, 0, -height / 2 + bar / 2)
+  add(bar, height - bar * 2, -width / 2 + bar / 2, 0); add(bar, height - bar * 2, width / 2 - bar / 2, 0)
+  const pm = new THREE.MeshStandardMaterial({ map: canvasTex(canvas), roughness: 0.8 })
+  if (UV) { pm.emissive = new THREE.Color(1, 1, 1); pm.emissiveMap = pm.map; pm.emissiveIntensity = 0.9 }
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(width - bar * 2, height - bar * 2), pm)
+  p.position.z = Math.max(0.01, depth - 0.012); p.receiveShadow = true; g.add(p)
+  // back board, gives a shadow edge
+  const back = new THREE.Mesh(new THREE.BoxGeometry(width, height, 0.008), m); back.position.z = 0.004; back.castShadow = true; g.add(back)
+  return g
+}
+function hang(obj, x, y, z = 0.004, tilt = 0) { obj.position.set(x, y, z); obj.rotation.z = tilt; scene.add(obj); return obj }
+
+// ---------- museum label
+function label(lines, w = 0.16, h = 0.1) {
+  const c = document.createElement('canvas'); c.width = 640; c.height = Math.round(640 * h / w); const x = c.getContext('2d')
+  x.fillStyle = UV ? '#1a1030' : '#f3f1ea'; x.fillRect(0, 0, c.width, c.height)
+  const ink = UV ? 'oklch(0.9 0.21 140)' : '#1c1c1a'
+  x.fillStyle = ink
+  x.font = 'italic 54px "Instrument Serif"'; x.fillText(lines[0], 36, 76)
+  x.font = '400 25px "JetBrains Mono"'; x.fillStyle = UV ? 'oklch(0.86 0.13 205)' : '#55534c'
+  lines.slice(1).forEach((t, i) => x.fillText(t, 36, 128 + i * 36))
+  const m = new THREE.MeshStandardMaterial({ map: canvasTex(c), roughness: 0.7 })
+  if (UV) { m.emissive = new THREE.Color(1, 1, 1); m.emissiveMap = m.map; m.emissiveIntensity = 0.5 }
+  const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.004), [null, null, null, null, m, null].map(v => v || new THREE.MeshStandardMaterial({ color: 0xdddddd })))
+  b.castShadow = true; b.receiveShadow = true
+  return b
+}
+
+// ---------- lights
+function spot(tx, ty, { from = [0, 3.7, 2.0], intensity = 40, angle = 0.32, penumbra = 0.55, color = 0xfff1dc, shadow = true } = {}) {
+  const s = new THREE.SpotLight(UV ? 0x7b4dff : color, UV ? intensity * 0.55 : intensity, 12, angle, penumbra, 1.6)
+  s.position.set(tx + from[0], from[1], from[2])
+  s.target.position.set(tx, ty, 0); scene.add(s.target)
+  s.castShadow = shadow; s.shadow.mapSize.set(2048, 2048); s.shadow.bias = -0.0004; s.shadow.radius = 6; s.shadow.camera.near = 0.5
+  scene.add(s); return s
+}
+
+// floor wash + faint wall wash
+{ const f = new THREE.SpotLight(UV ? 0x5a32d0 : 0xffe8cc, UV ? 6 : 5, 14, 0.9, 1, 1.2); f.position.set(0, 4, 4.5); f.target.position.set(0, 0, 0.6); scene.add(f.target); scene.add(f) }
+const camera = new THREE.PerspectiveCamera(36, W / H, 0.1, 50)
+
+// ---------- shots
+const SHOTS = {
+  async salon() {
+    camera.position.set(0.1, 1.5, 4.6); camera.lookAt(0.1, 1.56, 0)
+    const F = [
+      ['gilt', artPrint('filaments', 0x500a48, 168, 1.32), 1.3, 0.98, -0.6, 1.78, 0],
+      ['black', artPrint('tension', 0x500a49, 228, 0.76), 0.6, 0.8, 0.72, 2.07, 0],
+      ['gilt', artPrint('spark', 0x500a4b, 348, 0.76), 0.5, 0.66, -1.85, 2.02, 0],
+      ['white', artPrint('weightless', 0x500a4a, 48, 1), 0.5, 0.5, 0.64, 1.18, 0.035, 0.022, 0.026],
+      ['oak', artPrint('strata', 0x500a4c, 108, 0.45), 0.42, 0.98, 1.58, 1.62, 0],
+      ['gilt', artPrint('tension', 0x5a48, 288, 1.32), 0.44, 0.34, -1.75, 1.3, 0],
+      ['black', artPrint('spark', 0x0a48, 168, 1.4), 0.36, 0.26, -0.75, 0.98, 0],
+    ]
+    for (const [kind, c, w, h, x, y, t, bar, dep] of F) {
+      hang(kind === 'gilt' ? giltFrame(c, w, h) : boxFrame(c, w, h, kind, bar, dep), x, y, 0.004, t)
+      spot(x, y, { intensity: 19 + w * 14, angle: 0.18 + Math.max(w, h) * 0.12 })
+    }
+    hang(label(['Filaments', 'Albretsen, 2026', 'canvas 2D, seed 500a48'], 0.15, 0.09), 0.18, 1.32)
+    hang(label(['Tension', 'catenary study'], 0.12, 0.07), 1.12, 1.63)
+    // a picture wire on the crooked one
+  },
+  async room() { // wide frame right, empty lit wall left for headline
+    camera.position.set(-0.2, 1.55, 3.6); camera.lookAt(-0.2, 1.55, 0)
+    const c = artPrint('tension', 0x500a48, 168, 0.78)
+    hang(giltFrame(c, 0.86, 1.1), 1.05, 1.62)
+    spot(1.05, 1.62, { intensity: 70, angle: 0.3, from: [0.2, 3.7, 1.8] })
+    spot(-1.2, 1.7, { intensity: 22, angle: 0.5, penumbra: 0.9, from: [-0.2, 3.7, 1.4], shadow: false })
+    hang(label(['Tension, No. 1', 'Albretsen AS, 2026', 'catenary, seed 500a48'], 0.15, 0.09), 1.62, 1.05)
+    // bench silhouette
+    const bm = new THREE.MeshStandardMaterial({ color: UV ? 0x0a0614 : 0x0e0f0e, roughness: 0.5 })
+    const top = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.06, 0.42), bm); top.position.set(0.5, 0.44, 1.4); top.castShadow = true; scene.add(top)
+    for (const lx of [-0.15, 1.15]) { const l = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.42, 0.38), bm); l.position.set(lx, 0.21, 1.4); l.castShadow = true; scene.add(l) }
+  },
+  async detail() { // close, raking, portrait
+    camera.fov = 30; camera.position.set(0.95, 1.42, 2.1); camera.lookAt(0.12, 1.6, 0)
+    const c = artPrint('filaments', 0x500a48, 168, 0.78, 1800)
+    hang(giltFrame(c, 0.86, 1.1), 0, 1.62)
+    spot(0, 1.62, { intensity: 55, angle: 0.34, from: [-1.4, 3.4, 0.9] })
+  },
+  async bust() {
+    camera.fov = 28; camera.position.set(0, 1.42, 2.3); camera.lookAt(0, 1.38, 0)
+    const g = await new GLTFLoader().loadAsync('/dl/bust.glb'); const b = g.scene
+    const box = new THREE.Box3().setFromObject(b), size = box.getSize(new THREE.Vector3())
+    const k = 0.62 / size.y; b.scale.setScalar(k)
+    const box2 = new THREE.Box3().setFromObject(b), ctr = box2.getCenter(new THREE.Vector3())
+    b.position.set(-ctr.x, 1.08 - box2.min.y, 0.75 - ctr.z); b.rotation.y = -0.35
+    b.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; if (UV) { o.material.color = new THREE.Color(0.6, 0.5, 1) } } })
+    scene.add(b)
+    const plinth = new THREE.Mesh(new THREE.BoxGeometry(0.5, 1.08, 0.5), new THREE.MeshStandardMaterial({ color: UV ? 0x140c26 : col('oklch(0.92 0.01 95)'), roughness: 0.8 }))
+    plinth.position.set(0, 0.54, 0.75); plinth.castShadow = plinth.receiveShadow = true; scene.add(plinth)
+    // gels: home teal key from left, rose rim from right
+    const gel = (c, i, p, t) => { const s = new THREE.SpotLight(UV ? 0x7b4dff : c, i, 10, 0.4, 0.7, 1.4); s.position.set(...p); s.target.position.set(...t); scene.add(s.target); s.castShadow = true; s.shadow.mapSize.set(2048, 2048); s.shadow.bias = -0.0004; scene.add(s) }
+    gel(col('oklch(0.82 0.13 168)'), 30, [-1.6, 2.4, 2.0], [0, 1.4, 0.7])
+    gel(col('oklch(0.72 0.19 348)'), 34, [1.5, 2.2, 0.3], [0, 1.4, 0.75])
+    gel(0xfff0dc, 10, [0.2, 3.6, 1.6], [0, 1.2, 0.0])
+    if (UV) { const c = artPrint('spark', 0x500a4b, 348, 1, 1200); const m = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.5), new THREE.MeshBasicMaterial({ map: canvasTex(c), transparent: true, opacity: 0.5 })); m.position.set(0, 1.45, 0.005); scene.add(m) }
+  },
+}
+
+// product shots: real logo, framed, labelled
+const PRODUCTS = {
+  'mcp-emails': async () => ({ img: await loadImg('/products/mcp-emails/logo-mark.svg'), ground: '#ffffff', frame: 'gilt', lines: ['MCP Emails', 'Albretsen AS, 2026', 'Email for AI agents.', '17 tools · AGPL'], uv: 'mcp-emails · 48×48 grid · 2.6 stroke' }),
+  'fun-libs': async () => ({ img: await loadImg('/products/fun-libs/icon.png'), ground: '#FFE066', rounded: 1, frame: 'white', lines: ['Fun Libs', 'Albretsen, 2019 (v5, 2026)', 'Android and iOS', '113,000+ installs'], uv: 'fun-libs · v5 · 1024² icon' }),
+  'toolrails': async () => ({ img: await loadImg('/products/toolrails/icon.svg'), ground: '#141413', rounded: 1, frame: 'black', lines: ['Toolrails', 'Albretsen AS, 2026', 'One MCP URL, every tool.', 'in progress'], uv: 'toolrails · 32×32 · 3.2 stroke' }),
+  'harbor': async () => ({ img: await loadImg('/products/harbor/harbor-mark.svg', '#F4F1EA'), ground: '#1b1b1b', frame: 'oak', lines: ['Harbor', 'Albretsen AS, 2026', 'Knowledge, people and AI.', '549 commits · paused'], uv: 'harbor · 64×64 · rounded 12' }),
+}
+async function product(id) {
+  const p = await PRODUCTS[id]()
+  camera.fov = 32; camera.position.set(0.12, 1.56, 2.35); camera.lookAt(0.12, 1.5, 0)
+  const c = logoPrint({ img: p.img, ground: p.ground, rounded: p.rounded, aspect: 0.8, art: 0.56, uvLabel: p.uv })
+  const fw = 0.66, fh = 0.825
+  const fr = hang(p.frame === 'gilt' ? giltFrame(c, fw, fh) : boxFrame(c, fw, fh, p.frame, 0.03, 0.024), -0.05, 1.62)
+  // keep the real logo colours true: prints skip ACES tone mapping (light still shapes them)
+  fr.traverse(o => { if (o.isMesh && o.material?.map?.isCanvasTexture) { o.material.toneMapped = false; o.material.color.setScalar(0.6) } })
+  spot(-0.05, 1.62, { intensity: 30, angle: 0.24, from: [0.1, 3.7, 1.7] })
+  spot(0.62, 1.2, { intensity: 6, angle: 0.25, from: [0.4, 3.7, 1.8], shadow: false })
+  hang(label(p.lines, 0.17, 0.11), 0.6, 1.24)
+}
+
+if (SHOTS[SHOT]) await SHOTS[SHOT]()
+else await product(SHOT)
+
+renderer.render(scene, camera)
+document.title = 'done'
+</script></body></html>

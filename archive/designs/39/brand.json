@@ -1,0 +1,22 @@
+{
+  "name": "Cold Boot",
+  "tagline": "The site boots like a machine and lands like light through glass.",
+  "summary": "A short mono boot log lists the products and their numbers, then lifts away. A soft glow cracks into shards of prismatic light, and that still becomes live glass the visitor can push a lens through. Everything is warm grey; colour appears only where light is refracted (ray-traced caustics, the amber of a NASA night photograph, each product's own icon). It reads as an engineer with taste: precise, quiet, and clearly able to build the hard thing.",
+  "palette": ["#100e0d", "#191716", "#22201f", "#302d2c", "#5d5a59", "#938e8d", "#d3d0cf", "#ebe9e8", "#f7f5f5"],
+  "type": ["Schibsted Grotesk 600", "Schibsted Grotesk 400", "JetBrains Mono 400"],
+  "voice": "Nordic understatement: short declaratives, numbers instead of adjectives, the machine allowed one dry joke. Example: \"dmesg · the boot never really ends\"",
+  "motion": "Springs, not easing curves: everything settles like glass on a table, and anything that moves trails two fading echoes.",
+  "sound": "Off by default; when switched on, each live event rings a quiet glass tick with two decaying echoes, pitched per product.",
+  "mark": "An A built from two prism legs whose crossbar is a beam of light entering from outside the left leg, set beside a Schibsted Grotesk 560 wordmark and a mono AS.",
+  "inspiration": [
+    "https://bruno-simon.com",
+    "https://heronaiapp.com",
+    "https://blog.maximeheckel.com/posts/refraction-dispersion-and-other-shader-light-effects/",
+    "https://www.radix-ui.com/primitives/docs/components/hover-card",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://react-spring.dev/examples",
+    "https://commons.wikimedia.org/wiki/File:Snow_crystals_glittering_in_strong_direct_sunlight_42_-_wide_crop_-_high_contrast.jpg",
+    "https://images.nasa.gov/details/iss066e118171",
+    "https://polyhaven.com/a/moon_rock_03"
+  ]
+}

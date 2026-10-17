@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Darkfield asset kit</title>
+<meta name="description" content="Design 44 for Albretsen AS: the Darkfield asset kit. Identity, imagery, icon system, particles, motion.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<style>
+  :root {
+    --void: oklch(0.135 0.010 72); --field: oklch(0.175 0.014 72); --raised: oklch(0.225 0.018 72); --line: oklch(0.32 0.026 72);
+    --dim: oklch(0.48 0.06 72); --ochre: oklch(0.68 0.095 72); --signal: oklch(0.82 0.11 72); --light: oklch(0.92 0.05 72);
+    --serif: 'Instrument Serif', Georgia, serif; --sans: 'Geist', system-ui, sans-serif; --mono: 'Geist Mono', ui-monospace, monospace;
+    --gutter: clamp(16px, 4vw, 56px);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--field); }
+  body { margin: 0; background: var(--field); color: var(--light); font: 300 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: var(--signal); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .eyebrow { font: 500 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ochre); }
+  .mono { font-family: var(--mono); }
+  .wrap { padding: 0 var(--gutter); max-width: 1480px; margin: 0 auto; }
+
+  /* hero */
+  .hero { position: relative; height: 100svh; min-height: 620px; overflow: hidden; background: radial-gradient(ellipse 70% 60% at 62% 48%, #221a11 0%, var(--field) 55%, var(--void) 100%); }
+  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .top { position: absolute; top: 24px; left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; align-items: center; z-index: 2; pointer-events: none; }
+  .hero .top img { height: 34px; width: auto; }
+  .hero .copy { position: absolute; left: var(--gutter); bottom: clamp(48px, 10vh, 110px); z-index: 2; max-width: 760px; pointer-events: none; }
+  .hero h1 { margin: 14px 0 18px; font: 400 clamp(54px, 9vw, 132px)/.92 var(--serif); letter-spacing: -.02em; }
+  .hero h1 em { color: var(--ochre); }
+  .hero p.lede { margin: 0; max-width: 520px; color: #d9c2a3; font-size: clamp(15px, 1.4vw, 18px); }
+  .hero .shape-name { position: absolute; right: var(--gutter); bottom: clamp(48px, 10vh, 110px); z-index: 2; text-align: right; }
+  @media (max-width: 700px) { .hero .shape-name, .hero .top .eyebrow { display: none; } .hero .copy { right: var(--gutter); bottom: 84px; } }
+  .hero .shape-name b { display: block; font: italic 400 26px/1.1 var(--serif); color: var(--light); margin-top: 8px; }
+
+  section.block { padding-top: clamp(72px, 10vw, 140px); }
+  .head { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: baseline; margin-bottom: clamp(28px, 4vw, 52px); border-top: 1px solid var(--line); padding-top: 18px; }
+  .head h2 { margin: 0; font: 400 clamp(34px, 4.6vw, 64px)/1 var(--serif); letter-spacing: -.01em; }
+  .head h2 em { color: var(--ochre); }
+  .head p { grid-column: 2; margin: 10px 0 0; max-width: 680px; color: #cdb596; }
+  @media (max-width: 720px) { .head { grid-template-columns: 1fr; gap: 8px; } .head p { grid-column: 1; } }
+
+  .cap { margin-top: 10px; display: flex; justify-content: space-between; gap: 12px; font: 400 11px/1.4 var(--mono); letter-spacing: .08em; color: var(--dim); }
+  .cap b { color: var(--ochre); font-weight: 500; }
+  .tile { background: var(--void); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .grid { display: grid; gap: clamp(14px, 1.6vw, 22px); }
+  .g2 { grid-template-columns: repeat(2, 1fr); } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 960px) { .g3, .g4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } }
+
+  /* vision */
+  .vision { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 80px); align-items: start; }
+  .vision blockquote { margin: 0; font: 400 clamp(26px, 3vw, 40px)/1.15 var(--serif); }
+  .vision blockquote em { color: var(--ochre); }
+  .vision ol { margin: 0; padding: 0; list-style: none; counter-reset: v; display: grid; gap: 16px; }
+  .vision li { counter-increment: v; display: grid; grid-template-columns: 40px 1fr; color: #d4bc9c; }
+  .vision li::before { content: counter(v, decimal-leading-zero); font: 500 11px/2 var(--mono); color: var(--ochre); }
+  @media (max-width: 860px) { .vision { grid-template-columns: 1fr; } }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .sw { min-height: 210px; padding: 14px; display: flex; flex-direction: column; justify-content: flex-end; font: 400 10.5px/1.5 var(--mono); letter-spacing: .04em; }
+  .sw b { font: 400 22px/1 var(--serif); letter-spacing: 0; margin-bottom: 8px; }
+  @media (max-width: 860px) { .swatches { grid-template-columns: repeat(4, 1fr); } .sw { min-height: 140px; } }
+  @media (max-width: 480px) { .swatches { grid-template-columns: repeat(2, 1fr); } }
+  .duo { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+  .duo div { padding: 26px; font: 400 clamp(22px, 2.4vw, 32px)/1.2 var(--serif); }
+  @media (max-width: 600px) { .duo { grid-template-columns: 1fr; } }
+
+  /* type */
+  .type { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; }
+  .spec { padding: clamp(20px, 3vw, 40px); }
+  .spec .big { font: 400 clamp(64px, 10vw, 168px)/.9 var(--serif); letter-spacing: -.02em; }
+  .spec .big em { color: var(--ochre); }
+  .spec .scale > div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding: 10px 0; }
+  .spec .scale span:last-child { font: 400 10.5px/1 var(--mono); color: var(--dim); white-space: nowrap; }
+  @media (max-width: 860px) { .type { grid-template-columns: 1fr; } }
+
+  /* identity */
+  .id-tile { aspect-ratio: 4/3; display: grid; place-items: center; padding: 12%; background: radial-gradient(circle at 50% 45%, #211a12, var(--void) 75%); }
+  .id-tile.light { background: #f3e6d3; }
+  .id-tile img { max-height: 100%; width: auto; }
+  .og { grid-column: span 2; }
+  @media (max-width: 600px) { .og { grid-column: auto; } }
+
+  /* canvas sketch */
+  .stage { position: relative; height: min(78vh, 760px); border-radius: 18px; border: 1px solid var(--line); overflow: hidden; background: var(--void); cursor: grab; touch-action: none; }
+  .stage:active { cursor: grabbing; }
+  .plane { position: absolute; left: 0; top: 0; width: 4000px; height: 2800px; transform-origin: 0 0; background: url(extras/pattern-canvas-grid.svg) 0 0 / 160px 160px, radial-gradient(circle at 50% 50%, #1e170f, var(--void) 70%); }
+  .place { position: absolute; width: 360px; }
+  .place img { border-radius: 12px; box-shadow: 0 30px 80px rgba(0,0,0,.55); }
+  .place .tag { position: absolute; top: -26px; left: -26px; width: 64px; }
+  .place.small { width: 240px; }
+  .place.plate { width: 520px; }
+  .place.plate img { border-radius: 4px; }
+  .stage .hud { position: absolute; left: 14px; bottom: 14px; right: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; pointer-events: none; }
+  .stage .hud .btns { display: flex; gap: 6px; pointer-events: auto; }
+  .stage .hud button { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: rgba(20,16,10,.75); color: var(--ochre); cursor: pointer; backdrop-filter: blur(8px); }
+  .stage .hud button:hover { color: var(--light); border-color: var(--ochre); }
+  .stage .hud svg { width: 18px; height: 18px; }
+  .zoomlabel { font: 500 11px/1 var(--mono); letter-spacing: .14em; color: var(--ochre); background: rgba(20,16,10,.75); border: 1px solid var(--line); border-radius: 999px; padding: 10px 14px; }
+
+  /* icons */
+  .spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .spec-cell { background: var(--void); border: 1px solid var(--line); border-radius: 14px; padding: 18px 14px 14px; color: var(--light); text-align: left; cursor: pointer; font: inherit; }
+  .spec-cell:hover, .spec-cell:focus-visible { border-color: var(--ochre); outline: none; }
+  .spec-cell svg { width: 100%; height: auto; aspect-ratio: 1; display: block; margin-bottom: 12px; overflow: visible; }
+  .spec-cell b { display: block; font: 400 19px/1.1 var(--serif); }
+  .spec-cell i { font: italic 400 13px/1.3 var(--serif); color: var(--dim); }
+  .ui-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+  .ui-grid div { border: 1px solid var(--line); border-radius: 10px; padding: 16px 6px 10px; display: grid; justify-items: center; gap: 10px; color: var(--light); font: 400 9.5px/1 var(--mono); letter-spacing: .04em; }
+  .ui-grid div span { color: var(--dim); }
+  .ui-grid svg { width: 24px; height: 24px; }
+
+  /* products */
+  .retired { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+  .retired img { border-radius: 12px; border: 1px solid var(--line); }
+
+  /* museum */
+  .museum { display: grid; grid-template-columns: 1fr 1fr 1fr .45fr; gap: 14px; align-items: end; }
+  .museum img { border-radius: 4px; }
+  @media (max-width: 860px) { .museum { grid-template-columns: 1fr 1fr; } }
+
+  /* extras */
+  .pat { aspect-ratio: 1; border-radius: 14px; border: 1px solid var(--line); }
+  .pat.areolae { background: url(extras/pattern-areolae.svg) 0 0 / 24px auto, var(--void); }
+  .pat.grid { background: url(extras/pattern-canvas-grid.svg) 0 0 / 160px, var(--void); }
+  .pat.grain { position: relative; background: var(--raised); overflow: hidden; }
+  .pat.grain::after { content: ""; position: absolute; inset: 0; background: url(extras/grain-tile.png) 0 0 / 256px; mix-blend-mode: screen; }
+  .tags { display: flex; gap: 14px; align-items: center; justify-content: center; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 14px; background: var(--void); flex-wrap: wrap; padding: 20px; }
+  .tags img { width: 42%; }
+
+  /* 3d */
+  .frame { width: 100%; aspect-ratio: 16/10; border: 1px solid var(--line); border-radius: 16px; background: var(--void); display: block; }
+
+  /* motion */
+  .mo { position: relative; border: 1px solid var(--line); border-radius: 14px; background: var(--void); min-height: 280px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+  .mo h3 { margin: 0; font: 400 26px/1.1 var(--serif); }
+  .mo h3 small { display: block; margin-top: 6px; font: 500 10.5px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ochre); }
+  .mo p { margin: 8px 0 0; font-size: 13.5px; color: #bfa685; }
+  .mo .demo { flex: 1; display: grid; place-items: center; min-height: 140px; }
+  .mo button.replay { align-self: flex-start; font: 500 10.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ochre); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+  .mo button.replay:hover { color: var(--light); border-color: var(--ochre); }
+  .focus-demo { font: 400 44px/1 var(--serif); }
+  .focus-demo em { color: var(--ochre); }
+  .iris-wrap { position: relative; width: 100%; height: 150px; margin: 12px 0; border-radius: 10px; overflow: hidden; background: url(extras/pattern-areolae.svg) 0 0 / 24px auto; cursor: pointer; }
+  .iris-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ret { width: 150px; }
+
+  footer { padding: clamp(80px, 10vw, 140px) 0 120px; color: var(--dim); font: 400 12px/1.7 var(--mono); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; }
+  footer img { height: 28px; width: auto; }
+</style>
+</head>
+<body>
+<div class="df-grain" id="grain" aria-hidden="true"></div>
+
+<header class="hero" id="hero">
+  <canvas id="particles" aria-label="Particle specimen. Click to send a signal; press 1 to 9 to change specimen."></canvas>
+  <div class="top"><img src="identity/lockup.svg" alt="Albretsen AS"><span class="eyebrow">Design 44 · asset kit</span></div>
+  <div class="copy">
+    <span class="eyebrow df-focus" style="--i:0">Slide no. 44 · art direction</span>
+    <h1 id="title">Darkfield<em>,</em> a slide of working things.</h1>
+    <p class="lede df-focus" style="--i:8">Everything Albretsen AS has built, mounted like specimens on one infinite glass slide and lit from the side so it glows. You pan it, zoom it and focus it, and every product is a place on it.</p>
+  </div>
+  <div class="shape-name"><span class="eyebrow">Now under the objective</span><b id="shapeName">Moon rock, as grain</b></div>
+</header>
+
+<main>
+<section class="block wrap" id="s-vision">
+  <div class="head"><span class="eyebrow">00 · Vision</span><h2>Lit from the side, <em>so the work glows.</em></h2></div>
+  <div class="vision">
+    <blockquote>In darkfield microscopy the light never hits the lens directly. Only what is really there scatters it, so the specimen shines on black. <em>Albretsen AS is shown the same way:</em> no backdrop and no claims, only the made things, lit.</blockquote>
+    <ol>
+      <li>The site is one infinite slide. Products are places on it, laid out like the Victorian diatom arrangements in the Met's collection: precise, hand-placed and symmetric.</li>
+      <li>The main imagery is a bespoke icon system. Each product has a specimen glyph built like a diatom valve, with striae, areolae and one signal-gold nodule. 17 striae on MCP Emails stand for its 17 tools.</li>
+      <li>Particles are the grain. 24,000 points settle into a CC0 scanned stone or into any of the glyphs, and a signal is a pulse that ripples through them.</li>
+      <li>Duotone and restraint. Ink and pale gold at hue 72°, with one brighter gold reserved for signals. Serif for the voice, mono for the measurements.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="block wrap" id="s-palette">
+  <div class="head"><span class="eyebrow">01 · Palette</span><h2>Duotone, <em>hue 72°</em></h2><p>Every colour is one OKLCH hue, 72°, from the void behind the slide to the light that scatters off it. Signal gold is the only accent and stays rare: live status, the nodule, a pulse.</p></div>
+  <div class="swatches" id="swatches"></div>
+  <div class="duo">
+    <div style="background:var(--field);color:var(--light)">Ink field with light. Body copy and headlines.</div>
+    <div style="background:var(--light);color:var(--field)">Light field with ink. For printed matter and the slide label only.</div>
+  </div>
+</section>
+
+<section class="block wrap" id="s-type">
+  <div class="head"><span class="eyebrow">02 · Type</span><h2>A voice and <em>a measurement</em></h2><p>Instrument Serif (OFL) carries the voice: tall, narrow and quiet. Geist Mono (OFL) does the measuring: labels, figures, keycaps. Geist (OFL) is for running text at light weight.</p></div>
+  <div class="type">
+    <div class="tile spec">
+      <div class="eyebrow">Instrument Serif · display</div>
+      <div class="big">Grain <em>&amp;</em> signal</div>
+      <div class="scale" style="margin-top:28px">
+        <div><span style="font:400 48px/1 var(--serif)">I build software that pays for itself.</span><span>48 / 0.95</span></div>
+        <div><span style="font:italic 400 28px/1.1 var(--serif);color:var(--ochre)">Coscinodiscus septendecim</span><span>28 italic</span></div>
+      </div>
+    </div>
+    <div class="tile spec">
+      <div class="eyebrow">Geist Mono · measurements</div>
+      <div style="font:500 44px/1.1 var(--mono);margin:18px 0;color:var(--signal)">$782 <span style="color:var(--dim);font-size:16px;letter-spacing:.14em">MRR</span></div>
+      <div style="font:400 14px/1.7 var(--mono);color:#cdb596">113,000+ installs<br>549 commits · 4 connectors<br><span style="color:var(--dim)">claude mcp add albretsen https://albretsen.no/mcp</span></div>
+      <div class="eyebrow" style="margin-top:26px">Geist · text</div>
+      <p style="margin:10px 0 0;font:300 17px/1.6 var(--sans);color:#e5cfb0">A small technology company that builds whatever is profitable: apps, SaaS and agent infrastructure. Published on Google Play since 2016.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block wrap" id="s-identity">
+  <div class="head"><span class="eyebrow">03 · Identity</span><h2>The <em>Triceratium</em> mark</h2><p>A triangular diatom valve that reads as an A, with three ocelli at the corners and the signal nodule at the centroid. The detailed version carries the areolae pore field and is for large sizes only. The wordmark is set in Instrument Serif and converted to outlines.</p></div>
+  <div class="grid g4">
+    <figure style="margin:0"><div class="tile id-tile"><img src="identity/mark.svg" alt="Mark" style="height:70%"></div><div class="cap"><b>mark.svg</b><span>nav, avatars</span></div></figure>
+    <figure style="margin:0"><div class="tile id-tile"><img src="identity/mark-detailed.svg" alt="Detailed mark" style="height:80%"></div><div class="cap"><b>mark-detailed.svg</b><span>≥ 120 px only</span></div></figure>
+    <figure style="margin:0"><div class="tile id-tile light"><img src="identity/mark-ink.svg" alt="Ink mark" style="height:70%"></div><div class="cap"><b>mark-ink.svg</b><span>on paper</span></div></figure>
+    <figure style="margin:0"><div class="tile id-tile" style="gap:18px;grid-auto-flow:column"><img src="identity/favicon.svg" alt="Favicon" style="height:54px"><img src="identity/favicon-180.png" alt="Apple touch icon" style="height:90px;border-radius:20px"></div><div class="cap"><b>favicon.svg · favicon-180.png</b></div></figure>
+  </div>
+  <div class="grid g2" style="margin-top:22px">
+    <figure style="margin:0"><div class="tile id-tile" style="aspect-ratio:2/1;padding:8%"><img src="identity/lockup.svg" alt="Lockup" style="width:100%;height:auto"></div><div class="cap"><b>lockup.svg</b><span>header</span></div></figure>
+    <figure style="margin:0"><div class="tile id-tile light" style="aspect-ratio:2/1;padding:12%"><img src="identity/wordmark-ink.svg" alt="Wordmark" style="width:100%;height:auto"></div><div class="cap"><b>wordmark.svg · wordmark-ink.svg</b></div></figure>
+  </div>
+  <div class="grid g2" style="margin-top:22px">
+    <figure style="margin:0"><img src="identity/og-image.jpg" alt="Open Graph image" style="border-radius:14px;border:1px solid var(--line)"><div class="cap"><b>og-image.jpg</b><span>1200 × 630</span></div></figure>
+    <figure style="margin:0"><div class="tile id-tile" style="aspect-ratio:1200/630;padding:5%"><img src="extras/sticker-slide.svg" alt="Glass slide sticker" style="width:100%;height:auto"></div><div class="cap"><b>extras/sticker-slide.svg</b><span>footer, 404, print</span></div></figure>
+  </div>
+</section>
+
+<section class="block wrap" id="s-heroes">
+  <div class="head"><span class="eyebrow">04 · Hero imagery</span><h2>Three <em>stills</em> for the hero</h2><p>Baked from the live particle system at 2880 px, plus a museum plate re-lit as darkfield. Use them as the poster frame under the WebGL canvas and as the fallback on low-power devices. Each comes in WebP and AVIF at 1× and 2×.</p></div>
+  <figure style="margin:0"><picture><source type="image/avif" srcset="hero/hero-grain-dissolve-1440.avif 1440w, hero/hero-grain-dissolve-2880.avif 2880w"><img src="hero/hero-grain-dissolve-1440.webp" srcset="hero/hero-grain-dissolve-1440.webp 1440w, hero/hero-grain-dissolve-2880.webp 2880w" sizes="100vw" alt="A scanned stone dissolving into gold grain" style="border-radius:16px;border:1px solid var(--line)"></picture><div class="cap"><b>hero/hero-grain-dissolve</b><span>poster frame for the scroll dissolve</span></div></figure>
+  <div class="grid g2" style="margin-top:22px">
+    <figure style="margin:0"><picture><source type="image/avif" srcset="hero/hero-grain-rock-1440.avif 1440w, hero/hero-grain-rock-2880.avif 2880w"><img src="hero/hero-grain-rock-1440.webp" srcset="hero/hero-grain-rock-1440.webp 1440w, hero/hero-grain-rock-2880.webp 2880w" sizes="50vw" alt="The stone settled as grain" style="border-radius:16px;border:1px solid var(--line)"></picture><div class="cap"><b>hero/hero-grain-rock</b><span>settled state</span></div></figure>
+    <figure style="margin:0"><picture><source type="image/avif" srcset="hero/hero-diatom-rosette-1200.avif 1200w, hero/hero-diatom-rosette-2400.avif 2400w"><img src="hero/hero-diatom-rosette-1200.webp" srcset="hero/hero-diatom-rosette-1200.webp 1200w, hero/hero-diatom-rosette-2400.webp 2400w" sizes="50vw" alt="Diatom rosette, after Julius Wiesner, c. 1870" style="border-radius:16px;border:1px solid var(--line);aspect-ratio:1440/904;object-fit:cover"></picture><div class="cap"><b>hero/hero-diatom-rosette</b><span>after J. Wiesner, c.1870 · The Met, CC0</span></div></figure>
+  </div>
+</section>
+
+<section class="block wrap" id="s-canvas">
+  <div class="head"><span class="eyebrow">05 · Hero concept</span><h2>The infinite <em>slide</em></h2><p>A sketch of the hero mechanic built from the kit. Drag to pan and scroll or pinch to zoom. Press 1 to 4 to fly to a product, 0 to fit, and ? for every key. Products are places, retired work sits in the margin, and the museum plates are landmarks.</p></div>
+  <div class="stage" id="stage">
+    <div class="plane" id="plane"></div>
+    <div class="hud"><span class="zoomlabel" id="zoomlabel">× 1.00</span>
+      <div class="btns">
+        <button type="button" data-act="zoom-out" aria-label="Reduce"><svg><use href="icons/sprite.svg#i-zoom-out"/></svg></button>
+        <button type="button" data-act="fit" aria-label="Fit"><svg><use href="icons/sprite.svg#i-fit-view"/></svg></button>
+        <button type="button" data-act="zoom-in" aria-label="Magnify"><svg><use href="icons/sprite.svg#i-zoom-in"/></svg></button>
+      </div></div>
+  </div>
+</section>
+
+<section class="block wrap" id="s-products">
+  <div class="head"><span class="eyebrow">06 · Products</span><h2>Specimen <em>slides</em></h2><p>Each live or in-progress product gets its real logo, used as-is and never recoloured, mounted at the centre of a darkfield field of view with a micrometer reticle, its glyph as a ghost and an engraved label carrying only facts from content.js. The grain stills are the same glyphs drawn by the particle system.</p></div>
+  <div class="grid g4" id="slides"></div>
+  <div class="grid g4" id="grains" style="margin-top:14px"></div>
+  <div class="head" style="margin-top:60px;border-top:0;padding-top:0"><span class="eyebrow">Retired</span><p style="margin:0">Luma keeps its real logo. The others have no surviving brand, so each gets a respectful stand-in: its own specimen glyph.</p></div>
+  <div class="retired" id="retired"></div>
+</section>
+
+<section class="block wrap" id="s-icons">
+  <div class="head"><span class="eyebrow">07 · Icon system</span><h2>Bespoke <em>glyphs</em>, the main imagery</h2><p>Eleven specimen glyphs on a 96 grid and twenty-six interface icons on a 24 grid share one construction: 1.5 stroke, round caps, hairline secondary rings at 0.75, and one signal-gold nodule. Hover a specimen to watch it re-engrave, or click it to send it to the particles.</p></div>
+  <div class="spec-grid" id="specGrid"></div>
+  <div class="ui-grid" id="uiGrid"></div>
+  <div class="cap" style="margin-top:14px"><b>icons/sprite.svg</b><span>&lt;svg&gt;&lt;use href="icons/sprite.svg#sp-mcp-emails"/&gt;&lt;/svg&gt; · #i-arrow-ne · individual files in icons/specimens and icons/ui</span></div>
+</section>
+
+<section class="block wrap" id="s-museum">
+  <div class="head"><span class="eyebrow">08 · Museum plates</span><h2>Borrowed <em>light</em></h2><p>Public-domain photographs from The Met (CC0), gradient-mapped into the duotone. White-on-blue cyanotypes become gold-on-ink, as if lit in darkfield. Use them as quiet landmarks on the canvas and as section dividers.</p></div>
+  <div class="museum">
+    <figure style="margin:0"><img src="museum/atkins-cystoseira-foeniculacea-1000.webp" srcset="museum/atkins-cystoseira-foeniculacea-1000.webp 1000w, museum/atkins-cystoseira-foeniculacea-2000.webp 2000w" sizes="30vw" alt="Cystoseira fœniculacea, Anna Atkins" loading="lazy"><div class="cap"><b>Anna Atkins</b><span>c.1853</span></div></figure>
+    <figure style="margin:0"><img src="museum/atkins-spiraea-aruncus-1000.webp" srcset="museum/atkins-spiraea-aruncus-1000.webp 1000w, museum/atkins-spiraea-aruncus-2000.webp 2000w" sizes="30vw" alt="Spiraea aruncus, Anna Atkins" loading="lazy"><div class="cap"><b>Anna Atkins</b><span>1851–54</span></div></figure>
+    <figure style="margin:0"><img src="museum/atkins-cystoseira-granulata-1000.webp" srcset="museum/atkins-cystoseira-granulata-1000.webp 1000w, museum/atkins-cystoseira-granulata-2000.webp 2000w" sizes="30vw" alt="Cystoseira granulata, Anna Atkins" loading="lazy"><div class="cap"><b>Anna Atkins</b><span>c.1853</span></div></figure>
+    <figure style="margin:0"><img src="museum/bertsch-navicula-600.webp" srcset="museum/bertsch-navicula-600.webp 600w, museum/bertsch-navicula-1200.webp 1200w" sizes="12vw" alt="Navicula attenuata at 1200 diameters, Auguste-Adolphe Bertsch" loading="lazy"><div class="cap"><b>Bertsch</b><span>1853–57</span></div></figure>
+  </div>
+</section>
+
+<section class="block wrap" id="s-extras">
+  <div class="head"><span class="eyebrow">09 · Extras</span><h2>Texture <em>and</em> life</h2><p>Small pieces for around the site: a pore lattice for panels, a canvas grid for the slide, a living film grain, a reticle ornament or loader, status tags for map markers, and a glass slide label for the footer.</p></div>
+  <div class="grid g4">
+    <figure style="margin:0"><div class="pat areolae"></div><div class="cap"><b>pattern-areolae.svg</b><span>panels</span></div></figure>
+    <figure style="margin:0"><div class="pat grid"></div><div class="cap"><b>pattern-canvas-grid.svg</b><span>the slide</span></div></figure>
+    <figure style="margin:0"><div class="pat grain"></div><div class="cap"><b>grain-tile.png</b><span>.df-grain overlay</span></div></figure>
+    <figure style="margin:0"><div class="tile" style="aspect-ratio:1;display:grid;place-items:center"><img class="ret df-reticle" src="extras/reticle.svg" alt="Reticle" style="width:70%"></div><div class="cap"><b>reticle.svg</b><span>loader, focus ring</span></div></figure>
+  </div>
+  <div class="grid g4" style="margin-top:14px">
+    <figure style="margin:0"><div class="tags"><img src="extras/tag-live.svg" alt="Live tag"><img src="extras/tag-building.svg" alt="Building tag"><img src="extras/tag-paused.svg" alt="Paused tag"><img src="extras/tag-retired.svg" alt="Retired tag"></div><div class="cap"><b>tag-*.svg</b><span>status markers</span></div></figure>
+  </div>
+</section>
+
+<section class="block wrap" id="s-three">
+  <div class="head"><span class="eyebrow">10 · Interactive &amp; 3D</span><h2>The particle <em>specimen</em></h2><p>3d/darkfield-particles.js is a self-contained three.js module. It renders 24,000 grains that morph between the CC0 stone and every glyph, ripple with signals, part around the pointer and dissolve on scroll. Below is its demo; press 1 to 9, 0, - and = inside it, and Space to send a signal. moon-rock.glb is the geometry-only CC0 stone, shown in a small darkfield viewer.</p></div>
+  <iframe class="frame" src="3d/demo.html" title="Particle demo" loading="lazy"></iframe>
+  <div class="grid g2" style="margin-top:14px">
+    <iframe class="frame" src="3d/rock-viewer.html" title="Moon rock GLB viewer" loading="lazy"></iframe>
+    <div class="tile" style="padding:24px;font:400 12.5px/1.7 var(--mono);color:#cdb596;overflow:auto"><span class="eyebrow">API</span><pre style="margin:12px 0 0;white-space:pre-wrap">const df = await createDarkfield(canvas, {
+  base: './assets/', initial: 'rock' })
+df.morph('mcp-emails')   // or any SPECIMENS id
+df.pulse(x, y, 1)        // world units, centre 0,0
+df.dissolve = 0.6        // 0..1, scrub with ScrollTrigger
+df.spread = 0.2          // loosen the grain
+df.pause(); df.resume(); df.destroy()</pre></div>
+  </div>
+</section>
+
+<section class="block wrap" id="s-motion">
+  <div class="head"><span class="eyebrow">11 · Motion</span><h2>Six <em>movements</em></h2><p><button class="replay" id="openKeys" style="font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal);background:none;border:1px solid var(--ochre);border-radius:999px;padding:8px 12px;cursor:pointer;margin:0 0 14px">Open the keyboard cheat sheet (?)</button><br>motion.css has the CSS versions and motion.js has the GSAP and ScrollTrigger versions. Each one borrows from the microscope, nothing bounces, and all of them collapse to instant under prefers-reduced-motion.</p></div>
+  <div class="grid g3">
+    <div class="mo"><div><h3>Focus pull<small>entrance · expo.out 1.1s</small></h3><p>Words arrive blurred and over-magnified, then resolve one by one.</p></div><div class="demo"><div class="focus-demo" id="focusDemo">Sharp <em>at last.</em></div></div><button class="replay" data-replay="focus">Replay</button></div>
+    <div class="mo"><div><h3>Striae draw<small>hover · pathLength redraw</small></h3><p>Hover and the glyph re-engraves itself while the nodule takes a breath.</p></div><div class="demo"><svg id="striaeDemo" width="130" height="130" viewBox="0 0 96 96" tabindex="0" aria-label="Hover me"><use href="icons/sprite.svg#sp-toolrails"/></svg></div><span class="replay" style="border:0;padding:0;font:500 10.5px/1 var(--mono);letter-spacing:.14em;color:var(--dim)">HOVER IT</span></div>
+    <div class="mo"><div><h3>Iris<small>transition · power4.inOut 0.9s</small></h3><p>Between places the view opens through an aperture from the point you clicked.</p></div><div class="demo" style="width:100%"><div class="iris-wrap" id="irisWrap"><img id="irisImg" src="hero/hero-diatom-rosette-1200.webp" alt=""></div></div><span class="replay" style="border:0;padding:0;font:500 10.5px/1 var(--mono);letter-spacing:.14em;color:var(--dim)">CLICK ANYWHERE ON IT</span></div>
+    <div class="mo"><div><h3>Signal ping<small>ambient · 2.8s loop</small></h3><p>One ring leaves the nodule every 2.8 seconds. Use it only for live status.</p></div><div class="demo"><span style="display:flex;align-items:center;gap:14px;font:500 12px/1 var(--mono);letter-spacing:.14em;color:var(--signal)"><span class="df-ping"></span>LIVE · MCP EMAILS</span></div><span></span></div>
+    <div class="mo"><div><h3>Stage sweep<small>scroll · ScrollTrigger.batch</small></h3><p>Cards glide onto the stage from below and come into focus as they cross 88% of the viewport.</p></div><div class="demo" style="display:flex;gap:10px" id="sweepDemo"><img src="products/retired/pinpoint-600.webp" alt="" style="width:30%;border-radius:8px"><img src="products/retired/webvakt-600.webp" alt="" style="width:30%;border-radius:8px"><img src="products/retired/early-apps-600.webp" alt="" style="width:30%;border-radius:8px"></div><button class="replay" data-replay="sweep">Replay</button></div>
+    <div class="mo"><div><h3>Scrub dissolve<small>scroll · scrub 0.6</small></h3><p>As the hero leaves, the stone peels into loose grain. Scroll back and it re-forms. See the top of this page.</p></div><div class="demo"><img src="extras/reticle.svg" alt="" class="df-reticle is-loading" style="width:110px"></div><button class="replay" data-replay="top">Scroll to top</button></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><img src="identity/lockup.svg" alt="Albretsen AS"><span>Design 44 · Darkfield · asset kit · see ASSETS.md for sources and licences</span><span>Press <kbd style="font-family:var(--mono);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--light)">?</kbd> for keys</span></div></footer>
+
+<script type="module">
+  import { createDarkfield, SPECIMENS } from './3d/darkfield-particles.js';
+  import { createShortcuts } from './shortcuts.js';
+  import * as M from './motion.js';
+  // ?only=identity,icons shows just those sections (handy for screenshots and for sharing one part)
+  const only = new URLSearchParams(location.search).get('only');
+  if (only) { const keep = only.split(','); document.getElementById('hero').hidden = !keep.includes('hero'); document.querySelectorAll('main > section').forEach((sec) => { sec.hidden = !keep.includes(sec.id.slice(2)); }); }
+
+  const NAMES = { rock: 'Moon rock, as grain', 'mcp-emails': 'MCP Emails', 'fun-libs': 'Fun Libs', toolrails: 'Toolrails', harbor: 'Harbor', luma: 'Luma', 'polyglot-pilot': 'Polyglot Pilot', pinpoint: 'PinPoint', webvakt: 'WebVakt', 'joke-central': 'Daily Jokes', 'tryggere-hyring': 'Tryggere Hyring', 'early-apps': 'Early apps', field: 'Loose grain' };
+  M.focusPull(document.getElementById('title'), { delay: 0.25 });
+  const meta = await (await fetch('icons/index.json')).json();
+
+  // palette
+  const P = [['void', '0.135 0.010 72', '#0b0805'], ['field', '0.175 0.014 72', '#14100a'], ['raised', '0.225 0.018 72', '#211a12'], ['line', '0.32 0.026 72', '#3b3124'], ['dim', '0.48 0.06 72', '#735836'], ['ochre', '0.68 0.095 72', '#bd8e53'], ['signal', '0.82 0.11 72', '#f0b871'], ['light', '0.92 0.05 72', '#fae0c1']];
+  document.getElementById('swatches').innerHTML = P.map(([n, o, h], i) => `<div class="sw" style="background:${h};color:${i < 5 ? '#fae0c1' : '#14100a'}"><b>${n}</b>oklch(${o})<br>${h}</div>`).join('');
+
+  // product slides, grains, retired
+  const LIVE = ['mcp-emails', 'fun-libs', 'toolrails', 'harbor'];
+  document.getElementById('slides').innerHTML = LIVE.map((id) => `<figure style="margin:0"><img src="products/slide-${id}-800.webp" srcset="products/slide-${id}-800.webp 800w, products/slide-${id}-1600.webp 1600w" sizes="(max-width:600px) 100vw, 25vw" alt="${NAMES[id]} specimen slide" loading="lazy" style="border-radius:14px;border:1px solid var(--line)"><div class="cap"><b>slide-${id}</b><span>800 / 1600</span></div></figure>`).join('');
+  document.getElementById('grains').innerHTML = LIVE.map((id) => `<figure style="margin:0"><img src="products/grain-${id}-800.webp" srcset="products/grain-${id}-800.webp 800w, products/grain-${id}-1600.webp 1600w" sizes="(max-width:600px) 100vw, 25vw" alt="${NAMES[id]} glyph drawn in grain" loading="lazy" style="border-radius:14px;border:1px solid var(--line)"><div class="cap"><b>grain-${id}</b><span>particle still</span></div></figure>`).join('');
+  const RET = ['luma', 'polyglot-pilot', 'pinpoint', 'webvakt', 'joke-central', 'tryggere-hyring', 'early-apps'];
+  document.getElementById('retired').innerHTML = RET.map((id) => `<figure style="margin:0"><img src="products/retired/${id}-600.webp" srcset="products/retired/${id}-600.webp 600w, products/retired/${id}-1200.webp 1200w" sizes="200px" alt="${NAMES[id]}" loading="lazy"><div class="cap"><b>retired/${id}</b></div></figure>`).join('');
+
+  // icon system
+  const specGrid = document.getElementById('specGrid');
+  specGrid.innerHTML = Object.entries(meta.specimens).map(([id, title]) => { const [name, latin] = title.split(', '); return `<button class="spec-cell" data-shape="${id}"><svg viewBox="0 0 96 96" aria-hidden="true"><use href="icons/sprite.svg#sp-${id}"/></svg><b>${name}</b><i>${latin}</i></button>`; }).join('');
+  document.getElementById('uiGrid').innerHTML = meta.ui.map((id) => `<div><svg><use href="icons/sprite.svg#i-${id}"/></svg><span>${id}</span></div>`).join('');
+  // inline the sprite so <use> children can be animated by the striae hover
+  const sprite = await (await fetch('icons/sprite.svg')).text();
+  const holder = document.createElement('div'); holder.innerHTML = sprite; holder.firstElementChild.setAttribute('aria-hidden', 'true'); document.body.prepend(holder.firstElementChild);
+  function inlineUse(svg) { const use = svg.querySelector('use'); const id = use.getAttribute('href').split('#')[1]; const sym = document.getElementById(id); const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); for (const a of ['fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin']) g.setAttribute(a, sym.getAttribute(a)); g.innerHTML = sym.innerHTML.replace(/<title>.*?<\/title>/, ''); use.replaceWith(g); return svg; }
+  specGrid.querySelectorAll('svg').forEach((s) => { inlineUse(s); M.striae(s); s.closest('button').classList.add('df-striae'); });
+  M.striae(inlineUse(document.getElementById('striaeDemo')));
+
+  // hero particles
+  const df = await createDarkfield(document.getElementById('particles'), { base: new URL('./', location.href), initial: 'rock' });
+  const shapeName = document.getElementById('shapeName');
+  function show(id) { df.morph(id); shapeName.textContent = NAMES[id] || id; }
+  specGrid.addEventListener('click', (e) => { const b = e.target.closest('[data-shape]'); if (!b) return; show(b.dataset.shape); M.signal(b); document.getElementById('hero').scrollIntoView({ behavior: 'smooth' }); });
+  M.scrubDissolve(df, '#hero');
+  const heroIO = new IntersectionObserver(([en]) => en.isIntersecting ? df.resume() : df.pause()); heroIO.observe(document.getElementById('hero'));
+
+  // infinite canvas sketch
+  const stage = document.getElementById('stage'), plane = document.getElementById('plane'), zl = document.getElementById('zoomlabel');
+  const places = [
+    { id: 'mcp-emails', x: 1500, y: 1050, k: 'live' }, { id: 'fun-libs', x: 2050, y: 1180, k: 'live' }, { id: 'toolrails', x: 1300, y: 1650, k: 'building' }, { id: 'harbor', x: 1900, y: 1750, k: 'paused' },
+  ];
+  let html = places.map((p, i) => `<div class="place" data-i="${i}" style="left:${p.x}px;top:${p.y}px"><img src="products/slide-${p.id}-800.webp" alt="${NAMES[p.id]}" draggable="false"><img class="tag" src="extras/tag-${p.k}.svg" alt="" draggable="false"></div>`).join('');
+  RET.forEach((id, i) => { const a = -0.6 + i * 0.52, r = 1150; html += `<div class="place small" style="left:${1900 + Math.cos(a) * r * 1.25}px;top:${1500 + Math.sin(a) * r * 0.8}px"><img src="products/retired/${id}-600.webp" alt="${NAMES[id]}" draggable="false"></div>`; });
+  html += `<div class="place plate" style="left:320px;top:260px"><img src="museum/atkins-spiraea-aruncus-1000.webp" alt="" draggable="false"></div><div class="place plate" style="left:3000px;top:1900px;width:620px"><img src="hero/hero-diatom-rosette-1200.webp" alt="" draggable="false" style="border-radius:50%"></div><div class="place" style="left:2650px;top:500px;width:120px"><img src="museum/bertsch-navicula-600.webp" alt="" draggable="false"></div><div class="place" style="left:640px;top:2200px;width:600px"><img src="extras/sticker-slide.svg" alt="" draggable="false" style="box-shadow:none"></div>`;
+  plane.innerHTML = html;
+  const view = { x: 0, y: 0, s: 0.3 }; let anim;
+  const apply = () => { plane.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})`; zl.textContent = `× ${view.s.toFixed(2)}`; };
+  function flyTo(cx, cy, s, dur = 1.1) { const r = stage.getBoundingClientRect(); anim?.kill(); anim = M.gsap.to(view, { x: r.width / 2 - cx * s, y: r.height / 2 - cy * s, s, duration: dur, ease: 'expo.inOut', onUpdate: apply }); }
+  const fit = () => { const r = stage.getBoundingClientRect(); const s = Math.min(r.width / 3700, r.height / 2600); flyTo(2000, 1450, s); };
+  function zoomAt(f, px, py) { const r = stage.getBoundingClientRect(); px ??= r.width / 2; py ??= r.height / 2; const s = Math.min(2.2, Math.max(0.12, view.s * f)); view.x = px - (px - view.x) * (s / view.s); view.y = py - (py - view.y) * (s / view.s); view.s = s; apply(); }
+  const goto = (n) => { const p = places[n - 1]; if (p) { flyTo(p.x + 180, p.y + 225, 0.95); show(p.id); } };
+  let drag = null;
+  stage.addEventListener('pointerdown', (e) => { if (e.target.closest('button')) return; anim?.kill(); drag = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y }; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointermove', (e) => { if (!drag) return; view.x = drag.vx + e.clientX - drag.x; view.y = drag.vy + e.clientY - drag.y; apply(); });
+  stage.addEventListener('pointerup', () => { drag = null; });
+  stage.addEventListener('wheel', (e) => { e.preventDefault(); const r = stage.getBoundingClientRect(); zoomAt(Math.exp(-e.deltaY * 0.0015), e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+  stage.querySelectorAll('[data-act]').forEach((b) => b.addEventListener('click', () => ({ 'zoom-in': () => zoomAt(1.25), 'zoom-out': () => zoomAt(0.8), fit })[b.dataset.act]()));
+  plane.addEventListener('dblclick', (e) => { const p = e.target.closest('.place'); if (p?.dataset.i) goto(+p.dataset.i + 1); });
+  new IntersectionObserver(([en], o) => { if (en.isIntersecting) { fit(); o.disconnect(); } }).observe(stage);
+  apply();
+
+  // keyboard layer
+  const pan = (dx, dy) => { anim?.kill(); M.gsap.to(view, { x: view.x + dx, y: view.y + dy, duration: 0.5, ease: 'expo.out', onUpdate: apply }); };
+  let cursor = 0;
+  const keys = createShortcuts({ on: {
+    goto, fit, 'zoom-in': () => zoomAt(1.25), 'zoom-out': () => zoomAt(0.8),
+    pan: (e) => pan({ ArrowLeft: 160, ArrowRight: -160 }[e.key] || 0, { ArrowUp: 160, ArrowDown: -160 }[e.key] || 0),
+    next: () => goto((cursor = cursor % 4 + 1)), prev: () => goto((cursor = (cursor + 2) % 4 + 1)),
+    signal: () => df.pulse((Math.random() - 0.5) * 0.4, (Math.random() - 0.5) * 0.4, 1.3), home: () => show('rock'),
+    'copy-mcp': () => navigator.clipboard?.writeText('claude mcp add albretsen https://albretsen.no/mcp'),
+    mail: () => { location.href = 'mailto:asgeir@albretsen.no'; }, grain: () => document.getElementById('grain').toggleAttribute('hidden'),
+  } });
+  if (new URLSearchParams(location.search).has('keys')) keys.open();
+  document.getElementById('openKeys').addEventListener('click', () => keys.open());
+
+  // motion demos
+  M.stageSweep(document.querySelectorAll('#slides figure, #grains figure, #retired figure, .museum figure'));
+  const replay = { focus: () => { const el = document.getElementById('focusDemo'); M.focusPull(el); }, sweep: () => M.gsap.fromTo('#sweepDemo img', { opacity: 0, y: 48, filter: 'blur(6px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'expo.out', stagger: 0.09 }), top: () => scrollTo({ top: 0, behavior: 'smooth' }) };
+  document.querySelectorAll('[data-replay]').forEach((b) => b.addEventListener('click', () => replay[b.dataset.replay]()));
+  new IntersectionObserver(([en], o) => { if (en.isIntersecting) { replay.focus(); replay.sweep(); o.disconnect(); } }, { threshold: 0.4 }).observe(document.getElementById('focusDemo'));
+  const irisWrap = document.getElementById('irisWrap'), irisImg = document.getElementById('irisImg'); let flip = false;
+  irisWrap.addEventListener('click', (e) => { flip = !flip; irisImg.src = flip ? 'hero/hero-grain-rock-1440.webp' : 'hero/hero-diatom-rosette-1200.webp'; M.iris(irisImg, { x: e.clientX, y: e.clientY }); });
+</script>
+</body>
+</html>

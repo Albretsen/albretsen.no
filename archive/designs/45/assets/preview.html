@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drift — Asset Kit</title>
+<meta name="description" content="Albretsen AS, design 45: the Drift asset kit. Soft-plastic renders, a live particle river, and spring motion.">
+<link rel="icon" href="identity/favicon.svg"><link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script>try { const t = localStorage.getItem('drift-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+  * { box-sizing: border-box; }
+  html { background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  body { margin: 0; font: 400 15px/1.6 Geist, system-ui, sans-serif; background: var(--bg); overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; background: url(extras/grain-256.png); opacity: .05; mix-blend-mode: overlay; z-index: 50; }
+  img { display: block; max-width: 100%; height: auto; }
+  figure.card > img, figure.card picture img { width: 100%; }
+  a { color: inherit; }
+  .wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+  .mono { font: 500 11px/1.4 'Geist Mono', ui-monospace, monospace; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-faint); }
+  .serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  h2 { font: italic 400 clamp(2rem, 4.4vw, 3.4rem)/1.02 'Instrument Serif', serif; letter-spacing: -.01em; margin: .3rem 0 1rem; }
+  section { padding: clamp(72px, 12vw, 150px) 0 0; }
+  .lede { max-width: 38rem; color: var(--ink-soft); }
+  .card { background: var(--bg-raised); border: 1px solid var(--line); border-radius: 28px; overflow: hidden; }
+  .cap { display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px 16px; font-size: 13px; color: var(--ink-soft); }
+  .cap b { font-weight: 500; color: var(--ink); }
+  .grid { display: grid; gap: 18px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: start; }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+
+  /* top bar */
+  .bar { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(14px); background: color-mix(in oklch, var(--bg) 70%, transparent); border-bottom: 1px solid var(--line); }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .bar img { height: 30px; width: auto; }
+  .lk-dark { display: none; } :root[data-theme='dark'] .lk-dark { display: block; } :root[data-theme='dark'] .lk-light { display: none; }
+
+  /* hero */
+  .hero { position: relative; min-height: min(92vh, 900px); display: grid; align-items: center; overflow: hidden; }
+  .hero picture, .hero picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+  .hero .night { opacity: 0; transition: opacity 1.2s ease; } :root[data-theme='dark'] .hero .night { opacity: 1; }
+  .hero .copy { position: relative; z-index: 2; max-width: 34rem; padding-block: 80px; }
+  .hero h1 { font: italic 400 clamp(3.2rem, 9vw, 7.4rem)/.92 'Instrument Serif', serif; margin: .6rem 0 1.4rem; letter-spacing: -.02em; }
+  .hero p { color: var(--ink-soft); max-width: 28rem; font-size: 17px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.6rem; }
+  .chip { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: color-mix(in oklch, var(--bg-raised) 60%, transparent); backdrop-filter: blur(8px); }
+  @media (max-width: 700px) { .hero picture img { object-position: 82% 50%; opacity: .6; } .hero::after { content: ""; position: absolute; inset: 0; z-index: 1; background: radial-gradient(120% 60% at 30% 50%, color-mix(in oklch, var(--bg) 85%, transparent), transparent 75%); } }
+
+  /* live */
+  .live { position: relative; height: min(78vh, 760px); border-radius: 32px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-raised); }
+  .live canvas { width: 100%; height: 100%; display: block; }
+  .live .hint { position: absolute; left: 22px; bottom: 18px; }
+  .yr { position: absolute; left: 0; top: 0; pointer-events: none; font: 500 11px/1 'Geist Mono', monospace; letter-spacing: .08em; color: var(--ink-soft); white-space: nowrap; }
+  .yr::after { content: ''; display: block; width: 1px; height: 16px; margin: 5px auto 0; background: currentColor; opacity: .35; }
+
+  /* identity */
+  .tile { display: grid; place-items: center; min-height: 220px; padding: 28px; background: var(--teal-50); color: var(--teal-900); }
+  .tile.dark { background: var(--teal-950); }
+  .tile.mint { background: var(--teal-200); }
+  .tile svg, .tile img { max-height: 120px; width: auto; }
+  .tile .mono-mark { color: var(--teal-800); width: 96px; height: 96px; }
+  .tile.dark .mono-mark { color: var(--teal-200); }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); border-radius: 24px; overflow: hidden; border: 1px solid var(--line); }
+  .sw { aspect-ratio: 3 / 4.2; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; font: 500 10.5px/1.5 'Geist Mono', monospace; }
+  .sw b { font-size: 13px; font-weight: 500; }
+
+  /* type */
+  .type .row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: baseline; padding: 26px 0; border-top: 1px solid var(--line); }
+  @media (max-width: 700px) { .type .row { grid-template-columns: 1fr; gap: 6px; } }
+
+  /* products */
+  .prod { position: relative; }
+  .prod img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+  .prod .cap span { color: var(--ink-faint); }
+  .standins { display: flex; flex-wrap: wrap; gap: 18px; padding: 22px; justify-content: center; }
+  .standins figure { margin: 0; text-align: center; width: 96px; font-size: 11px; color: var(--ink-soft); }
+  .standins img { width: 72px; height: 72px; margin: 0 auto 8px; }
+
+  /* extras */
+  .floaters { position: relative; height: 460px; border-radius: 32px; overflow: hidden; background: var(--teal-200); border: 1px solid var(--line); }
+  .floaters .lines { position: absolute; inset: 0; color: var(--teal-600); opacity: .55; }
+  .floaters .lines img { width: 100%; height: 100%; object-fit: cover; }
+  .floaters img.f { position: absolute; }
+  :root[data-theme='dark'] .floaters { background: var(--teal-950); }
+  :root[data-theme='dark'] .floaters .lines { opacity: .25; }
+  .tex { height: 220px; background-size: 512px; }
+
+  /* motion lab */
+  .lab .demo { min-height: 260px; display: grid; place-items: center; padding: 28px; position: relative; }
+  .btn { all: unset; cursor: pointer; font: 500 12px/1 'Geist Mono', monospace; letter-spacing: .06em; text-transform: uppercase; padding: 10px 14px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-soft); transition: background .3s; }
+  .btn:hover { background: color-mix(in oklch, var(--accent) 14%, transparent); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .buoy-card { width: 220px; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 60px -30px color-mix(in oklch, var(--teal-900) 50%, transparent); background: var(--teal-100); will-change: transform; }
+  .chorus-line { font: italic 400 clamp(2.2rem, 4vw, 3rem)/1 'Instrument Serif', serif; text-align: center; }
+  .pop { position: absolute; top: calc(50% + 30px); width: 240px; padding: 16px; border-radius: 18px; background: var(--bg-raised); border: 1px solid var(--line); box-shadow: 0 24px 50px -24px color-mix(in oklch, var(--teal-900) 45%, transparent); font-size: 13px; }
+  .pop[hidden] { display: none; }
+  .orbit-host { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--teal-200) 35%, var(--teal-500)); }
+  footer { padding: 120px 0 60px; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <a href="#top" aria-label="Albretsen AS"><img class="lk-light" src="identity/lockup.svg" alt="Albretsen AS" width="160" height="33"><img class="lk-dark" src="identity/lockup-dark.svg" alt="Albretsen AS" width="160" height="33"></a>
+  <div style="display:flex;align-items:center;gap:14px"><span class="mono" id="tlabel">Day</span><tide-switch></tide-switch></div>
+</div></header>
+
+<main id="top">
+<!-- HERO -->
+<div class="hero">
+  <picture><source type="image/avif" srcset="hero/river-day@1x.avif 1440w, hero/river-day@2x.avif 2880w" sizes="100vw"><img src="hero/river-day@1x.webp" srcset="hero/river-day@1x.webp 1440w, hero/river-day@2x.webp 2880w" sizes="100vw" alt="" width="1440" height="810"></picture>
+  <picture class="night"><source type="image/avif" srcset="hero/river-night@1x.avif 1440w, hero/river-night@2x.avif 2880w" sizes="100vw"><img src="hero/river-night@1x.webp" srcset="hero/river-night@1x.webp 1440w, hero/river-night@2x.webp 2880w" sizes="100vw" alt="" width="1440" height="810"></picture>
+  <div class="wrap"><div class="copy" data-surface>
+    <div class="mono" data-surface-item>Design 45 · Asset kit</div>
+    <h1 data-surface-item>Drift</h1>
+    <p data-surface-item>A river of time from 2016 to today, rendered as soft plastic under studio light. Serene, spacious, one hue. Things float, nothing is bolted down. Flip the switch in the corner: the tide turns.</p>
+    <div class="chips mono" data-surface-item><span class="chip">OKLCH 180°</span><span class="chip">three.js particles</span><span class="chip">hand-rolled springs</span><span class="chip">Haeckel, 1904</span></div>
+  </div></div>
+</div>
+
+<div class="wrap">
+<!-- LIVE -->
+<section id="live">
+  <div class="mono">01 · Centrepiece · 3d/river.js</div>
+  <h2>The river, live</h2>
+  <p class="lede">Nine thousand points, each shaded as a glossy bead in the fragment shader, ride the current from 2016 (far) to today (near). Eleven pebbles float above it, one per year. Move to stir the water, click for a ripple, flip the switch for night. Labels are plain HTML fed by <code>onFrame</code>.</p>
+  <div class="live" id="livebox"><canvas id="river" aria-label="Interactive river of time. Move the pointer to stir it, click for a ripple."></canvas><span class="mono hint">Move · Click · Switch</span></div>
+</section>
+
+<!-- HERO STILLS -->
+<section>
+  <div class="mono">02 · Hero imagery · hero/</div>
+  <h2>Stills from the same studio</h2>
+  <div class="grid g2">
+    <figure class="card drift-gloss" style="margin:0"><picture><source type="image/avif" srcset="hero/river-day@1x.avif 1x, hero/river-day@2x.avif 2x"><img src="hero/river-day@1x.webp" srcset="hero/river-day@2x.webp 2x" alt="A soft plastic river winding from the distance with beads and floating pebbles" loading="lazy" width="1440" height="810"></picture><figcaption class="cap"><b>river-day</b><span>1440 / 2880 · webp + avif</span></figcaption></figure>
+    <figure class="card drift-gloss" style="margin:0"><picture><source type="image/avif" srcset="hero/river-night@1x.avif 1x, hero/river-night@2x.avif 2x"><img src="hero/river-night@1x.webp" srcset="hero/river-night@2x.webp 2x" alt="The same river at night, beads glowing" loading="lazy" width="1440" height="810"></picture><figcaption class="cap"><b>river-night</b><span>dark-theme twin, same camera</span></figcaption></figure>
+    <figure class="card drift-gloss" style="margin:0;grid-column:1/-1"><picture><source type="image/avif" srcset="hero/radiolarian@1x.avif 1x, hero/radiolarian@2x.avif 2x"><img src="hero/radiolarian@1x.webp" srcset="hero/radiolarian@2x.webp 2x" alt="A soft plastic radiolarian lattice floating with orbiting beads" loading="lazy" width="1440" height="810"></picture><figcaption class="cap"><b>radiolarian</b><span>Haeckel's geometry rebuilt as procedural 3D · second hero / section opener</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- IDENTITY -->
+<section>
+  <div class="mono">03 · Identity · identity/</div>
+  <h2>A bead, and a current that keeps going</h2>
+  <p class="lede">The mark is a single-storey <em>a</em>: the bowl is a bead, the stem flows out into a current, and one small bead floats free above it. Glossy for large uses, mono for small ones.</p>
+  <div class="grid g4" style="margin-top:28px">
+    <div class="card"><div class="tile"><img src="identity/mark.svg" alt="Albretsen mark" width="120" height="120"></div><div class="cap"><b>mark.svg</b><span>glossy</span></div></div>
+    <div class="card"><div class="tile dark"><svg class="mono-mark" viewBox="0 0 64 64" role="img" aria-label="Mono mark"><g fill="none" stroke="currentColor" stroke-width="7.5" stroke-linecap="round"><circle cx="27" cy="36" r="11.5"/><path d="M42.5 21.5V40c0 7.2 4.6 11 12.5 10"/></g><circle cx="15.5" cy="15.5" r="4.6" fill="currentColor"/></svg></div><div class="cap"><b>mark-mono.svg</b><span>currentColor</span></div></div>
+    <div class="card"><div class="tile mint" style="gap:18px;display:flex;justify-content:center;align-items:center"><img src="identity/favicon.svg" alt="favicon" width="64" height="64" style="width:64px"><img src="identity/favicon-180.png" alt="apple touch icon" width="90" height="90" style="width:90px;border-radius:20px"></div><div class="cap"><b>favicon.svg · 180.png</b><span>adapts to dark</span></div></div>
+    <div class="card"><div class="tile"><img src="identity/wordmark.svg" alt="albretsen wordmark" style="color:var(--ink);max-width:100%"></div><div class="cap"><b>wordmark.svg</b><span>Geist 400, outlined</span></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><div class="tile" style="min-height:180px"><img src="identity/lockup.svg" alt="Albretsen AS lockup" style="max-height:64px"></div><div class="cap"><b>lockup.svg</b><span>light</span></div></div>
+    <div class="card"><div class="tile dark" style="min-height:180px"><img src="identity/lockup-dark.svg" alt="Albretsen AS lockup, dark" style="max-height:64px"></div><div class="cap"><b>lockup-dark.svg</b><span>dark</span></div></div>
+  </div>
+  <figure class="card" style="margin:18px 0 0"><img src="identity/og.png" alt="Open Graph image" width="1200" height="630" loading="lazy"><figcaption class="cap"><b>og.png / og.jpg</b><span>1200 × 630</span></figcaption></figure>
+</section>
+
+<!-- PALETTE -->
+<section>
+  <div class="mono">04 · Palette · one hue, twelve depths</div>
+  <h2>Shallows to deep water</h2>
+  <div class="swatches" id="swatches"></div>
+</section>
+
+<!-- TYPE -->
+<section class="type">
+  <div class="mono">05 · Type</div>
+  <h2>Quiet text, one soft italic voice</h2>
+  <div class="row"><div class="mono">Display · Instrument Serif Italic</div><div class="serif" style="font-size:clamp(2.6rem,6vw,5rem);line-height:1">Software that pays for itself.</div></div>
+  <div class="row"><div class="mono">Text · Geist 300–500</div><div style="font-size:19px;max-width:36rem;color:var(--ink-soft)">Asgeir Albretsen builds apps, SaaS and agent infrastructure in Norway, and has shipped on Google Play since 2016. Albretsen AS takes one outside engagement at a time.</div></div>
+  <div class="row"><div class="mono">Labels · Geist Mono 500</div><div class="mono" style="font-size:13px;color:var(--ink-soft)">2016 · 2019 · 2026 — 113,000+ installs — 17 tools — $782 MRR</div></div>
+</section>
+
+<!-- PRODUCTS -->
+<section>
+  <div class="mono">06 · Products · products/</div>
+  <h2>Real logos, same studio</h2>
+  <p class="lede">Each product's own logo, untouched, printed on a soft-plastic tile and given a small story: MCP Emails with a drifting stack of messages, Fun Libs with its blanks waiting as capsules, Toolrails with every tool in one orbit, Harbor held still in a bubble while it's paused.</p>
+  <div class="grid g2" id="products" style="margin-top:28px"></div>
+  <figure class="card" style="margin:18px 0 0"><picture><source type="image/avif" srcset="products/retired-riverbed@1x.avif 1x, products/retired-riverbed@2x.avif 2x"><img src="products/retired-riverbed@1x.webp" srcset="products/retired-riverbed@2x.webp 2x" alt="Retired products as pebbles resting on the riverbed" loading="lazy" width="1200" height="450"></picture>
+    <figcaption class="cap"><b>retired-riverbed</b><span>things that settled: Luma (real logo) and stand-ins</span></figcaption>
+    <div class="standins" id="standins"></div></figure>
+</section>
+
+<!-- EXTRAS -->
+<section>
+  <div class="mono">07 · Extras · extras/</div>
+  <h2>Things that float around the page</h2>
+  <p class="lede">Ernst Haeckel's plates from <em>Kunstformen der Natur</em> (1904, public domain) toned into the palette, specimens cut out of them with luminance as alpha, a Birket Foster engraving of a stream (1858), soft-plastic objects as stickers, and procedural textures.</p>
+  <div class="floaters" style="margin-top:28px">
+    <div class="lines"><img src="extras/current-lines.svg" alt=""></div>
+    <img class="f drift-bob" src="extras/object-orbit@1x.webp" srcset="extras/object-orbit@2x.webp 2x" alt="" style="width:220px;left:4%;top:8%">
+    <img class="f drift-bob" src="extras/specimens/trefoil-light.webp" alt="" style="width:170px;left:30%;top:52%">
+    <img class="f drift-bob" src="extras/object-specimen@1x.webp" srcset="extras/object-specimen@2x.webp 2x" alt="" style="width:240px;left:44%;top:4%">
+    <img class="f drift-bob" src="extras/object-chorus@1x.webp" srcset="extras/object-chorus@2x.webp 2x" alt="" style="width:200px;right:6%;top:40%">
+    <img class="f drift-bob" src="extras/specimens/star-ink.webp" alt="" style="width:120px;right:28%;top:62%;opacity:.8">
+    <img class="f drift-bob" src="extras/object-capsule@1x.webp" srcset="extras/object-capsule@2x.webp 2x" alt="" style="width:180px;left:12%;bottom:-4%">
+  </div>
+  <div class="grid g3" style="margin-top:18px">
+    <figure class="card" style="margin:0"><img src="extras/plate-spumellaria-night@1x.webp" srcset="extras/plate-spumellaria-night@2x.webp 2x" alt="Haeckel's Spumellaria plate toned teal on near-black" loading="lazy" width="800" height="1134"><figcaption class="cap"><b>plate-spumellaria-night</b><span>Haeckel 1904</span></figcaption></figure>
+    <figure class="card" style="margin:0"><img src="extras/plate-diatomea-day@1x.webp" srcset="extras/plate-diatomea-day@2x.webp 2x" alt="Haeckel's Diatomea plate toned teal on pale mint" loading="lazy" width="800" height="1126"><figcaption class="cap"><b>plate-diatomea-day</b><span>Haeckel 1904</span></figcaption></figure>
+    <figure class="card" style="margin:0"><img src="extras/engraving-in-thy-stream.webp" alt="A wood engraving of a woman by a stream under an old tree, toned teal" loading="lazy" width="609" height="768"><figcaption class="cap"><b>engraving-in-thy-stream</b><span>Birket Foster 1858</span></figcaption></figure>
+  </div>
+  <div class="card" style="margin-top:18px"><div class="standins" id="specimens" style="background:var(--teal-700)"></div><div class="cap"><b>specimens/*-light · *-ink</b><span>transparent cut-outs, 5 forms × 2 tones</span></div></div>
+  <div class="grid g3" style="margin-top:18px">
+    <div class="card"><div class="tex" style="background-image:url(extras/caustics-tile.webp)"></div><div class="cap"><b>caustics-tile</b><span>tileable, procedural</span></div></div>
+    <div class="card"><div class="tex" style="background-image:url(extras/caustics-tile-night.webp)"></div><div class="cap"><b>caustics-tile-night</b><span>tileable, procedural</span></div></div>
+    <div class="card"><div class="tex" style="background:var(--teal-200) url(extras/grain-256.png);background-blend-mode:soft-light;background-size:256px"></div><div class="cap"><b>grain-256.png</b><span>overlay at 4–6%</span></div></div>
+  </div>
+</section>
+
+<!-- MOTION -->
+<section class="lab">
+  <div class="mono">08 · Motion · motion.js + motion.css</div>
+  <h2>Everything on one spring</h2>
+  <div class="grid g3" style="margin-top:28px">
+    <div class="card"><div class="demo" id="d-surface"><div data-surface style="display:grid;gap:10px;justify-items:center"><img data-surface-item src="extras/object-orbit@1x.webp" alt="" style="width:120px"><div data-surface-item class="serif" style="font-size:28px">Surface</div></div></div><div class="cap"><b>Surface · entrance</b><button class="btn" id="b-surface">Replay</button></div></div>
+    <div class="card"><div class="demo"><div class="buoy-card drift-gloss" id="buoy" tabindex="0"><img src="products/fun-libs@1x.webp" alt="Fun Libs render" width="800" height="600"></div></div><div class="cap"><b>Buoy + Gloss · hover</b><span>move over the card</span></div></div>
+    <div class="card"><div class="demo"><div class="chorus-line" id="chorus">weightless</div></div><div class="cap"><b>Chorus · text</b><button class="btn" id="b-chorus">Replay</button></div></div>
+    <div class="card"><div class="demo"><button class="btn" id="b-pop" aria-expanded="false" aria-controls="pop">Open popover</button><div class="pop drift-content" id="pop" data-state="closed" hidden><b>Settle</b><br>Radix-style <code>[data-state]</code> enter and exit with a spring-sampled <code>linear()</code> easing.</div></div><div class="cap"><b>Settle · Radix</b><span>data-state open / closed</span></div></div>
+    <div class="card"><div class="demo"><div class="drift-orbit"><div class="orbit-host"></div></div></div><div class="cap"><b>Orbit · decor</b><span>offset-path ellipse</span></div></div>
+    <div class="card"><div class="demo" style="gap:14px"><tide-switch></tide-switch><span class="mono">Tide turn</span></div><div class="cap"><b>Tide turn · theme</b><span>the signature delight</span></div></div>
+  </div>
+</section>
+</div>
+</main>
+<footer><div class="wrap mono">Albretsen AS · design 45 · Drift · full inventory and licences in ASSETS.md</div></footer>
+
+<script type="module">
+  import { content } from '../../_shared/content.js';
+  import { surface, buoy, chorus, defineTideSwitch } from './motion.js';
+  defineTideSwitch();
+  const label = document.getElementById('tlabel');
+  const sync = () => { label.textContent = document.documentElement.dataset.theme === 'dark' ? 'Night' : 'Day'; };
+  sync();
+  let river;
+  addEventListener('themechange', (e) => { try { localStorage.setItem('drift-theme', e.detail.theme); } catch (x) {} river?.setTheme(e.detail.theme); setTimeout(sync, 50);
+    document.querySelectorAll('tide-switch button').forEach((b) => b.setAttribute('aria-checked', String(e.detail.theme === 'dark'))); });
+
+  // palette
+  const pal = [[50,'0.985 0.012','#f2fdfa'],[100,'0.955 0.030','#dcf7f1'],[200,'0.900 0.055','#b7ebdf'],[300,'0.830 0.085','#87dac9'],[400,'0.740 0.110','#4bc1ad'],[500,'0.640 0.115','#08a28f'],[600,'0.540 0.100','#008171'],[700,'0.440 0.080','#006154'],[800,'0.340 0.060','#034239'],[900,'0.250 0.042','#042822'],[950,'0.180 0.028','#031612'],[990,'0.130 0.018','#020907']];
+  document.getElementById('swatches').innerHTML = pal.map(([n, lc, hex]) => `<div class="sw" style="background:${hex};color:${n >= 500 ? '#f2fdfa' : '#042822'}"><b>${n}</b>oklch(${lc} 180)<br>${hex}</div>`).join('');
+
+  // products (facts from the shared content file)
+  const show = ['mcp-emails', 'fun-libs', 'toolrails', 'harbor'];
+  document.getElementById('products').innerHTML = show.map((id) => { const p = content.products.find((x) => x.id === id);
+    return `<figure class="card prod drift-gloss" style="margin:0"><picture><source type="image/avif" srcset="products/${id}@1x.avif 1x, products/${id}@2x.avif 2x"><img src="products/${id}@1x.webp" srcset="products/${id}@2x.webp 2x" alt="${p.name} logo on a soft plastic tile" loading="lazy" width="800" height="600"></picture>
+      <figcaption class="cap"><span><b>${p.name}</b> · ${p.line}</span><span class="mono">${p.figure ? p.figure.value + ' ' + p.figure.label : p.status}</span></figcaption></figure>`; }).join('');
+  const ids = ['polyglot-pilot', 'pinpoint', 'webvakt', 'joke-central', 'tryggere-hyring', 'early-apps'];
+  document.getElementById('standins').innerHTML = ids.map((id) => { const p = content.products.find((x) => x.id === id);
+    return `<figure><img src="products/standins/${id}.svg" alt="" width="72" height="72">${p.name.split(',')[0]} <span style="opacity:.6">${p.since}</span></figure>`; }).join('');
+  document.getElementById('specimens').innerHTML = ['star', 'tendril', 'burst', 'urchin', 'trefoil'].flatMap((n) => [`<img src="extras/specimens/${n}-light.webp" alt="" style="width:110px;height:110px;object-fit:contain">`, `<img src="extras/specimens/${n}-ink.webp" alt="" style="width:110px;height:110px;object-fit:contain;background:var(--teal-100);border-radius:18px">`]).join('');
+
+  // motion demos
+  surface();
+  document.getElementById('b-surface').onclick = () => { const host = document.getElementById('d-surface'); const html = host.innerHTML; host.innerHTML = html; surface(host); };
+  buoy(document.getElementById('buoy'));
+  const ch = chorus(document.getElementById('chorus')); new IntersectionObserver(([e], o) => { if (e.isIntersecting) { ch.play(); o.disconnect(); } }).observe(document.getElementById('chorus'));
+  document.getElementById('b-chorus').onclick = () => ch.play();
+  const pop = document.getElementById('pop'), bp = document.getElementById('b-pop');
+  bp.onclick = () => { const open = pop.dataset.state !== 'open';
+    if (open) { pop.hidden = false; pop.dataset.state = 'open'; } else { pop.dataset.state = 'closed'; pop.addEventListener('animationend', () => { if (pop.dataset.state === 'closed') pop.hidden = true; }, { once: true }); }
+    bp.setAttribute('aria-expanded', String(open)); bp.textContent = open ? 'Close popover' : 'Open popover'; };
+
+  // the live river loads lazily when its box comes near the viewport
+  const box = document.getElementById('livebox'); const labels = new Map();
+  new IntersectionObserver(async ([e], o) => { if (!e.isIntersecting) return; o.disconnect();
+    const { createRiver } = await import('./3d/river.js');
+    river = await createRiver(document.getElementById('river'), { theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+      onFrame(ys) { for (const y of ys) { let el = labels.get(y.year); if (!el) { el = document.createElement('div'); el.className = 'yr'; el.textContent = y.year; box.append(el); labels.set(y.year, el); }
+        el.style.transform = `translate(${y.x.toFixed(1)}px, ${(y.y - 24).toFixed(1)}px) translate(-50%, -100%)`; el.style.opacity = y.visible ? 1 : 0; } } });
+  }, { rootMargin: '300px' }).observe(box);
+</script>
+</body>
+</html>

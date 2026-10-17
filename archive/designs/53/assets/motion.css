@@ -1,0 +1,123 @@
+/* ==========================================================================
+   Halflight motion study  (assets/motion.css + assets/motion.js)
+   Five named signatures. All respect prefers-reduced-motion.
+   Tokens are shared with the page; override --hl-* to retune.
+   ========================================================================== */
+:root {
+  --hl-umber: #160d06; --hl-peat: #3c2514; --hl-clay: #a75932; --hl-ember: #de6f11;
+  --hl-ochre: #deac37; --hl-spark: #fad86f; --hl-vellum: #f6eedd; --hl-moss: #696d43;
+  /* curves: a long, filmic ease-out and a gentle overshoot */
+  --hl-ease-film: cubic-bezier(.16, 1, .3, 1);
+  --hl-ease-lift: cubic-bezier(.34, 1.36, .64, 1);
+  --hl-ease-shutter: cubic-bezier(.76, 0, .24, 1);
+  --hl-dur: 1.2s;
+}
+
+/* --------------------------------------------------------------------------
+   1. DEVELOP  (entrance, images)
+   A photograph surfaces the way a print does in the tray: over-exposed and
+   soft, then contrast arrives and it settles. The frame opens from a slit.
+   Ref: the stylised-to-photo scroll reveal in Framer's "Shader Shift", the
+   darkroom fade-ins on igloo.inc.  Use: <figure class="hl-develop" data-hl>
+   -------------------------------------------------------------------------- */
+.hl-develop { overflow: hidden; clip-path: inset(46% 0 46% 0); }
+.hl-develop > img, .hl-develop > canvas, .hl-develop > picture {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(2.1) contrast(.45) saturate(.2) blur(6px);
+  transform: scale(1.08);
+}
+.hl-develop.is-in { animation: hl-develop-frame 1.4s var(--hl-ease-shutter) forwards; }
+.hl-develop.is-in > * { animation: hl-develop-print 2.6s var(--hl-ease-film) .25s forwards; }
+@keyframes hl-develop-frame { to { clip-path: inset(0 0 0 0); } }
+@keyframes hl-develop-print {
+  60% { filter: brightness(1.15) contrast(1.05) saturate(.95) blur(0); }
+  to  { filter: none; transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   2. EXPOSURE  (entrance, titles)
+   Title-card type: letters arrive wide-tracked and out of focus, then pull
+   in tight, as if the projectionist racks focus. motion.js splitTitle()
+   wraps characters in <span style="--i:n">.
+   Ref: classic film title sequences; the split-type preloader pattern
+   ("Studio pre-loader", Framer marketplace).  Use: <h1 class="hl-title" data-hl>
+   -------------------------------------------------------------------------- */
+.hl-title { letter-spacing: .32em; transition: letter-spacing 1.8s var(--hl-ease-film); }
+.hl-title .hl-ch { display: inline-block; opacity: 0; filter: blur(14px); transform: translateY(.18em);
+  transition: opacity 1.1s var(--hl-ease-film), filter 1.4s var(--hl-ease-film), transform 1.4s var(--hl-ease-film);
+  transition-delay: calc(var(--i, 0) * 34ms + 120ms); }
+.hl-title.is-in { letter-spacing: -.02em; }
+.hl-title.is-in .hl-ch { opacity: 1; filter: blur(0); transform: none; }
+
+/* --------------------------------------------------------------------------
+   3. GLINT  (hover)
+   Under the pointer a halftone glint prints onto the card: a dot screen,
+   masked by a soft circle that follows the cursor, dots growing toward its
+   centre like sun glitter on water. motion.js glint() feeds --mx/--my.
+   Ref: luminance-sized dots in Framer's "Halftone Ambient"; Codrops'
+   "Interactive WebGL Hover Effects" (2020).  Use: <a class="hl-glint">
+   -------------------------------------------------------------------------- */
+.hl-glint { position: relative; isolation: isolate; }
+.hl-glint::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2;
+  background-image: radial-gradient(circle, var(--hl-spark) 0 32%, transparent 36%);
+  background-size: 9px 9px; background-position: var(--mx, 50%) var(--my, 50%);
+  -webkit-mask: radial-gradient(circle 0px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+          mask: radial-gradient(circle 0px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+  mix-blend-mode: screen; opacity: 0; transition: opacity .5s var(--hl-ease-film);
+}
+.hl-glint:hover::after, .hl-glint:focus-visible::after {
+  opacity: .55;
+  -webkit-mask: radial-gradient(circle 160px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+          mask: radial-gradient(circle 160px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+}
+.hl-glint > img { transition: transform 1.2s var(--hl-ease-film), filter 1.2s var(--hl-ease-film); }
+.hl-glint:hover > img { transform: scale(1.035); filter: brightness(1.08) contrast(1.05); }
+
+/* --------------------------------------------------------------------------
+   4. LETTERBOX  (transition)
+   Two umber bars close to a CinemaScope slit (2.39:1), hold a beat, then
+   open on the next scene. Used to end the intro and between big sections.
+   motion.js letterbox(fn) runs close -> fn() -> open.
+   Ref: the split-panel "Box page reveal" (Framer marketplace); anamorphic
+   letterboxing in film.  Markup: injected by motion.js (.hl-bars)
+   -------------------------------------------------------------------------- */
+.hl-bars { position: fixed; inset: 0; pointer-events: none; z-index: 1000; --slit: 100vh; }
+.hl-bars::before, .hl-bars::after {
+  content: ''; position: absolute; left: 0; right: 0; height: calc((100vh - var(--slit)) / 2 + 1px);
+  background: var(--hl-umber); transition: height .9s var(--hl-ease-shutter);
+}
+.hl-bars::before { top: 0; } .hl-bars::after { bottom: 0; }
+.hl-bars[data-state="closed"] { --slit: 0px; }
+.hl-bars[data-state="scope"]  { --slit: min(100vh, 100vw / 2.39); }
+.hl-bars[data-state="open"]   { --slit: 100vh; }
+.hl-bars .hl-bars-line { position: absolute; left: 50%; top: 50%; width: 0; height: 1px; background: var(--hl-spark);
+  transform: translate(-50%, -50%); box-shadow: 0 0 18px var(--hl-spark); transition: width 1.1s var(--hl-ease-film), opacity .6s; }
+.hl-bars[data-state="closed"] .hl-bars-line { width: 38vw; }
+.hl-bars:not([data-state="closed"]) .hl-bars-line { opacity: 0; }
+
+/* --------------------------------------------------------------------------
+   5. GATE WEAVE  (ambient)
+   Projected film never sits still: a 1px drift and a faint flicker keep a
+   still image alive. Apply to hero stills/posters, never to text.
+   Ref: 35mm projection gate weave.  Use: <img class="hl-weave">
+   -------------------------------------------------------------------------- */
+.hl-weave { animation: hl-weave 7.3s steps(24) infinite, hl-flicker 4.1s steps(12) infinite; }
+@keyframes hl-weave {
+  0%, 100% { transform: translate(0, 0); } 20% { transform: translate(.6px, -.4px); }
+  40% { transform: translate(-.4px, .7px); } 60% { transform: translate(.3px, .2px); } 80% { transform: translate(-.6px, -.3px); }
+}
+@keyframes hl-flicker { 0%, 100% { filter: brightness(1); } 30% { filter: brightness(1.025); } 55% { filter: brightness(.985); } 80% { filter: brightness(1.015); } }
+
+/* Grain overlay, for any dark surface */
+.hl-grain { position: relative; }
+.hl-grain::before { content: ''; position: absolute; inset: -50%; pointer-events: none; z-index: 3; opacity: .14; mix-blend-mode: overlay;
+  background: url(texture/grain.webp); animation: hl-grain 1s steps(6) infinite; }
+@keyframes hl-grain { 0% { transform: translate(0, 0); } 33% { transform: translate(-7%, 4%); } 66% { transform: translate(5%, -6%); } 100% { transform: translate(0, 0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hl-develop, .hl-develop > * { clip-path: none !important; filter: none !important; transform: none !important; animation: none !important; }
+  .hl-title, .hl-title .hl-ch { letter-spacing: normal !important; opacity: 1 !important; filter: none !important; transform: none !important; transition: none !important; }
+  .hl-weave, .hl-grain::before { animation: none !important; }
+  .hl-bars::before, .hl-bars::after { transition-duration: .01s !important; }
+}

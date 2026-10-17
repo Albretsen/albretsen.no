@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OG source</title>
+<!-- Source for identity/og.png. Render: scripts/shot.sh ".../src/og.html" og.png 1200 630 -->
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@500&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #160d06; }
+  .og { position: relative; width: 1200px; height: 630px; color: #f6eedd; }
+  .bg { position: absolute; inset: 0; background: url(../hero/hero-dawn@2x.webp) 0% 50% / cover; }
+  .bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(22,13,6,0) 30%, rgba(22,13,6,.75) 62%, #160d06 92%); }
+  .copy { position: absolute; right: 72px; top: 0; bottom: 0; width: 560px; display: flex; flex-direction: column; justify-content: center; }
+  h1 { margin: 0; font: 400 132px/.86 'Instrument Serif', serif; letter-spacing: -.02em; }
+  p { margin: 22px 0 0; font: italic 400 38px/1.15 'Instrument Serif', serif; color: #fad86f; }
+  .meta { margin-top: 44px; font: 500 15px/1 'Geist Mono', monospace; letter-spacing: .26em; text-transform: uppercase; color: #deac37; display: flex; gap: 22px; align-items: center; }
+  .meta img { height: 30px; }
+  .frame { position: absolute; inset: 18px; border: 1px solid rgba(222,172,55,.3); border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="og">
+  <div class="bg"></div><div class="frame"></div>
+  <div class="copy">
+    <h1>Albretsen</h1>
+    <p>I build software that pays for itself.</p>
+    <div class="meta"><img src="../identity/mark.svg" alt=""><span>albretsen.no · Norway</span></div>
+  </div>
+</div>
+</body>
+</html>

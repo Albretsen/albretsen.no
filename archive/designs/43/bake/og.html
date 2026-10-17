@@ -1,0 +1,28 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>og</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #f6fbfc; }
+  .og { position: relative; width: 1200px; height: 630px; font-family: Geist, system-ui, sans-serif; color: #182933; }
+  .bg { position: absolute; inset: 0; background: url(../assets/hero/hero-crystal@2x.webp) 250px -95px / 1300px auto no-repeat; }
+  .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #f6fbfc 0 30%, rgba(246,251,252,.8) 42%, rgba(246,251,252,0) 56%); }
+  .grain { position: absolute; inset: 0; background: url(../assets/extras/paper-grain-overlay.webp); mix-blend-mode: soft-light; opacity: .5; }
+  .copy { position: absolute; left: 64px; top: 56px; bottom: 56px; width: 560px; display: flex; flex-direction: column; }
+  .nameplate { display: flex; align-items: center; gap: 14px; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #32728a; }
+  .nameplate img { width: 34px; height: 34px; }
+  .rule { margin-top: 18px; border-top: 1.5px solid #182933; border-bottom: 1px solid rgba(24,41,51,.5); height: 3px; width: 520px; }
+  h1 { margin: 34px 0 0; font: 400 76px/0.98 "Instrument Serif", serif; letter-spacing: -0.015em; }
+  h1 em { color: #32728a; }
+  .foot { margin-top: auto; display: flex; gap: 22px; font-size: 16px; color: #32728a; letter-spacing: .02em; }
+  .foot b { color: #182933; font-weight: 500; }
+</style>
+<div class="og">
+  <div class="bg"></div><div class="grain"></div>
+  <div class="copy">
+    <div class="nameplate"><img src="../assets/identity/mark.svg" alt="">The Albretsen Dawn · Morning edition</div>
+    <div class="rule"></div>
+    <h1>I build software that <em>pays for itself.</em></h1>
+    <div class="foot"><b>albretsen.no</b><span>Albretsen AS · Norway</span></div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>render sparks</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#020513;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+// Bakes particle stills for design 51. ?k=streak | burst | og   &w= &h=
+// Everything is seeded so a re-render gives the same picture.
+const q = new URLSearchParams(location.search);
+const K = q.get('k') || 'streak';
+const W = +(q.get('w') || 2400), H = +(q.get('h') || 1000);
+const c = document.getElementById('c'); c.width = W; c.height = H;
+const g = c.getContext('2d');
+let s = 544; const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+const gauss = () => (rnd() + rnd() + rnd() - 1.5) / 1.5;
+const RAMP = ['#fff4d6', '#ffe196', '#ffc35a', '#fb942a', '#f4742f', '#ef5b36', '#e63281', '#a52a8a', '#4a3f9a', '#234877'];
+const sprite = (col, n = 64) => { const o = document.createElement('canvas'); o.width = o.height = n; const x = o.getContext('2d'); const r = x.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2); r.addColorStop(0, '#ffffff'); r.addColorStop(0.15, col); r.addColorStop(0.45, col + '44'); r.addColorStop(1, col + '00'); x.fillStyle = r; x.fillRect(0, 0, n, n); return o; };
+const SP = RAMP.map((c2) => sprite(c2));
+const dot = (x, y, size, heat, a = 1) => { const k = Math.max(0, Math.min(RAMP.length - 1, Math.floor(heat * RAMP.length))); g.globalAlpha = a; g.drawImage(SP[k], x - size / 2, y - size / 2, size, size); };
+const load = (src) => new Promise((r, j) => { const i = new Image(); i.onload = () => r(i); i.onerror = j; i.src = src; });
+
+function stars(n, bright = 0.6) {
+  for (let i = 0; i < n; i++) {
+    const r = rnd() ** 3 * 1.6 + 0.3;
+    g.globalAlpha = rnd() * bright;
+    g.fillStyle = rnd() > 0.92 ? '#ffe196' : rnd() > 0.7 ? '#bed4eb' : '#f1f6fa';
+    g.beginPath(); g.arc(rnd() * W, rnd() * H, r, 0, Math.PI * 2); g.fill();
+  }
+  g.globalAlpha = 1;
+}
+
+// A thrown spark: ballistic parabola, shedding molten droplets that fall and cool.
+function streak(x0, y0, x1, y1, apex, n, scale = 1) {
+  const cx = (x0 + x1) / 2, cy = apex * 2 - (y0 + y1) / 2;
+  for (let i = 0; i < n; i++) {
+    const t = rnd() ** 0.7; // denser near the head (t=1)
+    const x = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * cx + t * t * x1;
+    const y = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * cy + t * t * y1;
+    const age = 1 - t;                         // how long ago this droplet was shed
+    const fall = age * age * 260 * scale * rnd(); // droplets fall under gravity
+    const spread = age * 40 * scale;
+    const heat = age * 0.95 + rnd() * 0.08;
+    const size = (2 + (1 - age) * 10 * rnd() + 1.5) * scale;
+    dot(x + gauss() * spread, y + gauss() * spread * 0.5 + fall, size, heat, Math.min(1, (1 - age) * 1.4 + 0.15));
+  }
+  // core line and head
+  for (let i = 0; i < 1400; i++) {
+    const t = 0.55 + 0.45 * (i / 1400);
+    const x = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * cx + t * t * x1;
+    const y = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * cy + t * t * y1;
+    dot(x, y, (2 + (t - 0.55) * 14) * scale, (1 - t) * 1.2, 0.35);
+  }
+  dot(x1, y1, 120 * scale, 0.25, 0.9); dot(x1, y1, 46 * scale, 0, 1); dot(x1, y1, 18 * scale, 0, 1);
+}
+
+function burst(x, y, n, R) {
+  dot(x, y, R * 1.6, 0.35, 0.45);
+  for (let i = 0; i < n; i++) {
+    const a = rnd() * Math.PI * 2, v = 0.25 + rnd() ** 0.7 * 0.75;
+    const d1 = R * v, d0 = d1 * (0.45 + rnd() * 0.3);
+    const sag = (v * v) * R * 0.12; // gravity bends the long ones
+    const hx = x + Math.cos(a) * d1, hy = y + Math.sin(a) * d1 + sag;
+    const tx = x + Math.cos(a) * d0, ty = y + Math.sin(a) * d0 + sag * 0.3;
+    const heat = Math.min(0.85, v * 0.75 + rnd() * 0.1);
+    const col = RAMP[Math.floor(heat * RAMP.length)];
+    const lg = g.createLinearGradient(tx, ty, hx, hy);
+    lg.addColorStop(0, col + '00'); lg.addColorStop(0.8, col + 'aa'); lg.addColorStop(1, '#fff4d6');
+    g.globalAlpha = 0.5 + (1 - v) * 0.5; g.strokeStyle = lg; g.lineWidth = 1 + (1 - v) * 2.4; g.lineCap = 'round';
+    g.beginPath(); g.moveTo(tx, ty); g.quadraticCurveTo((tx + hx) / 2, (ty + hy) / 2 - sag * 0.2, hx, hy); g.stroke();
+    dot(hx, hy, 6 + (1 - v) * 10, heat * 0.7, 0.9);
+  }
+  dot(x, y, R * 0.55, 0.12, 0.8); dot(x, y, R * 0.2, 0, 1);
+  g.globalAlpha = 0.45; g.strokeStyle = '#e63281'; g.lineWidth = 1.5; g.beginPath(); g.arc(x, y, R * 1.12, 0, Math.PI * 2); g.stroke();
+  g.globalAlpha = 1;
+}
+
+await document.fonts.load('300 40px Unbounded'); await document.fonts.load('500 20px "JetBrains Mono"');
+g.fillStyle = '#020513'; g.fillRect(0, 0, W, H);
+
+if (K === 'streak') {
+  stars(900, 0.5);
+  g.globalCompositeOperation = 'lighter';
+  streak(-W * 0.05, H * 1.05, W * 0.78, H * 0.42, H * 0.08, 26000, W / 2400);
+} else if (K === 'burst') {
+  stars(500, 0.45);
+  g.globalCompositeOperation = 'lighter';
+  burst(W / 2, H / 2, 520, Math.min(W, H) * 0.34);
+} else if (K === 'og') {
+  const bg = await load('../hero/earth-limb-2880.webp');
+  const sc = Math.max(W / bg.width, H / bg.height) * 1.1;
+  g.filter = 'brightness(0.9)';
+  g.drawImage(bg, -(bg.width * sc - W) * 0.15, -(bg.height * sc - H) * 0.3, bg.width * sc, bg.height * sc);
+  g.filter = 'none';
+  let gr = g.createLinearGradient(0, 0, W, 0);
+  gr.addColorStop(0, 'rgba(2,5,19,0.94)'); gr.addColorStop(0.5, 'rgba(2,5,19,0.6)'); gr.addColorStop(1, 'rgba(2,5,19,0.1)');
+  g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  // particle mark on the right
+  g.globalCompositeOperation = 'lighter';
+  const mx = W * 0.77, my = H * 0.53, S = H * 0.78;
+  for (let i = 0; i < 9000; i++) {
+    const t = rnd();
+    const x = (1 - t) ** 2 * 11 + 2 * (1 - t) * t * 32 + t * t * 53;
+    const y = (1 - t) ** 2 * 55 + 2 * (1 - t) * t * -29 + t * t * 55;
+    const j = gauss() * 0.9;
+    dot(mx + ((x - 32) / 64) * S + j * 3, my + ((y - 34) / 64) * S + j * 3, 1.5 + rnd() * 4, 0.1 + rnd() * 0.25 + (t < 0.35 ? 0.35 : 0), 0.16);
+  }
+  for (let i = 0; i < 500; i++) { const a = rnd() * 6.283, r = rnd() ** 0.5 * S * 0.06; dot(mx + Math.cos(a) * r, my + (6 / 64) * S + Math.sin(a) * r, 2 + rnd() * 4, 0.3, 0.35); }
+  dot(mx, my + (6 / 64) * S, S * 0.45, 0.3, 0.5); dot(mx, my + (6 / 64) * S, S * 0.07, 0.05, 1);
+  g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1;
+  const wm = await load('../brand/wordmark.svg');
+  const m = W * 0.06;
+  const ww = W * 0.36; g.drawImage(wm, m, m, ww, ww * wm.height / wm.width);
+  g.fillStyle = '#f1f6fa'; g.font = `300 ${Math.round(W * 0.043)}px Unbounded`; g.letterSpacing = '-2px';
+  g.fillText('Software that', m, H * 0.6); g.fillText('pays for itself.', m, H * 0.6 + W * 0.052);
+  g.font = `500 ${Math.round(W * 0.0125)}px "JetBrains Mono"`; g.letterSpacing = '4px'; g.fillStyle = '#fb942a';
+  g.fillText('ALBRETSEN.NO', m, H - m);
+  g.fillStyle = 'rgba(190,212,235,0.7)'; g.textAlign = 'right';
+  g.fillText('APPS · SAAS · AGENT INFRASTRUCTURE', W - m, H - m);
+}
+document.title = 'ready';
+</script></body></html>

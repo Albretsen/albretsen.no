@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Darkfield particles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<style>
+  :root { --field:#14100a; --void:#0b0805; --line:#3b3124; --dim:#735836; --ochre:#bd8e53; --signal:#f0b871; --light:#fae0c1; }
+  html,body { margin:0; height:100%; background:radial-gradient(ellipse at 50% 45%, #1d160e 0%, var(--field) 45%, var(--void) 100%); color:var(--light); font-family:'Geist Mono', ui-monospace, monospace; overflow:hidden; }
+  canvas { position:fixed; inset:0; width:100%; height:100%; display:block; cursor:crosshair; }
+  .ui { position:fixed; left:16px; right:16px; bottom:18px; display:flex; flex-wrap:wrap; gap:6px; justify-content:center; }
+  button { font:inherit; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ochre); background:rgba(20,16,10,.6); border:1px solid var(--line); border-radius:999px; padding:7px 12px; cursor:pointer; backdrop-filter:blur(6px); }
+  button:hover, button[aria-pressed=true] { color:var(--light); border-color:var(--ochre); }
+  kbd { color:var(--dim); margin-right:6px; }
+  h1 { position:fixed; top:20px; left:24px; margin:0; font:400 28px 'Instrument Serif', serif; }
+  h1 em { color:var(--ochre); }
+  body.still .ui, body.still h1 { display:none; }
+</style>
+</head>
+<body>
+<h1>Darkfield <em>particles</em></h1>
+<canvas id="c" aria-label="Particle specimen; click to send a signal"></canvas>
+<div class="ui" id="ui"></div>
+<script type="module">
+  import { createDarkfield, SPECIMENS } from './darkfield-particles.js';
+  const q = new URLSearchParams(location.search);
+  const still = q.has('still');
+  if (still) document.body.classList.add('still');
+  const df = await createDarkfield(document.getElementById('c'), {
+    base: new URL('../', import.meta.url), initial: q.get('shape') || 'rock', initialDuration: still ? 0.01 : 2.6,
+    autoPulse: !still, size: q.get("size") ? +q.get("size") : undefined, count: q.get('n') ? +q.get('n') : undefined,
+  });
+  if (q.get('pulse')) { const [x, y] = q.get('pulse').split(',').map(Number); setTimeout(() => df.pulse(x, y, 1.4), 300); }
+  if (q.get('spread')) df.spread = +q.get('spread');
+  if (q.get('dissolve')) df.dissolve = +q.get('dissolve');
+  const shapes = ['rock', ...SPECIMENS, 'field'];
+  const ui = document.getElementById('ui');
+  shapes.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.innerHTML = `<kbd>${i < 9 ? i + 1 : i === 9 ? 0 : '-='.charAt(i - 10)}</kbd>${s.replace('-', ' ')}`;
+    b.onclick = () => { df.morph(s); [...ui.children].forEach((c) => c.setAttribute('aria-pressed', c === b)); };
+    ui.append(b);
+  });
+  addEventListener('keydown', (e) => {
+    const keys = '1234567890-=';
+    const i = keys.indexOf(e.key);
+    if (i >= 0 && shapes[i]) ui.children[i].click();
+    if (e.key === ' ') { e.preventDefault(); df.pulse(0, 0, 1.3); }
+  });
+</script>
+</body>
+</html>

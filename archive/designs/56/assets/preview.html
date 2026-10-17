@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Honest Pixels — asset kit 56</title>
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  :root{
+    --cream:#f9f2e2;--cream-2:#efe5d0;--cream-3:#dcd0b8;--forest:#14422b;--deep:#052517;--ink:#02130c;
+    --moss:#587d50;--brass:#c59a44;--brass-deep:#966b27;--pulse:#e03c63;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    --gut:clamp(16px,3.2vw,48px);
+  }
+  *{box-sizing:border-box}
+  html{background:var(--cream);overflow-x:clip}
+  body{margin:0;color:var(--deep);background:var(--cream) url(img/extras/paper-grain.webp) 0 0/256px;font:400 15px/1.55 var(--mono);-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+  .px{image-rendering:pixelated}
+  h1,h2,h3{font-family:var(--display);font-variation-settings:'wdth' 88,'opsz' 96;letter-spacing:-.025em;margin:0;font-weight:700}
+  .wrap{padding:0 var(--gut)}
+  .lbl{font:700 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+  .cap{font:400 12px/1.45 var(--mono);color:var(--forest)}
+  .cap b{color:var(--deep)}
+
+  /* ---------- top bar ---------- */
+  .bar{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px var(--gut);background:color-mix(in oklab,var(--cream) 92%,transparent);backdrop-filter:blur(6px);border-bottom:2px solid var(--deep)}
+  .bar img{height:26px;width:auto}
+  .bar nav{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end}
+  .bar nav a{text-decoration:none;font:700 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+  @media (max-width:720px){.bar nav{display:none}}
+
+  /* ---------- LOADER ---------- */
+  .loader{position:relative;height:min(78vh,720px);margin:var(--gut);border:2px solid var(--deep);background:var(--ink);overflow:hidden}
+  .loader canvas{position:absolute;inset:0;width:100%;height:100%}
+  .loader .hud{position:absolute;inset:auto 0 0 0;display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:16px;padding:18px 20px;color:var(--cream);pointer-events:none;background:var(--ink);border-top:2px solid var(--brass)}
+  .loader .count{font:800 clamp(64px,14vw,180px)/.8 var(--display);font-variation-settings:'wdth' 75,'opsz' 96;letter-spacing:-.04em;color:var(--cream)}
+  .loader .count small{font:700 14px var(--mono);letter-spacing:.1em;color:var(--brass);margin-left:6px;vertical-align:top}
+  .loader .say{font:400 13px/1.5 var(--mono);max-width:42ch;color:var(--cream-2)}
+  .loader .say b{color:var(--brass)}
+  .loader .stage{font:700 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;background:var(--cream);color:var(--ink);padding:7px 9px}
+  .loader button{position:absolute;top:16px;right:16px;pointer-events:auto}
+  .btn{font:700 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--cream);color:var(--deep);border:2px solid var(--deep);padding:10px 14px;cursor:pointer;box-shadow:4px 4px 0 var(--deep);transition:transform .1s steps(2),box-shadow .1s steps(2)}
+  .btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--deep)}
+  .btn.dark{background:var(--brass)}
+  @media (max-width:720px){.loader .hud{grid-template-columns:1fr}.loader .say{display:none}}
+
+  /* ---------- intro ---------- */
+  .intro{display:grid;grid-template-columns:1.25fr 1fr;gap:var(--gut);padding:clamp(32px,6vw,88px) var(--gut) clamp(24px,4vw,56px);align-items:end;border-bottom:2px solid var(--deep)}
+  .intro h1{font-size:clamp(48px,9vw,148px);line-height:.86}
+  .intro h1 em{font-style:normal;color:var(--brass-deep)}
+  .intro p{margin:0 0 .8em;max-width:52ch}
+  .intro .facts{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:12px;border-top:2px solid var(--deep);padding-top:12px}
+  .intro .facts dt{font-weight:700}
+  .intro .facts dd{margin:0;color:var(--forest)}
+  @media (max-width:860px){.intro{grid-template-columns:1fr}}
+
+  section{padding:clamp(40px,6vw,88px) var(--gut);border-bottom:2px solid var(--deep)}
+  .sh{display:grid;grid-template-columns:120px 1fr minmax(0,44ch);gap:16px 24px;align-items:baseline;margin-bottom:clamp(24px,4vw,48px)}
+  .sh .n{font:700 12px var(--mono);letter-spacing:.1em}
+  .sh h2{font-size:clamp(36px,5.4vw,76px);line-height:.9}
+  .sh p{margin:0;font-size:13px;color:var(--forest)}
+  @media (max-width:860px){.sh{grid-template-columns:1fr}}
+
+  /* ---------- moodboard ---------- */
+  .mood-wrap{position:relative}
+  .mood{position:relative;height:min(92vh,880px);min-height:620px;border:2px solid var(--deep);background:var(--cream-2) url(img/extras/paper-grain.webp) 0 0/256px;overflow:hidden}
+  .mood .a56-piece{position:absolute;background:var(--cream);padding:8px 8px 30px;border:1.5px solid var(--deep);user-select:none}
+  .mood .a56-piece img{pointer-events:none;width:100%;height:auto}
+  .mood .a56-piece .t{position:absolute;left:8px;right:8px;bottom:8px;font:400 10px/1.2 var(--mono);color:var(--forest);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mood .a56-piece.bare{background:none;border:0;padding:0}
+  .mood .a56-piece.note{background:var(--deep);color:var(--cream);padding:18px 18px 20px;font:400 12px/1.5 var(--mono);width:250px}
+  .mood .a56-piece.note b{color:var(--brass)}
+  .mood .head{position:absolute;left:3%;top:5%;z-index:200;pointer-events:none}
+  .mood .head h3{font-size:clamp(44px,7.6vw,118px);line-height:.84;color:var(--deep)}
+  .mood .head h3 .l{display:inline;background:var(--cream);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .08em;line-height:1.02}
+  .mood .head h3 .dot{color:var(--brass-deep)}
+  .mood.is-tidy{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding:72px 14px 14px;align-content:start;height:auto;overflow:visible}
+  .mood.is-tidy .a56-piece{position:relative;left:auto!important;top:auto!important;width:auto!important}
+  .mood.is-tidy .head{display:none}
+  .mood-ctl{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+  @media (max-width:720px){.mood{height:auto;min-height:0;display:grid;align-items:start;grid-template-columns:1fr 1fr;gap:10px;padding:120px 10px 10px}.mood .a56-piece{position:relative;left:auto!important;top:auto!important;width:auto!important}.mood .a56-piece.note{grid-column:span 2}.mood .head{top:16px}}
+
+  /* ---------- identity ---------- */
+  .grid{display:grid;gap:clamp(12px,1.6vw,20px)}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g6{grid-template-columns:repeat(6,minmax(0,1fr))}
+  @media (max-width:860px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g6{grid-template-columns:repeat(3,minmax(0,1fr))}.g2{grid-template-columns:1fr}}
+  .cell{border:1.5px solid var(--deep);background:var(--cream);display:flex;flex-direction:column}
+  .cell .art{flex:1;display:grid;place-items:center;padding:clamp(18px,3vw,40px);min-height:200px}
+  .cell .art.dark{background:var(--deep)}.cell .art.forest{background:var(--forest)}.cell .art.brass{background:var(--brass)}.cell .art.c2{background:var(--cream-2)}
+  .cell .meta{border-top:1.5px solid var(--deep);padding:10px 12px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .cell .meta code{font:400 11px var(--mono);color:var(--forest);word-break:break-all;text-align:right}
+  .span2{grid-column:span 2}
+  .fav-row{display:flex;gap:18px;align-items:end}
+  .fav-row img{image-rendering:pixelated}
+
+  /* ---------- palette ---------- */
+  .sw{border:1.5px solid var(--deep);display:flex;flex-direction:column;min-height:220px}
+  .sw .c{flex:1;position:relative}
+  .sw .c .bay{position:absolute;right:8px;bottom:8px;width:56px;height:24px;background:var(--deep);-webkit-mask:url(patterns/bayer-50.svg) 0 0/8px 8px;mask:url(patterns/bayer-50.svg) 0 0/8px 8px}
+  .sw .i{padding:10px 12px;border-top:1.5px solid var(--deep);background:var(--cream);font-size:11px;line-height:1.5}
+  .sw .i b{font:700 13px var(--display);display:block;letter-spacing:0}
+  .ratio{display:flex;height:22px;border:1.5px solid var(--deep);margin-top:16px}
+  .ratio span{display:block}
+
+  /* ---------- type ---------- */
+  .type{display:grid;grid-template-columns:1.4fr 1fr;gap:var(--gut)}
+  @media (max-width:860px){.type{grid-template-columns:1fr}}
+  .spec{border:1.5px solid var(--deep);background:var(--cream);padding:clamp(18px,3vw,36px)}
+  .spec .big{font:700 clamp(64px,10vw,168px)/.84 var(--display);font-variation-settings:'wdth' 88,'opsz' 96;letter-spacing:-.035em}
+  .spec .wts{display:flex;gap:18px;flex-wrap:wrap;margin:18px 0;font-family:var(--display);font-size:28px}
+  .spec .scale p{margin:.2em 0;font-family:var(--display);font-variation-settings:'wdth' 88,'opsz' 96;letter-spacing:-.02em;line-height:1}
+  .spec.mono .big{font:700 clamp(48px,7vw,104px)/.9 var(--mono);letter-spacing:-.04em}
+  .spec.mono .ramp{font:400 clamp(18px,2.4vw,28px)/1 var(--mono);letter-spacing:.18em;margin:20px 0;color:var(--forest);word-break:break-all}
+
+  /* ---------- hero imagery ---------- */
+  .hero-g{display:grid;grid-template-columns:2fr 1fr;gap:clamp(12px,1.6vw,20px)}
+  .hero-g .stack{display:grid;gap:clamp(12px,1.6vw,20px)}
+  @media (max-width:860px){.hero-g{grid-template-columns:1fr}}
+  figure{margin:0;border:1.5px solid var(--deep);background:var(--cream)}
+  figure .im{position:relative;overflow:hidden;background:var(--cream-3)}
+  figure figcaption{border-top:1.5px solid var(--deep);padding:10px 12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .ba{position:relative;aspect-ratio:16/10;overflow:hidden;cursor:ew-resize}
+  .hero-g figure.main{display:flex;flex-direction:column}.hero-g figure.main .ba{flex:1;aspect-ratio:auto;min-height:420px}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ba .top{clip-path:inset(0 0 0 var(--x,50%))}
+  .ba .handle{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:var(--brass);pointer-events:none}
+  .ba .handle::after{content:'PHOTO | 1-BIT';position:absolute;top:12px;left:50%;transform:translateX(-50%);background:var(--brass);color:var(--ink);font:700 10px/1 var(--mono);letter-spacing:.1em;padding:6px 8px;white-space:nowrap}
+
+  /* ---------- products ---------- */
+  .prod{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.6vw,20px)}
+  @media (max-width:860px){.prod{grid-template-columns:1fr}}
+  .retired{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;margin-top:clamp(24px,3vw,40px)}
+  @media (max-width:860px){.retired{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .retired .r{border:1.5px solid var(--deep);background:var(--cream)}
+  .retired .r .art{aspect-ratio:1;display:grid;place-items:center;background:var(--cream-2)}
+  .retired .r .art img{width:100%;height:100%;image-rendering:pixelated}
+  .retired .r .art img.real{width:76%;height:auto;image-rendering:auto}
+  .retired .r p{margin:0;padding:8px 10px;border-top:1.5px solid var(--deep);font-size:11px;line-height:1.35}
+  .retired .r p b{display:block;font:700 13px var(--display);letter-spacing:0}
+
+  /* ---------- extras ---------- */
+  .ex{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(12px,1.6vw,20px)}
+  .ex .w2{grid-column:span 2}.ex .w3{grid-column:span 3}.ex .w4{grid-column:span 4}.ex .w6{grid-column:span 6}
+  @media (max-width:860px){.ex{grid-template-columns:repeat(2,minmax(0,1fr))}.ex .w2,.ex .w3,.ex .w4,.ex .w6{grid-column:span 2}}
+  .stickers{display:flex;gap:clamp(12px,2vw,28px);flex-wrap:wrap;align-items:center;justify-content:center;padding:28px;background:var(--forest)}
+  .stickers img{width:clamp(110px,13vw,170px);height:auto}
+  .stickers img.wide{width:clamp(160px,18vw,240px)}
+  .pat{display:grid;grid-template-columns:repeat(4,1fr);gap:0;height:100%}
+  .pat div{min-height:120px;background-repeat:repeat;background-size:8px 8px;image-rendering:pixelated;border-right:1.5px solid var(--deep)}
+
+  /* ---------- interactive ---------- */
+  .lens{position:relative;height:min(70vh,640px);border:1.5px solid var(--deep);background:var(--deep)}
+  .lens canvas{width:100%;height:100%;display:block;cursor:crosshair}
+  .lens .ui{position:absolute;left:12px;bottom:12px;display:flex;gap:8px}
+  .lens .ui .btn[aria-pressed=true]{background:var(--brass)}
+
+  /* ---------- motion ---------- */
+  .mo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,20px)}
+  @media (max-width:860px){.mo{grid-template-columns:1fr}}
+  .mo .cell .art{min-height:260px;position:relative}
+  .mo .cell h3{font-size:24px;margin:0 0 4px}
+  .mo .desc{padding:12px;border-top:1.5px solid var(--deep);font-size:12px;line-height:1.5}
+  .mo .desc b{font-family:var(--display);font-size:20px;display:block;letter-spacing:-.01em}
+  .links{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+  .links a{font:700 clamp(22px,2.4vw,32px)/1.1 var(--mono);text-decoration:none;color:var(--cream);letter-spacing:-.02em}
+  .links a::before{content:'→ ';color:var(--brass)}
+  .fig{font:800 clamp(56px,7vw,96px)/.9 var(--display);font-variation-settings:'wdth' 80,'opsz' 96;letter-spacing:-.04em;color:var(--deep)}
+  .resolve-box{width:100%;aspect-ratio:4/5;max-width:260px;position:relative}
+  .resolve-box img{width:100%;height:100%;object-fit:cover}
+
+  .grid>*,.ex>*,.prod>*,.mo>*,.hero-g>*,.type>*,.sh>*,.retired>*,.mood>*{min-width:0}
+  .cap,figcaption,.meta code{overflow-wrap:anywhere}
+  footer{padding:40px var(--gut);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px}
+  footer img{height:22px}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <img class="a56-mark" src="brand/wordmark.svg" alt="Albretsen AS">
+  <nav><a href="#mood">Moodboard</a><a href="#identity">Identity</a><a href="#palette">Palette</a><a href="#type">Type</a><a href="#hero">Hero</a><a href="#products">Products</a><a href="#extras">Extras</a><a href="#lens">Lens</a><a href="#motion">Motion</a></nav>
+</header>
+
+<!-- ============ LOADER: the signature delight ============ -->
+<div class="loader" id="loader">
+  <canvas data-l-canvas aria-hidden="true"></canvas>
+  <button class="btn" id="replay" type="button">Replay loader</button>
+  <div class="hud">
+    <div class="count"><span data-l-count>000</span><small>%</small></div>
+    <div class="say">This number is <b>real</b>. It is the share of <span data-l-total>…</span> of photograph that has actually reached your browser. While it arrives, a 20&nbsp;KB copy is drawn as ASCII, then dither, getting sharper as the bytes land.</div>
+    <div class="stage" data-l-stage>ascii / 48px</div>
+  </div>
+</div>
+
+<div class="intro">
+  <div>
+    <div class="lbl" style="margin-bottom:14px">Asset kit 56 &middot; Albretsen AS</div>
+    <h1>Honest<br>Pixels<em>.</em></h1>
+  </div>
+  <div>
+    <p>Every image in this kit is a real photograph, taken by someone else and given away (CC0) by Poly Haven. I didn't take them. I wrote the code that rounds them down to one bit, to ASCII, to lines and dots.</p>
+    <p>That's the brand. Show the source, show the process, show the numbers. Some products made money. Some didn't. The site says which.</p>
+    <dl class="facts">
+      <dt>Direction</dt><dd>Dithered and ASCII renderings of real photographs</dd>
+      <dt>Hero idea</dt><dd>A moodboard you can rearrange; every piece labels its own source</dd>
+      <dt>Palette</dt><dd>Cream, forest, brass. One red (12&deg;) for honesty: paused, retired, errors</dd>
+      <dt>Motion</dt><dd>GSAP + ScrollTrigger. Moves in steps, like pixels do</dd>
+    </dl>
+  </div>
+</div>
+
+<!-- ============ MOODBOARD HERO ============ -->
+<section id="mood">
+  <div class="sh"><span class="n">01 / HERO</span><h2>The moodboard</h2><p>A proposal for the hero. Drag anything. "Tidy" lines it up with GSAP Flip, "Scatter" puts it back. Captions say exactly where each image came from and what was done to it.</p></div>
+  <div class="mood-wrap">
+    <div class="mood" id="board">
+      <div class="head"><h3><span class="l">Software that</span><br><span class="l">pays for itself<span class="dot">.</span></span></h3></div>
+      <div class="a56-piece" data-rot="-3" style="left:52%;top:4%;width:22%"><img class="px" src="img/tiles/pines-3tone@2x.webp" alt="Misty pine forest, three-tone dither"><span class="t">misty_pines / bayer 3-tone</span></div>
+      <div class="a56-piece" data-rot="4" style="left:76%;top:12%;width:20%"><img class="px" src="img/tiles/moss-atkinson@2x.webp" alt="Mossy boulder, Atkinson dither in brass"><span class="t">mossy_forest / atkinson</span></div>
+      <div class="a56-piece" data-rot="-2" style="left:4%;top:44%;width:30%"><img src="img/products/mcp-emails@1x.webp" alt="MCP Emails product card"><span class="t">fig. 01 / MCP Emails / $782 MRR</span></div>
+      <div class="a56-piece" data-rot="2.5" style="left:33%;top:50%;width:19%"><img src="img/tiles/lake-lines@2x.webp" alt="Frozen lake as line engraving"><span class="t">frozen_lake / breathing lines</span></div>
+      <div class="a56-piece" data-rot="-5" style="left:54%;top:46%;width:18%"><img src="img/tiles/canopy-halftone@1x.webp" alt="Looking up into pine canopy, halftone"><span class="t">misty_pines, looking up / halftone</span></div>
+      <div class="a56-piece" data-rot="3" style="left:73%;top:52%;width:24%"><img src="img/products/fun-libs@1x.webp" alt="Fun Libs product card"><span class="t">fig. 02 / Fun Libs / 113,000+ installs</span></div>
+      <div class="a56-piece" data-rot="-1.5" style="left:38%;top:40%;width:14%"><img class="px" src="img/tiles/birch-4tone@1x.webp" alt="Birch forest, four-tone dither"><span class="t">birchwood / 4-tone</span></div>
+      <div class="a56-piece note" data-rot="2" style="left:5%;top:78%"><b>NOTE TO BUILDER</b><br>Pieces are absolutely positioned in %. Keep at least one product card and one note. Never let the collage hide the headline.</div>
+      <div class="a56-piece bare" data-rot="-8" style="left:30%;top:31%;width:120px"><img class="a56-sticker" src="stickers/since-2016.svg" alt="On Google Play since 2016"></div>
+      <div class="a56-piece bare" data-rot="6" style="left:88%;top:80%;width:110px"><img class="a56-sticker" src="stickers/no-marketing.svg" alt="113,000+ installs, zero marketing"></div>
+      <div class="a56-piece bare" data-rot="-4" style="left:44%;top:84%;width:180px"><img class="a56-sticker" src="stickers/status-paused.svg" alt="Paused, not dead"></div>
+    </div>
+    <div class="mood-ctl"><button class="btn" id="tidy" type="button">Tidy</button><button class="btn dark" id="scatter" type="button">Scatter</button><span class="cap">Draggable + Flip (GSAP 3.13). Lift is a hard 10px shadow, no blur.</span></div>
+  </div>
+</section>
+
+<!-- ============ IDENTITY ============ -->
+<section id="identity">
+  <div class="sh"><span class="n">02 / IDENTITY</span><h2>Mark &amp; wordmark</h2><p>The mark is a pixel A that is still rendering: solid at the base, dithering out toward the top. The brass block is a cursor. It blinks at 1&nbsp;Hz on the site.</p></div>
+  <div class="grid g3">
+    <div class="cell span2"><div class="art"><img src="brand/wordmark.svg" alt="Albretsen AS wordmark" style="width:min(560px,100%)"></div><div class="meta"><span class="lbl">Wordmark</span><code>brand/wordmark.svg</code></div></div>
+    <div class="cell"><div class="art c2"><img src="brand/mark-animated.svg" style="width:150px" alt="Mark"></div><div class="meta"><span class="lbl">Mark</span><code>brand/mark.svg</code></div></div>
+    <div class="cell span2"><div class="art dark"><img src="brand/wordmark-cream.svg" alt="Albretsen AS wordmark, cream" style="width:min(560px,100%)"></div><div class="meta"><span class="lbl">Wordmark, reversed</span><code>brand/wordmark-cream.svg</code></div></div>
+    <div class="cell"><div class="art forest"><img src="brand/mark-cream.svg" alt="Mark, cream" style="width:150px"></div><div class="meta"><span class="lbl">Mark, reversed</span><code>brand/mark-cream.svg</code></div></div>
+    <div class="cell"><div class="art c2"><img src="brand/wordmark-type.svg" alt="Type-only wordmark" style="width:min(300px,100%)"></div><div class="meta"><span class="lbl">Type only</span><code>brand/wordmark-type.svg</code></div></div>
+    <div class="cell"><div class="art"><div class="fav-row"><img src="brand/favicon.svg" width="16" height="16" alt="favicon 16"><img src="brand/favicon.svg" width="32" height="32" alt="favicon 32"><img src="brand/favicon-180.png" width="90" height="90" alt="apple touch icon"><img src="brand/app-tile.svg" width="90" height="90" alt="app tile with dither"></div></div><div class="meta"><span class="lbl">Favicon / 180 / tile</span><code>brand/favicon.svg, favicon-180.png, app-tile.svg</code></div></div>
+    <div class="cell"><div class="art c2" style="padding:12px"><img src="brand/og.png" alt="Open Graph image"></div><div class="meta"><span class="lbl">Open Graph 1200&times;630</span><code>brand/og.png</code></div></div>
+  </div>
+</section>
+
+<!-- ============ PALETTE ============ -->
+<section id="palette">
+  <div class="sh"><span class="n">03 / PALETTE</span><h2>Cream, forest, brass</h2><p>Defined in OKLCH. Seed hue 12&deg; is used for exactly one colour, Pulse, and only for the truth nobody likes: paused, retired, failed, errors.</p></div>
+  <div class="grid g6" id="swatches"></div>
+  <div class="ratio" aria-label="Usage ratio"><span style="flex:52;background:var(--cream)"></span><span style="flex:10;background:var(--cream-2)"></span><span style="flex:22;background:var(--deep)"></span><span style="flex:8;background:var(--forest)"></span><span style="flex:5;background:var(--brass)"></span><span style="flex:2;background:var(--moss)"></span><span style="flex:1;background:var(--pulse)"></span></div>
+  <p class="cap" style="margin-top:8px">Usage by area: cream 52 / cream-2 10 / deep 22 / forest 8 / brass 5 / moss 2 / pulse 1. Brass-deep is the only brass allowed for text on cream (4.6:1).</p>
+</section>
+
+<!-- ============ TYPE ============ -->
+<section id="type">
+  <div class="sh"><span class="n">04 / TYPE</span><h2>Two faces, no more</h2><p>Bricolage Grotesque (OFL) for statements, at width 88 and optical size 96. IBM Plex Mono (OFL) for everything that is a fact: numbers, captions, sources, code.</p></div>
+  <div class="type">
+    <div class="spec">
+      <div class="lbl" style="margin-bottom:10px">Bricolage Grotesque / 700 / wdth 88</div>
+      <div class="big">Aa 782</div>
+      <div class="wts"><span style="font-weight:300">Light</span><span style="font-weight:500">Medium</span><span style="font-weight:700">Bold</span><span style="font-weight:800;font-variation-settings:'wdth' 75">Condensed</span></div>
+      <div class="scale">
+        <p style="font-size:clamp(40px,5vw,72px);font-weight:700">Built at 17. No marketing.</p>
+        <p style="font-size:clamp(28px,3vw,40px);font-weight:600">Some of these made money. Some didn't.</p>
+        <p style="font-size:22px;font-weight:500">Takes one outside engagement at a time.</p>
+      </div>
+    </div>
+    <div class="spec mono">
+      <div class="lbl" style="margin-bottom:10px">IBM Plex Mono / 400, 700</div>
+      <div class="big">$782<span style="color:var(--brass-deep)">.</span></div>
+      <div class="ramp">&nbsp;.,:;-=+*x%#@</div>
+      <p style="margin:0 0 8px;font-size:15px;overflow-wrap:anywhere">claude mcp add albretsen https://albretsen.no/mcp</p>
+      <p class="cap" style="margin:0">The ASCII ramp above is the real one every renderer in this kit uses, darkest to brightest. Plex Mono's even widths are why the ASCII art lines up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HERO IMAGERY ============ -->
+<section id="hero">
+  <div class="sh"><span class="n">05 / HERO IMAGERY</span><h2>Same pixels, three treatments</h2><p>Each hero ships at 1x and 2x. Dithered files are lossless and tiny, because one bit compresses well. Drag across the first one to compare it with the photograph it came from.</p></div>
+  <div class="hero-g">
+    <figure class="main">
+      <div class="im ba" id="ba"><img class="px" src="img/hero/pines-bayer@2x.webp" alt="Misty pines, 1-bit"><img class="top" src="img/hero/pines-photo@2x.webp" alt="Misty pines, photograph"><div class="handle"></div></div>
+      <figcaption><span class="lbl">A &middot; Pines, 1-bit Bayer 8&times;8 + the graded photo</span><span class="cap">hero/pines-bayer@1x|2x.webp (20 KB) &middot; pines-photo@1x|2x.webp, .avif</span></figcaption>
+    </figure>
+    <div class="stack">
+      <figure><div class="im"><img src="img/hero/fog-ascii@1x.webp" alt="Pine forest in fog rendered as ASCII characters"></div><figcaption><span class="lbl">B &middot; Fog, ASCII 180 cols</span><span class="cap">hero/fog-ascii@1x|2x.webp + .txt</span></figcaption></figure>
+      <figure><div class="im"><img class="px" src="img/hero/moss-atkinson@1x.webp" alt="Mossy creek, Atkinson dither"></div><figcaption><span class="lbl">C &middot; Creek, Atkinson</span><span class="cap">hero/moss-atkinson@1x|2x.webp</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section id="products">
+  <div class="sh"><span class="n">06 / PRODUCTS</span><h2>Real logos, framed</h2><p>Each live product sits on a specimen card, untouched, over its own photograph and algorithm. The status chip tells the truth: LIVE, BUILDING, PAUSED.</p></div>
+  <div class="prod">
+    <figure><img src="img/products/mcp-emails@1x.webp" srcset="img/products/mcp-emails@1x.webp 1200w, img/products/mcp-emails@2x.webp 2400w" sizes="(max-width:860px) 100vw, 50vw" alt="MCP Emails card"><figcaption><span class="lbl">MCP Emails &middot; ASCII fog</span><span class="cap">products/mcp-emails@1x|2x.webp</span></figcaption></figure>
+    <figure><img src="img/products/fun-libs@1x.webp" srcset="img/products/fun-libs@1x.webp 1200w, img/products/fun-libs@2x.webp 2400w" sizes="(max-width:860px) 100vw, 50vw" alt="Fun Libs card"><figcaption><span class="lbl">Fun Libs &middot; Bayer birches</span><span class="cap">products/fun-libs@1x|2x.webp</span></figcaption></figure>
+    <figure><img src="img/products/toolrails@1x.webp" srcset="img/products/toolrails@1x.webp 1200w, img/products/toolrails@2x.webp 2400w" sizes="(max-width:860px) 100vw, 50vw" alt="Toolrails card"><figcaption><span class="lbl">Toolrails &middot; line engraving</span><span class="cap">products/toolrails@1x|2x.webp</span></figcaption></figure>
+    <figure><img src="img/products/harbor@1x.webp" srcset="img/products/harbor@1x.webp 1200w, img/products/harbor@2x.webp 2400w" sizes="(max-width:860px) 100vw, 50vw" alt="Harbor card"><figcaption><span class="lbl">Harbor &middot; Atkinson creek</span><span class="cap">products/harbor@1x|2x.webp</span></figcaption></figure>
+  </div>
+  <div class="retired">
+    <div class="r"><div class="art"><img class="real" src="../../_shared/products/luma/logo.png" alt="Luma logo"></div><p><b>Luma</b>2026 &middot; retired &middot; real logo</p></div>
+    <div class="r"><div class="art"><img src="retired/polyglot-pilot.svg" alt=""></div><p><b>Polyglot Pilot</b>2025 &middot; retired</p></div>
+    <div class="r"><div class="art"><img src="retired/pinpoint.svg" alt=""></div><p><b>PinPoint</b>2025 &middot; retired</p></div>
+    <div class="r"><div class="art"><img src="retired/webvakt.svg" alt=""></div><p><b>WebVakt</b>2024 &middot; retired</p></div>
+    <div class="r"><div class="art"><img src="retired/joke-central.svg" alt=""></div><p><b>Joke Central</b>2024 &middot; retired</p></div>
+    <div class="r"><div class="art"><img src="retired/tryggere-hyring.svg" alt=""></div><p><b>Tryggere Hyring</b>2023 &middot; retired</p></div>
+    <div class="r"><div class="art"><img src="retired/early-apps.svg" alt=""></div><p><b>Early apps</b>2021 &middot; retired</p></div>
+  </div>
+  <p class="cap" style="margin-top:12px">Retired stand-ins: 12&times;12 pixel glyphs with a 50% Bayer fill and one red strike. No fake logos; the strike is the honesty.</p>
+</section>
+
+<!-- ============ EXTRAS ============ -->
+<section id="extras">
+  <div class="sh"><span class="n">07 / EXTRAS</span><h2>Texture &amp; life</h2><p>Bands, grain, stickers and patterns to put between sections, behind cards and in margins.</p></div>
+  <div class="ex">
+    <figure class="w6"><div class="im"><div class="a56-breath-band"></div></div><figcaption><span class="lbl">Breath ramp (animated)</span><span class="cap">img/extras/breath-ramp@1x|2x.webp &middot; .a56-breath-band</span></figcaption></figure>
+    <figure class="w6"><div class="im"><img class="px" src="img/extras/moss-band@2x.webp" alt="Moss texture band"></div><figcaption><span class="lbl">Moss band, 3-tone Bayer</span><span class="cap">img/extras/moss-band@1x|2x.webp (ambient: mossy_rock, Poly Haven)</span></figcaption></figure>
+    <figure class="w3"><div class="im"><img src="img/extras/rock-ascii.webp" alt="Mossy rock texture as ASCII"></div><figcaption><span class="lbl">Rock ASCII swatch</span><span class="cap">img/extras/rock-ascii.webp</span></figcaption></figure>
+    <figure class="w3" style="display:flex;flex-direction:column"><div class="im" style="flex:1;min-height:300px;background:url(img/extras/paper-grain.webp) 0 0/512px"></div><figcaption><span class="lbl">Paper grain, 512 seamless</span><span class="cap">img/extras/paper-grain.webp (ambientCG Paper004)</span></figcaption></figure>
+    <figure class="w4"><div class="stickers"><img class="a56-sticker" src="stickers/since-2016.svg" alt="On Google Play since 2016"><img class="a56-sticker" src="stickers/no-marketing.svg" alt="113,000+ installs, zero marketing"><img class="a56-sticker" src="stickers/one-bit.svg" alt="Every image here is a real photo, dithered"><img class="a56-sticker wide" src="stickers/status-paused.svg" alt="Paused, not dead"></div><figcaption><span class="lbl">Stickers (hover: step-spin)</span><span class="cap">stickers/*.svg</span></figcaption></figure>
+    <figure class="w2"><div class="pat"><div style="background-image:url(patterns/bayer-12.svg)"></div><div style="background-image:url(patterns/bayer-25.svg)"></div><div style="background-image:url(patterns/bayer-50.svg)"></div><div style="background-image:url(patterns/bayer-75.svg);border-right:0"></div></div><figcaption><span class="lbl">Bayer tiles 12/25/50/75</span><span class="cap">patterns/bayer-*.svg</span></figcaption></figure>
+    <figure class="w6"><div class="im" style="padding:14px;background:var(--cream)"><img src="patterns/ascii-rule.svg" alt="" style="width:100%;height:24px"></div><figcaption><span class="lbl">ASCII rule (section divider)</span><span class="cap">patterns/ascii-rule.svg</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVE ============ -->
+<section id="lens">
+  <div class="sh"><span class="n">08 / INTERACTIVE</span><h2>The dither lens</h2><p>js/dither.js, no dependencies. Renders the real photo as 1-bit or ASCII on canvas, live. The pointer opens a lens onto the untouched photograph. The threshold breathes (&plusmn;3%, every 6&nbsp;s). Standalone demo: <a href="demo/dither-lens.html">demo/dither-lens.html</a>.</p></div>
+  <div class="lens"><canvas id="lensc" aria-label="Misty pine forest dither; move the pointer to reveal the photograph"></canvas>
+    <div class="ui"><button class="btn" data-m="bayer" aria-pressed="true" type="button">Bayer</button><button class="btn" data-m="ascii" aria-pressed="false" type="button">ASCII</button></div></div>
+</section>
+
+<!-- ============ MOTION ============ -->
+<section id="motion">
+  <div class="sh"><span class="n">09 / MOTION</span><h2>Moves in steps</h2><p>motion.css + motion.js. GSAP 3.13 with ScrollTrigger, Draggable and Flip, vendored in vendor/. Every animation stops under prefers-reduced-motion.</p></div>
+  <div class="mo">
+    <div class="cell"><div class="art c2"><div class="resolve-box" id="rbox"><img id="rimg" src="img/tiles/pines-3tone@1x.webp" class="px" alt="Pines, resolving"></div></div>
+      <div class="desc"><b>Resolve-in</b>Entrance. The image's own pixels at 32, 16, 8, 4, 2&nbsp;px cells, then a 6-step dissolve to the real file. Fires once via ScrollTrigger. <button class="btn" id="rerun" type="button" style="margin-top:8px">Replay</button></div></div>
+    <div class="cell"><div class="art dark"><div class="links"><a href="#" data-scramble><span class="a56-scramble">MCP Emails</span></a><a href="#" data-scramble><span class="a56-scramble">Fun Libs</span></a><a href="#" data-scramble><span class="a56-scramble">Toolrails</span></a></div></div>
+      <div class="desc"><b>Scramble</b>Hover. Each letter churns through the ASCII ramp and locks, left to right, in 18 frames (~0.5&nbsp;s).</div></div>
+    <div class="cell"><div class="art forest"><button class="btn dark" id="wipe" type="button">Run Bayer wipe</button></div>
+      <div class="desc"><b>Bayer wipe</b>Transition. The viewport fills in 8&times;8 Bayer order with forest cells, swaps the view, then empties in the same order.</div></div>
+    <div class="cell"><div class="art"><div><div class="fig" data-count>$782</div><div class="fig" data-count style="color:var(--forest)">113,000+</div></div></div>
+      <div class="desc"><b>Count-up</b>Detail. Figures arrive in six hard steps, formatted like the source. Never smooth, never past the real number.</div></div>
+    <div class="cell"><div class="art c2"><div style="display:flex;gap:28px;align-items:center"><img src="brand/mark-animated.svg" style="width:110px" alt="Mark with blinking cursor"><span class="lbl" style="display:flex;gap:8px;align-items:center"><span class="a56-live-dot"></span>LIVE</span></div></div>
+      <div class="desc"><b>Blink &amp; pulse</b>Idle. The cursor in the mark blinks at 1&nbsp;Hz, hard on/off. Live status dots pulse in 6 steps.</div></div>
+    <div class="cell"><div class="art brass"><img class="a56-sticker" src="stickers/one-bit.svg" alt="" style="width:150px"></div>
+      <div class="desc"><b>Step-spin &amp; lift</b>Hover / drag. Stickers rotate 30&deg; in 12 ticks. Moodboard pieces lift with a hard 10&nbsp;px shadow and tilt with drag velocity.</div></div>
+  </div>
+</section>
+
+<footer><img src="brand/wordmark.svg" alt="Albretsen AS"><span>Asset kit 56 &middot; "Honest Pixels" &middot; Photos: Poly Haven (CC0). Paper: ambientCG (CC0). Fonts: OFL. See ASSETS.md.</span></footer>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/Draggable.min.js"></script>
+<script src="vendor/Flip.min.js"></script>
+<script type="module">
+  import { resolveLoader, mountDither, PALETTE } from './js/dither.js';
+  // ?only=<section id> shows a single section (handy for screenshots and reviews)
+  const only = new URLSearchParams(location.search).get('only');
+  if (new URLSearchParams(location.search).has("vw")) document.title = "vw=" + innerWidth;
+  if (only) document.querySelectorAll('body > .loader, body > .intro, body > section').forEach(el => { if (el.id !== only) el.style.display = 'none'; });
+  import { resolveIn, bindScramble, bayerWipe, moodboard, countUp } from './motion.js';
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.ticker.lagSmoothing(0); // honest time: never slow an animation down to hide a dropped frame
+
+  // swatches
+  const SW = [
+    ['Cream', 'oklch(0.962 0.022 88)', '#f9f2e2', 'Ground'], ['Cream 2', 'oklch(0.925 0.03 86)', '#efe5d0', 'Panels'],
+    ['Cream 3', 'oklch(0.86 0.035 84)', '#dcd0b8', 'Rules, wells'], ['Deep', 'oklch(0.235 0.045 162)', '#052517', 'Text, ink'],
+    ['Forest', 'oklch(0.34 0.065 158)', '#14422b', 'Fields'], ['Ink', 'oklch(0.17 0.03 165)', '#02130c', 'Night, ASCII bg'],
+    ['Moss', 'oklch(0.55 0.08 140)', '#587d50', 'Mid-tone dither'], ['Brass', 'oklch(0.71 0.115 82)', '#c59a44', 'Accent on dark'],
+    ['Brass deep', 'oklch(0.56 0.1 75)', '#966b27', 'Accent text on cream'], ['Pulse', 'oklch(0.61 0.2 12)', '#e03c63', 'Seed 12°. Truth only'],
+    ['Pulse soft', 'oklch(0.86 0.06 12)', '#f6c2c6', 'Pulse backgrounds'],
+  ];
+  document.getElementById('swatches').innerHTML = SW.map(([n, o, h, u]) =>
+    `<div class="sw"><div class="c" style="background:${h}"><span class="bay" style="background:${['#052517','#02130c','#14422b'].includes(h) ? '#f9f2e2' : '#052517'}"></span></div><div class="i"><b>${n}</b>${o}<br>${h}<br><span style="color:var(--forest)">${u}</span></div></div>`).join('');
+
+  // loader
+  const runLoader = () => resolveLoader(document.getElementById('loader'), {
+    src: 'img/hero/pines-photo@2x.webp?' + Date.now(), preview: 'img/hero/pines-bayer@1x.webp', minMs: 2600 });
+  runLoader();
+  document.getElementById('replay').onclick = runLoader;
+
+  // moodboard
+  const mb = moodboard(document.getElementById('board'));
+  document.getElementById('tidy').onclick = mb.tidy; document.getElementById('scatter').onclick = mb.scatter;
+
+  // before / after
+  const ba = document.getElementById('ba');
+  const setX = e => { const r = ba.getBoundingClientRect(); ba.style.setProperty('--x', Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)) + '%'); };
+  ba.addEventListener('pointermove', setX); ba.addEventListener('pointerdown', setX);
+
+  // motion demos
+  resolveIn(document.getElementById('rimg'));
+  document.getElementById('rerun').onclick = () => { const box = document.getElementById('rbox'); const img = document.getElementById('rimg'); const n = img.cloneNode(); img.replaceWith(n); resolveIn(n, { start: 'top bottom' }); ScrollTrigger.refresh(); };
+  bindScramble(document);
+  document.querySelectorAll('[data-scramble]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+  document.getElementById('wipe').onclick = () => bayerWipe({ mid: () => document.body.classList.toggle('wiped') });
+  document.querySelectorAll('[data-count]').forEach(el => countUp(el));
+  // lens (non-blocking)
+  mountDither(document.getElementById('lensc'), { src: 'img/hero/pines-photo@1x.webp', dot: 2, lensR: 130 }).then(lens => {
+    document.querySelectorAll('#lens [data-m]').forEach(b => b.onclick = () => { lens.mode = b.dataset.m; document.querySelectorAll('#lens [data-m]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  }).catch(console.warn);
+</script>
+</body>
+</html>

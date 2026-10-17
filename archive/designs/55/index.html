@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-sound="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS · Software, developed after dark</title>
+<meta name="description" content="Asgeir Albretsen builds apps, SaaS and infrastructure for AI agents under Albretsen AS, Norway. On Google Play since 2016.">
+<meta name="theme-color" content="#090706">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software, developed after dark.">
+<meta property="og:image" content="assets/brand/og.jpg">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/favicon-180.png">
+<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/geist-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/hero/hero-refract@1x.avif" as="image" type="image/avif" media="(min-width: 701px)">
+<link rel="preload" href="assets/hero/hero-refract-portrait@1x.avif" as="image" type="image/avif" media="(max-width: 700px)">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+<div class="progress-seam" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="#top" aria-label="Albretsen AS, home" data-magnetic>
+    <svg class="mark ray-draw" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">
+      <defs>
+        <linearGradient id="nm-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ede7df" stop-opacity=".30"/><stop offset="1" stop-color="#ede7df" stop-opacity=".06"/></linearGradient>
+      </defs>
+      <path class="ray" pathLength="1" d="M0 38.6 H12.4 L19.7 41.2 H44.6 L52.6 43.8 H64" fill="none" stroke="#ff7e22" stroke-width="2.6" stroke-linejoin="round"/>
+      <path class="plate" d="M6 58 L24.4 6 L31 6 L14 58 Z" fill="url(#nm-g)" stroke="#ede7df" stroke-width="1.6" stroke-linejoin="round"/>
+      <path class="plate" d="M33 6 L39.6 6 L58 58 L50 58 Z" fill="url(#nm-g)" stroke="#ede7df" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+    <img class="wordtext" src="assets/brand/wordmark-text.svg" alt="" width="92" height="20"><span class="as">AS</span>
+  </a>
+  <nav aria-label="Primary">
+    <a href="#products">Products</a>
+    <a href="#retired">Archive</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="sound" type="button" data-sound-toggle aria-pressed="false" data-magnetic>
+    <i aria-hidden="true"></i><span data-label>Sound off</span>
+  </button>
+</header>
+
+<main id="top">
+  <!-- ============ HERO: the light table ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="table" id="table" role="group" aria-roledescription="light table" aria-label="Interactive photograph: two loose panes of glass over a glass-negative photograph. Drag a pane, or focus it and use the arrow keys. Click the dark to fire a spark.">
+      <picture class="poster">
+        <source media="(max-width: 700px)" type="image/avif" srcset="assets/hero/hero-refract-portrait@1x.avif 585w, assets/hero/hero-refract-portrait@2x.avif 1170w">
+        <source media="(max-width: 700px)" type="image/webp" srcset="assets/hero/hero-refract-portrait@1x.webp 585w, assets/hero/hero-refract-portrait@2x.webp 1170w">
+        <source type="image/avif" srcset="assets/hero/hero-refract@1x.avif 1440w, assets/hero/hero-refract@2x.avif 2880w">
+        <img src="assets/hero/hero-refract@1x.webp" srcset="assets/hero/hero-refract@1x.webp 1440w, assets/hero/hero-refract@2x.webp 2880w" sizes="100vw" alt="" width="1440" height="900" fetchpriority="high">
+      </picture>
+    </div>
+
+    <div class="hero-copy">
+      <p class="k cat" id="plate-cat"><span data-cat>Plate 287289</span> · <span data-who>Moussette</span> · <span data-when>12.05.1886</span></p>
+      <h1 id="hero-title" class="display">Software,<br>developed <em>after dark.</em></h1>
+      <p class="lede">Asgeir Albretsen builds apps, SaaS and infrastructure for AI agents under Albretsen&nbsp;AS, alongside a day job in Norway. What pays for itself stays on the table. On Google Play since 2016.</p>
+      <div class="cmd" data-magnetic-zone>
+        <span class="k">Ask your agent</span>
+        <code id="cmd-text">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button type="button" class="copy" id="copy" aria-describedby="copy-tip"><span>Copy</span></button>
+        <span class="tip" id="copy-tip" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <aside class="log" aria-label="Exposure log: live events from the products">
+      <p class="k log-h"><span class="dot" aria-hidden="true"></span>Exposure log · live</p>
+      <ol id="log"></ol>
+    </aside>
+
+    <div class="plates" role="radiogroup" aria-label="Choose the plate on the light table" id="plates">
+      <span class="plates-ind" aria-hidden="true"></span>
+      <button role="radio" aria-checked="true" data-plate="spark"><img src="assets/museum/plate-spark-1886@1x.webp" alt="" width="28" height="28"><span><b>1886</b> Spark</span></button>
+      <button role="radio" aria-checked="false" tabindex="-1" data-plate="corona"><img src="assets/museum/plate-corona-1883@1x.webp" alt="" width="28" height="28"><span><b>1883</b> Corona</span></button>
+      <button role="radio" aria-checked="false" tabindex="-1" data-plate="moon"><img src="assets/museum/plate-moon-1857@1x.webp" alt="" width="28" height="28"><span><b>1857</b> Moon</span></button>
+      <button role="radio" aria-checked="false" tabindex="-1" data-plate="cygnus"><img src="assets/museum/plate-cygnus-1885@1x.webp" alt="" width="28" height="28"><span><b>1885</b> Cygnus</span></button>
+      <button role="radio" aria-checked="false" tabindex="-1" data-plate="lyra"><img src="assets/museum/plate-lyra-1885@1x.webp" alt="" width="28" height="28"><span><b>1885</b> Lyra</span></button>
+    </div>
+    <p class="k hint" aria-hidden="true"><span class="hint-desk">Drag the glass · click the dark</span><span class="hint-touch">Drag the glass · tap the dark</span> <a href="#products" class="paired" id="paired" hidden></a></p>
+  </section>
+
+  <!-- ============ PRODUCTS ============ -->
+  <section class="products" id="products" aria-labelledby="products-title">
+    <div class="zoom" id="zoom">
+      <div class="zoom-stick">
+        <figure class="zoom-fig">
+          <picture>
+            <source type="image/avif" srcset="assets/hero/hero-plates@1x.avif 1440w, assets/hero/hero-plates@2x.avif 2880w">
+            <img src="assets/hero/hero-plates@1x.webp" srcset="assets/hero/hero-plates@1x.webp 1440w, assets/hero/hero-plates@2x.webp 2880w" sizes="100vw" alt="Four glass negatives standing in a row, receding into the dark: lightning, an eclipse corona, the moon and a ring nebula." width="1440" height="900" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <div class="zoom-copy">
+          <p class="k">Section 01 · Products</p>
+          <h2 id="products-title" class="display">Four plates<br><em>in the tray.</em></h2>
+          <p>Each one started as an evening experiment. Two earn, one is being built, one is resting. Every figure below is real.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane-stack" id="stack"></div>
+
+    <div class="retired" id="retired" aria-labelledby="retired-title">
+      <header class="retired-head">
+        <p class="k">Archive · plates put away</p>
+        <h3 id="retired-title" class="display">Exposed, <em>then shelved.</em></h3>
+        <p>Not every plate develops. These were built, shipped or tested, then retired when the numbers said so.</p>
+        <div class="fan" aria-hidden="true">
+          <img src="assets/products/retired-polyglot-pilot.svg" alt="" width="240" height="300" loading="lazy">
+          <img src="assets/products/retired-webvakt.svg" alt="" width="240" height="300" loading="lazy">
+          <img src="assets/products/retired-joke-central.svg" alt="" width="240" height="300" loading="lazy">
+        </div>
+      </header>
+      <ol class="ret-list" id="ret-list"></ol>
+      <div class="ret-peek" id="peek" aria-hidden="true"><img alt="" width="240" height="300"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" id="contact">
+  <img class="foot-seam" src="assets/extras/seam-band.webp" alt="" width="2400" height="360" loading="lazy" decoding="async">
+  <img class="foot-etch" src="assets/museum/etched-corot-1871.webp" alt="" width="1600" height="1050" loading="lazy" decoding="async">
+  <img class="foot-orb drift" src="assets/extras/dusk-orb@1x.webp" srcset="assets/extras/dusk-orb@1x.webp 700w, assets/extras/dusk-orb@2x.webp 1400w" sizes="(max-width: 700px) 70vw, 40vw" alt="" width="700" height="700" loading="lazy" decoding="async">
+  <div class="foot-in">
+    <p class="k">Contact</p>
+    <p class="avail display">Takes one outside engagement <em>at a time.</em></p>
+    <a class="mail" href="mailto:asgeir@albretsen.no" data-magnetic>asgeir@albretsen.no</a>
+    <img class="foot-index" src="assets/extras/plate-index.svg" alt="" loading="lazy">
+    <div class="foot-meta">
+      <span class="k">Albretsen AS · Norway</span>
+      <span class="k">Photographs: The Met, Open Access (CC0)</span>
+    </div>
+  </div>
+  <img class="sticker" src="assets/extras/sticker-after-hours.svg" alt="Sticker: Albretsen AS, built after hours, Norway, since 2016" width="300" height="300" loading="lazy">
+</footer>
+
+<script type="module" src="site.js"></script>
+</body>
+</html>

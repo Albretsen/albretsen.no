@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uranographia asset kit</title>
+<meta name="description" content="Design 33 for Albretsen AS: a star atlas where every product is a constellation drawn from its own numbers.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<meta property="og:image" content="identity/og-1200x630.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--u-night); color-scheme: dark; }
+  body { margin: 0; color: var(--u-vellum); font: 300 16px/1.55 var(--u-sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background: url(extras/grain-256.webp); opacity: .07; pointer-events: none; z-index: 50; mix-blend-mode: overlay; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  .wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+  .mono { font: 500 11px/1.4 var(--u-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--u-haze); }
+  .dim { color: var(--u-dim); }
+  h2 { font: 400 clamp(40px, 6vw, 76px)/.95 var(--u-serif); letter-spacing: -.01em; margin: 0; }
+  h2 i { color: var(--u-haze); }
+  h3 { font: 400 26px/1.1 var(--u-serif); margin: 0 0 6px; }
+  section { padding: clamp(72px, 10vw, 140px) 0 0; }
+  .sechead { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: end; padding-bottom: 28px; margin-bottom: 36px; border-bottom: 1px solid var(--u-rule); }
+  .sechead p { margin: 12px 0 0; max-width: 60ch; color: var(--u-haze); }
+  @media (max-width: 720px) { .sechead { grid-template-columns: 1fr; gap: 8px; } }
+  .grid { display: grid; gap: 20px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 960px) { .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .g3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } .grid > * { grid-column: auto !important; } }
+  .tile { position: relative; background: var(--u-deep); border-radius: 4px; box-shadow: inset 0 0 0 1px var(--u-slate); overflow: hidden; }
+  .tile figcaption, .cap { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; font: 500 10.5px/1.4 var(--u-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--u-haze); border-top: 1px solid var(--u-slate); }
+  .tile figcaption span:last-child { color: var(--u-dim); text-align: right; }
+  figure { margin: 0; }
+
+  /* masthead */
+  header.mast { position: relative; min-height: min(100svh, 980px); display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; }
+  header.mast picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 64% 50%; opacity: .6; }
+  header.mast::after { content: ''; position: absolute; inset: 0; background: radial-gradient(90% 80% at 62% 50%, transparent 25%, var(--u-night) 92%), linear-gradient(180deg, transparent 70%, var(--u-night)); pointer-events: none; }
+  .topbar { position: relative; z-index: 3; display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+  .topbar img { height: 30px; filter: invert(1); }
+  .mastbody { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 4.4fr) minmax(0, 7.6fr); align-items: center; gap: 24px; }
+  .mastbody h1 { font: 400 clamp(56px, 8.5vw, 132px)/.86 var(--u-serif); letter-spacing: -.015em; margin: 0 0 26px; }
+  .mastbody h1 i { color: var(--u-haze); }
+  .mastbody p { max-width: 38ch; color: var(--u-haze); margin: 0 0 28px; font-size: 17px; }
+  #sky { margin-right: -140px; }
+  .mastfoot { position: relative; z-index: 3; display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 22px 0 28px; flex-wrap: wrap; }
+  @media (max-width: 900px) { .mastbody { grid-template-columns: 1fr; } #sky { margin: 0 -16px; } .mastbody h1 { margin-top: 24px; } }
+  .btn { all: unset; cursor: pointer; font: 500 11px/1 var(--u-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--u-vellum); padding: 12px 18px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--u-rule); background: color-mix(in oklab, var(--u-deep) 70%, transparent); transition: box-shadow .4s, background .4s; display: inline-flex; gap: 10px; align-items: center; }
+  .btn:hover { box-shadow: inset 0 0 0 1px var(--u-haze); background: var(--u-slate); }
+  .btn:focus-visible { outline: 1px solid var(--u-vellum); outline-offset: 3px; }
+  .btn svg { width: 12px; height: 12px; }
+
+  /* identity */
+  .idtile { aspect-ratio: 4/3; display: grid; place-items: center; padding: 28px; }
+  .idtile.paper { background: var(--u-paper); color: var(--u-night); }
+  .idtile.night { color: var(--u-vellum); }
+  .idtile img.inv { filter: invert(1); }
+  .idtile .svgwrap { width: 46%; }
+  .idtile .svgwrap svg { width: 100%; height: auto; display: block; }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0; border-radius: 4px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--u-slate); }
+  .sw { min-height: 210px; padding: 14px; display: flex; flex-direction: column; justify-content: flex-end; font: 500 10px/1.5 var(--u-mono); letter-spacing: .1em; }
+  .sw b { font: 400 22px/1 var(--u-serif); letter-spacing: 0; text-transform: none; display: block; margin-bottom: 8px; }
+  @media (max-width: 900px) { .swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .accents { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 2fr; gap: 20px; align-items: stretch; }
+  .acc { border-radius: 4px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--u-slate); background: var(--u-deep); }
+  .acc i { display: block; height: 72px; background-size: cover; }
+  .acc div { padding: 10px 12px; font: 500 10px/1.5 var(--u-mono); letter-spacing: .1em; color: var(--u-haze); }
+  .acc-note { color: var(--u-haze); font-size: 15px; align-self: center; }
+  @media (max-width: 900px) { .accents { grid-template-columns: repeat(2, minmax(0, 1fr)); } .acc-note { grid-column: 1 / -1; } }
+
+  /* type */
+  .spec { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px; }
+  @media (max-width: 900px) { .spec { grid-template-columns: 1fr; } }
+  .spec .tile { padding: 28px; }
+  .bigA { font: 400 clamp(120px, 20vw, 280px)/.8 var(--u-serif); letter-spacing: -.02em; margin: 0 0 16px; }
+  .bigA i { color: var(--u-haze); }
+  .scale p { margin: 0 0 14px; }
+
+  /* plates */
+  .plates .u-card { cursor: default; }
+  .plates .u-card img { aspect-ratio: 4/5; width: 100%; object-fit: cover; }
+  .obsoleta { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+  .obsoleta img { width: 100%; border-radius: 50%; transition: transform 1.2s var(--u-ease-orbit), filter 1s; filter: grayscale(1) brightness(.85); }
+  .obsoleta img:hover { transform: rotate(-18deg) scale(1.04); filter: none; }
+  @media (max-width: 900px) { .obsoleta { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  /* extras */
+  .extras { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+  .extras > * { grid-column: span 4; }
+  .extras .wide { grid-column: span 8; }
+  .extras .full { grid-column: 1 / -1; }
+  @media (max-width: 900px) { .extras > *, .extras .wide { grid-column: 1 / -1; } }
+  .specimens { display: grid; grid-template-columns: repeat(3, 1fr); background: radial-gradient(60% 80% at 50% 50%, #1b181c, var(--u-night)); padding: 18px; gap: 0; }
+  .specimens img { width: 100%; animation: u-float 9s var(--u-ease-inout) infinite; }
+  .specimens img:nth-child(2) { animation-delay: -3s; } .specimens img:nth-child(3) { animation-delay: -6s; }
+  @keyframes u-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-10px) rotate(4deg); } }
+  .disc { padding: 28px; display: grid; place-items: center; background: radial-gradient(circle, #1c191d, var(--u-night) 70%); }
+  .disc img { width: 92%; border-radius: 50%; animation: u-sidereal 240s linear infinite; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  @keyframes u-sidereal { to { transform: rotate(360deg); } }
+  .beard { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; padding: 28px; gap: 24px; min-height: 100%; }
+  .beard img { max-height: 420px; margin: auto; }
+  .beard blockquote { margin: 0; font: italic 400 30px/1.15 var(--u-serif); }
+  .patterntile { min-height: 260px; background: url(extras/pattern-graticule.svg) 0 0 / 160px 160px, var(--u-deep); }
+  .graintile { min-height: 260px; background: url(extras/grain-256.webp), var(--u-slate); background-blend-mode: overlay; }
+  .eph svg { width: 100%; height: auto; display: block; }
+
+  /* interactive */
+  .globe-wrap { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 32px; align-items: center; }
+  @media (max-width: 900px) { .globe-wrap { grid-template-columns: 1fr; } }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+  /* motion */
+  .mcard { padding: 22px; display: flex; flex-direction: column; gap: 14px; min-height: 300px; }
+  .mcard .stage { flex: 1; min-height: 150px; display: grid; place-items: center; border-radius: 3px; background: var(--u-night); box-shadow: inset 0 0 0 1px var(--u-slate); overflow: hidden; position: relative; }
+  .mcard p { margin: 0; color: var(--u-haze); font-size: 14.5px; }
+  .mcard .num { font: 400 15px/1 var(--u-mono); color: var(--u-dim); }
+  .acc-item { width: 100%; padding: 0 16px; }
+  .acc-item button { all: unset; cursor: pointer; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--u-rule); font: 400 19px/1.2 var(--u-serif); }
+  .acc-item button svg { width: 14px; height: 14px; }
+  .acc-item .u-ephemeris p { padding: 10px 0 12px; font-size: 13px; color: var(--u-haze); margin: 0; }
+  .prec-panel { width: 100%; height: 100%; display: grid; place-items: center; font: 400 34px/1 var(--u-serif); }
+  .prec-panel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+  .prec-panel span { position: relative; }
+  footer { padding: 120px 0 60px; color: var(--u-dim); }
+  footer .cols { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; border-top: 1px solid var(--u-rule); padding-top: 24px; }
+  @media (max-width: 720px) { footer .cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <picture>
+    <source type="image/avif" srcset="hero/orion-wide-1200.avif 1200w, hero/orion-wide-2400.avif 2400w" sizes="100vw">
+    <img src="hero/orion-wide-2400.webp" srcset="hero/orion-wide-1200.webp 1200w, hero/orion-wide-2400.webp 2400w" sizes="100vw" alt="">
+  </picture>
+  <div class="wrap topbar">
+    <img src="identity/lockup.svg" alt="Albretsen AS">
+    <span class="mono">Design 33 · asset kit</span>
+  </div>
+  <div class="wrap mastbody">
+    <div>
+      <div class="mono" style="margin-bottom:22px">Uranographia · a star atlas of works</div>
+      <h1>Every product,<br><i>a constellation.</i></h1>
+      <p>A star atlas where each product is a constellation, drawn from its own numbers: 17 stars for 17 tools, 113 cluster stars for 113,000 installs. Toggle the reading to see the same stars as a dated catalogue.</p>
+      <div class="u-reading" role="group" aria-label="Chart reading">
+        <button type="button" aria-pressed="true" data-r="sky">Sky</button><button type="button" aria-pressed="false" data-r="ledger">Ledger</button>
+      </div>
+    </div>
+    <div id="sky"></div>
+  </div>
+  <div class="wrap mastfoot">
+    <span class="mono dim">Ground: E. L. Trouvelot, The Great Nebula in Orion, 1875 (public domain, NYPL)</span>
+    <button class="btn" id="replay" type="button"><svg viewBox="0 0 12 12"><path d="M6 .5C6.4 3.6 8.4 5.6 11.5 6 8.4 6.4 6.4 8.4 6 11.5 5.6 8.4 3.6 6.4.5 6 3.6 5.6 5.6 3.6 6 .5Z" fill="currentColor"/></svg>Replay the ignition</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="identity">
+  <div class="sechead"><span class="mono">01 Identity</span><div><h2>The asterism <i>A.</i></h2>
+    <p>An A drawn the way star atlases draw figures: lines stop short of every star, stars are sized by magnitude, and the apex carries a four-point diffraction sparkle. The crossbar rises slightly to the right and runs on as a dotted vector toward one more faint star.</p></div></div>
+  <div class="grid g3">
+    <figure class="tile"><div class="idtile night"><div class="svgwrap" id="markNight"></div></div><figcaption><span>mark.svg</span><span>currentColor</span></figcaption></figure>
+    <figure class="tile"><div class="idtile paper"><div class="svgwrap" id="markPaper"></div></div><figcaption><span>mark.svg on paper</span><span>#0b090c</span></figcaption></figure>
+    <figure class="tile"><div class="idtile night"><div class="svgwrap" id="markRing" style="width:58%"></div></div><figcaption><span>mark-ring.svg</span><span>badge / seal</span></figcaption></figure>
+    <figure class="tile" style="grid-column: span 2"><div class="idtile night" style="aspect-ratio:auto;min-height:240px"><img src="identity/lockup.svg" class="inv" alt="Albretsen AS lockup" style="width:72%"></div><figcaption><span>lockup.svg</span><span>Instrument Serif outlines + Geist Mono AS</span></figcaption></figure>
+    <figure class="tile"><div class="idtile paper" style="aspect-ratio:auto;min-height:240px"><img src="identity/wordmark.svg" alt="Albretsen AS wordmark" style="width:78%"></div><figcaption><span>wordmark.svg</span><span>outlined</span></figcaption></figure>
+    <figure class="tile"><div class="idtile night" style="gap:18px;grid-auto-flow:column"><img src="identity/favicon.svg" alt="" width="64" height="64"><img src="identity/apple-touch-icon-180.png" alt="" width="120" height="120" style="border-radius:26px"><img src="identity/favicon.svg" alt="" width="20" height="20"></div><figcaption><span>favicon.svg · apple-touch-icon-180.png</span><span>64 · 180 · 16</span></figcaption></figure>
+    <figure class="tile" style="grid-column: span 2"><img src="identity/og-1200x630.jpg" alt="Open Graph image" style="width:100%;aspect-ratio:1200/630"><figcaption><span>og-1200x630.jpg</span><span>social card</span></figcaption></figure>
+  </div>
+</section>
+
+<section id="palette">
+  <div class="sechead"><span class="mono">02 Palette</span><div><h2>Eight greys, <i>one hue.</i></h2>
+    <p>Every grey leans very slightly toward hue 312 in OKLCH, a violet you barely see. The interface itself never uses colour. Colour shows up only inside the imagery: Cellarius's hand-colouring, Haeckel's stained nuclei and the products' own logos.</p></div></div>
+  <div class="swatches" id="swatches"></div>
+  <div class="accents">
+    <div class="acc"><i style="background:url(extras/cellarius-disc-1100.webp) 73% 12% / 520%"></i><div>Vermilion · imagery only<br>oklch(0.611 0.166 33)<br>#d4553c</div></div>
+    <div class="acc"><i style="background:url(extras/cellarius-disc-1100.webp) 46% 37% / 600%"></i><div>Verdigris · imagery only<br>oklch(0.657 0.068 187)<br>#5e9f98</div></div>
+    <div class="acc"><i style="background:url(extras/specimen-binary.webp) 22% 40% / 380%"></i><div>Ochre · imagery only<br>oklch(0.753 0.132 96)<br>#c8ae3e</div></div>
+    <div class="acc"><i style="background:url(extras/specimen-lattice.webp) 50% 45% / 330%"></i><div>Nucleus · imagery only<br>oklch(0.575 0.122 357)<br>#b0577a</div></div>
+    <p class="acc-note">These four are sampled from the plates. They are listed so captions can name them, and they never fill buttons, links or backgrounds.</p>
+  </div>
+</section>
+
+<section id="type">
+  <div class="sechead"><span class="mono">03 Type</span><div><h2>Gravitas, <i>then data.</i></h2>
+    <p>Instrument Serif sets the display type, condensed and engraved-looking, like a title cartouche. Geist sets the reading text. Geist Mono, in tracked uppercase, sets every number and catalogue label.</p></div></div>
+  <div class="spec">
+    <div class="tile"><p class="bigA">Aa <i>Aa</i></p>
+      <div class="mono">Instrument Serif · Regular & Italic · OFL · display 48–140px, line-height .86–.95, tracking −0.015em</div></div>
+    <div class="tile scale">
+      <p style="font:400 44px/1 var(--u-serif)">Software that <i style="color:var(--u-haze)">pays for itself.</i></p>
+      <p style="font:300 18px/1.5 var(--u-sans);color:var(--u-haze)">Geist Light 18/27. Fun Libs is a fill-in-the-blanks word game for Android and iOS, built at 17 with no marketing.</p>
+      <p style="font:400 15px/1.55 var(--u-sans);color:var(--u-haze)">Geist Regular 15/23 for captions and secondary copy.</p>
+      <p class="mono">Geist Mono 11 · +0.18em · $782 MRR · 113,000+ installs · 549 commits</p>
+      <p style="font:400 14px/1.4 var(--u-mono);color:var(--u-vellum);background:var(--u-night);padding:12px 14px;border-radius:3px;box-shadow:inset 0 0 0 1px var(--u-slate)">claude mcp add albretsen https://albretsen.no/mcp</p>
+    </div>
+  </div>
+</section>
+
+<section id="hero">
+  <div class="sechead"><span class="mono">04 Hero imagery</span><div><h2>Grounds of <i>night.</i></h2>
+    <p>E. L. Trouvelot's pastel astronomical drawings (1872–82), from the NYPL scans, cropped clear of the plate margins and regraded onto the tinted grey ramp. They are dark enough to sit under text, and they keep the paper's striation, so the site reads as printed matter rather than a render.</p></div></div>
+  <div class="grid g2">
+    <figure class="tile" style="grid-column:1/-1"><picture><source type="image/avif" srcset="hero/orion-wide-2400.avif"><img src="hero/orion-wide-2400.webp" alt="Trouvelot, Great Nebula in Orion, wide crop" loading="lazy" style="width:100%;aspect-ratio:21/9;object-fit:cover"></picture><figcaption><span>hero/orion-wide-{1200,2400}.{webp,avif}</span><span>21:9 · full-bleed hero ground</span></figcaption></figure>
+    <figure class="tile"><picture><source type="image/avif" srcset="hero/hercules-square-1600.avif"><img src="hero/hercules-square-1600.webp" alt="Trouvelot, Star Cluster in Hercules" loading="lazy" style="width:100%;aspect-ratio:1"></picture><figcaption><span>hero/hercules-square-{800,1600}</span><span>1:1 · Fun Libs, mobile hero</span></figcaption></figure>
+    <figure class="tile"><img src="hero/orion-plate-2000.webp" alt="Trouvelot, Great Nebula in Orion, full plate" loading="lazy" style="width:100%;aspect-ratio:1;object-fit:cover"><figcaption><span>hero/orion-plate-{1000,2000}</span><span>4:3 · full plate</span></figcaption></figure>
+    <figure class="tile" style="grid-column:1/-1"><picture><source type="image/avif" srcset="hero/atlas-still-2400.avif"><img src="hero/atlas-still-2400.webp" alt="Baked still of the star chart over Orion" loading="lazy" style="width:100%"></picture><figcaption><span>hero/atlas-still-{1200,2400}</span><span>no-JS / poster frame of the live chart</span></figcaption></figure>
+  </div>
+</section>
+
+<section id="products">
+  <div class="sechead"><span class="mono">05 Product plates</span><div><h2>Tabulae <i>I–IV.</i></h2>
+    <p>Each live product is a plate in the atlas. Its constellation is drawn from a real number, and its real logo sits in the lens, untouched. Below them are the retired products, kept as <i>constellationes obsoletae</i>, the way old atlases kept the figures astronomers had stopped using.</p></div></div>
+  <div class="grid g4 plates" id="plates"></div>
+  <div class="obsoleta" id="obsoleta"></div>
+</section>
+
+<section id="extras">
+  <div class="sechead"><span class="mono">06 Extras</span><div><h2>Specimens, plates <i>&amp; ephemera.</i></h2>
+    <p>Texture for the long middle of the site: a colour star atlas, Haeckel's radiolarians, a Beardsley figure holding up a star, two more Trouvelot plates, an orbit diagram of the decade, a grid tile and a grain tile.</p></div></div>
+  <div class="extras">
+    <figure class="tile disc"><img src="extras/cellarius-disc-1100.webp" alt="Cellarius, northern celestial hemisphere" loading="lazy"><figcaption style="width:100%;margin:18px -28px -28px;width:calc(100% + 56px)"><span>cellarius-disc-1100</span><span>turns once in 4 min</span></figcaption></figure>
+    <figure class="tile wide"><div class="specimens"><img src="extras/specimen-crown.webp" alt="" loading="lazy"><img src="extras/specimen-lattice.webp" alt="" loading="lazy"><img src="extras/specimen-binary.webp" alt="" loading="lazy"></div><figcaption><span>specimen-{crown,lattice,binary}.webp</span><span>Haeckel 1904 · alpha cut-outs · floating</span></figcaption></figure>
+    <figure class="tile wide"><div class="beard"><img src="extras/beardsley-new-star-light.webp" alt="Aubrey Beardsley, The New Star" loading="lazy"><blockquote>Someone has to hold up the star.<span class="mono" style="display:block;margin-top:16px;font-style:normal">Aubrey Beardsley, The New Star, 1896 · use for the person / about section</span></blockquote></div><figcaption><span>beardsley-new-star-light.webp</span><span>ink keyed to alpha, recolourable via mask</span></figcaption></figure>
+    <figure class="tile"><img src="extras/haeckel-tafel71-900.webp" alt="Haeckel, Kunstformen der Natur, Tafel 71" loading="lazy" style="width:100%"><figcaption><span>haeckel-tafel71-900</span><span>BHL scan</span></figcaption></figure>
+    <figure class="tile"><img src="extras/saturn-plate-1800.webp" alt="Trouvelot, The Planet Saturn" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover"><figcaption><span>saturn-plate-{900,1800}</span><span>Harbor, “paused” section</span></figcaption></figure>
+    <figure class="tile"><img src="extras/meteors-portrait-1200.webp" alt="Trouvelot, The November Meteors" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 30%"><figcaption><span>meteors-portrait-{600,1200}</span><span>3:4 · Toolrails / writing</span></figcaption></figure>
+    <figure class="tile"><img src="extras/cellarius-boreale-1200.webp" alt="Cellarius, Harmonia Macrocosmica plate" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover"><figcaption><span>cellarius-boreale-1200</span><span>full plate, 1660</span></figcaption></figure>
+    <figure class="tile full eph"><div id="eph" style="padding:12px 18px 0"></div><figcaption><span>ephemeris.svg</span><span>hand-authored · inline it so the fonts apply</span></figcaption></figure>
+    <figure class="tile"><div class="patterntile"></div><figcaption><span>pattern-graticule.svg</span><span>160px repeat</span></figcaption></figure>
+    <figure class="tile"><div class="graintile"></div><figcaption><span>grain-256.webp</span><span>overlay 6–20%</span></figcaption></figure>
+    <figure class="tile"><div class="patterntile" style="background:url(extras/grain-256.webp),url(extras/pattern-graticule.svg) 0 0/160px,var(--u-night);background-blend-mode:overlay,normal;display:grid;place-items:center"><img src="identity/mark-ring.svg" alt="" style="width:120px;filter:invert(1);opacity:.8"></div><figcaption><span>combined</span><span>footer / 404 ground</span></figcaption></figure>
+  </div>
+</section>
+
+<section id="globe">
+  <div class="sechead"><span class="mono">07 Interactive</span><div><h2>The celestial <i>globe.</i></h2>
+    <p>A 3D sphere drawn entirely in SVG. It carries all 716 of the site's stars plus a scatter of unnamed ones. Drag to turn it; let go and it keeps spinning, then settles back into a slow drift. Stars on the far side dim. The line underneath names the figure facing you.</p></div></div>
+  <div class="globe-wrap">
+    <div id="globeHost" style="max-width:620px;width:100%;margin:auto"></div>
+    <div>
+      <h3>js/globe.js</h3>
+      <p class="dim" style="margin:0 0 6px">mountGlobe(host, { size }) → { focus(id), destroy() }. It has no dependencies, about 9 KB, and respects reduced motion.</p>
+      <div class="chips" id="chips"></div>
+      <h3 style="margin-top:36px">js/uranographia.js</h3>
+      <p class="dim" style="margin:0">mountChart(host) → { setReading('sky' | 'ledger'), toggle() }. This is the masthead chart above. The pointer acts as a mass, stars lean toward it, and hovering a figure redraws its lines. Demo pages: <a href="demo-chart.html">demo-chart.html</a> and <a href="demo-ignition.html">demo-ignition.html</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="motion">
+  <div class="sechead"><span class="mono">08 Motion</span><div><h2>Seven named <i>movements.</i></h2>
+    <p>All seven run on the Web Animations API, with CSS keyframes where CSS is enough. Each movement says something about gravity or the sky, and each collapses to a fade when reduced motion is set.</p></div></div>
+  <div class="grid g3">
+    <div class="tile mcard"><span class="num">01</span><h3>Ignition <span class="mono dim">loader</span></h3><div class="stage" id="ignStage"><button class="btn" id="ign2">Play</button></div><p>Dust falls under gravity into the six stars of the A. The lines arrive fractured and morph whole (a path <code>d</code> morph), the dotted vector runs out, and the night collapses into the apex star. The counter totals the real 716 stars.</p></div>
+    <div class="tile mcard"><span class="num">02</span><h3>Plate rise <span class="mono dim">entrance</span></h3><div class="stage"><img id="riseImg" src="products/fun-libs-plate-600.webp" alt="" style="height:150px;width:auto;border-radius:2px"></div><p>A plate surfaces from below a hairline, clipped, and unblurs as it lands. This is the Apple start-frame/end-frame settle, done with clip-path and a 6% scale.</p><button class="btn" id="riseBtn" style="align-self:flex-start">Replay</button></div>
+    <div class="tile mcard"><span class="num">03</span><h3>Lensing <span class="mono dim">hover</span></h3><div class="stage u-card" id="lensStage"></div><p>On hover, a card's lens ring turns 12° on an overshoot curve and the figure redraws line by line (stroke-dashoffset, staggered 45 ms).</p></div>
+    <div class="tile mcard"><span class="num">04</span><h3>Twinkle <span class="mono dim">idle / hover</span></h3><div class="stage"><svg viewBox="-20 -20 40 40" width="90" height="90"><path class="u-twinkle" fill="#eceaee" d="M0 -16C.9 -3 3 -.9 16 0 3 .9.9 3 0 16-.9 3-3 .9-16 0-3-.9-.9-3 0-16Z"/></svg></div><p>The brightest star breathes, turning 45° and dimming to 70%, on a 5.5 s cycle. When its link is hovered, the cycle quickens to 1.4 s.</p></div>
+    <div class="tile mcard"><span class="num">05</span><h3>Ephemeris <span class="mono dim">Radix accordion</span></h3><div class="stage" style="place-items:start stretch;padding:8px 0"><div class="acc-item" id="accDemo"></div></div><p>Radix measures the content and passes its height as <code>--radix-accordion-content-height</code>. The panel opens to that height while a mask sweeps down it like a chart unrolling, and the trigger's star turns into a cross.</p></div>
+    <div class="tile mcard"><span class="num">06</span><h3>Precession <span class="mono dim">transition</span></h3><div class="stage" id="precStage"><div class="prec-panel"><img src="hero/hercules-square-800.webp" alt=""><span>Fun Libs</span></div></div><p>On a page change the whole sky turns 7° about the apex star. The View Transitions pseudo-elements are driven with WAAPI <code>pseudoElement</code>.</p><button class="btn" id="precBtn" style="align-self:flex-start">Next plate</button></div>
+  </div>
+  <p class="mono dim" style="margin-top:20px">07 Reading: the Sky / Ledger toggle in the masthead, a Radix ToggleGroup with a sliding pill on an overshoot curve.</p>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <div class="cols">
+    <div><img src="identity/lockup.svg" alt="" style="height:26px;filter:invert(1);opacity:.6;margin-bottom:14px"><p style="margin:0">Uranographia, design 33. All imagery is public domain or CC0, and all marks are hand-authored. The full inventory and licences are in ASSETS.md.</p></div>
+    <div class="mono">Trouvelot · NYPL<br>Haeckel · BHL<br>Cellarius · Commons</div>
+    <div class="mono">Beardsley · Old Book Illustrations<br>Fonts · OFL</div>
+  </div>
+</footer>
+
+<script type="module">
+import { mountChart } from './js/uranographia.js';
+import { mountGlobe } from './js/globe.js';
+import { ignite, rise, precess, drawOn } from './js/motion.js';
+import { PRODUCTS, OBSOLETE } from './js/sky-data.js';
+import { el, NS, drawFigure, defs } from './js/draw.js';
+
+// 01 Ignition on load (tied to fonts + hero image)
+const heroImg = document.querySelector('header.mast img');
+const ready = Promise.all([document.fonts.ready, heroImg.complete ? 1 : new Promise((r) => heroImg.addEventListener('load', r, { once: true }))]);
+const skip = new URLSearchParams(location.search).has('noloader');
+// ?only=products,extras shows just those sections (handy for screenshots and review links)
+const only = new URLSearchParams(location.search).get('only');
+if (only) { const keep = only.split(','); document.querySelectorAll('header.mast, main > section').forEach((s) => { if (!keep.includes(s.id)) s.style.display = 'none'; }); }
+const igniting = skip ? Promise.resolve() : ignite({ until: ready });
+document.getElementById('replay').addEventListener('click', () => ignite({ until: Promise.resolve(), minimum: 2400 }));
+document.getElementById('ign2').addEventListener('click', () => ignite({ until: Promise.resolve(), minimum: 2400 }));
+
+// masthead chart
+await document.fonts.ready;
+const chart = mountChart(document.getElementById('sky'));
+document.querySelectorAll('.u-reading button').forEach((b, _, all) => b.addEventListener('click', () => {
+  chart.setReading(b.dataset.r); all.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+}));
+
+// inline SVGs (so currentColor works)
+const inline = async (url, id) => { document.getElementById(id).innerHTML = await (await fetch(url)).text(); };
+inline('identity/mark.svg', 'markNight'); inline('identity/mark.svg', 'markPaper'); inline('identity/mark-ring.svg', 'markRing'); inline('extras/ephemeris.svg', 'eph');
+
+// palette
+const greys = [['Night', '#0b090c', '0.145 0.006'], ['Deep', '#141215', '0.185 0.008'], ['Slate', '#221f24', '0.245 0.009'], ['Rule', '#3f3c41', '0.36 0.010'],
+  ['Dim', '#737076', '0.55 0.010'], ['Haze', '#aca9ae', '0.74 0.008'], ['Vellum', '#eceaee', '0.94 0.006'], ['Paper', '#f8f6f9', '0.975 0.004']];
+document.getElementById('swatches').innerHTML = greys.map(([n, h, o], i) =>
+  `<div class="sw" style="background:${h};color:${i < 5 ? '#eceaee' : '#0b090c'}"><b>${n}</b>oklch(${o} 312)<br>${h}<br>--u-${n.toLowerCase()}</div>`).join('');
+
+// plates
+const plateHost = document.getElementById('plates');
+PRODUCTS.forEach((p, i) => {
+  const f = document.createElement('figure'); f.className = 'tile u-card u-rise'; f.dataset.rise = ''; f.tabIndex = 0;
+  f.innerHTML = `<img class="u-plate" src="products/${p.id}-plate-1200.webp" srcset="products/${p.id}-plate-600.webp 600w, products/${p.id}-plate-1200.webp 1200w" sizes="(max-width:600px) 100vw, 25vw" alt="${p.name} plate" loading="lazy"><figcaption><span>products/${p.id}-plate</span><span>${p.datum}</span></figcaption>`;
+  plateHost.appendChild(f);
+});
+rise(plateHost.children);
+document.getElementById('obsoleta').innerHTML = OBSOLETE.map((o) => `<figure><img src="products/obsoleta/${o.id}.webp" alt="${o.name}, retired" loading="lazy"><div class="mono dim" style="text-align:center;margin-top:8px;font-size:9.5px">${o.id}.webp</div></figure>`).join('');
+
+// globe
+const globe = mountGlobe(document.getElementById('globeHost'), { size: 600 });
+document.getElementById('chips').innerHTML = PRODUCTS.map((p) => `<button class="btn" data-id="${p.id}">${p.name}</button>`).join('');
+document.getElementById('chips').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) globe.focus(b.dataset.id); });
+
+// 02 rise replay
+document.getElementById('riseBtn').addEventListener('click', () => {
+  const img = document.getElementById('riseImg');
+  img.animate([{ clipPath: 'inset(100% 0 0 0)', transform: 'translateY(28px) scale(1.06)', filter: 'blur(10px) brightness(.6)' }, { filter: 'blur(0) brightness(1.05)', offset: .6 }, { clipPath: 'inset(0 0 0 0)', transform: 'none', filter: 'none' }], { duration: 1300, easing: 'cubic-bezier(.16,1,.3,1)' });
+});
+
+// 03 lensing demo: figure + ring
+{
+  const s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 320 160'); s.style.width = '100%'; s.style.color = '#eceaee';
+  defs(s);
+  const g = el('g', {}, s);
+  const out = drawFigure(g, PRODUCTS[2], { x: 40, y: 20, size: 120, starScale: 1.1 });
+  out.lines.forEach((l, i) => { l.classList.add('u-figline'); l.style.setProperty('--i', i); });
+  const ring = el('g', { class: 'u-lens-ring', style: 'transform-origin:240px 80px' }, s);
+  let d = ''; for (let i = 0; i < 90; i++) { const a = i / 90 * Math.PI * 2, l = i % 10 === 0 ? 7 : 3.5; d += `M${240 + Math.cos(a) * 52} ${80 + Math.sin(a) * 52}L${240 + Math.cos(a) * (52 - l)} ${80 + Math.sin(a) * (52 - l)}`; }
+  el('path', { d, stroke: '#aca9ae', 'stroke-width': .7 }, ring);
+  el('circle', { cx: 240, cy: 80, r: 40, fill: '#eceaee' }, s);
+  el('image', { href: '../../_shared/products/toolrails/icon.svg', x: 216, y: 56, width: 48, height: 48 }, s);
+  document.getElementById('lensStage').appendChild(s);
+}
+
+// 05 Ephemeris accordion (Radix-shaped markup; the builder swaps in @radix-ui/react-accordion)
+{
+  const host = document.getElementById('accDemo');
+  const items = [['MCP Emails', 'Email for AI agents. 17 tools, about 100 email providers, open source (AGPL).'], ['Fun Libs', 'Built at 17. No marketing. Version 5 shipped in 2026.']];
+  items.forEach(([t, body], i) => {
+    const w = document.createElement('div'); w.dataset.state = i === 0 ? 'open' : 'closed';
+    w.innerHTML = `<button type="button" data-state="${w.dataset.state}" aria-expanded="${i === 0}">${t}<svg class="u-ephemeris-star" viewBox="-8 -8 16 16"><path fill="#eceaee" d="M0-7C.4-1.4 1.4-.4 7 0 1.4.4.4 1.4 0 7-.4 1.4-1.4.4-7 0-1.4-.4-.4-1.4 0-7Z"/></svg></button><div class="u-ephemeris" data-state="${w.dataset.state}" ${i ? 'hidden' : ''}><p>${body}</p></div>`;
+    host.appendChild(w);
+    const btn = w.querySelector('button'), panel = w.querySelector('.u-ephemeris');
+    btn.addEventListener('click', () => {
+      const open = btn.dataset.state !== 'open';
+      panel.hidden = false;
+      panel.style.setProperty('--radix-accordion-content-height', panel.scrollHeight + 'px');
+      btn.dataset.state = panel.dataset.state = open ? 'open' : 'closed'; btn.setAttribute('aria-expanded', open);
+      if (!open) panel.addEventListener('animationend', () => { if (panel.dataset.state === 'closed') panel.hidden = true; }, { once: true });
+    });
+  });
+}
+
+// 06 Precession demo (scoped: rotates the stage instead of the root when View Transitions are scoped-unavailable)
+{
+  const stage = document.getElementById('precStage');
+  const seq = [['hercules-square-800.webp', 'Fun Libs', '../hero/'], ['meteors-portrait-600.webp', 'Toolrails', '../extras/'], ['saturn-plate-900.webp', 'Harbor', '../extras/'], ['orion-wide-1200.webp', 'MCP Emails', '../hero/']];
+  let k = 0;
+  document.getElementById('precBtn').addEventListener('click', () => {
+    k = (k + 1) % seq.length;
+    const [img, name, dir] = seq[k];
+    const panel = stage.querySelector('.prec-panel');
+    const next = panel.cloneNode(true);
+    next.querySelector('img').src = dir.replace('../', '') + img; next.querySelector('span').textContent = name;
+    next.style.cssText = 'position:absolute;inset:0';
+    stage.appendChild(next);
+    const o = { duration: 900, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'both' };
+    panel.style.transformOrigin = next.style.transformOrigin = '50% -40%';
+    panel.animate([{ transform: 'rotate(0)', opacity: 1 }, { transform: 'rotate(-7deg)', opacity: 0 }], o).finished.then(() => panel.remove());
+    next.animate([{ transform: 'rotate(7deg)', opacity: 0 }, { transform: 'rotate(0)', opacity: 1 }], o).finished.then(() => { next.style.position = ''; next.style.inset = ''; });
+  });
+}
+</script>
+</body>
+</html>

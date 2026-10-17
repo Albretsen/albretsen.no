@@ -1,0 +1,20 @@
+{
+  "name": "Say Cheese",
+  "tagline": "A loud candy-clay camera world where the visitor holds the camera: pull focus, set exposure, keep the print.",
+  "summary": "Albretsen AS through a viewfinder. Blink, a squishy butter-yellow clay camera rendered live by a hand-written WebGL2 raymarcher, stands in for the company: hand-made warmth on top of serious engineering. The hero hands the visitor the controls (lens ring, exposure, shutter) and every print they take carries a real fact, so the skill shows itself instead of being claimed.",
+  "palette": ["#FFF6E4", "#381A13", "#FFE97E", "#FC9E47", "#ED6E12", "#FF99C2", "#8DEFC5", "#B6ADF3", "#93D5F5", "#ED3F4B"],
+  "type": ["Bricolage Grotesque 800, width 76%", "Bricolage Grotesque 400, opsz 14", "DM Mono 400/500"],
+  "voice": "Sunny, blunt and proud, with camera words doing the work. Example: \"Four things, developing.\"",
+  "motion": "Everything moves like a camera handled by a person: the iris opens, focus hunts once and locks, the shutter flashes, clay squashes and springs back (Web Animations API, springs baked into linear()).",
+  "sound": "Off until asked; then every sound is synthesised live: a soft plastic shutter, the autofocus double-beep, ring detent ticks, a clay squish and a sticker slap.",
+  "mark": "Blink's face: a butter clay pebble with a bubblegum lens ring whose three-blade aperture forms the letter A, next to a wordmark rolled from clay coils.",
+  "inspiration": [
+    "https://quaternius.com",
+    "https://polyhaven.com/a/Camera_01",
+    "https://rauno.me/craft",
+    "https://paco.me",
+    "https://www.joshwcomeau.com/react/boop/",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://www.siteinspire.com"
+  ]
+}

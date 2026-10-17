@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Albretsen AS: Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself: apps, SaaS and the plumbing AI agents run on. Albretsen AS, Norway.">
+<meta name="theme-color" content="#100e0d">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself. Norway, on Google Play since 2016.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/identity/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon.png">
+<link rel="preload" as="image" href="assets/hero/prism.avif" type="image/avif" media="(min-width: 700px)">
+<link rel="preload" as="image" href="assets/hero/prism-portrait.avif" type="image/avif" media="(max-width: 699.98px)">
+<link rel="preload" as="font" href="assets/fonts/schibsted-grotesk-latin.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="assets/fonts/jetbrains-mono-latin.woff2" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+<script>
+  // Decide before first paint whether the boot runs: once per session, never with reduced motion or ?noboot.
+  (function () {
+    var d = document.documentElement, skip = /[?&]noboot/.test(location.search) || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try { if (sessionStorage.getItem('d39-booted')) skip = true } catch (e) {}
+    d.classList.add(skip ? 'no-boot' : 'will-boot');
+    if (skip) d.classList.add('is-booted');
+  })();
+</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+<div class="scroll-hairline" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- COLD BOOT: the log types itself, then lifts and leaves the light behind -->
+<div class="boot" data-boot aria-hidden="true">
+  <div class="boot-inner">
+    <svg class="mark-echo boot-mark" viewBox="-16 -4 84 72" width="84" height="72" aria-hidden="true"><defs><clipPath id="mkb"><rect x="-20" y="-20" width="104" height="77"/></clipPath></defs><path clip-path="url(#mkb)" class="echo-2" d="M6.6 63 L32 11 L57.4 63" transform="translate(-12 0)" fill="none" stroke="currentColor" stroke-width="1" opacity=".18"/><path clip-path="url(#mkb)" class="echo-1" d="M6.6 63 L32 11 L57.4 63" transform="translate(-6 0)" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".38"/><path clip-path="url(#mkb)" d="M6.6 63 L32 11 L57.4 63" fill="none" stroke="currentColor" stroke-width="7.6"/><path class="beam" d="M0.5 41.5 H45.5" stroke="currentColor" stroke-width="2.6"/></svg>
+    <ol class="boot-log"></ol>
+    <p class="boot-skip">any key to skip</p>
+  </div>
+  <div class="boot-bar"></div>
+</div>
+
+<header class="top" data-boot-reveal style="--d:300">
+  <a class="brand" href="#top" aria-label="Albretsen AS, top of page">
+    <svg class="mark" viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><defs><clipPath id="mkh"><rect x="-20" y="-20" width="104" height="77"/></clipPath></defs><path clip-path="url(#mkh)" d="M6.6 63 L32 11 L57.4 63" fill="none" stroke="currentColor" stroke-width="7.6"/><path class="beam" d="M0.5 41.5 H45.5" stroke="currentColor" stroke-width="2.6"/></svg>
+    <span class="word">Albretsen</span><span class="as">AS</span>
+  </a>
+  <nav aria-label="Sections">
+    <a href="#products" class="nav-link"><span>Products</span><i aria-hidden="true">04 + 07</i></a>
+    <a href="#north" class="nav-link"><span>Norway</span><i aria-hidden="true">59.9&deg;N</i></a>
+    <a href="#contact" class="nav-link"><span>Contact</span><i aria-hidden="true">@</i></a>
+    <button class="sound" type="button" aria-pressed="false" title="Sound is off until you turn it on"><span class="sound-dot" aria-hidden="true"></span><span class="sound-label">sound off</span></button>
+  </nav>
+</header>
+
+<main id="top">
+<!-- HERO: the boot leaves a still; the still becomes glass; the log keeps running -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="stage" aria-hidden="true">
+    <picture>
+      <source media="(max-width: 699.98px)" type="image/avif" srcset="assets/hero/prism-portrait.avif">
+      <source media="(max-width: 699.98px)" type="image/webp" srcset="assets/hero/prism-portrait.webp">
+      <source type="image/avif" srcset="assets/hero/prism.avif 1440w, assets/hero/prism@2x.avif 2880w" sizes="100vw">
+      <img class="still" src="assets/hero/prism.webp" srcset="assets/hero/prism.webp 1440w, assets/hero/prism@2x.webp 2880w" sizes="100vw" width="1440" height="900" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    <video class="film" muted playsinline preload="none" disablepictureinpicture tabindex="-1">
+      <source src="assets/hero/boot-focus.webm" type="video/webm">
+      <source src="assets/hero/boot-focus.mp4" type="video/mp4">
+    </video>
+    <canvas class="glass" aria-hidden="true"></canvas>
+    <div class="vignette"></div>
+  </div>
+
+  <div class="hero-copy">
+    <p class="eyebrow mono" data-boot-reveal style="--d:120"><span>Albretsen AS</span><span>Norway</span><span>on Google Play since 2016</span></p>
+    <h1 id="hero-title" class="name" data-boot-reveal style="--d:0">
+      <span class="name-base">Asgeir<br>Albretsen</span>
+      <span class="name-light" aria-hidden="true">Asgeir<br>Albretsen</span>
+    </h1>
+    <p class="lead" data-boot-reveal style="--d:220">Builds software that pays for itself. Apps, SaaS and the plumbing AI agents run on, from a small company in Norway.</p>
+    <div class="mount" data-boot-reveal style="--d:340">
+      <span class="mount-k mono" aria-hidden="true">$</span>
+      <code class="mono" id="mcp-cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button class="copy mono" type="button" data-copy="#mcp-cmd" aria-label="Copy the MCP command"><span>copy</span></button>
+    </div>
+  </div>
+
+  <aside class="syslog" aria-label="Live activity from the products" data-boot-reveal style="--d:480">
+    <p class="syslog-head mono"><span class="pulse" aria-hidden="true"></span>dmesg <span class="dim">&middot; the boot never really ends</span></p>
+    <ol class="syslog-list mono" aria-live="off"></ol>
+  </aside>
+
+  <p class="hero-hint mono" data-boot-reveal style="--d:600" aria-hidden="true"><span>move</span> lens <span>click</span> echo</p>
+  <a class="scroll-cue mono" href="#products" data-boot-reveal style="--d:700"><span class="cue-line" aria-hidden="true"></span>products</a>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products" aria-labelledby="products-title">
+  <div class="caustic-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="mono label">01 / products</p>
+      <h2 id="products-title" class="echo" data-echo="What runs here.">What runs here.</h2>
+      <p class="sec-sub">Each one is cast in glass and lit from the side. The colour you see is the product's own; everything else is grey. Drag the top plate away to cycle, click it to turn it over.</p>
+    </header>
+
+    <div class="bench">
+      <div class="deck-col">
+        <div class="deck" id="deck" data-deck aria-roledescription="card stack" aria-label="Products, a stack of glass plates"></div>
+        <div class="deck-ctl">
+          <button class="chip mag" type="button" id="prev" aria-label="Previous product"><span>&larr;</span></button>
+          <button class="chip mag" type="button" id="flip"><span>turn over</span></button>
+          <button class="chip mag" type="button" id="next" aria-label="Next product"><span>&rarr;</span></button>
+          <span class="deck-count mono" aria-live="polite" id="deck-count">1 / 4</span>
+        </div>
+      </div>
+
+      <div class="index-col">
+        <ol class="index" id="index" aria-label="Product index"></ol>
+        <figure class="optics" tabindex="0" aria-label="How the product plates were made">
+          <img src="assets/extras/caustic-tile.webp" alt="" width="1024" height="1024" loading="lazy" decoding="async">
+          <figcaption>
+            <p>Nothing here is painted. Each plate is a ray trace: the real icon becomes a slab of glass, light passes through it in thirty wavelengths, and every fringe is where they part.</p>
+            <dl class="mono">
+              <div><dt>bands</dt><dd>28&ndash;30, CIE 1931</dd></div>
+              <div><dt>rays</dt><dd>2&ndash;3 per pixel</dd></div>
+              <div><dt>tone</dt><dd>filmic, 0.8% grain</dd></div>
+            </dl>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="retired">
+      <header class="retired-head">
+        <h3 class="mono label">Retired <span class="dim">&middot; seven echoes</span></h3>
+        <p>Shipped, learned from, switched off. Hover a plate for what it was.</p>
+      </header>
+      <ul class="plates" id="plates"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- FROST: a scroll-driven aperture -->
+<section class="frost" aria-label="Snow crystals in direct sunlight">
+  <figure class="frost-fig">
+    <picture>
+      <source type="image/avif" srcset="assets/extras/frost-wide.avif 1200w, assets/extras/frost-wide@2x.avif 2400w" sizes="100vw">
+      <img src="assets/extras/frost-wide.webp" srcset="assets/extras/frost-wide.webp 1200w, assets/extras/frost-wide@2x.webp 2400w" sizes="100vw" width="1200" height="675" alt="Snow crystals glittering in low winter sun, the only colour is light split at their edges" loading="lazy" decoding="async">
+    </picture>
+    <figcaption class="mono"><span>Snow crystals in direct sunlight</span><span>W.carter, Wikimedia Commons, CC0</span></figcaption>
+  </figure>
+  <p class="frost-line echo" data-echo="Small, precise things. Light does the rest.">Small, precise things. Light does the rest.</p>
+</section>
+
+<!-- NORTH: the NASA photograph under a lens, and a stone you can turn -->
+<section class="north" id="north" aria-labelledby="north-title">
+  <div class="wrap north-grid">
+    <figure class="lens night" data-lens>
+      <picture>
+        <source type="image/avif" srcset="assets/hero/norden-night.avif">
+        <img class="lens-base" src="assets/hero/norden-night.webp" width="1440" height="960" alt="Northern Europe at night photographed from the International Space Station" loading="lazy" decoding="async">
+      </picture>
+      <div class="lens-reveal"><img src="assets/hero/norden-night.webp" alt="" loading="lazy" decoding="async">
+        <span class="lens-note" style="left:16px;top:14px">iss066e118171 &middot; 17 Jan 2022</span>
+        <span class="lens-note" style="right:16px;bottom:14px">ISS Expedition 66 &middot; NASA, public domain</span></div>
+      <figcaption class="mono night-cap"><span>hover: the lens restores the colour</span></figcaption>
+    </figure>
+    <div class="north-copy">
+      <p class="mono label">02 / where</p>
+      <h2 id="north-title" class="echo" data-echo="Built in the dark half of the year.">Built in the dark half of the year.</h2>
+      <p>Albretsen AS is one developer in Norway with a day job, a company and a habit of shipping. Apps since 2016, consulting since 2021, the company since 2026. It builds what pays: apps, SaaS and infrastructure for AI agents.</p>
+      <ul class="dayjob" id="dayjob" aria-label="Day job"></ul>
+    </div>
+    <figure class="stone" id="stone" aria-label="A scanned stone you can turn with the pointer">
+        <div class="stone-stage"><img class="stone-poster" src="assets/extras/frost-detail.webp" alt="" aria-hidden="true" loading="lazy"></div>
+        <figcaption class="mono"><span>Moon Rock 03 &middot; Poly Haven, CC0</span><span class="dim">drag to turn</span></figcaption>
+      </figure>
+
+  </div>
+</section>
+</main>
+
+<footer class="foot" id="contact">
+  <div class="foot-light" aria-hidden="true">
+    <picture>
+      <source type="image/avif" srcset="assets/hero/echo.avif 1440w, assets/hero/echo@2x.avif 2880w" sizes="100vw">
+      <img src="assets/hero/echo.webp" srcset="assets/hero/echo.webp 1440w, assets/hero/echo@2x.webp 2880w" sizes="100vw" width="1440" height="900" alt="" loading="lazy" decoding="async">
+    </picture>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-main">
+      <p class="mono label">03 / contact</p>
+      <p class="avail">Takes one outside engagement at a time.</p>
+      <a class="mail disperse" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    </div>
+    <div class="foot-side mono">
+      <svg class="mark-echo foot-mark" viewBox="-16 -4 84 72" width="84" height="72" aria-hidden="true"><defs><clipPath id="mkf"><rect x="-20" y="-20" width="104" height="77"/></clipPath></defs><path clip-path="url(#mkf)" class="echo-2" d="M6.6 63 L32 11 L57.4 63" transform="translate(-12 0)" fill="none" stroke="currentColor" stroke-width="1" opacity=".18"/><path clip-path="url(#mkf)" class="echo-1" d="M6.6 63 L32 11 L57.4 63" transform="translate(-6 0)" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".38"/><path clip-path="url(#mkf)" d="M6.6 63 L32 11 L57.4 63" fill="none" stroke="currentColor" stroke-width="7.6"/><path d="M0.5 41.5 H45.5" stroke="currentColor" stroke-width="2.6"/></svg>
+      <p>Albretsen AS &middot; Norway</p>
+      <p class="dim">Imagery: spectral caustics rendered for this site; NASA ISS photo iss066e118171 (public domain); snow crystals by W.carter (CC0); Moon Rock 03 by Poly Haven (CC0).</p>
+      <button class="chip reboot" type="button" id="reboot"><span>&#8635; cold boot again</span></button>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="site.js"></script>
+</body>
+</html>

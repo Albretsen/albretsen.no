@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Track plate bench</title>
+<style>html,body{margin:0;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+// Bakes ../extras/tracks-*.webp.  plate.html?theme=light|dark&seed=hex&events=n
+import { drawPlate } from './tracks.js';
+const q = new URLSearchParams(location.search);
+const c = document.getElementById('c'); c.width = innerWidth; c.height = innerHeight;
+drawPlate(c.getContext('2d'), c.width, c.height, { theme: q.get('theme') || 'light', seed: parseInt(q.get('seed') || '04246b', 16), events: +(q.get('events') || 34), scale: +(q.get('scale') || 2), grid: q.get('grid') !== '0' });
+</script></body></html>

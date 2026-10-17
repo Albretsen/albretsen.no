@@ -1,0 +1,462 @@
+/* Full Stop — design 27. One violet field, one cream voice, no lines. */
+
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('eb-garamond.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: optional;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('eb-garamond-italic.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: italic;
+  font-display: optional;
+}
+
+:root {
+  --field: #5719c8;   /* oklch(0.44 0.235 288)  the page */
+  --deep:  #381285;   /* oklch(0.33 0.17 288)   type as image, below */
+  --ghost: #6a43dd;   /* oklch(0.52 0.22 288)   type as image, above */
+  --cream: #f9f1e2;   /* oklch(0.96 0.022 85)   the voice, 7.9:1 */
+  --lav:   #cdc1f7;   /* oklch(0.84 0.075 295)  second voice, 5.3:1 */
+  --dim:   #a090e3;   /* oklch(0.70 0.12 292)   far stars, decorative only */
+
+  --serif: 'EB Garamond', 'Garamond', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --gutter: clamp(1rem, 4vw, 5rem);
+  --measure: 34ch;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--field);
+  color: var(--cream);
+  font-family: var(--serif);
+  font-size: clamp(16px, 0.55vw + 13px, 26px);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+body { min-height: 100vh; line-height: 1.4; overflow-x: hidden; }
+
+::selection { background: var(--cream); color: var(--field); }
+
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--field); background: var(--cream); }
+:focus { outline: none; }
+:focus-visible {
+  outline: none;
+  background: var(--cream);
+  color: var(--field);
+  box-shadow: 0 0 0 0.25em var(--cream);
+}
+
+.sc {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.07em;
+}
+.sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ hero */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(var(--gutter) * 0.75) var(--gutter) var(--gutter);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  isolation: isolate;
+}
+
+/* Type as image: an enormous italic name in the deep tone, and the mark
+   itself, a single full stop the size of the screen, in the ghost tone.
+   They overlap; where they meet the page gets a third violet. */
+.collage { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.collage__word {
+  position: absolute;
+  left: -0.06em;
+  bottom: -0.27em;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 31vw;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--deep);
+  white-space: nowrap;
+}
+.collage__stop {
+  position: absolute;
+  right: -14vh;
+  top: -22vh;
+  width: 84vh;
+  height: 84vh;
+  fill: var(--ghost);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  position: relative;
+  z-index: 3;
+}
+.wordmark {
+  font-size: 1.05rem;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+}
+.wordmark .dot { color: var(--cream); font-size: 1.5em; line-height: 0; }
+.top__place {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.07em;
+  color: var(--lav);
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+.lead {
+  position: relative;
+  z-index: 3;
+  align-self: end;
+  max-width: 62rem;
+  padding-top: 2rem;
+}
+.name {
+  font-weight: 400;
+  font-size: clamp(3.4rem, 10.8vw, 17rem);
+  line-height: 0.84;
+  letter-spacing: -0.025em;
+}
+.name > span { display: block; }
+.name .l2 { padding-left: 0.42em; font-style: italic; }
+.name .stop { font-style: normal; }
+.say {
+  margin-top: clamp(1.25rem, 2.6vw, 3rem);
+  margin-left: 0.18em;
+  font-size: clamp(1.3rem, 1.9vw, 2.6rem);
+  line-height: 1.18;
+  max-width: 19ch;
+  font-style: italic;
+}
+.say + .fact {
+  margin-top: 0.9rem;
+  margin-left: 0.25em;
+  color: var(--lav);
+  font-size: clamp(1rem, 1.05vw, 1.4rem);
+  line-height: 1.35;
+  max-width: 34ch;
+}
+
+.base {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1.5rem;
+}
+.mcp code { font: inherit; }
+.mcp {
+  font-family: var(--serif);
+  font-size: 0.86rem;
+  color: var(--lav);
+  user-select: all;
+  -webkit-user-select: all;
+  overflow-wrap: anywhere;
+  font-variant-numeric: lining-nums;
+}
+
+/* The sky. Its box never changes size, so dots arriving cannot move anything. */
+.sky {
+  position: absolute;
+  z-index: 2;
+  right: calc(var(--gutter) * 0.5);
+  top: 9vh;
+  width: min(64vw, 128vh);
+  aspect-ratio: 1000 / 700;
+}
+.sky svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.sky circle { fill: var(--lav); opacity: var(--o, 1); }
+.sky circle.near { fill: var(--cream); }
+.sky circle.far { fill: var(--dim); }
+.sky circle.now { fill: var(--cream); }
+.sky circle.arrive { animation: arrive 900ms cubic-bezier(.2,.7,.2,1) both; }
+@keyframes arrive { from { opacity: 0; } to { opacity: var(--o, 1); } }
+@media (prefers-reduced-motion: reduce) {
+  .sky circle.arrive { animation: none; }
+}
+
+.voice {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, calc(-100% - 0.6rem));
+  width: max-content;
+  max-width: 13em;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.2;
+  color: var(--lav);
+}
+.voice__name {
+  display: block;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  font-size: 1.08em;
+}
+.voice__line {
+  display: block;
+  font-style: italic;
+  min-height: 1.2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.voice--now { color: var(--cream); }
+
+.voice[data-cluster="mcp-emails"]   { --x: 33%; --y: 22.14%; }
+.voice[data-cluster="fun-libs"]     { --x: 70%; --y: 19.29%; }
+.voice[data-cluster="toolrails"]    { --x: 56%; --y: 69.29%; }
+.voice[data-cluster="albretsen.no"] { --x: 88%; --y: 71.43%; }
+
+.sky__note {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-style: italic;
+  color: var(--lav);
+}
+.sky-on .sky__note { visibility: hidden; }
+
+/* ------------------------------------------------------------- products */
+
+.products {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 12vw, 14rem) var(--gutter) clamp(4rem, 8vw, 10rem);
+  isolation: isolate;
+}
+.products__head { position: relative; margin-bottom: clamp(3rem, 7vw, 8rem); }
+.products__ghost {
+  position: absolute;
+  z-index: -1;
+  right: -0.08em;
+  top: -0.42em;
+  font-size: 30vw;
+  font-style: italic;
+  line-height: 1;
+  color: var(--deep);
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.products h2 {
+  font-weight: 400;
+  font-size: clamp(3rem, 8vw, 12rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+.products__sub {
+  margin-top: 0.9rem;
+  margin-left: 0.15em;
+  color: var(--lav);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  font-size: 1.05rem;
+}
+
+.works {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(3.5rem, 6vw, 7rem) clamp(2rem, 6vw, 9rem);
+  max-width: 120rem;
+}
+@media (min-width: 720px) {
+  .works { grid-template-columns: 1fr 1fr; }
+  .work--offset { margin-top: clamp(4rem, 9vw, 12rem); }
+}
+
+.work {
+  position: relative;
+  isolation: isolate;
+  max-width: 40rem;
+  min-height: 15rem;
+}
+.work__ghost {
+  position: absolute;
+  z-index: -1;
+  left: -0.04em;
+  top: -0.46em;
+  font-size: clamp(7rem, 15vw, 22rem);
+  font-style: italic;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ghost);
+  white-space: nowrap;
+  pointer-events: none;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+.work__name {
+  font-weight: 400;
+  font-size: clamp(2.3rem, 3.6vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.work__meta {
+  margin-top: 0.7rem;
+  display: flex;
+  gap: 1.1em;
+  align-items: baseline;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  color: var(--lav);
+  font-size: 1.02rem;
+}
+.status { color: var(--cream); display: inline-flex; align-items: baseline; gap: 0.45em; }
+.status i {
+  display: inline-block;
+  width: 0.42em; height: 0.42em;
+  border-radius: 50%;
+  background: var(--cream);
+  transform: translateY(-0.05em);
+}
+.status--building i { background: var(--lav); }
+.status--paused { color: var(--lav); }
+.status--paused i { background: var(--dim); }
+.work__line {
+  margin-top: 1rem;
+  font-size: clamp(1.15rem, 1.35vw, 1.8rem);
+  line-height: 1.3;
+  max-width: var(--measure);
+}
+.work__figure { margin-top: 1rem; }
+.work__value { font-size: clamp(1.7rem, 2.3vw, 3.2rem); line-height: 1; font-style: italic; }
+.work__label { font-variant-caps: all-small-caps; letter-spacing: 0.08em; color: var(--lav); }
+.work__facts {
+  margin-top: 0.6rem;
+  color: var(--lav);
+  font-style: italic;
+  max-width: var(--measure);
+}
+.work__link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  font-size: 1.05rem;
+  padding: 0 0.15em;
+  margin-left: -0.15em;
+}
+.work__link::after { content: ' \2192'; font-variant-caps: normal; }
+.work--paused .work__name,
+.work--paused .work__line { color: var(--lav); }
+
+.retired {
+  margin-top: clamp(5rem, 10vw, 12rem);
+  max-width: 68rem;
+}
+.retired__title {
+  font-weight: 400;
+  font-size: clamp(2rem, 3.2vw, 4rem);
+  font-style: italic;
+  line-height: 1;
+}
+.retired__sub { display: block; margin-top: 0.7rem; font-style: normal; color: var(--lav); font-size: 1.05rem; font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
+.retired__list {
+  list-style: none;
+  margin-top: 1.6rem;
+  font-size: clamp(1.1rem, 1.3vw, 1.7rem);
+  line-height: 1.6;
+  color: var(--lav);
+  text-wrap: pretty;
+}
+.retired__list li { display: inline; }
+.retired__list li + li::before { content: '\2003'; }
+.ret__year { font-style: italic; }
+.ret__name { color: var(--cream); font-variant-caps: all-small-caps; letter-spacing: 0.07em; }
+
+/* --------------------------------------------------------------- footer */
+
+.foot {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 10vw, 12rem) var(--gutter) var(--gutter);
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  isolation: isolate;
+}
+.foot__stop {
+  position: absolute;
+  z-index: -1;
+  left: -18vh;
+  bottom: -26vh;
+  width: 70vh;
+  height: 70vh;
+  fill: var(--deep);
+  pointer-events: none;
+}
+.foot__line {
+  font-size: clamp(1.8rem, 4.2vw, 6rem);
+  line-height: 1.02;
+  font-style: italic;
+  max-width: 16ch;
+  margin-left: auto;
+  text-align: right;
+}
+.foot__mail {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 1.2rem 0 0 auto;
+  font-size: clamp(1.2rem, 1.8vw, 2.4rem);
+  padding: 0 0.15em;
+  overflow-wrap: anywhere;
+}
+.foot__small {
+  margin-top: clamp(3rem, 6vw, 6rem);
+  text-align: right;
+  color: var(--lav);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------- narrow */
+
+@media (max-width: 899px) {
+  .hero { grid-template-rows: auto auto auto auto; min-height: 0; }
+  .lead { align-self: start; padding-top: clamp(2.5rem, 12vw, 5rem); }
+  .name { font-size: clamp(3.4rem, 19vw, 9rem); }
+  .sky {
+    position: relative;
+    right: auto; top: auto;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin-top: 3.25rem;
+  }
+  .voice { font-size: 0.8rem; max-width: 10.5em; }
+  .voice[data-cluster="mcp-emails"]   { --x: 30%; --y: 15%; }
+  .voice[data-cluster="fun-libs"]     { --x: 70%; --y: 42%; }
+  .voice[data-cluster="toolrails"]    { --x: 27%; --y: 72%; }
+  .voice[data-cluster="albretsen.no"] { --x: 76%; --y: 12%; }
+  .base { justify-content: flex-start; }
+  .collage__word { font-size: 46vw; bottom: auto; top: 34vh; }
+  .collage__stop { width: 92vw; height: 92vw; right: -30vw; top: -34vw; }
+  .top { flex-wrap: wrap; }
+}
+@media (max-width: 420px) {
+  .top__place { text-align: left; }
+}

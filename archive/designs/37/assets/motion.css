@@ -1,0 +1,56 @@
+/* Cloud Chamber — motion study (CSS half). Pairs with motion.js (GSAP 3.13 + ScrollTrigger).
+   Every animation respects prefers-reduced-motion. Timing tokens first. */
+:root {
+  --ease-settle: cubic-bezier(.2, 1.35, .35, 1);   /* lands, overshoots a hair, rests */
+  --ease-calm: cubic-bezier(.22, .61, .21, 1);      /* scientific calm: long, even decel */
+  --ease-snap: cubic-bezier(.7, 0, .2, 1);
+  --dur-quick: 180ms;
+  --dur-calm: 900ms;
+  --chrome: linear-gradient(180deg, #892361 0%, #e781b7 16%, #fceaf3 40%, #fff8fb 47%, #1e0915 50%, #5e1942 60%, #d64d9d 82%, #f4b0d2 100%);
+}
+
+/* 1. SHEEN — chrome highlight sweeps across a surface on hover (cards, buttons, product
+   plates). Researched from Aceternity "3D Card" / Evervault card and Spline chrome
+   material previews: a narrow specular band crossing the surface, never a glow. */
+.cc-sheen { position: relative; isolation: isolate; overflow: hidden; }
+.cc-sheen::after {
+  content: ""; position: absolute; inset: -40% -60%; pointer-events: none; z-index: 2;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 248, 251, .0) 44%, rgba(255, 248, 251, .75) 49%, rgba(244, 176, 210, .35) 51%, transparent 56%);
+  transform: translateX(-60%); transition: transform 1.1s var(--ease-calm);
+  mix-blend-mode: soft-light;
+}
+.cc-sheen:hover::after, .cc-sheen:focus-visible::after { transform: translateX(60%); }
+
+/* 2. TILT — paired with .cc-sheen; motion.js writes --rx/--ry from the pointer. */
+.cc-tilt { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 600ms var(--ease-calm); transform-style: preserve-3d; will-change: transform; }
+.cc-tilt.is-tracking { transition: transform 80ms linear; }
+
+/* 3. CHROME TEXT — static chrome fill for display type (Unbounded 800). */
+.cc-chrome-text { background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* 4. FILM LOAD-IN — images arrive through a thin-film shimmer: a narrow hue swing around
+   348°, blur and slight scale, then settle. Adapted from typohypergraphicobject.page
+   (hue-rotated image load-in, via hoverstat.es). */
+.cc-film { opacity: 0; filter: hue-rotate(-38deg) saturate(1.6) blur(14px); transform: scale(1.04); transition: opacity 1.2s var(--ease-calm), filter 1.6s var(--ease-calm), transform 1.6s var(--ease-calm); }
+.cc-film.is-in { opacity: 1; filter: none; transform: none; }
+
+/* 5. FRACTURE REVEAL — a section opens along the same slanted line as the logo's break.
+   motion.js scrubs --f from 0 (closed) to 1 (open). */
+.cc-fracture { --f: 1; clip-path: polygon(0 calc(54% - 54% * var(--f)), 100% calc(34% - 34% * var(--f)), 100% calc(34% + 66% * var(--f)), 0 calc(54% + 46% * var(--f))); }
+
+/* 6. DECODE — the scramble itself is JS; this keeps width stable while glyphs churn. */
+.cc-decode { font-variant-numeric: tabular-nums; white-space: pre-wrap; }
+.cc-decode .is-scrambling { color: var(--cc-scramble, #d64d9d); opacity: .9; }
+
+/* 7. ORBIT LOADER — a particle tightening into a spiral (bubble-chamber track). */
+.cc-orbit { width: 28px; height: 28px; position: relative; }
+.cc-orbit::before, .cc-orbit::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid transparent; border-top-color: #d64d9d; animation: cc-spin 1.4s var(--ease-calm) infinite; }
+.cc-orbit::after { inset: 6px; border-top-color: #f4b0d2; animation-duration: .9s; animation-direction: reverse; }
+@keyframes cc-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-sheen::after, .cc-tilt, .cc-film { transition: none !important; }
+  .cc-film { opacity: 1; filter: none; transform: none; }
+  .cc-fracture { clip-path: none; }
+  .cc-orbit::before, .cc-orbit::after { animation: none; }
+}

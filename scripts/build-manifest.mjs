@@ -2,7 +2,7 @@
 import { access, readdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-const root = new URL('../designs/', import.meta.url).pathname
+const root = new URL('../archive/designs/', import.meta.url).pathname
 const dirs = (await readdir(root, { withFileTypes: true }))
   .filter(d => d.isDirectory() && /^\d{2}$/.test(d.name))
   .map(d => d.name)

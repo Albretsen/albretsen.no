@@ -1,0 +1,221 @@
+<!doctype html>
+<!--
+  hello. you found the source, which is roughly the point.
+  every shape on this page sits on a grid; the A has one pixel missing on purpose.
+  keys: g (grid), z (sleep).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds software in Norway, then watches what it does. Albretsen AS.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Silkscreen&display=optional">
+<style>
+:root {
+  /* hue 84: old paper and phosphor yellow */
+  --paper:  oklch(0.962 0.030 84);  /* #fcf1dc */
+  --paper2: oklch(0.915 0.045 84);  /* #f1e1c2 */
+  --rule:   oklch(0.800 0.045 84);
+  --ink:    oklch(0.200 0.018 84);  /* #1a150d */
+  --ink2:   oklch(0.420 0.030 84);  /* #554c3a */
+  --olive:  oklch(0.500 0.100 84);  /* #7e5d07 */
+  --night:  #110e08;                /* oklch(0.165 0.014 84) */
+  --night2: oklch(0.235 0.020 84);  /* #231d13 */
+  --night3: oklch(0.300 0.024 84);
+  --moon:   oklch(0.930 0.035 84);  /* #f3e6ce */
+  --moon2:  oklch(0.740 0.040 84);  /* #b7a98f */
+  --sun:    oklch(0.870 0.165 84);  /* #ffc935 */
+  --u: 3px;
+  --pixel: 'DotGothic16', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --chunk: 'Silkscreen', ui-monospace, Menlo, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 16px/24px var(--pixel); font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+::selection { background: var(--sun); color: var(--night); }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.col { width: min(100% - 32px, 600px); margin-inline: auto; }
+
+/* ---------- hero: light ---------- */
+.hero { padding: 16px 0 56px; }
+.bar { display: flex; align-items: center; justify-content: space-between; height: 48px; font: 16px/16px var(--chunk); }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.mono { width: 18px; height: 18px; display: block; }
+.mono .mo { fill: var(--ink); } .mono .mi { fill: var(--olive); }
+.snd { font: inherit; color: var(--ink2); background: none; border: 0; padding: 8px 0 8px 8px; cursor: pointer; }
+.snd span { display: inline-block; width: 3ch; text-align: left; color: var(--ink); }
+.snd[aria-pressed="true"] span { color: var(--olive); }
+
+.stage { position: relative; aspect-ratio: 1; container: stage / inline-size; margin: 8px 0 0; }
+.rings { position: absolute; inset: 0; width: 100%; height: 100%; fill: var(--rule); }
+.name { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; pointer-events: none; }
+.name .wm { display: block; width: calc(54 * var(--u)); height: auto; fill: var(--ink);
+  padding: calc(var(--u) * 2); box-sizing: content-box; background: var(--paper); }
+.name .wm .echo { fill: var(--sun); }
+
+.feed { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
+.ev {
+  --ax: -50%; --ta: center;
+  position: absolute; left: 0; top: 0; width: max-content; max-width: 88cqw;
+  transform: translate(calc(var(--x, 50) * 1cqw), calc(var(--y, 25) * 1cqw)) translate(var(--ax), -50%);
+  transition: transform .48s steps(6, end);
+  background: var(--paper); padding: 2px 6px; text-align: var(--ta);
+  font-size: 13px; line-height: 16px;
+}
+.ev .ep { display: block; color: var(--ink2); white-space: nowrap; }
+.ev .et { display: block; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ev time { font-variant-numeric: tabular-nums; }
+.ev .mk { width: 8px; height: 8px; margin-right: 6px; fill: var(--ink); vertical-align: 0; }
+.ev[data-slot="0"] .mk { fill: var(--olive); }
+.ev[data-slot="0"] { --y: 25; }  .ev[data-slot="1"] { --y: 75; }
+.ev[data-slot="2"] { --y: 6.5; } .ev[data-slot="3"] { --y: 93.5; }
+.ev[data-slot]:not([data-slot="0"]):not([data-slot="1"]):not([data-slot="2"]):not([data-slot="3"]) { display: none; }
+
+@container stage (min-width: 400px) { .name .wm { --u: 4px; } }
+@container stage (min-width: 460px) {
+  .ev { max-width: 25cqw; font-size: 14px; line-height: 18px; }
+  .ev .ep, .ev .et { white-space: normal; }
+  .ev[data-slot] { display: block !important; }
+  /* ring 1 (r 25), clockwise from the top */
+  .ev[data-slot="0"]  { --x: 50;   --y: 25;   --ax: -50%;  --ta: center; }
+  .ev[data-slot="1"]  { --x: 74.5; --y: 41.4; --ax: 0%;    --ta: left; }
+  .ev[data-slot="2"]  { --x: 74.5; --y: 58.6; --ax: 0%;    --ta: left; }
+  .ev[data-slot="3"]  { --x: 50;   --y: 75;   --ax: -50%;  --ta: center; }
+  .ev[data-slot="4"]  { --x: 25.5; --y: 58.6; --ax: -100%; --ta: right; }
+  .ev[data-slot="5"]  { --x: 25.5; --y: 41.4; --ax: -100%; --ta: right; }
+  /* ring 2 (r 35) */
+  .ev[data-slot="6"]  { --x: 73;   --y: 23.2; --ax: 0%;    --ta: left; }
+  .ev[data-slot="7"]  { --x: 73;   --y: 76.8; --ax: 0%;    --ta: left; }
+  .ev[data-slot="8"]  { --x: 27;   --y: 76.8; --ax: -100%; --ta: right; }
+  .ev[data-slot="9"]  { --x: 27;   --y: 23.2; --ax: -100%; --ta: right; }
+  /* ring 3 (r 45) */
+  .ev[data-slot="10"] { --x: 50;   --y: 5;    --ax: -50%;  --ta: center; }
+  .ev[data-slot="11"] { --x: 50;   --y: 95;   --ax: -50%;  --ta: center; }
+  .ev[data-slot="6"] .et, .ev[data-slot="7"] .et, .ev[data-slot="8"] .et, .ev[data-slot="9"] .et,
+  .ev[data-slot="10"] .et, .ev[data-slot="11"] .et { color: var(--ink2); }
+}
+@container stage (min-width: 560px) { .name .wm { --u: 5px; } }
+
+.lede { font-size: 24px; line-height: 32px; margin: 24px 0 8px; text-wrap: balance; }
+.sub { color: var(--ink2); margin: 0; max-width: 34em; }
+.mcp { display: block; margin-top: 40px; font: 13px/16px var(--pixel); color: var(--ink2); overflow-wrap: anywhere; user-select: all; -webkit-user-select: all; }
+@media (min-width: 640px) { .lede { font-size: 32px; line-height: 40px; } }
+
+/* ---------- the edge: a Bayer-dithered seam where the page inverts ---------- */
+.edge { height: 64px; background: var(--paper) repeat-x 0 0 / 16px 64px; image-rendering: pixelated; }
+.edge.down { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'16'%20height%3D'64'%20shape-rendering%3D'crispEdges'%3E%3Cpath%20fill%3D'%23110e08'%20d%3D'M0%200h4v4h-4zM8%208h4v4h-4zM0%2016h4v4h-4zM8%2016h4v4h-4zM4%2020h4v4h-4zM0%2024h4v4h-4zM8%2024h4v4h-4zM4%2028h4v4h-4zM12%2028h4v4h-4zM0%2032h4v4h-4zM4%2032h4v4h-4zM8%2032h4v4h-4zM4%2036h4v4h-4zM12%2036h4v4h-4zM0%2040h4v4h-4zM8%2040h4v4h-4zM12%2040h4v4h-4zM4%2044h4v4h-4zM12%2044h4v4h-4zM0%2048h4v4h-4zM4%2048h4v4h-4zM8%2048h4v4h-4zM12%2048h4v4h-4zM0%2052h4v4h-4zM4%2052h4v4h-4zM12%2052h4v4h-4zM0%2056h4v4h-4zM4%2056h4v4h-4zM8%2056h4v4h-4zM12%2056h4v4h-4zM0%2060h4v4h-4zM4%2060h4v4h-4zM8%2060h4v4h-4zM12%2060h4v4h-4z'%2F%3E%3C%2Fsvg%3E"); }
+.edge.up   { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'16'%20height%3D'64'%20shape-rendering%3D'crispEdges'%3E%3Cpath%20fill%3D'%23110e08'%20d%3D'M0%200h4v4h-4zM4%200h4v4h-4zM8%200h4v4h-4zM12%200h4v4h-4zM0%204h4v4h-4zM4%204h4v4h-4zM8%204h4v4h-4zM12%204h4v4h-4zM0%208h4v4h-4zM4%208h4v4h-4zM8%208h4v4h-4zM12%208h4v4h-4zM4%2012h4v4h-4zM12%2012h4v4h-4zM0%2016h4v4h-4zM4%2016h4v4h-4zM8%2016h4v4h-4zM12%2016h4v4h-4zM4%2020h4v4h-4zM12%2020h4v4h-4zM0%2024h4v4h-4zM8%2024h4v4h-4zM12%2024h4v4h-4zM4%2028h4v4h-4zM12%2028h4v4h-4zM0%2032h4v4h-4zM8%2032h4v4h-4zM4%2036h4v4h-4zM12%2036h4v4h-4zM0%2040h4v4h-4zM8%2040h4v4h-4zM0%2048h4v4h-4zM8%2048h4v4h-4zM8%2056h4v4h-4z'%2F%3E%3C%2Fsvg%3E"); }
+
+/* ---------- products: dark ---------- */
+.dark { background: var(--night); color: var(--moon); padding: 40px 0 64px; }
+.dark :focus-visible { outline-color: var(--sun); }
+.dark ::selection { background: var(--sun); color: var(--night); }
+.kicker { font: 16px/16px var(--chunk); color: var(--sun); margin: 0 0 16px; }
+.dark h2 { font: 400 24px/32px var(--pixel); margin: 0 0 8px; text-wrap: balance; }
+.intro { color: var(--moon2); margin: 0 0 32px; }
+@media (min-width: 640px) { .dark h2 { font-size: 32px; line-height: 40px; } }
+
+.plist { list-style: none; margin: 0; padding: 0; }
+.p {
+  display: grid; grid-template-columns: 56px 1fr; gap: 0 8px; padding: 18px 0 20px;
+  background: repeating-linear-gradient(90deg, var(--night3) 0 2px, transparent 2px 6px) 0 0 / 100% 2px no-repeat;
+}
+.yr { font: 16px/24px var(--chunk); color: var(--moon2); }
+.pb { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 0 12px; min-width: 0; }
+.pn { font: 400 16px/24px var(--chunk); margin: 0; overflow-wrap: anywhere; }
+.pn a { text-decoration: none; background: linear-gradient(var(--moon2), var(--moon2)) 0 100% / 100% 2px no-repeat; padding-bottom: 2px; }
+.pn a:hover, .pn a:focus-visible { background: var(--sun); color: var(--night); }
+.st { font-size: 13px; color: var(--moon2); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+.st .mk { width: 8px; height: 8px; margin-right: 8px; fill: currentColor; vertical-align: 0; }
+.is-live .st { color: var(--sun); }
+.pl, .pm { grid-column: 1 / -1; margin: 4px 0 0; }
+.pm { color: var(--moon2); font-size: 14px; }
+.pm > span + span::before { content: '·'; margin: 0 .6em; color: var(--night3); }
+.pm b { font-weight: 400; color: var(--sun); }
+.is-retired .pn, .is-retired .pl { color: var(--moon2); }
+.is-retired .pm b { color: var(--moon); }
+
+/* ---------- footer: light again ---------- */
+.foot { padding: 40px 0 56px; }
+.foot .avail { font-size: 24px; line-height: 32px; margin: 0 0 16px; }
+.foot .mail { font-size: 24px; line-height: 32px; margin: 0 0 48px; }
+.foot .mail a { text-decoration: none; background: linear-gradient(var(--sun), var(--sun)) 0 100% / 100% 6px no-repeat; }
+.foot .mail a:hover, .foot .mail a:focus-visible { background-size: 100% 100%; }
+.foot .fine { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; color: var(--ink2); font-size: 13px; margin: 0; }
+.foot .wt { min-height: 16px; }
+@media (min-width: 640px) { .foot .avail, .foot .mail { font-size: 32px; line-height: 40px; } }
+
+/* ---------- screensaver ---------- */
+.saver { position: fixed; inset: 0; z-index: 20; background: var(--night); color: var(--moon); }
+.saver[hidden] { display: none; }
+.saver canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.sv-t { position: absolute; left: 16px; right: 16px; bottom: 24px; text-align: center; font-size: 13px; line-height: 20px; }
+.sv-t p { margin: 0; }
+.sv-a { font-size: 16px; line-height: 24px; }
+.sv-e { color: var(--sun); white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+.sv-h { color: var(--moon2); }
+
+/* ---------- g ---------- */
+.grid::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 30;
+  background: repeating-linear-gradient(90deg, oklch(0.6 0.15 84 / .18) 0 1px, transparent 1px 8px),
+              repeating-linear-gradient(0deg, oklch(0.6 0.15 84 / .18) 0 1px, transparent 1px 8px); }
+
+@media (prefers-reduced-motion: reduce) { .ev { transition: none; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="col">
+    <div class="bar">
+      <a class="brand" href="/"><svg class="mono" viewBox="0 0 9 9" aria-hidden="true" shape-rendering="crispEdges"><path class="mo" d="M0 0h8v1h-8zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM8 3h1v1h-1zM0 4h9v1h-9zM0 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM8 8h1v1h-1z"/><path class="mi" d="M2 2h5v1h-5zM2 3h1v1h-1zM6 3h1v1h-1zM2 5h1v1h-1zM6 5h1v1h-1zM2 6h1v1h-1zM6 6h1v1h-1zM2 7h1v1h-1zM6 7h1v1h-1zM2 8h1v1h-1zM6 8h1v1h-1z"/></svg><span>Albretsen AS</span></a>
+      <button class="snd" type="button" aria-pressed="false">Sound <span>off</span></button>
+    </div>
+    <div class="stage">
+      <svg class="rings" viewBox="0 0 121 121" aria-hidden="true" shape-rendering="crispEdges"><path d="M30 60h1v1h-1zM30 57h1v1h-1zM31 54h1v1h-1zM31 51h1v1h-1zM33 48h1v1h-1zM34 45h1v1h-1zM36 42h1v1h-1zM39 39h1v1h-1zM42 36h1v1h-1zM45 34h1v1h-1zM48 33h1v1h-1zM51 31h1v1h-1zM54 31h1v1h-1zM57 30h1v1h-1zM60 30h1v1h-1zM63 30h1v1h-1zM67 31h1v1h-1zM69 31h1v1h-1zM72 33h1v1h-1zM75 34h1v1h-1zM78 36h1v1h-1zM81 39h1v1h-1zM84 42h1v1h-1zM86 45h1v1h-1zM87 48h1v1h-1zM89 51h1v1h-1zM89 54h1v1h-1zM90 57h1v1h-1zM90 60h1v1h-1zM90 63h1v1h-1zM89 66h1v1h-1zM89 69h1v1h-1zM87 72h1v1h-1zM86 75h1v1h-1zM84 78h1v1h-1zM81 81h1v1h-1zM78 84h1v1h-1zM75 86h1v1h-1zM72 87h1v1h-1zM69 89h1v1h-1zM66 89h1v1h-1zM63 90h1v1h-1zM60 90h1v1h-1zM57 90h1v1h-1zM54 89h1v1h-1zM51 89h1v1h-1zM48 87h1v1h-1zM45 86h1v1h-1zM42 84h1v1h-1zM39 81h1v1h-1zM36 78h1v1h-1zM34 75h1v1h-1zM33 72h1v1h-1zM31 69h1v1h-1zM31 66h1v1h-1zM30 63h1v1h-1zM18 60h1v1h-1zM18 57h1v1h-1zM18 54h1v1h-1zM19 51h1v1h-1zM20 48h1v1h-1zM21 45h1v1h-1zM22 42h1v1h-1zM24 39h1v1h-1zM26 36h1v1h-1zM28 33h1v1h-1zM31 30h1v1h-1zM34 27h1v1h-1zM37 25h1v1h-1zM40 23h1v1h-1zM43 22h1v1h-1zM46 20h1v1h-1zM49 19h1v1h-1zM52 19h1v1h-1zM55 18h1v1h-1zM58 18h1v1h-1zM61 18h1v1h-1zM64 18h1v1h-1zM66 19h1v1h-1zM71 19h1v1h-1zM72 20h1v1h-1zM76 21h1v1h-1zM79 23h1v1h-1zM82 24h1v1h-1zM85 26h1v1h-1zM88 29h1v1h-1zM91 32h1v1h-1zM94 35h1v1h-1zM97 38h1v1h-1zM97 41h1v1h-1zM99 44h1v1h-1zM100 47h1v1h-1zM101 50h1v1h-1zM101 53h1v1h-1zM102 56h1v1h-1zM102 59h1v1h-1zM102 62h1v1h-1zM102 65h1v1h-1zM101 68h1v1h-1zM101 71h1v1h-1zM100 74h1v1h-1zM98 77h1v1h-1zM97 80h1v1h-1zM95 83h1v1h-1zM93 86h1v1h-1zM90 89h1v1h-1zM87 92h1v1h-1zM84 94h1v1h-1zM81 96h1v1h-1zM78 98h1v1h-1zM75 99h1v1h-1zM72 100h1v1h-1zM69 101h1v1h-1zM66 102h1v1h-1zM63 102h1v1h-1zM60 102h1v1h-1zM57 102h1v1h-1zM54 102h1v1h-1zM51 101h1v1h-1zM48 100h1v1h-1zM45 99h1v1h-1zM42 98h1v1h-1zM39 96h1v1h-1zM36 94h1v1h-1zM33 92h1v1h-1zM30 89h1v1h-1zM27 86h1v1h-1zM25 83h1v1h-1zM23 80h1v1h-1zM22 77h1v1h-1zM20 74h1v1h-1zM19 71h1v1h-1zM19 68h1v1h-1zM18 65h1v1h-1zM18 62h1v1h-1zM6 60h1v1h-1zM7 57h1v1h-1zM6 54h1v1h-1zM7 51h1v1h-1zM7 48h1v1h-1zM8 45h1v1h-1zM9 42h1v1h-1zM10 39h1v1h-1zM12 36h1v1h-1zM13 33h1v1h-1zM15 30h1v1h-1zM17 27h1v1h-1zM20 24h1v1h-1zM23 21h1v1h-1zM26 18h1v1h-1zM29 16h1v1h-1zM32 14h1v1h-1zM35 12h1v1h-1zM38 11h1v1h-1zM42 9h1v1h-1zM44 8h1v1h-1zM47 8h1v1h-1zM50 7h1v1h-1zM53 6h1v1h-1zM56 6h1v1h-1zM59 6h1v1h-1zM62 6h1v1h-1zM65 6h1v1h-1zM68 7h1v1h-1zM71 7h1v1h-1zM74 8h1v1h-1zM77 9h1v1h-1zM80 10h1v1h-1zM83 11h1v1h-1zM86 13h1v1h-1zM89 14h1v1h-1zM92 17h1v1h-1zM95 19h1v1h-1zM98 22h1v1h-1zM101 25h1v1h-1zM103 28h1v1h-1zM106 31h1v1h-1zM107 34h1v1h-1zM109 37h1v1h-1zM111 40h1v1h-1zM111 43h1v1h-1zM112 46h1v1h-1zM113 49h1v1h-1zM113 52h1v1h-1zM114 55h1v1h-1zM114 58h1v1h-1zM114 61h1v1h-1zM114 64h1v1h-1zM114 67h1v1h-1zM113 70h1v1h-1zM112 73h1v1h-1zM112 76h1v1h-1zM111 79h1v1h-1zM109 82h1v1h-1zM108 85h1v1h-1zM106 88h1v1h-1zM104 91h1v1h-1zM102 94h1v1h-1zM99 97h1v1h-1zM96 100h1v1h-1zM93 103h1v1h-1zM89 105h1v1h-1zM87 107h1v1h-1zM84 108h1v1h-1zM81 110h1v1h-1zM78 111h1v1h-1zM75 112h1v1h-1zM72 113h1v1h-1zM69 113h1v1h-1zM67 114h1v1h-1zM63 114h1v1h-1zM60 114h1v1h-1zM58 114h1v1h-1zM54 114h1v1h-1zM51 113h1v1h-1zM48 113h1v1h-1zM45 112h1v1h-1zM42 111h1v1h-1zM38 110h1v1h-1zM36 108h1v1h-1zM33 107h1v1h-1zM30 105h1v1h-1zM27 103h1v1h-1zM24 100h1v1h-1zM21 97h1v1h-1zM18 94h1v1h-1zM16 91h1v1h-1zM14 88h1v1h-1zM12 85h1v1h-1zM11 82h1v1h-1zM9 79h1v1h-1zM8 76h1v1h-1zM8 73h1v1h-1zM7 70h1v1h-1zM6 67h1v1h-1zM6 64h1v1h-1zM6 61h1v1h-1z"/></svg>
+      <h1 class="name"><span class="sr">Asgeir Albretsen</span><svg class="wm" viewBox="0 0 54 18" aria-hidden="true" shape-rendering="crispEdges"><path class="echo" transform="translate(1 1)" d="M11 0h3v1h-3zM17 0h4v1h-4zM23 0h4v1h-4zM28 0h5v1h-5zM34 0h3v1h-3zM38 0h4v1h-4zM10 1h1v1h-1zM14 1h1v1h-1zM16 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM35 1h1v1h-1zM38 1h1v1h-1zM42 1h1v1h-1zM10 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM22 2h1v1h-1zM28 2h1v1h-1zM35 2h1v1h-1zM38 2h1v1h-1zM42 2h1v1h-1zM10 3h5v1h-5zM17 3h3v1h-3zM22 3h1v1h-1zM25 3h2v1h-2zM28 3h4v1h-4zM35 3h1v1h-1zM38 3h4v1h-4zM10 4h1v1h-1zM14 4h1v1h-1zM20 4h1v1h-1zM22 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM35 4h1v1h-1zM38 4h1v1h-1zM40 4h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM20 5h1v1h-1zM22 5h1v1h-1zM26 5h1v1h-1zM28 5h1v1h-1zM35 5h1v1h-1zM38 5h1v1h-1zM41 5h1v1h-1zM10 6h1v1h-1zM14 6h1v1h-1zM16 6h4v1h-4zM23 6h3v1h-3zM28 6h5v1h-5zM34 6h3v1h-3zM38 6h1v1h-1zM42 6h1v1h-1zM1 10h3v1h-3zM6 10h1v1h-1zM12 10h4v1h-4zM18 10h4v1h-4zM24 10h5v1h-5zM30 10h5v1h-5zM37 10h4v1h-4zM42 10h5v1h-5zM48 10h1v1h-1zM52 10h1v1h-1zM0 11h1v1h-1zM4 11h1v1h-1zM6 11h1v1h-1zM12 11h1v1h-1zM16 11h1v1h-1zM18 11h1v1h-1zM22 11h1v1h-1zM24 11h1v1h-1zM32 11h1v1h-1zM36 11h1v1h-1zM42 11h1v1h-1zM48 11h2v1h-2zM52 11h1v1h-1zM0 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM12 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM22 12h1v1h-1zM24 12h1v1h-1zM32 12h1v1h-1zM36 12h1v1h-1zM42 12h1v1h-1zM48 12h1v1h-1zM50 12h1v1h-1zM52 12h1v1h-1zM0 13h5v1h-5zM6 13h1v1h-1zM12 13h4v1h-4zM18 13h4v1h-4zM24 13h4v1h-4zM32 13h1v1h-1zM37 13h3v1h-3zM42 13h4v1h-4zM48 13h1v1h-1zM51 13h2v1h-2zM0 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM12 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM20 14h1v1h-1zM24 14h1v1h-1zM32 14h1v1h-1zM40 14h1v1h-1zM42 14h1v1h-1zM48 14h1v1h-1zM52 14h1v1h-1zM0 15h1v1h-1zM4 15h1v1h-1zM6 15h1v1h-1zM12 15h1v1h-1zM16 15h1v1h-1zM18 15h1v1h-1zM21 15h1v1h-1zM24 15h1v1h-1zM32 15h1v1h-1zM40 15h1v1h-1zM42 15h1v1h-1zM48 15h1v1h-1zM52 15h1v1h-1zM0 16h1v1h-1zM4 16h1v1h-1zM6 16h5v1h-5zM12 16h4v1h-4zM18 16h1v1h-1zM22 16h1v1h-1zM24 16h5v1h-5zM32 16h1v1h-1zM36 16h4v1h-4zM42 16h5v1h-5zM48 16h1v1h-1zM52 16h1v1h-1z"/><path d="M11 0h3v1h-3zM17 0h4v1h-4zM23 0h4v1h-4zM28 0h5v1h-5zM34 0h3v1h-3zM38 0h4v1h-4zM10 1h1v1h-1zM14 1h1v1h-1zM16 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM35 1h1v1h-1zM38 1h1v1h-1zM42 1h1v1h-1zM10 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM22 2h1v1h-1zM28 2h1v1h-1zM35 2h1v1h-1zM38 2h1v1h-1zM42 2h1v1h-1zM10 3h5v1h-5zM17 3h3v1h-3zM22 3h1v1h-1zM25 3h2v1h-2zM28 3h4v1h-4zM35 3h1v1h-1zM38 3h4v1h-4zM10 4h1v1h-1zM14 4h1v1h-1zM20 4h1v1h-1zM22 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM35 4h1v1h-1zM38 4h1v1h-1zM40 4h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM20 5h1v1h-1zM22 5h1v1h-1zM26 5h1v1h-1zM28 5h1v1h-1zM35 5h1v1h-1zM38 5h1v1h-1zM41 5h1v1h-1zM10 6h1v1h-1zM14 6h1v1h-1zM16 6h4v1h-4zM23 6h3v1h-3zM28 6h5v1h-5zM34 6h3v1h-3zM38 6h1v1h-1zM42 6h1v1h-1zM1 10h3v1h-3zM6 10h1v1h-1zM12 10h4v1h-4zM18 10h4v1h-4zM24 10h5v1h-5zM30 10h5v1h-5zM37 10h4v1h-4zM42 10h5v1h-5zM48 10h1v1h-1zM52 10h1v1h-1zM0 11h1v1h-1zM4 11h1v1h-1zM6 11h1v1h-1zM12 11h1v1h-1zM16 11h1v1h-1zM18 11h1v1h-1zM22 11h1v1h-1zM24 11h1v1h-1zM32 11h1v1h-1zM36 11h1v1h-1zM42 11h1v1h-1zM48 11h2v1h-2zM52 11h1v1h-1zM0 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM12 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM22 12h1v1h-1zM24 12h1v1h-1zM32 12h1v1h-1zM36 12h1v1h-1zM42 12h1v1h-1zM48 12h1v1h-1zM50 12h1v1h-1zM52 12h1v1h-1zM0 13h5v1h-5zM6 13h1v1h-1zM12 13h4v1h-4zM18 13h4v1h-4zM24 13h4v1h-4zM32 13h1v1h-1zM37 13h3v1h-3zM42 13h4v1h-4zM48 13h1v1h-1zM51 13h2v1h-2zM0 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM12 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM20 14h1v1h-1zM24 14h1v1h-1zM32 14h1v1h-1zM40 14h1v1h-1zM42 14h1v1h-1zM48 14h1v1h-1zM52 14h1v1h-1zM0 15h1v1h-1zM4 15h1v1h-1zM6 15h1v1h-1zM12 15h1v1h-1zM16 15h1v1h-1zM18 15h1v1h-1zM21 15h1v1h-1zM24 15h1v1h-1zM32 15h1v1h-1zM40 15h1v1h-1zM42 15h1v1h-1zM48 15h1v1h-1zM52 15h1v1h-1zM0 16h1v1h-1zM4 16h1v1h-1zM6 16h5v1h-5zM12 16h4v1h-4zM18 16h1v1h-1zM22 16h1v1h-1zM24 16h5v1h-5zM32 16h1v1h-1zM36 16h4v1h-4zM42 16h5v1h-5zM48 16h1v1h-1zM52 16h1v1h-1z"/></svg></h1>
+      <ol class="feed" aria-label="Live activity across the products, newest first">
+        <li class="ev" data-slot="0"><span class="ep">listening</span><span class="et">events land here as they happen</span></li>
+      </ol>
+    </div>
+    <p class="lede">I build software, then watch what it does.</p>
+    <p class="sub">Apps, SaaS and plumbing for AI agents, made in Norway. On Google Play since 2016.</p>
+    <code class="mcp">claude mcp add albretsen https://albretsen.no/mcp</code>
+  </div>
+</header>
+<div class="edge down" aria-hidden="true"></div>
+<main class="dark">
+  <section class="col" aria-labelledby="things">
+    <p class="kicker">The index</p>
+    <h2 id="things">Things I made, and how they are doing.</h2>
+    <p class="intro">Two live, one being built, one resting. The retired ones stay listed, because they happened.</p>
+    <ol class="plist"><li class="p is-live" data-id="mcp-emails"><span class="yr">2026</span><div class="pb"><h3 class="pn"><a href="https://mcpemails.com" rel="noopener">MCP Emails</a></h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h4v4H0z"/></svg>live</span><p class="pl">Email for AI agents.</p><p class="pm"><span class="fig"><b>$782</b> MRR</span><span>17 tools</span><span>about 100 email providers</span><span>open source (AGPL)</span></p></div></li><li class="p is-live" data-id="fun-libs"><span class="yr">2019</span><div class="pb"><h3 class="pn"><a href="https://funlibs.app" rel="noopener">Fun Libs</a></h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h4v4H0z"/></svg>live</span><p class="pl">A fill-in-the-blanks word game for Android and iOS.</p><p class="pm"><span class="fig"><b>113,000+</b> installs</span><span>built at 17</span><span>no marketing</span><span>v5 shipped 2026</span></p></div></li><li class="p is-building" data-id="toolrails"><span class="yr">2026</span><div class="pb"><h3 class="pn"><a href="https://toolrails.com" rel="noopener">Toolrails</a></h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h2v4H0zM2 0h2v1H2zM2 3h2v1H2zM3 1h1v2H3z"/></svg>building</span><p class="pl">One MCP URL that gives an agent every tool.</p><p class="pm"><span class="fig"><b>4</b> connectors</span><span>tool search</span><span>injection guard</span></p></div></li><li class="p is-paused" data-id="harbor"><span class="yr">2026</span><div class="pb"><h3 class="pn"><a href="https://harborknowledge.com" rel="noopener">Harbor</a></h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h4v1H0zM0 3h4v1H0zM0 1h1v2H0zM3 1h1v2H3z"/></svg>paused</span><p class="pl">A private knowledge base shared by people and AI.</p><p class="pm"><span class="fig"><b>549</b> commits</span><span>self-hostable</span><span>AI edits held for approval</span></p></div></li><li class="p is-retired" data-id="luma"><span class="yr">2026</span><div class="pb"><h3 class="pn">Luma</h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h1v1H0zM2 0h1v1H2zM1 1h1v1H1zM3 1h1v1H3zM0 2h1v1H0zM2 2h1v1H2zM1 3h1v1H1zM3 3h1v1H3z"/></svg>retired</span><p class="pl">Norwegian budgeting app with open banking.</p><p class="pm"><span class="fig"><b>378</b> commits</span></p></div></li><li class="p is-retired" data-id="polyglot-pilot"><span class="yr">2025</span><div class="pb"><h3 class="pn">Polyglot Pilot</h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h1v1H0zM2 0h1v1H2zM1 1h1v1H1zM3 1h1v1H3zM0 2h1v1H0zM2 2h1v1H2zM1 3h1v1H1zM3 3h1v1H3z"/></svg>retired</span><p class="pl">Agents that localised entire codebases, with a dashboard for human reviewers.</p></div></li><li class="p is-retired" data-id="pinpoint"><span class="yr">2025</span><div class="pb"><h3 class="pn">PinPoint</h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h1v1H0zM2 0h1v1H2zM1 1h1v1H1zM3 1h1v1H3zM0 2h1v1H0zM2 2h1v1H2zM1 3h1v1H1zM3 3h1v1H3z"/></svg>retired</span><p class="pl">GeoGuessr with your own photos: friends guess where your pictures were taken.</p><p class="pm"><span class="fig"><b>16</b> commits</span></p></div></li><li class="p is-retired" data-id="webvakt"><span class="yr">2024</span><div class="pb"><h3 class="pn">WebVakt</h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h1v1H0zM2 0h1v1H2zM1 1h1v1H1zM3 1h1v1H3zM0 2h1v1H0zM2 2h1v1H2zM1 3h1v1H1zM3 3h1v1H3z"/></svg>retired</span><p class="pl">Website change monitoring.</p></div></li><li class="p is-retired" data-id="joke-central"><span class="yr">2024</span><div class="pb"><h3 class="pn">Daily Jokes / Joke Central</h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h1v1H0zM2 0h1v1H2zM1 1h1v1H1zM3 1h1v1H3zM0 2h1v1H0zM2 2h1v1H2zM1 3h1v1H1zM3 3h1v1H3z"/></svg>retired</span><p class="pl">Joke apps for iOS and Android.</p></div></li><li class="p is-retired" data-id="tryggere-hyring"><span class="yr">2023</span><div class="pb"><h3 class="pn">Tryggere Hyring</h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h1v1H0zM2 0h1v1H2zM1 1h1v1H1zM3 1h1v1H3zM0 2h1v1H0zM2 2h1v1H2zM1 3h1v1H1zM3 3h1v1H3z"/></svg>retired</span><p class="pl">Background checks for hiring.</p></div></li><li class="p is-retired" data-id="early-apps"><span class="yr">2021</span><div class="pb"><h3 class="pn">IAGO HMS, Rentekalkulator, Prosentkalkulator</h3><span class="st"><svg class="mk" viewBox="0 0 4 4" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h1v1H0zM2 0h1v1H2zM1 1h1v1H1zM3 1h1v1H3zM0 2h1v1H0zM2 2h1v1H2zM1 3h1v1H1zM3 3h1v1H3z"/></svg>retired</span><p class="pl">Early apps.</p></div></li></ol>
+  </section>
+</main>
+<div class="edge up" aria-hidden="true"></div>
+<footer class="col foot">
+  <p class="avail">Takes one outside engagement at a time.</p>
+  <p class="mail"><a href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+  <p class="fine"><svg class="mono" viewBox="0 0 9 9" aria-hidden="true" shape-rendering="crispEdges"><path class="mo" d="M0 0h8v1h-8zM0 1h1v1h-1zM8 1h1v1h-1zM0 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM8 3h1v1h-1zM0 4h9v1h-9zM0 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM8 6h1v1h-1zM0 7h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM8 8h1v1h-1z"/><path class="mi" d="M2 2h5v1h-5zM2 3h1v1h-1zM6 3h1v1h-1zM2 5h1v1h-1zM6 5h1v1h-1zM2 6h1v1h-1zM6 6h1v1h-1zM2 7h1v1h-1zM6 7h1v1h-1zM2 8h1v1h-1zM6 8h1v1h-1z"/></svg><span>Albretsen AS · Norway</span><span class="wt"></span></p>
+</footer>
+<div class="saver" hidden aria-hidden="true">
+  <canvas></canvas>
+  <div class="sv-t">
+    <p class="sv-a">You went quiet. The software didn't.</p>
+    <p class="sv-e"></p>
+    <p class="sv-h">every mark is something that happened while you were here</p>
+  </div>
+</div>
+<script type="module" src="main.js"></script>
+</body>
+</html>

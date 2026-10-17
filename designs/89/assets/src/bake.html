@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sprite Baker</title>
+<!--
+  Prism Room sprite baker.
+  Renders CC0 Kenney Furniture Kit models (assets/models/*.glb) with three.js toon shading
+  at a tiny resolution, upscales nearest-neighbour into pixel-art sprites, draws a 1px ink
+  outline, then overlays the REAL product logo on a crisp, full-resolution plane (the logo is
+  the only thing in the world that is not pixelated).
+
+  Usage:  bake.html?job=mcp-emails            -> shows the sprite (for screenshots)
+          bake.html?job=mcp-emails&dump=1     -> also writes the PNG data URL into #out (for chrome --dump-dom)
+          bake.html?job=all&dump=1            -> every job
+-->
+<style>
+  html,body{margin:0;background:#2a1935;color:#fff5ea;font:12px ui-monospace,monospace}
+  body{display:flex;flex-wrap:wrap;gap:16px;padding:16px}
+  canvas{image-rendering:pixelated;background:repeating-conic-gradient(#3a2547 0 25%,#2a1935 0 50%) 0 0/24px 24px}
+  #out{display:none}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<pre id="out"></pre>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const P = { ink:'#160c21', ink2:'#2a1935', plum:'#572953', paper:'#fff5ea', fog:'#e8d8e6', peach:'#ff9a7d', peachDeep:'#ee6b47',
+            gum:'#ff99c2', lilac:'#bea6eb', mint:'#8deaca', lemon:'#faea89', sky:'#86cbf3' };
+const MAT = { metal:P.fog, metalMedium:P.lilac, metalDark:P.ink2, wood:P.peach, woodDark:P.peachDeep, plant:P.mint,
+              carpet:P.gum, carpetDarker:P.plum, carpetWhite:P.paper, lamp:P.lemon };
+const PROD = '../../../_shared/products/';
+
+// each job: model + view + optional crisp logo plane (pos in model space, size in model units)
+const JOBS = {
+  'mcp-emails': { glb:'computerScreen', yaw:-28, res:112, mat:{metal:P.paper, metalDark:P.ink2},
+    logo:{ src:PROD+'mcp-emails/logo-mark.svg', bg:'#ffffff', fit:.62, w:.322, h:.205, pos:[.2,.178,.004], rotY:0 } },
+  'toolrails':  { glb:'laptop', yaw:-30, res:120, pitch:24, mat:{metal:'#141413', metalMedium:P.lilac, metalDark:P.fog},
+    logo:{ src:PROD+'toolrails/icon.svg', bg:'#141413', fit:.62, w:1.6, h:1, rel:[.5,.665,.1], wr:.70, rotX:-0.26 } },
+  'fun-libs':   { proc:'phone', yaw:-24, res:84,
+    logo:{ src:PROD+'fun-libs/icon.png', bg:'#ffe066', fit:1, w:.086, h:.17, pos:[0,.115,.0071], rotX:0 } },
+  'harbor':     { proc:'book', yaw:-30, res:96,
+    logo:{ src:PROD+'harbor/harbor-mark-filled.svg', bg:'#fbf9f4', fit:.62, w:.14, h:.14, pos:[0,.15,.0251], rotX:0 } },
+  'luma':       { proc:'card', yaw:-22, res:72,
+    logo:{ src:PROD+'luma/logo.png', bg:'#ffffff', fit:.74, w:.19, h:.11, pos:[0,.075,.0081], rotX:0 } },
+  'archive-box':{ glb:'cardboardBoxClosed', yaw:-35, res:80, mat:{wood:P.lilac, woodDark:P.plum} },
+  'plant':      { glb:'plantSmall2', yaw:-30, res:64 },
+  'potted-plant':{ glb:'pottedPlant', yaw:-30, res:96, mat:{wood:P.gum, woodDark:P.plum} },
+  'lamp':       { glb:'lampRoundTable', yaw:-30, res:72, mat:{metal:P.peach} },
+  'chair':      { glb:'chairDesk', yaw:-40, res:96, mat:{carpet:P.sky, metalMedium:P.ink2} },
+  'keyboard':   { glb:'computerKeyboard', yaw:-25, pitch:40, res:88, mat:{metalDark:P.ink2, metalMedium:P.lilac} },
+  'mouse':      { glb:'computerMouse', yaw:-25, pitch:35, res:28, mat:{metalDark:P.ink2} },
+  'speaker':    { glb:'speakerSmall', yaw:-30, res:64, mat:{wood:P.mint, metalMedium:P.ink2} },
+  'radio':      { glb:'radio', yaw:-30, res:80, mat:{wood:P.lemon, metalMedium:P.peachDeep} },
+  'books':      { glb:'books', yaw:-30, res:56, mat:{carpetDarker:P.sky, carpetWhite:P.paper, plant:P.gum, metal:P.lemon} },
+  'tv':         { glb:'televisionVintage', yaw:-30, res:96, mat:{wood:P.gum, metalDark:P.ink2} },
+  'rug':        { glb:'rugRound', yaw:-30, pitch:30, res:150, mat:{carpet:P.peach, carpetDarker:P.gum} },
+};
+
+const params = new URLSearchParams(location.search);
+const want = params.get('job') || 'all';
+const SCALE = +(params.get('scale') || 8);
+const out = document.getElementById('out');
+
+const loader = new GLTFLoader();
+const grad = (() => { const d = new Uint8Array([70, 150, 210, 255]); const t = new THREE.DataTexture(d, 4, 1, THREE.RedFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
+const toon = (hex) => new THREE.MeshToonMaterial({ color: new THREE.Color(hex), gradientMap: grad });
+
+function procModel(kind) {
+  const g = new THREE.Group();
+  const add = (geo, col, x=0, y=0, z=0) => { const m = new THREE.Mesh(geo, toon(col)); m.position.set(x,y,z); g.add(m); return m; };
+  if (kind === 'phone') {
+    add(new THREE.BoxGeometry(.1, .2, .014), P.ink2, 0, .115, 0);          // body
+    add(new THREE.BoxGeometry(.11, .02, .07), P.gum, 0, .01, .0);           // stand base
+    const lean = add(new THREE.BoxGeometry(.11, .05, .012), P.gum, 0, .03, -.03); lean.rotation.x = -.5;
+  } else if (kind === 'book') {
+    add(new THREE.BoxGeometry(.2, .29, .05), P.lilac, 0, .145, 0);          // cover
+    add(new THREE.BoxGeometry(.19, .275, .046), P.paper, .006, .145, 0);    // pages peek
+    add(new THREE.BoxGeometry(.012, .29, .052), P.plum, -.1, .145, 0);      // spine
+  } else if (kind === 'card') {
+    add(new THREE.BoxGeometry(.21, .13, .016), P.fog, 0, .075, 0);
+    add(new THREE.BoxGeometry(.22, .012, .06), P.plum, 0, .006, 0);
+  }
+  return g;
+}
+
+async function logoCanvas(L) {
+  const img = new Image(); img.crossOrigin = 'anonymous'; img.src = L.src; await img.decode();
+  const W = 1024, H = Math.round(1024 * L.h / L.w);
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
+  x.fillStyle = L.bg; x.fillRect(0, 0, W, H);
+  const s = Math.min(W, H) * L.fit; const iw = img.naturalWidth || 512, ih = img.naturalHeight || 512;
+  const k = s / Math.max(iw, ih);
+  if (L.fit >= 1) { // cover
+    const kk = Math.max(W / iw, H / ih); x.drawImage(img, (W - iw*kk)/2, (H - ih*kk)/2, iw*kk, ih*kk);
+  } else x.drawImage(img, (W - iw*k)/2, (H - ih*k)/2, iw*k, ih*k);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+
+async function bake(name, J) {
+  let obj;
+  if (J.proc) obj = procModel(J.proc);
+  else {
+    const gltf = await loader.loadAsync(`../models/${J.glb}.glb`);
+    obj = gltf.scene;
+    const map = { ...MAT, ...(J.mat || {}) };
+    obj.traverse(o => { if (o.isMesh) { const n = o.material.name; o.material = toon(map[n] || P.fog); } });
+  }
+  const scene = new THREE.Scene();
+  scene.add(obj);
+  scene.add(new THREE.HemisphereLight(0xffe9f2, 0x5a3a6a, 1.2));
+  const sun = new THREE.DirectionalLight(0xfff0d8, 2.6); sun.position.set(-2, 3, 2.4); scene.add(sun);
+
+  // logo plane
+  let plane = null;
+  if (J.logo) {
+    const L = J.logo; const tex = await logoCanvas(L);
+    plane = new THREE.Mesh(new THREE.PlaneGeometry(L.w, L.h), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }));
+    if (L.rel) { // place relative to the model's own bounds (world space)
+      const b = new THREE.Box3().setFromObject(obj), s = b.getSize(new THREE.Vector3());
+      plane.geometry = new THREE.PlaneGeometry(L.wr * s.x, L.wr * s.x * L.h / L.w);
+      plane.position.set(b.min.x + L.rel[0]*s.x, b.min.y + L.rel[1]*s.y, b.min.z + L.rel[2]*s.z);
+      plane.rotation.x = L.rotX || 0; scene.add(plane);
+    } else {
+      plane.position.set(...L.pos); plane.rotation.y = L.rotY || 0; plane.rotation.x = L.rotX || 0;
+      obj.add(plane);
+    }
+  }
+  // camera fit
+  const box = new THREE.Box3().setFromObject(obj); const ctr = box.getCenter(new THREE.Vector3()); const size = box.getSize(new THREE.Vector3());
+  const yaw = THREE.MathUtils.degToRad(J.yaw ?? -30), pitch = THREE.MathUtils.degToRad(J.pitch ?? 22);
+  const dir = new THREE.Vector3(Math.sin(-yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(-yaw) * Math.cos(pitch));
+  const R = size.length() * .5;
+  const cam = new THREE.OrthographicCamera(-R, R, R, -R, .01, 100);
+  cam.position.copy(ctr).addScaledVector(dir, 10); cam.lookAt(ctr);
+  // tighten to projected bounds
+  const pts = []; for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) pts.push(new THREE.Vector3(x,y,z));
+  cam.updateMatrixWorld(); let mnx=1e9,mny=1e9,mxx=-1e9,mxy=-1e9;
+  for (const p of pts) { const v = p.clone().applyMatrix4(cam.matrixWorldInverse); mnx=Math.min(mnx,v.x); mxx=Math.max(mxx,v.x); mny=Math.min(mny,v.y); mxy=Math.max(mxy,v.y); }
+  const pad = .06 * Math.max(mxx-mnx, mxy-mny);
+  cam.left = mnx - pad; cam.right = mxx + pad; cam.top = mxy + pad; cam.bottom = mny - pad; cam.updateProjectionMatrix();
+  const aspect = (cam.right - cam.left) / (cam.top - cam.bottom);
+  const lw = J.res, lh = Math.round(J.res / aspect);
+
+  // pass 1: low-res pixel render (logo plane drawn flat as its bg colour)
+  const r = new THREE.WebGLRenderer({ antialias: false, alpha: true, preserveDrawingBuffer: true });
+  r.setPixelRatio(1); r.outputColorSpace = THREE.SRGBColorSpace;
+  r.setSize(lw, lh, false); r.setClearColor(0, 0);
+  if (plane) { plane.userData.mat = plane.material; plane.material = new THREE.MeshBasicMaterial({ color: new THREE.Color(J.logo.bg) }); }
+  r.render(scene, cam);
+  const low = document.createElement('canvas'); low.width = lw; low.height = lh; low.getContext('2d').drawImage(r.domElement, 0, 0);
+  // ink outline on transparent neighbours
+  const lx = low.getContext('2d'); const id = lx.getImageData(0, 0, lw, lh); const d = id.data; const a = (x,y)=> (x<0||y<0||x>=lw||y>=lh) ? 0 : d[(y*lw+x)*4+3];
+  const add = [];
+  for (let y=0;y<lh;y++) for (let x=0;x<lw;x++) { if (a(x,y) > 10) { d[(y*lw+x)*4+3] = 255; continue; } if (a(x-1,y)>10||a(x+1,y)>10||a(x,y-1)>10||a(x,y+1)>10) add.push(y*lw+x); }
+  for (const i of add) { d[i*4]=0x16; d[i*4+1]=0x0c; d[i*4+2]=0x21; d[i*4+3]=255; }
+  lx.putImageData(id, 0, 0);
+
+  // pass 2: compose at SCALE, then crisp logo layer
+  const W = lw * SCALE, H = lh * SCALE;
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const cx = c.getContext('2d');
+  cx.imageSmoothingEnabled = false; cx.drawImage(low, 0, 0, W, H);
+  if (plane) {
+    plane.material = plane.userData.mat;
+    obj.traverse(o => { if (o.isMesh && o !== plane) { o.material = o.material.clone(); o.material.colorWrite = false; } });
+    const r2 = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+    r2.setPixelRatio(1); r2.outputColorSpace = THREE.SRGBColorSpace; r2.setSize(W, H, false); r2.setClearColor(0, 0);
+    r2.render(scene, cam);
+    cx.imageSmoothingEnabled = true; cx.drawImage(r2.domElement, 0, 0);
+    r2.dispose();
+  }
+  r.dispose();
+  c.title = name; document.body.appendChild(c);
+  c.style.width = Math.min(W, 640) + 'px';
+  if (params.get('dump')) out.textContent += name + ' ' + c.toDataURL('image/png') + '\n';
+}
+
+const list = want === 'all' ? Object.keys(JOBS) : want.split(',');
+for (const n of list) await bake(n, JOBS[n]);
+document.title = 'done';
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "Winter Pavilion",
+  "tagline": "A pink deco pavilion alone in a photographed snowfield, and a sun you can drag down into night.",
+  "summary": "A matte painting built from real CC0 photographs and a rendered pavilion: one building, one sun, a great deal of sky. Dragging the sun relights the scene through low winter sun, pink hour and blue night, and that sunset is also the site's day-to-night switch. The products are small pastel buildings in the same snow, each carrying its real sign, so a growing company simply adds houses to the street.",
+  "palette": ["#EE8FA6", "#A6DCC6", "#9CC8EA", "#FBF7F2", "#FFE3B0", "#22304F", "#18223F"],
+  "type": ["Jost (spaced signage capitals)", "Instrument Serif Italic", "IBM Plex Mono"],
+  "voice": "Deadpan, exact and understated, like a well-made sign: 'Software that keeps its own lights on.'",
+  "motion": "Slow and frontal: a camera that dollies sideways past the facades, layers that drift by depth, and an iris that opens night from the switch.",
+  "sound": "Off until asked; then a soft two-note sine chime, rising when the day comes back and falling when the sign switches on.",
+  "mark": "An arched window with the sun sitting on its horizon over three snow lines, next to ALBRETSEN in Jost capitals spaced like a rooftop sign.",
+  "inspiration": [
+    "https://polyhaven.com/a/kiara_8_sunset",
+    "https://polyhaven.com/a/stierberg_sunrise",
+    "https://polyhaven.com/a/rolling_hills",
+    "https://www.metmuseum.org/art/collection",
+    "https://www.visitnorway.com",
+    "https://en.wikipedia.org/wiki/Cliff_May",
+    "https://keithclark.co.uk/articles/pure-css-parallax-websites/demo3/",
+    "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+    "https://en.wikipedia.org/wiki/Solar_zenith_angle"
+  ]
+}

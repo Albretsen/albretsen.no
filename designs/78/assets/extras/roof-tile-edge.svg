@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 34" width="56" height="34">
+  <title>Canal roof tile edge (repeat-x)</title>
+  <defs><linearGradient id="t" x1="0" x2="1"><stop offset="0" stop-color="#C9765A"/><stop offset=".45" stop-color="#EBA582"/><stop offset="1" stop-color="#C46F55"/></linearGradient></defs>
+  <path d="M0 0h28v22a14 10 0 0 1-28 0z" fill="url(#t)"/><path d="M4 3v17" stroke="#FFF1E4" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/><path d="M28 0h28v22a14 10 0 0 1-28 0z" fill="url(#t)"/><path d="M32 3v17" stroke="#FFF1E4" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/>
+  <path d="M0 33h56" stroke="#E6C5B0" stroke-width="2"/>
+</svg>

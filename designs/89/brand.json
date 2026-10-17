@@ -1,0 +1,12 @@
+{
+  "name": "Prism Room",
+  "tagline": "One sunlit room, rendered like a converging image; the products are pixel objects you can pick up, and their real logos are the only sharp things in it.",
+  "summary": "The homepage is a real CC0 photograph of a loft in late sun, graded into candy prism light. It first paints as a 13-colour ordered dither and resolves to the photo as you scroll, the way a render converges. MCP Emails, Toolrails, Fun Libs and Harbor sit in the room as pixel objects with their real logos crisp on them; visitors can drag and rearrange them, and the bulb panel in the photo shows the live event feed. The impression is quiet technical confidence: the craft is in how it renders, and the light does the talking.",
+  "palette": ["#160c21", "#2a1935", "#572953", "#fff5ea", "#e8d8e6", "#ff9a7d", "#ff99c2", "#bea6eb", "#86cbf3", "#8deaca"],
+  "type": ["Geist 600 (display, -0.04em)", "Geist 400 (text)", "Geist Mono 400 + Silkscreen (labels only)"],
+  "voice": "Dry, exact and unhurried, like a good commit message: it states what is true and stops. Example: \"Everything in this room is pixels, except the work.\"",
+  "motion": "Things converge rather than arrive: dither resolves to photo on scroll, objects lift and tilt with your hand's velocity and drop on a spring onto a 320-pixel grid, and every animation goes quiet under reduced motion.",
+  "sound": "Off by default; when switched on, short square-wave blips on pick-up and drop, pitched by how deep in the room the object lands, and a faint tick per live event.",
+  "mark": "A pixel 'A' on a 16-grid whose crossbar splits light into the five-colour spectrum (peach, bubblegum, lilac, sky, mint), next to a custom 5x7 pixel wordmark.",
+  "inspiration": ["https://linear.app", "https://emilkowal.ski", "https://activetheory.net", "https://ambientcg.com", "https://polyhaven.com/a/photo_studio_loft_hall", "https://kenney.nl/assets/furniture-kit"]
+}

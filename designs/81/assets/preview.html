@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ground Glass — asset kit 81</title>
+<meta name="description" content="Asset kit for Albretsen AS, direction 81: Ground Glass. A paper-cut nocturne seen through a camera.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" } }</script>
+<style>
+  * { box-sizing: border-box; }
+  html { background: var(--ink); color-scheme: dark; }
+  body { margin: 0; background: var(--ink); color: var(--mist); font: 15px/1.6 var(--font-text); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: var(--haze); }
+  .wrap { width: min(1240px, calc(100% - 32px)); margin: 0 auto; }
+  header.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; }
+  header.top img { height: 38px; width: auto; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 400; color: var(--paper); letter-spacing: -0.01em; }
+  h1 { font-size: clamp(44px, 8vw, 104px); line-height: .95; margin: 40px 0 18px; }
+  h1 em { color: var(--lilac); }
+  h2 { font-size: clamp(32px, 4.4vw, 54px); line-height: 1; margin: 0 0 8px; }
+  h3 { font-size: 24px; margin: 0 0 4px; }
+  .lede { max-width: 640px; color: var(--haze); font-size: 17px; }
+  .label { font: 500 11px/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--lilac); }
+  .cap { font: 12px/1.5 var(--font-mono); color: var(--haze); opacity: .85; margin-top: 10px; }
+  section { padding: 72px 0; border-top: 1px solid rgb(187 182 239 / .1); }
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; }
+  .sec-head p { margin: 0; max-width: 520px; color: var(--haze); }
+  .grid { display: grid; gap: 20px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  .g6 { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .tile { background: var(--night); border-radius: 14px; padding: 20px; box-shadow: var(--cut-edge); }
+  .tile.light { background: var(--paper); }
+  .frame { position: relative; border-radius: 14px; overflow: hidden; background: var(--night); }
+  .frame .vf { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+  /* hero contact */
+  .hero-main { aspect-ratio: 16 / 9; }
+  .hero-main picture img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-row { display: grid; grid-template-columns: 2.1fr 1fr; gap: 20px; margin-top: 20px; }
+  @media (max-width: 760px) { .hero-row { grid-template-columns: 1fr; } }
+
+  /* live */
+  .live { aspect-ratio: 16 / 9; position: relative; }
+  .live canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .live .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .6s; }
+  .live.ready .poster { opacity: 0; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 14px; align-items: center; font: 13px var(--font-mono); color: var(--haze); }
+  .controls button { all: unset; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; }
+  .controls b { color: var(--paper); font-weight: 500; min-width: 64px; display: inline-block; }
+  @media (max-width: 600px) { .live { aspect-ratio: 3 / 4; } }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; }
+  .sw { border-radius: 12px; padding: 64px 10px 10px; font: 11px/1.4 var(--font-mono); box-shadow: var(--cut-edge); }
+  .sw b { display: block; font-weight: 500; font-size: 12px; }
+
+  /* type */
+  .type-display { font: 400 clamp(52px, 9vw, 128px)/.9 var(--font-display); color: var(--paper); margin: 0; letter-spacing: -0.02em; }
+  .type-display em { color: var(--lilac); }
+  .type-row { display: grid; grid-template-columns: 160px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid rgb(187 182 239 / .1); align-items: baseline; }
+  @media (max-width: 600px) { .type-row { grid-template-columns: 1fr; gap: 4px; } }
+
+  /* products */
+  .prod { border-radius: 14px; overflow: hidden; box-shadow: var(--lift-0); }
+  .prod img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .neg { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 14px; }
+  .neg figure { margin: 0; }
+  .neg img { width: 100%; aspect-ratio: 1; border-radius: 6px; }
+  .neg figcaption { font: 11px/1.4 var(--font-mono); color: var(--haze); margin-top: 6px; }
+
+  /* motion demos */
+  .demo { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--night); display: grid; place-items: center; }
+  .demo .stage-text { font: 400 clamp(36px, 5vw, 64px)/1 var(--font-display); color: var(--paper); text-align: center; padding: 20px; }
+  .demo img { width: 100%; height: 100%; object-fit: cover; }
+  .replay { all: unset; cursor: pointer; font: 12px var(--font-mono); color: var(--lilac); margin-top: 10px; display: inline-flex; gap: 8px; align-items: center; }
+  .lift-row { display: flex; gap: 18px; perspective: 900px; padding: 30px; }
+  .lift-row .gg-card { width: 110px; height: 140px; display: grid; place-items: end start; padding: 12px; font: 12px var(--font-mono); color: var(--haze); cursor: pointer; }
+  .lift-row .gg-card:nth-child(2) { background: var(--dusk); }
+  .lift-row .gg-card:nth-child(3) { background: var(--iris); color: var(--paper); }
+
+  .checker { background: repeating-conic-gradient(var(--umbra) 0 25%, var(--night) 0 50%) 0 0 / 20px 20px; }
+  footer { padding: 40px 0 80px; color: var(--haze); font: 12px var(--font-mono); }
+  .skip-hint { position: fixed; left: 16px; bottom: 16px; z-index: 40; background: var(--night); padding: 8px 12px; border-radius: 10px; box-shadow: var(--lift-0), var(--cut-edge); display: flex; gap: 8px; align-items: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="wordmark-on-dark.svg" alt="Albretsen AS" width="340" height="76">
+    <span class="label">Asset kit · direction 81 · Ground Glass</span>
+  </header>
+
+  <h1 data-rack>Ground <em>Glass</em></h1>
+  <p class="lede" data-rack="120">The ground glass is the screen inside a camera where the picture comes into focus. This direction treats the company the same way: a calm nocturne, cut from 19th-century museum photographs and violet card, held still until it is sharp. One hue in eleven shades, one idea per screen, and a focus ring you can turn.</p>
+
+  <!-- HERO -->
+  <section id="hero" style="border-top:0;padding-top:36px">
+    <div class="frame hero-main" id="heroFrame">
+      <picture>
+        <source type="image/avif" srcset="hero/nocturne-960.avif 960w, hero/nocturne-1600.avif 1600w, hero/nocturne-2400.avif 2400w" sizes="(max-width: 1240px) 100vw, 1240px">
+        <source type="image/webp" srcset="hero/nocturne-960.webp 960w, hero/nocturne-1600.webp 1600w, hero/nocturne-2400.webp 2400w" sizes="(max-width: 1240px) 100vw, 1240px">
+        <img src="hero/nocturne-1600.jpg" width="2400" height="1350" alt="A paper-cut nocturne: a moon rising behind a snow peak, a dark headland, moonlight broken on the water, a blurred spruce ridge in front." fetchpriority="high">
+      </picture>
+      <img class="vf" src="viewfinder.svg" alt="" width="1600" height="900">
+    </div>
+    <p class="cap">hero/nocturne-{960,1600,2400}.{avif,webp,jpg} — baked from the live scene (focus: far ridge, ƒ/2.8, 0 EV) · viewfinder.svg overlaid</p>
+    <div class="hero-row">
+      <div>
+        <div class="frame" style="aspect-ratio:16/9">
+          <picture>
+            <source type="image/avif" srcset="hero/lens-960.avif 960w, hero/lens-1600.avif 1600w, hero/lens-2400.avif 2400w" sizes="(max-width: 760px) 100vw, 800px">
+            <source type="image/webp" srcset="hero/lens-960.webp 960w, hero/lens-1600.webp 1600w, hero/lens-2400.webp 2400w" sizes="(max-width: 760px) 100vw, 800px">
+            <img src="hero/lens-1600.jpg" width="2400" height="1350" alt="A round 1878 photograph of granite spires set into concentric rings of violet card, like a lens barrel made of paper, with a focus-distance scale." loading="lazy">
+          </picture>
+        </div>
+        <p class="cap">hero/lens-* — Watkins circular view (The Met, CC0) set in six cut-card rings with a focus scale</p>
+      </div>
+      <div>
+        <div class="frame" style="aspect-ratio:2/3">
+          <picture>
+            <source type="image/avif" srcset="hero/nocturne-portrait-640.avif 640w, hero/nocturne-portrait-1000.avif 1000w" sizes="(max-width: 760px) 100vw, 400px">
+            <source type="image/webp" srcset="hero/nocturne-portrait-640.webp 640w, hero/nocturne-portrait-1000.webp 1000w" sizes="(max-width: 760px) 100vw, 400px">
+            <img src="hero/nocturne-portrait-1000.jpg" width="1000" height="1500" alt="The nocturne in portrait, focus racked to the headland, mountains soft behind." loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          </picture>
+        </div>
+        <p class="cap">hero/nocturne-portrait-* — mobile art direction, focus racked to the headland, +0.25 EV</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE -->
+  <section id="live">
+    <div class="sec-head">
+      <div><span class="label">Centrepiece · three.js</span><h2>Turn the focus ring</h2></div>
+      <p>scene/scene.js — five cut layers on real depth planes. Per-layer disc blur is true depth of field; exposure rolls into a violet shoulder; the camera drifts on springs with the pointer. Pauses off-screen. Demo: <a href="scene/demo.html">scene/demo.html</a>.</p>
+    </div>
+    <div class="frame live" id="live-frame">
+      <img class="poster" src="hero/nocturne-960.webp" width="960" height="540" alt="" loading="lazy">
+      <canvas id="live-canvas" aria-label="Interactive viewfinder scene"></canvas>
+      <img class="vf" src="viewfinder.svg" alt="" width="1600" height="900">
+    </div>
+    <div class="controls">
+      <button data-act="f"><kbd data-key="f">F</kbd> focus <b id="v-f">far</b></button>
+      <button data-act="["><kbd data-key="[">[</kbd></button><button data-act="]"><kbd data-key="]">]</kbd> exposure <b id="v-e">+0.0 EV</b></button>
+      <button data-act="a"><kbd data-key="a">A</kbd> aperture <b id="v-a">ƒ/2.8</b></button>
+    </div>
+  </section>
+
+  <!-- IDENTITY -->
+  <section id="identity">
+    <div class="sec-head">
+      <div><span class="label">Identity</span><h2>A moon behind a cut peak</h2></div>
+      <p>The A is a peak cut once along the horizon: the slit is the crossbar, the lower piece its reflection. The moon sits behind it, half a stop from clearing the ridge.</p>
+    </div>
+    <div class="grid g4">
+      <div class="tile light"><img src="mark.svg" width="120" height="120" alt="Albretsen AS mark"><p class="cap" style="color:var(--dusk)">mark.svg</p></div>
+      <div class="tile"><img src="mark-on-dark.svg" width="120" height="120" alt="Albretsen AS mark, on dark"><p class="cap">mark-on-dark.svg</p></div>
+      <div class="tile"><img src="favicon.svg" width="64" height="64" alt="Favicon" style="display:inline-block;margin-right:16px"><img src="favicon-180.png" width="90" height="90" alt="Apple touch icon" style="display:inline-block"><p class="cap">favicon.svg · favicon-180.png</p></div>
+      <div class="tile light"><img src="wordmark.svg" width="340" height="76" alt="Albretsen AS wordmark"><p class="cap" style="color:var(--dusk)">wordmark.svg</p><img src="wordmark-on-dark.svg" width="340" height="76" alt="" style="background:var(--night);border-radius:8px;padding:8px;margin-top:8px"><p class="cap" style="color:var(--dusk)">wordmark-on-dark.svg</p></div>
+    </div>
+    <div style="margin-top:20px"><img src="og.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy" style="border-radius:14px"><p class="cap">og.jpg — 1200×630</p></div>
+  </section>
+
+  <!-- PALETTE -->
+  <section id="palette">
+    <div class="sec-head">
+      <div><span class="label">Palette · OKLCH hue 288°</span><h2>Eleven shades of one night</h2></div>
+      <p>Lightness carries the hierarchy, chroma peaks in the middle. Use ink → umbra for grounds, iris → lilac for light sources and live state, mist → glow for type.</p>
+    </div>
+    <div class="swatches" id="swatches"></div>
+  </section>
+
+  <!-- TYPE -->
+  <section id="type">
+    <div class="sec-head"><div><span class="label">Type</span><h2>Specimen</h2></div><p>Instrument Serif for the quiet headline voice; Geist for text; Geist Mono for readouts, figures and keys. All OFL via Google Fonts.</p></div>
+    <p class="type-display" data-rack>Quiet software <em>that pays</em> for itself.</p>
+    <div style="margin-top:28px">
+      <div class="type-row"><span class="label">Display · Instrument Serif</span><span style="font:400 44px/1.05 var(--font-display);color:var(--paper)">Email for AI agents. <em style="color:var(--lilac)">Seventeen tools.</em></span></div>
+      <div class="type-row"><span class="label">Text · Geist 400/500</span><span style="max-width:620px">Albretsen AS builds whatever is profitable: apps, SaaS and infrastructure for AI agents. Published on Google Play since 2016. Takes one outside engagement at a time.</span></div>
+      <div class="type-row"><span class="label">Mono · Geist Mono</span><span style="font:14px var(--font-mono);color:var(--haze)">claude mcp add albretsen https://albretsen.no/mcp</span></div>
+      <div class="type-row"><span class="label">Figures</span><span style="font:400 64px/1 var(--font-display);color:var(--paper)">113,000+ <span style="font:12px var(--font-mono);color:var(--lilac);letter-spacing:.1em">INSTALLS</span> &nbsp; $782 <span style="font:12px var(--font-mono);color:var(--lilac);letter-spacing:.1em">MRR</span></span></div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="sec-head"><div><span class="label">Products</span><h2>Subjects in focus</h2></div><p>Each product is the one sharp thing in its frame: the real logo on a paper plate, the world behind it racked out of focus. Hover: paper lift.</p></div>
+    <div class="grid g4" id="prod-grid">
+      <figure class="prod" style="margin:0" id="p1"><img src="products/mcp-emails.webp" width="1200" height="1500" alt="MCP Emails logo in focus inside a cut-card mount" loading="lazy"></figure>
+      <figure class="prod" style="margin:0" id="p2"><img src="products/fun-libs.webp" width="1200" height="1500" alt="Fun Libs app icon in focus inside a cut-card mount" loading="lazy"></figure>
+      <figure class="prod" style="margin:0" id="p3"><img src="products/toolrails.webp" width="1200" height="1500" alt="Toolrails icon in focus inside a cut-card mount" loading="lazy"></figure>
+      <figure class="prod" style="margin:0" id="p4"><img src="products/harbor.webp" width="1200" height="1500" alt="Harbor wordmark in focus inside a cut-card mount" loading="lazy"></figure>
+    </div>
+    <p class="cap">products/{id}.webp|jpg (1200×1500) and {id}-600.webp — press 1–4 to jump</p>
+    <h3 style="margin-top:44px">Retired · negatives</h3>
+    <div class="neg" style="margin-top:14px">
+      <figure><img src="../../_shared/products/luma/luma-monogram.svg" width="120" height="120" alt="Luma monogram (real)" loading="lazy"><figcaption>Luma (real mark)</figcaption></figure>
+      <figure><img src="products/retired/polyglot-pilot.svg" width="120" height="120" alt="" loading="lazy"><figcaption>Polyglot Pilot</figcaption></figure>
+      <figure><img src="products/retired/pinpoint.svg" width="120" height="120" alt="" loading="lazy"><figcaption>PinPoint</figcaption></figure>
+      <figure><img src="products/retired/webvakt.svg" width="120" height="120" alt="" loading="lazy"><figcaption>WebVakt</figcaption></figure>
+      <figure><img src="products/retired/joke-central.svg" width="120" height="120" alt="" loading="lazy"><figcaption>Joke Central</figcaption></figure>
+      <figure><img src="products/retired/tryggere-hyring.svg" width="120" height="120" alt="" loading="lazy"><figcaption>Tryggere Hyring</figcaption></figure>
+      <figure><img src="products/retired/early-apps.svg" width="120" height="120" alt="" loading="lazy"><figcaption>Early apps</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- EXTRAS -->
+  <section id="extras">
+    <div class="sec-head"><div><span class="label">Extras</span><h2>Card, glass and film</h2></div><p>Texture and small details that give a page its tooth.</p></div>
+    <div class="grid g3">
+      <div class="tile"><div style="height:180px;border-radius:10px;background:url(extras/card-tooth.webp) 0 0/256px"></div><p class="cap">extras/card-tooth.webp — 512px seamless violet card stock · extras/tooth-overlay.png (alpha)</p></div>
+      <div class="tile" style="display:grid;place-items:center"><img src="extras/iris.svg" width="200" height="200" alt="Seven-blade aperture" loading="lazy"><p class="cap">extras/iris.svg — same geometry as irisReveal()</p></div>
+      <div class="tile" style="display:grid;place-items:center"><img src="extras/round-print.webp" width="420" height="420" alt="Round 1878 print cut-out" loading="lazy" style="width:220px"><p class="cap">extras/round-print.webp — cut-out with paper margin</p></div>
+      <div class="tile checker" style="display:grid;place-items:center"><img src="scene/moon.webp" width="900" height="900" alt="Moon cut-out" loading="lazy" style="width:180px"><p class="cap">scene/moon.webp — Whipple, 1857–60 (The Met, CC0)</p></div>
+      <div class="tile checker"><img src="scene/layer-far.webp" width="2400" height="869" alt="Mountain cut-out layer" loading="lazy"><img src="scene/layer-mid.webp" width="2400" height="693" alt="" loading="lazy" style="margin-top:8px"><img src="scene/layer-near.webp" width="2400" height="560" alt="" loading="lazy" style="margin-top:8px"><p class="cap">scene/layer-{far,mid,near,water}.webp — the cut layers</p></div>
+      <div class="tile" style="cursor:url(extras/cursor-reticle.svg) 16 16, crosshair"><img src="extras/focus-scale.svg" width="1200" height="64" alt="Focus scale" loading="lazy"><img src="extras/frame-counter.svg" width="540" height="44" alt="Frame counter" loading="lazy" style="margin-top:18px"><div style="height:28px;margin-top:18px;background:url(extras/film-edge.svg) 0 0/240px 28px repeat-x;border-radius:4px"></div><p class="cap">focus-scale.svg · frame-counter.svg · film-edge.svg · cursor-reticle.svg (hover here)</p></div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section id="motion">
+    <div class="sec-head"><div><span class="label">Motion · motion.js / motion.css</span><h2>Five springs, no library</h2></div><p>One semi-implicit Euler integrator at 240 Hz drives everything. Reduced-motion snaps every spring to its target.</p></div>
+    <div class="grid g3">
+      <div><div class="demo"><div class="stage-text" id="rack-target">Pulled into focus.</div></div><h3 style="margin-top:14px">1 · Rack Focus</h3><p class="cap">Blur, opacity and a 2.5% lens-breathing scale on a weighty, bounce-free spring (k120 c22).</p><button class="replay" data-replay="rack"><kbd data-key="r">R</kbd> replay</button></div>
+      <div><div class="demo" id="iris-demo"><img src="hero/lens-960.webp" width="960" height="540" alt="" loading="lazy"></div><h3 style="margin-top:14px">2 · Iris</h3><p class="cap">Seven curved blades retract and untwist on an under-damped spring (k210 c19): one soft overshoot, then still.</p><button class="replay" data-replay="iris"><kbd data-key="i">I</kbd> replay</button></div>
+      <div><div class="demo"><div class="lift-row" id="lift-row"><div class="gg-card" tabindex="0">card</div><div class="gg-card" tabindex="0">card</div><div class="gg-card" tabindex="0">card</div></div></div><h3 style="margin-top:14px">3 · Paper Lift</h3><p class="cap">Cut card rises, its shadow grows and softens, and it leans toward the pointer (k320 c24).</p></div>
+      <div><div class="demo" id="shutter-demo"><img src="hero/nocturne-960.webp" width="960" height="540" alt="" loading="lazy"></div><h3 style="margin-top:14px">4 · Shutter</h3><p class="cap">One exposure: a violet-white flash and a 1.2% dip that recovers on a stiff spring.</p><button class="replay" data-replay="shutter"><kbd data-key="Space">Space</kbd> expose</button></div>
+      <div><div class="demo"><div class="stage-text" style="font-size:28px">Press <kbd data-key="?">?</kbd></div></div><h3 style="margin-top:14px">5 · Develop</h3><p class="cap">The shortcut sheet rises like a print from the tray; rows settle in a 35 ms stagger.</p><button class="replay" data-replay="sheet"><kbd data-key="?">?</kbd> open sheet</button></div>
+    </div>
+  </section>
+
+  <footer>Sources and licences: ASSETS.md · Photographs: The Met Open Access (CC0) and Rijksmuseum via Wikimedia Commons (CC0).</footer>
+</div>
+
+<aside class="gg-sheet" id="sheet" aria-hidden="true" aria-label="Keyboard shortcuts">
+  <h2>Shortcuts</h2>
+  <div data-row><span>Pull focus to the next plane</span><span><kbd data-key="f">F</kbd></span></div>
+  <div data-row><span>Exposure down / up</span><span><kbd data-key="[">[</kbd><kbd data-key="]">]</kbd></span></div>
+  <div data-row><span>Stop down the aperture</span><span><kbd data-key="a">A</kbd></span></div>
+  <div data-row><span>Take an exposure</span><span><kbd data-key="Space">Space</kbd></span></div>
+  <div data-row><span>Jump to a product</span><span><kbd data-key="1">1</kbd><kbd data-key="2">2</kbd><kbd data-key="3">3</kbd><kbd data-key="4">4</kbd></span></div>
+  <div data-row><span>Replay rack focus / iris</span><span><kbd data-key="r">R</kbd><kbd data-key="i">I</kbd></span></div>
+  <div data-row><span>This sheet</span><span><kbd data-key="?">?</kbd><kbd data-key="Escape">Esc</kbd></span></div>
+</aside>
+<div class="skip-hint gg-hint"><kbd data-key="?">?</kbd> shortcuts</div>
+
+<script type="module">
+  import { Spring, rackFocus, rackFocusOnView, irisReveal, paperLift, shutter, developSheet, bindKeys, reduced } from './motion.js';
+
+  // palette
+  const P = [['ink',.13,.035,'#070514'],['night',.18,.055,'#110c28'],['umbra',.24,.08,'#1f1642'],['dusk',.32,.11,'#322566'],['iris',.42,.15,'#4d3898'],['violet',.54,.17,'#6d58ca'],['lilac',.68,.13,'#958ae4'],['haze',.80,.08,'#bbb6ef'],['mist',.89,.045,'#d9d7f8'],['paper',.95,.022,'#ededfd'],['glow',.985,.012,'#f9f9ff']];
+  document.getElementById('swatches').innerHTML = P.map(([n,L,C,h]) =>
+    `<div class="sw" style="background:${h};color:${L > .6 ? '#110c28' : '#d9d7f8'}"><b>${n}</b>oklch(${L} ${C} 288)<br>${h}</div>`).join('');
+
+  rackFocusOnView();
+  document.querySelectorAll('.gg-card, .prod').forEach(el => paperLift(el, { lift: el.classList.contains('prod') ? 8 : 12 }));
+
+  const rackT = document.getElementById('rack-target');
+  const irisEl = document.getElementById('iris-demo');
+  let irisSpring = null;
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { irisSpring = irisReveal(irisEl); rackFocus(rackT, { delay: 200 }); io.disconnect(); } }, { threshold: .4 });
+  io.observe(irisEl);
+  const replayIris = () => { if (!irisSpring) { irisSpring = irisReveal(irisEl); return; } irisSpring.jump(0); setTimeout(() => irisSpring.set(1), 80); };
+  const sheet = developSheet(document.getElementById('sheet'));
+  const shootTarget = () => {
+    const live = document.getElementById('live-frame');
+    const r = live.getBoundingClientRect();
+    return (r.top < innerHeight && r.bottom > 0) ? live : document.getElementById('shutter-demo');
+  };
+
+  // live scene, lazily
+  let cam = null;
+  const stops = ['near', 'mid', 'water', 'far', 'moon']; let si = 3;
+  const fNum = ['ƒ/1.4', 'ƒ/2', 'ƒ/2.8', 'ƒ/4', 'ƒ/5.6', 'ƒ/8', 'ƒ/11']; let ai = 2;
+  const showLive = () => {
+    if (!cam) return;
+    document.getElementById('v-f').textContent = stops[si];
+    document.getElementById('v-e').textContent = (cam.exposure >= 0 ? '+' : '') + cam.exposure.toFixed(1) + ' EV';
+    document.getElementById('v-a').textContent = fNum[ai];
+  };
+  const liveFrame = document.getElementById('live-frame');
+  const lio = new IntersectionObserver(async ([e]) => {
+    if (!e.isIntersecting || cam) return;
+    lio.disconnect();
+    const { mountScene } = await import('./scene/scene.js');
+    cam = await mountScene(document.getElementById('live-canvas'), { base: './scene/' });
+    liveFrame.classList.add('ready'); showLive();
+  }, { rootMargin: '200px' });
+  lio.observe(liveFrame);
+
+  const act = {
+    f: () => { if (!cam) return; si = (si + 1) % stops.length; cam.focusOn(stops[si]); showLive(); },
+    '[': () => { if (!cam) return; cam.setExposure(cam.exposure - 0.3); showLive(); },
+    ']': () => { if (!cam) return; cam.setExposure(cam.exposure + 0.3); showLive(); },
+    a: () => { if (!cam) return; ai = (ai + 1) % fNum.length; cam.setAperture(1 - ai / (fNum.length - 1)); showLive(); },
+  };
+  document.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => act[b.dataset.act]()));
+  const replays = { rack: () => rackFocus(rackT), iris: replayIris, shutter: () => shutter(shootTarget()), sheet: () => sheet.toggle() };
+  document.querySelectorAll('[data-replay]').forEach(b => b.addEventListener('click', () => replays[b.dataset.replay]()));
+  const jump = i => document.getElementById('p' + i).scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+  bindKeys({
+    ...act,
+    '?': () => sheet.toggle(), Escape: () => sheet.toggle(false),
+    Space: () => shutter(shootTarget()),
+    r: replays.rack, i: replayIris,
+    1: () => jump(1), 2: () => jump(2), 3: () => jump(3), 4: () => jump(4),
+  });
+  const qs = new URLSearchParams(location.search);
+  if (qs.has('sheet')) sheet.toggle(true);
+  // ?only=motion shows a single section (handy for screenshots)
+  if (qs.has('only')) document.querySelectorAll('section, h1, .lede').forEach(s => { if (s.id !== qs.get('only')) s.style.display = 'none'; });
+</script>
+</body>
+</html>

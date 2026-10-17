@@ -1,0 +1,19 @@
+{
+  "name": "Long Light",
+  "tagline": "One real fjord at first light: the name rises behind the far shore, and the moon in the photograph turns the lights on.",
+  "summary": "The site is a single day. A real CC0 photograph of a fjord before sunrise is relit live in WebGL, so the sun climbs out of the sea as you scroll, the name sits behind the land and is mirrored in the water, and the crescent moon is the night switch. The products follow as glazed plaques on sunlit stucco walls, each at its own hour, and the day ends in long light under palms. Calm, warm and precise: the taste lives in the light, while the subject stays software.",
+  "palette": ["#F4EBDD", "#E8622A", "#F3B252", "#8FA382", "#9CC3E2", "#2F5D8A", "#1C1A17", "#0C1A2B", "#F5B860"],
+  "type": ["Instrument Serif", "Schibsted Grotesk", "ui-monospace"],
+  "voice": "Warm, plain and unhurried; it states what exists and lets the light do the selling. Example: \"Some things ship, some pause, some retire. These four are in daylight now.\"",
+  "motion": "Everything moves like daylight: slow ease-out arrivals, a sun that rises with the scroll, and a circle of night that spreads from the moon you tapped.",
+  "sound": "Silent by default; if sound is ever added, it is one opt-in low tone when the sun clears the horizon, and nothing else.",
+  "mark": "A serif A inside a sun whose crossbar continues as the horizon, gold above and fjord blue below; at night the sun becomes moonlight.",
+  "inspiration": [
+    "https://www.raycast.com",
+    "https://www.aesop.com",
+    "https://www.soho-house.com",
+    "https://www.jacquemus.com",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://commons.wikimedia.org/wiki/File:Lofoten,_Norway_(Unsplash_R5uIfpzGkRI).jpg"
+  ]
+}

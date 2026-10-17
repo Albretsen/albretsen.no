@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · Asgeir Albretsen</title>
+<meta name="description" content="Albretsen AS builds small, exact software that pays for itself: apps, SaaS and infrastructure for AI agents.">
+<meta name="theme-color" content="#F9D9C0">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Small, exact software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<link rel="preload" href="assets/fonts/nunito-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 4/5)"
+      imagesrcset="assets/img/hero-dawn-960.avif 960w, assets/img/hero-dawn-1600.avif 1600w, assets/img/hero-dawn-2560.avif 2560w" imagesizes="100vw">
+<link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)"
+      imagesrcset="assets/img/hero-dawn-portrait-720.avif 720w, assets/img/hero-dawn-portrait-1080.avif 1080w" imagesizes="100vw">
+<link rel="stylesheet" href="css/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="top">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/identity/mark.svg" width="64" height="64" alt="Albretsen AS">
+  </a>
+  <nav aria-label="Primary">
+    <a href="#products">Products</a>
+    <a href="mailto:asgeir@albretsen.no" class="nav-mail">asgeir@albretsen.no</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="hero" aria-labelledby="hero-name" style="--t:.12">
+  <div class="stage" id="stage">
+    <div class="layer layer-scene" id="scene-layer">
+      <picture class="poster" id="poster">
+        <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="assets/img/hero-dawn-portrait-720.avif 720w, assets/img/hero-dawn-portrait-1080.avif 1080w" sizes="100vw">
+        <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="assets/img/hero-dawn-portrait-720.webp 720w, assets/img/hero-dawn-portrait-1080.webp 1080w" sizes="100vw">
+        <source media="(max-aspect-ratio: 4/5)" srcset="assets/img/hero-dawn-portrait-720.jpg">
+        <source type="image/avif" srcset="assets/img/hero-dawn-960.avif 960w, assets/img/hero-dawn-1600.avif 1600w, assets/img/hero-dawn-2560.avif 2560w" sizes="100vw">
+        <source type="image/webp" srcset="assets/img/hero-dawn-960.webp 960w, assets/img/hero-dawn-1600.webp 1600w, assets/img/hero-dawn-2560.webp 2560w" sizes="100vw">
+        <img src="assets/img/hero-dawn-1600.jpg" srcset="assets/img/hero-dawn-960.jpg 960w, assets/img/hero-dawn-1600.jpg 1600w" sizes="100vw"
+             width="2560" height="1440" alt="" fetchpriority="high" decoding="async">
+      </picture>
+      <canvas id="village" tabindex="0" aria-label="A miniature hill village on a stone turntable. Drag or use the left and right arrow keys to turn it."></canvas>
+    </div>
+
+    <h1 class="name" id="hero-name" aria-label="Asgeir Albretsen, Albretsen AS"><span class="name-inner" id="name" aria-hidden="true">albretsen</span></h1>
+
+    <svg class="arc" id="arc" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path id="arc-path" d=""/></svg>
+    <button class="sun" id="sun" type="button" role="slider" aria-label="Time of day. Move the sun." aria-valuemin="0" aria-valuemax="100" aria-valuenow="12" aria-valuetext="Sunrise, 07:48">
+      <span class="sun-ring" aria-hidden="true"></span>
+      <span class="sun-clock" id="sun-clock" aria-hidden="true">07:48</span>
+    </button>
+    <p class="hint" id="hint" aria-hidden="true"><span>Drag the sun</span><span class="hint-sep">·</span><span>turn the village</span></p>
+  </div>
+
+  <div class="copy">
+    <p class="eyebrow">Albretsen AS</p>
+    <p class="lede">Small, exact software that pays for itself.</p>
+    <p class="sub">Asgeir Albretsen builds apps, SaaS and infrastructure for AI agents, from Norway. Published on Google Play since 2016.</p>
+    <p class="feed" aria-live="polite"><span class="pulse" aria-hidden="true"></span><span id="feed-text">Live from the products</span></p>
+  </div>
+</section>
+
+<section class="products" id="products" aria-labelledby="products-title">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Products</p>
+      <h2 id="products-title" class="warm" data-warm>Built one house at a time.</h2>
+      <p class="intro">Albretsen AS makes its own products. Each one is a finished, working thing with its own address, and each has a house of its own in the village above.</p>
+    </header>
+
+    <ol class="cards" id="cards">
+      <li class="card" style="--i:0">
+        <div class="shot ph-shutters">
+          <picture>
+            <source type="image/avif" srcset="assets/products/mcp-emails-800.avif 800w, assets/products/mcp-emails-1600.avif 1600w" sizes="(min-width: 960px) 44vw, 92vw">
+            <source type="image/webp" srcset="assets/products/mcp-emails-800.webp 800w, assets/products/mcp-emails-1600.webp 1600w" sizes="(min-width: 960px) 44vw, 92vw">
+            <img src="assets/products/mcp-emails-800.jpg" width="800" height="600" alt="A stone house with an enamel blade sign carrying the MCP Emails mark, at dusk." loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="card-body">
+          <p class="meta"><span class="status status-live">Live</span><span>Since 2026</span></p>
+          <h3 class="card-name"><a href="https://mcpemails.com" rel="noopener">MCP Emails</a></h3>
+          <p class="card-line">Email for AI agents.</p>
+          <p class="figure"><span class="fig-v">$782</span><span class="fig-l">MRR</span></p>
+          <ul class="facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+          <p class="visit" aria-hidden="true">mcpemails.com <span class="arr">→</span></p>
+        </div>
+      </li>
+      <li class="card" style="--i:1">
+        <div class="shot ph-shutters">
+          <picture>
+            <source type="image/avif" srcset="assets/products/fun-libs-800.avif 800w, assets/products/fun-libs-1600.avif 1600w" sizes="(min-width: 960px) 44vw, 92vw">
+            <source type="image/webp" srcset="assets/products/fun-libs-800.webp 800w, assets/products/fun-libs-1600.webp 1600w" sizes="(min-width: 960px) 44vw, 92vw">
+            <img src="assets/products/fun-libs-800.jpg" width="800" height="600" alt="A stone house with the Fun Libs icon as a glazed tile over the door, in the morning." loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="card-body">
+          <p class="meta"><span class="status status-live">Live</span><span>Since 2019</span></p>
+          <h3 class="card-name"><a href="https://funlibs.app" rel="noopener">Fun Libs</a></h3>
+          <p class="card-line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <p class="figure"><span class="fig-v">113,000+</span><span class="fig-l">installs</span></p>
+          <ul class="facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+          <p class="visit" aria-hidden="true">funlibs.app <span class="arr">→</span></p>
+        </div>
+      </li>
+      <li class="card" style="--i:2">
+        <div class="shot ph-shutters">
+          <picture>
+            <source type="image/avif" srcset="assets/products/toolrails-800.avif 800w, assets/products/toolrails-1600.avif 1600w" sizes="(min-width: 960px) 44vw, 92vw">
+            <source type="image/webp" srcset="assets/products/toolrails-800.webp 800w, assets/products/toolrails-1600.webp 1600w" sizes="(min-width: 960px) 44vw, 92vw">
+            <img src="assets/products/toolrails-800.jpg" width="800" height="600" alt="Gate pillars with the Toolrails icon on a tile beside a half-open wrought gate." loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="card-body">
+          <p class="meta"><span class="status status-building">Building</span><span>Since 2026</span></p>
+          <h3 class="card-name"><a href="https://toolrails.com" rel="noopener">Toolrails</a></h3>
+          <p class="card-line">One MCP URL that gives an agent every tool.</p>
+          <p class="figure"><span class="fig-v">4</span><span class="fig-l">connectors</span></p>
+          <ul class="facts"><li>tool search</li><li>injection guard</li></ul>
+          <p class="visit" aria-hidden="true">toolrails.com <span class="arr">→</span></p>
+        </div>
+      </li>
+      <li class="card" style="--i:3">
+        <div class="shot ph-shutters">
+          <picture>
+            <source type="image/avif" srcset="assets/products/harbor-800.avif 800w, assets/products/harbor-1600.avif 1600w" sizes="(min-width: 960px) 44vw, 92vw">
+            <source type="image/webp" srcset="assets/products/harbor-800.webp 800w, assets/products/harbor-1600.webp 1600w" sizes="(min-width: 960px) 44vw, 92vw">
+            <img src="assets/products/harbor-800.jpg" width="800" height="600" alt="A house with the Harbor mark on a plaque above an awning, at sunset." loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="card-body">
+          <p class="meta"><span class="status status-paused">Paused</span><span>Since 2026</span></p>
+          <h3 class="card-name"><a href="https://harborknowledge.com" rel="noopener">Harbor</a></h3>
+          <p class="card-line">A private knowledge base shared by people and AI.</p>
+          <p class="figure"><span class="fig-v">549</span><span class="fig-l">commits</span></p>
+          <ul class="facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+          <p class="visit" aria-hidden="true">harborknowledge.com <span class="arr">→</span></p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="earlier">
+      <h3 class="eyebrow">Earlier houses</h3>
+      <ul class="tiles" id="tiles">
+        <li class="tile"><img src="assets/products/retired/luma.svg" width="160" height="160" alt="" loading="lazy"><span class="tile-name">Luma</span><span class="tile-line">Norwegian budgeting app with open banking.</span><span class="tile-year">2026</span></li>
+        <li class="tile"><img src="assets/products/retired/polyglot-pilot.svg" width="160" height="160" alt="" loading="lazy"><span class="tile-name">Polyglot Pilot</span><span class="tile-line">Agents that localised entire codebases, with a dashboard for human reviewers.</span><span class="tile-year">2025</span></li>
+        <li class="tile"><img src="assets/products/retired/pinpoint.svg" width="160" height="160" alt="" loading="lazy"><span class="tile-name">PinPoint</span><span class="tile-line">GeoGuessr with your own photos: friends guess where your pictures were taken.</span><span class="tile-year">2025</span></li>
+        <li class="tile"><img src="assets/products/retired/webvakt.svg" width="160" height="160" alt="" loading="lazy"><span class="tile-name">WebVakt</span><span class="tile-line">Website change monitoring.</span><span class="tile-year">2024</span></li>
+        <li class="tile"><img src="assets/products/retired/joke-central.svg" width="160" height="160" alt="" loading="lazy"><span class="tile-name">Daily Jokes / Joke Central</span><span class="tile-line">Joke apps for iOS and Android.</span><span class="tile-year">2024</span></li>
+        <li class="tile"><img src="assets/products/retired/tryggere-hyring.svg" width="160" height="160" alt="" loading="lazy"><span class="tile-name">Tryggere Hyring</span><span class="tile-line">Background checks for hiring.</span><span class="tile-year">2023</span></li>
+        <li class="tile"><img src="assets/products/retired/early-apps.svg" width="160" height="160" alt="" loading="lazy"><span class="tile-name">IAGO HMS, Rentekalkulator, Prosentkalkulator</span><span class="tile-line">Early apps.</span><span class="tile-year">2021</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot" aria-labelledby="foot-title">
+  <div class="foot-inner">
+    <figure class="window">
+      <picture>
+        <source type="image/avif" srcset="assets/img/hero-dusk-portrait-720.avif 720w, assets/img/hero-dusk-portrait-1080.avif 1080w" sizes="(min-width: 900px) 34vw, 70vw">
+        <source type="image/webp" srcset="assets/img/hero-dusk-portrait-720.webp 720w, assets/img/hero-dusk-portrait-1080.webp 1080w" sizes="(min-width: 900px) 34vw, 70vw">
+        <img src="assets/img/hero-dusk-portrait-720.jpg" width="720" height="1080" alt="The same village at dusk, its windows lit." loading="lazy" decoding="async">
+      </picture>
+    </figure>
+    <div class="foot-copy">
+      <p class="eyebrow">Evening</p>
+      <h2 id="foot-title" class="foot-line">Takes one outside engagement at a time.</h2>
+      <a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+      <div class="cmd">
+        <p class="cmd-label">Or ask your agent</p>
+        <button class="cmd-btn" id="copy" type="button" aria-describedby="copy-state">
+          <code id="cmd-text">claude mcp add albretsen https://albretsen.no/mcp</code>
+          <span class="cmd-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><rect x="6" y="6" width="10" height="10" rx="2.5"/><path d="M4 13V5.5A1.5 1.5 0 0 1 5.5 4H13"/></svg></span>
+        </button>
+        <span class="copy-state" id="copy-state" role="status"></span>
+      </div>
+      <p class="small"><img class="foot-mark" src="assets/identity/wordmark.svg" width="628" height="86" alt="Albretsen AS" loading="lazy"><span>© 2026 Albretsen AS · Norway</span></p>
+    </div>
+  </div>
+</footer>
+
+<noscript><style>.ph-shutters::before,.ph-shutters::after{display:none}</style></noscript>
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

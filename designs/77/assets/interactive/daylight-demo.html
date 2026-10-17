@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daylight Window</title>
+<style>
+  @font-face{font-family:"Cormorant Garamond";src:url(../fonts/cormorant-garamond.woff2) format("woff2");font-weight:300 700;font-display:swap}
+  @font-face{font-family:"EB Garamond";font-style:italic;src:url(../fonts/eb-garamond-italic.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{--wall:#e8bf86;--ink:#2a2233;--sea:#2f6c9e;--terra:#b9532f;--ochre:#e2a93b;--cream:#f4e9d4;--lav:#6e6496}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--wall) url(../extras/limewash-1024.webp) center/1024px;color:var(--ink)}
+  body{display:grid;place-items:center;min-height:100vh;padding:32px 16px;font-family:"Cormorant Garamond",Georgia,serif}
+  .stage{width:min(520px,86vw);display:grid;gap:22px;justify-items:center}
+  .surround{position:relative;width:100%;aspect-ratio:3/4;padding:5%;background:#efe1c6;border-radius:50% 50% 0 0/37.5% 37.5% 0 0;box-shadow:0 30px 60px -30px #3a241466}
+  .arch{position:relative;width:100%;height:100%;border-radius:50% 50% 0 0/37.5% 37.5% 0 0;overflow:hidden;background:#9fb4cf}
+  canvas,img.fallback{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+  svg.bars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .label{font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:var(--lav)}
+  .time{font-family:"EB Garamond",Georgia,serif;font-style:italic;font-size:22px;min-height:1.3em}
+  input[type=range]{width:100%;accent-color:var(--terra)}
+  .row{display:flex;justify-content:space-between;width:100%;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--lav)}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="label">The window · a day in four paintings</div>
+  <div class="surround">
+    <div class="arch">
+      <img class="fallback" src="../views/view-dawn-800.webp" width="800" height="531" alt="">
+      <canvas id="c" aria-label="A view through a window that passes from dawn to golden hour"></canvas>
+      <svg class="bars" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="none" stroke="#2f6c9e">
+          <path d="M3 400V150A147 147 0 0 1 297 150V400" stroke-width="7"/>
+          <path d="M0 150H300" stroke-width="9"/>
+          <path d="M150 150V4 M150 150L46 46 M150 150L254 46 M150 150L14 94 M150 150L286 94 M150 150L94 14 M150 150L206 14" stroke-width="4"/>
+          <path d="M115 150A35 35 0 0 1 185 150Z" fill="#e2a93b" stroke-width="5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="time" id="tl">Dawn, cold blue turning gold</div>
+  <input id="r" type="range" min="0" max="1000" value="0" aria-label="Time of day">
+  <div class="row"><span>Dawn</span><span>Morning</span><span>Noon</span><span>Gold</span></div>
+</div>
+<script type="module">
+  import { mountDaylight } from './daylight.js';
+  const q = new URLSearchParams(location.search);
+  const c = document.getElementById('c'), r = document.getElementById('r'), tl = document.getElementById('tl');
+  const names = ['Dawn, cold blue turning gold','Morning on the cliffs','Noon, terracotta and sea','Golden hour'];
+  const label = v => tl.textContent = names[Math.min(3, Math.round(v*3))];
+  const day = await mountDaylight(c, { views: ['dawn','fjord','noon','gold'].map(v => `../views/view-${v}-800.webp`) });
+  if (day) {
+    document.querySelector('.fallback').style.visibility = 'hidden';
+    const t0 = q.has('t') ? +q.get('t') : 0;
+    day.set(t0, true); r.value = t0*1000; label(t0);
+    if (!q.has('t')) day.play(true);
+    r.addEventListener('input', () => { day.play(false); day.set(r.value/1000); label(r.value/1000); });
+    setInterval(() => { if (document.activeElement !== r && !q.has('t')) { r.value = day.get()*1000; label(day.get()); } }, 250);
+  }
+</script>
+</body>
+</html>

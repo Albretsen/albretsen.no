@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100" width="160" height="200" role="img" aria-label="Tryggere Hyring, retired 2023">
+<rect x="2" y="2" width="76" height="96" rx="38" fill="#F6F1E7" stroke="#C8B9A4" stroke-width="1.5"/>
+<rect x="7" y="7" width="66" height="86" rx="33" fill="none" stroke="#323A44" stroke-opacity=".35" stroke-width="1"/>
+<g opacity=".86"><path d="M40 22l12 4v9c0 8-6 13-12 15-6-2-12-7-12-15v-9z" fill="none" stroke="#323A44" stroke-width="2.4" stroke-linejoin="round"/><path d="M35 36l4 4 7-8" fill="none" stroke="#8F2B20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="40" y="67" text-anchor="middle" font-family="Albert Sans, system-ui, sans-serif" font-size="6" letter-spacing=".6" fill="#323A44">TRYGGERE HYRING</text>
+<text x="40" y="78" text-anchor="middle" font-family="DM Mono, ui-monospace, monospace" font-size="6" fill="#8F2B20">2023</text>
+<circle cx="40" cy="89" r="1.6" fill="#C8B9A4"/></svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 120" width="260" height="120" fill="none" role="img" aria-label="Postmark">
+  <title>Postmark, Albretsen AS</title>
+  <!-- Ink colour is currentColor: set `color` to burgundy (#6E2233) and use mix-blend-mode:multiply on paper. -->
+  <g stroke="currentColor" stroke-width="1.8" color="#6E2233">
+    <circle cx="60" cy="60" r="46"/>
+    <circle cx="60" cy="60" r="37"/>
+    <path id="pm-top" d="M20 60a40 40 0 0 1 80 0" stroke="none"/>
+    <path id="pm-bot" d="M16.5 60a43.5 43.5 0 0 0 87 0" stroke="none"/>
+    <text font-family="Jost, Futura, sans-serif" font-size="7.2" letter-spacing="2.4" fill="currentColor" stroke="none"><textPath href="#pm-top" startOffset="50%" text-anchor="middle">ALBRETSEN AS</textPath></text>
+    <text font-family="Jost, Futura, sans-serif" font-size="7" letter-spacing="2.6" fill="currentColor" stroke="none"><textPath href="#pm-bot" startOffset="50%" text-anchor="middle">NORWAY</textPath></text>
+    <text x="60" y="58" font-family="'EB Garamond', Georgia, serif" font-style="italic" font-size="15" text-anchor="middle" fill="currentColor" stroke="none">first light</text>
+    <text x="60" y="74" font-family="Jost, Futura, sans-serif" font-size="9" letter-spacing="2" text-anchor="middle" fill="currentColor" stroke="none">2016 · 2026</text>
+    <path d="M116 36 q11 -7 22 0 t22 0 t22 0 t22 0 t22 0 t22 0 M116 52 q11 -7 22 0 t22 0 t22 0 t22 0 t22 0 t22 0 M116 68 q11 -7 22 0 t22 0 t22 0 t22 0 t22 0 t22 0 M116 84 q11 -7 22 0 t22 0 t22 0 t22 0 t22 0 t22 0"/>
+  </g>
+</svg>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds small, exact software that pays for itself: MCP Emails, Fun Libs, Toolrails and Harbor.">
+<meta name="theme-color" content="#f4e9d4">
+<meta property="og:title" content="Asgeir Albretsen · Albretsen AS">
+<meta property="og:description" content="Small, exact software that pays for itself.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" href="assets/fonts/cormorant-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  // Decide the hero mode before first paint so nothing shifts: "scrub" = scroll is the clock.
+  (function(d){ d.classList.add('js');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]still\b/.test(location.search)) d.classList.add('scrub');
+    if (/[?&]nohero\b/.test(location.search)) d.classList.add('nohero'); /* review helper */ })(document.documentElement);
+</script>
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<!-- ================= HERO: the window ================= -->
+<header class="hero" id="top">
+  <div class="hero__stage" id="stage">
+
+    <div class="titlecard" id="titlecard">
+      <nav class="nav" aria-label="Primary">
+        <a href="#products">Products</a>
+        <a class="nav__mark" href="#top" aria-label="Albretsen AS, home">
+          <img src="assets/identity/mark.svg" width="44" height="44" alt="">
+        </a>
+        <a href="mailto:asgeir@albretsen.no">Correspondence</a>
+      </nav>
+      <p class="kicker">Albretsen AS</p>
+      <h1 class="name">Asgeir Albretsen</h1>
+      <p class="line">Small, exact software that pays for itself.</p>
+      <p class="feed" id="feed" aria-live="off"><span class="feed__dot" aria-hidden="true"></span><span class="feed__text">Running right now</span></p>
+    </div>
+
+    <div class="set" id="set">
+      <picture class="still" id="still">
+        <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="assets/hero/window-dawn-portrait-750.avif 744w, assets/hero/window-dawn-portrait-1120.avif 1120w" sizes="92vw">
+        <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="assets/hero/window-dawn-portrait-750.webp 744w, assets/hero/window-dawn-portrait-1120.webp 1120w" sizes="92vw">
+        <source media="(max-aspect-ratio: 4/5)" srcset="assets/hero/window-dawn-portrait-750.jpg 744w, assets/hero/window-dawn-portrait-1120.jpg 1120w" sizes="92vw">
+        <source type="image/avif" srcset="assets/hero/window-dawn-960.avif 960w, assets/hero/window-dawn-1600.avif 1600w, assets/hero/window-dawn-2400.avif 2400w" sizes="min(92vw, 1680px)">
+        <source type="image/webp" srcset="assets/hero/window-dawn-960.webp 960w, assets/hero/window-dawn-1600.webp 1600w, assets/hero/window-dawn-2400.webp 2400w" sizes="min(92vw, 1680px)">
+        <img src="assets/hero/window-dawn-1600.jpg" srcset="assets/hero/window-dawn-960.jpg 960w, assets/hero/window-dawn-1600.jpg 1600w" sizes="min(92vw, 1680px)"
+             width="1600" height="1000" fetchpriority="high" decoding="async"
+             alt="A limewashed room with an arched window and lavender shutters. Outside, a painted valley at first light.">
+      </picture>
+      <div class="stills" id="stills" aria-hidden="true"></div>
+
+      <!-- Layered set: filled in by main.js after first paint -->
+      <div class="geo" id="geo" aria-hidden="true">
+        <div class="far" id="far"></div>
+        <img class="wall" id="wall" alt="" width="1200" height="750">
+        <span class="tint tint--wall" id="tintWall"></span>
+        <span class="spill" id="spill"></span>
+        <img class="front" id="front" alt="" width="1200" height="750">
+        <span class="tint tint--front" id="tintFront"></span>
+      </div>
+      <div class="geo geo--shutters" aria-hidden="true">
+        <div class="shutters"><span class="shutter shutter--l"></span><span class="shutter shutter--r"></span></div>
+      </div>
+    </div>
+
+    <div class="plaque" id="plaque">
+      <p class="plaque__credit" id="credit">View after J. C. Dahl, 1844</p>
+      <div class="plaque__times" role="group" aria-label="Time of day">
+        <button type="button" data-t="0" aria-pressed="true">Dawn</button>
+        <button type="button" data-t="1" aria-pressed="false">Morning</button>
+        <button type="button" data-t="2" aria-pressed="false">Noon</button>
+        <button type="button" data-t="3" aria-pressed="false">Golden hour</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ================= PRODUCTS: objects in the house ================= -->
+<section class="products" id="products" aria-labelledby="products-h">
+  <img class="fanlight" src="assets/extras/fanlight-divider.svg" width="360" height="45" alt="">
+  <p class="kicker">The products</p>
+  <h2 id="products-h" class="h2">Made here, one at a time</h2>
+  <p class="lede">Each one is built to stand on its own and to earn its keep. Two are live, one is being built, one is resting.</p>
+
+  <!-- MCP Emails: the postcard -->
+  <article class="feature" aria-labelledby="p-mcp">
+    <div class="feature__table">
+      <button class="postcard" id="postcard" type="button" aria-pressed="false" aria-label="MCP Emails postcard. Turn it over.">
+        <span class="postcard__inner">
+          <span class="postcard__face">
+            <img src="assets/extras/postcard-front-750.webp" srcset="assets/extras/postcard-front-750.webp 750w, assets/extras/postcard-front-1500.webp 1500w" sizes="(min-width: 900px) 520px, 80vw" width="750" height="500" alt="" loading="lazy" decoding="async">
+            <span class="postcard__caption">MCP Emails</span>
+          </span>
+          <span class="postcard__face postcard__face--back">
+            <img src="assets/extras/postcard-back-750.webp" srcset="assets/extras/postcard-back-750.webp 750w, assets/extras/postcard-back-1500.webp 1500w" sizes="(min-width: 900px) 520px, 80vw" width="750" height="500" alt="The back of the postcard: Email for AI agents. Seventeen tools, about a hundred providers, open source. $782 MRR. Stamped with the MCP Emails logo." loading="lazy" decoding="async">
+          </span>
+        </span>
+      </button>
+      <p class="feature__hint" aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14"><path d="M4 10a6 6 0 0 1 10.4-4.1M16 10a6 6 0 0 1-10.4 4.1M14.6 2.6v3.6H11M5.4 17.4v-3.6H9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="hintText">Turn the card over</span></p>
+    </div>
+    <div class="feature__text">
+      <p class="status"><span class="status__dot status__dot--live"></span>Live · since 2026</p>
+      <h3 id="p-mcp" class="h3">MCP Emails</h3>
+      <p class="pline">Email for AI agents.</p>
+      <p class="figure"><span class="figure__v">$782</span><span class="figure__l">MRR</span></p>
+      <ul class="facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+      <a class="go" href="https://mcpemails.com">mcpemails.com<span aria-hidden="true">→</span></a>
+    </div>
+  </article>
+
+  <!-- Three objects -->
+  <div class="trio">
+    <article class="obj obj--tiles" aria-labelledby="p-fun">
+      <div class="obj__plate sheen">
+        <picture><source type="image/webp" srcset="assets/products/fun-libs-tiles-600.webp 600w, assets/products/fun-libs-tiles-1200.webp 1200w" sizes="(min-width: 1000px) 340px, (min-width: 700px) 30vw, 86vw">
+        <img src="assets/products/fun-libs-tiles-600.jpg" width="600" height="750" loading="lazy" decoding="async" alt="The Fun Libs app icon set as the centre of a hand-painted tile panel, with a brass plate reading 113,000+ installs, since 2019."></picture>
+      </div>
+      <p class="status"><span class="status__dot status__dot--live"></span>Live · since 2019</p>
+      <h3 id="p-fun" class="h3">Fun Libs</h3>
+      <p class="pline">A fill-in-the-blanks word game for Android and iOS.</p>
+      <p class="figure figure--s"><span class="figure__v">113,000+</span><span class="figure__l">installs</span></p>
+      <p class="facts-inline">Built at 17 · no marketing · v5 shipped 2026</p>
+      <a class="go" href="https://funlibs.app">funlibs.app<span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="obj obj--sign" aria-labelledby="p-tool">
+      <div class="obj__plate signplate" tabindex="-1">
+        <img class="signplate__wall" src="img/toolrails-wall-600.webp" srcset="img/toolrails-wall-600.webp 600w, img/toolrails-wall-1200.webp 1200w" sizes="(min-width: 1000px) 340px, (min-width: 700px) 30vw, 86vw" width="600" height="750" loading="lazy" decoding="async" alt="">
+        <img class="signplate__sign sway" id="sign" src="img/toolrails-sign-380.webp" srcset="img/toolrails-sign-380.webp 380w, img/toolrails-sign-760.webp 760w" sizes="(min-width: 1000px) 216px, (min-width: 700px) 19vw, 55vw" width="380" height="380" loading="lazy" decoding="async" alt="The Toolrails logo on a hand-painted sign hanging from an iron rail: One MCP URL that gives an agent every tool. Now building.">
+      </div>
+      <p class="status"><span class="status__dot status__dot--build"></span>Building · 2026</p>
+      <h3 id="p-tool" class="h3">Toolrails</h3>
+      <p class="pline">One MCP URL that gives an agent every tool.</p>
+      <p class="figure figure--s"><span class="figure__v">4</span><span class="figure__l">connectors</span></p>
+      <p class="facts-inline">Tool search · injection guard</p>
+      <a class="go" href="https://toolrails.com">toolrails.com<span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="obj obj--harbor" aria-labelledby="p-harbor">
+      <div class="obj__plate glowplate">
+        <picture><source type="image/webp" srcset="assets/products/harbor-window-600.webp 600w, assets/products/harbor-window-1200.webp 1200w" sizes="(min-width: 1000px) 340px, (min-width: 700px) 30vw, 86vw">
+        <img src="assets/products/harbor-window-600.jpg" width="600" height="750" loading="lazy" decoding="async" alt="The Harbor mark gilded on a lit window at blue hour, with a card reading Paused, 549 commits."></picture>
+      </div>
+      <p class="status"><span class="status__dot status__dot--paused"></span>Paused · 2026</p>
+      <h3 id="p-harbor" class="h3">Harbor</h3>
+      <p class="pline">A private knowledge base shared by people and AI.</p>
+      <p class="figure figure--s"><span class="figure__v">549</span><span class="figure__l">commits</span></p>
+      <p class="facts-inline">Self-hostable · AI edits held for approval</p>
+      <a class="go" href="https://harborknowledge.com">harborknowledge.com<span aria-hidden="true">→</span></a>
+    </article>
+  </div>
+
+  <!-- Retired: a row of glazed tiles -->
+  <div class="retired" aria-labelledby="retired-h">
+    <p class="kicker" id="retired-h">Retired, kept on the wall</p>
+    <ul class="tilerow tilelay" id="tilerow">
+      <li class="tilelay__tile"><button type="button" data-line="Luma, 2026. Norwegian budgeting app with open banking. 378 commits."><img src="assets/products/retired-luma.webp" width="240" height="244" loading="lazy" alt=""><span>Luma</span></button></li>
+      <li class="tilelay__tile"><button type="button" data-line="Polyglot Pilot, 2025. Agents that localised entire codebases, with a dashboard for human reviewers."><img src="assets/products/retired-polyglot-pilot.webp" width="240" height="244" loading="lazy" alt=""><span>Polyglot Pilot</span></button></li>
+      <li class="tilelay__tile"><button type="button" data-line="PinPoint, 2025. GeoGuessr with your own photos: friends guess where your pictures were taken. 16 commits."><img src="assets/products/retired-pinpoint.webp" width="240" height="244" loading="lazy" alt=""><span>PinPoint</span></button></li>
+      <li class="tilelay__tile"><button type="button" data-line="WebVakt, 2024. Website change monitoring."><img src="assets/products/retired-webvakt.webp" width="240" height="244" loading="lazy" alt=""><span>WebVakt</span></button></li>
+      <li class="tilelay__tile"><button type="button" data-line="Daily Jokes / Joke Central, 2024. Joke apps for iOS and Android."><img src="assets/products/retired-joke-central.webp" width="240" height="244" loading="lazy" alt=""><span>Joke Central</span></button></li>
+      <li class="tilelay__tile"><button type="button" data-line="Tryggere Hyring, 2023. Background checks for hiring."><img src="assets/products/retired-tryggere-hyring.webp" width="240" height="244" loading="lazy" alt=""><span>Tryggere Hyring</span></button></li>
+      <li class="tilelay__tile"><button type="button" data-line="IAGO HMS, Rentekalkulator, Prosentkalkulator, 2021. Early apps."><img src="assets/products/retired-early-apps.webp" width="240" height="244" loading="lazy" alt=""><span>Early apps</span></button></li>
+    </ul>
+    <p class="retired__line" id="retiredLine" aria-live="polite">Seven earlier products. Choose a tile to read it.</p>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="foot__band" aria-hidden="true"></div>
+  <img class="foot__stamp" src="assets/extras/stamp-albretsen.svg" width="110" height="130" loading="lazy" alt="">
+  <p class="foot__avail">Takes one outside engagement at a time.</p>
+  <a class="foot__mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+  <div class="cmd">
+    <span class="cmd__label">For agents</span>
+    <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+    <button type="button" class="cmd__copy" id="copy" aria-describedby="cmd">Copy</button>
+    <span class="sr" id="copied" aria-live="polite"></span>
+  </div>
+  <p class="foot__small">Albretsen AS · Software since 2016<br>Views after J. C. Dahl, T. Fearnley, P. Cézanne and Claude Lorrain, public domain, The Metropolitan Museum of Art.</p>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

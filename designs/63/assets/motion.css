@@ -1,0 +1,172 @@
+/* ==========================================================================
+   The Long Evening: motion study (design 63)
+   Precise, symmetrical, deadpan. Nothing bounces, nothing overshoots.
+   Every move is either perfectly centred or perfectly lateral, and every curve is
+   symmetric (ease-in == ease-out), so motion reads as composed rather than eager.
+
+   Signature animations
+   1. Postcard flip     .lx-postcard            (click / Enter flips a product postcard)
+   2. Horizon wipe      .lx-horizon             (image opens from its horizon line, scroll-driven)
+   3. Sun traverse      --sun on :root          (scroll position = time of day; drives light and colour)
+   4. Deadpan pan       .lx-pan                 (lateral, whip-pan-style move between postcards)
+   5. Into the fog      .lx-fog                 (layered hero: photo / live name / foreground matte)
+   ========================================================================== */
+
+:root {
+  --lx-ease: cubic-bezier(.65, 0, .35, 1);       /* symmetric easeInOutCubic: the house curve */
+  --lx-ease-pan: cubic-bezier(.83, 0, .17, 1);   /* symmetric easeInOutQuint: for the whip */
+  --lx-flip: 760ms;
+  --lx-pan: 560ms;
+}
+
+/* --------------------------------------------------------------------------
+   1. POSTCARD FLIP
+   Reference: Apple's CardFlip sample (developer.apple.com, CardFlip.css) and the
+   standard perspective + preserve-3d + backface-visibility pattern (MDN, Codrops).
+   Twist: the card lifts straight toward the viewer on a symmetric curve and lands
+   flat, a deadpan quarter-second hold at 90deg is avoided by keeping one curve.
+   Markup:
+   <button class="lx-postcard" aria-pressed="false" aria-label="MCP Emails, flip postcard">
+     <span class="lx-postcard__inner">
+       <span class="lx-postcard__face lx-postcard__front"><img ...></span>
+       <span class="lx-postcard__face lx-postcard__back">...live text...</span>
+     </span>
+   </button>
+   -------------------------------------------------------------------------- */
+.lx-postcard {
+  all: unset; display: block; cursor: pointer;
+  aspect-ratio: 3 / 2; width: 100%;
+  perspective: 1600px;
+  -webkit-tap-highlight-color: transparent;
+}
+.lx-postcard:focus-visible { outline: 2px solid #8A2E22; outline-offset: 6px; }
+.lx-postcard__inner {
+  position: relative; display: block; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--lx-flip) var(--lx-ease);
+}
+.lx-postcard[aria-pressed="true"] .lx-postcard__inner { transform: rotateY(180deg); }
+/* the lift: a symmetric keyframe so the card rises and settles on the same curve */
+.lx-postcard.is-flipping .lx-postcard__inner { animation: lx-lift var(--lx-flip) var(--lx-ease); }
+@keyframes lx-lift { 50% { translate: 0 0 60px; } }
+.lx-postcard__face {
+  position: absolute; inset: 0; display: block;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  box-shadow: 0 1px 1px rgb(35 37 45 / .08), 0 12px 30px -12px rgb(35 37 45 / .35);
+}
+.lx-postcard__front img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.lx-postcard__back {
+  transform: rotateY(180deg);
+  background: #F5EFE4 url(extras/paper-cardstock.webp) 0 0 / 256px;
+  color: #23252D;
+  display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 6%;
+  padding: 7% 7% 6%;
+  box-sizing: border-box;
+  font: 400 clamp(11px, 1.15vw, 15px)/1.5 "Schibsted Grotesk", system-ui, sans-serif;
+}
+.lx-postcard__back::before { /* the centre rule of a real postcard back */
+  content: ""; grid-column: 2; grid-row: 1 / span 3; background: rgb(35 37 45 / .35);
+}
+.lx-postcard__msg { grid-column: 1; grid-row: 1 / span 3; align-self: start; }
+.lx-postcard__msg h3 { font: italic 400 clamp(20px, 2.4vw, 34px)/1.05 "Bodoni Moda", Didot, serif; margin: 0 0 .5em; }
+.lx-postcard__addr { grid-column: 3; grid-row: 3; align-self: end; }
+.lx-postcard__addr span { display: block; border-bottom: 1px solid rgb(35 37 45 / .35); padding: .35em 0; letter-spacing: .04em; }
+.lx-postcard__stamp { grid-column: 3; grid-row: 1; justify-self: end; width: 26%; height: auto; }
+
+/* --------------------------------------------------------------------------
+   2. HORIZON WIPE
+   Reference: CSS scroll-driven animations, animation-timeline: view()
+   (MDN view(); Codrops "A Practical Introduction to Scroll-Driven Animations").
+   The image opens from a single horizontal line outward, top and bottom at the same
+   rate, like a stage curtain seen side-on. Set --horizon to the photo's horizon (%).
+   -------------------------------------------------------------------------- */
+.lx-horizon { --horizon: 50%; clip-path: inset(0 0 0 0); }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .lx-horizon {
+      animation: lx-horizon linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+  }
+  /* JS fallback (motion.js adds .is-in) for browsers without view timelines */
+  @supports not (animation-timeline: view()) {
+    .lx-horizon { clip-path: inset(var(--horizon) 0 calc(100% - var(--horizon)) 0); transition: clip-path 1100ms var(--lx-ease); }
+    .lx-horizon.is-in { clip-path: inset(0 0 0 0); }
+  }
+}
+@keyframes lx-horizon {
+  from { clip-path: inset(var(--horizon) 0 calc(100% - var(--horizon)) 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* --------------------------------------------------------------------------
+   3. SUN TRAVERSE
+   Reference: a scroll() progress timeline on the root (MDN animation-timeline) and
+   registered custom properties (@property) so a single number can be interpolated.
+   --sun goes 0 -> 1 from the top to the bottom of the page: late afternoon to the
+   evening that never quite gets dark. Anything can read it: the window-light patch
+   slides and warms, the page background drifts from clapboard white to haze, and
+   motion.js forwards it to the 3D room (room.setTime(--sun)).
+   -------------------------------------------------------------------------- */
+@property --sun { syntax: "<number>"; inherits: true; initial-value: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    :root { animation: lx-sun linear both; animation-timeline: scroll(root block); }
+  }
+}
+@keyframes lx-sun { from { --sun: 0; } to { --sun: 1; } }
+
+.lx-sunlit { position: relative; isolation: isolate; }
+.lx-sunlit::after { /* the window-light patch */
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: url(extras/window-light.svg) no-repeat;
+  background-size: 70% auto;
+  background-position: calc(10% + var(--sun) * 60%) calc(30% + var(--sun) * 25%);
+  opacity: calc(.75 - var(--sun) * .25);
+  filter: hue-rotate(calc(var(--sun) * -12deg)) saturate(calc(1 + var(--sun) * .6));
+  mix-blend-mode: multiply;
+}
+.lx-evening-bg { background: color-mix(in oklch, #F5EFE4, #E9C7B2 calc(var(--sun) * 35%)); }
+
+/* --------------------------------------------------------------------------
+   4. DEADPAN PAN
+   Reference: the lateral whip pan between symmetrical set-ups in planimetric
+   film staging (camera perpendicular to the set, moving only along one axis).
+   A track of postcards moves exactly one card-width, with a brief horizontal
+   motion blur at the midpoint only. No easing tail, no parallax.
+   Markup: <div class="lx-pan" style="--i:0"><div class="lx-pan__track">...cards...</div></div>
+   -------------------------------------------------------------------------- */
+.lx-pan { overflow: hidden; }
+.lx-pan__track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 100%;
+  transform: translateX(calc(var(--i, 0) * -100%));
+  transition: transform var(--lx-pan) var(--lx-ease-pan);
+}
+.lx-pan.is-panning .lx-pan__track { animation: lx-whip var(--lx-pan) var(--lx-ease-pan); }
+@keyframes lx-whip { 0%, 100% { filter: none; } 50% { filter: blur(6px) saturate(1.1); } }
+
+/* --------------------------------------------------------------------------
+   5. INTO THE FOG (layered hero)
+   Reference: depth-layered type set behind a foreground cut-out (magazine covers,
+   apple.com product heroes). Here the stack is: graded photo / live SVG text /
+   foreground matte (same photo with alpha). Scrolling lowers the name a few
+   percent so it sinks into the fog bank behind the ridge.
+   -------------------------------------------------------------------------- */
+.lx-fog { position: relative; container-type: inline-size; overflow: hidden; }
+.lx-fog > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lx-fog > picture:first-child { position: relative; display: block; }
+.lx-fog img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.lx-fog__name { mix-blend-mode: multiply; pointer-events: none; }
+.lx-fog__name text { font-family: "Bodoni Moda", Didot, serif; letter-spacing: -.01em; }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .lx-fog__name { animation: lx-sink linear both; animation-timeline: view(); animation-range: exit 0% exit 80%; }
+  }
+}
+@keyframes lx-sink { to { translate: 0 6%; opacity: .55; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .lx-postcard__inner, .lx-pan__track { transition-duration: 1ms; }
+  .lx-postcard.is-flipping .lx-postcard__inner, .lx-pan.is-panning .lx-pan__track { animation: none; }
+}

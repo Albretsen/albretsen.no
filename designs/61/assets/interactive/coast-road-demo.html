@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coast Road demo</title>
+<style>
+@font-face{font-family:"EB Garamond";src:url(../fonts/EBGaramond-latin.woff2) format("woff2");font-weight:400 800}
+@font-face{font-family:"EB Garamond";src:url(../fonts/EBGaramond-Italic-latin.woff2) format("woff2");font-weight:400 800;font-style:italic}
+@font-face{font-family:"Jost";src:url(../fonts/Jost-latin.woff2) format("woff2");font-weight:400 600}
+:root{--ink:#6E2233;--paper:#FBF3E6}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:"EB Garamond",Georgia,serif}
+canvas{display:block;width:100%;height:100%}
+.ui{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:14px;align-items:center;background:var(--paper);padding:10px 18px;border:1px solid var(--ink);font:500 11px Jost,sans-serif;letter-spacing:.2em;text-transform:uppercase}
+input[type=range]{width:min(50vw,360px);accent-color:#E8959A}
+</style>
+</head>
+<body>
+<canvas id="road" aria-label="A coastal road running straight toward the sun, with year milestones on both kerbs"></canvas>
+<div class="ui"><span>First light</span><input id="p" type="range" min="0" max="1" step="0.001" value="0.2" aria-label="Time of day and distance"><span>Dusk</span></div>
+<script type="module">
+import { createCoastRoad } from './coast-road.js'
+const q = new URLSearchParams(location.search)
+const road = createCoastRoad(document.getElementById('road'), { progress: +(q.get('p') ?? 0.2) })
+const p = document.getElementById('p'); p.value = road.progress
+p.addEventListener('input', () => road.setProgress(+p.value))
+if (q.has('ui')) document.querySelector('.ui').remove()
+</script>
+</body>
+</html>

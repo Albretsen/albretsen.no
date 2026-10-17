@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Bake</title>
+<style>html,body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+// Offline still baker: renders one frame at an exact size and POSTs the PNG to a
+// local bake server (?save=1). Used to produce assets/hero/* and assets/products/*.
+import { createPavilion, createKiosk, createProp } from './pavilion.js'
+const q = new URLSearchParams(location.search)
+const w = +q.get('w') || 1600, h = +q.get('h') || 900
+const c = document.getElementById('c'); c.style.width = (w / (+q.get('pr') || 1)) + 'px'
+const opts = { width: w, height: h, pixelRatio: 1, still: true, bake: true, time: +(q.get('t') ?? .3), view: q.get('view') || 'front', night: q.get('night') === '1', transparent: q.get('alpha') === '1' }
+let api
+if (q.get('scene') === 'kiosk') api = await createKiosk(c, { ...opts, logo: q.get('logo'), name: q.get('name') || '', awning: q.get('awning') || undefined, accent: q.get('accent') || undefined, closed: q.get('closed') === '1' })
+else if (q.get('scene') === 'prop') api = await createProp(c, { ...opts, prop: q.get('prop') })
+else api = await createPavilion(c, opts)
+if (q.get('cam')) { const [x, y, z, lx, ly, lz, fov] = q.get('cam').split(',').map(Number); api.setView({ pos: [x, y, z], look: [lx, ly, lz], fov }) }
+api.setTime(opts.time)
+api.renderOnce()
+if (opts.night) { api.setNight(true); api.renderOnce() }
+if (q.get('save')) {
+  const url = c.toDataURL('image/png')
+  await fetch('/save?name=' + encodeURIComponent(q.get('save')), { method: 'POST', body: url })
+  document.title = 'saved'
+}
+</script></body></html>

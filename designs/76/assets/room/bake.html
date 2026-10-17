@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Room bake</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#dfe6ea}canvas{display:block;width:100vw;height:100vh}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+</head><body><canvas id="c"></canvas>
+<script type="module">
+// Bake stills: bake.html?time=0.2&progress=0&cam=x,y,z&look=x,y,z&fov=40&ao=0&view=<optional hi-res view jpg>
+import { createRoom } from './room.js'
+const q = new URLSearchParams(location.search)
+const num = (k, d) => (q.has(k) ? parseFloat(q.get(k)) : d)
+const vec = (k) => (q.has(k) ? q.get(k).split(',').map(Number) : null)
+const room = await createRoom(document.getElementById('c'), { quality: 'bake', ao: q.get('ao') !== '0', fov: num('fov', 40), viewUrl: q.get('view') || undefined })
+room.resize(innerWidth, innerHeight)
+room.set({ time: num('time', 0.25), progress: num('progress', 0) })
+if (vec('cam')) room.setCamera(vec('cam'), vec('look') || [0, 1.6, -6])
+room.render(); room.render()
+document.title = 'done'
+</script></body></html>

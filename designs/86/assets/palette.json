@@ -1,0 +1,52 @@
+{
+ "void": {
+  "oklch": "oklch(0.155 0.020 255)",
+  "hex": "#070d15",
+  "use": "Page ground. Space just above the limb."
+ },
+ "night": {
+  "oklch": "oklch(0.205 0.024 255)",
+  "hex": "#101822",
+  "use": "Raised surfaces, cards on dark."
+ },
+ "hairline": {
+  "oklch": "oklch(0.320 0.022 250)",
+  "hex": "#2a343e",
+  "use": "Lattice lines and rules on dark."
+ },
+ "mist": {
+  "oklch": "oklch(0.740 0.020 108)",
+  "hex": "#acac9e",
+  "use": "Secondary text on dark."
+ },
+ "starlight": {
+  "oklch": "oklch(0.965 0.018 108)",
+  "hex": "#f4f5e7",
+  "use": "Primary text on dark, light ground."
+ },
+ "greenline": {
+  "oklch": "oklch(0.900 0.160 108)",
+  "hex": "#e9e558",
+  "use": "Seed. Oxygen 557.7 nm. The one accent: focus, live state, the selected product."
+ },
+ "sodium": {
+  "oklch": "oklch(0.800 0.140 70)",
+  "hex": "#f7ac4d",
+  "use": "Sodium 589 nm. Fun Libs."
+ },
+ "oxygenred": {
+  "oklch": "oklch(0.660 0.170 28)",
+  "hex": "#e86154",
+  "use": "Oxygen 630 nm. Harbor (paused)."
+ },
+ "nitrogen": {
+  "oklch": "oklch(0.660 0.150 275)",
+  "hex": "#7988ed",
+  "use": "Nitrogen 428 nm. Toolrails."
+ },
+ "limb": {
+  "oklch": "oklch(0.720 0.120 238)",
+  "hex": "#52afe7",
+  "use": "Rayleigh blue of the limb. Links on light ground, sunrise gradients."
+ }
+}

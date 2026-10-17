@@ -1,0 +1,12 @@
+:root {
+  --void: oklch(0.155 0.020 255); /* #070d15 */
+  --night: oklch(0.205 0.024 255); /* #101822 */
+  --hairline: oklch(0.320 0.022 250); /* #2a343e */
+  --mist: oklch(0.740 0.020 108); /* #acac9e */
+  --starlight: oklch(0.965 0.018 108); /* #f4f5e7 */
+  --greenline: oklch(0.900 0.160 108); /* #e9e558 */
+  --sodium: oklch(0.800 0.140 70); /* #f7ac4d */
+  --oxygenred: oklch(0.660 0.170 28); /* #e86154 */
+  --nitrogen: oklch(0.660 0.150 275); /* #7988ed */
+  --limb: oklch(0.720 0.120 238); /* #52afe7 */
+}

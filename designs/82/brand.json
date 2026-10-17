@@ -1,0 +1,19 @@
+{
+  "name": "Q.E.D.",
+  "tagline": "A product-drop page where the product is the company, written as a proof in shapes.",
+  "summary": "Albretsen AS is presented as Drop 00: four products that add up to one company. The idea comes from Oliver Byrne's 1847 Euclid, which proves things with coloured shapes instead of words. Every product, fact and control is a glyph of ink strokes and one amber sun, and the glyphs morph into one another as you read. It suits a calm, effective technologist: black, white and one dawn, very little said, everything demonstrated.",
+  "palette": ["#0a0907", "#f9f6f2", "#fea91e", "#b97500", "#777471", "#dad7d3"],
+  "type": ["Geist", "Geist", "Geist Mono"],
+  "voice": "Declarative, short and exact, like the last line of a proof: state it, show it, stop. Example: \"Software that pays for itself.\"",
+  "motion": "Proof Morph: one glyph redraws itself into the next, stroke by stroke. Mid-flight it shears along a fracture, and its sun settles with a single soft overshoot.",
+  "sound": "Off by default. Once turned on, each step of the proof plays a soft sine fifth that climbs a pentatonic scale, like a sunrise in five notes.",
+  "mark": "An apex A whose crossbar is a horizon with the amber sun on it, with one leg broken and sheared. The monoline ΛLBRETSEN ΛS wordmark is drawn from the same strokes.",
+  "inspiration": [
+    "https://www.oldbookillustrations.com/illustrations/circle-square/",
+    "https://www.igloo.inc",
+    "https://activetheory.net",
+    "https://www.radix-ui.com/primitives/docs/guides/animation",
+    "https://motion.dev/tutorials/js-svg-path-morphing",
+    "https://community.spline.design"
+  ]
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 72" width="640" height="72" role="img" aria-label="Scale: 2016 to 2026">
+  <title>Scale bar, 2016 to 2026</title>
+  <rect x="20" y="30" width="60" height="8" fill="#091710" stroke="#091710"/><rect x="80" y="30" width="60" height="8" fill="none" stroke="#091710"/><rect x="140" y="30" width="60" height="8" fill="#091710" stroke="#091710"/><rect x="200" y="30" width="60" height="8" fill="none" stroke="#091710"/><rect x="260" y="30" width="60" height="8" fill="#091710" stroke="#091710"/><rect x="320" y="30" width="60" height="8" fill="none" stroke="#091710"/><rect x="380" y="30" width="60" height="8" fill="#091710" stroke="#091710"/><rect x="440" y="30" width="60" height="8" fill="none" stroke="#091710"/><rect x="500" y="30" width="60" height="8" fill="#091710" stroke="#091710"/><rect x="560" y="30" width="60" height="8" fill="#389e3d" stroke="#091710"/>
+  <path d="M20 24v18M320 24v18M620 24v18" stroke="#091710"/>
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="11" fill="#091710" letter-spacing=".08em">
+    <text x="20" y="18">2016</text><text x="320" y="18" text-anchor="middle">2021</text><text x="620" y="18" text-anchor="end">2026</text>
+    <text x="20" y="60" fill="#5a675f">FIRST APP</text><text x="620" y="60" text-anchor="end" fill="#005e26">TODAY</text>
+  </g>
+</svg>

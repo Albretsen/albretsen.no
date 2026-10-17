@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silica Chorus demo</title>
+<style>
+  :root { --paper:#f7f5ea; --ink:#091710; --spot:#389e3d; }
+  html,body { margin:0; height:100%; background:var(--paper); color:var(--ink); font:14px/1.4 "JetBrains Mono", ui-monospace, monospace; }
+  .stage { position:relative; height:100svh; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:pan-y; }
+  .ui { position:absolute; left:16px; bottom:16px; display:flex; gap:8px; flex-wrap:wrap; }
+  button { font:inherit; font-size:12px; letter-spacing:.08em; text-transform:uppercase; background:var(--paper); color:var(--ink); border:1px solid var(--ink); border-radius:999px; padding:8px 14px; cursor:pointer; }
+  button:hover { background:var(--ink); color:var(--paper); }
+  .cap { position:absolute; left:16px; top:16px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <canvas id="c" aria-label="Glass lenses, specimens and product paperweights falling onto an ink plate. Drag them; click empty paper to drop a lens."></canvas>
+  <div class="cap">Plate III · Chorus · drag the glass, click paper to drop a lens</div>
+  <div class="ui">
+    <button data-k="lens">+ lens</button><button data-k="specimen">+ specimen</button><button data-k="product">+ product</button>
+  </div>
+</div>
+<script type="module">
+  import { mountChorus } from './chorus.js'
+  const chorus = await mountChorus(document.getElementById('c'), { base: '..', settle: +new URLSearchParams(location.search).get('settle') || 0 })
+  document.querySelectorAll('button[data-k]').forEach(b => b.onclick = () => chorus.drop(b.dataset.k))
+</script>
+</body>
+</html>

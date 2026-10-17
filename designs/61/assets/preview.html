@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sun Road — asset kit</title>
+<meta name="description" content="Asset kit for Albretsen AS, direction 61: Sun Road. Pastel morning light, postage-stamp ephemera and a road that runs through a whole day.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preload" href="fonts/EBGaramond-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+@font-face{font-family:"EB Garamond";src:url(fonts/EBGaramond-latin.woff2) format("woff2");font-weight:400 800;font-display:swap}
+@font-face{font-family:"EB Garamond";src:url(fonts/EBGaramond-Italic-latin.woff2) format("woff2");font-weight:400 800;font-style:italic;font-display:swap}
+@font-face{font-family:"Jost";src:url(fonts/Jost-latin.woff2) format("woff2");font-weight:400 600;font-display:swap}
+:root{
+  --paper:#FBF3E6;--flamingo:#F4C3C2;--rose:#E8959A;--mustard:#EBC46B;--sun:#E0A93B;--powder:#A8CFE6;--sea:#8FBBD8;--mint:#BFDCCB;--lilac:#D9CBE6;
+  --burgundy:#6E2233;--ink:#45161F;--dusk:#4A3A78;
+  --serif:"EB Garamond",Garamond,Georgia,serif;--label:Jost,Futura,"Century Gothic",sans-serif;
+  --gut:clamp(16px,4vw,56px);--max:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper) url(extras/paper-grain.webp) 0 0/512px;color:var(--ink);font:400 clamp(17px,1.15vw,19px)/1.55 var(--serif);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto}
+a{color:var(--burgundy)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.label{font:500 11px/1.2 var(--label);letter-spacing:.26em;text-transform:uppercase;color:var(--burgundy)}
+h2{font:500 clamp(34px,4.4vw,60px)/1.02 var(--serif);color:var(--burgundy);margin:.25em 0 .35em;letter-spacing:-.005em;text-align:center}
+h3{font:500 24px/1.15 var(--serif);color:var(--burgundy);margin:0 0 .3em}
+section{padding:clamp(64px,9vw,128px) 0;border-top:1px solid color-mix(in oklch,var(--burgundy) 18%,transparent)}
+.sec-head{text-align:center;max-width:46ch;margin:0 auto clamp(32px,5vw,64px)}
+.sec-head p{margin:0;font-style:italic;font-size:1.1em}
+.awning{height:44px;background:url(extras/awning.svg) 0 0/96px 44px repeat-x;position:relative;z-index:3}
+.air{height:10px;background:url(extras/airmail-border.svg) 0 0/40px 10px repeat-x}
+.note{font-size:.9em;opacity:.85}
+code{font:500 .82em ui-monospace,Menlo,monospace;background:color-mix(in oklch,var(--flamingo) 45%,transparent);padding:.05em .35em;border-radius:3px}
+
+/* HERO */
+.hero{position:relative;height:min(92vh,980px);min-height:560px;color:var(--burgundy)}
+.hero .stage{position:absolute;inset:0}
+.hero .stage picture,.hero .stage img,.hero .stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero canvas{opacity:0;transition:opacity .8s}
+.hero canvas[data-ready]{opacity:1}
+.hero .card{position:absolute;left:50%;top:50%;translate:-50% -52%;width:min(560px,calc(100% - 2*var(--gut)));background:var(--paper);padding:clamp(26px,4vw,40px) clamp(20px,4vw,44px) 28px;text-align:center;box-shadow:0 40px 80px -30px rgb(110 34 51/.45)}
+.hero .card::before{content:"";position:absolute;inset:8px;border:1px solid var(--burgundy)}
+.hero .card::after{content:"";position:absolute;inset:12px;border:.5px solid var(--burgundy);opacity:.55}
+.hero .card img{width:min(320px,80%);display:block;margin:0 auto}
+.hero .card p{font:italic 400 clamp(20px,2.2vw,27px)/1.25 var(--serif);margin:18px 0 10px}
+.hero .controls{position:absolute;left:50%;bottom:22px;translate:-50% 0;display:flex;gap:12px;align-items:center;background:var(--paper);padding:9px 14px;border:1px solid var(--burgundy);z-index:4;max-width:calc(100% - 2*var(--gut))}
+.hero .controls input{width:min(42vw,300px);accent-color:var(--rose)}
+.btn{font:500 11px var(--label);letter-spacing:.22em;text-transform:uppercase;color:var(--burgundy);background:var(--paper);border:1px solid var(--burgundy);padding:9px 14px;cursor:pointer;border-radius:0}
+.btn[aria-pressed=true]{background:var(--burgundy);color:var(--paper)}
+.btn:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+.intro{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));align-items:start;padding-top:56px}
+.intro p{margin:.2em 0 0}
+
+/* PALETTE */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.sw{background:var(--paper);border:1px solid color-mix(in oklch,var(--burgundy) 25%,transparent)}
+.sw i{display:block;aspect-ratio:4/3;background:var(--c)}
+.sw div{padding:10px 12px 12px;font-size:.82em;line-height:1.35}
+.sw b{display:block;font:500 15px var(--serif);color:var(--burgundy)}
+.sw span{font:12px ui-monospace,Menlo,monospace;opacity:.8}
+
+/* TYPE */
+.type{display:grid;gap:clamp(24px,4vw,56px);grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.type .big{font:500 clamp(64px,10vw,150px)/.9 var(--serif);color:var(--burgundy);letter-spacing:-.01em;text-align:center;margin:0}
+.type .ital{font:italic 400 clamp(26px,3vw,40px)/1.15 var(--serif);color:var(--burgundy);text-align:center}
+.type .caps{font:500 clamp(18px,2vw,24px) var(--serif);letter-spacing:.22em;text-transform:uppercase;text-align:center;color:var(--burgundy)}
+.type .body{max-width:60ch}
+.type .body p:first-child::first-letter{font-size:3.4em;float:left;line-height:.8;padding:.06em .08em 0 0;color:var(--burgundy)}
+.scale{display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--burgundy);padding-left:18px}
+.scale span{color:var(--burgundy)}
+
+/* IDENTITY */
+.ident{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.tile{background:var(--paper);border:1px solid color-mix(in oklch,var(--burgundy) 22%,transparent);padding:28px;display:grid;place-items:center;gap:14px;min-height:240px;text-align:center}
+.tile.pink{background:var(--flamingo)}.tile.blue{background:var(--powder)}.tile.ink{background:var(--burgundy);color:var(--paper)}
+.tile figcaption{font:500 10px var(--label);letter-spacing:.22em;text-transform:uppercase;color:inherit;opacity:.85}
+.tile.wide{grid-column:1/-1}
+
+/* HERO IMAGERY */
+.plates{display:grid;gap:22px}
+.plate{margin:0;background:var(--paper);padding:14px 14px 18px;box-shadow:0 30px 60px -36px rgb(110 34 51/.5)}
+.plate img{display:block;width:100%;height:auto}
+.plate figcaption{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:12px;font-size:.9em}
+.plate figcaption i{color:var(--burgundy)}
+.duo{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.strip figure{margin:0}.strip img{display:block;width:100%;aspect-ratio:1600/1026;object-fit:cover}
+.strip figcaption{font:500 10px var(--label);letter-spacing:.2em;text-transform:uppercase;text-align:center;padding-top:6px;color:var(--burgundy)}
+@media (max-width:640px){.strip{grid-template-columns:repeat(3,1fr)}}
+
+/* DAY PASS demo */
+.daypass{aspect-ratio:1600/1026;max-height:80vh;width:100%}
+.dp-ui{display:flex;justify-content:center;gap:12px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.dp-ui input{width:min(60vw,420px);accent-color:var(--rose)}
+
+/* PRODUCTS */
+.stamps{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(18px,3vw,40px)}
+.stamps figure{margin:0;--tilt:-3deg}
+.stamps figure:nth-child(2){--tilt:2deg}.stamps figure:nth-child(3){--tilt:-1.5deg}.stamps figure:nth-child(4){--tilt:3deg}
+.stamps img.stamp{width:min(250px,42vw);height:auto;display:block}
+.stamps .ink{width:150px;right:-60px;top:-24px;color:var(--burgundy)}
+.retired{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:48px}
+.retired img{width:min(150px,28vw);height:auto;display:block}
+
+/* EXTRAS */
+.extras{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.extras .tile{min-height:220px}
+.extras .tile.span2{grid-column:span 2}
+@media (max-width:640px){.extras .tile.span2{grid-column:auto}}
+.grain{width:100%;height:160px;background:url(extras/paper-grain.webp) 0 0/256px}
+.grain2{width:100%;height:160px;background:var(--flamingo) url(extras/grain-overlay.webp) 0 0/256px}
+.m-tear{display:flex;width:min(100%,460px);filter:drop-shadow(0 12px 18px rgb(110 34 51/.2))}
+.m-tear .ticket-wrap{position:relative;overflow:hidden;display:block}
+.m-tear .ticket-wrap img{position:absolute;top:0;height:100%;width:auto;max-width:none}
+.m-tear .body{flex:388 0 0;aspect-ratio:388/200}.m-tear .body img{left:0}
+.m-tear .stub{flex:132 0 0;aspect-ratio:132/200}.m-tear .stub img{right:0}
+
+/* INTERACTIVE */
+.road{position:relative;aspect-ratio:16/9;max-height:80vh;width:100%;background:var(--powder)}
+.road canvas{position:absolute;inset:0;width:100%;height:100%}
+.sound{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:40px;text-align:center}
+
+/* MOTION */
+.motions{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.motion{background:var(--paper);border:1px solid color-mix(in oklch,var(--burgundy) 22%,transparent);padding:22px;display:flex;flex-direction:column;gap:12px}
+.motion .demo{height:220px;display:grid;place-items:center;overflow:hidden;background:color-mix(in oklch,var(--powder) 40%,var(--paper));position:relative}
+.motion p{margin:0;font-size:.92em}
+.motion .btn{align-self:flex-start}
+.whip-card{width:70%;aspect-ratio:3/2;background:url(hero/calanque-morning-960.webp) center/cover;box-shadow:0 0 0 8px var(--paper),0 0 0 9px var(--burgundy)}
+.dolly-demo{position:relative;width:100%;height:100%}
+.dolly-demo img{width:100%;height:100%;object-fit:cover}
+
+footer{padding:64px 0 90px;text-align:center}
+footer img{width:220px}
+table{width:100%;border-collapse:collapse;font-size:.9em}
+td,th{padding:8px 10px;border-bottom:1px solid color-mix(in oklch,var(--burgundy) 18%,transparent);text-align:left;vertical-align:top}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="daypass-paper">
+<script>{const solo=new URLSearchParams(location.search).get('solo');if(solo)document.documentElement.dataset.solo=solo}</script>
+<style>html[data-solo] body>header,html[data-solo] body>.intro,html[data-solo] body>.awning,html[data-solo] section{display:none}
+html[data-solo=palette] #palette,html[data-solo=type] #type,html[data-solo=identity] #identity,html[data-solo=imagery] #imagery,html[data-solo=products] #products,html[data-solo=extras] #extras,html[data-solo=interactive] #interactive,html[data-solo=daypass] #daypass,html[data-solo=motion] #motion,html[data-solo=inventory] #inventory{display:block}</style>
+
+<div class="awning" aria-hidden="true"></div>
+
+<header class="hero m-dolly" id="top">
+  <div class="stage">
+    <picture>
+      <source type="image/avif" media="(max-aspect-ratio: 4/5)" srcset="hero/calanque-morning-portrait-640.avif 640w, hero/calanque-morning-portrait-1000.avif 1000w" sizes="100vw">
+      <source type="image/avif" srcset="hero/calanque-morning-960.avif 960w, hero/calanque-morning-1600.avif 1600w, hero/calanque-morning-2560.avif 2560w" sizes="100vw">
+      <source type="image/webp" srcset="hero/calanque-morning-960.webp 960w, hero/calanque-morning-1600.webp 1600w" sizes="100vw">
+      <img src="hero/calanque-morning-1600.jpg" width="1600" height="1026" alt="A rocky cove with a mustard-roofed boathouse in pastel morning light, after Henri-Edmond Cross" fetchpriority="high">
+    </picture>
+    <canvas id="daylight" aria-hidden="true"></canvas>
+  </div>
+  <i class="bar top"></i><i class="bar bottom"></i>
+  <div class="card">
+    <img src="identity/lockup-centred.svg" width="320" height="168" alt="Albretsen AS">
+    <p>Software that pays for itself.</p>
+    <div class="label">Direction 61 · Sun Road · asset kit</div>
+  </div>
+  <div class="controls">
+    <span class="label">Dawn</span>
+    <input id="tod" type="range" min="0" max="1" step="0.001" value="0.25" aria-label="Time of day for the hero painting">
+    <span class="label">Dusk</span>
+    <button class="btn" id="snd" aria-pressed="false" title="Sea, wind and a town square, synthesised live">Sound</button>
+  </div>
+</header>
+<div class="air" aria-hidden="true"></div>
+
+<div class="wrap intro">
+  <div><div class="label">The idea</div><h3>A road that runs through one day</h3><p>The site is a coastal drive from first light to dusk. The years stand along the kerb as milestones, the products travel as postage stamps, and the light changes as you scroll. Pastel, centred and symmetrical, with a little deadpan wit.</p></div>
+  <div><div class="label">The imagery</div><h3>Real paintings, re-lit</h3><p>Two public-domain coast paintings (Henri-Edmond Cross, Claude Monet) are graded into a palette of Miami morning pastels, and a shader re-lights them live from dawn to dusk. Grab the slider above.</p></div>
+  <div><div class="label">The rule</div><h3>One idea per screen</h3><p>Generous paper, a single framed image, a single line of serif. Ephemera are punctuation, never wallpaper. The subject is always the software.</p></div>
+</div>
+
+<section id="palette"><div class="wrap">
+  <div class="sec-head"><div class="label">01 · Palette</div><h2>Morning pastels, burgundy ink</h2><p>Four pastels carry the light; burgundy does all the talking. Body text is ink on paper (13.7:1).</p></div>
+  <div class="swatches" id="swatches"></div>
+</div></section>
+
+<section id="type"><div class="wrap">
+  <div class="sec-head"><div class="label">02 · Typography</div><h2>A book serif, set generously</h2><p>EB Garamond for everything that is read. Jost, a geometric sans in the Futura tradition, only for tiny tracked labels.</p></div>
+  <div class="type">
+    <div>
+      <p class="big m-glint">Aa</p>
+      <p class="ital">Quiet software that pays for itself.</p>
+      <p class="caps">Albretsen AS</p>
+      <p class="label" style="text-align:center">Jost 500 · tracked .26em · labels only</p>
+    </div>
+    <div class="body">
+      <p>Asgeir Albretsen has published on Google Play since 2016. Fun Libs, a fill-in-the-blanks word game he built at seventeen, has passed 113,000 installs without marketing. MCP Emails gives AI agents an inbox: seventeen tools, about a hundred email providers, open source.</p>
+      <div class="scale">
+        <span style="font-size:60px;line-height:1">Display 60–150</span>
+        <span style="font-size:34px;line-height:1.1">Section 34–60</span>
+        <span style="font-size:24px">Title 24 / 500</span>
+        <span style="font-size:19px">Body 17–19 / 1.55</span>
+        <span style="font-style:italic;font-size:19px">Italic for asides and figures</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="identity"><div class="wrap">
+  <div class="sec-head"><div class="label">03 · Identity</div><h2>The road is the A</h2><p>A road in one-point perspective draws the letter; the sun sits on the vanishing point; the crossbar is the horizon. Wordmark: EB Garamond capitals tracked .16em, outlined to paths.</p></div>
+  <div class="ident">
+    <figure class="tile"><img src="identity/mark.svg" width="150" height="150" alt="Albretsen mark"><figcaption>mark.svg</figcaption></figure>
+    <figure class="tile pink"><img src="identity/lockup-centred.svg" width="260" height="137" alt="Albretsen AS centred lockup"><figcaption>lockup-centred.svg</figcaption></figure>
+    <figure class="tile ink"><img src="identity/mark-reverse.svg" width="130" height="130" alt="Mark reversed"><figcaption>mark-reverse.svg</figcaption></figure>
+    <figure class="tile blue"><img src="identity/lockup-horizontal.svg" width="300" height="44" alt="Albretsen AS horizontal lockup"><figcaption>lockup-horizontal.svg</figcaption></figure>
+    <figure class="tile"><img src="identity/wordmark.svg" width="280" height="30" alt="Albretsen wordmark"><figcaption>wordmark.svg</figcaption></figure>
+    <figure class="tile"><div style="display:flex;gap:18px;align-items:end"><img src="identity/favicon.svg" width="64" height="64" alt="Favicon"><img src="identity/favicon-180.png" width="90" height="90" alt="Apple touch icon"><img src="identity/favicon-32.png" width="32" height="32" alt="Favicon 32"></div><figcaption>favicon.svg · 180 · 32</figcaption></figure>
+    <figure class="tile wide"><img src="identity/og-image.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image" style="max-width:720px;width:100%"><figcaption>og-image.jpg · 1200×630</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="imagery"><div class="wrap">
+  <div class="sec-head"><div class="label">04 · Hero imagery</div><h2>Two coasts, graded to morning</h2><p>Served as AVIF / WebP / JPEG at 960, 1600 and 2560, with 4:5 crops for phones.</p></div>
+  <div class="plates">
+    <figure class="plate">
+      <picture>
+        <source type="image/avif" srcset="hero/calanque-morning-960.avif 960w, hero/calanque-morning-1600.avif 1600w, hero/calanque-morning-2560.avif 2560w" sizes="(min-width:1240px) 1180px, 100vw">
+        <img src="hero/calanque-morning-1600.jpg" width="1600" height="1026" loading="lazy" alt="Rocky cove at morning">
+      </picture>
+      <figcaption><span><i>Calanque, morning.</i> After Henri-Edmond Cross, 1891–92 (NGA, CC0)</span><span class="label">hero/calanque-morning-*</span></figcaption>
+    </figure>
+    <figure class="plate">
+      <picture>
+        <source type="image/avif" srcset="hero/cliff-golden-960.avif 960w, hero/cliff-golden-1600.avif 1600w, hero/cliff-golden-2560.avif 2560w" sizes="(min-width:1240px) 1180px, 100vw">
+        <img src="hero/cliff-golden-1600.jpg" width="1600" height="898" loading="lazy" alt="Grassy cliff over a bright sea at golden hour">
+      </picture>
+      <figcaption><span><i>Cliff walk, golden hour.</i> After Claude Monet, 1882 (public domain)</span><span class="label">hero/cliff-golden-*</span></figcaption>
+    </figure>
+    <div class="duo">
+      <figure class="plate"><img src="hero/calanque-morning-portrait-640.jpg" width="640" height="800" loading="lazy" alt="Portrait crop of the cove"><figcaption><span><i>Phone crop, 4:5</i></span><span class="label">*-portrait-640/1000</span></figcaption></figure>
+      <figure class="plate"><img src="hero/cliff-golden-portrait-640.jpg" width="640" height="802" loading="lazy" alt="Portrait crop of the cliff"><figcaption><span><i>Phone crop, 4:5</i></span><span class="label">*-portrait-640/1000</span></figcaption></figure>
+    </div>
+    <div>
+      <div class="label" style="text-align:center;margin:28px 0 14px">The same cove through one day · hero/day/</div>
+      <div class="strip">
+        <figure><img src="hero/day/calanque-dawn-960.webp" width="960" height="616" loading="lazy" alt="Dawn"><figcaption>Dawn</figcaption></figure>
+        <figure><img src="hero/calanque-morning-960.webp" width="960" height="616" loading="lazy" alt="Morning"><figcaption>Morning</figcaption></figure>
+        <figure><img src="hero/day/calanque-noon-960.webp" width="960" height="616" loading="lazy" alt="Noon"><figcaption>Noon</figcaption></figure>
+        <figure><img src="hero/day/calanque-golden-960.webp" width="960" height="616" loading="lazy" alt="Golden hour"><figcaption>Golden</figcaption></figure>
+        <figure><img src="hero/day/calanque-dusk-960.webp" width="960" height="616" loading="lazy" alt="Dusk"><figcaption>Dusk</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="products"><div class="wrap">
+  <div class="sec-head"><div class="label">05 · Products</div><h2>Every product is a stamp</h2><p>Real logos in a cream medallion, under an arched window cut from the paintings. The denomination is the product's real figure.</p></div>
+  <div class="stamps">
+    <figure class="m-postmark"><img class="stamp" src="products/stamp-mcp-emails.webp" width="600" height="800" loading="lazy" alt="MCP Emails stamp: $782 MRR"><img class="ink" src="extras/postmark.svg" width="260" height="120" alt=""></figure>
+    <figure class="m-postmark"><img class="stamp" src="products/stamp-fun-libs.webp" width="600" height="800" loading="lazy" alt="Fun Libs stamp: 113,000+ installs"></figure>
+    <figure class="m-postmark"><img class="stamp" src="products/stamp-toolrails.webp" width="600" height="800" loading="lazy" alt="Toolrails stamp: 4 connectors"></figure>
+    <figure class="m-postmark"><img class="stamp" src="products/stamp-harbor.webp" width="600" height="800" loading="lazy" alt="Harbor stamp: 549 commits"></figure>
+  </div>
+  <div class="label" style="text-align:center;margin-top:56px">Retired · cancelled stamps</div>
+  <div class="retired">
+    <img src="products/stamp-luma.webp" width="420" height="524" loading="lazy" alt="Luma, retired">
+    <img src="products/stamp-polyglot-pilot.webp" width="420" height="524" loading="lazy" alt="Polyglot Pilot, retired">
+    <img src="products/stamp-pinpoint.webp" width="420" height="524" loading="lazy" alt="PinPoint, retired">
+    <img src="products/stamp-webvakt.webp" width="420" height="524" loading="lazy" alt="WebVakt, retired">
+    <img src="products/stamp-joke-central.webp" width="420" height="524" loading="lazy" alt="Joke Central, retired">
+    <img src="products/stamp-tryggere-hyring.webp" width="420" height="524" loading="lazy" alt="Tryggere Hyring, retired">
+    <img src="products/stamp-early-apps.webp" width="420" height="524" loading="lazy" alt="Early apps, retired">
+  </div>
+</div></section>
+
+<section id="extras"><div class="wrap">
+  <div class="sec-head"><div class="label">06 · Ephemera</div><h2>Tickets, postmarks and paper</h2><p>Small things that give the page texture. Use one per screen at most.</p></div>
+  <div class="extras">
+    <figure class="tile span2" style="background:var(--powder)">
+      <a class="m-tear" href="#extras" aria-label="Day ticket (hover to tear the stub)">
+        <span class="ticket-wrap body"><img src="extras/day-ticket.svg" width="520" height="200" alt="Day pass ticket"></span>
+        <span class="ticket-wrap stub"><img src="extras/day-ticket.svg" width="520" height="200" alt=""></span>
+      </a>
+      <figcaption>day-ticket.svg · hover: tear-off</figcaption>
+    </figure>
+    <figure class="tile"><img src="extras/postmark.svg" width="260" height="120" alt="Postmark" style="color:var(--burgundy)"><figcaption>postmark.svg</figcaption></figure>
+    <figure class="tile span2" style="background:var(--mint)"><img src="extras/postcard-cliff.webp" width="1520" height="1040" loading="lazy" alt="Postcard of the cliff painting with stamp and postmark" style="width:min(100%,520px)"><figcaption>postcard-cliff.webp (transparent)</figcaption></figure>
+    <figure class="tile"><img src="extras/milestone.svg" width="120" height="150" alt="Milestone"><figcaption>milestone.svg · timeline marker</figcaption></figure>
+    <figure class="tile span2" style="background:var(--flamingo)"><img src="extras/postcard-back.svg" width="600" height="380" loading="lazy" alt="Postcard back with address" style="width:min(100%,520px)"><figcaption>postcard-back.svg · contact</figcaption></figure>
+    <figure class="tile" style="background:var(--powder)"><img src="extras/sun.svg" width="150" height="150" alt="Sun"><figcaption>sun.svg</figcaption></figure>
+    <figure class="tile" style="padding:0;overflow:hidden;align-content:start"><div class="awning" style="width:100%"></div><div style="padding:16px"><div class="air" style="width:220px"></div></div><figcaption style="padding-bottom:18px">awning.svg · airmail-border.svg</figcaption></figure>
+    <figure class="tile" style="padding:0;overflow:hidden"><div class="grain"></div><figcaption style="padding-bottom:16px">paper-grain.webp · 512 tile</figcaption></figure>
+    <figure class="tile" style="padding:0;overflow:hidden"><div class="grain2"></div><figcaption style="padding-bottom:16px">grain-overlay.webp · alpha</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="interactive"><div class="wrap">
+  <div class="sec-head"><div class="label">07 · Interactive</div><h2>The coast road</h2><p>Canvas 2D, about 9 KB. Scroll drives the drive: the dashes rush past, milestones for each year approach in symmetrical pairs, and the sun crosses the sky. Pointillist headlands frame it like a stage.</p></div>
+  <div class="road"><canvas id="road" aria-label="A coastal road running straight toward the sun with year milestones on both kerbs"></canvas></div>
+  <div class="dp-ui"><span class="label">2016</span><input id="roadp" type="range" min="0" max="1" step="0.001" value="0.3" aria-label="Distance along the road"><span class="label">2026</span></div>
+  <p class="note" style="text-align:center">Also live at the top: <code>interactive/daylight.js</code> re-lights the hero painting in a WebGL shader. Demos: <a href="interactive/coast-road-demo.html">coast-road-demo.html</a>, <a href="interactive/daylight-demo.html">daylight-demo.html</a>.</p>
+  <div class="sound">
+    <div class="label">Signature delight · opt-in sound</div>
+    <p style="max-width:52ch;margin:0">Sea swell, a little wind and a bell from a town square somewhere off to the left, all synthesised live with Web Audio (<code>interactive/ambient.js</code>, no audio files). It follows the time of day.</p>
+    <button class="btn" id="snd2" aria-pressed="false">Play the coast</button>
+  </div>
+</div></section>
+
+<section id="daypass"><div class="wrap">
+  <div class="sec-head"><div class="label">08 · Motion · Day Pass</div><h2>The page is one day</h2><p>Five baked grades cross-fade as you scroll (no WebGL needed), and the sun rides its arc. Scroll the page, or use the slider.</p></div>
+  <div class="daypass" id="dp">
+    <img data-at="0" src="hero/day/calanque-dawn-960.webp" width="960" height="616" loading="lazy" alt="The cove through a day">
+    <img data-at=".25" src="hero/calanque-morning-960.webp" width="960" height="616" loading="lazy" alt="">
+    <img data-at=".5" src="hero/day/calanque-noon-960.webp" width="960" height="616" loading="lazy" alt="">
+    <img data-at=".75" src="hero/day/calanque-golden-960.webp" width="960" height="616" loading="lazy" alt="">
+    <img data-at="1" src="hero/day/calanque-dusk-960.webp" width="960" height="616" loading="lazy" alt="">
+    <img class="daypass-sun" src="extras/sun.svg" width="200" height="200" alt="">
+  </div>
+  <div class="dp-ui"><span class="label">Dawn</span><input id="dpt" type="range" min="0" max="1" step="0.001" value="0.25" aria-label="Time of day"><span class="label">Dusk</span><label class="label"><input type="checkbox" id="follow" checked> follow scroll</label></div>
+</div></section>
+
+<section id="motion"><div class="wrap">
+  <div class="sec-head"><div class="label">09 · Motion study</div><h2>Five calm movements</h2><p>All in <code>motion.css</code> + <code>motion.js</code>. Each finishes perfectly still and centred; all reduce to fades under reduced-motion.</p></div>
+  <div class="motions">
+    <div class="motion"><div class="demo"><figure class="m-postmark" id="pmDemo" style="margin:0;--tilt:-4deg"><img src="products/stamp-fun-libs.webp" width="600" height="800" loading="lazy" alt="" style="width:120px"><img class="ink" src="extras/postmark.svg" width="260" height="120" alt="" style="width:130px;right:-70px;top:30px"></figure></div><h3>Postmark</h3><p>A stamp lands 6% large and slightly turned, overshoots by a hair, settles; then the ink blooms from blurred to crisp. .62 s press, .9 s ink.</p><button class="btn" data-replay="pmDemo">Replay</button></div>
+    <div class="motion"><div class="demo"><div class="whip-card m-whip" id="whipDemo"></div></div><h3>Whip pan</h3><p>The camera snaps sideways to the next symmetrical tableau: 38vw lateral move, 14px horizontal blur, dead-centre landing. Between sections only.</p><button class="btn" data-replay="whipDemo">Replay</button></div>
+    <div class="motion"><div class="demo"><div class="dolly-demo m-dolly" id="dollyDemo"><img src="hero/cliff-golden-960.webp" width="960" height="540" loading="lazy" alt=""><i class="bar top"></i><i class="bar bottom"></i></div></div><h3>Centre dolly</h3><p>The establishing shot: a 6% push-in while two paper letterbox bars retract. 1.8 s, once, on load.</p><button class="btn" data-replay="dollyDemo">Replay</button></div>
+    <div class="motion"><div class="demo"><p class="m-glint" id="glintDemo" style="font:500 54px/1 var(--serif);color:var(--burgundy);margin:0">Fun Libs</p></div><h3>Sun glint</h3><p>A band of light passes once across a serif headline as it enters view, like sun moving on water.</p><button class="btn" data-replay="glintDemo">Replay</button></div>
+    <div class="motion"><div class="demo" style="background:var(--powder)"><a class="m-tear" href="#motion" aria-label="Ticket tear demo" style="width:90%"><span class="ticket-wrap body"><img src="extras/day-ticket.svg" width="520" height="200" alt=""></span><span class="ticket-wrap stub"><img src="extras/day-ticket.svg" width="520" height="200" alt=""></span></a></div><h3>Tear-off</h3><p>Hover or focus: the stub swings 4° on its lower hinge and slides 10 px along the perforation. For the one link that matters.</p></div>
+    <div class="motion"><div class="demo"><img src="extras/sun.svg" width="200" height="200" alt="" style="width:90px" id="sunDemo"></div><h3>Day pass</h3><p>Scroll sets <code>--day</code>; graded copies cross-fade, the sun arcs, the paper dims at dusk. See section 08 above.</p></div>
+  </div>
+</div></section>
+
+<section id="inventory"><div class="wrap">
+  <div class="sec-head"><div class="label">10 · Files</div><h2>Inventory</h2><p>Full table with sources and licences in <a href="ASSETS.md">ASSETS.md</a>.</p></div>
+  <table><tbody id="inv"></tbody></table>
+</div></section>
+
+<div class="air" aria-hidden="true"></div>
+<footer><img src="identity/lockup-centred.svg" width="220" height="116" alt="Albretsen AS"><p class="label" style="margin-top:18px">asgeir@albretsen.no · Norway</p></footer>
+
+<script type="module">
+import { createDaylight } from './interactive/daylight.js'
+import { createCoastRoad } from './interactive/coast-road.js'
+import { createAmbient } from './interactive/ambient.js'
+import { initMotion } from './motion.js'
+
+// palette
+const P=[['Paper','#FBF3E6','oklch(96.7% 0.019 80.1)','ground'],['Flamingo','#F4C3C2','oklch(86.0% 0.056 19.7)','primary pastel'],['Rose','#E8959A','oklch(75.5% 0.100 15.8)','accents, kerbs'],['Mustard','#EBC46B','oklch(83.6% 0.117 86.1)','pastel'],['Sun','#E0A93B','oklch(76.7% 0.138 80.9)','the sun, focus'],['Powder','#A8CFE6','oklch(83.4% 0.052 234.1)','pastel, sky'],['Sea','#8FBBD8','oklch(77.1% 0.063 237.5)','stripes, water'],['Mint','#BFDCCB','oklch(86.8% 0.039 159.8)','pastel'],['Lilac','#D9CBE6','oklch(86.2% 0.040 308.7)','dawn, retired'],['Burgundy','#6E2233','oklch(37.5% 0.108 10.6)','headings, rules, ink'],['Ink','#45161F','oklch(27.8% 0.073 11.5)','body text'],['Dusk','#4A3A78','oklch(39.7% 0.102 293.1)','evening only']]
+document.getElementById('swatches').innerHTML=P.map(([n,h,o,u])=>`<div class="sw"><i style="--c:${h}"></i><div><b>${n}</b><span>${h}<br>${o}</span><br>${u}</div></div>`).join('')
+
+// inventory (short)
+const I=[['identity/','mark, mono, reverse, wordmark, lockups, favicon.svg/32/180, og-image.jpg'],['hero/','calanque-morning & cliff-golden: avif 960/1600/2560, webp 960/1600, jpg 1600; 4:5 portraits'],['hero/day/','dawn, noon, golden, dusk grades (avif 1600, webp 960) + cliff morning/dusk'],['products/','4 live stamps (webp+png), 7 retired stamps (webp), logos/ (real, unchanged), vignettes/'],['extras/','postmark, day-ticket, milestone, sun, awning, airmail-border, postcard-back (svg); postcard-cliff, paper-grain, grain-overlay (webp)'],['interactive/','daylight.js (WebGL), coast-road.js (canvas), ambient.js (Web Audio) + demos'],['motion.css / motion.js','Day Pass, Postmark, Whip pan, Centre dolly, Tear-off, Sun glint'],['fonts/','EB Garamond roman + italic, Jost (latin subsets, OFL)'],['src/','stamp-studio.html, og.html, postcard.html (sources the bakes were made from)']]
+document.getElementById('inv').innerHTML=I.map(([a,b])=>`<tr><th><code>${a}</code></th><td>${b}</td></tr>`).join('')
+
+// hero daylight
+const day=createDaylight(document.getElementById('daylight'),{src:'hero/calanque-morning-1600.avif',time:.25})
+const tod=document.getElementById('tod')
+tod.addEventListener('input',()=>{day?.setTime(+tod.value);amb.setTime(+tod.value)})
+
+// coast road
+const road=createCoastRoad(document.getElementById('road'),{progress:.3})
+const rp=document.getElementById('roadp'); rp.addEventListener('input',()=>road.setProgress(+rp.value))
+
+// sound
+const amb=createAmbient()
+for(const id of ['snd','snd2']){const b=document.getElementById(id);b.addEventListener('click',()=>{const on=amb.toggle();for(const x of ['snd','snd2'])document.getElementById(x).setAttribute('aria-pressed',on)})}
+
+// day pass
+const follow=document.getElementById('follow'), dpt=document.getElementById('dpt')
+const m=initMotion({onDay:t=>{ if(follow.checked){dpt.value=t; road.setProgress(t)} }})
+dpt.addEventListener('input',()=>{follow.checked=false;m.set(+dpt.value)})
+
+// replays
+document.querySelectorAll('[data-replay]').forEach(b=>b.addEventListener('click',()=>{const el=document.getElementById(b.dataset.replay);el.classList.remove('is-in');
+  if(el.classList.contains('m-dolly')){for(const c of el.children){c.style.animation='none';c.offsetWidth;c.style.animation=''}return}
+  void el.offsetWidth;el.classList.add('is-in')}))
+document.getElementById('dollyDemo').classList.add('is-in')
+</script>
+</body>
+</html>

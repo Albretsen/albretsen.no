@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Afterglow Diorama</title>
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:"Josefin Sans";src:url(fonts/josefin-sans-var.woff2) format("woff2");font-weight:300 700;font-display:swap}
+:root{--paper:#F5EBDC;--ink:#2E2240}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Josefin Sans",system-ui,sans-serif}
+main{min-height:100vh;display:grid;place-items:center;padding:6vh 16px 12vh;box-sizing:border-box}
+.ctl{display:flex;gap:18px;align-items:center;justify-content:center;margin-top:64px;font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+input[type=range]{width:min(420px,60vw);accent-color:#C2603E}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;background:none;border:1.5px solid currentColor;border-radius:999px;padding:.7em 1.2em;color:inherit;cursor:pointer}
+body.bare{background:radial-gradient(120% 90% at 70% 10%,#fbf3e6 0%,#f1e1c9 45%,#e2c9a8 100%)}
+body.bare main{padding:4vh 4vw}
+body.bare .dio{--w:min(70vw,calc(70vh*1.6))}.ctl[hidden]{display:none}
+</style></head>
+<body><main><div>
+<div id="d" aria-label="A paper diorama of a cliff-top house above the sea. Drag to turn it."></div>
+<div class="ctl"><span>Dawn</span><input id="t" type="range" min="-14" max="45" step="0.1" value="0" aria-label="Sun altitude"><span>Noon</span><button id="now">Now</button></div>
+</div></main>
+<script type="module">
+import { mountDiorama } from './js/diorama.js';
+const q = new URLSearchParams(location.search);
+if (q.has('bare')) { document.querySelector('.ctl').hidden = true; document.body.classList.add('bare'); }
+const d = await mountDiorama(document.getElementById('d'), { grain: './textures/paper-grain.webp', label: !q.has('bare'), clock: !q.has('alt') });
+const t = document.getElementById('t');
+if (q.has('alt')) { d.setAltitude(+q.get('alt')); t.value = q.get('alt'); } else { t.value = d.sunPosition().altitude.toFixed(1); }
+if (q.has('turn')) d.turn(+q.get('turn'), +(q.get('tilt') || 0));
+t.addEventListener('input', () => d.setAltitude(+t.value));
+document.getElementById('now').addEventListener('click', () => { d.live(); t.value = d.sunPosition().altitude.toFixed(1); });
+</script></body></html>

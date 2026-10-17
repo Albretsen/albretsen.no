@@ -1,0 +1,92 @@
+/* Heure Bleue motion study (design 64).
+   Five named signatures. Every one is calm: slow, low amplitude, and switched
+   off under prefers-reduced-motion. Pair with motion.js for the two that need
+   a little script (haze, lights). */
+
+@property --hb-slat { syntax: '<length>'; inherits: false; initial-value: 26px; }
+@property --hb-track { syntax: '<number>'; inherits: false; initial-value: 0.6; }
+
+:root {
+  --hb-ink: #232c57; --hb-pink: #f2b5b8; --hb-mustard: #d9a42b; --hb-powder: #a9c6e0;
+  --hb-burgundy: #6e1f33; --hb-plaster: #f4eadb; --hb-warm: #ffd27a;
+  --hb-ease: cubic-bezier(.22, .61, .36, 1);
+  --hb-ease-breeze: cubic-bezier(.45, .05, .55, .95);
+}
+
+/* 1. SEA BREEZE ─ hb-sway
+   Bougainvillea, awnings and hanging things lean a degree and come back, each a
+   little out of phase (set --i on siblings). Pivot at the top edge. */
+@keyframes hb-sway {
+  0%, 100% { transform: rotate(calc(var(--hb-sway-amp, 1.1deg) * -1)) skewX(0deg); }
+  50%      { transform: rotate(var(--hb-sway-amp, 1.1deg)) skewX(-.6deg); }
+}
+.hb-sway {
+  transform-origin: 50% 0;
+  animation: hb-sway var(--hb-sway-dur, 7.5s) var(--hb-ease-breeze) infinite;
+  animation-delay: calc(var(--i, 0) * -1.3s);
+  will-change: transform;
+}
+
+/* 2. LOUVRE REVEAL ─ hb-shutters
+   An image arrives the way shutters open on a terrace: plaster-coloured slats
+   thin out to nothing. Add .is-open (motion.js does it on intersect). */
+.hb-shutters { position: relative; isolation: isolate; }
+.hb-shutters::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: repeating-linear-gradient(to bottom, var(--hb-shutter-col, var(--hb-plaster)) 0 var(--hb-slat), transparent var(--hb-slat) 26px);
+  transition: --hb-slat 1.4s var(--hb-ease);
+}
+.hb-shutters.is-open::after { --hb-slat: 0px; }
+
+/* 3. TRACKING SETTLE ─ hb-settle
+   Deco display type arrives wide and gently tightens to its set spacing, the
+   way a sign-painter's letters find their rhythm. */
+.hb-settle {
+  letter-spacing: calc(var(--hb-track) * 1em);
+  opacity: 0;
+  transition: --hb-track 1.6s var(--hb-ease), opacity 1.2s var(--hb-ease);
+}
+.hb-settle.is-in { --hb-track: var(--hb-track-to, .16); opacity: 1; }
+
+/* 4. LIGHTS ON ─ hb-lights
+   When the page reaches blue hour (data-hour="blue" on an ancestor) each
+   .hb-window warms up in a staggered order, like windows across a town. */
+.hb-window {
+  background: color-mix(in oklab, var(--hb-ink) 70%, var(--hb-powder));
+  transition: background-color .9s var(--hb-ease), box-shadow 1.2s var(--hb-ease);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+[data-hour="blue"] .hb-window {
+  background: var(--hb-warm);
+  box-shadow: 0 0 0 1px #ffe6ae inset, 0 0 24px 2px rgb(255 210 122 / .45);
+}
+
+/* 5. HEAT HAZE ─ hb-haze
+   A horizontal band (the horizon) shimmers through an SVG displacement filter
+   whose noise drifts slowly. motion.js injects the filter and animates it;
+   this class just applies it. Keep the band short (60-120 px tall). */
+.hb-haze { filter: url(#hb-haze-filter); }
+
+/* 6. DUSK SCROLL ─ hb-dusk
+   A section's sky gradient walks from golden to blue hour as it scrolls
+   through the viewport (scroll-driven animation; static where unsupported). */
+@keyframes hb-dusk {
+  from { background-position: 50% 0%; }
+  to   { background-position: 50% 100%; }
+}
+.hb-dusk {
+  background-image: linear-gradient(180deg, #f6d79a 0%, #f2c3bd 22%, #c995b4 44%, #7a78b2 64%, #2c3b74 82%, #1b2450 100%);
+  background-size: 100% 400%;
+  background-position: 50% 0%;
+}
+@supports (animation-timeline: view()) {
+  .hb-dusk { animation: hb-dusk linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-sway, .hb-dusk { animation: none !important; }
+  .hb-shutters::after { display: none; }
+  .hb-settle { opacity: 1; --hb-track: var(--hb-track-to, .16); transition: none; }
+  .hb-window { transition: none; }
+  .hb-haze { filter: none; }
+}

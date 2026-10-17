@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" width="600" height="380" role="img" aria-label="Postcard back">
+  <title>Postcard back (contact section). Message area left, address lines right, stamp box top right.</title>
+  <rect width="600" height="380" rx="6" fill="#FBF3E6"/>
+  <rect x="0" y="0" width="600" height="10" fill="url(#pc-air)"/>
+  <rect x="0" y="370" width="600" height="10" fill="url(#pc-air)"/>
+  <defs>
+    <pattern id="pc-air" width="40" height="10" patternUnits="userSpaceOnUse">
+      <rect width="40" height="10" fill="#FBF3E6"/>
+      <path d="M0 10 L5 0 H12 L7 10 Z" fill="#E8959A"/><path d="M20 10 L25 0 H32 L27 10 Z" fill="#8FBBD8"/>
+    </pattern>
+  </defs>
+  <text x="300" y="46" text-anchor="middle" font-family="Jost, Futura, sans-serif" font-size="11" letter-spacing="6" fill="#6E2233">POST CARD</text>
+  <path d="M300 64 V336" stroke="#6E2233" stroke-width="1"/>
+  <rect x="482" y="30" width="86" height="104" fill="none" stroke="#6E2233" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="525" y="78" text-anchor="middle" font-family="Jost, Futura, sans-serif" font-size="7.5" letter-spacing="2" fill="#6E2233">PLACE</text>
+  <text x="525" y="90" text-anchor="middle" font-family="Jost, Futura, sans-serif" font-size="7.5" letter-spacing="2" fill="#6E2233">STAMP</text>
+  <g stroke="#6E2233" stroke-width=".9">
+    <path d="M330 196 H568 M330 236 H568 M330 276 H568 M330 316 H568"/>
+  </g>
+  <g stroke="#6E2233" stroke-width=".5" opacity=".35">
+    <path d="M36 120 H272 M36 156 H272 M36 192 H272 M36 228 H272 M36 264 H272 M36 300 H272"/>
+  </g>
+  <text x="330" y="190" font-family="'EB Garamond', Georgia, serif" font-style="italic" font-size="20" fill="#6E2233">asgeir@albretsen.no</text>
+  <text x="330" y="230" font-family="'EB Garamond', Georgia, serif" font-size="17" fill="#6E2233">Albretsen AS</text>
+  <text x="330" y="270" font-family="'EB Garamond', Georgia, serif" font-size="17" fill="#6E2233">Norway</text>
+</svg>

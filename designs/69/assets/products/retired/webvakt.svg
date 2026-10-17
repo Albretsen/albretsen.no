@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="WebVakt (retired)">
+  <title>WebVakt</title>
+  <circle cx="32" cy="32" r="30" fill="#A6E2CC"/>
+  <circle cx="32" cy="32" r="26.5" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="1"/>
+  <g fill="none" stroke="#2A2D4F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 38 a14 14 0 0 1 28 0"/><path d="M24 38 a8 8 0 0 1 16 0"/><path d="M14 44 H50"/></g>
+</svg>

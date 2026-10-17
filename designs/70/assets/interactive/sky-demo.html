@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live Sky · demo</title>
+<style>
+  @font-face{font-family:"EB Garamond";src:url(../fonts/eb-garamond-latin.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{--ink:#2A2420;--lime:#F6F1E8}
+  html,body{margin:0;height:100%;background:var(--sky-horizon,#cfd9e0);color:var(--lime);font-family:"EB Garamond",Georgia,serif}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .ui{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);width:min(560px,calc(100% - 32px));box-sizing:border-box;
+      background:rgba(42,36,32,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+      border-radius:18px;padding:16px 20px 18px}
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .t{font-size:34px;font-variant-numeric:oldstyle-nums;letter-spacing:.01em}
+  .p{font-size:13px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
+  input[type=range]{width:100%;margin:14px 0 6px;accent-color:#E4572E}
+  button{font:inherit;font-size:14px;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid currentColor;color:inherit;border-radius:999px;padding:4px 14px;cursor:pointer}
+  .sw{display:flex;gap:8px;margin-top:8px;font-size:13px;opacity:.9;align-items:center;flex-wrap:wrap}
+  .sw i{display:inline-block;width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.4)}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="ui">
+  <div class="row"><span class="t" id="t">--:--</span><span class="p" id="ph">…</span></div>
+  <input id="r" type="range" min="0" max="1439" step="1" aria-label="Time of day in Norway">
+  <div class="row"><span class="p" id="el"></span><button id="live">Now</button></div>
+  <div class="sw"><i style="background:var(--sky-zenith)"></i>zenith <i style="background:var(--sky-horizon)"></i>horizon <i style="background:var(--sun-color)"></i>sun</div>
+</div>
+<script type="module">
+  import { mountSky } from './sky.js';
+  const canvas = document.getElementById('sky');
+  const q = new URLSearchParams(location.search);
+  const sky = mountSky(canvas, { lat: 59.91, lon: 10.75 });
+  const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit' });
+  const r = document.getElementById('r');
+  // UTC instant of 00:00 in Norway on the Norwegian date of d
+  function midnightNO(d) {
+    const day = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+    const g = new Date(day + 'T00:00:00Z');
+    const off = new Date(g.toLocaleString('en-US', { timeZone: 'Europe/Oslo' })) - new Date(g.toLocaleString('en-US', { timeZone: 'UTC' }));
+    return new Date(g - off);
+  }
+  canvas.addEventListener('skychange', e => {
+    const s = e.detail;
+    document.getElementById('t').textContent = fmt.format(s.time);
+    document.getElementById('ph').textContent = s.phase;
+    document.getElementById('el').textContent = `sun ${s.elevation.toFixed(1)}°`;
+    r.value = Math.round((s.time - midnightNO(s.time)) / 60000);
+  });
+  r.addEventListener('input', () => sky.setTime(new Date(+midnightNO(new Date()) + r.value * 60000)));
+  document.getElementById('live').onclick = () => sky.setTime(null);
+  if (q.has('min')) sky.setTime(new Date(+midnightNO(new Date()) + q.get('min') * 60000));
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+/* motion.css — design 84 "Orbit Issue" motion study.
+   Five named signature animations. All respect prefers-reduced-motion.
+   Springs are baked into CSS linear() curves (generated from a damped
+   spring: stiffness 170 / damping 14, and 300 / 30), the technique used by
+   animations.dev and Motion's "spring to CSS" export.
+
+   1. COVER LIFT      — the magazine cover opens like a real cover (View Transitions)
+   2. EDITION WIPE    — a new time-of-day edition wipes in as a circle from the sun (View Transitions)
+   3. MASTHEAD RISE   — the masthead letters rise out of the horizon on a bouncy spring
+   4. FILM GRAIN TICK — grain overlay re-rolls at 12 fps, like film, not like video noise
+   5. SATELLITE       — a small product dot rides an orbit ellipse (offset-path)
+   (6. STACK SPRING lives in js/cover-stack.js: physics, not CSS.) */
+
+:root {
+  --spring-bouncy: linear(0, 0.057, 0.191, 0.364, 0.547, 0.718, 0.864, 0.978, 1.058, 1.107, 1.13, 1.132, 1.121, 1.101, 1.077, 1.053, 1.031, 1.013, 0.999, 0.99, 0.984, 0.982, 0.983, 0.985, 0.988, 0.991, 0.994, 0.997, 0.999, 1.001, 1.002, 1.002, 1.002, 1.002, 1.002, 1.002, 1.001, 1.001, 1, 1, 1, 1);
+  --spring-firm: linear(0, 0.097, 0.284, 0.477, 0.643, 0.77, 0.86, 0.92, 0.958, 0.981, 0.994, 1, 1.003, 1.003, 1.003, 1.002, 1.002, 1.001, 1.001, 1, 1, 1, 1, 1, 1);
+  --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ---------- 1. COVER LIFT ----------
+   Give the cover `view-transition-name: cover` and the inside spread
+   `view-transition-name: spread`. motion.js `openCover()` swaps them inside
+   document.startViewTransition(). The old cover swings open around its left
+   spine with perspective while the spread settles underneath. */
+::view-transition-group(cover) { animation-duration: 900ms; animation-timing-function: var(--ease-out-expo); }
+::view-transition-old(cover) {
+  transform-origin: 0% 50%;
+  animation: cover-lift 900ms var(--ease-out-expo) both;
+}
+::view-transition-new(spread) { animation: spread-settle 900ms var(--spring-firm) both; }
+@keyframes cover-lift {
+  0%   { transform: perspective(1800px) rotateY(0deg); filter: brightness(1); }
+  60%  { filter: brightness(.7); }
+  100% { transform: perspective(1800px) rotateY(-112deg); filter: brightness(.45); opacity: 0; }
+}
+@keyframes spread-settle {
+  from { transform: scale(.94) translateY(14px); filter: brightness(.6); }
+  to   { transform: none; filter: none; }
+}
+/* closing reverses: add .closing to <html> before the transition */
+.closing::view-transition-new(cover) { transform-origin: 0% 50%; animation: cover-lift 800ms var(--ease-out-expo) reverse both; }
+.closing::view-transition-old(spread) { animation: spread-settle 800ms ease-in reverse both; }
+
+/* ---------- 2. EDITION WIPE ----------
+   motion.js `switchEdition()` sets --wipe-x / --wipe-y to the sun's position,
+   then the new root snapshot grows from a circle there. */
+.edition-wipe::view-transition-old(root) { animation: none; }
+.edition-wipe::view-transition-new(root) {
+  animation: edition-wipe 1100ms var(--ease-out-expo) both;
+}
+@keyframes edition-wipe {
+  from { clip-path: circle(0% at var(--wipe-x, 50%) var(--wipe-y, 60%)); }
+  to   { clip-path: circle(150% at var(--wipe-x, 50%) var(--wipe-y, 60%)); }
+}
+
+/* ---------- 3. MASTHEAD RISE ----------
+   Wrap each masthead letter in <span style="--i:N">. The letters sit inside a
+   clipping box whose bottom edge is the horizon, so they rise out of it. */
+.masthead-rise { display: inline-flex; overflow: clip; overflow-clip-margin: 0 0 0 0; padding-top: .06em; }
+.masthead-rise > span {
+  display: inline-block;
+  translate: 0 105%;
+  animation: masthead-rise 1100ms var(--spring-bouncy) both;
+  animation-delay: calc(var(--i, 0) * 55ms + 150ms);
+}
+@keyframes masthead-rise { to { translate: 0 0; } }
+
+/* ---------- 4. FILM GRAIN TICK ---------- */
+.grain-tick {
+  position: absolute; inset: -50%; pointer-events: none;
+  background: url(extras/grain-tile.png) repeat;
+  mix-blend-mode: overlay; opacity: .2;
+  animation: grain-tick 1s steps(12) infinite;
+}
+@keyframes grain-tick {
+  0% { translate: 0 0 } 10% { translate: -5% -10% } 20% { translate: -15% 5% } 30% { translate: 7% -25% }
+  40% { translate: -5% 25% } 50% { translate: -15% 10% } 60% { translate: 15% 0 } 70% { translate: 0 15% }
+  80% { translate: 3% 35% } 90% { translate: -10% 10% } 100% { translate: 0 0 }
+}
+
+/* ---------- 5. SATELLITE ----------
+   A dot travelling an elliptical orbit; the dot shrinks and dims on the back half. */
+.satellite {
+  offset-path: ellipse(46% 14% at 50% 50%);
+  offset-rotate: 0deg;
+  animation: satellite 9s linear infinite;
+}
+@keyframes satellite {
+  0%   { offset-distance: 0%;   scale: 1;   opacity: 1; }
+  25%  { scale: 1.25; }
+  50%  { offset-distance: 50%;  scale: .7;  opacity: .55; }
+  75%  { scale: .6; }
+  100% { offset-distance: 100%; scale: 1;   opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .masthead-rise > span { animation: none; translate: 0 0; }
+  .grain-tick, .satellite { animation: none; }
+}

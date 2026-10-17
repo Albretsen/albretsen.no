@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen and Albretsen AS: small software, made carefully, that pays its own way.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FBF7F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#18223F" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that keeps its own lights on.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/identity/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<link rel="preload" href="assets/fonts/jost-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  // Theme before first paint: ?theme=, else the system preference. No storage needed.
+  (function () {
+    var q = new URLSearchParams(location.search).get('theme');
+    var t = q === 'night' || q === 'day' ? q : (matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day');
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#products">Skip to the products</a>
+
+<header class="hero ms-lens" id="top" aria-label="Albretsen AS">
+  <div class="hero__stage">
+    <picture class="hero__still" id="still">
+      <source type="image/avif" media="(max-aspect-ratio: 41/50) and (prefers-color-scheme: dark)" srcset="assets/img/hero-night-phone-720.avif 720w, assets/img/hero-night-phone-1152.avif 1152w" sizes="100vw" data-scene="night">
+      <source type="image/webp" media="(max-aspect-ratio: 41/50) and (prefers-color-scheme: dark)" srcset="assets/img/hero-night-phone-720.webp 720w, assets/img/hero-night-phone-1152.webp 1152w" sizes="100vw" data-scene="night">
+      <source type="image/avif" media="(prefers-color-scheme: dark)" srcset="assets/img/hero-night-1280.avif 1280w, assets/img/hero-night-2560.avif 2560w" sizes="100vw" data-scene="night">
+      <source type="image/webp" media="(prefers-color-scheme: dark)" srcset="assets/img/hero-night-1280.webp 1280w, assets/img/hero-night-2560.webp 2560w" sizes="100vw" data-scene="night">
+      <source type="image/avif" media="(max-aspect-ratio: 41/50)" srcset="assets/img/hero-pinkhour-phone-720.avif 720w, assets/img/hero-pinkhour-phone-1152.avif 1152w" sizes="100vw">
+      <source type="image/webp" media="(max-aspect-ratio: 41/50)" srcset="assets/img/hero-pinkhour-phone-720.webp 720w, assets/img/hero-pinkhour-phone-1152.webp 1152w" sizes="100vw">
+      <source type="image/avif" srcset="assets/img/hero-pinkhour-640.avif 640w, assets/img/hero-pinkhour-1280.avif 1280w, assets/img/hero-pinkhour-1920.avif 1920w, assets/img/hero-pinkhour-2560.avif 2560w" sizes="100vw">
+      <source type="image/webp" srcset="assets/img/hero-pinkhour-640.webp 640w, assets/img/hero-pinkhour-1280.webp 1280w, assets/img/hero-pinkhour-1920.webp 1920w, assets/img/hero-pinkhour-2560.webp 2560w" sizes="100vw">
+      <img src="assets/img/hero-pinkhour-1280.jpg" srcset="assets/img/hero-pinkhour-640.jpg 640w, assets/img/hero-pinkhour-1280.jpg 1280w, assets/img/hero-pinkhour-1920.jpg 1920w" sizes="100vw" width="2560" height="1440" fetchpriority="high" decoding="async"
+        alt="A pink deco pavilion with a rooftop sign reading ALBRETSEN stands centred in a snowfield at the pink hour, golden cliffs behind.">
+    </picture>
+    <canvas class="hero__sky" id="sky" width="16" height="9"></canvas>
+    <canvas class="ms-snow" id="snow" aria-hidden="true"></canvas>
+  </div>
+
+  <nav class="bar" aria-label="Site">
+    <a class="bar__side" href="#products">Products</a>
+    <a class="bar__brand" href="#top" aria-label="Albretsen AS, top of page">
+      <svg class="bar__mark" viewBox="0 0 64 64" width="34" height="34" aria-hidden="true">
+        <defs><clipPath id="mw"><path d="M16 56V28a16 16 0 0 1 32 0v28z"/></clipPath></defs>
+        <g clip-path="url(#mw)">
+          <circle class="mark-sun" cx="32" cy="38" r="9.5" fill="#EE8FA6"/>
+          <rect x="10" y="38" width="44" height="20" fill="#FBF7F2"/>
+          <rect x="21" y="42.2" width="22" height="2.4" rx="1.2" fill="#9CC8EA"/>
+          <rect x="24.5" y="47.2" width="15" height="2.4" rx="1.2" fill="#A6DCC6"/>
+          <rect x="28" y="52.2" width="8" height="2.4" rx="1.2" fill="#9CC8EA"/>
+        </g>
+        <path d="M16 56V28a16 16 0 0 1 32 0v28" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M11 56h42" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+      </svg>
+      <span class="bar__word">Albretsen<span class="bar__as">AS</span></span>
+    </a>
+    <button class="bar__side switch" id="switch" type="button" aria-pressed="false">
+      <span class="switch__disc" aria-hidden="true"></span><span class="switch__label">Night</span>
+    </button>
+  </nav>
+
+  <div class="title">
+    <h1 class="title__name ms-sign" id="name">Asgeir Albretsen</h1>
+    <p class="title__line">Software that keeps its own lights&nbsp;on.</p>
+  </div>
+
+  <div class="dial" aria-hidden="true">
+    <div class="dial__rail"><span class="dial__tick" style="--a:6">6&deg;</span><span class="dial__tick" style="--a:0">0&deg;</span><span class="dial__tick" style="--a:-6">&minus;6&deg;</span><span class="dial__dot" id="dialDot"></span></div>
+  </div>
+
+  <div class="foot">
+    <p class="foot__reading"><span class="foot__state" id="state">Pink hour</span><span class="foot__fig" id="reading">Sun &minus;0.6&deg; &middot; 14:55</span></p>
+    <p class="foot__hint" id="hint"><span class="foot__sun" aria-hidden="true"></span>Drag the sun</p>
+    <p class="foot__feed" id="feed" aria-live="off"><span class="foot__feed-dot" aria-hidden="true"></span><span id="feedText">Opening the shutters</span></p>
+  </div>
+</header>
+
+<main>
+  <section class="products" id="products" aria-labelledby="products-h">
+    <div class="ms-track" id="track">
+      <div class="ms-rail">
+        <ol class="ms-row" id="row">
+          <li class="intro">
+            <p class="eyebrow">The products</p>
+            <h2 id="products-h">Four houses, <em>each with its own sign.</em></h2>
+            <p class="intro__body">Albretsen AS builds whatever earns its keep: an inbox for AI agents, a word game, a tool layer for agents, a knowledge base. Each one is small, finished to the corners, and judged on whether it pays for itself.</p>
+            <img class="intro__lines" src="assets/extras/speed-lines.svg" width="240" height="40" alt="">
+          </li>
+          <!-- product cards are rendered from content.js by js/site.js; this is the no-JS fallback order -->
+        </ol>
+        <div class="progress" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="retired">
+      <img class="retired__lines" src="assets/extras/speed-lines.svg" width="240" height="40" alt="" loading="lazy">
+      <p class="eyebrow">Earlier work</p>
+      <h3>Closed, <em>with thanks.</em></h3>
+      <ul class="plaques" id="plaques"></ul>
+    </div>
+  </section>
+
+  <section class="station" aria-labelledby="station-h">
+    <div class="station__frame ms-lens">
+      <picture class="ms-layer" style="--depth:.45">
+        <source type="image/avif" srcset="assets/img/ground-station-1280.avif 1280w, assets/img/ground-station-2560.avif 2560w" sizes="100vw">
+        <source type="image/webp" srcset="assets/img/ground-station-1280.webp 1280w, assets/img/ground-station-2560.webp 2560w" sizes="100vw">
+        <img src="assets/img/ground-station-1600.jpg" width="2560" height="1440" loading="lazy" decoding="async"
+          alt="A pastel satellite dish on a stepped mint plinth stands in snow between two small pink huts, golden hills behind.">
+      </picture>
+    </div>
+    <div class="station__card">
+      <p class="eyebrow">For agents</p>
+      <h2 id="station-h">One line, <em>and your agent can reach the studio.</em></h2>
+    </div>
+    <div class="cmd">
+      <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button class="cmd__copy" id="copy" type="button" aria-live="polite"><span class="cmd__label">Copy</span></button>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <img class="footer__stamp" src="assets/extras/stamp.svg" width="240" height="300" alt="A perforated stamp showing the pink pavilion in miniature." loading="lazy">
+  <p class="footer__avail">Takes one outside engagement at a time.</p>
+  <p><a class="footer__mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+  <p class="footer__meta"><span>Albretsen AS &middot; Norway &middot; on Google Play since <span data-fact="since">2016</span></span><button class="sound" id="sound" type="button" aria-pressed="false">Sound: off</button></p>
+</footer>
+
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

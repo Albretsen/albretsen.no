@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Long Evening: live street</title>
+<link rel="icon" href="../identity/favicon.svg" type="image/svg+xml">
+<style>
+  @font-face{font-family:Nunito;src:url(../fonts/Nunito-latin.woff2) format('woff2');font-weight:200 1000;font-display:swap}
+  :root{--ink:#1d1f24;--paper:#fbf5ec;--peach:#f6b48f}
+  html,body{margin:0;height:100%;background:#e9dccb;font-family:Nunito,ui-rounded,system-ui,sans-serif;color:var(--ink)}
+  .stage{position:relative;height:100svh;min-height:420px;overflow:hidden}
+  .stage img,.stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .stage canvas{opacity:0;transition:opacity 1.2s ease}
+  .stage canvas.on{opacity:1}
+  .panel{position:absolute;left:16px;right:16px;bottom:16px;max-width:520px;margin:auto;background:color-mix(in oklab,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-radius:22px;padding:14px 18px 16px;box-shadow:0 10px 40px #1d1f2426}
+  .row{display:flex;align-items:center;gap:12px}
+  .row strong{font-weight:800;font-size:15px;letter-spacing:-.01em}
+  .row span{opacity:.65;font-weight:600;font-size:13px}
+  input[type=range]{flex:1;accent-color:#9e3b2e}
+  button{font:inherit;font-weight:800;font-size:13px;border:0;border-radius:999px;padding:8px 14px;background:var(--ink);color:var(--paper);cursor:pointer}
+  button[aria-pressed=true]{background:#9e3b2e}
+  sky-clock{display:block;margin:12px auto 0}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js"}}</script>
+</head><body>
+<main class="stage">
+  <!-- first paint: the baked still; the live scene fades in over it once ready -->
+  <picture>
+    <source type="image/avif" srcset="../hero/street-sunset-800.avif 800w, ../hero/street-sunset-1440.avif 1440w, ../hero/street-sunset-2400.avif 2400w" sizes="100vw">
+    <img src="../hero/street-sunset-1440.jpg" width="1440" height="810" alt="A main street of wooden and pastel houses under a peach evening sky">
+  </picture>
+  <canvas id="c" aria-hidden="true"></canvas>
+  <div class="panel">
+    <div class="row"><strong id="clock">--:--</strong><span id="label">Live: the sky over Norway right now</span></div>
+    <div class="row" style="margin-top:10px">
+      <input id="t" type="range" min="0" max="24" step="0.05" value="20" aria-label="Time of day in Norway">
+      <button id="now" aria-pressed="true">Now</button>
+    </div>
+    <sky-clock compact></sky-clock>
+  </div>
+</main>
+<script type="module">
+import { norwayAt, norwayClock } from './sun.js'
+import './sky-clock.js'
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+const $ = (s) => document.querySelector(s)
+const clockEl = $('#clock'), slider = $('#t'), nowBtn = $('#now'), sky = $('sky-clock')
+let live = true
+const tick = () => { if (live) { const n = new Date(); clockEl.textContent = norwayClock(n); const [h, m] = norwayClock(n).split(':').map(Number); slider.value = h + m / 60 } }
+tick(); setInterval(tick, 30000)
+
+// load the 3D scene after first paint, when idle
+const boot = async () => {
+  const { createStreet } = await import('./street.js')
+  const canvas = $('#c')
+  const st = createStreet(canvas, { live: true, view: innerWidth / innerHeight < 0.9 ? 'portrait' : 'street' })
+  const P = '../../../_shared/products/'
+  await st.setSigns({ 'mcp-emails': P + 'mcp-emails/logo-wordmark.svg', 'fun-libs': P + 'fun-libs/icon.png', toolrails: P + 'toolrails/icon.svg', harbor: P + 'harbor/harbor-wordmark.svg' })
+  st.applyTime(new Date()); st.render()
+  canvas.classList.add('on')
+  if (!reduce) st.start()
+  slider.addEventListener('input', () => {
+    live = false; st.setLive(false); nowBtn.setAttribute('aria-pressed', 'false')
+    const h = +slider.value, d = norwayAt(Math.floor(h), Math.round((h % 1) * 60))
+    st.applyTime(d); st.render(); clockEl.textContent = norwayClock(d); $('#label').textContent = 'Scrubbing the long day'
+    sky.hours = h
+  })
+  nowBtn.addEventListener('click', () => {
+    live = true; st.setLive(true); nowBtn.setAttribute('aria-pressed', 'true'); sky.hours = null
+    $('#label').textContent = 'Live: the sky over Norway right now'; tick(); st.applyTime(new Date()); st.render()
+  })
+}
+;(window.requestIdleCallback || ((f) => setTimeout(f, 200)))(boot)
+</script>
+</body></html>

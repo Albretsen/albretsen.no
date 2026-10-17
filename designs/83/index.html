@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds quiet software that pays for itself: apps, SaaS and the infrastructure AI agents run on. Albretsen AS, Norway.">
+<meta name="theme-color" content="#041419">
+<meta property="og:title" content="Asgeir Albretsen · Albretsen AS">
+<meta property="og:description" content="Quiet software that pays for itself.">
+<meta property="og:image" content="assets/brand/og-image-1200x630.jpg">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon-180.png">
+<link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  // Before first paint: decide whether this visit powers on (first visit in the session, motion allowed).
+  (function () {
+    var d = document.documentElement; d.classList.add('js')
+    var still = matchMedia('(prefers-reduced-motion: reduce)').matches, seen = false
+    try { seen = sessionStorage.getItem('wb83-booted') === '1' } catch (e) {}
+    if (!still && !seen && !/[?&](noboot|still)/.test(location.search)) d.classList.add('booting')
+  })()
+</script>
+<link rel="stylesheet" href="css/site.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#products">Skip to products</a>
+
+<div class="boot" aria-hidden="true">
+  <div class="boot-log" id="bootLog"></div>
+</div>
+<button class="boot-skip" type="button" id="bootSkip">Skip boot</button>
+
+<header class="masthead">
+  <a class="brand blink" href="./" aria-label="Albretsen AS, home"><svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><defs><linearGradient id="sun-nav" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eedbbd"/><stop offset=".45" stop-color="#e8a95c"/><stop offset="1" stop-color="#bc6449"/></linearGradient><mask id="bands-nav"><rect width="64" height="64" fill="#fff"/><g fill="#000"><rect x="0" y="29.2" width="64" height="1.20"/><rect x="0" y="33.6" width="64" height="1.80"/><rect x="0" y="38.0" width="64" height="2.60"/><rect x="0" y="42.4" width="64" height="3.40"/></g></mask></defs><circle cx="32" cy="27" r="23" fill="url(#sun-nav)" mask="url(#bands-nav)"/><rect class="cursor" x="17" y="55" width="30" height="4.2" rx="0.6" fill="#7defda"/></svg><span class="mono">Albretsen AS</span></a>
+  <nav aria-label="Primary">
+    <a href="#products">Products</a>
+    <a class="nav-extra" href="#archive">Archive</a>
+    <a class="nav-extra" href="mailto:asgeir@albretsen.no">Email</a>
+    <button class="ghost-btn" type="button" id="soundBtn" aria-pressed="false">Sound off</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <div class="hero-media" style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDll01/7h/Kpl0xu6H8qyrC9lS8gzLJs8xdw3HBGRmu+/tHTx92F8+u3IqalXl6G1KlGfU5r+ynxnyz+VMfTGH8B/KuzXxBbCyNrHFBs/i3nafy65qlJqlgVH7nLdzk4/lWaxH900+rrueaL1FWxPN5ZHmyY/3jRRWlToYUeo1XdWDKzA+oNLJLK5AeR2HuxNFFR1NVsf/Z')">
+      <picture class="first">
+        <source media="(max-width: 700px)" type="image/avif" srcset="assets/hero/first-light-portrait-600.avif 600w, assets/hero/first-light-portrait-900.avif 900w" sizes="100vw">
+        <source media="(max-width: 700px)" type="image/webp" srcset="assets/hero/first-light-portrait-600.webp 600w, assets/hero/first-light-portrait-900.webp 900w" sizes="100vw">
+        <source media="(max-width: 700px)" srcset="assets/hero/first-light-portrait-600.jpg 600w, assets/hero/first-light-portrait-900.jpg 900w" sizes="100vw">
+        <source type="image/avif" srcset="assets/hero/first-light-828.avif 828w, assets/hero/first-light-1280.avif 1280w, assets/hero/first-light-1920.avif 1920w, assets/hero/first-light-2560.avif 2560w" sizes="100vw">
+        <source type="image/webp" srcset="assets/hero/first-light-828.webp 828w, assets/hero/first-light-1280.webp 1280w, assets/hero/first-light-1920.webp 1920w, assets/hero/first-light-2560.webp 2560w" sizes="100vw">
+        <img src="assets/hero/first-light-1280.jpg" width="1280" height="720" fetchpriority="high" decoding="async" alt="An airbrushed painting: dawn over flat-topped mesas, a banded sun rising on the horizon">
+      </picture>
+      <picture class="blue">
+        <source media="(max-width: 700px)" type="image/avif" srcset="assets/hero/blue-hour-portrait-600.avif 600w, assets/hero/blue-hour-portrait-900.avif 900w" sizes="100vw">
+        <source media="(max-width: 700px)" type="image/webp" srcset="assets/hero/blue-hour-portrait-600.webp 600w, assets/hero/blue-hour-portrait-900.webp 900w" sizes="100vw">
+        <source media="(max-width: 700px)" srcset="assets/hero/blue-hour-portrait-600.jpg 600w, assets/hero/blue-hour-portrait-900.jpg 900w" sizes="100vw">
+        <source type="image/avif" srcset="assets/hero/blue-hour-828.avif 828w, assets/hero/blue-hour-1280.avif 1280w, assets/hero/blue-hour-1920.avif 1920w, assets/hero/blue-hour-2560.avif 2560w" sizes="100vw">
+        <source type="image/webp" srcset="assets/hero/blue-hour-828.webp 828w, assets/hero/blue-hour-1280.webp 1280w, assets/hero/blue-hour-1920.webp 1920w, assets/hero/blue-hour-2560.webp 2560w" sizes="100vw">
+        <img src="assets/hero/blue-hour-1280.jpg" width="1280" height="720" loading="lazy" fetchpriority="low" decoding="async" alt="">
+      </picture>
+    </div>
+    <div class="signal" id="signal" aria-hidden="true"><canvas id="field"></canvas></div>
+    <div class="hero-veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="lens-ring" id="lensRing" aria-hidden="true"><i></i><span class="mono">Signal</span></div>
+
+    <div class="hero-copy">
+      <p class="label" data-decode>Albretsen AS · Software · Norway</p>
+      <h1 id="heroTitle" data-decode-h>Asgeir Albretsen</h1>
+      <p class="lede">Builds quiet software that <em>pays for itself</em>: apps, SaaS and the infrastructure AI agents run on.</p>
+      <div class="hero-meta">
+        <div class="cmd">
+          <code id="cmdText">claude mcp add albretsen https://albretsen.no/mcp</code>
+          <button type="button" id="copyBtn" aria-describedby="cmdText">Copy</button>
+        </div>
+        <p class="feed mono"><span class="dot" id="feedDot" aria-hidden="true"></span><span class="sr-only">Live: </span><output id="feed">Running</output></p>
+      </div>
+    </div>
+
+    <div class="hero-tools">
+      <button class="ghost-btn" type="button" id="signalBtn" aria-pressed="false">View signal</button>
+    </div>
+  </section>
+
+  <section class="plates" id="products" aria-labelledby="productsTitle">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label" data-decode>01 · Products in service</p>
+        <h2 id="productsTitle">Each product is a sun, <em>at its own hour.</em></h2>
+        <p>The hour is the status. Risen is live, cresting is being built, blue hour is paused. The real logo sits in the sun, unchanged.</p>
+      </header>
+      <ol class="plate-grid">
+      <li class="plate" data-status="live" style="--i:0">
+        <figure>
+          <div class="frame"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg>
+            <div class="pic">
+              <picture>
+                <source type="image/avif" srcset="assets/products/mcp-emails-480.avif 480w, assets/products/mcp-emails-800.avif 800w, assets/products/mcp-emails-1200.avif 1200w" sizes="(min-width: 1180px) 22vw, (min-width: 620px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/products/mcp-emails-480.webp 480w, assets/products/mcp-emails-800.webp 800w, assets/products/mcp-emails-1200.webp 1200w" sizes="(min-width: 1180px) 22vw, (min-width: 620px) 45vw, 92vw">
+                <img src="assets/products/mcp-emails-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="The MCP Emails logo carried by the sun, at sunrise, over painted mesas">
+              </picture>
+              <span class="sweep" aria-hidden="true"></span>
+            </div>
+          </div>
+          <figcaption>
+            <div class="row"><span class="mono no">Pl. I</span><span class="mono status">Live · 2026</span></div>
+            <h3><span>MCP Emails</span> <span class="hour">at sunrise</span></h3>
+            <p class="line">Email for AI agents.</p>
+            <div class="fig"><b>$782</b><span class="mono">MRR</span></div>
+            <ul class="facts mono"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+          </figcaption>
+        </figure>
+        <a class="cover" href="https://mcpemails.com" rel="noopener"><span class="sr-only">MCP Emails, mcpemails.com</span></a>
+      </li>
+      <li class="plate" data-status="live" style="--i:1">
+        <figure>
+          <div class="frame"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg>
+            <div class="pic">
+              <picture>
+                <source type="image/avif" srcset="assets/products/fun-libs-480.avif 480w, assets/products/fun-libs-800.avif 800w, assets/products/fun-libs-1200.avif 1200w" sizes="(min-width: 1180px) 22vw, (min-width: 620px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/products/fun-libs-480.webp 480w, assets/products/fun-libs-800.webp 800w, assets/products/fun-libs-1200.webp 1200w" sizes="(min-width: 1180px) 22vw, (min-width: 620px) 45vw, 92vw">
+                <img src="assets/products/fun-libs-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="The Fun Libs logo carried by the sun, at noon, over painted mesas">
+              </picture>
+              <span class="sweep" aria-hidden="true"></span>
+            </div>
+          </div>
+          <figcaption>
+            <div class="row"><span class="mono no">Pl. II</span><span class="mono status">Live · 2019</span></div>
+            <h3><span>Fun Libs</span> <span class="hour">at noon</span></h3>
+            <p class="line">A fill-in-the-blanks word game for Android and iOS.</p>
+            <div class="fig"><b>113,000+</b><span class="mono">installs</span></div>
+            <ul class="facts mono"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+          </figcaption>
+        </figure>
+        <a class="cover" href="https://funlibs.app" rel="noopener"><span class="sr-only">Fun Libs, funlibs.app</span></a>
+      </li>
+      <li class="plate" data-status="building" style="--i:2">
+        <figure>
+          <div class="frame"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg>
+            <div class="pic">
+              <picture>
+                <source type="image/avif" srcset="assets/products/toolrails-480.avif 480w, assets/products/toolrails-800.avif 800w, assets/products/toolrails-1200.avif 1200w" sizes="(min-width: 1180px) 22vw, (min-width: 620px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/products/toolrails-480.webp 480w, assets/products/toolrails-800.webp 800w, assets/products/toolrails-1200.webp 1200w" sizes="(min-width: 1180px) 22vw, (min-width: 620px) 45vw, 92vw">
+                <img src="assets/products/toolrails-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="The Toolrails logo carried by the sun, cresting the ridge, over painted mesas">
+              </picture>
+              <span class="sweep" aria-hidden="true"></span>
+            </div>
+          </div>
+          <figcaption>
+            <div class="row"><span class="mono no">Pl. III</span><span class="mono status">Building · 2026</span></div>
+            <h3><span>Toolrails</span> <span class="hour">cresting the ridge</span></h3>
+            <p class="line">One MCP URL that gives an agent every tool.</p>
+            <div class="fig"><b>4</b><span class="mono">connectors</span></div>
+            <ul class="facts mono"><li>tool search</li><li>injection guard</li></ul>
+          </figcaption>
+        </figure>
+        <a class="cover" href="https://toolrails.com" rel="noopener"><span class="sr-only">Toolrails, toolrails.com</span></a>
+      </li>
+      <li class="plate" data-status="paused" style="--i:3">
+        <figure>
+          <div class="frame"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg>
+            <div class="pic">
+              <picture>
+                <source type="image/avif" srcset="assets/products/harbor-480.avif 480w, assets/products/harbor-800.avif 800w, assets/products/harbor-1200.avif 1200w" sizes="(min-width: 1180px) 22vw, (min-width: 620px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/products/harbor-480.webp 480w, assets/products/harbor-800.webp 800w, assets/products/harbor-1200.webp 1200w" sizes="(min-width: 1180px) 22vw, (min-width: 620px) 45vw, 92vw">
+                <img src="assets/products/harbor-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="The Harbor logo carried by the sun, at blue hour, over painted mesas">
+              </picture>
+              <span class="sweep" aria-hidden="true"></span>
+            </div>
+          </div>
+          <figcaption>
+            <div class="row"><span class="mono no">Pl. IV</span><span class="mono status">Paused · 2026</span></div>
+            <h3><span>Harbor</span> <span class="hour">at blue hour</span></h3>
+            <p class="line">A private knowledge base shared by people and AI.</p>
+            <div class="fig"><b>549</b><span class="mono">commits</span></div>
+            <ul class="facts mono"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+          </figcaption>
+        </figure>
+        <a class="cover" href="https://harborknowledge.com" rel="noopener"><span class="sr-only">Harbor, harborknowledge.com</span></a>
+      </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="archive" id="archive" aria-labelledby="archiveTitle">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label" data-decode>02 · Archive</p>
+        <h2 id="archiveTitle">Retired, <em>and kept on file.</em></h2>
+        <p>Closed products, filed as specimens from a 1904 plate of radiolarians. Luma keeps its own logo on a set sun.</p>
+      </header>
+      <ol class="specimens">
+      <li class="specimen">
+        <div class="box"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg><img class="paint" src="assets/products/luma-480.webp" width="480" height="600" loading="lazy" decoding="async" alt="The Luma logo on a set sun"></div>
+        <h3>Luma</h3>
+        <p>Norwegian budgeting app with open banking.</p>
+        <span class="mono">378 commits · 2026</span>
+      </li>
+      <li class="specimen">
+        <div class="box"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg><img src="assets/products/retired/polyglot-pilot-sand.webp" width="360" height="450" loading="lazy" decoding="async" alt=""></div>
+        <h3>Polyglot Pilot</h3>
+        <p>Agents that localised entire codebases, with a dashboard for human reviewers.</p>
+        <span class="mono">2025</span>
+      </li>
+      <li class="specimen">
+        <div class="box"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg><img src="assets/products/retired/pinpoint-sand.webp" width="360" height="544" loading="lazy" decoding="async" alt=""></div>
+        <h3>PinPoint</h3>
+        <p>GeoGuessr with your own photos: friends guess where your pictures were taken.</p>
+        <span class="mono">16 commits · 2025</span>
+      </li>
+      <li class="specimen">
+        <div class="box"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg><img src="assets/products/retired/webvakt-sand.webp" width="360" height="413" loading="lazy" decoding="async" alt=""></div>
+        <h3>WebVakt</h3>
+        <p>Website change monitoring.</p>
+        <span class="mono">2024</span>
+      </li>
+      <li class="specimen">
+        <div class="box"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg><img src="assets/products/retired/joke-central-sand.webp" width="360" height="493" loading="lazy" decoding="async" alt=""></div>
+        <h3>Daily Jokes / Joke Central</h3>
+        <p>Joke apps for iOS and Android.</p>
+        <span class="mono">2024</span>
+      </li>
+      <li class="specimen">
+        <div class="box"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg><img src="assets/products/retired/tryggere-hyring-sand.webp" width="360" height="540" loading="lazy" decoding="async" alt=""></div>
+        <h3>Tryggere Hyring</h3>
+        <p>Background checks for hiring.</p>
+        <span class="mono">2023</span>
+      </li>
+      <li class="specimen">
+        <div class="box"><svg class="pf" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg><img src="assets/products/retired/early-apps-sand.webp" width="360" height="749" loading="lazy" decoding="async" alt=""></div>
+        <h3>IAGO HMS, Rentekalkulator, Prosentkalkulator</h3>
+        <p>Early apps.</p>
+        <span class="mono">2021</span>
+      </li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <img class="strip" src="assets/extras/horizon-dusk.webp" width="2400" height="220" loading="lazy" decoding="async" alt="">
+  <div class="foot-inner">
+    <div>
+      <p class="avail">Takes <em>one outside engagement</em> at a time.</p>
+      <a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    </div>
+    <div class="meta mono">
+      <span class="blink" style="display:inline-flex;align-items:center;gap:10px"><svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><defs><linearGradient id="sun-foot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eedbbd"/><stop offset=".45" stop-color="#e8a95c"/><stop offset="1" stop-color="#bc6449"/></linearGradient><mask id="bands-foot"><rect width="64" height="64" fill="#fff"/><g fill="#000"><rect x="0" y="29.2" width="64" height="1.20"/><rect x="0" y="33.6" width="64" height="1.80"/><rect x="0" y="38.0" width="64" height="2.60"/><rect x="0" y="42.4" width="64" height="3.40"/></g></mask></defs><circle cx="32" cy="27" r="23" fill="url(#sun-foot)" mask="url(#bands-foot)"/><rect class="cursor" x="17" y="55" width="30" height="4.2" rx="0.6" fill="#7defda"/></svg>Albretsen AS · Norway</span>
+      <span>On Google Play since 2016</span>
+      <button class="ghost-btn" type="button" id="rebootBtn">Reboot</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

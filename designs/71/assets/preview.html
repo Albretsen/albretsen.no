@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<script>if (/[?&]shot/.test(location.search)) document.documentElement.classList.add('shot');
+  addEventListener('DOMContentLoaded', () => { const only = new URLSearchParams(location.search).get('only'); if (only) document.querySelectorAll('[data-sec]').forEach(e => { e.hidden = !only.split(',').includes(e.dataset.sec); }); });</script>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Winter Pavilion asset kit</title>
+<meta name="description" content="Asset kit 71 for Albretsen AS: a pastel pavilion in a photographed snowfield, with a sun you can drag.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="preload" as="font" type="font/woff2" href="fonts/jost-var-latin.woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: Jost; src: url(fonts/jost-var-latin.woff2) format('woff2'); font-weight: 300 700; font-display: swap; }
+  @font-face { font-family: 'Instrument Serif'; src: url(fonts/instrument-serif-latin.woff2) format('woff2'); font-display: swap; }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; src: url(fonts/instrument-serif-italic-latin.woff2) format('woff2'); font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url(fonts/ibm-plex-mono-400-latin.woff2) format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url(fonts/ibm-plex-mono-500-latin.woff2) format('woff2'); font-weight: 500; font-display: swap; }
+
+  :root {
+    --flamingo: #EE8FA6; --shell: #F7D3DA; --mint: #A6DCC6; --sky: #9CC8EA; --snow: #FBF7F2; --cream: #F4EADB;
+    --ink: #22304F; --night: #18223F; --dusk: #4C5C95; --sunlamp: #FFE3B0; --alpenglow: #D9907F; --conifer: #2F5D4E;
+    --bg: var(--snow); --fg: var(--ink); --muted: color-mix(in oklab, var(--ink) 62%, transparent); --line: color-mix(in oklab, var(--ink) 14%, transparent);
+    --card: #fff; --accent: var(--flamingo);
+    --sans: Jost, ui-sans-serif, system-ui, sans-serif; --serif: 'Instrument Serif', Georgia, serif; --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    color-scheme: light;
+  }
+  :root[data-theme="night"] { --bg: var(--night); --fg: var(--snow); --muted: color-mix(in oklab, var(--snow) 62%, transparent); --line: color-mix(in oklab, var(--snow) 16%, transparent); --card: #1F2B4E; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; transition: background-color .8s ease, color .8s ease; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+  .caps { font-family: var(--sans); font-weight: 500; letter-spacing: .3em; text-transform: uppercase; }
+  .label { font: 500 11px/1.5 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
+  section.block { padding: clamp(64px, 10vw, 128px) 0; border-top: 1px solid var(--line); }
+  .block-head { display: grid; gap: 10px; justify-items: center; text-align: center; margin-bottom: clamp(32px, 5vw, 56px); }
+  .block-head h2 { margin: 0; font: 500 clamp(18px, 2.2vw, 22px)/1.2 var(--sans); letter-spacing: .34em; text-transform: uppercase; }
+  .block-head p { margin: 0; max-width: 58ch; font: italic 400 clamp(20px, 2.4vw, 26px)/1.3 var(--serif); color: var(--muted); }
+
+  /* top bar */
+  .bar { position: absolute; z-index: 5; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 18px clamp(16px, 3vw, 32px); color: var(--snow); }
+  .bar .lock { width: clamp(170px, 22vw, 240px); color: var(--snow); }
+  
+  .toggle { font: 500 12px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: var(--ink); background: rgba(251, 247, 242, .88); border: 0; border-radius: 99px; padding: 12px 18px 12px 20px; cursor: pointer; display: inline-flex; gap: 10px; align-items: center; }
+  .toggle i { width: 10px; height: 10px; border-radius: 50%; background: var(--flamingo); box-shadow: inset -3px -2px 0 0 transparent; transition: box-shadow .6s, background .6s; }
+  :root[data-theme="night"] .toggle i { background: var(--sunlamp); box-shadow: inset -3px -2px 0 0 var(--ink); }
+  button:focus-visible, canvas:focus-visible, a:focus-visible { outline: 2px solid var(--flamingo); outline-offset: 3px; }
+
+  /* hero */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: #8E97C4; }
+  .hero picture img, .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+  .hero picture img { transform: scale(1.031); transform-origin: 50% 60%; }
+  @media (max-aspect-ratio: 41/50) { .hero picture img { object-position: 50% 100%; transform: none; } }
+  .hero canvas { opacity: 0; transition: opacity 900ms ease; }
+  .hero canvas.ready { opacity: 1; }
+  .hero-copy { position: absolute; z-index: 3; left: 0; right: 0; top: clamp(76px, 10vh, 120px); text-align: center; color: var(--snow); pointer-events: none; padding-inline: 16px; }
+  .hero-copy .eyebrow { font: 500 11px/1 var(--mono); letter-spacing: .3em; text-transform: uppercase; opacity: .85; }
+  .hero-copy h1 { margin: 18px 0 10px; font: italic 400 clamp(34px, 5.6vw, 72px)/1.04 var(--serif); letter-spacing: -.01em; text-shadow: 0 1px 24px rgba(34, 48, 79, .25); }
+  .hero-copy p { margin: 0; font: 500 12px/1.6 var(--sans); letter-spacing: .32em; text-transform: uppercase; opacity: .9; }
+  .hint { position: absolute; z-index: 3; left: 50%; bottom: 22px; transform: translateX(-50%); color: var(--snow); font: 500 10.5px/1 var(--mono); letter-spacing: .26em; text-transform: uppercase; opacity: .9; display: flex; gap: 10px; align-items: center; pointer-events: none; white-space: nowrap; }
+  .hint::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--sunlamp); box-shadow: 0 0 10px var(--sunlamp); }
+  .ms-snow { z-index: 2; }
+
+  /* grids */
+  .grid { display: grid; gap: clamp(16px, 2.4vw, 28px); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  figure { margin: 0; }
+  figcaption { display: flex; justify-content: space-between; gap: 12px; padding-top: 12px; align-items: baseline; }
+  figcaption b { font: 500 13px/1.4 var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+  .frame { border-radius: 4px; overflow: hidden; background: var(--line); }
+  .tile { background: var(--card); border-radius: 18px; padding: clamp(18px, 3vw, 32px); display: grid; place-items: center; min-height: 200px; border: 1px solid var(--line); }
+  .tile.dark { background: var(--night); }
+  .tile.pink { background: var(--shell); }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+  .sw { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+  .sw > div { aspect-ratio: 4 / 3; }
+  .sw p { margin: 0; padding: 10px 12px 12px; font: 400 11px/1.6 var(--mono); }
+  .sw p b { display: block; font: 500 12px/1.4 var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+
+  /* type */
+  .spec { display: grid; gap: 28px; }
+  .spec .row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: baseline; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+  @media (max-width: 720px) { .spec .row { grid-template-columns: 1fr; gap: 8px; } }
+  .s-sign { font: 500 clamp(28px, 5vw, 56px)/1.1 var(--sans); letter-spacing: .34em; text-transform: uppercase; }
+  .s-serif { font: italic 400 clamp(30px, 4.6vw, 54px)/1.1 var(--serif); }
+  .s-body { font: 400 19px/1.6 var(--sans); max-width: 60ch; }
+  .s-mono { font: 400 14px/1.7 var(--mono); }
+
+  /* products */
+  .postcard { background: var(--card); border-radius: 6px; padding: 12px 12px 18px; box-shadow: 0 1px 0 var(--line), 0 18px 40px -24px rgba(34, 48, 79, .35); border: 1px solid var(--line); }
+  .postcard .frame { aspect-ratio: 4 / 3; }
+  .postcard h3 { margin: 16px 4px 2px; font: 500 14px/1.3 var(--sans); letter-spacing: .3em; text-transform: uppercase; display: flex; justify-content: space-between; }
+  .postcard h3 span { font: 500 10.5px/1.3 var(--mono); letter-spacing: .14em; color: var(--muted); }
+  .postcard p { margin: 4px 4px 0; font: italic 400 20px/1.3 var(--serif); }
+  .postcard .fig { margin: 12px 4px 0; font: 400 12px/1.5 var(--mono); color: var(--muted); }
+  .postcard .fig b { color: var(--fg); font-weight: 500; }
+
+  /* tracking-shot demo */
+  .ms-track { --track-len: 150vw; }
+  .ms-track .postcard { width: min(520px, 78vw); flex: none; }
+  .track-title { position: absolute; top: 9vh; left: 0; right: 0; text-align: center; }
+
+  /* lens shift demo */
+  .lens-demo { height: 78vh; min-height: 420px; border-radius: 6px; background: linear-gradient(#7F8FC0, #F2B6C0 62%); }
+  .lens-demo .ms-layer img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+
+  .motion-list { display: grid; gap: 18px; counter-reset: m; }
+  .motion-list li { list-style: none; display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: start; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .motion-list li::before { counter-increment: m; content: '0' counter(m); font: 500 12px/2 var(--mono); color: var(--accent); }
+  .motion-list h3 { margin: 0; font: 500 14px/1.5 var(--sans); letter-spacing: .3em; text-transform: uppercase; }
+  .motion-list p { margin: 4px 0 0; color: var(--muted); max-width: 70ch; }
+  .btn { font: 500 11px/1 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--fg); background: transparent; border: 1px solid var(--line); border-radius: 99px; padding: 11px 16px; cursor: pointer; white-space: nowrap; }
+  @media (max-width: 640px) { .motion-list li { grid-template-columns: 40px 1fr; } .motion-list li .btn { grid-column: 2; justify-self: start; } }
+
+  .station { position: relative; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: #9DB9E2; }
+  .station img, .station canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .station canvas { opacity: 0; transition: opacity .9s; } .station canvas.ready { opacity: 1; }
+
+  .divider-demo { position: relative; height: 220px; background: linear-gradient(#8E97C4, #F2C2C6); border-radius: 6px; overflow: hidden; }
+  .divider-demo img { position: absolute; bottom: 0; left: 0; width: 100%; height: auto; }
+  .tilebox { min-height: 200px; border-radius: 18px; background: url(extras/deco-fan-tile.svg) 0 0 / 80px 80px; border: 1px solid var(--line); }
+  .grainbox { min-height: 200px; border-radius: 18px; background: var(--cream) url(extras/paper-grain.webp) 0 0 / 256px; background-blend-mode: multiply; border: 1px solid var(--line); }
+  /* ?shot: fixed heights so a tall headless window can capture the whole sheet */
+  .shot .hero { height: 900px; min-height: 0; } .shot .ms-track { height: auto; } .shot .ms-rail { position: static; height: auto; padding: 120px 0 80px; overflow-x: auto; } .shot .ms-row { transform: none; } .shot .lens-demo { height: 640px; }
+  footer { padding: 64px 0 96px; text-align: center; border-top: 1px solid var(--line); }
+  footer img { width: 72px; margin: 0 auto 18px; }
+</style>
+</head>
+<body>
+
+<header class="hero ms-lens" id="top" data-sec="hero">
+  <div class="bar">
+    <img class="lock" src="identity/wordmark-snow.svg" width="440" height="56" alt="Albretsen AS">
+    <button class="toggle" id="toggle" type="button" aria-pressed="false"><i aria-hidden="true"></i><span>Night</span></button>
+  </div>
+  <picture>
+    <source type="image/avif" media="(max-aspect-ratio: 41/50)" srcset="img/hero-pinkhour-phone-720.avif 720w, img/hero-pinkhour-phone-1152.avif 1152w" sizes="100vw">
+    <source type="image/webp" media="(max-aspect-ratio: 41/50)" srcset="img/hero-pinkhour-phone-720.webp 720w, img/hero-pinkhour-phone-1152.webp 1152w" sizes="100vw">
+    <source type="image/avif" srcset="img/hero-pinkhour-640.avif 640w, img/hero-pinkhour-1280.avif 1280w, img/hero-pinkhour-1920.avif 1920w, img/hero-pinkhour-2560.avif 2560w" sizes="100vw">
+    <source type="image/webp" srcset="img/hero-pinkhour-640.webp 640w, img/hero-pinkhour-1280.webp 1280w, img/hero-pinkhour-1920.webp 1920w, img/hero-pinkhour-2560.webp 2560w" sizes="100vw">
+    <img src="img/hero-pinkhour-1280.jpg" srcset="img/hero-pinkhour-640.jpg 640w, img/hero-pinkhour-1280.jpg 1280w, img/hero-pinkhour-1920.jpg 1920w, img/hero-pinkhour-2560.jpg 2560w" sizes="100vw" width="2560" height="1440" alt="A pink deco pavilion with a rooftop sign reading ALBRETSEN stands in a snowfield at the pink hour, with golden cliffs behind." fetchpriority="high">
+  </picture>
+  <canvas id="sky"></canvas>
+  <canvas class="ms-snow" id="snow" aria-hidden="true"></canvas>
+  <div class="hero-copy">
+    <div class="eyebrow">Asset kit 71 · Winter Pavilion</div>
+    <h1>Quiet software<br>that pays for itself.</h1>
+    <p>Albretsen AS · Norway</p>
+  </div>
+  <div class="hint">Drag the sun</div>
+</header>
+
+<main>
+  <section class="block" data-sec="imagery"><div class="wrap">
+    <div class="block-head"><span class="label">01 · Hero imagery</span><h2>Four hours, one pavilion</h2>
+      <p>Matte paintings: photographed snow and cliffs (CC0) relit around a pastel pavilion rendered in three.js. Every frame is symmetric and centred.</p></div>
+    <div class="grid g2">
+      <figure><div class="frame"><img loading="lazy" src="img/hero-pinkhour-1280.webp" width="1280" height="720" alt="Pavilion at the pink hour"></div><figcaption><b>Pink hour</b><span class="label">hero-pinkhour · h −0.06</span></figcaption></figure>
+      <figure><div class="frame"><img loading="lazy" src="img/hero-day-1280.webp" width="1280" height="720" alt="Pavilion in low winter sun"></div><figcaption><b>Low winter sun</b><span class="label">hero-day · h 0.20</span></figcaption></figure>
+      <figure><div class="frame"><img loading="lazy" src="img/hero-night-1280.webp" width="1280" height="720" alt="Pavilion at night, windows lit, moon over the snow"></div><figcaption><b>Night</b><span class="label">hero-night · h −0.60</span></figcaption></figure>
+      <figure><div class="frame"><img loading="lazy" src="img/ground-station-1280.webp" width="1280" height="720" alt="A pastel satellite dish on a snow plain below golden hills"></div><figcaption><b>Ground station</b><span class="label">second scene · sun left</span></figcaption></figure>
+    </div>
+    <div class="grid g4" style="margin-top:28px">
+      <figure><div class="frame"><img loading="lazy" src="img/hero-pinkhour-phone-720.webp" width="720" height="1280" alt="Phone framing, pink hour"></div><figcaption><b>Phone</b><span class="label">9:16</span></figcaption></figure>
+      <figure><div class="frame"><img loading="lazy" src="img/hero-day-phone-720.webp" width="720" height="1280" alt="Phone framing, day"></div><figcaption><b>Phone</b><span class="label">day</span></figcaption></figure>
+      <figure><div class="frame"><img loading="lazy" src="img/hero-night-phone-720.webp" width="720" height="1280" alt="Phone framing, night"></div><figcaption><b>Phone</b><span class="label">night</span></figcaption></figure>
+      <figure><div class="frame"><img loading="lazy" src="identity/og-image.jpg" width="1200" height="630" alt="Open Graph image"></div><figcaption><b>Open Graph</b><span class="label">1200×630</span></figcaption></figure>
+    </div>
+  </div></section>
+
+  <section class="block" data-sec="identity"><div class="wrap">
+    <div class="block-head"><span class="label">02 · Identity</span><h2>A window onto a low sun</h2>
+      <p>The mark is an arched window, a sun on the horizon and three lines of snow. The wordmark is spaced signage capitals.</p></div>
+    <div class="grid g4">
+      <div class="tile"><img src="identity/mark.svg" width="120" height="120" alt="Mark"></div>
+      <div class="tile dark"><img src="identity/mark-night.svg" width="120" height="120" alt="Mark, night"></div>
+      <div class="tile pink"><img src="identity/favicon.svg" width="88" height="88" alt="Favicon"></div>
+      <div class="tile"><img src="identity/apple-touch-icon-180.png" width="90" height="90" alt="Touch icon" style="border-radius:20px"></div>
+    </div>
+    <div class="grid g2" style="margin-top:28px">
+      <div class="tile"><img src="identity/lockup.svg" width="532" height="64" alt="Lockup"></div>
+      <div class="tile dark" style="color:var(--snow)"><img src="extras/rooftop-sign.svg" width="420" height="104" alt="Rooftop sign" style="filter:invert(1) brightness(1.6) drop-shadow(0 0 10px rgba(255,160,190,.7))"></div>
+    </div>
+  </div></section>
+
+  <section class="block" data-sec="palette"><div class="wrap">
+    <div class="block-head"><span class="label">03 · Palette</span><h2>Deco pastels on snow</h2><p>Flamingo, mint and sky over a warm white; ink and night for type and the dark theme.</p></div>
+    <div class="swatches" id="swatches"></div>
+  </div></section>
+
+  <section class="block" data-sec="type"><div class="wrap">
+    <div class="block-head"><span class="label">04 · Type</span><h2>Signage, voice, labels</h2></div>
+    <div class="spec">
+      <div class="row"><span class="label">Jost 500<br>tracking .34em</span><div class="s-sign ms-sign" id="specSign">Albretsen</div></div>
+      <div class="row"><span class="label">Instrument Serif<br>italic</span><div class="s-serif">Quiet software that pays for itself.</div></div>
+      <div class="row"><span class="label">Jost 400<br>body 17–19px</span><div class="s-body">Albretsen AS builds whatever is profitable: apps, SaaS and infrastructure for AI agents. One outside engagement at a time.</div></div>
+      <div class="row"><span class="label">IBM Plex Mono<br>labels, code</span><div class="s-mono">claude mcp add albretsen https://albretsen.no/mcp</div></div>
+    </div>
+  </div></section>
+
+  <section class="block" data-sec="products"><div class="wrap">
+    <div class="block-head"><span class="label">05 · Products</span><h2>Each product keeps its own hour</h2><p>The real logos, on the signs of four small buildings in the same snowfield.</p></div>
+    <div class="grid g2" id="postcards"></div>
+    <div class="block-head" style="margin-top:72px"><span class="label">Retired · stand-ins</span></div>
+    <div class="grid g4" id="retired"></div>
+  </div></section>
+
+  <section class="ms-track" id="track" data-sec="track">
+    <div class="ms-rail">
+      <div class="track-title label">Motion 04 · Tracking shot</div>
+      <div class="ms-row" id="trackRow"></div>
+    </div>
+  </section>
+
+  <section class="block" data-sec="extras"><div class="wrap">
+    <div class="block-head" id="extras"><span class="label">06 · Extras</span><h2>Texture and ephemera</h2></div>
+    <div class="grid g3">
+      <figure><div class="tile pink"><img src="extras/stamp.svg" width="200" height="250" alt="Stamp"></div><figcaption><b>Stamp</b><span class="label">svg</span></figcaption></figure>
+      <figure><div class="tile"><img src="extras/sun-path.svg" width="640" height="300" alt="Sun path diagram"></div><figcaption><b>Sun path, 59.9° N</b><span class="label">computed</span></figcaption></figure>
+      <figure><div class="tile"><img src="extras/speed-lines.svg" width="240" height="40" alt="Speed lines"></div><figcaption><b>Speed lines</b><span class="label">divider</span></figcaption></figure>
+      <figure><div class="tilebox"></div><figcaption><b>Deco fan tile</b><span class="label">pattern 80px</span></figcaption></figure>
+      <figure><div class="grainbox"></div><figcaption><b>Paper grain</b><span class="label">multiply</span></figcaption></figure>
+      <figure><div class="divider-demo"><img src="extras/snow-edge.webp" width="1920" height="248" alt=""></div><figcaption><b>Snow edge</b><span class="label">section divider</span></figcaption></figure>
+      <figure><div class="tile pink"><img loading="lazy" src="extras/pavilion-cutout.webp" width="1200" height="470" alt="Pavilion cut-out"></div><figcaption><b>Pavilion cut-out</b><span class="label">alpha</span></figcaption></figure>
+      <figure><div class="tile"><img loading="lazy" src="extras/ground-station-cutout.webp" width="1200" height="696" alt="Ground station cut-out"></div><figcaption><b>Ground station cut-out</b><span class="label">alpha</span></figcaption></figure>
+    </div>
+  </div></section>
+
+  <section class="block" data-sec="motion"><div class="wrap">
+    <div class="block-head"><span class="label">07 · Motion study</span><h2>Slow, centred, once</h2></div>
+    <ol class="motion-list">
+      <li><div><h3>Lens shift</h3><p>Slow cinematic parallax through the matte layers: sky, cliffs, snow, building, each at its own depth. Scroll-driven animations with a JS fallback. After Keith Clark's pure-CSS parallax and the layered landscape headers of Firewatch.</p></div><a class="btn" href="#lens">See below</a></li>
+      <li><div><h3>Sign warm-up</h3><p>Spaced capitals light letter by letter with a small irregularity, then glow, like a rooftop sign at dusk.</p></div><button class="btn" id="replaySign">Replay</button></li>
+      <li><div><h3>Iris</h3><p>Day and night switch through a View Transition that opens like a film iris centred on the sun.</p></div><button class="btn" id="irisBtn">Switch</button></li>
+      <li><div><h3>Tracking shot</h3><p>Product postcards glide sideways on one line while the page scrolls, a lateral dolly past a row of facades.</p></div><a class="btn" href="#track">Scroll it</a></li>
+      <li><div><h3>Snow hush</h3><p>Sixty slow flakes, only at night, only in the hero; paused off screen.</p></div><button class="btn" id="nightBtn">Show night</button></li>
+    </ol>
+    <div class="lens-demo ms-lens" id="lens" style="margin-top:40px">
+      <div class="ms-layer" style="--depth:.2"><img loading="lazy" src="interactive/layers/pavilion-far.webp" width="1920" height="1080" alt=""></div>
+      <div class="ms-layer" style="--depth:.6"><img loading="lazy" src="interactive/layers/pavilion-snow.webp" width="1920" height="1080" alt=""></div>
+      <div class="ms-layer" style="--depth:.9"><img loading="lazy" src="interactive/layers/pavilion-building.webp" width="1920" height="1080" alt="Layered pavilion scene"></div>
+    </div>
+  </div></section>
+
+  <section class="block" data-sec="interactive"><div class="wrap">
+    <div class="block-head"><span class="label">08 · Interactive</span><h2>Sky Dial</h2><p>A dependency-free WebGL2 compositor. The top of this page is one; here is the second scene. Drag the sky, or focus it and use the arrow keys.</p></div>
+    <div class="station"><img loading="lazy" src="img/ground-station-1280.webp" width="1280" height="720" alt="Ground station scene"><canvas id="station"></canvas></div>
+  </div></section>
+</main>
+
+<footer><img src="identity/mark.svg" width="72" height="72" alt=""><div class="label">Albretsen AS · asset kit 71 · see ASSETS.md</div></footer>
+
+<script type="module">
+  import { content } from '../../_shared/content.js';
+  import { createSkyDial } from './interactive/sky-dial.js';
+  import { lensShift, signWarmup, iris, trackingShot, snowfall, rise } from './motion.js';
+
+  // palette
+  const pal = [['Flamingo','#EE8FA6','oklch(75.5% 0.118 4.6)'],['Shell','#F7D3DA','oklch(89.9% 0.041 4.8)'],['Mint','#A6DCC6','oklch(85.1% 0.064 167.9)'],['Sky','#9CC8EA','oklch(81.3% 0.067 241.8)'],['Snow','#FBF7F2','oklch(97.8% 0.008 73.7)'],['Cream','#F4EADB','oklch(94.1% 0.023 78.2)'],['Sunlamp','#FFE3B0','oklch(92.7% 0.072 82.4)'],['Alpenglow','#D9907F','oklch(72.3% 0.093 33.7)'],['Conifer','#2F5D4E','oklch(44.1% 0.057 170.3)'],['Dusk','#4C5C95','oklch(48.8% 0.094 270.7)'],['Ink','#22304F','oklch(31.3% 0.059 264.8)'],['Night','#18223F','oklch(25.9% 0.056 268.0)']];
+  document.getElementById('swatches').innerHTML = pal.map(([n, h, o]) => `<div class="sw"><div style="background:${h}"></div><p><b>${n}</b>${h}<br>${o}</p></div>`).join('');
+
+  // products from the shared facts
+  const hours = { 'mcp-emails': 'Morning', 'fun-libs': 'Pink hour', 'toolrails': 'Low sun', 'harbor': 'Blue hour' };
+  const card = p => `<article class="postcard"><div class="frame"><picture><source type="image/avif" srcset="products/${p.id}-800.avif 800w, products/${p.id}-1600.avif 1600w" sizes="(min-width: 900px) 560px, 92vw"><img loading="lazy" src="products/${p.id}-800.webp" srcset="products/${p.id}-800.webp 800w, products/${p.id}-1600.webp 1600w" sizes="(min-width: 900px) 560px, 92vw" width="800" height="600" alt="${p.name}: a small pastel building in the snow with the ${p.name} logo on its sign"></picture></div>
+    <h3>${p.name}<span>${p.status} · ${hours[p.id]}</span></h3><p>${p.line}</p><div class="fig"><b>${p.figure.value}</b> ${p.figure.label} · ${p.facts.join(' · ')}</div></article>`;
+  const live = content.products.filter(p => hours[p.id]);
+  document.getElementById('postcards').innerHTML = live.map(card).join('');
+  document.getElementById('trackRow').innerHTML = live.map(card).join('');
+  const retiredIds = ['luma','polyglot-pilot','pinpoint','webvakt','joke-central','tryggere-hyring','early-apps'];
+  document.getElementById('retired').innerHTML = retiredIds.map(id => `<figure><img loading="lazy" src="products/retired/${id}.svg" width="320" height="180" alt="${id} plaque"></figure>`).join('');
+
+  // motion
+  document.querySelectorAll('.ms-lens').forEach(lensShift);
+  trackingShot(document.getElementById('track'));
+  const spec = document.getElementById('specSign');
+  signWarmup(spec);
+  document.getElementById('replaySign').onclick = () => { spec.classList.remove('is-on', 'is-lit'); spec.textContent = 'Albretsen'; signWarmup(spec, { delay: 120 }); };
+  snowfall(document.getElementById('snow'));
+  rise();
+
+  // hero dial + theme
+  const root = document.documentElement, btn = document.getElementById('toggle');
+  const setTheme = t => { root.dataset.theme = t; btn.querySelector('span').textContent = t === 'night' ? 'Day' : 'Night'; btn.setAttribute('aria-pressed', String(t === 'night')); };
+  let dial = null;
+  try {
+    const c = document.getElementById('sky');
+    dial = await createSkyDial(c, { base: 'interactive/layers/', scene: 'pavilion', h: -0.06 });
+    requestAnimationFrame(() => c.classList.add('ready'));
+    c.addEventListener('skydial:change', e => { if (e.detail.themeChanged) setTheme(e.detail.theme); });
+    addEventListener('scroll', () => dial.parallax(scrollY / innerHeight), { passive: true });
+  } catch (e) { console.warn('hero still only', e); }
+  const flip = () => {
+    const toNight = root.dataset.theme !== 'night';
+    iris(() => setTheme(toNight ? 'night' : 'day'));
+    dial?.set(toNight ? -0.6 : -0.06, { animate: true });
+  };
+  btn.onclick = flip; document.getElementById('irisBtn').onclick = flip;
+  document.getElementById('nightBtn').onclick = () => { if (root.dataset.theme !== 'night') flip(); scrollTo({ top: 0, behavior: 'smooth' }); };
+
+  // second scene, lazily
+  const st = document.getElementById('station');
+  new IntersectionObserver(async ([e], io) => {
+    if (!e.isIntersecting) return; io.disconnect();
+    try { await createSkyDial(st, { base: 'interactive/layers/', scene: 'station', h: 0.12 }); st.classList.add('ready'); } catch {}
+  }, { rootMargin: '200px' }).observe(st);
+</script>
+</body>
+</html>

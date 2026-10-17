@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heure Bleue render</title>
+<style>html,body{margin:0;height:100%;background:#232c57;overflow:hidden}canvas{display:block;width:100vw;height:100vh}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+  // Bake helper: ?t=0.2&framing=wide|tall&grain=0.045 then screenshot with scripts/shot.sh
+  import { createHeureBleue } from './heure-bleue.js';
+  const q = new URLSearchParams(location.search);
+  createHeureBleue(document.getElementById('c'), {
+    time: +(q.get('t') ?? 0.2), framing: q.get('framing') ?? 'auto', grain: +(q.get('grain') ?? 0.045),
+    animate: q.get('animate') === '1', interactive: false, pixelRatio: +(q.get('dpr') ?? 1),
+  });
+</script></body></html>

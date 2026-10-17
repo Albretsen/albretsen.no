@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Albretsen AS · Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself: apps, SaaS and infrastructure for AI agents, from Norway.">
+<meta name="theme-color" content="#232c57">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/identity/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<link rel="preload" href="assets/fonts/federo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)"
+      imagesrcset="assets/hero/hero-blue-hour-768.avif 768w, assets/hero/hero-blue-hour-1280.avif 1280w, assets/hero/hero-blue-hour-1920.avif 1920w, assets/hero/hero-blue-hour-2560.avif 2560w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)"
+      imagesrcset="assets/hero/hero-blue-hour-tall-720.avif 720w, assets/hero/hero-blue-hour-tall-1080.avif 1080w" imagesizes="100vw" fetchpriority="high">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#work">Skip to the products</a>
+
+<header class="hero" id="top">
+  <picture class="hero-still">
+    <source type="image/avif" media="(max-aspect-ratio: 1/1)" srcset="assets/hero/hero-blue-hour-tall-720.avif 720w, assets/hero/hero-blue-hour-tall-1080.avif 1080w" sizes="100vw">
+    <source type="image/webp" media="(max-aspect-ratio: 1/1)" srcset="assets/hero/hero-blue-hour-tall-720.webp 720w, assets/hero/hero-blue-hour-tall-1080.webp 1080w" sizes="100vw">
+    <source type="image/avif" srcset="assets/hero/hero-blue-hour-768.avif 768w, assets/hero/hero-blue-hour-1280.avif 1280w, assets/hero/hero-blue-hour-1920.avif 1920w, assets/hero/hero-blue-hour-2560.avif 2560w" sizes="100vw">
+    <source type="image/webp" srcset="assets/hero/hero-blue-hour-768.webp 768w, assets/hero/hero-blue-hour-1280.webp 1280w, assets/hero/hero-blue-hour-1920.webp 1920w, assets/hero/hero-blue-hour-2560.webp 2560w" sizes="100vw">
+    <img src="assets/hero/hero-blue-hour-1280.jpg" width="1920" height="1080" fetchpriority="high" decoding="async"
+         alt="Seen from a terrace at blue hour: zinc rooftops and a dome, white houses stepping down through pines to a calm bay, the sun just touching the sea.">
+  </picture>
+  <canvas class="hero-live" id="scene" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Main">
+    <a class="nav-mark" href="#top" aria-label="Albretsen AS, home">
+      <img src="assets/identity/mark.svg" width="64" height="64" alt="">
+      <span class="nav-word">Albretsen</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#work">Products</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button class="sound" id="sound" type="button" aria-pressed="false"><span class="sound-dot" aria-hidden="true"></span>Sound</button></li>
+    </ul>
+  </nav>
+
+  <div class="hero-title">
+    <h1>
+      <span class="sr-only">Asgeir Albretsen, Albretsen AS</span>
+      <img class="hero-word" src="assets/identity/wordmark-plaster.svg" width="672" height="78" alt="" aria-hidden="true">
+    </h1>
+    <p class="lede">Asgeir Albretsen builds software that pays&nbsp;for&nbsp;itself.</p>
+  </div>
+
+  <div class="sun" id="sun" role="slider" tabindex="0" hidden
+       aria-label="Height of the sun" aria-orientation="vertical"
+       aria-valuemin="-7" aria-valuemax="15" aria-valuenow="-1.6" aria-valuetext="1.6 degrees below the horizon, blue hour">
+    <span class="sun-ring" aria-hidden="true"></span>
+    <span class="sun-hint" aria-hidden="true">Drag the sun</span>
+  </div>
+
+  <div class="hero-foot">
+    <p class="readout" aria-hidden="true"><span>Sun</span> <b id="deg">&minus;1.6&deg;</b> <span id="hour">Blue hour</span></p>
+    <p class="feed" aria-live="off"><span class="feed-dot" aria-hidden="true"></span><span class="sr-only">Live activity: </span><span id="feed">Albretsen AS · apps, SaaS and agent infrastructure</span></p>
+  </div>
+</header>
+
+<main>
+  <section class="work" id="work" aria-labelledby="work-title">
+    <div class="awning" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="work-head">
+        <p class="eyebrow hb-settle">Products</p>
+        <h2 id="work-title" class="work-title">Small software, run&nbsp;properly.</h2>
+        <p class="work-intro">Albretsen AS builds whatever earns its keep: apps, SaaS and infrastructure for AI agents. Two products are live, one is being built and one is paused.</p>
+      </div>
+
+      <ol class="cards" id="cards">
+        <li class="card" data-id="mcp-emails" style="--i:0">
+          <figure class="art hb-shutters">
+            <picture>
+              <source type="image/avif" srcset="assets/products/mcp-emails-1200.avif 1200w" sizes="(min-width: 1180px) 300px, (min-width: 700px) 46vw, 92vw">
+              <img src="assets/products/mcp-emails-600.webp" srcset="assets/products/mcp-emails-600.webp 600w, assets/products/mcp-emails-1200.webp 1200w" sizes="(min-width: 1180px) 300px, (min-width: 700px) 46vw, 92vw" width="600" height="750" loading="lazy" decoding="async" alt="A burgundy letterbox under a lit lantern, the MCP Emails logo on its enamel plaque.">
+            </picture>
+          </figure>
+          <div class="card-body">
+            <p class="status" data-status="live"><span class="status-dot" aria-hidden="true"></span><span class="js-status">Live</span> · since <span class="js-since">2026</span></p>
+            <h3 class="card-name"><a class="card-link js-name" href="https://mcpemails.com">MCP Emails</a></h3>
+            <p class="figure"><span class="figure-value js-value">$782</span> <span class="figure-label js-label">MRR</span></p>
+            <p class="card-line js-line">Email for AI agents.</p>
+            <ul class="facts js-facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+            <p class="domain" aria-hidden="true"><span class="js-domain">mcpemails.com</span> <span class="arrow">&rarr;</span></p>
+          </div>
+        </li>
+        <li class="card" data-id="fun-libs" style="--i:1">
+          <figure class="art hb-shutters">
+            <picture>
+              <source type="image/avif" srcset="assets/products/fun-libs-1200.avif 1200w" sizes="(min-width: 1180px) 300px, (min-width: 700px) 46vw, 92vw">
+              <img src="assets/products/fun-libs-600.webp" srcset="assets/products/fun-libs-600.webp 600w, assets/products/fun-libs-1200.webp 1200w" sizes="(min-width: 1180px) 300px, (min-width: 700px) 46vw, 92vw" width="600" height="750" loading="lazy" decoding="async" alt="A terrace table under a striped awning: coffee, a word puzzle and the Fun Libs icon on a tent card.">
+            </picture>
+          </figure>
+          <div class="card-body">
+            <p class="status" data-status="live"><span class="status-dot" aria-hidden="true"></span><span class="js-status">Live</span> · since <span class="js-since">2019</span></p>
+            <h3 class="card-name"><a class="card-link js-name" href="https://funlibs.app">Fun Libs</a></h3>
+            <p class="figure"><span class="figure-value js-value">113,000+</span> <span class="figure-label js-label">installs</span></p>
+            <p class="card-line js-line">A fill-in-the-blanks word game for Android and iOS.</p>
+            <ul class="facts js-facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+            <p class="domain" aria-hidden="true"><span class="js-domain">funlibs.app</span> <span class="arrow">&rarr;</span></p>
+          </div>
+        </li>
+        <li class="card" data-id="toolrails" style="--i:2">
+          <figure class="art hb-shutters">
+            <picture>
+              <source type="image/avif" srcset="assets/products/toolrails-1200.avif 1200w" sizes="(min-width: 1180px) 300px, (min-width: 700px) 46vw, 92vw">
+              <img src="assets/products/toolrails-600.webp" srcset="assets/products/toolrails-600.webp 600w, assets/products/toolrails-1200.webp 1200w" sizes="(min-width: 1180px) 300px, (min-width: 700px) 46vw, 92vw" width="600" height="750" loading="lazy" decoding="async" alt="A painted tile panel in Deco rings with the Toolrails icon as its centre tile, a lemon tree beside it.">
+            </picture>
+          </figure>
+          <div class="card-body">
+            <p class="status" data-status="building"><span class="status-dot" aria-hidden="true"></span><span class="js-status">Being built</span> · since <span class="js-since">2026</span></p>
+            <h3 class="card-name"><a class="card-link js-name" href="https://toolrails.com">Toolrails</a></h3>
+            <p class="figure"><span class="figure-value js-value">4</span> <span class="figure-label js-label">connectors</span></p>
+            <p class="card-line js-line">One MCP URL that gives an agent every tool.</p>
+            <ul class="facts js-facts"><li>tool search</li><li>injection guard</li></ul>
+            <p class="domain" aria-hidden="true"><span class="js-domain">toolrails.com</span> <span class="arrow">&rarr;</span></p>
+          </div>
+        </li>
+        <li class="card" data-id="harbor" style="--i:3">
+          <figure class="art hb-shutters">
+            <picture>
+              <source type="image/avif" srcset="assets/products/harbor-1200.avif 1200w" sizes="(min-width: 1180px) 300px, (min-width: 700px) 46vw, 92vw">
+              <img src="assets/products/harbor-600.webp" srcset="assets/products/harbor-600.webp 600w, assets/products/harbor-1200.webp 1200w" sizes="(min-width: 1180px) 300px, (min-width: 700px) 46vw, 92vw" width="600" height="750" loading="lazy" decoding="async" alt="A lit dormer window on a zinc roof at night, bookshelves inside and the Harbor mark on a hanging disc.">
+            </picture>
+          </figure>
+          <div class="card-body">
+            <p class="status" data-status="paused"><span class="status-dot" aria-hidden="true"></span><span class="js-status">Paused</span> · since <span class="js-since">2026</span></p>
+            <h3 class="card-name"><a class="card-link js-name" href="https://harborknowledge.com">Harbor</a></h3>
+            <p class="figure"><span class="figure-value js-value">549</span> <span class="figure-label js-label">commits</span></p>
+            <p class="card-line js-line">A private knowledge base shared by people and AI.</p>
+            <ul class="facts js-facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+            <p class="domain" aria-hidden="true"><span class="js-domain">harborknowledge.com</span> <span class="arrow">&rarr;</span></p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="retired">
+        <img class="divider" src="assets/extras/divider-sunset.svg" width="600" height="64" alt="" loading="lazy">
+        <h3 class="eyebrow retired-title" id="retired-title">Retired, with the lights off</h3>
+        <ul class="stamps" id="stamps" aria-labelledby="retired-title">
+          <li data-id="luma"><button type="button" class="stamp" aria-describedby="stamp-note"><img src="assets/products/stamps/luma.svg" width="240" height="300" alt="Luma" loading="lazy"></button></li>
+          <li data-id="polyglot-pilot"><button type="button" class="stamp" aria-describedby="stamp-note"><img src="assets/products/stamps/polyglot-pilot.svg" width="240" height="300" alt="Polyglot Pilot" loading="lazy"></button></li>
+          <li data-id="pinpoint"><button type="button" class="stamp" aria-describedby="stamp-note"><img src="assets/products/stamps/pinpoint.svg" width="240" height="300" alt="PinPoint" loading="lazy"></button></li>
+          <li data-id="webvakt"><button type="button" class="stamp" aria-describedby="stamp-note"><img src="assets/products/stamps/webvakt.svg" width="240" height="300" alt="WebVakt" loading="lazy"></button></li>
+          <li data-id="joke-central"><button type="button" class="stamp" aria-describedby="stamp-note"><img src="assets/products/stamps/joke-central.svg" width="240" height="300" alt="Daily Jokes / Joke Central" loading="lazy"></button></li>
+          <li data-id="tryggere-hyring"><button type="button" class="stamp" aria-describedby="stamp-note"><img src="assets/products/stamps/tryggere-hyring.svg" width="240" height="300" alt="Tryggere Hyring" loading="lazy"></button></li>
+          <li data-id="early-apps"><button type="button" class="stamp" aria-describedby="stamp-note"><img src="assets/products/stamps/early-apps.svg" width="240" height="300" alt="IAGO HMS, Rentekalkulator, Prosentkalkulator" loading="lazy"></button></li>
+        </ul>
+        <p class="stamp-note" id="stamp-note" aria-live="polite"><span class="js-note">Seven earlier products, retired. Point at a stamp to read it.</span></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" id="contact">
+  <picture class="foot-sky" aria-hidden="true">
+    <source type="image/avif" srcset="assets/hero/hero-lamplight-1280.avif 1280w, assets/hero/hero-lamplight-1920.avif 1920w, assets/hero/hero-lamplight-2560.avif 2560w" sizes="100vw">
+    <source type="image/webp" srcset="assets/hero/hero-lamplight-1280.webp 1280w, assets/hero/hero-lamplight-1920.webp 1920w, assets/hero/hero-lamplight-2560.webp 2560w" sizes="100vw">
+    <img src="assets/hero/hero-lamplight-1920.jpg" width="1920" height="1080" alt="" loading="lazy" decoding="async">
+  </picture>
+  <div class="wrap foot-grid">
+    <div class="foot-main">
+      <p class="eyebrow">After hours</p>
+      <p class="avail">Takes one outside engagement at a&nbsp;time.</p>
+      <a class="email" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    </div>
+    <div class="ticket">
+      <img class="ticket-art" src="assets/extras/ticket-mcp.svg" width="588" height="188" alt="Ticket: one line to connect. claude mcp add albretsen https://albretsen.no/mcp" loading="lazy">
+      <img class="ticket-stamp" src="assets/extras/postmark.svg" width="500" height="300" alt="" aria-hidden="true" loading="lazy">
+      <button class="copy" type="button" id="copy" data-cmd="claude mcp add albretsen https://albretsen.no/mcp">
+        <span class="copy-label">Copy the line</span>
+      </button>
+      <p class="sr-only" id="copy-status" aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <img src="assets/identity/lockup-plaster.svg" width="856" height="82" alt="Albretsen AS" class="foot-lockup" loading="lazy">
+    <p>Albretsen AS · Norway · on Google Play since 2016</p>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

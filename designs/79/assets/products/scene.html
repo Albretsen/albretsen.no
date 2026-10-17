@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product wall scene</title>
+<!--
+  Source for the baked product visuals (products/*.jpg|webp|avif).
+  Each product gets a stucco wall at a different hour of the day: the real logo is set as a
+  glazed plaque, a window of sun rakes across it and a real palm's shadow moves through the light.
+  Render: scene.html?p=mcp-emails (1200x900). The stucco is an SVG feDiffuseLighting relief lit
+  from the same angle as the sun patch, so texture, shadow and plaque agree on where the sun is.
+-->
+<style>
+  @font-face { font-family: 'Instrument Serif'; src: url(../fonts/instrument-serif-regular.woff2) format('woff2'); }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; src: url(../fonts/instrument-serif-italic.woff2) format('woff2'); }
+  @font-face { font-family: 'Schibsted Grotesk'; src: url(../fonts/schibsted-grotesk-vf.woff2) format('woff2'); font-weight: 400 900; }
+  html, body { margin: 0; background: #222; }
+  .wall { position: relative; width: 1200px; height: 900px; overflow: hidden; background: var(--shade); }
+  .lit-wrap { position: absolute; inset: 0; filter: blur(2.5px); }
+  .lit { position: absolute; inset: 0; background: var(--lit); clip-path: var(--window); }
+  .lit::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 90% at var(--hot), rgba(255,240,210,.9), transparent 65%); mix-blend-mode: soft-light; }
+  .palm { position: absolute; width: 760px; left: var(--palm-x); top: var(--palm-y); transform: var(--palm-t); opacity: var(--palm-o); filter: blur(var(--palm-blur)); mix-blend-mode: multiply; }
+  .palm-clip { position: absolute; inset: 0; clip-path: var(--window); }
+  .stucco { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: overlay; opacity: .5; }
+  .grain { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: overlay; opacity: .35; }
+  .plaque { position: absolute; left: 50%; top: 44%; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 68px; background: var(--plaque); display: grid; place-items: center;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.55), inset 0 -3px 6px rgba(0,0,0,.08); filter: drop-shadow(var(--cast)); }
+  .plaque::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(var(--gloss-a), rgba(255,255,255,.5), rgba(255,255,255,0) 38%, rgba(0,0,0,0) 70%, rgba(0,0,0,.08)); pointer-events: none; z-index: 2; }
+  .plaque img { width: var(--logo-w); height: auto; display: block; border-radius: var(--logo-r); position: relative; z-index: 1; }
+  .label { position: absolute; left: 0; right: 0; top: calc(44% + 190px); text-align: center; color: var(--ink); }
+  .label .n { font: 400 64px/1 'Instrument Serif', serif; letter-spacing: -.01em; }
+  .label .t { margin-top: 14px; font: 500 15px/1 'Schibsted Grotesk', sans-serif; letter-spacing: .22em; text-transform: uppercase; opacity: .72; }
+  body.bare .label, body.bare .clock { display: none; }
+  body.bare .plaque { top: 50%; }
+  .clock { position: absolute; right: 44px; top: 40px; font: 500 14px/1 'Schibsted Grotesk', sans-serif; letter-spacing: .2em; color: var(--ink); opacity: .55; }
+</style>
+</head>
+<body>
+<div class="wall" id="wall">
+  <div class="lit-wrap"><div class="lit"><img class="palm" src="../extras/palm-shadow.png" alt=""></div></div>
+  <svg class="stucco" aria-hidden="true">
+    <filter id="st" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018 0.022" numOctaves="4" seed="79" result="n"/>
+      <feDiffuseLighting in="n" surfaceScale="1.3" lighting-color="#fff" result="l">
+        <feDistantLight id="sun" azimuth="210" elevation="38"/>
+      </feDiffuseLighting>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#st)"/>
+  </svg>
+  <svg class="grain" aria-hidden="true">
+    <filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#gr)"/>
+  </svg>
+  <div class="plaque"><img id="logo" alt=""></div>
+  <div class="label"><div class="n" id="name"></div><div class="t" id="tag"></div></div>
+  <div class="clock" id="clock"></div>
+</div>
+<script>
+  const P = '../../../_shared/products/';
+  const scenes = {
+    'mcp-emails': { name: 'MCP Emails', tag: 'Email for AI agents · live', clock: '07:40', logo: P + 'mcp-emails/icon.png', logoW: '232px', logoR: '52px',
+      shade: '#C47E5C', lit: '#FFD3A8', plaque: '#F7EFE2', ink: '#3A1E12', az: 200, el: 24, hot: '30% 40%',
+      window: 'polygon(4% 8%, 66% 2%, 92% 98%, 22% 100%)', palm: ['-120px', '-160px', 'rotate(-18deg) skewX(16deg) scale(1.35)', .5, '3px'], cast: '34px 26px 10px rgba(80,40,40,.32)' },
+    'fun-libs': { name: 'Fun Libs', tag: 'A word game · 113,000+ installs', clock: '11:15', logo: P + 'fun-libs/icon.png', logoW: '220px', logoR: '50px',
+      shade: '#7FA6C3', lit: '#D3E5EF', plaque: '#FBF6EC', ink: '#13253A', az: 250, el: 62, hot: '55% 30%',
+      window: 'polygon(14% 0%, 88% 0%, 80% 100%, 22% 100%)', palm: ['330px', '-120px', 'rotate(6deg) scale(1.15)', .5, '2.5px'], cast: '10px 22px 8px rgba(30,50,80,.28)' },
+    'toolrails': { name: 'Toolrails', tag: 'Every tool behind one URL · building', clock: '15:30', logo: P + 'toolrails/icon.svg', logoW: '212px', logoR: '0',
+      shade: '#7D8E6F', lit: '#E2E6C6', plaque: '#F6F0E2', ink: '#1E2619', az: 330, el: 30, hot: '70% 40%',
+      window: 'polygon(34% 0%, 100% 6%, 96% 100%, 4% 96%)', palm: ['520px', '-140px', 'rotate(22deg) skewX(-20deg) scale(1.3)', .5, '3px'], cast: '-30px 24px 9px rgba(30,40,30,.3)' },
+    'harbor': { name: 'Harbor', tag: 'A knowledge base for people and AI · paused', clock: '18:50', logo: P + 'harbor/harbor-mark-filled.svg', logoW: '170px', logoR: '0',
+      shade: '#A98584', lit: '#F8C9A6', plaque: '#FAF3E8', ink: '#2A1A1E', az: 345, el: 12, hot: '84% 55%',
+      window: 'polygon(40% 12%, 104% 0%, 104% 100%, 10% 92%)', palm: ['560px', '-60px', 'rotate(30deg) skewX(-34deg) scale(1.5)', .55, '4.5px'], cast: '-46px 20px 12px rgba(70,30,50,.3)' },
+  };
+  const q = new URLSearchParams(location.search), id = q.get('p') || 'mcp-emails';
+  if (q.has('bare')) document.body.classList.add('bare');
+  const s = scenes[id], w = document.getElementById('wall').style;
+  w.setProperty('--shade', s.shade); w.setProperty('--lit', s.lit); w.setProperty('--plaque', s.plaque); w.setProperty('--ink', s.ink);
+  w.setProperty('--window', s.window); w.setProperty('--hot', s.hot); w.setProperty('--cast', s.cast);
+  w.setProperty('--palm-x', s.palm[0]); w.setProperty('--palm-y', s.palm[1]); w.setProperty('--palm-t', s.palm[2]); w.setProperty('--palm-o', s.palm[3]); w.setProperty('--palm-blur', s.palm[4]);
+  w.setProperty('--logo-w', s.logoW); w.setProperty('--logo-r', s.logoR); w.setProperty('--gloss-a', (s.az - 90) + 'deg');
+  document.getElementById('sun').setAttribute('azimuth', s.az); document.getElementById('sun').setAttribute('elevation', s.el);
+  document.getElementById('logo').src = s.logo;
+  document.getElementById('name').textContent = s.name; document.getElementById('tag').textContent = s.tag; document.getElementById('clock').textContent = s.clock;
+</script>
+</body>
+</html>

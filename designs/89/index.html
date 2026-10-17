@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · Prism Room</title>
+<meta name="description" content="Asgeir Albretsen builds apps, SaaS and infrastructure for AI agents. Albretsen AS.">
+<meta name="theme-color" content="#160c21">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" as="image" href="assets/hero/room-pixel-320.png" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Silkscreen&display=swap">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#work">Skip to the work</a>
+
+<header class="bar">
+  <a class="brand" href="#top" aria-label="Albretsen AS, home">
+    <svg class="mark" viewBox="0 0 18 18" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true"><g fill="currentColor"><rect x="8" y="2" width="2" height="1"/><rect x="7" y="3" width="4" height="2"/><rect x="6" y="5" width="2" height="2"/><rect x="10" y="5" width="2" height="2"/><rect x="5" y="7" width="2" height="2"/><rect x="11" y="7" width="2" height="2"/><rect x="4" y="9" width="2" height="2" fill="#ff9a7d"/><rect x="6" y="9" width="2" height="2" fill="#ff99c2"/><rect x="8" y="9" width="2" height="2" fill="#bea6eb"/><rect x="10" y="9" width="2" height="2" fill="#86cbf3"/><rect x="12" y="9" width="2" height="2" fill="#8deaca"/><rect x="3" y="11" width="2" height="2"/><rect x="13" y="11" width="2" height="2"/><rect x="2" y="13" width="2" height="2"/><rect x="14" y="13" width="2" height="2"/><rect x="1" y="15" width="2" height="1"/><rect x="15" y="15" width="2" height="1"/></g></svg>
+    <img class="wordmark" src="assets/identity/wordmark-paper.svg" alt="" width="132" height="14">
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+    <button class="sound" type="button" aria-pressed="false" id="sound"><span class="sound-dot" aria-hidden="true"></span>Sound <span class="sound-state">off</span></button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="kicker">On Google Play since 2016</p>
+    <h1 id="hero-title" class="headline"><span class="sweep">Software that pays for&nbsp;itself.</span></h1>
+    <p class="lede">Asgeir Albretsen builds apps, SaaS and the plumbing AI agents run on. Everything in this room is pixels, except the&nbsp;work.</p>
+  </div>
+
+  <div class="stage" id="stage" data-lenis-prevent-wheel>
+    <div class="room" id="room">
+      <pixel-resolve id="roomPhoto" data-scroll data-rest=".5" width="2560" height="1761" lens
+        alt="A sunlit loft room in plum and apricot light: a window, a panel of bulbs on a stand, a gilt mirror and a round wire table.">
+        <img src="assets/hero/room-pixel-320.png" width="2560" height="1761" alt="A sunlit loft room in plum and apricot light: a window, a panel of bulbs on a stand, a gilt mirror and a round wire table." fetchpriority="high">
+      </pixel-resolve>
+      <div class="bulbs" id="bulbs" aria-hidden="true"></div>
+      <drag-room id="dragRoom" ratio="2560/1761" store="prism-room-89">
+        <img data-drag data-id="fun-libs" data-x="21.29" data-y="50.09" data-w="5.58" style="--n:0" src="assets/products/sprite-fun-libs.png" width="420" height="720" alt="Fun Libs: a phone on the window sill" data-name="Fun Libs" data-status="live">
+        <img data-drag data-id="toolrails" data-x="28.13" data-y="58.6" data-w="10.53" style="--n:1" src="assets/products/sprite-toolrails.png" width="642" height="528" alt="Toolrails: a laptop on the drum seat" data-name="Toolrails" data-status="building">
+        <img data-drag data-id="harbor" data-x="64.06" data-y="70.3" data-w="8.07" style="--n:2" src="assets/products/sprite-harbor.png" width="492" height="774" alt="Harbor: a book leaning by the mirror" data-name="Harbor" data-status="paused">
+        <img data-drag data-id="plant" data-x="71.48" data-y="70.98" data-w="3.94" style="--n:3" src="assets/sprites/plant.png" width="252" height="372" alt="A small cactus" data-name="Cactus" data-status="decor">
+        <img data-drag data-id="mcp-emails" data-x="88.36" data-y="62.35" data-w="11.25" style="--n:4" src="assets/products/sprite-mcp-emails.png" width="576" height="534" alt="MCP Emails: a monitor on the sunlit table" data-name="MCP Emails" data-status="live">
+      </drag-room>
+      <div class="tag" id="tag" aria-hidden="true"><span class="tag-name"></span><span class="tag-status"></span></div>
+    </div>
+  </div>
+
+  <div class="hud">
+    <p class="live" aria-live="polite"><span class="live-label">Live</span><span class="live-dot" id="liveDot"></span><span class="live-text" id="liveText">Waiting for the first event</span></p>
+    <p class="hint"><span class="hint-full">Drag anything · arrows nudge · enter opens</span><span class="hint-touch">Swipe the room · drag an object</span><button type="button" class="reset" id="reset">Reset room</button></p>
+  </div>
+</section>
+
+<section class="work" id="work" aria-labelledby="work-title">
+  <div class="sec-head">
+    <p class="kicker"><span>01</span> The work</p>
+    <h2 id="work-title"><span class="pr-prism-text">The sharp things in the room.</span></h2>
+    <p class="sec-sub">Four products, each in its spot in the light. Pick a card up and put it where you like. The order stays yours.</p>
+  </div>
+
+  <ol class="cards" data-sortable="cards-89" aria-describedby="sort-help">
+    <li class="card" data-key="mcp-emails" id="p-mcp-emails" style="--hue:var(--pr-peach)">
+      <figure class="shot">
+        <picture>
+          <source type="image/avif" srcset="assets/products/card-mcp-emails-640.avif 640w, assets/products/card-mcp-emails-1280.avif 1280w" sizes="(min-width: 900px) 46vw, 100vw">
+          <source type="image/webp" srcset="assets/products/card-mcp-emails-640.webp 640w, assets/products/card-mcp-emails-1280.webp 1280w" sizes="(min-width: 900px) 46vw, 100vw">
+          <img src="assets/products/card-mcp-emails-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="The MCP Emails monitor on the round table, in the sunbeam.">
+        </picture>
+      </figure>
+      <div class="body">
+        <div class="head">
+          <span class="logo logo-light"><img src="../_shared/products/mcp-emails/logo-mark.svg" width="28" height="28" alt=""></span>
+          <h3>MCP Emails</h3>
+          <span class="status is-live">Live</span>
+          <button class="grip" type="button" aria-label="Move MCP Emails card"><i></i></button>
+        </div>
+        <p class="line">Email for AI agents.</p>
+        <p class="figure"><b>$782</b> <span>MRR</span></p>
+        <ul class="facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+        <p class="meta"><span>Since 2026</span><a href="https://mcpemails.com" rel="noopener">mcpemails.com</a></p>
+      </div>
+    </li>
+    <li class="card" data-key="fun-libs" id="p-fun-libs" style="--hue:var(--pr-gum)">
+      <figure class="shot">
+        <picture>
+          <source type="image/avif" srcset="assets/products/card-fun-libs-640.avif 640w, assets/products/card-fun-libs-1000.avif 1000w" sizes="(min-width: 900px) 46vw, 100vw">
+          <source type="image/webp" srcset="assets/products/card-fun-libs-640.webp 640w, assets/products/card-fun-libs-1000.webp 1000w" sizes="(min-width: 900px) 46vw, 100vw">
+          <img src="assets/products/card-fun-libs-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="The Fun Libs phone on its stand on the window sill.">
+        </picture>
+      </figure>
+      <div class="body">
+        <div class="head">
+          <span class="logo"><img src="../_shared/products/fun-libs/icon.png" width="28" height="28" alt=""></span>
+          <h3>Fun Libs</h3>
+          <span class="status is-live">Live</span>
+          <button class="grip" type="button" aria-label="Move Fun Libs card"><i></i></button>
+        </div>
+        <p class="line">A fill-in-the-blanks word game for Android and iOS.</p>
+        <p class="figure"><b>113,000+</b> <span>installs</span></p>
+        <ul class="facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+        <p class="meta"><span>Since 2019</span><a href="https://funlibs.app" rel="noopener">funlibs.app</a></p>
+      </div>
+    </li>
+    <li class="card" data-key="toolrails" id="p-toolrails" style="--hue:var(--pr-sky)">
+      <figure class="shot">
+        <picture>
+          <source type="image/avif" srcset="assets/products/card-toolrails-640.avif 640w, assets/products/card-toolrails-1280.avif 1280w" sizes="(min-width: 900px) 46vw, 100vw">
+          <source type="image/webp" srcset="assets/products/card-toolrails-640.webp 640w, assets/products/card-toolrails-1280.webp 1280w" sizes="(min-width: 900px) 46vw, 100vw">
+          <img src="assets/products/card-toolrails-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="The Toolrails laptop on the drum seat.">
+        </picture>
+      </figure>
+      <div class="body">
+        <div class="head">
+          <span class="logo"><img src="../_shared/products/toolrails/icon.svg" width="28" height="28" alt=""></span>
+          <h3>Toolrails</h3>
+          <span class="status is-building">Building</span>
+          <button class="grip" type="button" aria-label="Move Toolrails card"><i></i></button>
+        </div>
+        <p class="line">One MCP URL that gives an agent every tool.</p>
+        <p class="figure"><b>4</b> <span>connectors</span></p>
+        <ul class="facts"><li>tool search</li><li>injection guard</li></ul>
+        <p class="meta"><span>Since 2026</span><a href="https://toolrails.com" rel="noopener">toolrails.com</a></p>
+      </div>
+    </li>
+    <li class="card" data-key="harbor" id="p-harbor" style="--hue:var(--pr-lilac)">
+      <figure class="shot">
+        <picture>
+          <source type="image/avif" srcset="assets/products/card-harbor-640.avif 640w, assets/products/card-harbor-1280.avif 1280w" sizes="(min-width: 900px) 46vw, 100vw">
+          <source type="image/webp" srcset="assets/products/card-harbor-640.webp 640w, assets/products/card-harbor-1280.webp 1280w" sizes="(min-width: 900px) 46vw, 100vw">
+          <img src="assets/products/card-harbor-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="The Harbor book leaning by the gilt mirror.">
+        </picture>
+      </figure>
+      <div class="body">
+        <div class="head">
+          <span class="logo logo-ink"><svg viewBox="0 0 64 64" width="28" height="28" fill="none" aria-hidden="true"><path d="M12 26Q12 14 24 14L28.5 14L32 19.5L35.5 14L40 14Q52 14 52 26L52 40Q52 52 40 52L24 52Q12 52 12 40Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><circle cx="32" cy="35" r="3" fill="currentColor"/></svg></span>
+          <h3>Harbor</h3>
+          <span class="status is-paused">Paused</span>
+          <button class="grip" type="button" aria-label="Move Harbor card"><i></i></button>
+        </div>
+        <p class="line">A private knowledge base shared by people and AI.</p>
+        <p class="figure"><b>549</b> <span>commits</span></p>
+        <ul class="facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+        <p class="meta"><span>Since 2026</span><a href="https://harborknowledge.com" rel="noopener">harborknowledge.com</a></p>
+      </div>
+    </li>
+  </ol>
+  <p class="sr-only" id="sort-help">To move a card, focus its move button, press space to pick it up, use the arrow keys, and press space again to drop it.</p>
+
+  <div class="shelf">
+    <div class="shelf-head">
+      <h3>Retired, kept on the shelf</h3>
+      <p>Things that taught something and then stopped. Drag to sort them too.</p>
+    </div>
+    <ol class="shelf-list" data-sortable="shelf-89">
+      <li data-key="luma"><img src="../_shared/products/luma/logo.png" width="32" height="32" alt="" class="real"><span class="n">Luma</span><span class="y">2026</span><span class="d">Norwegian budgeting app with open banking. 378 commits.</span><button class="grip" type="button" aria-label="Move Luma"><i></i></button></li>
+      <li data-key="polyglot-pilot"><img src="assets/retired/polyglot-pilot.svg" width="32" height="32" alt=""><span class="n">Polyglot Pilot</span><span class="y">2025</span><span class="d">Agents that localised entire codebases, with a dashboard for human reviewers.</span><button class="grip" type="button" aria-label="Move Polyglot Pilot"><i></i></button></li>
+      <li data-key="pinpoint"><img src="assets/retired/pinpoint.svg" width="32" height="32" alt=""><span class="n">PinPoint</span><span class="y">2025</span><span class="d">GeoGuessr with your own photos: friends guess where your pictures were taken.</span><button class="grip" type="button" aria-label="Move PinPoint"><i></i></button></li>
+      <li data-key="webvakt"><img src="assets/retired/webvakt.svg" width="32" height="32" alt=""><span class="n">WebVakt</span><span class="y">2024</span><span class="d">Website change monitoring.</span><button class="grip" type="button" aria-label="Move WebVakt"><i></i></button></li>
+      <li data-key="joke-central"><img src="assets/retired/joke-central.svg" width="32" height="32" alt=""><span class="n">Daily Jokes / Joke Central</span><span class="y">2024</span><span class="d">Joke apps for iOS and Android.</span><button class="grip" type="button" aria-label="Move Daily Jokes / Joke Central"><i></i></button></li>
+      <li data-key="tryggere-hyring"><img src="assets/retired/tryggere-hyring.svg" width="32" height="32" alt=""><span class="n">Tryggere Hyring</span><span class="y">2023</span><span class="d">Background checks for hiring.</span><button class="grip" type="button" aria-label="Move Tryggere Hyring"><i></i></button></li>
+      <li data-key="early-apps"><img src="assets/retired/early-apps.svg" width="32" height="32" alt=""><span class="n">IAGO HMS, Rentekalkulator, Prosentkalkulator</span><span class="y">2021</span><span class="d">Early apps.</span><button class="grip" type="button" aria-label="Move the early apps"><i></i></button></li>
+    </ol>
+  </div>
+  <p class="sr-only" aria-live="assertive" id="sortLive"></p>
+</section>
+</main>
+
+<footer class="close" id="contact" aria-labelledby="close-title">
+  <div class="close-copy">
+    <p class="kicker"><span>02</span> Contact</p>
+    <h2 id="close-title">Takes one outside engagement at a time.</h2>
+    <p class="close-sub">Asgeir works a day job and runs Albretsen AS beside it. The rest of the time goes to whatever earns its place on the table.</p>
+    <a class="mail" href="mailto:asgeir@albretsen.no"><span>asgeir@albretsen.no</span><i aria-hidden="true">→</i></a>
+    <div class="agent">
+      <p class="kicker">Or send your agent</p>
+      <div class="cmd">
+        <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button type="button" class="copy" data-copy="#cmd" aria-label="Copy the MCP command"><span>Copy</span></button>
+      </div>
+    </div>
+    <p class="fine"><span>Albretsen AS</span><span>albretsen.no</span><span>Room photo CC0, Poly Haven · Sprites CC0, Kenney</span></p>
+  </div>
+  <div class="close-photo">
+    <pixel-resolve-lazy id="wallPhoto" width="2000" height="1790" lens alt="Low sun falling across a plum wall beside a gilt mirror and a wire table.">
+      <img src="assets/hero/sunwall-pixel-250.png" width="2000" height="1790" loading="lazy" alt="Low sun falling across a plum wall beside a gilt mirror and a wire table.">
+    </pixel-resolve-lazy>
+  </div>
+</footer>
+<noscript><style>.reset,.grip,.copy,.sound{display:none!important}</style></noscript>
+</body>
+</html>

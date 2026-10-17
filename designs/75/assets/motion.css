@@ -1,0 +1,94 @@
+/* Front Light: motion study (design 75)
+   Slow, warm, never bouncy. Everything moves like air over warm rock or a breeze off the water.
+   Five named animations. Each is opt-in by class, and all collapse to a still under
+   prefers-reduced-motion. Pair with motion.js for the scroll and in-view parts.
+
+   1. FIRST LIGHT    .fl-first-light   page-load: the name rises from behind the cliffs while the
+                                        sky warms from umber to apricot. Ref: the slow sunrise
+                                        fades of Jacquemus campaign pages; CSS scroll-driven
+                                        day-to-night study (dev.to/_artclick).
+   2. HEAT HAZE      .fl-haze          air shimmer over an image (SVG feTurbulence +
+                                        feDisplacementMap, animated by motion.js). The WebGL version
+                                        is interactive/haze.js. Ref: Codrops "Animated Heat
+                                        Distortion Effects with WebGL" (Lucas Bebber, 2016);
+                                        Framer LiquidDistort "Heat Haze" mode.
+   3. SEA BREEZE     .fl-breeze        ephemera (postcards, stamps, labels) drift a few px and a
+                                        fraction of a degree on long, out-of-phase sine loops.
+                                        Ref: the slow idle drift on Awwwards "Scroll color fade"
+                                        (Drink Cann) and hotel-site photo cards.
+   4. KEY SWING      .fl-swing         a damped pendulum on hover, for anything that hangs.
+                                        Ref: physical hotel key boards; used by interactive/keyrack.js.
+   5. POSTMARK       .fl-postmark      a cancel stamp strikes when scrolled into view: drops,
+                                        lands 1-2 deg off true, ink settles.
+   6. LONG SHADOWS   .fl-long-shadow   scroll-linked: as the page scrolls the sun sets, so paper
+                                        shadows lengthen and warm (var --sun from motion.js or
+                                        animation-timeline: scroll()).
+*/
+
+:root { --sun: 0; }
+
+/* 1. FIRST LIGHT */
+@keyframes fl-rise {
+  from { transform: translateY(18%); opacity: 0; filter: blur(6px); }
+  60%  { opacity: 1; }
+  to   { transform: none; opacity: 1; filter: none; }
+}
+@keyframes fl-warm {
+  from { filter: brightness(.55) saturate(.8); }
+  to   { filter: none; }
+}
+.fl-first-light > * { animation: fl-rise 2.6s var(--ease-settle) .25s both; }
+.fl-warm { animation: fl-warm 3.2s var(--ease-breeze) both; }
+
+/* 2. HEAT HAZE (needs the #fl-haze filter that motion.js injects) */
+.fl-haze { filter: url(#fl-haze); }
+
+/* 3. SEA BREEZE */
+@keyframes fl-breeze {
+  0%   { transform: translate3d(0, 0, 0) rotate(var(--r, 0deg)); }
+  25%  { transform: translate3d(2px, -3px, 0) rotate(calc(var(--r, 0deg) + .35deg)); }
+  50%  { transform: translate3d(-1px, -5px, 0) rotate(calc(var(--r, 0deg) - .2deg)); }
+  75%  { transform: translate3d(-3px, -2px, 0) rotate(calc(var(--r, 0deg) + .15deg)); }
+  100% { transform: translate3d(0, 0, 0) rotate(var(--r, 0deg)); }
+}
+.fl-breeze {
+  animation: fl-breeze calc(9s + var(--i, 0) * 1.7s) ease-in-out calc(var(--i, 0) * -2.3s) infinite;
+  will-change: transform;
+}
+
+/* 4. KEY SWING */
+@keyframes fl-swing {
+  0% { rotate: 0deg } 12% { rotate: 7deg } 30% { rotate: -4.5deg } 48% { rotate: 2.6deg }
+  66% { rotate: -1.3deg } 82% { rotate: .5deg } 100% { rotate: 0deg }
+}
+.fl-swing { transform-origin: 50% 0; }
+.fl-swing:hover, :focus-visible > .fl-swing, .fl-swing.is-swinging { animation: fl-swing 2.4s var(--ease-breeze); }
+
+/* 5. POSTMARK */
+@keyframes fl-strike {
+  0%   { transform: translateY(-14px) scale(1.35) rotate(var(--r, -9deg)); opacity: 0; }
+  55%  { transform: translateY(0) scale(.97) rotate(var(--r, -9deg)); opacity: .95; }
+  70%  { transform: scale(1.01) rotate(var(--r, -9deg)); }
+  100% { transform: scale(1) rotate(var(--r, -9deg)); opacity: var(--ink, .82); }
+}
+.fl-postmark { opacity: 0; transform-origin: 50% 50%; }
+.fl-postmark.is-in { animation: fl-strike .9s var(--ease-settle) both; }
+
+/* 6. LONG SHADOWS: --sun goes 0 (noon-ish) to 1 (sun on the horizon) */
+.fl-long-shadow {
+  box-shadow:
+    0 1px 0 rgb(61 32 19 / .06),
+    calc(var(--sun) * 34px) calc(14px + var(--sun) * 10px) calc(30px + var(--sun) * 20px) calc(-18px + var(--sun) * -4px)
+    rgb(122 61 31 / calc(.38 + var(--sun) * .2));
+}
+@supports (animation-timeline: scroll()) {
+  @keyframes fl-sunset { from { --sun: 0; } to { --sun: 1; } }
+  @property --sun { syntax: "<number>"; inherits: true; initial-value: 0; }
+  html.fl-scroll-native { animation: fl-sunset linear both; animation-timeline: scroll(root); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fl-first-light > *, .fl-warm, .fl-breeze, .fl-swing, .fl-postmark.is-in { animation: none !important; }
+  .fl-postmark { opacity: var(--ink, .82); transform: rotate(var(--r, -9deg)); }
+  .fl-haze { filter: none; }
+}

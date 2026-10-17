@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Albretsen AS">
+  <title>Albretsen AS</title>
+  <rect width="64" height="64" fill="#6E2233"/>
+  <clipPath id="ab-road"><rect width="64" height="56"/></clipPath>
+  <circle cx="32" cy="15" r="10.5" fill="#E0A93B"/>
+  <path d="M9.2 60 L32 9.5 L54.8 60" clip-path="url(#ab-road)" fill="none" stroke="#FBF3E6" stroke-width="4.4" stroke-linejoin="miter" stroke-miterlimit="10"/>
+  <path d="M19.6 37 H44.4" stroke="#FBF3E6" stroke-width="3.4"/>
+  <path d="M32 41.5 V45.2 M32 48.6 V55.6" stroke="#FBF3E6" stroke-width="2.6"/>
+</svg>

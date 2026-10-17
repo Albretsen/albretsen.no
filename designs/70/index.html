@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Albretsen AS · Quiet software that pays for itself</title>
+<meta name="description" content="Albretsen AS is a small technology company in Norway that builds apps, SaaS and infrastructure for AI agents. Published on Google Play since 2016.">
+<meta name="theme-color" content="#F6F1E8">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Quiet software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-1200x630.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<link rel="preload" href="assets/fonts/eb-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+<noscript><style>.arch-reveal{clip-path:inset(0 0 0 0 round 50% 50% 0 0 / 30% 30% 0 0)!important}.room::after{display:none}</style></noscript>
+<script>
+/* Before first paint: which light is it in Norway right now? (Almanac low-precision sun, same model as assets/interactive/sky.js)
+   ?t=2026-06-21T19:30:00Z pins the clock for previews. */
+(function () {
+  var R = Math.PI / 180, q = /[?&]t=([^&]+)/.exec(location.search), d = q ? new Date(decodeURIComponent(q[1])) : new Date();
+  if (isNaN(d)) d = new Date();
+  var n = d.getTime() / 864e5 + 2440587.5 - 2451545, L = (280.46 + .9856474 * n) % 360, g = ((357.528 + .9856003 * n) % 360) * R,
+      l = (L + 1.915 * Math.sin(g) + .02 * Math.sin(2 * g)) * R, e = (23.439 - 4e-7 * n) * R,
+      ra = Math.atan2(Math.cos(e) * Math.sin(l), Math.cos(l)), de = Math.asin(Math.sin(e) * Math.sin(l)),
+      H = (((18.697374558 + 24.06570982441908 * n) % 24) * 15 + 10.75) * R - ra, p = 59.91 * R,
+      el = Math.asin(Math.sin(p) * Math.sin(de) + Math.cos(p) * Math.cos(de) * Math.cos(H)) / R;
+  window.__sunEl = el; window.__sunT = d;
+  document.documentElement.dataset.paint = el < -2 ? 'light' : 'ink';
+  var only = /[?&]only=(\w+)/.exec(location.search); if (only) document.documentElement.dataset.only = only[1]; /* for screenshots */
+})();
+</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="top" data-paint-target>
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><path d="M15 57V29.5a17 17 0 0 1 34 0V57" fill="none" stroke="currentColor" stroke-width="6.6"/><path d="M18.3 41.5h27.4" stroke="currentColor" stroke-width="2.6"/><path d="M25.2 40a6.8 6.8 0 0 1 13.6 0z" fill="#E4572E"/></svg>
+    <span>Albretsen <small>AS</small></span>
+  </a>
+  <nav aria-label="Sections">
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="name">
+  <div class="room" id="room">
+    <div class="stage" id="stage">
+      <div class="plates" id="plates">
+        <noscript><img class="plate is-on" src="assets/hero/terrace-golden-1600.jpg" width="1600" height="904" alt=""></noscript>
+      </div>
+      <script>
+      /* Write the plate for the current light synchronously, so the hero image is discovered at parse time (no layout shift: the stage is sized in CSS). */
+      (function () {
+        var el = window.__sunEl, A = [['night', -9], ['blue', -3], ['golden', 4], ['day', 16]], i = 0;
+        while (i < 2 && el > A[i + 1][1]) i++;
+        var t = Math.max(0, Math.min(1, (el - A[i][1]) / (A[i + 1][1] - A[i][1])));
+        var main = t < .5 ? A[i][0] : A[i + 1][0];
+        var sizes = main === 'golden' ? [960, 1600, 2400] : [960, 1600];
+        var set = function (f) { return sizes.map(function (w) { return 'assets/hero/terrace-' + main + '-' + w + '.' + f + ' ' + w + 'w'; }).join(', '); };
+        var sz = 'max(100vw, 160vh)';
+        document.write('<picture class="plate is-on" data-phase="' + main + '"><source type="image/avif" sizes="' + sz + '" srcset="' + set('avif') + '"><source type="image/webp" sizes="' + sz + '" srcset="' + set('webp') + '"><img src="assets/hero/terrace-' + main + '-1600.jpg" width="1600" height="904" alt="" fetchpriority="high" decoding="async"></picture>');
+        window.__plate = main;
+      })();
+      </script>
+      <h1 class="name" id="name">Albretsen</h1>
+    </div>
+    <p class="line"><em>Quiet software that pays for itself.</em><span>Albretsen AS · apps, SaaS, agent infrastructure</span></p>
+    <p class="sr-only" id="room-desc">A whitewashed room with one deep arch open to the sea. The light in the room follows the real time of day in Norway.</p>
+  </div>
+
+  <div class="horizon" id="horizon" data-paint="ink">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <svg class="arc" id="arc" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="arc__night" d=""/>
+      <path class="arc__day" d=""/>
+    </svg>
+    <div class="read read--l">
+      <span class="read__k" id="readK">Now in Norway</span>
+      <span class="read__v"><time id="readT">--:--</time> <span id="readP"></span></span>
+    </div>
+    <div class="read read--r">
+      <span class="read__k">Sunrise <time id="rise">--:--</time></span>
+      <span class="read__k">Sunset <time id="set">--:--</time></span>
+    </div>
+    <button class="hour" id="hour" role="slider" aria-label="Hour of the day in Norway" aria-valuemin="0" aria-valuemax="1439" aria-valuenow="0" aria-describedby="hourHint"><i></i></button>
+    <span class="sr-only" id="hourHint">Drag or use the arrow keys to move the sun. The room above follows.</span>
+    <button class="now" id="now" hidden>Back to now</button>
+    <span class="hint" id="hint" aria-hidden="true">Drag the sun</span>
+  </div>
+</section>
+
+<section class="works raking raking--scroll" id="products" aria-labelledby="works-h">
+  <div class="louvre" aria-hidden="true"><div class="raking__light"></div></div>
+  <div class="wrap">
+    <header class="works__head">
+      <p class="eyebrow">Products</p>
+      <h2 id="works-h">Set into the wall,<br><em>each at its own hour.</em></h2>
+      <div class="works__lede">
+        <p>Albretsen AS is a small technology company in Norway. It builds whatever earns its keep: apps, SaaS and the plumbing AI agents run on, with the occasional piece of consulting. On Google Play since <span class="osf">2016</span>.</p>
+        <div class="cmd">
+          <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+          <button class="cmd__copy" id="copy" type="button" aria-describedby="cmd"><span class="cmd__label">Copy</span><i aria-hidden="true"></i></button>
+          <span class="sr-only" role="status" id="copyStatus"></span>
+        </div>
+        <p class="pulse" aria-live="off"><i aria-hidden="true"></i><span id="pulse">Agents and players at work, right now.</span></p>
+      </div>
+    </header>
+
+    <ol class="niches">
+      <li class="niche leak">
+        <a href="https://mcpemails.com" class="niche__link">
+          <div class="niche__img arch-reveal">
+            <picture><source type="image/avif" srcset="assets/products/mcp-emails-niche-600.avif 600w, assets/products/mcp-emails-niche-960.avif 960w" sizes="(max-width:620px) 92vw, (max-width:1100px) 46vw, 330px"><source type="image/webp" srcset="assets/products/mcp-emails-niche-600.webp 600w, assets/products/mcp-emails-niche-960.webp 960w" sizes="(max-width:620px) 92vw, (max-width:1100px) 46vw, 330px"><img src="assets/products/mcp-emails-niche-600.jpg" width="600" height="752" loading="lazy" decoding="async" alt="The MCP Emails icon set as a glazed plaque in an arched niche, in morning light through louvres."></picture>
+          </div>
+          <p class="niche__hour"><span class="st st--live">Live</span> · morning · <span class="osf">2026</span></p>
+          <h3>MCP Emails</h3>
+          <p class="niche__line">Email for AI agents.</p>
+          <p class="niche__fig"><b>$782</b> <small>MRR</small></p>
+          <p class="niche__facts">17 tools · about 100 email providers · open source (AGPL)</p>
+          <span class="niche__url">mcpemails.com <span aria-hidden="true">↗</span></span>
+        </a>
+      </li>
+      <li class="niche leak">
+        <a href="https://funlibs.app" class="niche__link">
+          <div class="niche__img arch-reveal">
+            <picture><source type="image/avif" srcset="assets/products/fun-libs-niche-600.avif 600w, assets/products/fun-libs-niche-960.avif 960w" sizes="(max-width:620px) 92vw, (max-width:1100px) 46vw, 330px"><source type="image/webp" srcset="assets/products/fun-libs-niche-600.webp 600w, assets/products/fun-libs-niche-960.webp 960w" sizes="(max-width:620px) 92vw, (max-width:1100px) 46vw, 330px"><img src="assets/products/fun-libs-niche-600.jpg" width="600" height="752" loading="lazy" decoding="async" alt="The Fun Libs icon set as a glazed plaque in an arched niche, under a noon leaf shadow."></picture>
+          </div>
+          <p class="niche__hour"><span class="st st--live">Live</span> · noon · <span class="osf">2019</span></p>
+          <h3>Fun Libs</h3>
+          <p class="niche__line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <p class="niche__fig"><b>113,000+</b> <small>installs</small></p>
+          <p class="niche__facts">built at 17 · no marketing · v5 shipped 2026</p>
+          <span class="niche__url">funlibs.app <span aria-hidden="true">↗</span></span>
+        </a>
+      </li>
+      <li class="niche leak">
+        <a href="https://toolrails.com" class="niche__link">
+          <div class="niche__img arch-reveal">
+            <picture><source type="image/avif" srcset="assets/products/toolrails-niche-600.avif 600w, assets/products/toolrails-niche-960.avif 960w" sizes="(max-width:620px) 92vw, (max-width:1100px) 46vw, 330px"><source type="image/webp" srcset="assets/products/toolrails-niche-600.webp 600w, assets/products/toolrails-niche-960.webp 960w" sizes="(max-width:620px) 92vw, (max-width:1100px) 46vw, 330px"><img src="assets/products/toolrails-niche-600.jpg" width="600" height="752" loading="lazy" decoding="async" alt="The Toolrails icon set as a glazed plaque in an arched niche, in golden light from an arched window."></picture>
+          </div>
+          <p class="niche__hour"><span class="st st--build">Building</span> · golden hour · <span class="osf">2026</span></p>
+          <h3>Toolrails</h3>
+          <p class="niche__line">One MCP URL that gives an agent every tool.</p>
+          <p class="niche__fig"><b>4</b> <small>connectors</small></p>
+          <p class="niche__facts">tool search · injection guard</p>
+          <span class="niche__url">toolrails.com <span aria-hidden="true">↗</span></span>
+        </a>
+      </li>
+      <li class="niche leak">
+        <a href="https://harborknowledge.com" class="niche__link">
+          <div class="niche__img arch-reveal">
+            <picture><source type="image/avif" srcset="assets/products/harbor-niche-600.avif 600w, assets/products/harbor-niche-960.avif 960w" sizes="(max-width:620px) 92vw, (max-width:1100px) 46vw, 330px"><source type="image/webp" srcset="assets/products/harbor-niche-600.webp 600w, assets/products/harbor-niche-960.webp 960w" sizes="(max-width:620px) 92vw, (max-width:1100px) 46vw, 330px"><img src="assets/products/harbor-niche-600.jpg" width="600" height="752" loading="lazy" decoding="async" alt="The Harbor wordmark set as a plaque in an arched niche, at dusk."></picture>
+          </div>
+          <p class="niche__hour"><span class="st st--paused">Paused</span> · dusk · <span class="osf">2026</span></p>
+          <h3>Harbor</h3>
+          <p class="niche__line">A private knowledge base shared by people and AI.</p>
+          <p class="niche__fig"><b>549</b> <small>commits</small></p>
+          <p class="niche__facts">self-hostable · AI edits held for approval</p>
+          <span class="niche__url">harborknowledge.com <span aria-hidden="true">↗</span></span>
+        </a>
+      </li>
+    </ol>
+
+    <section class="earlier" aria-labelledby="earlier-h">
+      <h3 id="earlier-h" class="eyebrow">Earlier, now retired</h3>
+      <ul>
+        <li><span class="earlier__tile earlier__tile--luma"><img src="assets/products/retired/luma-logo.png" width="160" height="45" alt="" loading="lazy"></span><span><b>Luma</b> <span class="osf">2026</span><br>Norwegian budgeting app with open banking. <span class="osf">378</span> commits.</span></li>
+        <li><img class="earlier__tile" src="assets/products/retired/polyglot-pilot.svg" width="120" height="150" alt="" loading="lazy"><span><b>Polyglot Pilot</b> <span class="osf">2025</span><br>Agents that localised entire codebases, with a dashboard for human reviewers.</span></li>
+        <li><img class="earlier__tile" src="assets/products/retired/pinpoint.svg" width="120" height="150" alt="" loading="lazy"><span><b>PinPoint</b> <span class="osf">2025</span><br>Friends guess where your own photos were taken.</span></li>
+        <li><img class="earlier__tile" src="assets/products/retired/webvakt.svg" width="120" height="150" alt="" loading="lazy"><span><b>WebVakt</b> <span class="osf">2024</span><br>Website change monitoring.</span></li>
+        <li><img class="earlier__tile" src="assets/products/retired/joke-central.svg" width="120" height="150" alt="" loading="lazy"><span><b>Daily Jokes / Joke Central</b> <span class="osf">2024</span><br>Joke apps for iOS and Android.</span></li>
+        <li><img class="earlier__tile" src="assets/products/retired/tryggere-hyring.svg" width="120" height="150" alt="" loading="lazy"><span><b>Tryggere Hyring</b> <span class="osf">2023</span><br>Background checks for hiring.</span></li>
+        <li><img class="earlier__tile" src="assets/products/retired/early-apps.svg" width="120" height="150" alt="" loading="lazy"><span><b>IAGO HMS, Rentekalkulator, Prosentkalkulator</b> <span class="osf">2021</span><br>Early apps.</span></li>
+      </ul>
+    </section>
+  </div>
+</section>
+</main>
+
+<footer class="close" id="contact">
+  <figure class="facade">
+    <picture>
+      <source media="(max-width:700px)" type="image/avif" srcset="assets/hero/facade-morning-portrait-800.avif 800w, assets/hero/facade-morning-portrait-1200.avif 1200w" sizes="100vw">
+      <source media="(max-width:700px)" type="image/webp" srcset="assets/hero/facade-morning-portrait-800.webp 800w, assets/hero/facade-morning-portrait-1200.webp 1200w" sizes="100vw">
+      <source type="image/avif" srcset="assets/hero/facade-morning-960.avif 960w, assets/hero/facade-morning-1600.avif 1600w, assets/hero/facade-morning-2400.avif 2400w" sizes="100vw">
+      <source type="image/webp" srcset="assets/hero/facade-morning-960.webp 960w, assets/hero/facade-morning-1600.webp 1600w, assets/hero/facade-morning-2400.webp 2400w" sizes="100vw">
+      <img src="assets/hero/facade-morning-1600.jpg" width="1600" height="904" loading="lazy" decoding="async" alt="A symmetric whitewashed house front in raking morning light, with sage shutters, an arched door and bougainvillea climbing one side.">
+    </picture>
+    <figcaption class="facade__sky">
+      <p class="avail">Takes one outside engagement at a time.</p>
+      <a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    </figcaption>
+  </figure>
+  <div class="foot wrap">
+    <span class="foot__mark"><img src="assets/identity/mark.svg" width="28" height="28" alt=""> Albretsen AS</span>
+    <span>Asgeir Albretsen · Norway</span>
+    <span>The light on this page is the light in Norway right now.</span>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

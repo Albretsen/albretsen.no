@@ -1,0 +1,21 @@
+{
+  "name": "Amber Hour",
+  "tagline": "Software with a long view.",
+  "summary": "Sun-bleached deco towers and golden Haussmann stone, all graded through one amber gradient under a generated dusk sky. The hero is a full-screen evening that, in one unbroken camera move, pulls back into a postcard on the table and turns over to show a handwritten note. The work is calm, exact and built with care, and the light makes that visible without a single place name.",
+  "palette": ["#FFF6E6", "#F8DFB6", "#EDBF84", "#D18E4A", "#B8642A", "#6E3816", "#3B1D0E", "#1E0F08", "#F2B68A", "#C98478", "#5E4A6E"],
+  "type": ["Bodoni Moda (italic, display)", "Schibsted Grotesk (text)", "ui-monospace (the install line)"],
+  "voice": "Unhurried, exact, written by hand to one reader. Example: \"I build software that pays for itself: apps, SaaS, and the quiet infrastructure AI agents run on.\"",
+  "motion": "One continuous camera per page, slow and smoothed like a crane on a rig, and never a cut.",
+  "sound": "Silent by default. The opt-in idea is one soft paper turn when the card flips over, and nothing else.",
+  "mark": "An arch drawn with Bodoni stroke contrast whose crossbar is a horizon with the sun sitting on it, set beside a Bodoni wordmark with a small grotesk AS.",
+  "inspiration": [
+    "https://www.loc.gov/pictures/collection/travel/",
+    "https://commons.wikimedia.org/wiki/Category:Carol_M._Highsmith",
+    "https://www.snohetta.com",
+    "https://www.visitnorway.com",
+    "https://scroll-driven-animations.style",
+    "https://www.apple.com/apple-card/",
+    "https://press.stripe.com",
+    "https://gsap.com/docs/v3/Plugins/ScrollTrigger/"
+  ]
+}

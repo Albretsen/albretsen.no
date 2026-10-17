@@ -1,0 +1,20 @@
+{
+  "name": "Clear Noon",
+  "tagline": "A Norwegian valley under a hard Mediterranean noon: granite, glacier blue, snow, and one red road.",
+  "summary": "Real orbital photographs of fjords, regraded to granite and glacier blue, cross-dissolve behind the name, and the company timeline is a road traced along a real valley floor from elevation data. Products are painted wooden houses on one quiet street that light up when you look at them. It reads as technical skill and taste held in restraint, which is how Albretsen AS works: real data, real rendering, nothing loud.",
+  "palette": ["#1b232b", "#39434b", "#3f6274", "#9fbdcc", "#f4f1ea", "#e9e6df", "#5f6b46", "#8e2a1e", "#c48a2c", "#c9a24a"],
+  "type": ["Antonio", "Alegreya Sans", "ui-monospace"],
+  "voice": "Calm, exact and unhurried; states what is true and stops. Example: \"Quiet software, built to pay for itself.\"",
+  "motion": "One long settling curve, cubic-bezier(.2,.7,.2,1): photographs cross-dissolve over 2.4 s, letters rise once, the road draws as you scroll, and lights come on when you look.",
+  "sound": "Silent by default; if ever enabled, a single soft wind-over-snow bed and a dry wooden latch click when a house door opens.",
+  "mark": "A condensed peak A with a falu-red road crossing its counter, paired with ALBRETSEN outlined from Antonio and tracked wide.",
+  "inspiration": [
+    "https://science.nasa.gov/earth/earth-observatory/fjords-of-norway-4605",
+    "https://www.loc.gov/pictures/collection/pgz/",
+    "https://www.metmuseum.org/art/collection",
+    "https://www.cerealmag.com",
+    "https://www.hoteldelavillevenice.com",
+    "https://www.framer.com/marketplace/components/cinefade/",
+    "https://tympanus.net/codrops/?p=54377"
+  ]
+}

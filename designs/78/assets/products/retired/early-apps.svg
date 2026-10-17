@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="IAGO HMS, Rentekalkulator, Prosentkalkulator (stand-in)">
+  <title>IAGO HMS, Rentekalkulator, Prosentkalkulator (stand-in tile)</title>
+  <rect x="2" y="2" width="156" height="156" rx="18" fill="#FBF2E2"/>
+  <rect x="12" y="12" width="136" height="136" rx="12" fill="none" stroke="#A48AD6" stroke-width="5"/>
+  <circle cx="24" cy="24" r="3" fill="#A48AD6"/><circle cx="136" cy="24" r="3" fill="#A48AD6"/><circle cx="24" cy="136" r="3" fill="#A48AD6"/><circle cx="136" cy="136" r="3" fill="#A48AD6"/>
+  <circle cx="62" cy="62" r="11" fill="none" stroke="#4E3A57" stroke-width="7"/><circle cx="98" cy="98" r="11" fill="none" stroke="#4E3A57" stroke-width="7"/><path d="M104 54l-48 52" stroke="#D9805C" stroke-width="7" stroke-linecap="round"/>
+  <path d="M2 20A18 18 0 0 1 20 2h60" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
+</svg>

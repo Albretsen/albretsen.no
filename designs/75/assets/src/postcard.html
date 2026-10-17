@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Postcard source</title>
+<!-- Source composition for products/postcard-*.{webp,jpg}. Render at 1500x1000:
+     scripts/shot.sh "http://127.0.0.1:6075/designs/75/assets/src/postcard.html?p=mcp-emails" out.png 1500 1000 -->
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--linen) url(../extras/paper-linen.webp); overflow: hidden; }
+  .card { position: absolute; inset: 0; padding: 46px 46px 0; box-sizing: border-box; display: grid; grid-template-rows: 1fr 132px; }
+  .photo { position: relative; overflow: hidden; border-radius: 2px; box-shadow: inset 0 0 0 1px rgb(61 32 19 / .25); }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(var(--z, 1)); transform-origin: var(--o, 50% 50%); }
+  .photo::after { content: ""; position: absolute; inset: 0; background: url(../extras/grain.png); mix-blend-mode: overlay; opacity: .5; }
+  .caption { display: grid; grid-template-columns: 150px 1fr auto; align-items: center; gap: 28px; color: var(--umber); padding: 0 6px; }
+  .no { font: 500 22px/1 var(--font-mono); letter-spacing: .18em; color: var(--copper); }
+  .name { font: 460 40px/1 var(--font-sign); letter-spacing: .34em; text-transform: uppercase; white-space: nowrap; }
+  .line { font: italic 34px/1.1 var(--font-script); color: var(--sienna); text-align: right; }
+  .line small { display: block; font: 400 17px/1.6 var(--font-mono); letter-spacing: .22em; text-transform: uppercase; color: var(--copper); font-style: normal; margin-top: 6px; }
+
+  /* the stamp */
+  .stamp { position: absolute; top: 88px; right: 96px; width: 240px; height: 288px; transform: rotate(2.2deg);
+    filter: drop-shadow(0 10px 14px rgb(28 14 7 / .35)); }
+  .stamp .paper { position: absolute; inset: 0; background: var(--linen);
+    -webkit-mask: linear-gradient(#000 0 0) center / calc(100% - 22px) calc(100% - 22px) no-repeat,
+                  radial-gradient(circle 7.5px at 12px 12px, #0000 97%, #000) -12px -12px / 24px 24px;
+            mask: linear-gradient(#000 0 0) center / calc(100% - 22px) calc(100% - 22px) no-repeat,
+                  radial-gradient(circle 7.5px at 12px 12px, #0000 97%, #000) -12px -12px / 24px 24px; }
+  .stamp .field { position: absolute; inset: 20px; background: var(--peach); border: 2px solid var(--copper);
+    display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); padding: 12px 12px 10px; box-sizing: border-box; }
+  .stamp .field.dark { background: #2a1a12; }
+  .stamp .top { display: flex; justify-content: space-between; font: 500 13px/1 var(--font-mono); letter-spacing: .08em; color: var(--umber); }
+  .stamp .dark .top, .stamp .dark .bot { color: var(--sand); }
+  .stamp .logo { display: grid; place-items: center; }
+  .stamp .logo img { width: 118px; height: 118px; object-fit: contain; }
+  .stamp .logo img.rounded { border-radius: 26px; }
+  .stamp .bot { font: 500 11.5px/1.2 var(--font-sign); letter-spacing: .14em; white-space: nowrap; text-transform: uppercase; color: var(--umber); text-align: center; }
+  .stamp .sunline { position: absolute; left: 0; right: 0; bottom: 44px; height: 1px; background: var(--copper); opacity: .5; }
+
+  /* the postmark */
+  .postmark { position: absolute; top: 318px; right: 300px; width: 250px; height: 250px; color: #241209;
+    opacity: .8; transform: rotate(-11deg); }
+  .waves { position: absolute; top: 368px; right: 520px; width: 520px; height: 150px; color: #241209; opacity: .5; transform: rotate(-11deg); transform-origin: right center; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="photo"><img id="photo" alt=""></div>
+  <div class="caption">
+    <div class="no" id="no"></div>
+    <div class="name" id="name"></div>
+    <div class="line"><span id="line"></span><small id="meta"></small></div>
+  </div>
+</div>
+<div class="stamp"><div class="paper"></div>
+  <div class="field" id="field">
+    <div class="top"><span id="year"></span><span id="status"></span></div>
+    <div class="logo"><img id="logo" alt=""></div>
+    <div class="bot" id="fig"></div>
+  </div>
+</div>
+<svg class="waves" viewBox="0 0 520 150" fill="none" stroke="currentColor" stroke-width="3.2" aria-hidden="true">
+  <path d="M0 25 C 40 10, 80 40, 120 25 S 200 10, 240 25 S 320 40, 360 25 S 440 10, 520 25"/>
+  <path d="M0 55 C 40 40, 80 70, 120 55 S 200 40, 240 55 S 320 70, 360 55 S 440 40, 520 55"/>
+  <path d="M0 85 C 40 70, 80 100, 120 85 S 200 70, 240 85 S 320 100, 360 85 S 440 70, 520 85"/>
+  <path d="M0 115 C 40 100, 80 130, 120 115 S 200 100, 240 115 S 320 130, 360 115 S 440 100, 520 115"/>
+</svg>
+<svg class="postmark" viewBox="0 0 250 250" aria-hidden="true">
+  <defs><path id="ring" d="M125 125 m -92 0 a 92 92 0 1 1 184 0 a 92 92 0 1 1 -184 0"/></defs>
+  <circle cx="125" cy="125" r="118" fill="none" stroke="currentColor" stroke-width="4"/>
+  <circle cx="125" cy="125" r="70" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  <text font-family="Jost" font-weight="500" font-size="19" letter-spacing="5" fill="currentColor"><textPath href="#ring" id="ringtext"></textPath></text>
+  <text id="pmv" x="125" y="128" text-anchor="middle" font-family="Jost" font-weight="500" font-size="34" letter-spacing="1" fill="currentColor"></text>
+  <text id="pml" x="125" y="156" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" letter-spacing="3" fill="currentColor"></text>
+</svg>
+<script type="module">
+  import { content } from '../../../_shared/content.js';
+  const P = '../../../_shared/products/';
+  const art = {
+    'mcp-emails': { no: '01', photo: '../hero/fjord-1600.webp', pos: '46% 40%', logo: P + 'mcp-emails/logo-mark.svg' },
+    'fun-libs':   { no: '02', photo: '../hero/village-1600.webp', pos: '50% 50%', z: 1.12, o: '70% 70%', logo: P + 'fun-libs/icon.png', rounded: true },
+    'toolrails':  { no: '03', photo: '../hero/orbit-1600.webp', pos: '60% 30%', logo: P + 'toolrails/icon.svg', rounded: true },
+    'harbor':     { no: '04', photo: '../hero/lake-1600.webp', pos: '50% 50%', logo: P + 'harbor/harbor-mark.svg', dark: true },
+  };
+  const id = new URLSearchParams(location.search).get('p') || 'mcp-emails';
+  const p = content.products.find(x => x.id === id), a = art[id];
+  document.getElementById('photo').src = a.photo;
+  document.getElementById('photo').style.objectPosition = a.pos;
+  if (a.z) { document.getElementById('photo').style.setProperty('--z', a.z); document.getElementById('photo').style.setProperty('--o', a.o); }
+  document.getElementById('no').textContent = 'Nº ' + a.no;
+  document.getElementById('name').textContent = p.name;
+  document.getElementById('line').textContent = p.line;
+  document.getElementById('meta').textContent = (p.facts || []).slice(0, 2).join('  ·  ');
+  document.getElementById('year').textContent = String(p.since);
+  document.getElementById('status').textContent = p.status.toUpperCase();
+  document.getElementById('fig').textContent = p.url.replace('https://', '');
+  const logo = document.getElementById('logo');
+  if (a.dark) {
+    // Harbor's mark is drawn in currentColor; show it the way Harbor's own banner does (light on near-black)
+    const svg = await (await fetch(a.logo)).text();
+    logo.replaceWith(Object.assign(document.createElement('div'), { innerHTML: svg.replace('<svg ', '<svg style="width:118px;height:118px;color:#F1EEE7" ') }));
+    document.getElementById('field').classList.add('dark');
+  } else {
+    logo.src = a.logo; if (a.rounded) logo.classList.add('rounded');
+  }
+  const status = { live: 'LIVE', building: 'IN THE MAKING', paused: 'PAUSED' }[p.status];
+  document.getElementById('ringtext').textContent = `ALBRETSEN AS  ✦  ${status}  ✦  SINCE ${p.since}  ✦  `;
+  const pmv = document.getElementById('pmv');
+  pmv.textContent = p.figure.value;
+  if (p.figure.value.length > 5) pmv.setAttribute('font-size', 25);
+  document.getElementById('pml').textContent = p.figure.label.toUpperCase();
+</script>
+</body>
+</html>

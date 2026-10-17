@@ -1,0 +1,81 @@
+/* Motion study, design 74 "Afterglow Diorama".
+   Four signature movements. All respect prefers-reduced-motion.
+
+   1. DAY PASS      A day passes as you scroll. One registered custom property,
+                    --day (0 = dawn, .5 = noon, .8 = afterglow, 1 = night), drives
+                    the sky and is fed to the diorama. Scroll-driven animation where
+                    supported, motion.js fallback otherwise.
+                    Researched from: the Firewatch site's layered parallax header
+                    (firewatchgame.com, layers moving at depth-scaled speeds) and the
+                    scroll-linked timelines on apple.com product pages.
+   2. SIGN LIGHT-UP Spaced capitals switch on one at a time with a short, warm
+                    flicker, like a mid-century sign at dusk.
+                    Researched from: Googie roadside signage (the Holiday Motel sign,
+                    Las Vegas, UNLV Special Collections) and hotel lettering in
+                    Fontstand's "Fonts in Use: Sleeping over".
+   3. PAPER LIFT    Hover or focus lifts a card off the sheet: a tight contact
+                    shadow becomes a wide soft one and the lit cut edge brightens.
+                    Researched from: the hover lift on cosmos.so grid cards, translated
+                    to physical card stock.
+   4. BOULEVARD ON  Street lamps ignite in order from the vanishing point toward
+                    you as a section enters the evening.
+                    Researched from: dusk timelapses of palm-lined boulevards; the
+                    stagger follows perspective (far lamps first, small and quick).
+*/
+@property --day { syntax: '<number>'; inherits: true; initial-value: 0.8; }
+
+:root {
+  --ochre: #D9A441; --terracotta: #C2603E; --sea: #2F6E9E; --lavender: #A99BD1;
+  --paper: #F5EBDC; --plum: #2E2240; --glow: #FFC979;
+  --ease-paper: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* ---------- 1. DAY PASS ---------- */
+.day-sky {
+  /* five keyed skies laid out along one long strip; --day slides the strip,
+     so the box always shows the sky for that moment. A vertical shade on top
+     keeps the zenith deeper than the horizon. */
+  background:
+    linear-gradient(180deg, rgba(24, 18, 52, .42), rgba(24, 18, 52, 0) 72%),
+    linear-gradient(90deg, #e9b9a6 0%, #f6d3a8 8%, #8ec0de 22%, #73b0dc 50%, #f4c48d 66%, #e8a59c 74%, #b58fb4 80%, #5a5a96 88%, #28224a 100%);
+  background-size: 100% 100%, 3000% 100%;
+  background-position: 0 0, calc(var(--day) * 100%) 0;
+}
+@supports (animation-timeline: scroll()) {
+  .day-pass { animation: day-pass linear both; animation-timeline: scroll(root block); }
+  @keyframes day-pass { from { --day: 0; } to { --day: 1; } }
+}
+
+/* ---------- 2. SIGN LIGHT-UP ---------- */
+.sign { font-family: "Josefin Sans", system-ui, sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .38em; color: color-mix(in srgb, var(--paper) 35%, var(--plum)); }
+.sign .ch { display: inline-block; transition: color .2s, text-shadow .2s; }
+.sign.is-lit .ch { animation: sign-on .9s steps(1, end) both; animation-delay: calc(var(--i) * 90ms); }
+@keyframes sign-on {
+  0%   { color: inherit; text-shadow: none; }
+  12%  { color: #FFE6B0; text-shadow: 0 0 10px rgba(255, 201, 121, .9); }
+  20%  { color: inherit; text-shadow: none; }
+  34%, 100% { color: #FFF1D6; text-shadow: 0 0 6px rgba(255, 201, 121, .85), 0 0 22px rgba(255, 170, 90, .45); }
+}
+
+/* ---------- 3. PAPER LIFT ---------- */
+.paper-lift {
+  transition: transform .5s var(--ease-paper), box-shadow .5s var(--ease-paper), filter .5s var(--ease-paper);
+  box-shadow: 0 1px 1px rgba(30, 16, 40, .18), 0 2px 4px rgba(30, 16, 40, .10);
+  will-change: transform;
+}
+.paper-lift:hover, .paper-lift:focus-visible {
+  transform: translateY(-6px) rotate(-.4deg);
+  box-shadow: 0 2px 2px rgba(30, 16, 40, .08), 0 22px 40px -8px rgba(30, 16, 40, .32);
+  filter: brightness(1.03);
+}
+
+/* ---------- 4. BOULEVARD ON ---------- */
+.boulevard .lamp-glow { opacity: 0; transform: scale(.6); transform-origin: center; transform-box: fill-box; }
+.boulevard.is-on .lamp-glow { animation: lamp-on .7s var(--ease-paper) both; animation-delay: calc(var(--i) * 70ms); }
+@keyframes lamp-on { 0% { opacity: 0; transform: scale(.6); } 35% { opacity: 1; transform: scale(1.15); } 50% { opacity: .55; } 100% { opacity: 1; transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .day-pass { animation: none; }
+  .sign.is-lit .ch, .boulevard.is-on .lamp-glow { animation: none; opacity: 1; color: #FFF1D6; transform: none; }
+  .paper-lift, .paper-lift:hover { transition: none; transform: none; }
+}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Die Bake Stage</title>
+<!-- Bake stage: renders the live three.js die over a graded photograph so headless Chrome
+     can screenshot it into a still. ?shot=hero|mcp-emails|fun-libs|toolrails|harbor -->
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/"}}</script>
+<style>
+  html,body{margin:0;height:100%;background:#000a2a;overflow:hidden}
+  .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .grain{position:absolute;inset:0;background:url(../extras/grain.png);opacity:.5;mix-blend-mode:overlay;z-index:2;pointer-events:none}
+  .veil{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 60%,transparent 40%,rgba(0,10,42,.55))}
+</style>
+</head>
+<body>
+<img class="bg" id="bg" alt="">
+<div class="veil"></div>
+<div class="grain" hidden></div>
+<canvas id="c"></canvas>
+<script type="module">
+import { mountDie } from './die-scene.js'
+const q = new URLSearchParams(location.search)
+const shot = q.get('shot') || 'hero'
+const SWEEP = (top, bottom, spot) => `radial-gradient(60% 45% at 62% 30%, ${spot}, transparent 70%), linear-gradient(180deg, ${top} 0%, ${top} 36%, ${bottom} 74%, ${bottom} 100%)`
+const STUDIO = { camera: [4.4, 2.4, 6.8], fov: 30, lookY: 0.95 }
+const SETUPS = {
+  hero:        { product: 'mcp-emails', bg: '../extras/tracks-night-1600.avif', pose: { x: 0, y: -0.12, z: 0 }, camera: [3.6, 3.4, 7.4], fov: 30, offsetX: 0.16, lookY: 0.6 },
+  'mcp-emails':{ product: 'mcp-emails', sweep: SWEEP('#0159d4', '#00226c', 'rgba(82,169,254,.55)'), pose: { x: 0, y: -0.2, z: 0 }, ...STUDIO },
+  'fun-libs':  { product: 'fun-libs',   sweep: SWEEP('#00226c', '#000a2a', 'rgba(255,178,80,.35)'), pose: { x: 0, y: -0.2, z: 0 }, ...STUDIO },
+  'toolrails': { product: 'toolrails',  sweep: SWEEP('#000a2a', '#00226c', 'rgba(5,135,240,.45)'), pose: { x: 0, y: -0.2, z: 0 }, ...STUDIO },
+  'harbor':    { product: 'harbor',     sweep: SWEEP('#d3e7fe', '#0587f0', 'rgba(241,248,255,.9)'), pose: { x: 0, y: -0.2, z: 0 }, shadow: 0.7, ...STUDIO },
+}
+const s = SETUPS[shot]
+const bg = document.getElementById('bg')
+if (s.bg) { bg.src = s.bg; await bg.decode() }
+else { bg.remove(); document.body.style.background = s.sweep; document.querySelector('.grain').hidden = false }
+const die = await mountDie(document.getElementById('c'), { product: s.product, pose: s.pose, camera: s.camera, fov: s.fov, offsetX: s.offsetX, lookY: s.lookY, shadow: s.shadow, bake: true, dpr: 1 })
+die.render()
+document.title = 'ready'
+</script>
+</body>
+</html>

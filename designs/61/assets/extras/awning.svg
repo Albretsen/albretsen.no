@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="44" viewBox="0 0 96 44" role="img" aria-label="Scalloped awning tile">
+  <title>Scalloped awning (tile horizontally across the top of a section or the nav)</title>
+  <!-- four 24px stripes, alternating pink and paper, finished with a scalloped hem -->
+  <path d="M0 0 H24 V32 A12 12 0 0 1 0 32 Z" fill="#F4C3C2"/>
+  <path d="M24 0 H48 V32 A12 12 0 0 1 24 32 Z" fill="#FBF3E6"/>
+  <path d="M48 0 H72 V32 A12 12 0 0 1 48 32 Z" fill="#F4C3C2"/>
+  <path d="M72 0 H96 V32 A12 12 0 0 1 72 32 Z" fill="#FBF3E6"/>
+  <path d="M0 32 A12 12 0 0 0 24 32 A12 12 0 0 0 48 32 A12 12 0 0 0 72 32 A12 12 0 0 0 96 32" fill="none" stroke="#6E2233" stroke-width="1.2"/>
+  <path d="M0 6 H96" stroke="#6E2233" stroke-width="1.2"/>
+</svg>

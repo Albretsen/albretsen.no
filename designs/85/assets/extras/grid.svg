@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="0 0 280 280">
+  <title>Atlas grid tile (5 x 56 px cells)</title>
+  <g fill="none" stroke="#005e26">
+    <path d="M56 0V280M112 0V280M168 0V280M224 0V280M0 56H280M0 112H280M0 168H280M0 224H280" stroke-width=".6" opacity=".16"/>
+    <path d="M.5 0V280M0 .5H280" stroke-width="1" opacity=".3"/>
+  </g>
+</svg>

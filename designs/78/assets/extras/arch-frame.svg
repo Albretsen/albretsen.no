@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" width="400" height="560">
+  <title>Round arch frame (use the inner path as a clip-path / mask)</title>
+  <path id="arch" d="M24 560V200a176 176 0 0 1 352 0v360z" fill="#FDEBDD"/>
+  <path d="M40 560V200a160 160 0 0 1 320 0v360" fill="none" stroke="#F2C46D" stroke-width="2"/>
+  <path d="M24 560V200a176 176 0 0 1 352 0v360" fill="none" stroke="#E7C7B0" stroke-width="1.5"/>
+</svg>

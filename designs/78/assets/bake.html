@@ -1,0 +1,23 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Diorama bake</title>
+<style>html,body{margin:0;background:transparent}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+// Bake stills from the live diorama. Query: w,h,t,yaw,view,offsetX,layer,transparent,grain,tilt,hideSun,dump
+import { createDiorama } from './diorama.js'
+const q = new URLSearchParams(location.search)
+const num = (k, d) => q.has(k) ? parseFloat(q.get(k)) : d
+const w = num('w', 1440), h = num('h', 900)
+const c = document.getElementById('c'); c.style.width = w + 'px'; c.style.height = h + 'px'
+try {
+  const d = await createDiorama({ canvas: c, width: w, height: h, pixelRatio: 1, interactive: false, preserve: true,
+    time: num('t', 0.12), yaw: num('yaw', 0), view: q.get('view') || 'hero', scene: q.get('scene') || 'village', offsetX: num('offsetX', 0),
+    layer: q.get('layer') || 'all', transparent: q.get('transparent') === '1', grain: num('grain', 0.02), tilt: num('tilt', 1),
+    hideSun: q.get('hideSun') === '1' })
+  d.renderNow()
+  if (q.get('dump') === '1') {
+    const pre = document.createElement('pre'); pre.id = 'out'; pre.textContent = 'DATAURL:' + c.toDataURL('image/png') + ':END'
+    document.body.append(pre); c.remove()
+  }
+} catch (e) { document.body.append('ERR ' + e.message + ' ' + e.stack) }
+</script></body></html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 200" width="520" height="200" role="img" aria-label="Day ticket">
+  <title>Day ticket, sunrise to dusk</title>
+  <defs>
+    <!-- ticket body with notched corners and a perforated tear line at x=388 -->
+    <mask id="tk-holes">
+      <rect width="520" height="200" fill="#fff"/>
+      <circle cx="0" cy="0" r="16" fill="#000"/><circle cx="520" cy="0" r="16" fill="#000"/>
+      <circle cx="0" cy="200" r="16" fill="#000"/><circle cx="520" cy="200" r="16" fill="#000"/>
+      <circle cx="388" cy="0" r="11" fill="#000"/><circle cx="388" cy="200" r="11" fill="#000"/>
+      <g fill="#000"><circle cx="388" cy="24" r="2.6"/><circle cx="388" cy="38" r="2.6"/><circle cx="388" cy="52" r="2.6"/><circle cx="388" cy="66" r="2.6"/><circle cx="388" cy="80" r="2.6"/><circle cx="388" cy="94" r="2.6"/><circle cx="388" cy="108" r="2.6"/><circle cx="388" cy="122" r="2.6"/><circle cx="388" cy="136" r="2.6"/><circle cx="388" cy="150" r="2.6"/><circle cx="388" cy="164" r="2.6"/><circle cx="388" cy="178" r="2.6"/></g>
+    </mask>
+    <pattern id="tk-guilloche" width="14" height="14" patternUnits="userSpaceOnUse">
+      <path d="M0 7 q3.5 -5 7 0 t7 0" fill="none" stroke="#E79AA0" stroke-width=".7" opacity=".55"/>
+    </pattern>
+  </defs>
+  <g mask="url(#tk-holes)">
+    <rect width="520" height="200" fill="#F4C3C2"/>
+    <rect width="520" height="200" fill="url(#tk-guilloche)"/>
+    <rect x="388" width="132" height="200" fill="#EBC46B"/>
+  </g>
+  <rect x="14" y="14" width="360" height="172" fill="none" stroke="#6E2233" stroke-width="1.2"/>
+  <rect x="19" y="19" width="350" height="162" fill="none" stroke="#6E2233" stroke-width=".6"/>
+  <text x="194" y="52" text-anchor="middle" font-family="Jost, Futura, sans-serif" font-size="11" letter-spacing="4.5" fill="#6E2233">ALBRETSEN AS</text>
+  <text x="194" y="104" text-anchor="middle" font-family="'EB Garamond', Georgia, serif" font-size="42" font-weight="500" fill="#6E2233">Day Pass</text>
+  <text x="194" y="132" text-anchor="middle" font-family="'EB Garamond', Georgia, serif" font-style="italic" font-size="17" fill="#6E2233">valid from first light to dusk</text>
+  <path d="M120 150 H268" stroke="#6E2233" stroke-width=".8"/>
+  <text x="194" y="168" text-anchor="middle" font-family="Jost, Futura, sans-serif" font-size="9" letter-spacing="3" fill="#6E2233">ONE TRAVELLER · NOT TRANSFERABLE</text>
+  <g transform="translate(454 100) rotate(-90)" fill="#6E2233" text-anchor="middle">
+    <text y="-14" font-family="Jost, Futura, sans-serif" font-size="9" letter-spacing="3.5">No.</text>
+    <text y="16" font-family="'EB Garamond', Georgia, serif" font-size="30" font-weight="500" letter-spacing="2">2016</text>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" aria-hidden="true">
+  <!-- Late-sun window patches (a four-pane ranch window) for a wall or section background.
+       Blend with mix-blend-mode: soft-light (light sections) or screen (dark sections).
+       Drive its position with the "Sun traverse" animation in motion.css. -->
+  <defs>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="5"/></filter>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFE3B0" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#F2B98A" stop-opacity=".7"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#soft)" fill="url(#g)">
+    <path d="M300 140 L520 120 L560 470 L330 500 Z"/>
+    <path d="M560 116 L780 96 L830 440 L600 466 Z"/>
+    <path d="M330 530 L560 500 L590 720 L350 760 Z" opacity=".85"/>
+    <path d="M604 496 L834 470 L870 690 L630 716 Z" opacity=".85"/>
+  </g>
+</svg>

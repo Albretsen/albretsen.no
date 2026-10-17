@@ -1,0 +1,97 @@
+/* =====================================================================
+   AMBER HOUR — motion study (design 67)
+   One rule above all: the camera never cuts. Every move is slow, eased
+   out, and continuous, like a single crane shot at golden hour.
+   Pair with motion.js (fallbacks for browsers without scroll timelines).
+   ===================================================================== */
+
+:root{
+  --ah-ease-out: cubic-bezier(.2,.75,.15,1);   /* long, soft landing */
+  --ah-ease-io:  cubic-bezier(.65,0,.35,1);
+  --ah-slow: 1600ms;
+}
+
+/* ---------------------------------------------------------------------
+   1. THE LONG TAKE  (.ah-longtake)
+   A pinned stage. Scrolling through it pushes the camera slowly down the
+   arcade toward the vanishing point: scale 1 -> 1.42, a 3% drift toward
+   the light, and the warmth rising. One move, no cuts.
+   Researched: apple.com/airpods-pro (pinned scroll scenes),
+   scroll-driven-animations.style (Bramus, view-timeline),
+   gsap.com/docs ScrollTrigger "scrub" (linear ease, smoothing ~1s).
+   Markup: <section class="ah-longtake"><div class="ah-longtake__stage">
+             <img class="ah-longtake__plate" ...><div class="ah-longtake__light"></div>
+           </div></section>
+   --------------------------------------------------------------------- */
+.ah-longtake{position:relative;height:260vh;view-timeline-name:--longtake}
+.ah-longtake__stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#1E0F08}
+.ah-longtake__plate{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform-origin:var(--vp-x,53%) var(--vp-y,60%);will-change:transform}
+.ah-longtake__light{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+  background:radial-gradient(60% 50% at var(--vp-x,53%) var(--vp-y,60%),#FFD39A,transparent 70%);opacity:.2}
+@keyframes ah-dolly{from{transform:scale(1) translate3d(0,0,0)}to{transform:scale(1.42) translate3d(0,-1.5%,0)}}
+@keyframes ah-warm{from{opacity:.15}to{opacity:.75}}
+@supports (animation-timeline: view()){
+  .ah-longtake__plate{animation:ah-dolly linear both;animation-timeline:--longtake;animation-range:contain 0% contain 100%}
+  .ah-longtake__light{animation:ah-warm linear both;animation-timeline:--longtake;animation-range:contain 0% contain 100%}
+}
+
+/* ---------------------------------------------------------------------
+   2. POSTCARD TURN  (.ah-turn)
+   A card arrives face-down and turns over, lifting off the table
+   (translateZ + growing shadow) before settling. 1.15 s, ease-out.
+   Researched: apple.com/apple-card (the card's physical flip),
+   press.stripe.com (3D book covers that tilt toward the pointer).
+   Interactive version: interactive/postcard.css + postcard.js.
+   --------------------------------------------------------------------- */
+@keyframes ah-turn{
+  0%  {transform:perspective(1600px) rotateY(-180deg) translateZ(0) rotateZ(-3deg);filter:drop-shadow(0 4px 6px rgba(59,29,14,.2))}
+  45% {transform:perspective(1600px) rotateY(-70deg) translateZ(90px) rotateZ(-1deg);filter:drop-shadow(0 40px 50px rgba(59,29,14,.35))}
+  100%{transform:perspective(1600px) rotateY(0) translateZ(0) rotateZ(-2deg);filter:drop-shadow(0 22px 30px rgba(59,29,14,.3))}
+}
+.ah-turn{backface-visibility:visible;transform-origin:50% 50%}
+.ah-turn.is-in{animation:ah-turn 1.15s var(--ah-ease-out) both}
+
+/* ---------------------------------------------------------------------
+   3. EXPOSURE  (.ah-expose)
+   Photographs develop like a print in sunlight: they enter blown out,
+   warm and soft (+0.9 EV, low contrast, a touch of blur) and settle to
+   the grade. Hides the image decode, so a lazy image never "pops".
+   Researched: snohetta.com (Low-res / high-res image toggle — images as
+   a considered, progressive layer), the darkroom development metaphor.
+   --------------------------------------------------------------------- */
+.ah-expose{filter:brightness(1.85) contrast(.6) saturate(.5) sepia(.25) blur(6px);opacity:.001;transform:scale(1.03);
+  transition:filter var(--ah-slow) var(--ah-ease-out),opacity .9s ease-out,transform 2.4s var(--ah-ease-out)}
+.ah-expose.is-in{filter:none;opacity:1;transform:none}
+
+/* ---------------------------------------------------------------------
+   4. PERSIENNES  (.ah-shutters)
+   Louvred shutters open on an image: 12 slats rotate open top to bottom,
+   staggered 45 ms, each catching the light as it turns.
+   Researched: Haussmann persiennes; the slat-stagger reveals catalogued
+   on awwwards.com/inspiration (horizontal-scroll-verticite-architecture).
+   Markup: <div class="ah-shutters"><img ...><i></i>x12 (motion.js adds them)</div>
+   --------------------------------------------------------------------- */
+.ah-shutters{position:relative;overflow:hidden}
+.ah-shutters__slats{position:absolute;inset:0;display:grid;grid-template-rows:repeat(12,1fr);pointer-events:none;perspective:900px}
+.ah-shutters__slats i{display:block;background:linear-gradient(#F8DFB6,#EDBF84 55%,#A65E27);
+  transform-origin:50% 50%;transition:transform .9s var(--ah-ease-out),opacity .9s ease-out;transition-delay:calc(var(--i)*45ms)}
+.ah-shutters.is-in .ah-shutters__slats i{transform:rotateX(88deg);opacity:0}
+
+/* ---------------------------------------------------------------------
+   5. HORIZON LINK  (.ah-link) — small delight for text links
+   The underline is a horizon; on hover a sun rises out of it.
+   --------------------------------------------------------------------- */
+.ah-link{position:relative;text-decoration:none;color:inherit;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;padding-bottom:2px}
+.ah-link::after{content:"";position:absolute;left:var(--sun-x,50%);bottom:1px;width:10px;height:5px;border-radius:10px 10px 0 0;background:#D18E4A;
+  transform:translate(-50%,6px) scaleY(0);transform-origin:50% 100%;transition:transform .5s var(--ah-ease-out)}
+.ah-link:hover::after,.ah-link:focus-visible::after{transform:translate(-50%,0) scaleY(1)}
+
+@media (prefers-reduced-motion:reduce){
+  .ah-longtake{height:auto}.ah-longtake__stage{position:relative;height:70vh}
+  .ah-longtake__plate,.ah-longtake__light{animation:none!important;transform:none!important}
+  .ah-turn.is-in{animation:none}
+  .ah-expose{filter:none;opacity:1;transform:none;transition:none}
+  .ah-shutters__slats{display:none}
+  .ah-link::after{transition:none}
+}

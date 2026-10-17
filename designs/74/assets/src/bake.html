@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Bake</title>
+<style>html,body{margin:0;background:transparent;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+// Bakes stills from paperworld.js. Query: scene, alt, sky, layers, w, h, bg
+import * as P from '../js/paperworld.js';
+import { VIGNETTES } from './vignettes.js';
+const q = new URLSearchParams(location.search);
+const W = +q.get('w') || 1600, H = +q.get('h') || 900;
+const c = document.getElementById('c'); c.width = W; c.height = H; c.style.width = W + 'px'; c.style.height = H + 'px';
+const ctx = c.getContext('2d');
+await P.loadGrain('../textures/paper-grain.webp');
+const L = P.lightAt(+(q.get('alt') ?? -1.5));
+const scene = q.get('scene') || 'hero';
+if (scene === 'hero') {
+  let skyImage = null; if (q.get('sky')) { skyImage = new Image(); skyImage.src = q.get('sky'); await skyImage.decode(); }
+  // cover-fit the 1600x900 composition, anchored by fx/fy (0..1)
+  const s = Math.max(W / 1600, H / 900); const fx = +(q.get('fx') ?? 0.5), fy = +(q.get('fy') ?? 0.5);
+  ctx.translate((W - 1600 * s) * fx, (H - 900 * s) * fy); ctx.scale(s, s);
+  P.drawHero(ctx, { light: L, skyImage, layers: q.get('layers') ? q.get('layers').split(',') : null, sunDiscX: q.get('sunx') ? +q.get('sunx') : undefined, sunY: q.get('suny') ? +q.get('suny') : undefined, sunDisc: q.get('disc') !== '0' });
+} else {
+  const s = Math.min(W / 800, H / 1000); ctx.scale(s, s);
+  await VIGNETTES[scene](ctx, P);
+}
+document.title = 'done';
+</script></body></html>

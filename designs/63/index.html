@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS</title>
+<meta name="description" content="Albretsen AS builds quiet software that pays for itself: apps, SaaS and infrastructure for AI agents. Published on Google Play since 2016.">
+<meta name="theme-color" content="#F5EFE4">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Quiet software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-1200x630.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" href="assets/fonts/bodoni-moda-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bodoni-moda-display-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" imagesrcset="assets/hero/fog-768.avif 768w, assets/hero/fog-1280.avif 1280w, assets/hero/fog-1600.avif 1600w, assets/hero/fog-1920.avif 1920w, assets/hero/fog-2560.avif 2560w" imagesizes="(max-width: 760px) 100vw, 96vw" fetchpriority="high">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<a class="skip" href="#postcards">Skip to products</a>
+
+<header class="top">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/identity/lockup.svg" width="186" height="32" alt="Albretsen AS">
+  </a>
+  <nav aria-label="Primary">
+    <a href="#postcards">Products</a>
+    <a href="#room">The room</a>
+    <button class="sound" type="button" aria-pressed="false" id="sound"><span class="sound__dot" aria-hidden="true"></span><span class="sound__label">Sound off</span></button>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO: postcard No. 00. The front is the landscape with the name set into the fog; the back is the introduction. -->
+  <section class="hero" aria-labelledby="hero-name">
+    <div class="hero-card" id="heroCard" data-flipped="false">
+      <div class="hero-card__inner">
+
+        <div class="hc-face hc-front" id="heroFront">
+          <div class="stage lx-fog" id="fogHero">
+            <picture>
+              <source type="image/avif" srcset="assets/hero/fog-768.avif 768w, assets/hero/fog-1280.avif 1280w, assets/hero/fog-1600.avif 1600w, assets/hero/fog-1920.avif 1920w, assets/hero/fog-2560.avif 2560w" sizes="(max-width: 760px) 100vw, 96vw">
+              <source type="image/webp" srcset="assets/hero/fog-768.webp 768w, assets/hero/fog-1280.webp 1280w, assets/hero/fog-1600.webp 1600w, assets/hero/fog-1920.webp 1920w, assets/hero/fog-2560.webp 2560w" sizes="(max-width: 760px) 100vw, 96vw">
+              <img src="assets/hero/fog-1600.jpg" width="1600" height="1067" alt="Fog filling a coastal valley at sunset, a dark ridge on the right" fetchpriority="high">
+            </picture>
+            <svg class="lx-fog__name" viewBox="0 0 3840 2560" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="hero-name">
+              <title id="hero-name">Albretsen</title>
+              <text x="154" y="1224" font-size="649" font-weight="440" fill="#4A4C5A" fill-opacity=".8">Albretsen</text>
+            </svg>
+            <picture>
+              <source type="image/avif" srcset="assets/hero/fog-foreground-1280.avif 1280w, assets/hero/fog-foreground-1920.avif 1920w, assets/hero/fog-foreground-2560.avif 2560w" sizes="(max-width: 760px) 100vw, 96vw">
+              <img src="assets/hero/fog-foreground-1920.webp" srcset="assets/hero/fog-foreground-1280.webp 1280w, assets/hero/fog-foreground-1920.webp 1920w" sizes="(max-width: 760px) 100vw, 96vw" width="1920" height="1280" alt="" decoding="async">
+            </picture>
+            <p class="stage__no eyebrow">No. 00 &middot; Since 2016</p>
+          </div>
+
+          <div class="front-meta">
+            <h1 class="front-line">Quiet software that pays&nbsp;for&nbsp;itself.</h1>
+            <p class="feed" aria-live="off">
+              <span class="feed__dot" aria-hidden="true"></span>
+              <span class="feed__slot"><span class="feed__text" id="feedText">MCP Emails &middot; agent read a thread</span></span>
+            </p>
+            <button class="turn" type="button" id="turnOver" aria-controls="heroCard" aria-expanded="false">
+              <span>Turn over</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6M17.7 2.8v3.6h-3.6M6.3 21.2v-3.6h3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="hc-face hc-back" id="heroBack" inert aria-label="The back of the card">
+          <div class="back-msg">
+            <p class="eyebrow">Albretsen AS &middot; Norway</p>
+            <h2 class="back-title">A small technology company that builds what earns its&nbsp;keep.</h2>
+            <p class="back-body">Apps, SaaS and infrastructure for AI agents, made one at a time and kept only if they pay for themselves. On Google Play since 2016. Now and then, an outside engagement.</p>
+            <p class="back-sign">Asgeir Albretsen</p>
+          </div>
+          <div class="back-rule" aria-hidden="true"></div>
+          <div class="back-side">
+            <div class="back-stamp" aria-hidden="true">
+              <span class="perf"><img src="assets/identity/mark.svg" width="512" height="512" alt="" loading="lazy"></span>
+              <img class="pm" src="assets/extras/postmark.png" width="630" height="300" alt="" loading="lazy">
+            </div>
+            <div class="back-agent">
+              <p class="eyebrow">For your agent</p>
+              <div class="cmd">
+                <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+                <button class="copy" type="button" data-copy="#cmd" aria-label="Copy the command"><span class="copy__a">Copy</span><span class="copy__b" aria-hidden="true">Copied</span></button>
+              </div>
+            </div>
+            <address class="back-addr">
+              <span>Albretsen AS</span>
+              <span><a href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></span>
+              <span>Norway</span>
+            </address>
+            <button class="turn turn--back" type="button" id="turnBack" aria-controls="heroCard">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6M17.7 2.8v3.6h-3.6M6.3 21.2v-3.6h3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg>
+              <span>Front</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="sr-status" role="status" id="heroStatus"></p>
+  </section>
+
+  <!-- PRODUCTS: four postcards in circulation, retired ones in the album -->
+  <section class="postcards" id="postcards" aria-labelledby="pc-title">
+    <div class="shade" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="sec-head">
+        <img class="sec-sun" src="assets/extras/sun-horizon.svg" width="480" height="40" alt="" loading="lazy">
+        <h2 id="pc-title">In circulation</h2>
+        <p class="sec-sub">Four products, each its own card. Turn one over for the&nbsp;details.</p>
+      </header>
+
+      <ul class="grid" role="list">
+        <li class="pc" data-id="mcp-emails">
+          <button class="lx-postcard" aria-pressed="false" aria-label="MCP Emails. Turn the postcard over">
+            <span class="lx-postcard__inner">
+              <span class="lx-postcard__face lx-postcard__front">
+                <picture>
+                  <source type="image/avif" srcset="assets/products/postcard-mcp-emails-750.avif 750w, assets/products/postcard-mcp-emails-1200.avif 1200w" sizes="(max-width: 760px) 92vw, 44vw">
+                  <source type="image/webp" srcset="assets/products/postcard-mcp-emails-750.webp 750w, assets/products/postcard-mcp-emails-1200.webp 1200w" sizes="(max-width: 760px) 92vw, 44vw">
+                  <img src="assets/products/postcard-mcp-emails-750.jpg" width="750" height="500" alt="Postcard: a coast road in fog, captioned Email for AI agents, with the MCP Emails stamp" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <span class="lx-postcard__face lx-postcard__back">
+                <span class="lx-postcard__msg">
+                  <span class="b-name">MCP Emails</span>
+                  <span class="b-line" data-k="line">Email for AI agents.</span>
+                  <span class="b-fig"><span class="b-val" data-k="fig">$782</span> <span class="b-lab eyebrow" data-k="figl">MRR</span></span>
+                  <span class="b-facts" data-k="facts">17 tools &middot; about 100 email providers &middot; open source (AGPL)</span>
+                </span>
+                <img class="lx-postcard__stamp" src="assets/products/stamp-mcp-emails@2x.webp" width="320" height="380" alt="" loading="lazy">
+                <span class="lx-postcard__addr"><span>mcpemails.com</span><span>Live &middot; since 2026</span></span>
+              </span>
+            </span>
+          </button>
+          <p class="pc-cap"><span class="pc-n">No. 01</span><span class="pc-t">MCP Emails</span><span class="pc-s eyebrow">Live</span></p>
+        </li>
+        <li class="pc" data-id="fun-libs">
+          <button class="lx-postcard" aria-pressed="false" aria-label="Fun Libs. Turn the postcard over">
+            <span class="lx-postcard__inner">
+              <span class="lx-postcard__face lx-postcard__front">
+                <picture>
+                  <source type="image/avif" srcset="assets/products/postcard-fun-libs-750.avif 750w, assets/products/postcard-fun-libs-1200.avif 1200w" sizes="(max-width: 760px) 92vw, 44vw">
+                  <source type="image/webp" srcset="assets/products/postcard-fun-libs-750.webp 750w, assets/products/postcard-fun-libs-1200.webp 1200w" sizes="(max-width: 760px) 92vw, 44vw">
+                  <img src="assets/products/postcard-fun-libs-750.jpg" width="750" height="500" alt="Postcard: palm silhouettes against a pastel dusk, with the Fun Libs stamp" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <span class="lx-postcard__face lx-postcard__back">
+                <span class="lx-postcard__msg">
+                  <span class="b-name">Fun Libs</span>
+                  <span class="b-line" data-k="line">A fill-in-the-blanks word game for Android and iOS.</span>
+                  <span class="b-fig"><span class="b-val" data-k="fig">113,000+</span> <span class="b-lab eyebrow" data-k="figl">installs</span></span>
+                  <span class="b-facts" data-k="facts">built at 17 &middot; no marketing &middot; v5 shipped 2026</span>
+                </span>
+                <img class="lx-postcard__stamp" src="assets/products/stamp-fun-libs@2x.webp" width="320" height="380" alt="" loading="lazy">
+                <span class="lx-postcard__addr"><span>funlibs.app</span><span>Live &middot; since 2019</span></span>
+              </span>
+            </span>
+          </button>
+          <p class="pc-cap"><span class="pc-n">No. 02</span><span class="pc-t">Fun Libs</span><span class="pc-s eyebrow">Live</span></p>
+        </li>
+        <li class="pc" data-id="toolrails">
+          <button class="lx-postcard" aria-pressed="false" aria-label="Toolrails. Turn the postcard over">
+            <span class="lx-postcard__inner">
+              <span class="lx-postcard__face lx-postcard__front">
+                <picture>
+                  <source type="image/avif" srcset="assets/products/postcard-toolrails-750.avif 750w, assets/products/postcard-toolrails-1200.avif 1200w" sizes="(max-width: 760px) 92vw, 44vw">
+                  <source type="image/webp" srcset="assets/products/postcard-toolrails-750.webp 750w, assets/products/postcard-toolrails-1200.webp 1200w" sizes="(max-width: 760px) 92vw, 44vw">
+                  <img src="assets/products/postcard-toolrails-750.jpg" width="750" height="500" alt="Postcard: fog over forested hills at sunset, with the Toolrails stamp" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <span class="lx-postcard__face lx-postcard__back">
+                <span class="lx-postcard__msg">
+                  <span class="b-name">Toolrails</span>
+                  <span class="b-line" data-k="line">One MCP URL that gives an agent every tool.</span>
+                  <span class="b-fig"><span class="b-val" data-k="fig">4</span> <span class="b-lab eyebrow" data-k="figl">connectors</span></span>
+                  <span class="b-facts" data-k="facts">tool search &middot; injection guard</span>
+                </span>
+                <img class="lx-postcard__stamp" src="assets/products/stamp-toolrails@2x.webp" width="320" height="380" alt="" loading="lazy">
+                <span class="lx-postcard__addr"><span>toolrails.com</span><span>Building &middot; since 2026</span></span>
+              </span>
+            </span>
+          </button>
+          <p class="pc-cap"><span class="pc-n">No. 03</span><span class="pc-t">Toolrails</span><span class="pc-s eyebrow">Building</span></p>
+        </li>
+        <li class="pc" data-id="harbor">
+          <button class="lx-postcard" aria-pressed="false" aria-label="Harbor. Turn the postcard over">
+            <span class="lx-postcard__inner">
+              <span class="lx-postcard__face lx-postcard__front">
+                <picture>
+                  <source type="image/avif" srcset="assets/products/postcard-harbor-750.avif 750w, assets/products/postcard-harbor-1200.avif 1200w" sizes="(max-width: 760px) 92vw, 44vw">
+                  <source type="image/webp" srcset="assets/products/postcard-harbor-750.webp 750w, assets/products/postcard-harbor-1200.webp 1200w" sizes="(max-width: 760px) 92vw, 44vw">
+                  <img src="assets/products/postcard-harbor-750.jpg" width="750" height="500" alt="Postcard: a golden grass hill at sunset, with the Harbor stamp" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <span class="lx-postcard__face lx-postcard__back">
+                <span class="lx-postcard__msg">
+                  <span class="b-name">Harbor</span>
+                  <span class="b-line" data-k="line">A private knowledge base shared by people and AI.</span>
+                  <span class="b-fig"><span class="b-val" data-k="fig">549</span> <span class="b-lab eyebrow" data-k="figl">commits</span></span>
+                  <span class="b-facts" data-k="facts">self-hostable &middot; AI edits held for approval</span>
+                </span>
+                <img class="lx-postcard__stamp" src="assets/products/stamp-harbor@2x.webp" width="320" height="380" alt="" loading="lazy">
+                <span class="lx-postcard__addr"><span>harborknowledge.com</span><span>Paused &middot; since 2026</span></span>
+              </span>
+            </span>
+          </button>
+          <p class="pc-cap"><span class="pc-n">No. 04</span><span class="pc-t">Harbor</span><span class="pc-s eyebrow">Paused</span></p>
+        </li>
+      </ul>
+
+      <div class="album" aria-labelledby="album-title">
+        <h3 id="album-title" class="eyebrow">Retired, kept in the album</h3>
+        <ul class="stamps" role="list" id="stamps">
+          <li><button type="button" data-name="Luma" data-since="2026" data-line="Norwegian budgeting app with open banking."><img src="assets/products/stamp-retired-luma@2x.webp" width="320" height="380" alt="Luma" loading="lazy"></button></li>
+          <li><button type="button" data-name="Polyglot Pilot" data-since="2025" data-line="Agents that localised entire codebases, with a dashboard for human reviewers."><img src="assets/products/stamp-retired-polyglot-pilot@2x.webp" width="320" height="380" alt="Polyglot Pilot" loading="lazy"></button></li>
+          <li><button type="button" data-name="PinPoint" data-since="2025" data-line="GeoGuessr with your own photos: friends guess where your pictures were taken."><img src="assets/products/stamp-retired-pinpoint@2x.webp" width="320" height="380" alt="PinPoint" loading="lazy"></button></li>
+          <li><button type="button" data-name="WebVakt" data-since="2024" data-line="Website change monitoring."><img src="assets/products/stamp-retired-webvakt@2x.webp" width="320" height="380" alt="WebVakt" loading="lazy"></button></li>
+          <li><button type="button" data-name="Daily Jokes / Joke Central" data-since="2024" data-line="Joke apps for iOS and Android."><img src="assets/products/stamp-retired-joke-central@2x.webp" width="320" height="380" alt="Daily Jokes / Joke Central" loading="lazy"></button></li>
+          <li><button type="button" data-name="Tryggere Hyring" data-since="2023" data-line="Background checks for hiring."><img src="assets/products/stamp-retired-tryggere-hyring@2x.webp" width="320" height="380" alt="Tryggere Hyring" loading="lazy"></button></li>
+          <li><button type="button" data-name="IAGO HMS, Rentekalkulator, Prosentkalkulator" data-since="2021" data-line="Early apps."><img src="assets/products/stamp-retired-early-apps@2x.webp" width="320" height="380" alt="Early apps: IAGO HMS, Rentekalkulator, Prosentkalkulator" loading="lazy"></button></li>
+        </ul>
+        <p class="album-cap" id="albumCap" aria-live="polite"><span class="ac-name">Seven earlier cards.</span> <span class="ac-line">Point at a stamp to read it.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE ROOM: the same four cards on a wall; scrolling passes the evening -->
+  <section class="room-sec" id="room" aria-labelledby="room-title">
+    <div class="room-sticky">
+      <div class="room-head wrap">
+        <h2 id="room-title">The room, <em>all evening</em></h2>
+        <p class="clock" aria-hidden="true"><span id="clock">17:40</span></p>
+      </div>
+      <div class="room-frame">
+        <div class="room" id="roomBox">
+          <img class="still still--a" src="assets/room/room-afternoon-1600.webp" srcset="assets/room/room-afternoon-960.webp 960w, assets/room/room-afternoon-1600.webp 1600w" sizes="(max-width: 1320px) 92vw, 1240px" width="1600" height="1000" alt="A white clapboard room with a falu-red credenza under a window; four postcards hang on the wall" loading="lazy" decoding="async">
+          <img class="still still--b" src="assets/room/room-evening-1600.webp" srcset="assets/room/room-evening-960.webp 960w, assets/room/room-evening-1600.webp 1600w" sizes="(max-width: 1320px) 92vw, 1240px" width="1600" height="1000" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="room-foot wrap">
+        <p><span class="eyebrow">By day</span> Built and led an MCP server for an accounting platform; AI chat with invoice, VAT and OCR tools; a React Native app.</p>
+        <p><span class="eyebrow">Alongside</span> Albretsen AS, and the cards on this wall.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="end" aria-labelledby="end-title">
+  <div class="band lx-horizon" style="--horizon: 56%">
+    <picture>
+      <source type="image/avif" srcset="assets/extras/orbit-evening-1280.avif 1280w, assets/extras/orbit-evening-2400.avif 2400w" sizes="100vw">
+      <img src="assets/extras/orbit-evening-1280.webp" srcset="assets/extras/orbit-evening-1280.webp 1280w, assets/extras/orbit-evening-2400.webp 2400w" sizes="100vw" width="1280" height="427" alt="The sun setting over a sea of cloud, seen from orbit" loading="lazy" decoding="async">
+    </picture>
+  </div>
+  <div class="end-body wrap">
+    <h2 id="end-title" class="end-line">Takes one outside engagement at a&nbsp;time.</h2>
+    <a class="end-mail" href="mailto:asgeir@albretsen.no"><span>asgeir@albretsen.no</span></a>
+    <div class="end-meta">
+      <img src="assets/identity/mark.svg" width="40" height="40" alt="" loading="lazy">
+      <p>Albretsen AS &middot; Norway &middot; On Google Play since 2016</p>
+      <img class="end-pm" src="assets/extras/postmark.png" width="630" height="300" alt="" loading="lazy">
+    </div>
+  </div>
+  <div class="airmail" aria-hidden="true"></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60" width="1200" height="60" preserveAspectRatio="xMidYMid meet" role="presentation" fill="none">
+  <defs><linearGradient id="hz" x1="0" x2="1"><stop offset="0" stop-color="currentColor" stop-opacity="0"/><stop offset=".5" stop-color="currentColor"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient>
+  <linearGradient id="sn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1dc"/><stop offset="1" stop-color="#ff7a45"/></linearGradient>
+  <clipPath id="up"><rect width="1200" height="40"/></clipPath></defs>
+  <circle cx="600" cy="40" r="22" fill="url(#sn)" clip-path="url(#up)"/>
+  <ellipse cx="600" cy="34" rx="70" ry="9" transform="rotate(-6 600 34)" stroke="currentColor" stroke-width="1.2"/>
+  <rect x="0" y="39.5" width="1200" height="1" fill="url(#hz)"/>
+  <rect x="560" y="45" width="80" height="1" fill="currentColor" opacity=".5"/>
+  <rect x="580" y="50" width="40" height="1" fill="currentColor" opacity=".3"/>
+</svg>

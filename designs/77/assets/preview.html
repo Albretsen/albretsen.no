@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shutterlight Asset Kit</title>
+<meta name="description" content="Design 77 asset kit for Albretsen AS: a sunlit window that passes through a day, painted paintings, hand-painted tiles and signage.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preload" href="fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face{font-family:"Cormorant Garamond";src:url(fonts/cormorant-garamond.woff2) format("woff2");font-weight:300 700;font-display:swap}
+  @font-face{font-family:"Cormorant Garamond";font-style:italic;src:url(fonts/cormorant-garamond-italic.woff2) format("woff2");font-weight:300 700;font-display:swap}
+  @font-face{font-family:"EB Garamond";src:url(fonts/eb-garamond.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  @font-face{font-family:"EB Garamond";font-style:italic;src:url(fonts/eb-garamond-italic.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{
+    --limewash:#E8BF86; --ochre:#E2A93B; --terra:#B9532F; --sea:#2F6C9E; --dawn:#6A7FB6;
+    --lav:#A59CBF; --lav-deep:#6E6496; --rose:#E6B3A0; --cream:#F4E9D4; --ink:#2A2233;
+    --display:"Cormorant Garamond", "EB Garamond", Georgia, serif;
+    --text:"EB Garamond", Georgia, serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--text);font-size:19px;line-height:1.6}
+  img{max-width:100%;height:auto;display:block}
+  a{color:var(--sea)}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+  header.top{padding:56px 0 24px;text-align:center}
+  header.top img.wm{width:min(520px,80vw);margin:0 auto}
+  .kicker{font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--lav-deep)}
+  h1{font-family:var(--display);font-weight:500;font-style:italic;font-size:clamp(34px,5vw,58px);line-height:1.08;margin:18px auto 8px;max-width:20ch}
+  h2{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);text-align:center;margin:0 0 6px}
+  h3{font-family:var(--display);font-weight:600;font-size:26px;margin:0}
+  section.wrap{padding-top:72px;padding-bottom:72px;border-top:1px solid #b9532f22}
+  .lede{max-width:46ch;margin:0 auto;text-align:center;font-style:italic;color:#4a4058}
+  .divider{width:min(640px,90%);margin:28px auto 36px}
+  .grid{display:grid;gap:28px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  figure{margin:0}
+  figcaption{font-size:15px;line-height:1.45;color:#5a5068;margin-top:10px}
+  figcaption code, td code, p code{font-family:ui-monospace,Menlo,monospace;font-size:.82em;background:#2a223310;padding:1px 5px;border-radius:3px}
+  .frame{background:#fff9ee;border:1px solid #b9532f22;padding:14px;border-radius:3px}
+  .hero-pic{border-radius:2px;overflow:hidden;box-shadow:0 30px 60px -36px #3a2414aa}
+  .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+  .sw{border-radius:3px;overflow:hidden;background:#fff9ee;border:1px solid #2a223314}
+  .sw i{display:block;height:84px}
+  .sw div{padding:8px 10px;font-size:13px;line-height:1.35}
+  .sw b{font-family:var(--display);font-size:17px;display:block}
+  .spec{display:grid;gap:22px}
+  .spec .d1{font-family:var(--display);font-weight:500;font-size:clamp(48px,8vw,104px);line-height:1;letter-spacing:.02em}
+  .spec .d2{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.1}
+  .spec .caps{font-family:var(--display);font-weight:600;letter-spacing:.32em;text-transform:uppercase;font-size:15px;color:var(--lav-deep)}
+  .spec .body{max-width:62ch;font-size:20px}
+  .spec .meta{font-size:14px;color:#6a6078}
+  .center{text-align:center}
+  .dolly{border-radius:2px;background:#9fb4cf}
+  .scrollbox{height:520px;overflow-y:scroll;border:1px solid #b9532f33;border-radius:3px;position:relative}
+  .scrollbox .pad{height:300px;display:grid;place-items:center;font-style:italic;color:#6a6078}
+  .dp{position:relative;aspect-ratio:16/10;border-radius:2px;overflow:hidden}
+  .dp .cap{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:var(--display);color:#fff;letter-spacing:.3em;font-size:13px;text-transform:uppercase;text-shadow:0 1px 8px #0008}
+  input[type=range]{width:100%;accent-color:var(--terra)}
+  .shut-demo{position:relative;aspect-ratio:3/4;max-width:340px;margin:0 auto;border-radius:50% 50% 0 0/37.5% 37.5% 0 0;overflow:hidden;background:#000}
+  .shut-demo img{width:100%;height:100%;object-fit:cover}
+  button.btn{font:600 13px/1 var(--display);letter-spacing:.28em;text-transform:uppercase;color:var(--cream);background:var(--terra);border:0;padding:12px 18px;border-radius:2px;cursor:pointer}
+  .tilelay{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+  .tilelay img{width:72px;height:72px}
+  .daywin{position:relative;width:min(420px,100%);margin:0 auto;aspect-ratio:3/4;padding:5%;background:#efe1c6;border-radius:50% 50% 0 0/37.5% 37.5% 0 0}
+  .daywin .arch{position:relative;width:100%;height:100%;border-radius:50% 50% 0 0/37.5% 37.5% 0 0;overflow:hidden;background:#9fb4cf}
+  .daywin canvas,.daywin img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .daywin svg{position:absolute;inset:0;width:100%;height:100%}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  td,th{text-align:left;padding:6px 8px;border-bottom:1px solid #2a223314;vertical-align:top}
+  .checker{background:conic-gradient(#e9e2d4 25%,#f6f1e6 0 50%,#e9e2d4 0 75%,#f6f1e6 0) 0 0/24px 24px}
+  .dark{background:var(--ink)}
+  footer{padding:48px 0 72px;text-align:center;color:#6a6078;font-size:15px}
+</style>
+</head>
+<body>
+
+<header class="top wrap">
+  <img class="wm" src="identity/wordmark.svg" width="820" height="132" alt="Albretsen AS">
+  <p class="kicker" style="margin-top:28px">Design 77 · Asset kit · “Shutterlight”</p>
+  <h1>A window in a sunlit room, and the view passes through a day.</h1>
+  <p class="lede">Provençal limewash, lavender shutters and hand-painted tile, set with the symmetry of a miniature film set. Outside the window, public-domain paintings stand in for the light: a Norwegian dawn, fjord cliffs at morning, a terracotta coast at noon, a golden hour.</p>
+  <img class="divider" src="extras/fanlight-divider.svg" width="640" height="80" alt="">
+</header>
+
+<!-- HERO -->
+<section class="wrap" id="hero">
+  <h2>1 · Hero imagery</h2>
+  <p class="lede">Rendered sets (SVG + painting, finished with a canvas-weave pass), served as AVIF, WebP and JPEG. Desktop 16:10, phone portrait crop.</p>
+  <div class="grid" style="margin-top:32px">
+    <figure>
+      <picture class="hero-pic" style="display:block">
+        <source type="image/avif" srcset="hero/window-dawn-960.avif 960w, hero/window-dawn-1600.avif 1600w, hero/window-dawn-2400.avif 2400w" sizes="(max-width:1240px) 100vw, 1208px" media="(min-width:700px)">
+        <source type="image/avif" srcset="hero/window-dawn-portrait-750.avif 750w, hero/window-dawn-portrait-1120.avif 1120w" sizes="100vw">
+        <source type="image/webp" srcset="hero/window-dawn-960.webp 960w, hero/window-dawn-1600.webp 1600w, hero/window-dawn-2400.webp 2400w" sizes="(max-width:1240px) 100vw, 1208px">
+        <img src="hero/window-dawn-1600.jpg" width="1600" height="1000" alt="An arched window with lavender shutters; outside, a Norwegian valley at dawn" fetchpriority="high">
+      </picture>
+      <figcaption><code>hero/window-dawn-*</code> · Dawn. The room is still blue; the light is only outside. View: J. C. Dahl, <i>View over Hallingdal</i>, 1844 (The Met, CC0), graded cold blue to gold.</figcaption>
+    </figure>
+    <div class="grid g3">
+      <figure><img class="hero-pic" src="hero/window-fjord-960.webp" width="960" height="600" loading="lazy" alt="The same window, morning: waterfalls on fjord cliffs"><figcaption><code>window-fjord</code> · Morning. Thomas Fearnley, <i>Gudvangen</i>, 1839 (The Met, CC0).</figcaption></figure>
+      <figure><img class="hero-pic" src="hero/window-noon-960.webp" width="960" height="600" loading="lazy" alt="The same window at noon: a terracotta town above a blue bay"><figcaption><code>window-noon</code> · Noon, second hero. Paul Cézanne, <i>The Gulf of Marseille Seen from L'Estaque</i>, c. 1885 (The Met, CC0).</figcaption></figure>
+      <figure><img class="hero-pic" src="hero/window-gold-960.webp" width="960" height="600" loading="lazy" alt="The same window in golden hour light"><figcaption><code>window-gold</code> · Golden hour. Claude Lorrain, <i>Sunrise</i>, 1646–47 (The Met, CC0).</figcaption></figure>
+    </div>
+    <div class="grid g2">
+      <figure><img class="hero-pic" src="hero/window-noon-portrait-750.webp" width="750" height="1004" loading="lazy" alt="Portrait crop of the noon window for phones" style="max-width:360px;margin:0 auto"><figcaption class="center"><code>window-*-portrait</code> · phone crop, centred on the window.</figcaption></figure>
+      <figure><img class="hero-pic" src="views/view-dawn-1600.webp" width="1600" height="1062" loading="lazy" alt="The graded dawn painting, full bleed"><figcaption><code>views/view-dawn</code> · the plates alone are a full-bleed option for chapter openers (all four in <code>views/</code>).</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PALETTE -->
+<section class="wrap">
+  <h2>2 · Palette: Riviera, at first light</h2>
+  <p class="lede">Warm limewash for the room, ochre and terracotta for the craft, sea blue for structure, lavender for the shutters, a cold dawn blue that only appears as light.</p>
+  <div class="swatches" style="margin-top:32px">
+    <div class="sw"><i style="background:#E8BF86"></i><div><b>Limewash</b>#E8BF86<br>oklch(82.8% 0.087 75.2)</div></div>
+    <div class="sw"><i style="background:#E2A93B"></i><div><b>Ochre</b>#E2A93B<br>oklch(77.0% 0.139 80.0)</div></div>
+    <div class="sw"><i style="background:#B9532F"></i><div><b>Terracotta</b>#B9532F<br>oklch(56.5% 0.141 39.3)</div></div>
+    <div class="sw"><i style="background:#2F6C9E"></i><div><b>Sea blue</b>#2F6C9E<br>oklch(51.5% 0.101 246.3)</div></div>
+    <div class="sw"><i style="background:#6A7FB6"></i><div><b>Dawn blue</b>#6A7FB6<br>oklch(60.2% 0.088 267.7)</div></div>
+    <div class="sw"><i style="background:#A59CBF"></i><div><b>Lavender</b>#A59CBF<br>oklch(71.2% 0.051 296.9)</div></div>
+    <div class="sw"><i style="background:#6E6496"></i><div><b>Lavender deep</b>#6E6496<br>oklch(53.3% 0.078 292.7)</div></div>
+    <div class="sw"><i style="background:#E6B3A0"></i><div><b>Rose wall</b>#E6B3A0<br>oklch(80.8% 0.065 41.4)</div></div>
+    <div class="sw"><i style="background:#F4E9D4"></i><div><b>Cream</b>#F4E9D4<br>oklch(93.7% 0.030 83.6)</div></div>
+    <div class="sw"><i style="background:#2A2233"></i><div><b>Ink</b>#2A2233<br>oklch(26.9% 0.033 305.8)</div></div>
+  </div>
+</section>
+
+<!-- TYPE -->
+<section class="wrap">
+  <h2>3 · Type</h2>
+  <div class="spec" style="margin-top:32px">
+    <div class="d1">ALBRETSEN</div>
+    <div class="d2">Quiet software that pays for itself.</div>
+    <div class="caps">Products · Writing · Since 2016</div>
+    <p class="body">Fun Libs was built at seventeen and has passed 113,000 installs with no marketing. MCP Emails gives AI agents an inbox: seventeen tools and about a hundred email providers, open source. One outside engagement at a time.</p>
+    <p class="meta"><b>Display:</b> Cormorant Garamond 500/600, italic 500 (SIL OFL). Caps set with .3em tracking for signage and labels. <b>Text:</b> EB Garamond 400 and italic (SIL OFL), 19–21px, line-height 1.6. Both vendored as Latin woff2 in <code>fonts/</code> (≈170 KB total; load the two upright cuts first).</p>
+  </div>
+</section>
+
+<!-- IDENTITY -->
+<section class="wrap">
+  <h2>4 · Identity</h2>
+  <p class="lede">The mark is the window: an arch, a transom, and a fanlight whose glazing bars are the rays of a rising sun.</p>
+  <div class="grid g4" style="margin-top:32px">
+    <figure class="frame center"><img src="identity/mark.svg" width="160" height="160" alt="Albretsen mark" style="margin:0 auto"><figcaption><code>identity/mark.svg</code></figcaption></figure>
+    <figure class="frame center dark" style="color:#F4E9D4"><img src="identity/mark-mono.svg" width="160" height="160" alt="Mono mark" style="margin:0 auto;filter:invert(93%) sepia(10%)"><figcaption style="color:#d9cfe0"><code style="background:#fff2">mark-mono.svg</code> (currentColor)</figcaption></figure>
+    <figure class="frame center"><img src="identity/favicon.svg" width="96" height="96" alt="Favicon" style="margin:0 auto"> <img src="identity/favicon-180.png" width="60" height="60" alt="Touch icon" style="margin:12px auto 0"><figcaption><code>favicon.svg</code>, <code>favicon-180.png</code></figcaption></figure>
+    <figure class="frame center"><img src="identity/lockup.svg" width="512" height="72" alt="Lockup" style="margin:40px auto"><figcaption><code>lockup.svg</code> (nav)</figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:28px;align-items:start">
+    <figure class="frame"><img src="identity/wordmark.svg" width="820" height="132" alt="Wordmark"><figcaption><code>wordmark.svg</code> · outlined Cormorant Garamond, hairline rules around “AS”.</figcaption></figure>
+    <figure><img src="identity/og.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image"><figcaption><code>og.jpg</code> 1200×630.</figcaption></figure>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="wrap">
+  <h2>5 · Products in the world</h2>
+  <p class="lede">Each live product is an object in the house, carrying its real logo: a postcard stamp, a tile set into the wall, a painted sign, a lit window.</p>
+  <div class="grid g4" style="margin-top:32px">
+    <figure><img src="products/mcp-emails-postcard-600.webp" width="600" height="750" loading="lazy" alt="MCP Emails as a postcard with its logo as the stamp"><figcaption><b>MCP Emails</b> · the postcard; the stamp is the real logo mark. Flip it below.</figcaption></figure>
+    <figure><img src="products/fun-libs-tiles-600.webp" width="600" height="750" loading="lazy" alt="Fun Libs icon set as the centre tile of a hand-painted tile panel"><figcaption><b>Fun Libs</b> · the real v5 icon as the centre tile; brass plate: 113,000+ installs.</figcaption></figure>
+    <figure><img src="products/toolrails-sign-600.webp" width="600" height="750" loading="lazy" alt="Toolrails hand-painted sign hanging from an iron rail"><figcaption><b>Toolrails</b> · a painted sign hanging from a rail (it sways, below).</figcaption></figure>
+    <figure><img src="products/harbor-window-600.webp" width="600" height="750" loading="lazy" alt="Harbor mark gilded on a lit window at blue hour"><figcaption><b>Harbor</b> · gilded on the glass of a lit window; a card says paused.</figcaption></figure>
+  </div>
+  <figure style="margin-top:28px"><img src="products/retired-row-1600.webp" width="1600" height="560" loading="lazy" alt="Retired products as a row of glazed tiles"><figcaption><code>products/retired-row</code> + single tiles <code>retired-*.webp</code> · Luma uses its real logo; the others are stand-ins painted in the house tile style.</figcaption></figure>
+</section>
+
+<!-- MOTION -->
+<section class="wrap">
+  <h2>6 · Motion study</h2>
+  <p class="lede"><code>motion.css</code> + <code>motion.js</code>. Six named motions; everything is still under reduced motion.</p>
+
+  <div class="grid g2" style="margin-top:36px;align-items:start">
+    <div>
+      <h3>Dolly <span style="font-size:17px;font-style:italic;font-weight:400">· slow parallax through the window</span></h3>
+      <p style="font-size:16px;margin:6px 0 14px">Scroll inside the box. Three layers: painting (far), wall (mid), sill and lavender (near).</p>
+      <div class="scrollbox" id="dollybox">
+        <div class="pad">scroll ↓</div>
+        <div class="dolly" style="aspect-ratio:16/10">
+          <img class="dolly__far" src="views/view-dawn-1600.webp" width="1600" height="1062" alt="">
+          <img class="dolly__mid" src="layers/wall-1200.webp" width="1200" height="750" alt="">
+          <img class="dolly__near" src="layers/front-1200.webp" width="1200" height="750" alt="">
+        </div>
+        <div class="pad">…</div><div class="pad"></div>
+      </div>
+    </div>
+    <div>
+      <h3>Day pass <span style="font-size:17px;font-style:italic;font-weight:400">· scroll is the time of day</span></h3>
+      <p style="font-size:16px;margin:6px 0 14px">On the page, <code>--day</code> follows the scroll. Here a slider drives it.</p>
+      <div class="dp daypass" id="dp">
+        <img class="daypass__view" data-at="0" src="views/view-dawn-800.webp" width="800" height="531" alt="">
+        <img class="daypass__view" data-at="1" src="views/view-fjord-800.webp" width="800" height="497" alt="">
+        <img class="daypass__view" data-at="2" src="views/view-noon-800.webp" width="800" height="581" alt="">
+        <img class="daypass__view" data-at="3" src="views/view-gold-800.webp" width="800" height="604" alt="">
+        <div class="daypass__cold"></div><div class="daypass__warm"></div>
+        <div class="cap" id="dpcap">Dawn</div>
+      </div>
+      <input type="range" id="dpr" min="0" max="1000" value="0" aria-label="Time of day" style="margin-top:14px">
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:48px;align-items:start">
+    <div class="center">
+      <h3>Postcard flip</h3>
+      <p style="font-size:16px;margin:6px 0 14px">The signature delight. Click the card.</p>
+      <button class="postcard" aria-label="Turn the postcard over">
+        <span class="postcard__inner">
+          <span class="postcard__face"><img src="extras/postcard-front-750.webp" width="750" height="500" alt=""></span>
+          <span class="postcard__face postcard__face--back"><img src="extras/postcard-back-750.webp" width="750" height="500" alt=""></span>
+        </span>
+      </button>
+    </div>
+    <div class="center">
+      <h3>Shutters</h3>
+      <p style="font-size:16px;margin:6px 0 14px">The curtain-up on first paint.</p>
+      <div class="shut-demo" id="shut">
+        <img src="views/view-noon-800.webp" width="800" height="581" alt="">
+        <div class="shutters"><div class="shutter shutter--l"></div><div class="shutter shutter--r"></div></div>
+      </div>
+      <button class="btn" id="replay" style="margin-top:14px">Replay</button>
+    </div>
+    <div class="center">
+      <h3>Sign sway</h3>
+      <p style="font-size:16px;margin:6px 0 14px">Hover or tap the sign.</p>
+      <img class="sway" tabindex="0" src="products/toolrails-sign-600.webp" width="600" height="750" alt="Toolrails sign" style="border-radius:2px">
+    </div>
+  </div>
+
+  <div style="margin-top:48px" class="center">
+    <h3>Tile lay</h3>
+    <p style="font-size:16px;margin:6px 0 14px">Laid from the centre outward as the row enters view.</p>
+    <div class="tilelay" id="tl">
+      <img class="tilelay__tile" src="extras/tile-provence.svg" width="72" height="72" alt="">
+      <img class="tilelay__tile" src="extras/tile-provence.svg" width="72" height="72" alt="">
+      <img class="tilelay__tile" src="extras/tile-provence.svg" width="72" height="72" alt="">
+      <img class="tilelay__tile" src="products/retired-luma.webp" width="72" height="72" alt="">
+      <img class="tilelay__tile" src="identity/favicon.svg" width="72" height="72" alt="">
+      <img class="tilelay__tile" src="products/retired-pinpoint.webp" width="72" height="72" alt="">
+      <img class="tilelay__tile" src="extras/tile-provence.svg" width="72" height="72" alt="">
+      <img class="tilelay__tile" src="extras/tile-provence.svg" width="72" height="72" alt="">
+      <img class="tilelay__tile" src="extras/tile-provence.svg" width="72" height="72" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE -->
+<section class="wrap" id="interactive">
+  <h2>7 · Interactive: the daylight window</h2>
+  <p class="lede"><code>interactive/daylight.js</code>, plain WebGL, about 7 KB. Four paintings, one clock. Light sweeps the next scene in from the sun's side; the grade drifts from cold blue to gold; dust hangs in the rays. It follows the pointer by a few pixels. Standalone demo: <a href="interactive/daylight-demo.html">daylight-demo.html</a>.</p>
+  <div class="daywin" style="margin-top:32px">
+    <div class="arch">
+      <img id="dwfb" src="views/view-dawn-800.webp" width="800" height="531" alt="">
+      <canvas id="dw" aria-label="Daylight window"></canvas>
+      <svg viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#2f6c9e"><path d="M3 400V150A147 147 0 0 1 297 150V400" stroke-width="7"/><path d="M0 150H300" stroke-width="9"/><path d="M150 150V4 M150 150L46 46 M150 150L254 46 M150 150L14 94 M150 150L286 94 M150 150L94 14 M150 150L206 14" stroke-width="4"/><path d="M115 150A35 35 0 0 1 185 150Z" fill="#e2a93b" stroke-width="5"/></g></svg>
+    </div>
+  </div>
+  <div style="max-width:420px;margin:16px auto 0"><input type="range" id="dwr" min="0" max="1000" value="0" aria-label="Time of day"></div>
+</section>
+
+<!-- EXTRAS -->
+<section class="wrap" id="extras">
+  <h2>8 · Extras: texture and ephemera</h2>
+  <div class="grid g3" style="margin-top:32px">
+    <figure><img src="extras/sign-albretsen-800.webp" width="800" height="220" loading="lazy" alt="Hand-painted Albretsen sign"><figcaption><code>sign-albretsen</code> · painted shop sign, alpha. For the top of the page or the footer.</figcaption></figure>
+    <figure class="center"><img src="extras/stamp-albretsen.svg" width="220" height="260" loading="lazy" alt="Albretsen stamp" style="margin:0 auto;width:150px"><figcaption><code>stamp-albretsen.svg</code> · house stamp: the window at dawn over a fjord.</figcaption></figure>
+    <figure><img src="extras/postmark.svg" width="420" height="200" loading="lazy" alt="Postmark"><figcaption><code>postmark.svg</code> · inked postmark and cancellation waves.</figcaption></figure>
+    <figure><div style="height:180px;background:url(extras/tile-provence.svg) 0 0/90px 90px;border-radius:2px"></div><figcaption><code>tile-provence.svg</code> · repeats seamlessly; use as wainscot or section border.</figcaption></figure>
+    <figure><div style="height:180px;background:url(extras/limewash-1024.webp) 0 0/512px 512px;border-radius:2px"></div><figcaption><code>limewash-1024.webp</code> · seamless wall texture, 26 KB.</figcaption></figure>
+    <figure><div style="height:180px;background:url(extras/paper-1024.webp) 0 0/512px 512px;border-radius:2px"></div><figcaption><code>paper-1024.webp</code> · seamless postcard stock, for cards and the blog.</figcaption></figure>
+    <figure class="checker center" style="padding:12px"><img src="extras/lavender-pot.webp" width="430" height="510" loading="lazy" alt="Lavender in a terracotta pot" style="margin:0 auto;width:180px"><figcaption><code>lavender-pot.webp</code> · cut-out (alpha).</figcaption></figure>
+    <figure class="checker" style="padding:12px"><img src="layers/wall-1200.webp" width="1200" height="750" loading="lazy" alt="Wall layer with transparent window"><figcaption><code>layers/wall</code> · wall with the window cut out, for parallax.</figcaption></figure>
+    <figure class="checker" style="padding:12px"><img src="layers/front-1200.webp" width="1200" height="750" loading="lazy" alt="Front layer: sill and lavender"><figcaption><code>layers/front</code> · sill and lavender, the nearest layer.</figcaption></figure>
+  </div>
+</section>
+
+<footer class="wrap">
+  <img src="extras/fanlight-divider.svg" width="640" height="80" alt="" style="width:min(400px,80%);margin:0 auto 18px">
+  Paintings: The Metropolitan Museum of Art, Open Access (CC0). Fonts: SIL Open Font License. Everything else made for this kit. See <code>ASSETS.md</code>.
+</footer>
+
+<script type="module">
+  import { dayPass, dolly, postcards, sway, tileLay } from './motion.js';
+  import { mountDaylight } from './interactive/daylight.js';
+  postcards(); sway(); tileLay();
+  // ?from=<section id> shows the sheet from that section on (handy for screenshots)
+  { const f = new URLSearchParams(location.search).get("from"); if (f) { let hide = true; for (const s of document.querySelectorAll("header.top, section")) { if (s.id === f) hide = false; if (hide) s.style.display = "none"; } } }
+  // Dolly demo inside its own scroll box (fallback path also works with a scroller)
+  const box = document.getElementById('dollybox');
+  const sc = box.querySelector('.dolly');
+  const layers = { far:[6,.02], mid:[-2,.10], near:[-9,.22] };
+  const upd = () => { const p = Math.min(1, Math.max(0, box.scrollTop / (box.scrollHeight - box.clientHeight)));
+    for (const [k,[ty,s]] of Object.entries(layers)) sc.querySelector('.dolly__'+k).style.transform = `translateY(${ty*p}%) scale(${1+s*p})`; };
+  box.addEventListener('scroll', upd, { passive:true }); upd();
+  // Day pass slider
+  const dp = document.getElementById('dp'), dpr = document.getElementById('dpr'), cap = document.getElementById('dpcap');
+  const names = ['Dawn','Morning','Noon','Golden hour'];
+  dpr.addEventListener('input', () => { const v = dpr.value/1000; dp.style.setProperty('--day', v); cap.textContent = names[Math.round(v*3)]; });
+  // Shutters replay
+  document.getElementById('replay').addEventListener('click', () => { const s = document.querySelector('#shut .shutters'); const c = s.cloneNode(true); s.replaceWith(c); });
+  // Daylight window, mounted when it comes near the viewport
+  const cv = document.getElementById('dw'), dwr = document.getElementById('dwr');
+  const q = new URLSearchParams(location.search);
+  const io = new IntersectionObserver(async ([e]) => { if (!e.isIntersecting) return; io.disconnect();
+    const day = await mountDaylight(cv, { views: ['dawn','fjord','noon','gold'].map(v => `views/view-${v}-800.webp`) });
+    if (!day) return; document.getElementById('dwfb').style.visibility = 'hidden';
+    if (q.has('t')) day.set(+q.get('t'), true); else day.play(true);
+    dwr.addEventListener('input', () => { day.play(false); day.set(dwr.value/1000); });
+  }, { rootMargin: '400px' });
+  io.observe(cv);
+</script>
+</body>
+</html>

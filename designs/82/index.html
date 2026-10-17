@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS — Drop 00</title>
+<meta name="description" content="Albretsen AS: a small Norwegian software company by Asgeir Albretsen. Software that pays for itself.">
+<meta name="theme-color" content="#0a0907">
+<meta property="og:title" content="Albretsen AS — Drop 00">
+<meta property="og:description" content="Software that pays for itself.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="preload" as="image" type="image/avif"
+      imagesrcset="assets/hero/fracture-960.avif 960w, assets/hero/fracture-1600.avif 1600w, assets/hero/fracture-2400.avif 2400w"
+      imagesizes="100vw" media="(min-aspect-ratio: 4/5)">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#contents">Skip to products</a>
+
+<!-- ───────────────────────────── HERO: Drop 00 ───────────────────────────── -->
+<header class="hero" id="top">
+  <picture class="hero__img">
+    <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="assets/hero/fracture-portrait-760.avif 760w, assets/hero/fracture-portrait-1200.avif 1200w" sizes="100vw">
+    <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="assets/hero/fracture-portrait-760.webp 760w, assets/hero/fracture-portrait-1200.webp 1200w" sizes="100vw">
+    <source media="(max-aspect-ratio: 4/5)" srcset="assets/hero/fracture-portrait-760.jpg 760w, assets/hero/fracture-portrait-1200.jpg 1200w" sizes="100vw" width="1200" height="1800">
+    <source type="image/avif" srcset="assets/hero/fracture-960.avif 960w, assets/hero/fracture-1600.avif 1600w, assets/hero/fracture-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="assets/hero/fracture-960.webp 960w, assets/hero/fracture-1600.webp 1600w, assets/hero/fracture-2400.webp 2400w" sizes="100vw">
+    <img class="qed-first-light" src="assets/hero/fracture-1600.jpg" srcset="assets/hero/fracture-960.jpg 960w, assets/hero/fracture-1600.jpg 1600w, assets/hero/fracture-2400.jpg 2400w" sizes="100vw"
+         width="2400" height="1350" alt="A black monolith split by a crack of dawn light, standing on a polished floor." fetchpriority="high" decoding="async">
+  </picture>
+
+  <nav class="bar" aria-label="Site">
+    <a class="bar__brand" href="#top" aria-label="Albretsen AS, home" data-qed-mark>
+      <img src="assets/identity/mark-reverse.svg" width="28" height="28" alt="">
+      <img class="bar__word" src="assets/identity/wordmark-reverse.svg" width="160" height="16" alt="">
+    </a>
+    <p class="bar__label mono"><span class="bar__dot" aria-hidden="true"></span>Drop 00 <span class="dim">· the company, not a product</span></p>
+  </nav>
+
+  <div class="hero__body">
+    <p class="kicker mono reveal" style="--d:.2s">Proposition 00<span class="dim"><span class="sep"> · </span>Issued in Norway by Asgeir Albretsen</span></p>
+    <h1 class="hero__title reveal" style="--d:.35s">Software that<br>pays for <em>itself.</em></h1>
+
+    <!-- The proof, written in shapes: four products add up to one company. -->
+    <div class="equation reveal" style="--d:.55s" role="group" aria-label="MCP Emails plus Fun Libs plus Toolrails plus Harbor equals Albretsen AS">
+      <a class="eq__term" href="#p-mcp-emails" data-term="signal" data-tip="MCP Emails · live"><span class="eq__g" data-g="signal"></span></a>
+      <span class="eq__op" aria-hidden="true">+</span>
+      <a class="eq__term" href="#p-fun-libs" data-term="app" data-tip="Fun Libs · live"><span class="eq__g" data-g="app"></span></a>
+      <span class="eq__op" aria-hidden="true">+</span>
+      <a class="eq__term" href="#p-toolrails" data-term="agent" data-tip="Toolrails · building"><span class="eq__g" data-g="agent"></span></a>
+      <span class="eq__op" aria-hidden="true">+</span>
+      <a class="eq__term" href="#p-harbor" data-term="knowledge" data-tip="Harbor · paused"><span class="eq__g" data-g="knowledge"></span></a>
+      <span class="eq__op eq__op--eq" aria-hidden="true">=</span>
+      <span class="eq__term eq__term--sum" data-tip="Albretsen AS · since 2026" tabindex="0"><span class="eq__g eq__g--sum" data-g="mark"></span></span>
+    </div>
+
+    <div class="hero__foot reveal" style="--d:.75s">
+      <div class="cmd" role="group" aria-label="Connect an agent">
+        <span class="cmd__p mono" aria-hidden="true">$</span>
+        <code class="cmd__t mono" id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button class="cmd__copy" type="button" aria-label="Copy command" data-tip="Copy"><span class="cmd__g" data-g="copy"></span></button>
+      </div>
+      <p class="feed mono" aria-live="polite"><span class="feed__live">Live</span><span class="feed__t" id="feed">Listening for events…</span></p>
+    </div>
+  </div>
+
+  <a class="hero__next mono" href="#contents"><span>Contents</span><span class="hero__next-g" data-g="chevron"></span></a>
+</header>
+
+<main>
+<!-- ───────────────────────────── CONTENTS ───────────────────────────── -->
+<section class="contents" id="contents" aria-labelledby="contents-h">
+  <div class="field">
+    <picture class="field__poster">
+      <source type="image/avif" srcset="assets/hero/gravity-960.avif 960w, assets/hero/gravity-1600.avif 1600w, assets/hero/gravity-2400.avif 2400w" sizes="100vw">
+      <source type="image/webp" srcset="assets/hero/gravity-960.webp 960w, assets/hero/gravity-1600.webp 1600w, assets/hero/gravity-2400.webp 2400w" sizes="100vw">
+      <img src="assets/hero/gravity-1600.jpg" width="2400" height="1350" alt="" loading="lazy" decoding="async">
+    </picture>
+    <canvas class="field__canvas" aria-hidden="true"></canvas>
+    <div class="field__copy">
+      <p class="kicker mono">01 <span class="dim">/ Contents of Drop 00</span></p>
+      <h2 id="contents-h">Four products.<br>One proof.</h2>
+      <p class="lede">Each one had to earn its place: real users, real revenue, or a clear reason to exist. What did not, was retired without ceremony.</p>
+    </div>
+    <p class="field__hint mono" aria-hidden="true"><span class="field__hint-dot"></span>Move the mass</p>
+  </div>
+
+  <div class="proof">
+    <aside class="stage" aria-hidden="true">
+      <div class="stage__inner">
+        <div class="stage__fig"><div class="stage__g" id="stage-g"></div></div>
+        <p class="stage__cap mono"><span id="stage-n">Fig. 0</span> <span class="dim" id="stage-l">Albretsen mark</span></p>
+        <ol class="stage__steps" id="stage-steps"><li></li><li></li><li></li><li></li><li></li></ol>
+      </div>
+    </aside>
+
+    <ol class="items" role="list">
+      <li class="item" id="p-mcp-emails" data-id="mcp-emails" data-glyph-id="signal" data-n="I">
+        <button class="plate qed-settle" type="button" data-open="mcp-emails" aria-label="Open the MCP Emails spec">
+          <picture>
+            <source type="image/avif" srcset="assets/products/mcp-emails-800.avif 800w, assets/products/mcp-emails-1600.avif 1600w" sizes="(min-width: 960px) 46vw, 100vw">
+            <source type="image/webp" srcset="assets/products/mcp-emails-800.webp 800w, assets/products/mcp-emails-1600.webp 1600w" sizes="(min-width: 960px) 46vw, 100vw">
+            <img src="assets/products/mcp-emails-800.jpg" width="800" height="600" alt="The MCP Emails logo on a black-glass tile floating over graph paper at 05:10." loading="lazy" decoding="async">
+          </picture>
+          <span class="plate__time mono">05:10</span>
+        </button>
+        <div class="item__body">
+          <p class="item__meta mono"><span>I.</span><span class="status" data-status="live" data-tip="Live: in production with paying users">Live</span><span class="dim">Since 2026</span></p>
+          <h3>MCP Emails</h3>
+          <p class="item__line">Email for AI agents.</p>
+          <p class="figure"><span class="figure__v" data-count="$782">$782</span><span class="figure__l mono">MRR</span></p>
+          <ul class="facts mono"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+          <p class="item__acts"><button class="btn" type="button" data-open="mcp-emails">Spec<span class="btn__g" data-g="plus"></span></button><a class="btn btn--ghost" href="https://mcpemails.com" rel="noopener">mcpemails.com<span class="btn__g" data-g="external"></span></a></p>
+        </div>
+      </li>
+
+      <li class="item" id="p-fun-libs" data-id="fun-libs" data-glyph-id="app" data-n="II">
+        <button class="plate qed-settle" type="button" data-open="fun-libs" aria-label="Open the Fun Libs spec">
+          <picture>
+            <source type="image/avif" srcset="assets/products/fun-libs-800.avif 800w, assets/products/fun-libs-1600.avif 1600w" sizes="(min-width: 960px) 46vw, 100vw">
+            <source type="image/webp" srcset="assets/products/fun-libs-800.webp 800w, assets/products/fun-libs-1600.webp 1600w" sizes="(min-width: 960px) 46vw, 100vw">
+            <img src="assets/products/fun-libs-800.jpg" width="800" height="600" alt="The Fun Libs app icon on a black-glass tile floating over graph paper at 05:45." loading="lazy" decoding="async">
+          </picture>
+          <span class="plate__time mono">05:45</span>
+        </button>
+        <div class="item__body">
+          <p class="item__meta mono"><span>II.</span><span class="status" data-status="live" data-tip="Live: on Google Play and the App Store">Live</span><span class="dim">Since 2019</span></p>
+          <h3>Fun Libs</h3>
+          <p class="item__line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <p class="figure"><span class="figure__v" data-count="113,000+">113,000+</span><span class="figure__l mono">installs</span></p>
+          <ul class="facts mono"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+          <p class="item__acts"><button class="btn" type="button" data-open="fun-libs">Spec<span class="btn__g" data-g="plus"></span></button><a class="btn btn--ghost" href="https://funlibs.app" rel="noopener">funlibs.app<span class="btn__g" data-g="external"></span></a></p>
+        </div>
+      </li>
+
+      <li class="item" id="p-toolrails" data-id="toolrails" data-glyph-id="agent" data-n="III">
+        <button class="plate qed-settle" type="button" data-open="toolrails" aria-label="Open the Toolrails spec">
+          <picture>
+            <source type="image/avif" srcset="assets/products/toolrails-800.avif 800w, assets/products/toolrails-1600.avif 1600w" sizes="(min-width: 960px) 46vw, 100vw">
+            <source type="image/webp" srcset="assets/products/toolrails-800.webp 800w, assets/products/toolrails-1600.webp 1600w" sizes="(min-width: 960px) 46vw, 100vw">
+            <img src="assets/products/toolrails-800.jpg" width="800" height="600" alt="The Toolrails icon on a black-glass tile floating over graph paper at 06:20." loading="lazy" decoding="async">
+          </picture>
+          <span class="plate__time mono">06:20</span>
+        </button>
+        <div class="item__body">
+          <p class="item__meta mono"><span>III.</span><span class="status" data-status="building" data-tip="Building: in active development">Building</span><span class="dim">Since 2026</span></p>
+          <h3>Toolrails</h3>
+          <p class="item__line">One MCP URL that gives an agent every tool.</p>
+          <p class="figure"><span class="figure__v" data-count="4">4</span><span class="figure__l mono">connectors</span></p>
+          <ul class="facts mono"><li>tool search</li><li>injection guard</li></ul>
+          <p class="item__acts"><button class="btn" type="button" data-open="toolrails">Spec<span class="btn__g" data-g="plus"></span></button><a class="btn btn--ghost" href="https://toolrails.com" rel="noopener">toolrails.com<span class="btn__g" data-g="external"></span></a></p>
+        </div>
+      </li>
+
+      <li class="item" id="p-harbor" data-id="harbor" data-glyph-id="knowledge" data-n="IV">
+        <button class="plate qed-settle" type="button" data-open="harbor" aria-label="Open the Harbor spec">
+          <picture>
+            <source type="image/avif" srcset="assets/products/harbor-800.avif 800w, assets/products/harbor-1600.avif 1600w" sizes="(min-width: 960px) 46vw, 100vw">
+            <source type="image/webp" srcset="assets/products/harbor-800.webp 800w, assets/products/harbor-1600.webp 1600w" sizes="(min-width: 960px) 46vw, 100vw">
+            <img src="assets/products/harbor-800.jpg" width="800" height="600" alt="The Harbor mark on a black-glass tile floating over graph paper at 07:00." loading="lazy" decoding="async">
+          </picture>
+          <span class="plate__time mono">07:00</span>
+        </button>
+        <div class="item__body">
+          <p class="item__meta mono"><span>IV.</span><span class="status" data-status="paused" data-tip="Paused: not in active development">Paused</span><span class="dim">Since 2026</span></p>
+          <h3>Harbor</h3>
+          <p class="item__line">A private knowledge base shared by people and AI.</p>
+          <p class="figure"><span class="figure__v" data-count="549">549</span><span class="figure__l mono">commits</span></p>
+          <ul class="facts mono"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+          <p class="item__acts"><button class="btn" type="button" data-open="harbor">Spec<span class="btn__g" data-g="plus"></span></button><a class="btn btn--ghost" href="https://harborknowledge.com" rel="noopener">harborknowledge.com<span class="btn__g" data-g="external"></span></a></p>
+        </div>
+      </li>
+
+      <li class="item item--qed" data-glyph-id="qed" data-n="∴">
+        <div class="qed-end">
+          <p class="kicker mono">∴ <span class="dim">Which was to be demonstrated</span></p>
+          <p class="qed-end__t">Small, profitable, finished things. Shipped on Google Play since 2016.</p>
+
+          <div class="acc" data-acc>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__h"><button class="acc__trig" type="button" data-acc-trigger>
+                <span>Retired proofs <span class="dim mono">(7)</span></span>
+                <svg class="acc__ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="acc-sun" d="M12 12 L7.5 12 A4.5 4.5 0 0 1 16.5 12 Z" fill="var(--qed-dawn)"/><g stroke="currentColor" stroke-width="1.5"><path d="M5 12 H19"/><path class="acc-bar" d="M12 5 V19"/></g></svg>
+              </button></h3>
+              <div class="acc__panel" data-acc-content>
+                <ul class="coins" role="list" id="coins"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<!-- ───────────────────────────── FOOTER ───────────────────────────── -->
+<footer class="foot">
+  <img class="foot__div" src="assets/extras/fracture-divider.svg" width="1440" height="40" alt="" loading="lazy">
+  <div class="foot__in">
+    <p class="foot__avail">Takes one outside engagement at a time.</p>
+    <a class="foot__mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no<span class="btn__g" data-g="arrow"></span></a>
+    <div class="foot__row mono">
+      <img src="assets/identity/mark-reverse.svg" width="22" height="22" alt="" data-qed-mark>
+      <span>© 2026 Albretsen AS · Norway</span>
+      <span class="dim foot__hint">Some proofs are left to the reader.</span>
+      <button class="sound mono" type="button" aria-pressed="false" id="sound">Sound <span>off</span></button>
+    </div>
+  </div>
+</footer>
+
+<!-- Spec dialog: opens as a slit of light -->
+<dialog class="spec" data-qed-dialog aria-labelledby="spec-h">
+  <div class="dlg">
+    <div class="spec__img"><picture id="spec-pic"></picture></div>
+    <div class="spec__body">
+      <p class="mono kicker" id="spec-k"></p>
+      <h2 id="spec-h"></h2>
+      <p class="spec__line" id="spec-line"></p>
+      <dl class="spec__dl mono" id="spec-dl"></dl>
+      <p class="spec__acts"><a class="btn" id="spec-url" href="#" rel="noopener"><span>Visit</span><span class="btn__g" data-g="external"></span></a></p>
+    </div>
+    <button class="spec__x" type="button" data-dialog-close aria-label="Close"><span class="btn__g" data-g="close"></span></button>
+  </div>
+</dialog>
+
+
+
+
+<script type="module" src="main.js"></script>
+</body>
+</html>

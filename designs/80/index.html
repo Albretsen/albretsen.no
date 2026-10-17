@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Albretsen AS — Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds apps, SaaS and agent infrastructure under Albretsen AS. Quiet software that pays for itself.">
+<meta name="theme-color" content="#F3EBDD">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Quiet software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-image-1200x630.jpg">
+<link rel="preload" href="assets/fonts/antonio-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/source-sans-3-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 10001/10000)" imagesrcset="assets/hero/hero-morning-960.avif 960w, assets/hero/hero-morning-1600.avif 1600w, assets/hero/hero-morning-2400.avif 2400w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)" imagesrcset="assets/hero/hero-portrait-720.avif 720w, assets/hero/hero-portrait-1080.avif 1080w" imagesizes="100vw" fetchpriority="high">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#terrace">Skip to products</a>
+
+<header class="bar">
+  <a class="bar-mark" href="./" aria-label="Albretsen AS, home">
+    <img class="lockup lockup-day" src="assets/identity/lockup.svg" width="300" height="64" alt="">
+    <img class="lockup lockup-night" src="assets/identity/lockup-cream.svg" width="300" height="64" alt="">
+  </a>
+  <p class="bar-clock" aria-hidden="true"><span class="clock-dot"></span><span id="clock">09:30</span><span class="clock-word" id="clock-word">Morning</span></p>
+</header>
+
+<main>
+  <!-- HERO: one horizon, one day. Scroll (or drag the sun) from morning to sunset. -->
+  <section class="day" id="day" aria-labelledby="hero-title">
+    <div class="stage" id="stage">
+      <div class="scene" id="scene">
+        <picture class="still still-base">
+          <source media="(max-aspect-ratio: 1/1)" type="image/avif" srcset="assets/hero/hero-portrait-720.avif 720w, assets/hero/hero-portrait-1080.avif 1080w" sizes="100vw">
+          <source media="(max-aspect-ratio: 1/1)" type="image/webp" srcset="assets/hero/hero-portrait-720.webp 720w, assets/hero/hero-portrait-1080.webp 1080w" sizes="100vw">
+          <source media="(max-aspect-ratio: 1/1)" srcset="assets/hero/hero-portrait-720.jpg 720w, assets/hero/hero-portrait-1080.jpg 1080w" sizes="100vw">
+          <source type="image/avif" srcset="assets/hero/hero-morning-960.avif 960w, assets/hero/hero-morning-1600.avif 1600w, assets/hero/hero-morning-2400.avif 2400w" sizes="100vw">
+          <source type="image/webp" srcset="assets/hero/hero-morning-960.webp 960w, assets/hero/hero-morning-1600.webp 1600w, assets/hero/hero-morning-2400.webp 2400w" sizes="100vw">
+          <img src="assets/hero/hero-morning-1600.jpg" width="1600" height="900" fetchpriority="high" decoding="async"
+               alt="A cream deco pavilion with a stepped flamingo tower and a brass finial, on a golden bluff above a pastel sea, in clean morning light.">
+        </picture>
+        <div class="layers" id="layers" aria-hidden="true"></div>
+        <div class="tint" aria-hidden="true"></div>
+        <canvas id="live" class="live" aria-label="Live 3D pavilion. The time of day follows the sun control below." tabindex="-1"></canvas>
+      </div>
+
+      <div class="copy">
+        <p class="eyebrow">Asgeir Albretsen <span aria-hidden="true">/</span> Albretsen AS</p>
+        <h1 id="hero-title" class="headline">
+          <span class="rise"><span>Quiet software that pays <em>for itself.</em></span></span>
+        </h1>
+        <p class="lead">Apps, SaaS and the infrastructure AI agents run on. Designed, built and kept running by one person. On Google Play since 2016.</p>
+        <p class="night-line" aria-hidden="true">After hours. The windows stay lit.</p>
+      </div>
+
+      <div class="copy-end" aria-hidden="true">
+        <p class="eyebrow">Sunset</p>
+        <p class="end-line">Built by day. <em>Running all night.</em></p>
+      </div>
+
+      <div class="horizon">
+        <p class="feed" aria-live="off"><span class="feed-dot" aria-hidden="true"></span><span class="feed-label">Live</span> <span class="feed-text" id="feed">MCP Emails — agent drafted a reply</span></p>
+
+        <div class="dial">
+          <label class="vh" for="sun">Time of day</label>
+          <input id="sun" class="sun" type="range" min="0.04" max="0.96" step="0.001" value="0.30" aria-valuetext="09:30, morning">
+          <div class="dial-marks" aria-hidden="true"><span>First light</span><span>Noon</span><span>Sunset</span></div>
+        </div>
+
+        <button class="cmd" type="button" id="cmd" data-copy="claude mcp add albretsen https://albretsen.no/mcp" aria-describedby="cmd-hint">
+          <span class="cmd-code"><span class="cmd-prompt" aria-hidden="true">$</span> claude mcp add albretsen https://albretsen.no/mcp</span>
+          <span class="cmd-act" aria-hidden="true"><span>Copy</span><span>Copied</span></span>
+        </button>
+        <span class="vh" id="cmd-hint">Copies the command that connects Claude to this site.</span>
+      </div>
+      <p class="vh" role="status" id="status"></p>
+    </div>
+  </section>
+
+  <!-- PRODUCTS: the kiosks on the terrace, each at its own hour -->
+  <section class="terrace" id="terrace" aria-labelledby="terrace-title">
+    <div class="terrace-head">
+      <p class="label">The terrace</p>
+      <h2 id="terrace-title" class="display"><span class="rise"><span>Four products,</span></span><span class="rise"><span>one terrace.</span></span></h2>
+      <p class="terrace-lead">Each one is built to run without supervision. Three are open. One has its shutter down for now.</p>
+    </div>
+
+    <ol class="kiosks">
+      <li class="kiosk awning-card" data-id="mcp-emails" style="--hour: var(--flamingo)">
+        <a class="kiosk-link" href="https://mcpemails.com" rel="noopener">
+          <picture class="kiosk-img">
+            <source type="image/avif" srcset="assets/products/kiosk-mcp-emails-600.avif 600w, assets/products/kiosk-mcp-emails-1200.avif 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw">
+            <source type="image/webp" srcset="assets/products/kiosk-mcp-emails-600.webp 600w, assets/products/kiosk-mcp-emails-1200.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw">
+            <img src="assets/products/kiosk-mcp-emails-600.jpg" width="600" height="750" loading="lazy" decoding="async" alt="A small deco kiosk with a café-red awning and the MCP Emails envelope on its sign, in morning light.">
+          </picture>
+          <p class="kiosk-hour"><span>08:00</span><span class="status status-live">Open</span></p>
+          <h3 class="kiosk-name">MCP Emails</h3>
+          <p class="kiosk-line" data-k="line">Email for AI agents.</p>
+          <p class="kiosk-figure"><strong data-k="value">$782</strong> <span data-k="label">MRR</span></p>
+          <p class="kiosk-facts" data-k="facts">17 tools · about 100 email providers · open source (AGPL)</p>
+          <p class="kiosk-url">mcpemails.com <span aria-hidden="true">↗</span></p>
+        </a>
+      </li>
+      <li class="kiosk awning-card" data-id="fun-libs" style="--hour: var(--mint)">
+        <a class="kiosk-link" href="https://funlibs.app" rel="noopener">
+          <picture class="kiosk-img">
+            <source type="image/avif" srcset="assets/products/kiosk-fun-libs-600.avif 600w, assets/products/kiosk-fun-libs-1200.avif 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw">
+            <source type="image/webp" srcset="assets/products/kiosk-fun-libs-600.webp 600w, assets/products/kiosk-fun-libs-1200.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw">
+            <img src="assets/products/kiosk-fun-libs-600.jpg" width="600" height="750" loading="lazy" decoding="async" alt="A small deco kiosk with the Fun Libs app icon on its sign, at noon.">
+          </picture>
+          <p class="kiosk-hour"><span>12:00</span><span class="status status-live">Open</span></p>
+          <h3 class="kiosk-name">Fun Libs</h3>
+          <p class="kiosk-line" data-k="line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <p class="kiosk-figure"><strong data-k="value">113,000+</strong> <span data-k="label">installs</span></p>
+          <p class="kiosk-facts" data-k="facts">built at 17 · no marketing · v5 shipped 2026</p>
+          <p class="kiosk-url">funlibs.app <span aria-hidden="true">↗</span></p>
+        </a>
+      </li>
+      <li class="kiosk awning-card" data-id="toolrails" style="--hour: var(--ochre)">
+        <a class="kiosk-link" href="https://toolrails.com" rel="noopener">
+          <picture class="kiosk-img">
+            <source type="image/avif" srcset="assets/products/kiosk-toolrails-600.avif 600w, assets/products/kiosk-toolrails-1200.avif 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw">
+            <source type="image/webp" srcset="assets/products/kiosk-toolrails-600.webp 600w, assets/products/kiosk-toolrails-1200.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw">
+            <img src="assets/products/kiosk-toolrails-600.jpg" width="600" height="750" loading="lazy" decoding="async" alt="A small deco kiosk with the Toolrails icon on its sign, in afternoon light.">
+          </picture>
+          <p class="kiosk-hour"><span>15:00</span><span class="status status-building">Building</span></p>
+          <h3 class="kiosk-name">Toolrails</h3>
+          <p class="kiosk-line" data-k="line">One MCP URL that gives an agent every tool.</p>
+          <p class="kiosk-figure"><strong data-k="value">4</strong> <span data-k="label">connectors</span></p>
+          <p class="kiosk-facts" data-k="facts">tool search · injection guard</p>
+          <p class="kiosk-url">toolrails.com <span aria-hidden="true">↗</span></p>
+        </a>
+      </li>
+      <li class="kiosk awning-card is-paused" data-id="harbor" style="--hour: var(--flamingo)">
+        <a class="kiosk-link" href="https://harborknowledge.com" rel="noopener">
+          <picture class="kiosk-img">
+            <source type="image/avif" srcset="assets/products/kiosk-harbor-600.avif 600w, assets/products/kiosk-harbor-1200.avif 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw">
+            <source type="image/webp" srcset="assets/products/kiosk-harbor-600.webp 600w, assets/products/kiosk-harbor-1200.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw">
+            <img src="assets/products/kiosk-harbor-600.jpg" width="600" height="750" loading="lazy" decoding="async" alt="A small deco kiosk with the Harbor mark on its sign and its shutter down, at sunset.">
+          </picture>
+          <p class="kiosk-hour"><span>19:30</span><span class="status status-paused">Paused</span></p>
+          <h3 class="kiosk-name">Harbor</h3>
+          <p class="kiosk-line" data-k="line">A private knowledge base shared by people and AI.</p>
+          <p class="kiosk-figure"><strong data-k="value">549</strong> <span data-k="label">commits</span></p>
+          <p class="kiosk-facts" data-k="facts">self-hostable · AI edits held for approval</p>
+          <p class="kiosk-url">harborknowledge.com <span aria-hidden="true">↗</span></p>
+        </a>
+      </li>
+    </ol>
+
+    <div class="earlier" aria-labelledby="earlier-title">
+      <div class="earlier-head">
+        <p class="label" id="earlier-title">Earlier hours</p>
+        <p class="earlier-caption" id="earlier-caption" aria-live="polite">Seven retired products. Each one taught the next.</p>
+      </div>
+      <ul class="tiles" id="tiles">
+        <li><button type="button" class="tile" data-line="Luma, 2026. Norwegian budgeting app with open banking."><span class="tile-frame tile-luma"><span class="luma-arch"><img src="../_shared/products/luma/luma-monogram.svg" width="128" height="128" loading="lazy" alt=""></span><span class="tile-name">Luma</span><span class="tile-year">2026 · Retired</span></span></button></li>
+        <li><button type="button" class="tile" data-line="Polyglot Pilot, 2025. Agents that localised entire codebases, with a dashboard for human reviewers."><img src="assets/products/retired/polyglot-pilot.svg" width="120" height="150" loading="lazy" alt=""><span class="vh">Polyglot Pilot, 2025</span></button></li>
+        <li><button type="button" class="tile" data-line="PinPoint, 2025. GeoGuessr with your own photos: friends guess where your pictures were taken."><img src="assets/products/retired/pinpoint.svg" width="120" height="150" loading="lazy" alt=""><span class="vh">PinPoint, 2025</span></button></li>
+        <li><button type="button" class="tile" data-line="WebVakt, 2024. Website change monitoring."><img src="assets/products/retired/webvakt.svg" width="120" height="150" loading="lazy" alt=""><span class="vh">WebVakt, 2024</span></button></li>
+        <li><button type="button" class="tile" data-line="Daily Jokes / Joke Central, 2024. Joke apps for iOS and Android."><img src="assets/products/retired/joke-central.svg" width="120" height="150" loading="lazy" alt=""><span class="vh">Joke Central, 2024</span></button></li>
+        <li><button type="button" class="tile" data-line="Tryggere Hyring, 2023. Background checks for hiring."><img src="assets/products/retired/tryggere-hyring.svg" width="120" height="150" loading="lazy" alt=""><span class="vh">Tryggere Hyring, 2023</span></button></li>
+        <li><button type="button" class="tile" data-line="IAGO HMS, Rentekalkulator, Prosentkalkulator, 2021. Early apps."><img src="assets/products/retired/early-apps.svg" width="120" height="150" loading="lazy" alt=""><span class="vh">Early apps, 2021</span></button></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <img class="foot-horizon" src="assets/extras/divider-horizon.svg" width="1200" height="60" loading="lazy" alt="">
+  <div class="foot-row">
+    <img class="foot-mark" src="assets/identity/mark.svg" width="64" height="64" alt="Albretsen AS">
+    <p class="foot-avail">Takes one outside engagement at a time.</p>
+    <a class="foot-mail" href="mailto:asgeir@albretsen.no"><span class="roll"><span>asgeir@albretsen.no</span><span aria-hidden="true">asgeir@albretsen.no</span></span></a>
+  </div>
+  <p class="foot-small">Albretsen AS · Norway · On Google Play since 2016</p>
+</footer>
+
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

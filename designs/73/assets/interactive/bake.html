@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Street bake</title>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block;width:100vw;height:100vh}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js"}}</script>
+</head><body><canvas id="c"></canvas>
+<script type="module">
+// Bake one still for the art pipeline:
+//   bake.html?date=2026-08-14&t=21:10&view=street&signs=1
+// views: street | wide | portrait | mcp-emails | fun-libs | toolrails | harbor
+// Screenshot it with scripts/shot.sh, then grade with the poster pass (see ASSETS.md).
+import { createStreet } from './street.js'
+import { norwayAt } from './sun.js'
+const q = new URLSearchParams(location.search)
+const [hh, mm] = (q.get('t') || '21:10').split(':').map(Number)
+const base = new Date((q.get('date') || '2026-08-14') + 'T12:00:00Z')
+const date = norwayAt(hh, mm, base)
+const st = createStreet(document.getElementById('c'), { date, view: q.get('view') || 'street', bake: true, pixelRatio: 1 })
+if (q.get('signs')) {
+  const P = '../../../_shared/products/'
+  await st.setSigns({ 'mcp-emails': P + 'mcp-emails/logo-wordmark.svg', 'fun-libs': P + 'fun-libs/icon.png', toolrails: P + 'toolrails/icon.svg', harbor: P + 'harbor/harbor-wordmark.svg' })
+}
+st.applyTime(date)
+st.start()
+document.title = 'baked ' + date.toISOString()
+</script>
+</body></html>

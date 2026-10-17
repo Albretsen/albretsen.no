@@ -1,0 +1,16 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>bake</title>
+<style>html,body{margin:0;background:#eee;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+</head><body><canvas id="c"></canvas>
+<script type="module">
+// Bake helper: bake.html?shot=hero-wide&w=2400&h=1350[&product=fun-libs&logo=...][&p=0.5][&post=0]
+import { createTerrace } from '../3d/terrace.js'
+const q = new URLSearchParams(location.search)
+const w = +q.get('w') || innerWidth, h = +q.get('h') || innerHeight
+const c = document.getElementById('c'); c.style.width = w + 'px'; c.style.height = h + 'px'
+const t = await createTerrace(c, { shot: q.get('shot') || 'hero-wide', width: w, height: h, product: q.get('product'), logoUrl: q.get('logo'), post: q.get('post') !== '0', ao: q.get('ao') !== '0', sun: q.get('sun') ? q.get('sun').split(',').map(Number) : undefined })
+if (q.has('p')) t.setProgress(+q.get('p'))
+t.render(); t.render()
+document.title = 'done'
+</script></body></html>

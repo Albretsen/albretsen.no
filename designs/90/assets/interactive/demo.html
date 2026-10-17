@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Honest Die Demo</title>
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="../motion.css">
+<link rel="stylesheet" href="throw-cube.css">
+<style>
+  html, body { margin: 0; min-height: 100%; }
+  body { background: radial-gradient(90% 70% at 50% 40%, var(--c-field), var(--c-deep) 60%, var(--c-night)); color: var(--c-paper); font-family: var(--f-mono); overflow-x: hidden; }
+  main { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; padding: 24px 16px; box-sizing: border-box; }
+  h1 { font: 800 clamp(28px, 6vw, 64px)/.9 var(--f-display); font-stretch: 125%; letter-spacing: -.03em; margin: 0; }
+  p { margin: .6em 0 0; font-size: 13px; letter-spacing: .04em; color: var(--c-mist); }
+  #stage { min-height: 520px; }
+  #out { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--c-sodium); min-height: 1.4em; }
+  button { font: inherit; color: inherit; background: transparent; border: 1px solid rgb(211 231 254 / .3); border-radius: 999px; padding: .6em 1em; cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <header><h1>Throw it.</h1><p>Grab the die, spin it, throw it. It always lands on a true number. Space rolls it.</p></header>
+  <div id="stage"></div>
+  <footer><p id="out">&nbsp;</p><button id="roll" type="button">Roll</button></footer>
+</main>
+<script type="module">
+import { createThrowCube } from './throw-cube.js'
+import { FACES } from './faces.js'
+const stage = document.getElementById('stage')
+const size = Math.min(300, Math.round(innerWidth * 0.62))
+const die = createThrowCube(stage, FACES, { size })
+stage.addEventListener('settle', (e) => { document.getElementById('out').textContent = `Landed: ${e.detail.data.value} ${e.detail.data.label} — ${e.detail.data.kicker}` })
+document.getElementById('roll').onclick = () => die.roll()
+</script>
+</body>
+</html>

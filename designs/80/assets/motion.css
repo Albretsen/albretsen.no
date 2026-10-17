@@ -1,0 +1,55 @@
+/* Pavilion Light — motion study.
+   Everything drifts the way warm air and sea breeze do: slow, sideways, never bouncy.
+   All loops pause under prefers-reduced-motion. Pair with motion.js.
+
+   1. SEA BREEZE      .breeze, .sway       ambient drift of cut-outs and awnings
+   2. HORIZON RISE    .rise                 headings rise over a hairline horizon when they enter
+   3. AWNING UNROLL   .awning-card          a striped valance unrolls over a product card on hover/focus
+   4. HEAT HAZE       .haze (motion.js)     a low, shimmering displacement just above the horizon
+   5. SUN SCRUB       [data-sun-scrub]      scroll position sets --t, the time of day (motion.js)
+*/
+
+/* 1. SEA BREEZE — after Jacquemus's slow product loops and real heat shimmer:
+   tiny amplitude, long periods (7–13 s), periods that never line up so it never repeats visibly. */
+@keyframes breeze-x { 0%,100% { translate: 0 0; } 50% { translate: 6px -2px; } }
+@keyframes breeze-r { 0%,100% { rotate: -0.6deg; } 50% { rotate: 0.7deg; } }
+@keyframes sway { 0%,100% { transform: perspective(600px) rotateX(0deg); } 50% { transform: perspective(600px) rotateX(9deg); } }
+.breeze { animation: breeze-x 11s var(--ease-breeze) infinite, breeze-r 7.3s var(--ease-breeze) infinite; transform-origin: 50% 100%; will-change: translate, rotate; }
+.breeze:nth-child(2n) { animation-duration: 13s, 8.9s; animation-delay: -4s, -2s; }
+.breeze:nth-child(3n) { animation-duration: 9.7s, 6.1s; animation-delay: -7s, -5s; }
+.sway { animation: sway 6.5s var(--ease-breeze) infinite; transform-origin: 50% 0; }
+
+/* 2. HORIZON RISE — after Apple's start/end-frame reveals: the line is clipped at a
+   horizon and rises into place; a brass hairline draws first, the words follow. */
+.rise { position: relative; display: block; clip-path: inset(-0.2em -0.2em 0 -0.2em); padding-bottom: .12em; }
+.rise > span { display: block; translate: 0 105%; transition: translate 1.4s var(--ease-settle); }
+.rise::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--brass);
+  transform: scaleX(0); transform-origin: 50% 50%; transition: transform 1s var(--ease-settle); }
+.rise.is-in::after { transform: scaleX(1); }
+.rise.is-in > span { translate: 0 0; transition-delay: .25s; }
+.rise.is-in > span:nth-child(2) { transition-delay: .4s; }
+
+/* 3. AWNING UNROLL — after shop-window awnings and Stripe Sessions' card lifts:
+   the valance drops from the top edge, the card settles 2px. */
+.awning-card { position: relative; overflow: hidden; transition: translate .8s var(--ease-settle), box-shadow .8s var(--ease-settle); }
+.awning-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 22px; z-index: 2;
+  background: url('extras/divider-awning.svg') 0 0 / 48px 20px repeat-x;
+  transform: scaleY(0); transform-origin: 50% 0; transition: transform .7s var(--ease-settle); }
+.awning-card:hover, .awning-card:focus-within { translate: 0 -2px; box-shadow: 0 18px 40px -24px oklch(28.7% 0.007 285.9 / .45); }
+.awning-card:hover::before, .awning-card:focus-within::before { transform: scaleY(1); }
+
+/* 4. HEAT HAZE (styling half; motion.js adds the filter and drives it) */
+.haze { position: relative; }
+.haze > .haze-band { position: absolute; left: 0; right: 0; pointer-events: none; }
+
+/* 5. SUN SCRUB — CSS-only fallback: a sun that crosses its track with scroll
+   (scroll-driven animations where supported, otherwise motion.js sets --t). */
+.sun-track { position: relative; height: 2px; background: linear-gradient(90deg, var(--flamingo), var(--sky) 30%, var(--mint) 50%, var(--ochre) 75%, var(--cafe)); }
+.sun-track::after { content: ''; position: absolute; top: 50%; left: calc(var(--t) * 100%); width: 18px; height: 18px; margin: -9px 0 0 -9px;
+  border-radius: 50%; background: var(--cafe); box-shadow: 0 0 0 6px oklch(52% 0.166 28.6 / .15); transition: left .3s linear; }
+
+@media (prefers-reduced-motion: reduce) {
+  .breeze, .sway { animation: none; }
+  .rise > span, .rise::after { transition: none; translate: 0 0; transform: none; }
+  .awning-card, .awning-card::before { transition: none; }
+}

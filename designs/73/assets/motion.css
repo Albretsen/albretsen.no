@@ -1,0 +1,94 @@
+/* motion.css — Long Evening (design 73). Four signature motions + the live sky.
+   Every motion is calm: long durations, soft ease, nothing bounces.
+   All of it switches off under prefers-reduced-motion (see the end of the file).
+
+   1. Long Dissolve  .ld-stack         scroll cross-dissolves between baked stills (sunrise → noon → sunset → night)
+   2. Ink Settle     .ink-settle       a headline arrives with a peach misregistration that settles, like a screen print
+   3. Lights On      .lights-on        windows warm up one by one with a short tungsten flicker
+   4. Sun Track      .sun-track        a sun disc rides an arc as the section scrolls
+   +  Sky Sync       :root vars        --sky-* follow the real sun over Norway (motion.js → paintSky)
+*/
+
+:root {
+  --ease-dusk: cubic-bezier(.22, .61, .36, 1);      /* slow out, like light leaving */
+  --ease-dawn: cubic-bezier(.65, .05, .36, 1);      /* hesitant start, then commits */
+  --t-dissolve: 1400ms;
+  --sky-zenith: #7d9cc6; --sky-horizon: #f6cdb0; --sky-glow: #ffc28c; --sky-sun: #ffd2a1; --sky-night: 0; --sky-ink: #1d1f24;
+  transition: --sky-night 4s linear;
+}
+@property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
+@property --sky-night { syntax: '<number>'; inherits: true; initial-value: 0; }
+
+/* ---------- 1. Long Dissolve ---------- */
+/* Markup: <section class="ld-scroll"><div class="ld-stack"><picture class="ld-layer" style="--i:0">…</picture> ×4</div></section>
+   The section is tall; the stack is sticky. --p (0…1) is set by scroll-driven CSS where supported,
+   or by motion.js. Each layer's opacity peaks when --p*3 is near its index. */
+.ld-scroll { position: relative; height: 320vh; }
+.ld-stack { position: sticky; top: 0; height: 100svh; overflow: hidden; contain: paint; }
+.ld-layer, .ld-layer img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Upper layers only ever fade IN over the ones below, so two stills mix at a time and the
+   background never shows through. Each still also drifts from 1.04 to 1 while it arrives. */
+.ld-layer {
+  --local: clamp(0, calc(var(--p) * 3 - var(--i) + 1), 1);
+  opacity: var(--local);
+  transform: scale(calc(1.04 - .04 * var(--local)));
+  will-change: opacity, transform;
+}
+.ld-layer:first-child { opacity: 1; transform: none; }
+@supports (animation-timeline: view()) {
+  .ld-scroll { view-timeline: --ld block; }
+  .ld-stack { animation: ld-progress linear both; animation-timeline: --ld; animation-range: contain 0% contain 100%; }
+  @keyframes ld-progress { from { --p: 0; } to { --p: 1; } }
+}
+/* time-based variant (no scroll): add .ld-auto to the stack */
+.ld-auto { animation: ld-cycle 32s var(--ease-dusk) infinite alternate; }
+@keyframes ld-cycle { 0% { --p: 0 } 30% { --p: .33 } 62% { --p: .66 } 100% { --p: 1 } }
+
+/* ---------- 2. Ink Settle ---------- */
+.ink-settle {
+  color: var(--ink, #1d1f24);
+  text-shadow: 2px 1.5px 0 var(--ink2, #f6b48f);
+  animation: ink-settle 1.6s var(--ease-dusk) both;
+}
+.ink-settle .wd { display: inline-block; white-space: nowrap; }
+.ink-settle .ch { display: inline-block; animation: ink-letter 900ms var(--ease-dusk) both; animation-delay: calc(var(--n, 0) * 32ms); }
+@keyframes ink-settle {
+  0%   { text-shadow: 14px 9px 0 color-mix(in oklab, var(--ink2, #f6b48f) 0%, transparent); letter-spacing: .02em; }
+  45%  { text-shadow: 7px 4px 0 var(--ink2, #f6b48f); }
+  100% { text-shadow: 2px 1.5px 0 var(--ink2, #f6b48f); letter-spacing: -.02em; }
+}
+@keyframes ink-letter { from { opacity: 0; transform: translateY(.18em); filter: blur(3px); } to { opacity: 1; transform: none; filter: none; } }
+
+/* ---------- 3. Lights On ---------- */
+/* Any element with .lights-on > [data-glass] (svg rect or div). Add .is-night to the container to switch on. */
+.lights-on [data-glass] { opacity: .18; transition: opacity 600ms; }
+.lights-on.is-night [data-glass] {
+  animation: tungsten 1.9s steps(1, end) both, glow-breathe 7s ease-in-out 2s infinite alternate;
+  animation-delay: calc(var(--n, 0) * 260ms), calc(2s + var(--n, 0) * 260ms);
+}
+@keyframes tungsten {
+  0% { opacity: .18 } 12% { opacity: .8 } 18% { opacity: .3 } 30% { opacity: .9 } 36% { opacity: .55 } 52% { opacity: 1 } 100% { opacity: 1 }
+}
+@keyframes glow-breathe { from { opacity: 1; filter: brightness(1); } to { opacity: .92; filter: brightness(1.06); } }
+
+/* ---------- 4. Sun Track ---------- */
+/* <div class="sun-track"><i class="sun"></i></div> inside a section with view-timeline, or driven by --p from motion.js */
+.sun-track { position: relative; height: 220px; overflow: hidden; }
+.sun-track .sun {
+  position: absolute; width: 56px; height: 56px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, var(--sky-sun), color-mix(in oklab, var(--sky-glow) 80%, transparent) 62%, transparent 72%);
+  offset-path: path('M -40 230 C 180 -40, 640 -40, 860 230');
+  offset-distance: calc(var(--p, .5) * 100%);
+  offset-rotate: 0deg;
+  filter: drop-shadow(0 0 22px color-mix(in oklab, var(--sky-glow) 70%, transparent));
+}
+.sun-track::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; opacity: .5; }
+
+/* ---------- Sky Sync helpers ---------- */
+.sky-live { background: linear-gradient(180deg, var(--sky-zenith), var(--sky-horizon) 78%, var(--sky-glow)); transition: background 4s linear; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-layer { transition: none; transform: none; }
+  .ld-auto, .ink-settle, .ink-settle .ch, .lights-on.is-night [data-glass] { animation: none !important; }
+  .lights-on.is-night [data-glass] { opacity: 1; }
+}

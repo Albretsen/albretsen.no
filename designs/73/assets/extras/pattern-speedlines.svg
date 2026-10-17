@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 40" width="240" height="40" role="img" aria-label="Speed line pattern">
+  <title>Speed lines (tile)</title>
+  <!-- Deco cornice lines with a rounded end; repeat-x along a section edge. Uses currentColor. -->
+  <g stroke="currentColor" stroke-linecap="round" fill="none">
+    <path d="M0 8 H240" stroke-width="3"/>
+    <path d="M0 18 H240" stroke-width="2.2" opacity=".7"/>
+    <path d="M0 27 H240" stroke-width="1.6" opacity=".45"/>
+    <path d="M0 35 H240" stroke-width="1.1" opacity=".25"/>
+  </g>
+</svg>

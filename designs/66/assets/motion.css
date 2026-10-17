@@ -1,0 +1,75 @@
+/* =====================================================================
+   Motion study, design 66: Blue Hour Terrace
+   Precise, symmetrical, deadpan. Things arrive on the centre line, in
+   mirrored pairs, on a fixed beat. Nothing wobbles, nothing bounces twice.
+   Each animation is opt-in by class; motion.js adds .is-in when an element
+   enters the viewport. All of it collapses to an instant state under
+   prefers-reduced-motion.
+   ===================================================================== */
+:root {
+  --m-beat: 140ms;                         /* the house tempo: everything is a multiple of it */
+  --m-dolly: cubic-bezier(.7, 0, .3, 1);   /* a hand-cranked dolly: slow off the mark, slow to stop */
+  --m-settle: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* 1. AWNING UNFURL ---------------------------------------------------
+   A section's top edge drops like a café awning being wound down: the
+   reveal advances in 8 visible steps (a crank, not a fade), then the
+   scalloped valance settles with one small, exact overshoot.
+   Ref: the stepped title-card reveals catalogued on accidentallywesanderson.com
+   and Wes Anderson's flat, frontal "curtain" openings (studiobinder style guide). */
+.m-unfurl { clip-path: inset(0 0 100% 0); }
+.m-unfurl.is-in { animation: m-unfurl calc(var(--m-beat) * 6) steps(8, end) forwards; }
+.m-unfurl .m-valance { transform: translateY(-10px); opacity: 0; }
+.m-unfurl.is-in .m-valance { animation: m-valance calc(var(--m-beat) * 3) var(--m-settle) calc(var(--m-beat) * 6) forwards; }
+@keyframes m-unfurl { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 -40px 0); } }
+@keyframes m-valance { 0% { transform: translateY(-10px); opacity: 0 } 70% { transform: translateY(2px); opacity: 1 } 100% { transform: none; opacity: 1 } }
+
+/* 2. DOLLY PAN -------------------------------------------------------
+   Mirrored pairs slide in from opposite edges and meet exactly on the
+   centre line at the same frame, the way a symmetrical set is revealed by
+   a lateral dolly. Put .m-dolly on the parent and .m-from-left /
+   .m-from-right on the children. Ref: the lateral tracking shots described
+   in StudioBinder's Wes Anderson guide; Obys Agency's precise easing. */
+.m-dolly > .m-from-left  { transform: translateX(-40vw); opacity: 0; }
+.m-dolly > .m-from-right { transform: translateX(40vw);  opacity: 0; }
+.m-dolly > .m-from-centre { transform: scale(.96); opacity: 0; }
+.m-dolly.is-in > * { transition: transform calc(var(--m-beat) * 7) var(--m-dolly), opacity calc(var(--m-beat) * 2) linear; transform: none; opacity: 1; }
+.m-dolly.is-in > .m-from-centre { transition-delay: calc(var(--m-beat) * 5); }
+
+/* 3. LAMPLIGHTER -----------------------------------------------------
+   Windows light in mirrored pairs from the centre outward, one beat apart,
+   as blue hour deepens. motion.js writes --lamp (distance from the centre
+   column) on every [data-lamp]. Ref: the window-by-window reveals of
+   layered SVG landscapes (dev.to/accudio "parallax SVG landscape") and the
+   city-lights moment in blue-hour photography. */
+.m-lamplighter [data-lamp] { --lamp: 0; background-color: var(--m-dark, #3D4A67); box-shadow: 0 0 0 0 rgba(255, 196, 122, 0); }
+.m-lamplighter.is-in [data-lamp] {
+  animation: m-lamp calc(var(--m-beat) * 2) steps(2, end) forwards;
+  animation-delay: calc(var(--m-beat) * (var(--lamp) + 1));
+}
+@keyframes m-lamp { to { background-color: var(--m-lit, #FFD58C); box-shadow: 0 0 22px 4px rgba(255, 196, 122, .55); } }
+
+/* 4. POP-UP LIFT -----------------------------------------------------
+   Paper layers stand up from the page like a pop-up book: each layer
+   hinges from its base and its shadow grows as it rises, back layers first.
+   Ref: CodePen agathaco "paper landscape" layered parallax; SitePoint
+   "Parallax Burns" multi-layer SVG. */
+.m-popup { perspective: 900px; }
+.m-popup > * { transform-origin: 50% 100%; transform: rotateX(-82deg); filter: drop-shadow(0 0 0 rgba(26, 34, 64, 0)); }
+.m-popup.is-in > * { animation: m-pop calc(var(--m-beat) * 4) var(--m-settle) forwards; animation-delay: calc(var(--m-beat) * var(--i, 0)); }
+@keyframes m-pop { to { transform: none; filter: drop-shadow(0 10px 12px rgba(26, 34, 64, .35)); } }
+
+/* 5. TICK (supporting) -------------------------------------------------
+   Small UI turns in exact 30deg ticks: the cursor scallop, a loading star. */
+.m-tick { animation: m-tick 4.8s steps(12, end) infinite; }
+@keyframes m-tick { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-unfurl, .m-unfurl .m-valance, .m-dolly > *, .m-popup > *, .m-lamplighter [data-lamp] { animation: none !important; transition: none !important; }
+  .m-unfurl { clip-path: none; } .m-unfurl .m-valance { transform: none; opacity: 1; }
+  .m-dolly > * { transform: none !important; opacity: 1 !important; }
+  .m-popup > * { transform: none; }
+  .m-lamplighter [data-lamp] { background-color: var(--m-lit, #FFD58C); }
+  .m-tick { animation: none; }
+}

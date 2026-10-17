@@ -1,0 +1,21 @@
+{
+  "name": "Front Light",
+  "tagline": "The last minute of the day, held still: a real fjord at sunset, and a precise pastel desk with one key per product.",
+  "summary": "An 1890s photochrom of a Norwegian fjord, graded into one amber family, with the sun setting into the gap between the cliffs and the name sinking behind the sunlit mountain. Below it the company is a quiet front desk: four keys, and each key deals the postcard of a product, with its real logo on the stamp and one honest number on the postmark. It reads as calm, exact and warm: a small technology company with a long view, never a travel brochure.",
+  "palette": ["#FBF3E4", "#F4DDB4", "#F2CDA8", "#EDBB7C", "#DC9447", "#B8662F", "#7A3D1F", "#3D2013", "#1C0E07"],
+  "type": ["Jost (spaced signage capitals)", "Instrument Serif Italic (the voice, one line per screen)", "IBM Plex Mono (facts, commands, numbers)"],
+  "voice": "Few words, all of them specific; numbers in mono and never rounded up. Example: \"Four keys on the board. Each one opens something that runs.\"",
+  "motion": "Slow, warm and never bouncy: air shimmers above the horizon, keys swing on a damped pendulum, postcards are dealt and turned over, and shadows lengthen as the page scrolls toward sunset.",
+  "sound": "Silent by default; an opt-in layer would be one soft brass tick when a key is taken and a paper flip when a card turns, nothing ambient.",
+  "mark": "An A drawn as a peak whose crossbar is the horizon, with a half sun resting on it; the wordmark is spaced Jost capitals with AS in copper.",
+  "inspiration": [
+    "https://accidentallywesanderson.com",
+    "https://www.chateaumarmont.com",
+    "https://www.jacquemus.com",
+    "https://www.loc.gov/item/2001699469/",
+    "https://images.nasa.gov/details/iss040e080833",
+    "https://tympanus.net/codrops/2016/05/03/animated-heat-distortion-effects-webgl/",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://fontsinuse.com/tags/16035/grand-budapest-hotel"
+  ]
+}

@@ -1,0 +1,94 @@
+/* Afterglow motion study (design 69).
+   Five signature movements. All of them are slow, single-purpose and respect reduced motion.
+   Easing: one curve for everything that arrives (--ag-arrive), one for everything that leaves. */
+
+:root {
+  --ag-arrive: cubic-bezier(.16, .84, .24, 1);     /* long, soft settle, like light levelling out */
+  --ag-leave: cubic-bezier(.55, 0, .75, .3);
+  --ag-slow: 1600ms;
+  --ag-ink: #2A2D4F; --ag-flamingo: #EE8AA0; --ag-mint: #8FD3BF; --ag-sky: #9EC3E6; --ag-glow: #FFC9A0; --ag-flash: #8CFFD1;
+}
+
+/* 1. HORIZON RISE ------------------------------------------------------------
+   Lines of a headline rise from behind an invisible horizon, one after another,
+   the way the top of the sun clears a sea line. Each line is clipped by its own box.
+   Markup: <h1 class="ag-rise"><span class="ag-line"><span>Quiet software</span></span>…</h1>
+   Researched from: line-mask reveals common on sites featured on godly.website; slowed
+   to 1.6s and given a tiny blur-to-sharp so it reads as light, not as a slide. */
+.ag-rise .ag-line { display: block; overflow: clip; padding-bottom: .08em; }
+.ag-rise .ag-line > span {
+  display: inline-block; transform: translateY(105%); filter: blur(4px); opacity: .001;
+  animation: ag-rise var(--ag-slow) var(--ag-arrive) forwards;
+  animation-delay: calc(var(--i, 0) * 140ms + 200ms);
+}
+@keyframes ag-rise { to { transform: none; filter: none; opacity: 1; } }
+
+/* 2. SKY TURN ----------------------------------------------------------------
+   The page background is a sky. As you scroll the whole document, its stops turn
+   from late-afternoon blue to afterglow: the day ends while you read.
+   Researched from: CSS scroll-driven animations (animation-timeline: scroll()) and
+   typed @property colours so gradients can interpolate. */
+@property --ag-sky-top { syntax: '<color>'; inherits: true; initial-value: #DCE8F4; }
+@property --ag-sky-mid { syntax: '<color>'; inherits: true; initial-value: #F4F1EC; }
+@property --ag-sky-low { syntax: '<color>'; inherits: true; initial-value: #FBF8F4; }
+.ag-sky {
+  background: linear-gradient(180deg, var(--ag-sky-top), var(--ag-sky-mid) 55%, var(--ag-sky-low));
+  background-attachment: fixed;
+}
+@supports (animation-timeline: scroll()) {
+  .ag-sky { animation: ag-sky-turn linear both; animation-timeline: scroll(root); }
+}
+@keyframes ag-sky-turn {
+  0%   { --ag-sky-top: #DCE8F4; --ag-sky-mid: #F4F1EC; --ag-sky-low: #FBF8F4; }
+  60%  { --ag-sky-top: #C9DAF0; --ag-sky-mid: #F6DDE0; --ag-sky-low: #FFE9D8; }
+  100% { --ag-sky-top: #AEBFE6; --ag-sky-mid: #F3C3CB; --ag-sky-low: #FFD9B8; }
+}
+
+/* 3. LONG SHADOW -------------------------------------------------------------
+   Cards cast a shadow that lengthens and warms as they travel up the viewport,
+   as if the sun were lowering behind the reader. Pure CSS view() timeline,
+   falls back to a static low-sun shadow. */
+.ag-shadow { --len: 14px; box-shadow: calc(var(--len) * -1) calc(var(--len) * .55) calc(var(--len) * 1.4) rgba(122, 82, 120, .18); }
+@supports (animation-timeline: view()) {
+  .ag-shadow { animation: ag-long-shadow linear both; animation-timeline: view(); animation-range: entry 10% exit 90%; }
+}
+@property --len { syntax: '<length>'; inherits: false; initial-value: 14px; }
+@keyframes ag-long-shadow { from { --len: 4px; } to { --len: 34px; } }
+
+/* 4. AFTERGLOW DISSOLVE (CSS fallback) ----------------------------------------
+   The WebGL version lives in interactive/afterglow.js (highlights linger, darks leave first).
+   This is the no-WebGL fallback: two stacked images, the outgoing one brightens a touch
+   as it fades so the change feels like light, not a cut.
+   Researched from: slow photographic cross-fades on hotel and photographer sites (2.4-3s). */
+.ag-dissolve { position: relative; overflow: hidden; }
+.ag-dissolve > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ag-dissolve > img.is-leaving { animation: ag-leave 2800ms var(--ag-leave) forwards; }
+.ag-dissolve > img.is-arriving { animation: ag-arrive 2800ms var(--ag-arrive) forwards; }
+@keyframes ag-leave { 0% { opacity: 1; filter: brightness(1); } 40% { filter: brightness(1.12) saturate(1.1); } 100% { opacity: 0; filter: brightness(1.18); } }
+@keyframes ag-arrive { from { opacity: 0; } to { opacity: 1; } }
+
+/* 5. GREEN FLASH (easter egg, DOM version) --------------------------------------
+   A hairline of mint blooms on a horizon for 1.4s. Never announced. See motion.js. */
+.ag-horizon { position: relative; }
+.ag-horizon::after {
+  content: ''; position: absolute; left: var(--sun-x, 70%); top: var(--horizon, 50%); width: 18%; height: 2px;
+  translate: -50% -50%; border-radius: 2px; pointer-events: none; opacity: 0;
+  background: radial-gradient(closest-side, var(--ag-flash), rgba(140, 255, 209, 0));
+  box-shadow: 0 0 18px 4px rgba(140, 255, 209, .45);
+}
+.ag-horizon.is-flashing::after { animation: ag-green-flash 1400ms ease-in-out; }
+@keyframes ag-green-flash { 0%, 100% { opacity: 0; scale: .6 1; } 45% { opacity: 1; scale: 1 1; } }
+
+/* Film grain overlay (pairs with extras/grain.png) */
+.ag-grain { position: relative; isolation: isolate; }
+.ag-grain::before {
+  content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: url('extras/grain.png') repeat; background-size: 192px; mix-blend-mode: soft-light; opacity: .35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ag-rise .ag-line > span { animation: none; transform: none; filter: none; opacity: 1; }
+  .ag-sky, .ag-shadow { animation: none; }
+  .ag-dissolve > img { animation-duration: 1ms !important; }
+  .ag-horizon.is-flashing::after { animation: none; }
+}

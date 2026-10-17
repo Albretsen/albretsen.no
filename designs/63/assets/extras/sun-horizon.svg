@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 40" width="480" height="40" aria-hidden="true">
+  <!-- Section divider: a low sun sitting exactly on a hairline horizon. Symmetric by construction. -->
+  <defs>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E6B661"/><stop offset="1" stop-color="#C9973A"/>
+    </linearGradient>
+    <clipPath id="a"><rect width="480" height="28"/></clipPath>
+  </defs>
+  <circle cx="240" cy="28" r="14" fill="url(#s)" clip-path="url(#a)"/>
+  <path d="M0 28.5 H480" stroke="#23252D" stroke-width="1"/>
+  <path d="M230 33.5 H250 M235 37.5 H245" stroke="#23252D" stroke-width="1" opacity=".45"/>
+</svg>

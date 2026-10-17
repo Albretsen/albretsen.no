@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afterglow plaques</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #F7F1E8; font: 300 14px/1.5 system-ui, sans-serif; color: #2A2D4F; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; padding: 16px; }
+  .cell { aspect-ratio: 4 / 5; border-radius: 4px; overflow: hidden; background: #eee; }
+  body.bake .grid { padding: 0; display: block; }
+  body.bake .cell { width: 100vw; height: 100vh; aspect-ratio: auto; border-radius: 0; }
+  p { padding: 0 16px; }
+</style>
+</head>
+<body>
+<p class="note">Move the pointer over a tile to move the sun.</p>
+<div class="grid" id="g"></div>
+<script type="module">
+  import { mountPlaque, PRODUCTS } from './plaques.js'
+  const q = new URLSearchParams(location.search)
+  const only = q.get('p')
+  if (only) document.body.classList.add('bake'), document.querySelector('.note').remove()
+  for (const id of only ? [only] : Object.keys(PRODUCTS)) {
+    const cell = document.createElement('div'); cell.className = 'cell'; g.appendChild(cell)
+    const p = await mountPlaque(cell, { product: id, pixelRatio: only ? 1 : undefined })
+    if (q.has('sx')) p.setSun(+q.get('sx'), +q.get('sy'))
+  }
+</script>
+</body>
+</html>

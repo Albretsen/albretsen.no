@@ -1,0 +1,20 @@
+{
+  "name": "Morning Elevation",
+  "tagline": "The company is one symmetrical house at seven in the morning; only the sun moves.",
+  "summary": "Albretsen AS is drawn as a single peach-painted wooden house in a quiet square, framed like an architect's front elevation, with each live product lit in a ground-floor window and retired ones behind closed shutters. The hero is a matte painting made from CC0 photographs and a three.js house, and the visitor can take hold of the sun and move the day. It reads as calm, precise and well kept: an effective person who has no need to shout.",
+  "palette": ["#f7f1e6", "#f2b98f", "#f6c56b", "#e48e5c", "#b9cfe3", "#9fbad0", "#dfe3e6", "#8e3326", "#2b2d3a"],
+  "type": ["Italiana (Art Deco Didone, capitals, tracked 0.3em)", "Jost (geometric text, 400/500)", "ui-monospace (the one command line)"],
+  "voice": "Short, declarative, unhurried, with the building left unspoken. Example: \"Asgeir Albretsen builds software that earns its keep.\"",
+  "motion": "One variable, the time of day, drives everything: the sun travels its arc, shadows rake and lengthen, lamps warm at dusk, and nothing else moves.",
+  "sound": "Opt-in Web Audio ambience with no audio files (wind, a far sea, birds at first light and a rare distant bell) that follows the sun.",
+  "mark": "The pediment A: a capital A drawn as a classical gable, with its crossbar as the horizon and a half sun rising under the apex.",
+  "inspiration": [
+    "https://www.loc.gov/pictures/collection/travel/",
+    "https://www.chateaumarmont.com",
+    "https://www.rauno.me",
+    "https://rauno.me/craft/interaction-design",
+    "https://www.airbnb.com/luxury",
+    "https://emilkowal.ski/ui/great-animations",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/view-timeline"
+  ]
+}

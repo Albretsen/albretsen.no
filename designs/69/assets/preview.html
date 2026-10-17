@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afterglow · Asset kit 69</title>
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/favicon-180.png">
+<link rel="preload" href="fonts/albert-sans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: 'Albert Sans'; src: url('fonts/albert-sans-var.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: 'DM Mono'; src: url('fonts/dm-mono-300.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+  :root {
+    --ink: #2A2D4F; --ink-soft: #5A5E80; --plaster: #FBF8F4; --flamingo: #EE8AA0; --flamingo-pale: #F3BAC4;
+    --mint: #8FD3BF; --mint-pale: #CDEFE3; --sky: #9EC3E6; --glow: #FFC9A0; --lilac: #7D88C8; --flash: #8CFFD1;
+    --sans: 'Albert Sans', system-ui, sans-serif; --mono: 'DM Mono', ui-monospace, monospace;
+    --gutter: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; color: var(--ink); font: 300 17px/1.6 var(--sans); background: var(--plaster); }
+  img, canvas, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+  header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 28px var(--gutter); max-width: 1320px; margin: 0 auto; }
+  header.top img { width: 240px; height: auto; aspect-ratio: 311 / 56; }
+  @media (max-width: 560px) { header.top .meta { display: none; } }
+  .label, .meta { font: 300 12px/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+  section { padding: clamp(48px, 9vw, 128px) 0 0; }
+  h1 { font-weight: 200; font-size: clamp(44px, 8.4vw, 132px); line-height: .98; letter-spacing: -.025em; margin: 0; }
+  h2 { font-weight: 250; font-size: clamp(30px, 4.4vw, 56px); line-height: 1.04; letter-spacing: -.015em; margin: 8px 0 20px; }
+  h3 { font-weight: 400; font-size: 15px; margin: 14px 0 2px; letter-spacing: .01em; }
+  p { max-width: 62ch; margin: 0 0 1em; }
+  .sub { color: var(--ink-soft); }
+  .divider { width: 240px; height: 24px; margin: 28px 0 0; }
+
+  /* Hero: live afterglow dissolve */
+  .hero { position: relative; height: min(88vh, 900px); min-height: 520px; overflow: hidden; background: #2A2D4F; }
+  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .over { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(24px, 6vh, 64px); color: var(--plaster); z-index: 3; pointer-events: none; }
+  .hero .over h1 { text-shadow: 0 1px 30px rgba(42,45,79,.25); }
+  .hero .over .label { color: #FFE3C4; margin-bottom: 14px; }
+  .hero .btns { position: absolute; right: var(--gutter); top: 20px; display: flex; gap: 8px; z-index: 4; flex-wrap: wrap; justify-content: flex-end; }
+  .pill { font: 300 13px var(--sans); color: var(--plaster); background: rgba(42,45,79,.28); border: 1px solid rgba(251,248,244,.45); border-radius: 999px; padding: 6px 14px; cursor: pointer; backdrop-filter: blur(6px); }
+  .pill.dark { color: var(--ink); background: transparent; border-color: rgba(42,45,79,.3); }
+
+  .grid { display: grid; gap: clamp(12px, 2vw, 24px); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .g6 { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+  figure { margin: 0; }
+  figure img, figure canvas { width: 100%; height: auto; border-radius: 3px; background: var(--flamingo-pale); }
+  figcaption { font: 300 12px/1.5 var(--mono); color: var(--ink-soft); margin-top: 8px; letter-spacing: .04em; }
+  .r32 { aspect-ratio: 3 / 2; } .r169 { aspect-ratio: 16 / 9; } .r45 { aspect-ratio: 4 / 5; } .r11 { aspect-ratio: 1; } .r1200 { aspect-ratio: 1200 / 630; }
+  .r32 img, .r169 img, .r45 img { height: 100%; object-fit: cover; }
+  .tile { border-radius: 3px; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 28px; }
+  figure .tile img { width: auto; max-width: 78%; height: auto; background: none; border-radius: 0; }
+
+  /* Palette */
+  .sw { border-radius: 3px; overflow: hidden; border: 1px solid rgba(42,45,79,.08); background: #fff; }
+  .sw i { display: block; aspect-ratio: 4 / 3; }
+  .sw div { padding: 10px 12px 12px; font: 300 12px/1.5 var(--mono); }
+  .sw b { font: 400 14px var(--sans); display: block; margin-bottom: 2px; }
+
+  /* Type */
+  .spec { border-top: 1px solid rgba(42,45,79,.12); padding: 22px 0; display: grid; grid-template-columns: 180px 1fr; gap: 16px; align-items: baseline; }
+  @media (max-width: 640px) { .spec { grid-template-columns: 1fr; } }
+  .spec .s1 { font-weight: 200; font-size: clamp(48px, 8vw, 104px); line-height: 1; letter-spacing: -.03em; }
+  .spec .s2 { font-weight: 250; font-size: clamp(28px, 4vw, 48px); line-height: 1.1; letter-spacing: -.012em; }
+  .spec .s3 { font-weight: 300; font-size: 19px; }
+  .spec .s4 { font: 300 14px var(--mono); letter-spacing: .06em; }
+  .spec .s5 { font-weight: 300; font-size: 13px; letter-spacing: .32em; text-transform: uppercase; }
+
+  /* Retired */
+  .ret { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; font: 300 12px/1.4 var(--sans); color: var(--ink-soft); }
+  .ret img { width: 64px; height: 64px; }
+
+  /* Motion demos */
+  .demo { border-radius: 3px; background: #fff; border: 1px solid rgba(42,45,79,.08); padding: 24px; position: relative; overflow: hidden; }
+  .demo h1 { font-size: clamp(40px, 5.6vw, 72px); }
+  .scroller { height: 360px; overflow-y: auto; border-radius: 3px; position: relative; scroll-timeline: --demo; }
+  .scroller .skybox { position: sticky; top: 0; height: 360px; margin-bottom: -360px; background: linear-gradient(180deg, var(--ag-sky-top), var(--ag-sky-mid) 55%, var(--ag-sky-low)); }
+  @supports (animation-timeline: scroll()) { .scroller .skybox { animation: ag-sky-turn linear both; animation-timeline: --demo; } }
+  .scroller .inner { position: relative; padding: 40px 24px 400px; display: grid; gap: 40px; justify-items: center; }
+  .scroller .card { width: min(260px, 80%); background: var(--plaster); border-radius: 3px; padding: 18px; font-size: 14px; }
+  .flashbox { aspect-ratio: 16 / 9; background: center / cover url('hero/cliffs-800.jpg'); border-radius: 3px; }
+  .dissolve { aspect-ratio: 16 / 9; border-radius: 3px; }
+
+  footer { padding: 120px 0 64px; }
+  footer img { width: 220px; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <img src="brand/wordmark.svg" alt="Albretsen AS" width="311" height="56">
+  <span class="meta">Asset kit 69 · Afterglow</span>
+</header>
+
+<!-- 1. HERO: live WebGL afterglow dissolve -->
+<div class="hero" id="hero">
+  <picture>
+    <source media="(max-aspect-ratio: 1/1)" type="image/avif" srcset="hero/cliffs-tall-750.avif 750w, hero/cliffs-tall-1200.avif 1200w">
+    <source type="image/avif" srcset="hero/cliffs-800.avif 800w, hero/cliffs-1600.avif 1600w, hero/cliffs-2400.avif 2400w">
+    <source type="image/webp" srcset="hero/cliffs-800.webp 800w, hero/cliffs-1600.webp 1600w, hero/cliffs-2400.webp 2400w">
+    <img id="heroStill" src="hero/cliffs-1600.jpg" alt="Sea cliffs after sunset, the sky still flamingo pink over a violet sea" width="1600" height="1068" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" fetchpriority="high">
+  </picture>
+  <canvas id="ag" aria-hidden="true"></canvas>
+  <div class="btns">
+    <button class="pill" data-i="0">Cliffs</button><button class="pill" data-i="1">Towers</button><button class="pill" data-i="2">Shore</button>
+  </div>
+  <div class="over">
+    <div class="label">Afterglow · the sky still burning after the sun has gone</div>
+    <h1 id="heroLine">Quiet software that keeps working after dark.</h1>
+  </div>
+</div>
+
+<main class="wrap">
+  <section>
+    <div class="label">Direction</div>
+    <h2>A slow descent into the last light.</h2>
+    <p>Real photographs, regraded like Portra in the minutes after sunset: cliffs, then a town of pastel deco towers holding the light, then the shore. The products live in that town as glazed tiles on sunlit stucco. Everything is calm, warm and unhurried; one image, one idea, a lot of sky.</p>
+    <img class="divider" src="extras/speed-lines.svg" alt="" width="240" height="24">
+  </section>
+
+  <!-- HERO STILLS -->
+  <section>
+    <div class="label">Hero imagery · AVIF / WebP / JPEG at 800, 1600, 2400 + 4:5 crops at 750, 1200</div>
+    <h2>Three frames of one evening.</h2>
+    <div class="grid g3">
+      <figure><div class="r32"><img src="hero/cliffs-800.webp" srcset="hero/cliffs-800.webp 800w, hero/cliffs-1600.webp 1600w" sizes="(min-width: 900px) 33vw, 100vw" width="800" height="534" loading="lazy" alt="Cliffs after sunset"></div><figcaption>hero/cliffs · descent, frame 1 · horizon 0.449</figcaption></figure>
+      <figure><div class="r32"><img src="hero/towers-800.webp" srcset="hero/towers-800.webp 800w, hero/towers-1600.webp 1600w" sizes="(min-width: 900px) 33vw, 100vw" width="800" height="450" loading="lazy" alt="Two deco towers in afterglow"></div><figcaption>hero/towers · the town, frame 2</figcaption></figure>
+      <figure><div class="r32"><img src="hero/shore-800.webp" srcset="hero/shore-800.webp 800w, hero/shore-1600.webp 1600w" sizes="(min-width: 900px) 33vw, 100vw" width="800" height="533" loading="lazy" alt="Sun touching the sea"></div><figcaption>hero/shore · the sun touches the water, frame 3</figcaption></figure>
+    </div>
+    <div class="grid g3" style="margin-top:24px">
+      <figure><div class="r45"><img src="hero/cliffs-tall-750.webp" width="750" height="938" loading="lazy" alt="Cliffs, tall crop"></div><figcaption>hero/cliffs-tall · phones</figcaption></figure>
+      <figure><div class="r45"><img src="hero/towers-tall-750.webp" width="750" height="938" loading="lazy" alt="Towers, tall crop"></div><figcaption>hero/towers-tall · phones</figcaption></figure>
+      <figure><div class="r45"><img src="hero/shore-tall-750.webp" width="750" height="938" loading="lazy" alt="Shore, tall crop"></div><figcaption>hero/shore-tall · phones</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- IDENTITY -->
+  <section>
+    <div class="label">Identity</div>
+    <h2>An A, two cliffs, a sun between them.</h2>
+    <p class="sub">The A's legs are cliffs; its crossbar is the horizon; the sun sets inside it and leaves a mint reflection. Drawn in the same 2px line as the type.</p>
+    <div class="grid g4">
+      <figure><div class="tile r11" style="background:#fff"><img src="brand/mark.svg" width="160" height="160" alt="Mark" style="width:160px"></div><figcaption>brand/mark.svg</figcaption></figure>
+      <figure><div class="tile r11" style="background:center/cover url('hero/towers-800.webp')"><img src="brand/mark-light.svg" width="160" height="160" alt="Mark, light" style="width:160px"></div><figcaption>brand/mark-light.svg · on photographs</figcaption></figure>
+      <figure><div class="tile r11" style="background:var(--mint-pale)"><img src="brand/favicon.svg" width="96" height="96" alt="Favicon"><img src="brand/favicon-180.png" width="45" height="45" alt="Favicon 180 PNG" style="border-radius:10px"></div><figcaption>brand/favicon.svg · favicon-180.png</figcaption></figure>
+      <figure><div class="tile r11" style="background:var(--ink)"><img src="brand/wordmark-light.svg" width="311" height="56" alt="Wordmark, light"></div><figcaption>brand/wordmark-light.svg</figcaption></figure>
+    </div>
+    <div class="grid g2" style="margin-top:24px">
+      <figure><div class="tile" style="background:#fff;min-height:200px"><img src="brand/wordmark.svg" width="466" height="84" alt="Wordmark"></div><figcaption>brand/wordmark.svg (outlined Albert Sans 300, tracked +0.26em)</figcaption></figure>
+      <figure><img class="r1200" src="brand/og.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image"><figcaption>brand/og.jpg · 1200×630 · source: brand/og-source.html</figcaption></figure>
+    </div>
+    <figure style="margin-top:24px"><div class="tile" style="background:linear-gradient(180deg,#C9DAF0,#F6DDE0 60%,#FFE9D8);color:var(--ink);padding:48px 24px"><img src="brand/name-display.svg" width="1200" height="148" alt="Albretsen display name" style="width:100%;max-width:100%;height:auto"></div><figcaption>brand/name-display.svg · Albert Sans 200, currentColor, to set huge behind a horizon</figcaption></figure>
+  </section>
+
+  <!-- PALETTE -->
+  <section>
+    <div class="label">Palette · Miami deco at afterglow</div>
+    <h2>Flamingo, mint, sky, plaster.</h2>
+    <div class="grid g4" id="palette"></div>
+  </section>
+
+  <!-- TYPE -->
+  <section>
+    <div class="label">Type</div>
+    <h2>Albert Sans, light. DM Mono for the small print.</h2>
+    <div class="spec"><span class="label">Display · 200</span><span class="s1">Effortless.</span></div>
+    <div class="spec"><span class="label">Heading · 250</span><span class="s2">Email for AI agents, 17 tools and about 100 providers.</span></div>
+    <div class="spec"><span class="label">Body · 300 / 17</span><span class="s3">Fun Libs was built at 17, with no marketing, and has passed 113,000 installs. Version 5 shipped in 2026.</span></div>
+    <div class="spec"><span class="label">Mono · 300</span><span class="s4">claude mcp add albretsen https://albretsen.no/mcp</span></div>
+    <div class="spec"><span class="label">Caps · 300 +.32em</span><span class="s5">Albretsen AS · Norway · since 2016</span></div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section>
+    <div class="label">Products · real logos as glazed tiles on stucco, baked from interactive/plaques.js</div>
+    <h2>The town's shop signs.</h2>
+    <div class="grid g4">
+      <figure><div class="r45"><img src="products/mcp-emails.webp" width="1040" height="1300" loading="lazy" alt="MCP Emails logo on a flamingo wall"></div><figcaption>products/mcp-emails · live · $782 MRR</figcaption></figure>
+      <figure><div class="r45"><img src="products/fun-libs.webp" width="1040" height="1300" loading="lazy" alt="Fun Libs icon on a mint wall"></div><figcaption>products/fun-libs · live · 113,000+ installs</figcaption></figure>
+      <figure><div class="r45"><img src="products/toolrails.webp" width="1040" height="1300" loading="lazy" alt="Toolrails icon on a sky-blue wall"></div><figcaption>products/toolrails · building</figcaption></figure>
+      <figure><div class="r45"><img src="products/harbor.webp" width="1040" height="1300" loading="lazy" alt="Harbor wordmark on a white wall"></div><figcaption>products/harbor · paused</figcaption></figure>
+    </div>
+    <div class="grid g2" style="margin-top:24px; align-items:start">
+      <figure><div class="r45" id="live3d" style="border-radius:3px;overflow:hidden;background:#F3BAC4;cursor:crosshair"></div><figcaption>interactive/plaques.js · live three.js · move the pointer to move the sun (loads on scroll)</figcaption></figure>
+      <div>
+        <h3>Retired, as small enamel roundels</h3>
+        <p class="sub" style="font-size:15px">Stand-ins for products without surviving brand assets. Luma keeps its real monogram.</p>
+        <div class="grid g6" style="margin-top:20px">
+          <div class="ret"><span style="width:64px;height:64px;border-radius:50%;background:#F4EFE6;display:grid;place-items:center"><img src="../../_shared/products/luma/logo.png" width="52" height="14" alt="" style="width:52px;height:auto"></span>Luma</div>
+          <div class="ret"><img src="products/retired/polyglot-pilot.svg" width="64" height="64" alt="">Polyglot Pilot</div>
+          <div class="ret"><img src="products/retired/pinpoint.svg" width="64" height="64" alt="">PinPoint</div>
+          <div class="ret"><img src="products/retired/webvakt.svg" width="64" height="64" alt="">WebVakt</div>
+          <div class="ret"><img src="products/retired/joke-central.svg" width="64" height="64" alt="">Joke Central</div>
+          <div class="ret"><img src="products/retired/tryggere-hyring.svg" width="64" height="64" alt="">Tryggere Hyring</div>
+          <div class="ret"><img src="products/retired/early-apps.svg" width="64" height="64" alt="">Early apps</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTRAS -->
+  <section>
+    <div class="label">Extras · texture and ephemera</div>
+    <h2>Details from the same roll.</h2>
+    <div class="grid g4">
+      <figure><div class="r11"><img src="extras/detail-fins.webp" width="900" height="900" loading="lazy" alt="Deco fins at dusk"></div><figcaption>extras/detail-fins</figcaption></figure>
+      <figure><div class="r11"><img src="extras/detail-windows.webp" width="900" height="900" loading="lazy" alt="Facade windows"></div><figcaption>extras/detail-windows</figcaption></figure>
+      <figure><div class="r11"><img src="extras/detail-foam.webp" width="900" height="900" loading="lazy" alt="Foam and the sun's reflection"></div><figcaption>extras/detail-foam</figcaption></figure>
+      <figure><div class="r11"><img src="extras/detail-rocks.webp" width="900" height="900" loading="lazy" alt="Rocks in a violet sea"></div><figcaption>extras/detail-rocks</figcaption></figure>
+    </div>
+    <div class="grid g2" style="margin-top:24px">
+      <figure><img src="extras/orbit-1600.webp" width="1600" height="1063" loading="lazy" alt="Earth's limb at sunset seen from orbit"><figcaption>extras/orbit-1600 · NASA, ISS · where the descent begins (or the green-flash reveal)</figcaption></figure>
+      <div class="grid" style="gap:24px">
+        <figure><div class="tile" style="background:#fff"><img src="extras/setting-sun.svg" width="320" height="170" alt="Setting sun ornament"></div><figcaption>extras/setting-sun.svg · footer / section end</figcaption></figure>
+        <figure><img src="extras/film-rebate.svg" width="600" height="40" alt="Film rebate strip" style="width:100%"><figcaption>extras/film-rebate.svg · caption strip under photographs</figcaption></figure>
+        <figure><div class="tile" style="background:#fff"><img src="extras/speed-lines.svg" width="240" height="24" alt="Speed lines divider"></div><figcaption>extras/speed-lines.svg · divider</figcaption></figure>
+        <figure><div style="height:120px;border-radius:3px;background:url('extras/grain.png') repeat var(--flamingo-pale);background-size:192px;background-blend-mode:overlay"></div><figcaption>extras/grain.png · tileable, 256px, use with mix-blend-mode: overlay at ~0.2</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section>
+    <div class="label">Motion study · motion.css + motion.js + interactive/afterglow.js</div>
+    <h2>Five slow movements.</h2>
+    <div class="grid g2">
+      <div class="demo"><div class="label">1 · Horizon rise</div><h1 id="riseDemo">Built to run while you sleep.</h1><button class="pill dark" id="replay" style="margin-top:16px">Replay</button></div>
+      <div class="demo" style="padding:0"><div class="scroller"><div class="skybox"></div><div class="inner">
+        <div class="label" style="color:var(--ink)">2 · Sky turn &amp; 3 · Long shadow · scroll inside</div>
+        <div class="card ag-shadow">MCP Emails<br><span class="sub">Email for AI agents.</span></div>
+        <div class="card ag-shadow">Fun Libs<br><span class="sub">113,000+ installs.</span></div>
+        <div class="card ag-shadow">Toolrails<br><span class="sub">One MCP URL, every tool.</span></div>
+        <div class="card ag-shadow">Harbor<br><span class="sub">Knowledge shared by people and AI.</span></div>
+      </div></div></div>
+      <div class="demo" style="padding:0"><div class="dissolve ag-dissolve" id="dis">
+        <img src="hero/cliffs-800.webp" alt="" width="800" height="534"><img src="hero/towers-800.webp" alt="" width="800" height="450"><img src="hero/shore-800.webp" alt="" width="800" height="533">
+      </div><div class="label" style="position:absolute;left:16px;top:12px;color:#fff">4 · Afterglow dissolve (CSS fallback; WebGL version is the hero)</div></div>
+      <div class="demo" style="padding:0"><div class="flashbox" id="flashbox"></div><div class="label" style="position:absolute;left:16px;top:12px;color:#fff">5 · Green flash (hidden: rest on the horizon 2s, or type “flash”)</div><button class="pill" id="flashBtn" style="position:absolute;right:16px;bottom:16px">Show it</button></div>
+    </div>
+  </section>
+
+  <footer>
+    <img src="extras/setting-sun.svg" width="220" height="117" alt="">
+    <div class="meta">Albretsen AS · albretsen.no · asset kit 69 · see ASSETS.md for sources and licences</div>
+  </footer>
+</main>
+
+<script type="module">
+  import { createAfterglow } from './interactive/afterglow.js'
+  import { splitRise, horizonFlash, dissolveFallback, scrollFallbacks } from './motion.js'
+
+  // ?from=N hides the hero and the first N sections (for headless contact-sheet screenshots)
+  const qf = new URLSearchParams(location.search).get('from')
+  if (qf !== null) { hero.hidden = true; [...document.querySelectorAll('main > section')].slice(0, +qf).forEach(s => s.hidden = true) }
+
+  // Palette
+  const P = [
+    ['Dusk ink', '#2A2D4F', 'oklch(0.312 0.061 278.4)', 'text, lines'],
+    ['Plaster', '#FBF8F4', 'oklch(0.980 0.006 75.4)', 'page'],
+    ['Flamingo', '#EE8AA0', 'oklch(0.746 0.124 6.4)', 'accent, sun'],
+    ['Flamingo pale', '#F3BAC4', 'oklch(0.843 0.067 6.9)', 'walls, fills'],
+    ['Mint', '#8FD3BF', 'oklch(0.816 0.075 174.0)', 'reflection, links'],
+    ['Mint pale', '#CDEFE3', 'oklch(0.924 0.039 172.1)', 'fills'],
+    ['Sky', '#9EC3E6', 'oklch(0.802 0.064 247.2)', 'upper sky'],
+    ['Glow', '#FFC9A0', 'oklch(0.874 0.082 58.6)', 'horizon, highlights'],
+    ['Lilac dusk', '#7D88C8', 'oklch(0.644 0.097 275.9)', 'shadows'],
+    ['Ink soft', '#5A5E80', 'oklch(0.492 0.055 279.0)', 'secondary text'],
+    ['Green flash', '#8CFFD1', 'oklch(0.919 0.124 165.8)', 'easter egg only'],
+  ]
+  palette.innerHTML = P.map(([n, h, o, u]) => `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b>${h}<br>${o}<br><span class="sub">${u}</span></div></div>`).join('')
+
+  // Hero: still image paints first; WebGL dissolve takes over when ready
+  const wide = innerWidth / innerHeight > 1
+  const v = n => `hero/${n}${wide ? '' : '-tall'}-${wide ? 1600 : 1200}.webp`
+  const ag = createAfterglow(document.getElementById('ag'), [
+    { src: v('cliffs'), horizon: 0.449, sunX: wide ? 0.86 : 0.98 },
+    { src: v('towers'), horizon: 1.2, sunX: 0.9 },
+    { src: v('shore'), horizon: 0.505, sunX: wide ? 0.36 : 0.5 },
+  ], { hold: 5200, fade: 2800 })
+  ag.ready.then(() => { heroStill.style.visibility = 'hidden' })
+  document.querySelectorAll('.btns .pill').forEach(b => b.onclick = () => ag.go(+b.dataset.i))
+  splitRise(heroLine)
+
+  // Motion demos
+  splitRise(riseDemo)
+  replay.onclick = () => { riseDemo.querySelectorAll('.ag-line > span').forEach(s => { s.style.animation = 'none'; void s.offsetWidth; s.style.animation = '' }) }
+  dissolveFallback(dis, { every: 4500 })
+  const fire = horizonFlash(flashbox, { horizon: 0.449, sunX: 0.86 })
+  flashBtn.onclick = fire
+  scrollFallbacks()
+
+  // Live 3D plaque, loaded only when scrolled near
+  new IntersectionObserver(async ([e], io) => {
+    if (!e.isIntersecting) return; io.disconnect()
+    const { mountPlaque } = await import('./interactive/plaques.js')
+    mountPlaque(live3d, { product: 'mcp-emails' })
+  }, { rootMargin: '400px' }).observe(live3d)
+</script>
+</body>
+</html>

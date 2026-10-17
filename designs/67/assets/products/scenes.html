@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amber Hour product scenes</title>
+<!-- Source for the baked product visuals (products/*.webp). Render one scene per URL:
+     scenes.html?s=mcp | funlibs | toolrails | harbor | retired  at 1200x1500 (retired: 1600x1000) -->
+<style>
+@font-face{font-family:"Bodoni Moda";src:url(../fonts/bodoni-moda.woff2) format("woff2");font-weight:400 900;font-display:block}
+@font-face{font-family:"Bodoni Moda";font-style:italic;src:url(../fonts/bodoni-moda-italic.woff2) format("woff2");font-weight:400 900;font-display:block}
+@font-face{font-family:"Schibsted Grotesk";src:url(../fonts/schibsted-grotesk.woff2) format("woff2");font-weight:400 900;font-display:block}
+:root{--cream:#FFF6E6;--linen:#F8DFB6;--apricot:#EDBF84;--amber:#D18E4A;--ochre:#A65E27;--sienna:#6E3816;--umber:#3B1D0E;--night:#1E0F08;--mauve:#5E4A6E;--peach:#F2B68A}
+*{box-sizing:border-box;margin:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--linen)}
+.scene{position:relative;width:1200px;height:1500px;overflow:hidden;display:none}
+.scene.on{display:block}
+.serif{font-family:"Bodoni Moda",serif;font-optical-sizing:auto}
+.sans{font-family:"Schibsted Grotesk",sans-serif}
+.grain::after{content:"";position:absolute;inset:0;background:url(../extras/grain.png);mix-blend-mode:overlay;opacity:.28;pointer-events:none}
+.paper{background:#F4E2C4 url(../extras/paper.webp);}
+
+/* ---------- MCP Emails: the stamp ---------- */
+#mcp{background:radial-gradient(120% 80% at 70% 10%,#FFE9C8 0%,#F1D3A8 45%,#D9AE7C 100%)}
+#mcp .card{position:absolute;left:120px;top:190px;width:760px;height:1010px;transform:rotate(-7deg);
+  box-shadow:0 2px 4px rgba(59,29,14,.18),0 30px 70px -20px rgba(59,29,14,.45);background:var(--cream);padding:26px}
+#mcp .card img{width:100%;height:100%;object-fit:cover;display:block}
+#mcp .stamp{position:absolute;left:520px;top:520px;width:560px;height:700px;transform:rotate(5deg);filter:drop-shadow(0 26px 30px rgba(59,29,14,.38)) drop-shadow(0 2px 2px rgba(59,29,14,.25))}
+#mcp .pm{position:absolute;left:400px;top:430px;width:560px;transform:rotate(-9deg);opacity:.8;mix-blend-mode:multiply}
+
+/* ---------- Fun Libs: deco blade sign ---------- */
+#funlibs .wall{position:absolute;inset:0;background:url(../hero/spires-tall-1080.webp) 0% 78%/118% auto no-repeat;filter:saturate(1.02)}
+#funlibs .wall::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(242,182,138,.0),rgba(59,29,14,.18))}
+#funlibs .shadow{position:absolute;left:350px;top:250px;width:250px;height:1150px;border-radius:125px 125px 18px 18px;background:rgba(40,18,6,.36);filter:blur(18px);transform:skewX(10deg) translateX(-70px)}
+#funlibs .blade{position:absolute;left:470px;top:200px;width:260px;height:1150px;border-radius:130px 130px 14px 14px;
+  background:linear-gradient(90deg,#E9D6B6 0%,#FFF8EA 22%,#FBEBD0 60%,#D8BF98 100%);
+  box-shadow:inset 0 0 0 6px #3B1D0E,inset 0 0 0 12px #F6E4C4,inset 0 0 0 14px #A65E27;display:flex;flex-direction:column;align-items:center}
+#funlibs .disc{margin-top:34px;width:192px;height:192px;border-radius:50%;background:#3B1D0E;display:grid;place-items:center;box-shadow:inset 0 0 0 5px #D18E4A}
+#funlibs .disc img{width:136px;height:136px;border-radius:30px;display:block}
+#funlibs .letters{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:"Schibsted Grotesk";font-weight:800;font-size:96px;line-height:.98;color:#3B1D0E;letter-spacing:0}
+#funlibs .letters span.gap{height:34px}
+#funlibs .letters span{text-shadow:0 1px 0 #fff8ea, 0 -1px 0 rgba(59,29,14,.25)}
+#funlibs .bracket{position:absolute;left:452px;width:30px;height:22px;background:#3B1D0E;border-radius:3px}
+#funlibs .cap{position:absolute;left:0;right:0;bottom:64px;text-align:center;color:#FFF6E6;font:600 26px/1.2 "Schibsted Grotesk";letter-spacing:.32em;text-transform:uppercase;text-shadow:0 1px 10px rgba(30,15,8,.5)}
+
+/* ---------- Toolrails: enamel plaque ---------- */
+#toolrails .wall{position:absolute;inset:0;background:url(../hero/facade-card-1400.webp) 50% 47%/250% auto no-repeat}
+#toolrails .wall::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 45%,transparent 30%,rgba(59,29,14,.35))}
+#toolrails .plaque{position:absolute;left:230px;top:420px;width:740px;height:620px;border-radius:26px;
+  background:linear-gradient(135deg,#F6D9A2 0%,#C98A3E 18%,#8A5220 40%,#E7B56E 58%,#A86A2C 80%,#F1CF92 100%);
+  padding:22px;box-shadow:0 40px 60px -20px rgba(30,15,8,.6),0 3px 6px rgba(30,15,8,.4)}
+#toolrails .enamel{width:100%;height:100%;border-radius:12px;background:radial-gradient(120% 90% at 30% 20%,#FFFAF0,#F3E3C6 70%,#E7D1AC);
+  box-shadow:inset 0 2px 6px rgba(59,29,14,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;color:var(--umber);position:relative}
+#toolrails .enamel img{width:150px;height:150px;border-radius:24px;box-shadow:0 2px 0 rgba(255,255,255,.6),0 6px 14px rgba(59,29,14,.35)}
+#toolrails h2{font:500 104px/1 "Bodoni Moda";letter-spacing:-.01em}
+#toolrails p{font:500 24px/1.3 "Schibsted Grotesk";letter-spacing:.22em;text-transform:uppercase;color:var(--ochre)}
+#toolrails .rule{width:420px;height:1px;background:var(--umber);opacity:.5}
+#toolrails .screw{position:absolute;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FCE3B4,#9A5F25 70%);box-shadow:0 1px 1px rgba(0,0,0,.4)}
+#toolrails .screw::after{content:"";position:absolute;left:3px;right:3px;top:10px;height:2px;background:#5a3412;transform:rotate(35deg)}
+
+/* ---------- Harbor: the lit arched window ---------- */
+#harbor{background:#2A150B}
+#harbor .stone{position:absolute;inset:0;background:url(../hero/arcade-1080.webp) 50% 40%/cover;filter:brightness(.55) saturate(1.1)}
+#harbor .arch{position:absolute;left:250px;top:170px;width:700px;height:1130px;border-radius:350px 350px 0 0;
+  background:linear-gradient(90deg,#D6A86C,#F3D6A6 30%,#E8C28A 70%,#B98448);padding:36px 36px 0;box-shadow:0 0 0 2px rgba(30,15,8,.4),0 40px 80px rgba(0,0,0,.45)}
+#harbor .glass{position:relative;width:100%;height:100%;border-radius:314px 314px 0 0;overflow:hidden;
+  background:radial-gradient(90% 70% at 50% 70%,#FFE7B8 0%,#F7BC6E 35%,#C9762F 70%,#6E3816 100%);box-shadow:inset 0 0 60px rgba(59,29,14,.5)}
+#harbor .mullions{position:absolute;inset:0}
+#harbor .sign{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:20px;color:#3B1D0E}
+#harbor .sign svg{width:150px;height:150px}
+#harbor .sign .name{font:500 120px/1 "Bodoni Moda";letter-spacing:-.01em}
+#harbor .tag{position:absolute;left:50%;bottom:150px;transform:translateX(-50%) rotate(-2deg);background:#FFF6E6;color:#3B1D0E;padding:14px 26px;font:600 22px/1 "Schibsted Grotesk";letter-spacing:.3em;text-transform:uppercase;box-shadow:0 8px 16px rgba(30,15,8,.35)}
+#harbor .tag::before{content:"";position:absolute;left:50%;top:-60px;width:1px;height:60px;background:#3B1D0E}
+#harbor .sill{position:absolute;left:210px;top:1300px;width:780px;height:40px;background:linear-gradient(#E8C28A,#9A6430);box-shadow:0 20px 40px rgba(0,0,0,.5)}
+
+/* ---------- Retired: album page ---------- */
+#retired{width:1600px;height:1000px}
+#retired .sheet{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,240px);gap:56px 70px;justify-content:center;align-content:center;padding-top:30px}
+#retired .sheet img{width:240px;height:300px;filter:drop-shadow(0 10px 12px rgba(59,29,14,.25)) drop-shadow(0 1px 1px rgba(59,29,14,.3))}
+#retired .sheet img:nth-child(odd){transform:rotate(-1.4deg)} #retired .sheet img:nth-child(3n){transform:rotate(1.8deg)}
+#retired .title{position:absolute;right:160px;bottom:150px;width:240px;color:var(--umber)}
+#retired .title b{display:block;font:italic 500 46px/1.05 "Bodoni Moda"}
+#retired .title span{display:block;margin-top:14px;font:500 15px/1.4 "Schibsted Grotesk";letter-spacing:.2em;text-transform:uppercase;color:var(--ochre)}
+</style>
+</head>
+<body>
+
+<section class="scene grain" id="mcp">
+  <div class="card"><img src="../hero/spires-tall-1080.webp" alt=""></div>
+  <svg class="stamp" viewBox="0 0 560 700" aria-label="MCP Emails stamp">
+    <defs>
+      <mask id="perf"><rect width="560" height="700" fill="#fff"/><g fill="#000" id="holes"></g></mask>
+      <clipPath id="win"><rect x="44" y="44" width="472" height="470"/></clipPath>
+    </defs>
+    <g mask="url(#perf)">
+      <rect width="560" height="700" fill="#FFF6E6"/>
+      <image href="../hero/facade-card-1000.webp" x="44" y="10" width="472" height="630" preserveAspectRatio="xMidYMid slice" clip-path="url(#win)"/>
+      <rect x="44" y="44" width="472" height="470" fill="none" stroke="#3B1D0E" stroke-width="2"/>
+      <rect x="30" y="30" width="500" height="640" fill="none" stroke="#3B1D0E" stroke-width="1"/>
+      <!-- the real product icon, printed as the stamp's vignette -->
+      <rect x="62" y="400" width="96" height="96" rx="22" fill="#FFF6E6"/>
+      <image href="../../../_shared/products/mcp-emails/icon.png" x="66" y="404" width="88" height="88"/>
+      <text x="486" y="112" text-anchor="end" font-family="Bodoni Moda" font-weight="600" font-size="92" fill="#3B1D0E">17</text>
+      <text x="486" y="140" text-anchor="end" font-family="Schibsted Grotesk" font-weight="600" font-size="17" letter-spacing="4" fill="#3B1D0E">TOOLS</text>
+      <text x="280" y="588" text-anchor="middle" font-family="Bodoni Moda" font-weight="500" font-size="58" fill="#3B1D0E">MCP Emails</text>
+      <text x="280" y="630" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="600" font-size="16" letter-spacing="4.2" fill="#A65E27">EMAIL FOR AI AGENTS · 2026</text>
+    </g>
+  </svg>
+  <svg class="pm" viewBox="0 0 520 220" aria-hidden="true">
+    <g fill="none" stroke="#5E4A6E" stroke-width="3.2">
+      <circle cx="110" cy="110" r="92"/><circle cx="110" cy="110" r="74" stroke-width="1.6"/>
+      <path id="wv" d="M220 70 q20 -14 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0"/>
+      <path d="M220 100 q20 -14 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0"/>
+      <path d="M220 130 q20 -14 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0"/>
+      <path d="M220 160 q20 -14 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0"/>
+    </g>
+    <defs><path id="ring" d="M110 110 m-60 0 a60 60 0 1 1 120 0 a60 60 0 1 1 -120 0"/></defs>
+    <text font-family="Schibsted Grotesk" font-weight="700" font-size="17" letter-spacing="5" fill="#5E4A6E"><textPath href="#ring" startOffset="2%">ALBRETSEN AS · SENT BY AGENT ·</textPath></text>
+    <text x="110" y="119" text-anchor="middle" font-family="Bodoni Moda" font-weight="600" font-size="26" fill="#5E4A6E">2026</text>
+  </svg>
+</section>
+
+<section class="scene grain" id="funlibs">
+  <div class="wall"></div>
+  <div class="shadow"></div>
+  <div class="bracket" style="top:330px"></div><div class="bracket" style="top:1210px"></div>
+  <div class="blade">
+    <div class="disc"><img src="../../../_shared/products/fun-libs/icon.png" alt="Fun Libs"></div>
+    <div class="letters"><span>F</span><span>U</span><span>N</span><span class="gap"></span><span>L</span><span>I</span><span>B</span><span>S</span></div>
+  </div>
+  <div class="cap">113,000+ installs · since 2019</div>
+</section>
+
+<section class="scene grain" id="toolrails">
+  <div class="wall"></div>
+  <div class="plaque"><div class="enamel">
+    <img src="../../../_shared/products/toolrails/icon.svg" alt="Toolrails">
+    <h2>Toolrails</h2>
+    <div class="rule"></div>
+    <p>One MCP URL · every tool</p>
+  </div></div>
+  <i class="screw" style="left:262px;top:452px"></i><i class="screw" style="left:916px;top:452px"></i>
+  <i class="screw" style="left:262px;top:986px"></i><i class="screw" style="left:916px;top:986px"></i>
+</section>
+
+<section class="scene grain" id="harbor">
+  <div class="stone"></div>
+  <div class="arch"><div class="glass">
+    <svg class="mullions" viewBox="0 0 628 1094" preserveAspectRatio="none" aria-hidden="true">
+      <g stroke="#3B1D0E" stroke-opacity=".55" stroke-width="7" fill="none">
+        <path d="M0 314H628"/><path d="M314 314V0"/>
+        <path d="M314 314L92 92M314 314L536 92M314 314V0" stroke-width="4"/>
+      </g>
+    </svg>
+    <div class="sign">
+      <!-- real Harbor mark (harbor-mark.svg geometry, currentColor) -->
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor"><path d="M0 12Q0 0 12 0L16.5 0L20 5.5L23.5 0L28 0Q40 0 40 12L40 28Q40 40 28 40L12 40Q0 40 0 28Z" stroke-width="2.4" stroke-linejoin="round" transform="translate(1.5 1.5) scale(.925)"/><circle cx="20" cy="22" r="2.6" fill="currentColor" stroke="none" transform="translate(1.5 1.5) scale(.925)"/></svg>
+      <div class="name">Harbor</div>
+    </div>
+    <div class="tag">Paused</div>
+  </div></div>
+  <div class="sill"></div>
+</section>
+
+<section class="scene paper" id="retired">
+  <div class="sheet">
+    <img src="retired/luma.svg" alt=""><img src="retired/polyglot-pilot.svg" alt=""><img src="retired/pinpoint.svg" alt=""><img src="retired/webvakt.svg" alt="">
+    <img src="retired/joke-central.svg" alt=""><img src="retired/tryggere-hyring.svg" alt=""><img src="retired/early-apps.svg" alt="">
+  </div>
+</section>
+
+<script>
+// perforations for the big stamp
+const g=document.getElementById('holes');const W=560,H=700,r=11,step=30;
+const add=(x,y)=>{const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',r);g.appendChild(c)};
+for(let i=0;i<=Math.round(W/step);i++){const x=i*W/Math.round(W/step);add(x,0);add(x,H)}
+for(let j=0;j<=Math.round(H/step);j++){const y=j*H/Math.round(H/step);add(0,y);add(W,y)}
+const s=new URLSearchParams(location.search).get('s')||'mcp';
+document.getElementById(s)?.classList.add('on');
+</script>
+</body>
+</html>

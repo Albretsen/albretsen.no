@@ -1,0 +1,87 @@
+{
+ "archive-box": {
+  "w": 432,
+  "h": 504,
+  "pixel": 6
+ },
+ "books": {
+  "w": 300,
+  "h": 270,
+  "pixel": 6
+ },
+ "chair": {
+  "w": 450,
+  "h": 726,
+  "pixel": 6
+ },
+ "sprite-fun-libs": {
+  "w": 420,
+  "h": 720,
+  "pixel": 6
+ },
+ "sprite-harbor": {
+  "w": 492,
+  "h": 774,
+  "pixel": 6
+ },
+ "keyboard": {
+  "w": 480,
+  "h": 264,
+  "pixel": 6
+ },
+ "lamp": {
+  "w": 300,
+  "h": 570,
+  "pixel": 6
+ },
+ "sprite-luma": {
+  "w": 396,
+  "h": 306,
+  "pixel": 6
+ },
+ "sprite-mcp-emails": {
+  "w": 576,
+  "h": 534,
+  "pixel": 6
+ },
+ "mouse": {
+  "w": 132,
+  "h": 138,
+  "pixel": 6
+ },
+ "plant": {
+  "w": 252,
+  "h": 372,
+  "pixel": 6
+ },
+ "potted-plant": {
+  "w": 300,
+  "h": 954,
+  "pixel": 6
+ },
+ "radio": {
+  "w": 420,
+  "h": 396,
+  "pixel": 6
+ },
+ "rug": {
+  "w": 600,
+  "h": 312,
+  "pixel": 6
+ },
+ "speaker": {
+  "w": 324,
+  "h": 570,
+  "pixel": 6
+ },
+ "sprite-toolrails": {
+  "w": 642,
+  "h": 528,
+  "pixel": 6
+ },
+ "tv": {
+  "w": 492,
+  "h": 420,
+  "pixel": 6
+ }
+}

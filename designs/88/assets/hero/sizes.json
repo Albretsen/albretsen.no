@@ -1,0 +1,194 @@
+{
+ "cygnus-plate-wide": [
+  {
+   "w": 2400,
+   "h": 1350,
+   "formats": [
+    "avif",
+    "webp"
+   ],
+   "kb": {
+    "avif": 150,
+    "webp": 101
+   }
+  },
+  {
+   "w": 1600,
+   "h": 900,
+   "formats": [
+    "avif",
+    "webp"
+   ],
+   "kb": {
+    "avif": 75,
+    "webp": 53
+   }
+  },
+  {
+   "w": 960,
+   "h": 540,
+   "formats": [
+    "avif",
+    "webp",
+    "jpg"
+   ],
+   "kb": {
+    "avif": 30,
+    "webp": 26,
+    "jpg": 66
+   }
+  }
+ ],
+ "cygnus-plate-tall": [
+  {
+   "w": 1200,
+   "h": 1500,
+   "formats": [
+    "avif",
+    "webp"
+   ],
+   "kb": {
+    "avif": 89,
+    "webp": 68
+   }
+  },
+  {
+   "w": 750,
+   "h": 938,
+   "formats": [
+    "avif",
+    "webp",
+    "jpg"
+   ],
+   "kb": {
+    "avif": 38,
+    "webp": 36,
+    "jpg": 89
+   }
+  }
+ ],
+ "chart-of-works": [
+  {
+   "w": 2400,
+   "h": 1350,
+   "formats": [
+    "avif",
+    "webp"
+   ],
+   "kb": {
+    "avif": 116,
+    "webp": 157
+   }
+  },
+  {
+   "w": 1600,
+   "h": 900,
+   "formats": [
+    "avif",
+    "webp"
+   ],
+   "kb": {
+    "avif": 75,
+    "webp": 95
+   }
+  },
+  {
+   "w": 960,
+   "h": 540,
+   "formats": [
+    "avif",
+    "webp",
+    "jpg"
+   ],
+   "kb": {
+    "avif": 39,
+    "webp": 45,
+    "jpg": 80
+   }
+  }
+ ],
+ "durer-forest": [
+  {
+   "w": 1400,
+   "h": 1540,
+   "formats": [
+    "avif",
+    "webp"
+   ],
+   "kb": {
+    "avif": 353,
+    "webp": 481
+   }
+  },
+  {
+   "w": 800,
+   "h": 880,
+   "formats": [
+    "avif",
+    "webp",
+    "jpg"
+   ],
+   "kb": {
+    "avif": 125,
+    "webp": 166,
+    "jpg": 223
+   }
+  }
+ ],
+ "moon-run-plate": [
+  {
+   "w": 1100,
+   "h": 1381,
+   "formats": [
+    "avif",
+    "webp"
+   ],
+   "kb": {
+    "avif": 183,
+    "webp": 211
+   }
+  },
+  {
+   "w": 640,
+   "h": 804,
+   "formats": [
+    "avif",
+    "webp",
+    "jpg"
+   ],
+   "kb": {
+    "avif": 59,
+    "webp": 67,
+    "jpg": 104
+   }
+  }
+ ],
+ "moon-run-wide": [
+  {
+   "w": 1600,
+   "h": 1000,
+   "formats": [
+    "avif",
+    "webp"
+   ],
+   "kb": {
+    "avif": 106,
+    "webp": 89
+   }
+  },
+  {
+   "w": 960,
+   "h": 600,
+   "formats": [
+    "avif",
+    "webp",
+    "jpg"
+   ],
+   "kb": {
+    "avif": 46,
+    "webp": 40,
+    "jpg": 80
+   }
+  }
+ ]
+}

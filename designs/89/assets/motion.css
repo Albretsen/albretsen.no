@@ -1,0 +1,72 @@
+/* Prism Room — motion study (CSS half).
+   Scroll-driven animations (animation-timeline) with a static fallback, plus keyframe loops.
+   Every signature animation is named; see motion.js for the JS half and ASSETS.md for sources.
+   All motion is off under prefers-reduced-motion. */
+
+:root {
+  --pr-ink: #160c21; --pr-ink-2: #2a1935; --pr-plum: #572953; --pr-paper: #fff5ea; --pr-fog: #e8d8e6;
+  --pr-peach: #ff9a7d; --pr-peach-deep: #ee6b47; --pr-gum: #ff99c2; --pr-lilac: #bea6eb;
+  --pr-mint: #8deaca; --pr-lemon: #faea89; --pr-sky: #86cbf3;
+  --pr-spectrum: linear-gradient(90deg, var(--pr-peach), var(--pr-gum), var(--pr-lilac), var(--pr-sky), var(--pr-mint));
+  --pr-velocity: 0;          /* written by motion.js from Lenis, roughly -1..1 */
+  --pr-spring: cubic-bezier(.2, 1.6, .4, 1);
+  --pr-ease-out: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* 1. RESOLVE (css) — the pixel room steps into the photograph as the hero scrolls away.
+   Stack .pr-resolve > img.pixel over img.photo. Stepped opacity keeps it feeling "digital". */
+.pr-resolve { position: relative; }
+.pr-resolve > .pixel { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+
+/* 2. PRISM SWEEP — white headline light splits into the candy spectrum as it enters view. */
+.pr-prism-text {
+  background: linear-gradient(100deg, var(--pr-paper) 0 40%, var(--pr-peach) 48%, var(--pr-gum) 54%, var(--pr-lilac) 60%, var(--pr-sky) 66%, var(--pr-mint) 72%, var(--pr-paper) 80% 100%);
+  background-size: 300% 100%; background-position: 100% 0;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* 3. SUNPATH — a window-light leak crosses the page over the whole scroll: a day passes. */
+.pr-sunpath { position: fixed; inset: -10% -20%; pointer-events: none; z-index: 1; mix-blend-mode: screen;
+  background: url(extras/light-leak.webp) center/70% auto no-repeat; opacity: .14; filter: blur(24px); }
+
+/* 4. PIXEL WIPE — blocks reveal in 8 chunky steps, like a sprite loading on an old screen. */
+.pr-pixel-in { clip-path: inset(0 0 0 0); }
+
+/* 5. BULB CHASE — the 5x4 bulb matrix in the photo becomes a 20-pixel display. */
+.pr-bulb { position: absolute; width: calc(var(--r) * 2); aspect-ratio: 1; border-radius: 50%; translate: -50% -50%;
+  background: radial-gradient(circle, var(--c, var(--pr-peach)) 0 28%, color-mix(in oklab, var(--c, var(--pr-peach)) 40%, transparent) 45%, transparent 70%);
+  mix-blend-mode: screen; opacity: 0; animation: pr-bulb 2.4s steps(1) infinite; animation-delay: calc(var(--i) * 120ms); }
+@keyframes pr-bulb { 0%, 100% { opacity: 0 } 30%, 60% { opacity: 1 } }
+
+/* 6. VELOCITY SMEAR — fast scrolling skews and splits pixel things; at rest they snap back. */
+.pr-velocity { transform: skewY(calc(var(--pr-velocity) * 4deg));
+  filter: drop-shadow(calc(var(--pr-velocity) * 6px) 0 0 rgba(255, 153, 194, .7)) drop-shadow(calc(var(--pr-velocity) * -6px) 0 0 rgba(134, 203, 243, .7)); }
+
+/* 7. SPARKLE — 4-frame pixel twinkle from extras/sparkle-sheet.png */
+.pr-sparkle { width: 36px; height: 36px; background: url(extras/sparkle-sheet.png) 0 0/144px 36px; image-rendering: pixelated;
+  animation: pr-sparkle .6s steps(4) infinite; }
+@keyframes pr-sparkle { to { background-position: -144px 0 } }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pr-resolve > .pixel { animation: pr-resolve linear both; animation-timeline: view(); animation-range: exit 0% exit 60%; }
+    @keyframes pr-resolve { from { opacity: 1 } to { opacity: 0 } }
+    .pr-resolve.on-load > .pixel { animation: pr-resolve-load 1.2s steps(6) .3s both; animation-timeline: auto; }
+    @keyframes pr-resolve-load { to { opacity: 0 } }
+
+    .pr-prism-text { animation: pr-prism linear both; animation-timeline: view(); animation-range: entry 10% cover 45%; }
+    @keyframes pr-prism { to { background-position: 0 0 } }
+
+    .pr-sunpath { animation: pr-sun linear both; animation-timeline: scroll(root); }
+    @keyframes pr-sun { from { translate: -18% -6%; rotate: -4deg; opacity: .16 } 60% { opacity: .1 } to { translate: 22% 10%; rotate: 6deg; opacity: .04 } }
+
+    .pr-pixel-in { animation: pr-pixel-in steps(8) both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+    @keyframes pr-pixel-in { from { clip-path: inset(0 100% 0 0) } to { clip-path: inset(0 0 0 0) } }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-bulb, .pr-sparkle { animation: none; opacity: 1; }
+  .pr-velocity { transform: none; filter: none; }
+  .pr-sunpath { display: none; }
+}

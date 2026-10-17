@@ -1,0 +1,31 @@
+/* Amber Hour postcard: flips over (click / Enter / Space), tilts toward the pointer,
+   and hides an easter egg under its stamp (drag the stamp to peel it off). */
+.ah-postcard{--rx:0deg;--ry:0deg;--lift:0px;position:relative;width:min(100%,520px);aspect-ratio:3/4;perspective:1600px;cursor:pointer;margin:0;outline:none;-webkit-tap-highlight-color:transparent}
+.ah-postcard:focus-visible .ah-postcard__inner{box-shadow:0 0 0 3px #FFF6E6,0 0 0 5px #B8642A}
+.ah-postcard__inner{position:absolute;inset:0;transform-style:preserve-3d;
+  transform:translateZ(var(--lift)) rotateX(var(--rx)) rotateY(calc(var(--ry) + var(--flip,0deg)));
+  transition:transform 1.15s cubic-bezier(.2,.75,.15,1),box-shadow .6s;border-radius:3px;
+  box-shadow:0 1px 2px rgba(59,29,14,.25),0 28px 60px -24px rgba(59,29,14,.55)}
+.ah-postcard.is-tilting .ah-postcard__inner{transition:transform .25s ease-out}
+.ah-postcard.is-flipped{--flip:180deg}
+.ah-postcard__face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:3px;overflow:hidden;background:#FFF6E6}
+.ah-postcard__front{padding:14px;background:#FFF6E6 url(../extras/paper.webp)}
+.ah-postcard__front picture,.ah-postcard__front img{display:block;width:100%;height:100%;object-fit:cover}
+.ah-postcard__front::after{content:"";position:absolute;inset:14px;box-shadow:inset 0 0 0 1px rgba(59,29,14,.12);pointer-events:none}
+.ah-postcard__hint{position:absolute;right:26px;bottom:24px;font:600 11px/1 "Schibsted Grotesk",sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#FFF6E6;opacity:.85}
+.ah-postcard__back{transform:rotateY(180deg);background:#FBEFD9 url(../extras/paper.webp);color:#3B1D0E;padding:clamp(18px,5%,32px);display:grid;grid-template-rows:auto 1fr auto;gap:14px}
+.ah-postcard__top{display:flex;justify-content:space-between;align-items:flex-start;min-height:36%}
+.ah-postcard__label{font:600 10.5px/1.5 "Schibsted Grotesk",sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#A65E27;margin-top:6px}
+.ah-postcard__stampwrap{position:relative;width:30%;aspect-ratio:4/5}
+.ah-postcard__secret{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:500 9px/1.35 ui-monospace,"SF Mono",Menlo,monospace;color:#6E3816;border:1px dashed rgba(166,94,39,.5);padding:6px;word-break:break-all}
+.ah-postcard__secret button{all:unset;cursor:pointer;display:block;margin-top:6px;font:700 9px/1 "Schibsted Grotesk",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#B8642A}
+.ah-postcard__stamp{position:absolute;inset:0;width:100%;height:100%;transform-origin:0% 0%;filter:drop-shadow(0 1px 1px rgba(59,29,14,.3));transition:transform .5s cubic-bezier(.3,.7,.2,1),opacity .5s;touch-action:none;cursor:grab}
+.ah-postcard__stamp.is-peeling{transition:none;cursor:grabbing}
+.ah-postcard__stamp.is-gone{transform:translate(40%,160%) rotate(38deg)!important;opacity:0;pointer-events:none}
+.ah-postcard__postmark{position:absolute;left:-58%;top:18%;width:150%;opacity:.72;mix-blend-mode:multiply;transform:rotate(-8deg);pointer-events:none}
+.ah-postcard__msg{font:italic 400 clamp(17px,2.4vw,22px)/1.38 "Bodoni Moda",serif;align-self:center}
+.ah-postcard__msg p+p{margin-top:.6em}
+.ah-postcard__sign{font-style:italic;text-align:right}
+.ah-postcard__addr{border-top:1px solid rgba(59,29,14,.35);padding-top:12px;font:500 12px/1.9 "Schibsted Grotesk",sans-serif;letter-spacing:.06em}
+.ah-postcard__addr span{display:block;border-bottom:1px solid rgba(59,29,14,.18)}
+@media (prefers-reduced-motion:reduce){.ah-postcard__inner{transition:none}}

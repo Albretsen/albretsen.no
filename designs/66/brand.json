@@ -1,0 +1,19 @@
+{
+  "name": "Blue Hour Terrace",
+  "tagline": "A paper-cut café terrace at blue hour, with the products laid out on one marble table.",
+  "summary": "The homepage is a symmetric paper diorama in the minutes after sunset. A red awning frames a domed building, his name hangs in the sky behind the spire, and the four live products sit on the table as real buttons. The Wes Anderson precision stands for the person (effective, reasonable, exact) and the windows lighting up stand for the optimism. It is atmosphere for a software company, never a postcard.",
+  "palette": ["#16213D", "#4A5F92", "#C9A3B6", "#F0BC9E", "#7F8DA0", "#F5EDDF", "#FBF6EC", "#B5373A", "#B8924A", "#FFD58C", "#2F4A4E"],
+  "type": ["Nunito 900 (variable, rounded)", "Nunito 500", "DM Mono"],
+  "voice": "Optimistic builder, deadpan and exact: short sentences, real numbers, no adjectives doing the work. \"Four shopfronts, one owner.\"",
+  "motion": "Precise, symmetric and deadpan: everything moves on a 140 ms beat, in stepped increments, arriving on the centre line in mirrored pairs and never bouncing twice.",
+  "sound": "None by default. An opt-in, very quiet sound of a spoon on a saucer could play when the lamps come on, and it stays off until the visitor asks for it.",
+  "mark": "A shopfront drawn on a symmetric 64-unit grid, with a scalloped café awning, an arched lit window and an evening star, next to a rounded Nunito wordmark.",
+  "inspiration": [
+    "https://accidentallywesanderson.com",
+    "https://www.studiobinder.com/blog/wes-anderson-style/",
+    "https://dev.to/accudio/making-a-parallax-svg-landscape-new-site-part-1-2cd7",
+    "https://motion.dev/magazine/introducing-magnetic-cursors-in-motion-cursor",
+    "https://haussmann.galerieslafayette.com/en/haussmannian-architecture/",
+    "https://www.siteinspire.com"
+  ]
+}

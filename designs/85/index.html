@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself. Albretsen AS, Norway. On Google Play since 2016.">
+<meta name="theme-color" content="#f7f5ea">
+<meta property="og:title" content="Asgeir Albretsen · Albretsen AS">
+<meta property="og:description" content="I build software that pays for itself.">
+<meta property="og:image" content="assets/brand/og.jpg">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" type="image/avif" media="(min-width: 700px)"
+  imagesrcset="img/seam-paper-960.avif 960w, img/seam-paper-1600.avif 1600w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(max-width: 699.98px)"
+  imagesrcset="assets/hero/split-portrait-640.avif 640w, assets/hero/split-portrait-1000.avif 1000w" imagesizes="100vw" fetchpriority="high">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+<script>
+  // The loading moment (Vitrify) plays once per visit. Cover the page before first paint so it
+  // never flashes; main.js lifts this cover. A safety timer removes it if scripts fail.
+  (function () {
+    var d = document.documentElement, seen = false
+    try { seen = sessionStorage.getItem('a85-vitrified') === '1' } catch (e) {}
+    if (!seen && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      d.classList.add('v-pre'); setTimeout(function () { d.classList.remove('v-pre') }, 4500)
+    }
+  })()
+</script>
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="nav">
+  <a class="nav-home" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/brand/lockup.svg" width="116" height="30" alt="Albretsen AS">
+  </a>
+  <nav aria-label="Primary">
+    <a href="#products" class="lab">Products</a>
+    <a href="mailto:asgeir@albretsen.no" class="lab nav-mail">asgeir@albretsen.no</a>
+  </nav>
+</header>
+
+<main>
+<!-- ============================================================ HERO: the seam -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="seam" id="seam" role="slider" tabindex="0"
+       aria-label="Then and now. Ink print on the left is the first app, glass on the right is today. Use arrow keys to move through the years."
+       aria-valuemin="2016" aria-valuemax="2026" aria-valuenow="2021" aria-valuetext="2021">
+    <!-- "then": the plate in ink (desktop) or the baked portrait composite (phones) -->
+    <picture class="seam-then">
+      <source media="(max-width: 699.98px)" type="image/avif" srcset="assets/hero/split-portrait-640.avif 640w, assets/hero/split-portrait-1000.avif 1000w" sizes="100vw">
+      <source media="(max-width: 699.98px)" type="image/webp" srcset="assets/hero/split-portrait-640.webp 640w, assets/hero/split-portrait-1000.webp 1000w" sizes="100vw">
+      <source media="(max-width: 699.98px)" srcset="assets/hero/split-portrait-640.jpg 640w" sizes="100vw">
+      <source type="image/avif" srcset="img/seam-paper-960.avif 960w, img/seam-paper-1600.avif 1600w" sizes="100vw">
+      <source type="image/webp" srcset="img/seam-paper-960.webp 960w, img/seam-paper-1600.webp 1600w" sizes="100vw">
+      <img id="hero-img" src="img/seam-paper-1600.jpg" width="1600" height="900" fetchpriority="high" decoding="async"
+           alt="Ernst Haeckel's 1904 plate of diatoms, split down the middle: printed in black ink on paper on the left, the same forms as green glass objects on a grid on the right.">
+    </picture>
+    <!-- "now": the same plate as glass, clipped at the seam (a 1px gif on phones, so it never downloads there) -->
+    <div class="seam-now" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 699.98px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        <source type="image/avif" srcset="img/seam-glass-960.avif 960w, img/seam-glass-1600.avif 1600w" sizes="100vw">
+        <source type="image/webp" srcset="img/seam-glass-960.webp 960w, img/seam-glass-1600.webp 1600w" sizes="100vw">
+        <img src="img/seam-glass-1600.jpg" width="1600" height="900" decoding="async" alt="">
+      </picture>
+    </div>
+    <div class="seam-blade" aria-hidden="true"></div>
+    <div class="seam-tag" aria-hidden="true">
+      <span class="tag-arrows"><i>ink</i><b class="tag-year">2021</b><i>glass</i></span>
+      <span class="tag-note">Consulting · early apps</span>
+    </div>
+  </div>
+
+  <div class="label" id="label">
+    <p class="lab label-k"><span>Plate I</span><span>Albretsen AS</span><span class="spot">2016 → 2026</span></p>
+    <h1 id="hero-title">Asgeir Albretsen</h1>
+    <p class="label-line">I build software that pays for itself. The first app was ink on paper. <em>Today it is glass.</em></p>
+    <p class="feed lab" aria-live="polite"><span class="dot" aria-hidden="true"></span><span class="feed-t">live</span><span class="feed-e" id="feed">agent read a thread · MCP Emails</span></p>
+  </div>
+  <p class="hint lab" aria-hidden="true">Move across the plate</p>
+</section>
+
+<!-- ============================================================ PRODUCTS -->
+<section class="products" id="products" aria-labelledby="p-title">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="lab"><span>Plate II</span> · <span>The chorus</span></p>
+      <h2 id="p-title">Eleven products, <em>one sheet.</em></h2>
+      <p class="sec-sub">Everything shipped since 2016. Four are still under glass; the rest are kept as engravings.</p>
+    </header>
+
+    <ol class="plates" role="list">
+      <li class="plate chorus-in">
+        <a class="plate-fig glint" href="https://mcpemails.com" aria-label="MCP Emails, mcpemails.com">
+          <picture>
+            <source type="image/avif" srcset="assets/products/mcp-emails-600.avif 600w, assets/products/mcp-emails-1200.avif 1200w" sizes="(min-width: 1100px) 300px, (min-width: 700px) 45vw, 90vw">
+            <source type="image/webp" srcset="assets/products/mcp-emails-600.webp 600w, assets/products/mcp-emails-1200.webp 1200w" sizes="(min-width: 1100px) 300px, (min-width: 700px) 45vw, 90vw">
+            <img src="assets/products/mcp-emails-600.jpg" width="600" height="600" loading="lazy" decoding="async" alt="The MCP Emails logo under a glass dome on a grid" data-loupe="assets/products/mcp-emails-1200.webp">
+          </picture>
+        </a>
+        <p class="lab plate-k"><span>Fig. 01</span><span class="st st-live">Live · 2026</span></p>
+        <h3>MCP Emails</h3>
+        <p class="plate-line">Email for AI agents.</p>
+        <p class="plate-fig-n"><b>$782</b> <span class="lab">MRR</span></p>
+        <ul class="facts lab" role="list"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+        <a class="plate-url lab" href="https://mcpemails.com">mcpemails.com <span aria-hidden="true">↗</span></a>
+      </li>
+      <li class="plate chorus-in">
+        <a class="plate-fig glint" href="https://funlibs.app" aria-label="Fun Libs, funlibs.app">
+          <picture>
+            <source type="image/avif" srcset="assets/products/fun-libs-600.avif 600w, assets/products/fun-libs-1200.avif 1200w" sizes="(min-width: 1100px) 300px, (min-width: 700px) 45vw, 90vw">
+            <source type="image/webp" srcset="assets/products/fun-libs-600.webp 600w, assets/products/fun-libs-1200.webp 1200w" sizes="(min-width: 1100px) 300px, (min-width: 700px) 45vw, 90vw">
+            <img src="assets/products/fun-libs-600.jpg" width="600" height="600" loading="lazy" decoding="async" alt="The Fun Libs app icon under a glass dome on a grid" data-loupe="assets/products/fun-libs-1200.webp">
+          </picture>
+        </a>
+        <p class="lab plate-k"><span>Fig. 02</span><span class="st st-live">Live · 2019</span></p>
+        <h3>Fun Libs</h3>
+        <p class="plate-line">A fill-in-the-blanks word game for Android and iOS.</p>
+        <p class="plate-fig-n"><b>113,000+</b> <span class="lab">installs</span></p>
+        <ul class="facts lab" role="list"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+        <a class="plate-url lab" href="https://funlibs.app">funlibs.app <span aria-hidden="true">↗</span></a>
+      </li>
+      <li class="plate chorus-in">
+        <a class="plate-fig glint" href="https://toolrails.com" aria-label="Toolrails, toolrails.com">
+          <picture>
+            <source type="image/avif" srcset="assets/products/toolrails-600.avif 600w, assets/products/toolrails-1200.avif 1200w" sizes="(min-width: 1100px) 300px, (min-width: 700px) 45vw, 90vw">
+            <source type="image/webp" srcset="assets/products/toolrails-600.webp 600w, assets/products/toolrails-1200.webp 1200w" sizes="(min-width: 1100px) 300px, (min-width: 700px) 45vw, 90vw">
+            <img src="assets/products/toolrails-600.jpg" width="600" height="600" loading="lazy" decoding="async" alt="The Toolrails icon under a glass dome on a grid" data-loupe="assets/products/toolrails-1200.webp">
+          </picture>
+        </a>
+        <p class="lab plate-k"><span>Fig. 03</span><span class="st st-build">Building · 2026</span></p>
+        <h3>Toolrails</h3>
+        <p class="plate-line">One MCP URL that gives an agent every tool.</p>
+        <p class="plate-fig-n"><b>4</b> <span class="lab">connectors</span></p>
+        <ul class="facts lab" role="list"><li>tool search</li><li>injection guard</li></ul>
+        <a class="plate-url lab" href="https://toolrails.com">toolrails.com <span aria-hidden="true">↗</span></a>
+      </li>
+      <li class="plate chorus-in">
+        <a class="plate-fig glint" href="https://harborknowledge.com" aria-label="Harbor, harborknowledge.com">
+          <picture>
+            <source type="image/avif" srcset="assets/products/harbor-600.avif 600w, assets/products/harbor-1200.avif 1200w" sizes="(min-width: 1100px) 300px, (min-width: 700px) 45vw, 90vw">
+            <source type="image/webp" srcset="assets/products/harbor-600.webp 600w, assets/products/harbor-1200.webp 1200w" sizes="(min-width: 1100px) 300px, (min-width: 700px) 45vw, 90vw">
+            <img src="assets/products/harbor-600.jpg" width="600" height="600" loading="lazy" decoding="async" alt="The Harbor mark under a glass dome on a grid" data-loupe="assets/products/harbor-1200.webp">
+          </picture>
+        </a>
+        <p class="lab plate-k"><span>Fig. 04</span><span class="st st-pause">Paused · 2026</span></p>
+        <h3>Harbor</h3>
+        <p class="plate-line">A private knowledge base shared by people and AI.</p>
+        <p class="plate-fig-n"><b>549</b> <span class="lab">commits</span></p>
+        <ul class="facts lab" role="list"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+        <a class="plate-url lab" href="https://harborknowledge.com">harborknowledge.com <span aria-hidden="true">↗</span></a>
+      </li>
+    </ol>
+
+    <!-- the physics field: a calm toy, mounted only when it scrolls near -->
+    <figure class="field" id="field">
+      <div class="field-stage">
+        <canvas id="chorus" aria-label="Glass paperweights holding the product logos, glass diatoms and ball lenses falling onto an ink plate. Drag them; click empty paper to drop a lens." role="img"></canvas>
+        <img class="reg reg-tl" src="assets/extras/registration.svg" width="28" height="28" alt="" aria-hidden="true">
+        <button class="drop lab" type="button" id="drop">Drop a lens</button>
+      </div>
+      <figcaption class="lab"><span>Plate III · The chorus, live</span><span>Drag the glass · click paper to drop a lens</span></figcaption>
+    </figure>
+
+    <div class="cmd" id="cmd">
+      <p class="lab cmd-k">This site speaks MCP</p>
+      <div class="cmd-row">
+        <code id="cmd-text">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button type="button" class="copy lab" id="copy" aria-describedby="cmd-text">Copy</button>
+      </div>
+    </div>
+
+    <section class="archive" aria-labelledby="a-title">
+      <h3 id="a-title" class="lab">Earlier plates · retired</h3>
+      <ol class="engr" role="list">
+        <li><img src="assets/products/luma-600.webp" width="96" height="96" loading="lazy" alt="" class="engr-dome"><div><p class="engr-n">Luma <span class="lab">2026</span></p><p>Norwegian budgeting app with open banking.</p><p class="lab engr-f">378 commits</p></div></li>
+        <li><img src="assets/products/retired/polyglot-pilot.svg" width="96" height="96" loading="lazy" alt=""><div><p class="engr-n">Polyglot Pilot <span class="lab">2025</span></p><p>Agents that localised entire codebases, with a dashboard for human reviewers.</p></div></li>
+        <li><img src="assets/products/retired/pinpoint.svg" width="96" height="96" loading="lazy" alt=""><div><p class="engr-n">PinPoint <span class="lab">2025</span></p><p>GeoGuessr with your own photos: friends guess where your pictures were taken.</p><p class="lab engr-f">16 commits</p></div></li>
+        <li><img src="assets/products/retired/webvakt.svg" width="96" height="96" loading="lazy" alt=""><div><p class="engr-n">WebVakt <span class="lab">2024</span></p><p>Website change monitoring.</p></div></li>
+        <li><img src="assets/products/retired/joke-central.svg" width="96" height="96" loading="lazy" alt=""><div><p class="engr-n">Daily Jokes / Joke Central <span class="lab">2024</span></p><p>Joke apps for iOS and Android.</p></div></li>
+        <li><img src="assets/products/retired/tryggere-hyring.svg" width="96" height="96" loading="lazy" alt=""><div><p class="engr-n">Tryggere Hyring <span class="lab">2023</span></p><p>Background checks for hiring.</p></div></li>
+        <li><img src="assets/products/retired/early-apps.svg" width="96" height="96" loading="lazy" alt=""><div><p class="engr-n">IAGO HMS, Rentekalkulator, Prosentkalkulator <span class="lab">2021</span></p><p>Early apps.</p></div></li>
+      </ol>
+    </section>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="caustic" aria-hidden="true"></div><div class="caustic two" aria-hidden="true"></div>
+  <div class="wrap foot-in">
+    <p class="lab foot-k">Plate IV · Correspondence</p>
+    <p class="foot-avail">Takes one outside engagement at a time.</p>
+    <a class="foot-mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    <div class="foot-base lab">
+      <span class="foot-brand"><img src="assets/brand/mark.svg" width="22" height="22" alt="">Albretsen AS · Norway</span>
+      <span>Plates after Ernst Haeckel, 1904 · public domain</span>
+      <span>On Google Play since 2016</span>
+      <button type="button" class="sound lab" id="sound" aria-pressed="false">Sound · off</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

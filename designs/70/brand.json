@@ -1,0 +1,19 @@
+{
+  "name": "Stucco Hour",
+  "tagline": "A whitewashed room lit by the real sun over Norway; drag the sun and the light follows.",
+  "summary": "The homepage is one path-traced room: a deep arch to the sea, lime plaster, a terracotta floor, and the name painted above the arch. The room is shown at the real hour in Norway (day, golden, blue or night), and a thin horizon below it carries a live, physically based sky and today's arc of the sun, which the visitor can drag. Calm, sunlit and exact, it shows taste through restraint and technical skill through the light itself, while the products sit in the wall as glazed plaques, each at its own hour.",
+  "palette": ["#F6F1E8", "#E9DCC6", "#CDB48E", "#E4572E", "#B5603A", "#8E9D80", "#5F6F58", "#A9C7DB", "#2A2420", "#1C2433"],
+  "type": ["EB Garamond 430–470 (display)", "EB Garamond 400 + italic (text)", "System monospace (commands only)"],
+  "voice": "Unhurried, literal and sure of itself; it states what exists and lets the numbers sit like words. \"Quiet software that pays for itself.\"",
+  "motion": "The sun moves; everything else is still. Light changes by exposure, angle and colour, and no element ever slides, scales or tilts.",
+  "sound": "Silent by default. If sound is ever added it is opt-in: one soft, low terracotta-tile tap when a command is copied, and nothing ambient.",
+  "mark": "A round-headed arch that is also an A, with the horizon as its crossbar and a poppy sun resting on it, set beside an outlined EB Garamond wordmark.",
+  "inspiration": [
+    "https://www.awwwards.com/websites/sites_of_the_day/",
+    "https://www.awwwards.com/inspiration/time-of-day-adjustment-3d-webgpu-archiviz",
+    "https://www.jacquemus.com",
+    "https://www.airbnb.com/luxury",
+    "https://www.metmuseum.org/art/collection/search/393670",
+    "https://design-milk.com/dora-tokai-designs-the-white-arcade-dubai-villa/"
+  ]
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" role="img" aria-label="Postmark: Albretsen AS, Norway, since 2016">
+  <title>Postmark</title>
+  <g fill="none" stroke="currentColor" stroke-width="2.2" opacity=".85">
+    <circle cx="100" cy="100" r="86"/>
+    <circle cx="100" cy="100" r="62" stroke-width="1"/>
+    <!-- cancellation waves, perfectly parallel -->
+    <path d="M196 64q20-12 40 0t40 0t40 0t40 0" />
+    <path d="M196 88q20-12 40 0t40 0t40 0t40 0" />
+    <path d="M196 112q20-12 40 0t40 0t40 0t40 0" />
+    <path d="M196 136q20-12 40 0t40 0t40 0t40 0" />
+  </g>
+  <defs>
+    <path id="ring-top" d="M28 100A72 72 0 0 1 172 100"/>
+    <path id="ring-bot" d="M36 106A64 64 0 0 0 164 106"/>
+  </defs>
+  <g fill="currentColor" font-family="Jost, 'Futura', 'Century Gothic', sans-serif" font-weight="500" letter-spacing="3.2">
+    <text font-size="13.5"><textPath href="#ring-top" startOffset="50%" text-anchor="middle">ALBRETSEN AS · NORWAY</textPath></text>
+    <text font-size="12" letter-spacing="4"><textPath href="#ring-bot" startOffset="50%" text-anchor="middle">SHIPPING SINCE 2016</textPath></text>
+  </g>
+  <!-- the mark, small, in the centre -->
+  <g transform="translate(76 70) scale(.75)" fill="currentColor">
+    <path d="M24 42.4A8 8 0 0 1 40 42.4Z"/><path d="M17 42.4H47V43.4H17Z"/>
+    <path d="M12 58V28A20 20 0 0 1 52 28V58H47V28A15 18.5 0 0 0 17 28V58Z"/>
+  </g>
+</svg>

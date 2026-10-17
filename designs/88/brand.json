@@ -1,0 +1,19 @@
+{
+  "name": "Labelled Sky",
+  "tagline": "A real 1885 night sky whose stars lift off the photograph to draw each product.",
+  "summary": "The hero is a glass-plate photograph of Cygnus from 1885 (The Met, CC0). After first paint, 2,188 particles measured from that same plate take over each star's exact position, then lift off to trace the company's A or a product's logo. Neo-brutalist stickers, seals and catalogue codes give precise work a playful label. The whole page reads as a calm catalogue of things that were built and shipped.",
+  "palette": ["#F9F2E2", "#1A4A32", "#C2964D", "#05170F", "#E8CB84", "#D4407C"],
+  "type": ["Archivo 125/850", "Martian Mono", "Instrument Serif Italic"],
+  "voice": "Plain, exact and quietly amused, like an observatory label: 'Four on the chart. Each one placed where it can earn its keep.'",
+  "motion": "Stickers press on and peel on baked linear() springs (Web Animations API), and real stars move under spring tension, never on timelines for show.",
+  "sound": "Off by default. Once enabled, each constellation that locks into place rings one soft pentatonic bell note, a different pitch per product.",
+  "mark": "An A drawn as a five-star constellation with a brass apex spark, on a forest sticker tile with a hard brass shadow.",
+  "inspiration": [
+    "https://www.metmuseum.org/art/collection/search/283255",
+    "https://www.metmuseum.org/art/collection/search/358366",
+    "https://ui.aceternity.com",
+    "https://linear.app",
+    "https://www.cosmos.so",
+    "https://www.awwwards.com/websites/sites_of_the_day/"
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relief model — demo</title>
+<style>
+  @font-face { font-family: Antonio; src: url(../fonts/antonio-var-latin.woff2) format('woff2'); font-weight: 100 700; font-display: swap; }
+  @font-face { font-family: 'Alegreya Sans'; src: url(../fonts/alegreya-sans-400.woff2) format('woff2'); font-weight: 400; font-display: swap; }
+  :root { --granite:#1b232b; --snow:#f4f1ea; --falu:#8e2a1e; --glacier:#9fbdcc; --stone:#e9e6df; }
+  html, body { margin: 0; height: 100%; background: var(--stone); color: var(--granite); font: 16px/1.45 'Alegreya Sans', system-ui, sans-serif; }
+  #stage { position: fixed; inset: 0; }
+  .tag { position: fixed; pointer-events: none; transform: translate(-50%, calc(-100% - 10px)); background: var(--snow); padding: 10px 14px; box-shadow: 0 18px 40px -18px rgba(27,35,43,.45); opacity: 0; transition: opacity .25s ease; max-width: 260px; }
+  .tag.on { opacity: 1; }
+  .tag b { display: block; font: 600 26px/1 Antonio, sans-serif; letter-spacing: .04em; color: var(--falu); }
+  .tag span { font-size: 14px; }
+  .ui { position: fixed; left: 24px; bottom: 24px; display: grid; gap: 8px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .ui input { width: 240px; accent-color: var(--falu); }
+  body.bake .ui, body.bake .tag { display: none; }
+  body.sky { background: linear-gradient(#c9d9e1, #eef0ec 70%); }
+</style>
+</head>
+<body>
+<div id="stage" aria-label="Plaster relief model of a Norwegian valley with a red road marking the company timeline"></div>
+<div class="tag" id="tag"><b></b><span></span></div>
+<div class="ui">
+  <label>Along the road <input id="prog" type="range" min="0" max="1" step="0.001" value="0"></label>
+  <span>Move the pointer to swing the sun. Hover a post.</span>
+</div>
+<script type="module">
+  import { mountRelief } from './relief3d.js'
+  const q = new URLSearchParams(location.search)
+  if (q.has('bake')) document.body.classList.add('bake')
+  if (q.has('sky')) document.body.classList.add('sky')
+  const tag = document.getElementById('tag')
+  const r = await mountRelief(document.getElementById('stage'), {
+    base: './', sun: +(q.get('sun') ?? 0.42), progress: +(q.get('p') ?? 0),
+    view: q.get('view') ? (([at, side, height, fov, pan, lookUp, back]) => ({ at, side, height, fov, pan, lookUp, back }))(q.get('view').split(',').map(Number)) : undefined,
+    onMilestone(m) {
+      tag.classList.toggle('on', !!m)
+      if (!m) return
+      tag.querySelector('b').textContent = m.year ?? '→'
+      tag.querySelector('span').textContent = m.title + '. ' + m.note
+      const b = document.getElementById('stage').getBoundingClientRect()
+      tag.style.left = b.left + m.screen.x + 'px'; tag.style.top = b.top + m.screen.y + 'px'
+    },
+  })
+  document.getElementById('prog').oninput = e => r.setProgress(+e.target.value)
+  document.getElementById('stage').addEventListener('relief:render', () => { document.title = 'ready' }, { once: true })
+</script>
+</body>
+</html>

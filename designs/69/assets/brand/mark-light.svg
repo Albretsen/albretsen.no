@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen AS">
+  <title>Albretsen AS</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 52 L32 12 L52 52" stroke="#FBF8F4" stroke-width="2.0"/>
+    <path d="M25 42 A7 7 0 0 1 39 42 Z" fill="#FFC9A0" stroke="none"/>
+    <path d="M6 42 H58" stroke="#FBF8F4" stroke-width="2.0"/>
+    <path d="M27 47 H37 M29.5 51.5 H34.5" stroke="#BFF0E0" stroke-width="2.0"/>
+  </g>
+</svg>

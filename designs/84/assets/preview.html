@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit Issue — asset kit 84</title>
+<meta name="description" content="Asset kit for design 84: Albretsen AS as a magazine whose cover edition follows the sun over Norway.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: "Bricolage Grotesque"; src: url(fonts/bricolage-grotesque-var.woff2) format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; font-display: swap; }
+  @font-face { font-family: "Instrument Sans"; src: url(fonts/instrument-sans-var.woff2) format("woff2"); font-weight: 400 700; font-display: swap; }
+  @font-face { font-family: "Instrument Serif"; src: url(fonts/instrument-serif.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "Instrument Serif"; font-style: italic; src: url(fonts/instrument-serif-italic.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "JetBrains Mono"; src: url(fonts/jetbrains-mono-var.woff2) format("woff2"); font-weight: 400 800; font-display: swap; }
+
+  :root {
+    --ink: oklch(.16 .07 292); --violet: oklch(.36 .16 300); --magenta: oklch(.62 .24 352);
+    --ember: oklch(.72 .18 45); --apricot: oklch(.86 .11 65); --cream: oklch(.96 .03 80);
+    --seed: oklch(.58 .13 216); --night: oklch(.12 .05 262);
+    --display: "Bricolage Grotesque", "Arial Narrow", sans-serif;
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: "Instrument Sans", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ink); }
+  body { margin: 0; color: var(--cream); background: var(--ink); font: 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  .wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+  .kicker { font: 600 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--apricot); }
+  h2 { font: 800 clamp(40px, 7vw, 92px)/.9 var(--display); font-stretch: 75%; letter-spacing: -.01em; margin: 10px 0 18px; text-transform: uppercase; }
+  h3 { font: 400 italic 28px/1.1 var(--serif); margin: 0 0 8px; }
+  section { padding: 88px 0; border-top: 1px solid color-mix(in oklch, var(--cream) 14%, transparent); }
+  .lede { font: 400 clamp(20px, 2.4vw, 28px)/1.3 var(--serif); max-width: 46ch; color: color-mix(in oklch, var(--cream) 88%, transparent); }
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+  figure { margin: 0; }
+  figcaption { font: 500 12px/1.4 var(--mono); color: color-mix(in oklch, var(--cream) 62%, transparent); margin-top: 8px; }
+  .frame { border-radius: 14px; overflow: hidden; background: var(--violet); }
+
+  /* ---------- top bar ---------- */
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; }
+  .bar img { height: 40px; width: auto; }
+  .bar .lockup { display: flex; align-items: center; gap: 12px; }
+  .wm { display: block; width: 136px; aspect-ratio: 4; background: var(--cream); -webkit-mask: url(identity/wordmark.svg) center/contain no-repeat; mask: url(identity/wordmark.svg) center/contain no-repeat; }
+
+  /* ---------- live cover ---------- */
+  .cover-wrap { display: grid; grid-template-columns: minmax(0, 520px) 1fr; gap: 48px; align-items: center; padding: 24px 0 72px; }
+  @media (max-width: 860px) { .cover-wrap { grid-template-columns: 1fr; } }
+  .cover, .spread { position: relative; border-radius: 6px 14px 14px 6px; overflow: hidden; box-shadow: 0 40px 80px -30px #000c, inset 4px 0 0 #0004; }
+  .cover { aspect-ratio: 4 / 5; container-type: inline-size; }
+  .cover picture img, .spread picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cover .mast { position: absolute; left: 0; right: 0; top: 29%; text-align: center; margin: 0; z-index: 1;
+    font: 800 19.5cqi/.8 var(--display); font-stretch: 75%; letter-spacing: -.015em; color: var(--cream); text-shadow: 0 .02em .1em #0003; }
+  .cover .mast.masthead-rise { display: flex; justify-content: center; }
+  [data-edition="zenith"] .cover .mast { top: 21%; }
+  [data-edition="nocturne"] .cover .mast { top: 31%; }
+  .cover .topline { position: absolute; inset: 4% 5% auto; display: flex; justify-content: space-between; font: 600 2.4cqi/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .cover .lines { position: absolute; left: 5%; right: 5%; bottom: 5%; display: grid; gap: 1.4cqi; z-index: 3; }
+  .cover .lines p { margin: 0; font: 400 italic 5.4cqi/1.05 var(--serif); }
+  .cover .lines small { font: 600 2.2cqi/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+  .cover .sticker { position: absolute; right: 4%; top: 46%; width: 22%; z-index: 3; rotate: 12deg; }
+  .cover .barcode { position: absolute; right: 5%; bottom: 5%; width: 24%; color: var(--cream); z-index: 3; opacity: .9; }
+  .cover .land { z-index: 2; }
+  .spread { aspect-ratio: 2 / 1; }
+  .spread .copy { position: absolute; inset: auto 4% 6% 4%; display: grid; grid-template-columns: 1fr 1fr; gap: 4%; z-index: 2; }
+  .spread .copy p { margin: 0; font: 400 clamp(15px, 1.8vw, 20px)/1.35 var(--serif); }
+  .cover-ui { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  button.pill { font: 600 13px/1 var(--sans); color: var(--cream); background: transparent; border: 1px solid color-mix(in oklch, var(--cream) 40%, transparent); border-radius: 999px; padding: 11px 16px; cursor: pointer; }
+  button.pill[aria-pressed="true"], button.pill.solid { background: var(--cream); color: var(--ink); border-color: var(--cream); }
+  button.pill:focus-visible, .stack:focus-visible { outline: 2px solid var(--apricot); outline-offset: 3px; }
+  .now { font: 500 13px/1.5 var(--mono); color: var(--apricot); margin-top: 14px; }
+
+  /* ---------- stack ---------- */
+  .stack-wrap { display: grid; grid-template-columns: minmax(0, 400px) 1fr; gap: 56px; align-items: center; }
+  @media (max-width: 860px) { .stack-wrap { grid-template-columns: 1fr; } }
+  .stack { position: relative; aspect-ratio: 4 / 5; width: min(100%, 400px); perspective: 1600px; touch-action: pan-y; user-select: none; }
+  .issue { position: absolute; inset: 0; transform-style: preserve-3d; cursor: grab; will-change: transform; }
+  .issue:active { cursor: grabbing; }
+  .face { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; backface-visibility: hidden; box-shadow: 0 30px 50px -24px #000d; }
+  .face.front img { width: 100%; height: 100%; object-fit: cover; }
+  .face.front .cap { position: absolute; inset: auto 0 0 0; padding: 18px; background: linear-gradient(transparent, #0f0428e6 45%); }
+  .face.front .cap b { display: block; font: 800 34px/.95 var(--display); font-stretch: 75%; text-transform: uppercase; }
+  .face.front .cap span { font: 400 italic 18px/1.2 var(--serif); }
+  .face.back { rotate: y 180deg; background: var(--cream) url(extras/paper-cream-512.jpg); color: var(--ink); padding: 26px; display: grid; align-content: space-between; }
+  .face.back .fig { font: 800 64px/.9 var(--display); font-stretch: 75%; color: var(--magenta); }
+  .face.back ul { margin: 0; padding: 0; list-style: none; font: 500 14px/1.9 var(--mono); }
+  .face.back ul li::before { content: "◐ "; color: var(--ember); }
+
+  /* ---------- swatches / type ---------- */
+  .sw { border-radius: 12px; padding: 14px; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end; font: 500 12px/1.5 var(--mono); }
+  .sw b { font: 800 22px/1 var(--display); font-stretch: 75%; text-transform: uppercase; margin-bottom: 6px; }
+  .type-row { display: grid; grid-template-columns: 180px 1fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid color-mix(in oklch, var(--cream) 12%, transparent); align-items: baseline; }
+  @media (max-width: 700px) { .type-row { grid-template-columns: 1fr; gap: 6px; } }
+  .type-row .spec { font: 500 12px/1.5 var(--mono); color: var(--apricot); }
+  .t-display { font: 800 clamp(56px, 11vw, 150px)/.82 var(--display); font-stretch: 75%; text-transform: uppercase; letter-spacing: -.01em; }
+  .t-serif { font: 400 italic clamp(28px, 4vw, 48px)/1.1 var(--serif); }
+  .t-sans { font: 400 18px/1.55 var(--sans); max-width: 60ch; }
+  .t-mono { font: 500 15px/1.5 var(--mono); overflow-wrap: anywhere; }
+
+  /* ---------- identity ---------- */
+  .tile { border-radius: 14px; padding: 24px; display: grid; place-items: center; min-height: 220px; }
+  .tile.light { background: var(--cream); color: var(--ink); }
+  .tile.dark { background: var(--violet); color: var(--cream); }
+  .tile.grad { background: linear-gradient(160deg, var(--violet), var(--magenta) 60%, var(--ember)); color: var(--cream); }
+  .tile svg, .tile img { max-width: 100%; }
+  .chk { background: repeating-conic-gradient(#2a1650 0 25%, #1d0e3b 0 50%) 0 0 / 20px 20px; }
+
+  /* ---------- motion demos ---------- */
+  .demo { position: relative; border-radius: 14px; overflow: hidden; min-height: 240px; background: var(--violet); display: grid; place-items: center; }
+  .demo .rise { font: 800 clamp(48px, 9vw, 96px)/.85 var(--display); font-stretch: 75%; text-transform: uppercase; border-bottom: 2px solid var(--apricot); }
+  .demo .orbit-box { position: relative; width: 80%; aspect-ratio: 3 / 1; }
+  .demo .orbit-box .ring { position: absolute; inset: 36% 4%; border: 1.5px solid var(--cream); border-radius: 50%; opacity: .7; }
+  .demo .orbit-box .sun { position: absolute; left: 50%; top: 50%; width: 22%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: linear-gradient(var(--cream), var(--ember) 80%, var(--magenta)); }
+  .demo .orbit-box .satellite { position: absolute; inset: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--seed); box-shadow: 0 0 0 3px var(--cream); }
+  .demo .replay { position: absolute; right: 12px; bottom: 12px; }
+  .orbit-live { position: relative; aspect-ratio: 2 / 1; border-radius: 14px; overflow: hidden; }
+  .orbit-live img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .orbit-live canvas { position: absolute; left: 50%; top: 2%; width: 100%; aspect-ratio: 1.6; translate: -50% 0; cursor: grab; }
+  .orbit-live .land { z-index: 2; pointer-events: none; }
+  .stamps { display: flex; flex-wrap: wrap; gap: 14px; }
+  .stamps figure { width: 150px; text-align: center; }
+  .stamps img { width: 150px; height: 150px; }
+  footer { padding: 60px 0 90px; font: 500 13px/1.6 var(--mono); color: color-mix(in oklch, var(--cream) 60%, transparent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <span class="lockup"><img src="identity/mark.svg" alt="" width="40" height="40"><span class="wm" role="img" aria-label="Albretsen AS"></span></span>
+    <span class="kicker">Asset kit · design 84 · “Orbit Issue”</span>
+  </div>
+
+  <!-- ===== LIVE COVER ===== -->
+  <div class="cover-wrap">
+    <div>
+      <article class="cover" id="cover">
+        <picture><source type="image/avif" srcset="hero/cover-dawn-sky-1080.avif 1080w, hero/cover-dawn-sky-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 520px" data-layer="sky"><img data-layer="sky" src="hero/cover-dawn-sky-1080.webp" width="1080" height="1350" alt="" fetchpriority="high"></picture>
+        <div class="topline"><span id="ed-no">N°1</span><span id="ed-label">Dawn edition</span></div>
+        <h1 class="mast" id="mast">ALBRETSEN</h1>
+        <picture><source type="image/avif" srcset="hero/cover-dawn-land-1080.avif 1080w, hero/cover-dawn-land-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 520px" data-layer="land"><img class="land" data-layer="land" src="hero/cover-dawn-land-1080.webp" width="1080" height="1350" alt="Grainy painted fjord: a ringed sun behind a flat-topped cliff, mountains, a conifer shore and still water" style="z-index:2"></picture>
+        <img class="sticker" id="sticker" src="extras/sticker-dawn.svg" width="220" height="220" alt="">
+        <div class="lines"><small>Software · Agents · Apps — since 2016</small><p>Quiet software that pays for itself.</p></div>
+      </article>
+      <article class="spread" id="spread" hidden>
+        <picture><source type="image/avif" srcset="hero/spread-dawn-1400.avif 1400w, hero/spread-dawn-2400.avif 2400w" sizes="(max-width: 860px) 100vw, 900px"><img id="spread-img" src="hero/spread-dawn-1400.webp" width="1400" height="700" alt="Wide painted spread of the same fjord"></picture>
+        <div class="copy"><p>Inside: four products in orbit, built and run by one person from Norway.</p><p>Albretsen AS builds whatever is profitable: apps, SaaS and AI-agent infrastructure.</p></div>
+      </article>
+      <div class="cover-ui" role="group" aria-label="Edition">
+        <button class="pill" data-ed="nocturne">Nocturne</button><button class="pill" data-ed="dawn">Dawn</button><button class="pill" data-ed="zenith">Orbit</button><button class="pill" data-ed="dusk">Dusk</button>
+        <button class="pill solid" id="open">Open the cover</button>
+      </div>
+      <p class="now" id="now"></p>
+    </div>
+    <div>
+      <span class="kicker">The idea</span>
+      <h2>A magazine that follows the sun.</h2>
+      <p class="lede">Albretsen AS is published like a loud, beautiful magazine. The cover is the same Norwegian fjord, painted in grainy infrared gradients, and the edition on the newsstand is whatever the sun is doing over Norway right now: Nocturne, Dawn, Orbit or Dusk. Open the cover and the products are the features inside.</p>
+      <p class="t-sans" style="opacity:.75">Hero layers are split (sky / land) so the live masthead sits behind the mountains. The edition is picked by <code>js/oslo-sun.js</code> from the sun's real altitude over Oslo; try <code>?edition=zenith</code>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERO IMAGERY ===== -->
+<section><div class="wrap">
+  <span class="kicker">02 · Hero imagery</span><h2>Four editions, one view</h2>
+  <p class="lede">Procedural matte paintings (numpy, OKLab gradients, stippled grain on every transition), each exported as AVIF/WebP/JPEG in responsive widths, plus split sky/land layers.</p>
+  <div class="grid g4" style="margin-top:32px">
+    <figure><div class="frame"><img src="hero/cover-nocturne-640.avif" width="640" height="800" alt="Nocturne cover" loading="lazy"></div><figcaption>cover-nocturne · 640/1080/1600</figcaption></figure>
+    <figure><div class="frame"><img src="hero/cover-dawn-640.avif" width="640" height="800" alt="Dawn cover" loading="lazy"></div><figcaption>cover-dawn</figcaption></figure>
+    <figure><div class="frame"><img src="hero/cover-zenith-640.avif" width="640" height="800" alt="Orbit (zenith) cover" loading="lazy"></div><figcaption>cover-zenith (“Orbit edition”)</figcaption></figure>
+    <figure><div class="frame"><img src="hero/cover-dusk-640.avif" width="640" height="800" alt="Dusk cover" loading="lazy"></div><figcaption>cover-dusk</figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <figure><div class="frame"><img src="hero/spread-dawn-1400.avif" width="1400" height="700" alt="Dawn spread" loading="lazy"></div><figcaption>spread-dawn · 1400/2400 — the inside of the cover</figcaption></figure>
+    <figure><div class="frame"><img src="hero/spread-nocturne-1400.avif" width="1400" height="700" alt="Nocturne spread" loading="lazy"></div><figcaption>spread-nocturne</figcaption></figure>
+    <figure><div class="frame"><img src="hero/spread-zenith-1400.avif" width="1400" height="700" alt="Zenith spread" loading="lazy"></div><figcaption>spread-zenith</figcaption></figure>
+    <figure><div class="frame"><img src="hero/spread-dusk-1400.avif" width="1400" height="700" alt="Dusk spread" loading="lazy"></div><figcaption>spread-dusk</figcaption></figure>
+  </div>
+  <h3 style="margin-top:48px">Orbit renders — three.js primitives baked to stills</h3>
+  <div class="grid g3">
+    <figure><div class="frame"><img src="hero/orbit-zenith-1200.avif" width="1200" height="750" alt="Ringed sun with product satellites over pink mountains" loading="lazy"></div><figcaption>orbit-zenith · 1200/2000</figcaption></figure>
+    <figure><div class="frame"><img src="hero/orbit-dawn-1200.avif" width="1200" height="750" alt="Ringed sun rising behind mountains at dawn" loading="lazy"></div><figcaption>orbit-dawn</figcaption></figure>
+    <figure><div class="frame"><img src="hero/orbit-nocturne-1200.avif" width="1200" height="750" alt="Ringed moon over a night fjord" loading="lazy"></div><figcaption>orbit-nocturne</figcaption></figure>
+  </div>
+  <h3 style="margin-top:48px">Layers</h3>
+  <div class="grid g4">
+    <figure><div class="frame"><img src="hero/cover-dusk-sky-1080.avif" width="1080" height="1350" alt="" loading="lazy"></div><figcaption>cover-*-sky (sun + rings, no land)</figcaption></figure>
+    <figure><div class="frame chk"><img src="hero/cover-dusk-land-1080.avif" width="1080" height="1350" alt="" loading="lazy"></div><figcaption>cover-*-land (alpha cut-out)</figcaption></figure>
+    <figure><div class="frame"><img src="hero/stage-dusk-sky-2400.avif" width="2400" height="1200" alt="" loading="lazy"></div><figcaption>stage-*-sky (no sun: the live orbit replaces it)</figcaption></figure>
+    <figure><div class="frame chk"><img src="hero/stage-dusk-land-2400.avif" width="2400" height="1200" alt="" loading="lazy"></div><figcaption>stage-*-land</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- ===== PRODUCTS / STACK ===== -->
+<section><div class="wrap stack-wrap">
+  <div class="stack" id="stack" aria-label="Products, drag or use arrow keys"></div>
+  <div>
+    <span class="kicker">03 · Products · centrepiece</span><h2>Pull-out issues</h2>
+    <p class="lede">Each product is a pull-out card whose real logo rises over the fjord like a sun. Drag and throw the top card to re-stack, tap to flip it to its fact sheet. Spring physics, no library.</p>
+    <div class="cover-ui"><button class="pill" id="prev">← Previous</button><button class="pill solid" id="nextb">Next →</button><button class="pill" id="flipb">Flip</button></div>
+    <h3 style="margin-top:40px">Retired: suns that have set</h3>
+    <div class="stamps" id="stamps"></div>
+  </div>
+</div></section>
+
+<!-- ===== 3D ===== -->
+<section><div class="wrap">
+  <span class="kicker">05 · Live 3D</span><h2>Orbit, live</h2>
+  <p class="lede">Sphere, three tori and four satellites in three.js, lit by a CC0 Poly Haven HDRI graded infrared. Drag to spin; it springs back to its idle drift. Loads only when scrolled into view.</p>
+  <div class="orbit-live" id="orbit-live" style="margin-top:28px">
+    <img id="o-sky" src="hero/stage-dawn-sky-2400.avif" width="2400" height="1200" alt="" loading="lazy">
+    <canvas id="orbit-canvas" aria-label="Interactive orbit: four product satellites"></canvas>
+    <img id="o-land" class="land" src="hero/stage-dawn-land-2400.avif" width="2400" height="1200" alt="" loading="lazy">
+  </div>
+  <figcaption>3d/orbit.js · 3d/orbit-demo.html · env 3d/env-belfast-sunset-infrared.jpg (20 KB)</figcaption>
+</div></section>
+
+<!-- ===== MOTION ===== -->
+<section><div class="wrap">
+  <span class="kicker">06 · Motion study</span><h2>Five signatures</h2>
+  <div class="grid g2">
+    <figure><div class="demo"><div class="rise" id="rise">ORBIT</div><button class="pill replay" id="replay">Replay</button></div><figcaption>MASTHEAD RISE — letters spring out of the horizon (CSS linear() spring, 55 ms stagger)</figcaption></figure>
+    <figure><div class="demo"><div class="orbit-box"><div class="ring"></div><div class="sun"></div><div class="satellite"></div></div></div><figcaption>SATELLITE — offset-path ellipse; the dot dims on the back half</figcaption></figure>
+    <figure><div class="demo" style="background: url(hero/cover-nocturne-640.avif) center/cover"><div class="grain-tick" style="opacity:.35"></div><span class="t-serif" style="position:relative">grain at 12 fps</span></div><figcaption>FILM GRAIN TICK — steps(12) re-roll of a 256 px tile</figcaption></figure>
+    <figure><div class="demo" style="text-align:center; padding: 24px"><p class="t-sans">COVER LIFT and EDITION WIPE run on the live cover at the top of this page: “Open the cover” and the edition buttons. Both are View Transitions, so they are one DOM swap each.</p></div><figcaption>COVER LIFT · EDITION WIPE · STACK SPRING (products)</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- ===== IDENTITY ===== -->
+<section><div class="wrap">
+  <span class="kicker">01 · Identity</span><h2>Mark &amp; masthead</h2>
+  <div class="grid g3">
+    <div class="tile dark"><img src="identity/mark.svg" width="180" height="180" alt="Mark"></div>
+    <div class="tile light"><img src="identity/mark-mono.svg" width="180" height="180" alt="Mono mark"></div>
+    <div class="tile grad"><img src="identity/favicon.svg" width="64" height="64" alt="Favicon"><img src="identity/apple-touch-icon-180.png" width="90" height="90" alt="Apple touch icon"></div>
+    <div class="tile light" style="grid-column: span 2; min-height: 180px"><img src="identity/wordmark.svg" width="400" height="100" alt="Wordmark" style="width:min(100%, 560px)"></div>
+    <div class="tile light"><img src="identity/lockup.svg" width="524" height="112" alt="Lockup"></div>
+  </div>
+  <figure style="margin-top:16px"><div class="frame"><img src="identity/og-image.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy"></div><figcaption>identity/og-image.jpg · 1200×630</figcaption></figure>
+</div></section>
+
+<!-- ===== PALETTE + TYPE ===== -->
+<section><div class="wrap">
+  <span class="kicker">Palette · infrared, seed hue 216°</span><h2>Colour</h2>
+  <div class="grid g4" id="swatches"></div>
+  <h2 style="margin-top:72px">Type</h2>
+  <div class="type-row"><div class="spec">Bricolage Grotesque 800, width 75, opsz 96 — masthead / headlines</div><div class="t-display">Albretsen</div></div>
+  <div class="type-row"><div class="spec">Instrument Serif italic — cover lines, pull quotes</div><div class="t-serif">Quiet software that pays for itself.</div></div>
+  <div class="type-row"><div class="spec">Instrument Sans 400–600 — body</div><div class="t-sans">MCP Emails gives AI agents real email: 17 tools across about 100 providers, open source under AGPL. Fun Libs has passed 113,000 installs without marketing.</div></div>
+  <div class="type-row"><div class="spec">JetBrains Mono — data, kickers, commands</div><div class="t-mono">claude mcp add albretsen https://albretsen.no/mcp</div></div>
+</div></section>
+
+<!-- ===== EXTRAS ===== -->
+<section><div class="wrap">
+  <span class="kicker">04 · Extras</span><h2>Ephemera</h2>
+  <div class="grid g4">
+    <figure><div class="tile chk"><img src="extras/sticker-dawn.svg" width="160" height="160" alt=""></div><figcaption>sticker-dawn.svg</figcaption></figure>
+    <figure><div class="tile chk"><img src="extras/sticker-nocturne.svg" width="160" height="160" alt=""></div><figcaption>sticker-nocturne.svg</figcaption></figure>
+    <figure><div class="tile chk"><img src="extras/sticker-zenith.svg" width="160" height="160" alt=""></div><figcaption>sticker-zenith.svg</figcaption></figure>
+    <figure><div class="tile chk"><img src="extras/sticker-dusk.svg" width="160" height="160" alt=""></div><figcaption>sticker-dusk.svg</figcaption></figure>
+    <figure><div class="tile light"><img src="extras/barcode.svg" width="230" height="90" alt=""></div><figcaption>barcode.svg (currentColor)</figcaption></figure>
+    <figure><div class="tile" style="background:url(extras/paper-cream-512.jpg)"></div><figcaption>paper-cream-512.jpg (ambientCG Paper005)</figcaption></figure>
+    <figure><div class="tile" style="background:url(extras/paper-violet-512.jpg)"></div><figcaption>paper-violet-512.jpg</figcaption></figure>
+    <figure><div class="tile" style="background: var(--night) url(extras/stars-tile-512.png)"></div><figcaption>stars-tile-512.png</figcaption></figure>
+    <figure><div class="tile" style="background: var(--magenta) url(extras/grain-tile.png); background-blend-mode: overlay"></div><figcaption>grain-tile.png (overlay)</figcaption></figure>
+    <figure style="grid-column: span 3"><div class="tile dark" style="color: var(--cream)"><img src="extras/horizon-divider.svg" width="1200" height="60" alt="" style="width:100%; filter: invert(93%) sepia(12%)"></div><figcaption>horizon-divider.svg — section break</figcaption></figure>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Orbit Issue · design 84 asset kit · all imagery generated for this kit; textures/HDRI CC0 (ambientCG, Poly Haven); fonts SIL OFL. See ASSETS.md.</div></footer>
+
+<script type="module">
+  import { content } from '../../_shared/content.js'
+  import { applyEdition, EDITIONS } from './js/oslo-sun.js'
+  import { createStack } from './js/cover-stack.js'
+  import { openCover, closeCover, switchEdition, splitMasthead, replayMasthead } from './motion.js'
+
+  // ---- edition (signature delight) ----
+  const info = applyEdition()
+  const $ = (s) => document.querySelector(s)
+  function setEdition(ed) {
+    document.querySelectorAll('[data-layer="sky"]').forEach(n => n.tagName === 'SOURCE' ? n.srcset = `hero/cover-${ed}-sky-1080.avif 1080w, hero/cover-${ed}-sky-1600.avif 1600w` : n.src = `hero/cover-${ed}-sky-1080.webp`)
+    document.querySelectorAll('[data-layer="land"]').forEach(n => n.tagName === 'SOURCE' ? n.srcset = `hero/cover-${ed}-land-1080.avif 1080w, hero/cover-${ed}-land-1600.avif 1600w` : n.src = `hero/cover-${ed}-land-1080.webp`)
+    $('#spread picture source').srcset = `hero/spread-${ed}-1400.avif 1400w, hero/spread-${ed}-2400.avif 2400w`
+    $('#spread-img').src = `hero/spread-${ed}-1400.webp`
+    $('#sticker').src = `extras/sticker-${ed}.svg`
+    $('#ed-no').textContent = EDITIONS[ed].no; $('#ed-label').textContent = EDITIONS[ed].label
+    $('#o-sky').src = `hero/stage-${ed}-sky-2400.avif`; $('#o-land').src = `hero/stage-${ed}-land-2400.avif`
+    orbit?.setEdition(ed)
+    document.querySelectorAll('[data-ed]').forEach(b => b.setAttribute('aria-pressed', b.dataset.ed === ed))
+    document.documentElement.dataset.edition = ed
+  }
+  let orbit
+  setEdition(info.edition)
+  $('#now').textContent = `Norway ${info.time} · sun ${info.altitude.toFixed(1)}° · ${info.meta.label}`
+  document.querySelectorAll('[data-ed]').forEach(b => b.onclick = () => switchEdition(() => setEdition(b.dataset.ed), $('#sticker')))
+  splitMasthead($('#mast'))
+  let open = false
+  $('#open').onclick = async () => {
+    open = !open
+    $('#open').textContent = open ? 'Close the cover' : 'Open the cover'
+    open ? await openCover($('#cover'), $('#spread')) : await closeCover($('#cover'), $('#spread'))
+  }
+
+  // ---- product stack ----
+  const live = content.products.filter(p => ['live', 'building', 'paused'].includes(p.status))
+  $('#stack').innerHTML = live.map(p => `
+    <article class="issue" aria-label="${p.name}">
+      <div class="face front">
+        <picture><source type="image/avif" srcset="products/${p.id}-card-500.avif 500w, products/${p.id}-card-1000.avif 1000w" sizes="400px">
+        <img src="products/${p.id}-card-500.webp" width="500" height="625" alt="${p.name} logo rising over a painted fjord" draggable="false"></picture>
+        <div class="cap"><b>${p.name}</b><span>${p.line}</span></div>
+      </div>
+      <div class="face back">
+        <div><span class="kicker" style="color:var(--violet)">${p.status} · since ${p.since}</span>
+        <div class="fig">${p.figure?.value ?? ''}</div><div style="font: 500 13px var(--mono)">${p.figure?.label ?? ''}</div></div>
+        <ul>${(p.facts || []).map(f => `<li>${f}</li>`).join('')}</ul>
+      </div>
+    </article>`).join('')
+  const stack = createStack($('#stack'))
+  $('#nextb').onclick = () => stack.next(); $('#prev').onclick = () => stack.prev(); $('#flipb').onclick = () => stack.flip()
+  const retired = content.products.filter(p => p.status === 'retired')
+  $('#stamps').innerHTML = retired.map(p => `<figure><img src="products/retired-${p.id}.webp" width="360" height="360" alt="${p.name} (retired)" loading="lazy"><figcaption>${p.name}</figcaption></figure>`).join('')
+
+  // ---- palette ----
+  const sw = [['Ink', 'oklch(.16 .07 292)', '#0f0428'], ['Violet', 'oklch(.36 .16 300)', '#4c1b82'], ['Magenta', 'oklch(.62 .24 352)', '#e72395'], ['Ember', 'oklch(.72 .18 45)', '#fd7933'],
+    ['Apricot', 'oklch(.86 .11 65)', '#ffc282'], ['Cream', 'oklch(.96 .03 80)', '#fdf0dc'], ['Fjord 216', 'oklch(.58 .13 216)', '#008cab'], ['Night', 'oklch(.12 .05 262)', '#000418']]
+  $('#swatches').innerHTML = sw.map(([n, o, h]) => `<div class="sw" style="background:${o}; color:${/Apricot|Cream/.test(n) ? '#0f0428' : '#fdf0dc'}; ${n === 'Night' ? 'box-shadow: inset 0 0 0 1px #fdf0dc33' : ''}"><b>${n}</b>${o}<br>${h}</div>`).join('')
+
+  // ---- motion demo ----
+  splitMasthead($('#rise'))
+  $('#replay').onclick = () => replayMasthead($('#rise'))
+
+  // ---- live 3D, lazily ----
+  const io = new IntersectionObserver(async ([e]) => {
+    if (!e.isIntersecting) return; io.disconnect()
+    const { mountOrbit } = await import('./3d/orbit.js')
+    orbit = await mountOrbit($('#orbit-canvas'), { edition: document.documentElement.dataset.edition })
+  }, { rootMargin: '300px' })
+  io.observe($('#orbit-live'))
+</script>
+</body>
+</html>

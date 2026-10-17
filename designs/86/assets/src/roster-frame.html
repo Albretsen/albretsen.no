@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roster frame bake</title>
+<!-- Bakes one frame of the roster for the image sequence: roster-frame.html?f=12&n=72 at 1280x720. -->
+<style>html,body{margin:0;background:#070d15;overflow:hidden}canvas{display:block;width:100vw;height:100vh}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+import { createRoster } from '../roster/roster.js';
+const q = new URLSearchParams(location.search);
+const f = +(q.get('f') ?? 0), n = +(q.get('n') ?? 72);
+const r = await createRoster(document.getElementById('c'), { still: true, dpr: 1 });
+r.setProgress(f / (n - 1));
+r.renderOnce();
+document.title = 'done';
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prism Room Kit</title>
+<meta name="description" content="Asset kit 89 for albretsen.no: a real sunlit room, pixel-art products, candy prism palette.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  :root { color-scheme: dark; --bg: var(--pr-ink); --panel: var(--pr-ink-2); --line: #3b2449; --text: var(--pr-paper); --dim: #b9a6bf; }
+  * { box-sizing: border-box }
+  html { background: var(--bg) }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.55 Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden }
+  body::after { content: ""; position: fixed; inset: 0; pointer-events: none; background: url(extras/grain.png); opacity: .5; mix-blend-mode: soft-light; z-index: 50 }
+  a { color: var(--pr-peach) }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px }
+  .px { font-family: Silkscreen, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim) }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace }
+  header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 16px; max-width: 1240px; margin: 0 auto; gap: 16px }
+  header.top img.word { height: 22px; width: auto; image-rendering: pixelated }
+  .hero { position: relative; container-type: inline-size; max-width: 1600px; margin: 0 auto }
+  .hero drag-room { position: absolute; inset: 0 }
+  .hero .bulbs { position: absolute; inset: 0; pointer-events: none; z-index: 1 }
+  .hero .copy { position: absolute; left: 49%; top: 7%; width: 27%; z-index: 2; pointer-events: none }
+  .hero h1 { font: 600 clamp(22px, 3.6cqw, 58px)/1.02 Geist, sans-serif; letter-spacing: -.035em; margin: 0 }
+  .hero p { margin: .8em 0 0; font-size: clamp(12px, 1.15cqw, 17px); color: var(--pr-fog) }
+  .hint { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; padding: 14px 16px; max-width: 1600px; margin: 0 auto }
+  input[type=range] { accent-color: var(--pr-peach); width: 220px; max-width: 60vw }
+  button { font: 500 13px "Geist Mono", monospace; color: var(--text); background: var(--panel); border: 1px solid var(--line); padding: 6px 12px; border-radius: 6px; cursor: pointer }
+  section { padding: 72px 0 8px }
+  section > .wrap > h2 { font: 600 28px/1.1 Geist; letter-spacing: -.02em; margin: 6px 0 22px }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)) }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden }
+  .card figcaption { padding: 10px 12px; font: 400 12px/1.4 "Geist Mono", monospace; color: var(--dim) }
+  .card figcaption b { color: var(--text); font-weight: 500 }
+  figure { margin: 0 }
+  .card img, .card picture img { display: block; width: 100%; height: auto }
+  .checker { background: repeating-conic-gradient(#33203f 0 25%, #2a1935 0 50%) 0 0/20px 20px; display: grid; place-items: center; padding: 18px; aspect-ratio: 1 }
+  .checker img { width: auto !important; max-width: 100%; max-height: 220px; image-rendering: pixelated }
+  .wide { grid-column: 1 / -1 }
+  .two { display: grid; gap: 16px; grid-template-columns: 1.45fr 1fr }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr } .hero .copy { left: 6%; top: 4%; width: 60% } }
+  .swatches { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) }
+  .sw { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: var(--panel) }
+  .sw i { display: block; height: 76px }
+  .sw div { padding: 8px 10px; font: 400 11px/1.45 "Geist Mono", monospace; color: var(--dim) } .sw b { color: var(--text); font: 500 12px Geist; display: block }
+  .type .big { font: 600 clamp(40px, 8vw, 104px)/.95 Geist; letter-spacing: -.045em; margin: 0 }
+  .type .row { display: grid; grid-template-columns: 160px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); align-items: baseline }
+  @media (max-width: 600px) { .type .row { grid-template-columns: 1fr } }
+  .motion .stage { height: 220px; display: grid; place-items: center; position: relative; overflow: hidden; background: var(--panel) }
+  .scrollbox { height: 220px; overflow-y: auto; background: var(--panel); position: relative }
+  .scrollbox .inner { height: 760px; padding-top: 260px; text-align: center }
+  .spec { height: 10px; background: var(--pr-spectrum); image-rendering: pixelated; border-radius: 0 }
+  .rule { height: 6px; background: url(extras/spectrum-rule.svg) 0 0/100% 100%; margin: 0 0 18px }
+  .chip { display: inline-block; border: 12px solid transparent; border-image: url(extras/chip-frame.svg) 16 fill / 12px; padding: 0 6px; color: var(--pr-ink); font: 400 12px Silkscreen; image-rendering: pixelated }
+  .card .pixelwipe-demo { width: 70%; animation: wipe 2.4s steps(8) infinite }
+  @keyframes wipe { 0% { clip-path: inset(0 100% 0 0) } 60%, 100% { clip-path: inset(0 0 0 0) } }
+  .prism-demo { font: 600 44px Geist; letter-spacing: -.03em; animation: prismloop 3.2s ease-in-out infinite alternate }
+  @keyframes prismloop { to { background-position: 0 0 } }
+  .card .smear-demo { image-rendering: pixelated; width: auto; height: 170px; animation: smear 1.6s ease-in-out infinite }
+  @keyframes smear { 0%, 100% { --pr-velocity: 0 } 40% { --pr-velocity: 1 } 60% { --pr-velocity: -.6 } }
+  @property --pr-velocity { syntax: '<number>'; inherits: true; initial-value: 0 }
+  .card .pick { width: 130px; image-rendering: pixelated; animation: pick 2.2s var(--pr-spring) infinite; transform-origin: 50% 100% }
+  @keyframes pick { 0%, 30%, 100% { transform: none; filter: drop-shadow(0 4px 4px rgba(22,12,33,.5)) } 45%, 75% { transform: translateY(-14px) scale(1.06) rotate(-6deg); filter: drop-shadow(0 22px 14px rgba(22,12,33,.5)) } }
+  .bulbdemo { position: relative; width: 100%; height: 100%; container-type: inline-size; background: url(hero/room-828.jpg) 33% 22%/320% auto }
+  footer { padding: 80px 16px 60px; text-align: center; color: var(--dim) }
+</style>
+</head>
+<body>
+<header class="top">
+  <img class="word" src="identity/wordmark-paper.svg" alt="Albretsen AS" width="244" height="28">
+  <span class="px">Kit 89 · Prism Room</span>
+</header>
+
+<!-- Signature hero: real room (pixel-resolve) + draggable pixel products + bulb display -->
+<div class="hero" id="hero">
+  <pixel-resolve id="room" data-scroll data-rest=".42" src="hero/room-1920.jpg" placeholder="hero/room-pixel-320.png" width="2560" height="1761" lens alt="A sunlit room: a window, a bulb panel on a stand, a gilt mirror and a round table in a beam of light"></pixel-resolve>
+  <div class="bulbs" id="bulbs"></div>
+  <div class="copy"><h1 class="pr-prism-text">I build software that pays for itself.</h1><p>Albretsen AS · apps, SaaS and agent infrastructure from Norway.</p></div>
+  <drag-room ratio="2560/1761" store="prism-room-preview" id="dr">
+    <img data-drag data-id="mcp-emails" data-x="88.36" data-y="62.35" data-w="11.25" src="products/sprite-mcp-emails.png" width="576" height="534" alt="MCP Emails">
+    <img data-drag data-id="toolrails" data-x="28.13" data-y="58.6" data-w="10.53" src="products/sprite-toolrails.png" width="642" height="528" alt="Toolrails">
+    <img data-drag data-id="fun-libs" data-x="21.29" data-y="50.09" data-w="5.58" src="products/sprite-fun-libs.png" width="420" height="720" alt="Fun Libs">
+    <img data-drag data-id="harbor" data-x="64.06" data-y="70.3" data-w="8.07" src="products/sprite-harbor.png" width="492" height="774" alt="Harbor">
+    <img data-drag data-id="plant" data-x="71.48" data-y="70.98" data-w="3.94" src="sprites/plant.png" width="252" height="372" alt="Plant">
+  </drag-room>
+</div>
+<div class="hint">
+  <label class="px">resolve <input id="res" type="range" min="0" max="1" step=".01" value=".42"></label>
+  <button id="reset">reset room</button>
+  <span class="px">drag anything · hover = prism lens · scroll resolves the photo</span>
+</div>
+
+<section><div class="wrap">
+  <div class="rule"></div>
+  <span class="px">01 · Identity</span><h2>Mark, wordmark, favicon, social card</h2>
+  <div class="grid">
+    <figure class="card"><div class="checker"><img src="identity/mark-paper.svg" alt="Prism A mark" width="160" height="160" style="width:160px!important"></div><figcaption><b>identity/mark*.svg</b><br>Prism A. The crossbar splits light into the spectrum. currentColor / ink / paper.</figcaption></figure>
+    <figure class="card"><div class="checker" style="background:#fff5ea"><img src="identity/wordmark-ink.svg" alt="Albretsen AS wordmark" width="244" height="28" style="width:100%!important"></div><figcaption><b>identity/wordmark*.svg</b><br>5×7 pixel letterforms, merged runs, crispEdges.</figcaption></figure>
+    <figure class="card"><div class="checker"><img src="identity/favicon-180.png" alt="favicon" width="90" height="90" style="width:90px!important"><img src="identity/favicon.svg" alt="" width="32" height="32" style="width:32px!important;margin-top:12px"></div><figcaption><b>identity/favicon.svg · favicon-180.png</b></figcaption></figure>
+    <figure class="card wide"><img src="identity/og.jpg" alt="Open Graph card" width="1200" height="630" loading="lazy"><figcaption><b>identity/og.jpg</b> 1200×630 · built from src/og.html</figcaption></figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="px">02 · Hero imagery</span><h2>One real room, graded into candy light</h2>
+  <div class="two">
+    <figure class="card"><picture><source type="image/avif" srcset="hero/diorama-960.avif 960w, hero/diorama-1600.avif 1600w, hero/diorama-2560.avif 2560w" sizes="(max-width:760px) 100vw, 720px"><source type="image/webp" srcset="hero/diorama-960.webp 960w, hero/diorama-1600.webp 1600w"><img src="hero/diorama-1600.jpg" width="1600" height="1101" alt="The room with the four products placed as pixel objects" loading="lazy"></picture><figcaption><b>hero/diorama-*</b> key art · the products living in the room (baked)</figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="hero/sunwall-900.avif 900w, hero/sunwall-1400.avif 1400w" sizes="(max-width:760px) 100vw, 480px"><img src="hero/sunwall-1400.jpg" width="1400" height="1253" alt="Low sun across a plum wall, a gilt mirror and a wire table" loading="lazy"></picture><figcaption><b>hero/sunwall-*</b> second scene · About / closing section</figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="hero/room-1280.avif"><img src="hero/room-1280.jpg" width="1280" height="880" alt="The empty room" loading="lazy"></picture><figcaption><b>hero/room-*</b> 828–2560 · clean plate for the HTML drag layer (see room-map.json)</figcaption></figure>
+    <figure class="card"><img src="hero/room-pixel-320.png" width="320" height="220" alt="Pixel version of the room" style="image-rendering:pixelated" loading="lazy"><figcaption><b>hero/room-pixel-320.png</b> 12 KB palette PNG · LQIP and the "unresolved" state</figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="hero/room-portrait-720.avif 720w, hero/room-portrait-1080.avif 1080w" sizes="480px"><img src="hero/room-portrait-1080.jpg" width="1080" height="1350" alt="Portrait crop of the sunbeam and table" loading="lazy"></picture><figcaption><b>hero/room-portrait-*</b> 4:5 crop for phones</figcaption></figure>
+    <figure class="card"><img src="hero/sunwall-pixel-250.png" width="250" height="223" alt="Pixel version of the sun wall" style="image-rendering:pixelated" loading="lazy"><figcaption><b>hero/sunwall-pixel-250.png</b> its LQIP</figcaption></figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="px">03 · Products</span><h2>Real logos, crisp, on pixel objects</h2>
+  <div class="grid">
+    <figure class="card"><picture><source type="image/avif" srcset="products/card-mcp-emails-640.avif 640w, products/card-mcp-emails-1280.avif 1280w" sizes="300px"><img src="products/card-mcp-emails-640.jpg" width="640" height="480" alt="MCP Emails monitor in the sun" loading="lazy"></picture><figcaption><b>MCP Emails</b> · monitor on the sunlit table</figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="products/card-fun-libs-640.avif 640w, products/card-fun-libs-1000.avif 1000w" sizes="300px"><img src="products/card-fun-libs-640.jpg" width="640" height="480" alt="Fun Libs phone on the window sill" loading="lazy"></picture><figcaption><b>Fun Libs</b> · phone on the window sill</figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="products/card-toolrails-640.avif 640w, products/card-toolrails-1280.avif 1280w" sizes="300px"><img src="products/card-toolrails-640.jpg" width="640" height="480" alt="Toolrails laptop on the drum seat" loading="lazy"></picture><figcaption><b>Toolrails</b> · laptop on the drum seat</figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="products/card-harbor-640.avif 640w, products/card-harbor-1280.avif 1280w" sizes="300px"><img src="products/card-harbor-640.jpg" width="640" height="480" alt="Harbor book by the mirror" loading="lazy"></picture><figcaption><b>Harbor</b> · a book by the mirror</figcaption></figure>
+    <figure class="card"><div class="checker"><img src="products/sprite-mcp-emails.png" width="576" height="534" alt="" loading="lazy"></div><figcaption><b>products/sprite-mcp-emails.png</b></figcaption></figure>
+    <figure class="card"><div class="checker"><img src="products/sprite-fun-libs.png" width="420" height="720" alt="" loading="lazy"></div><figcaption><b>products/sprite-fun-libs.png</b></figcaption></figure>
+    <figure class="card"><div class="checker"><img src="products/sprite-toolrails.png" width="642" height="528" alt="" loading="lazy"></div><figcaption><b>products/sprite-toolrails.png</b></figcaption></figure>
+    <figure class="card"><div class="checker"><img src="products/sprite-harbor.png" width="492" height="774" alt="" loading="lazy"></div><figcaption><b>products/sprite-harbor.png</b></figcaption></figure>
+    <figure class="card"><div class="checker"><img src="products/sprite-luma.png" width="396" height="306" alt="" loading="lazy"></div><figcaption><b>products/sprite-luma.png</b> retired · real Luma logo on a desk card</figcaption></figure>
+    <figure class="card"><div class="checker" style="aspect-ratio:auto;grid-template-columns:repeat(3,1fr);gap:14px">
+      <img src="retired/polyglot-pilot.svg" width="64" height="64" alt="Polyglot Pilot" style="width:64px!important"><img src="retired/pinpoint.svg" width="64" height="64" alt="PinPoint" style="width:64px!important"><img src="retired/webvakt.svg" width="64" height="64" alt="WebVakt" style="width:64px!important">
+      <img src="retired/joke-central.svg" width="64" height="64" alt="Joke Central" style="width:64px!important"><img src="retired/tryggere-hyring.svg" width="64" height="64" alt="Tryggere Hyring" style="width:64px!important"><img src="retired/early-apps.svg" width="64" height="64" alt="Early apps" style="width:64px!important">
+    </div><figcaption><b>retired/*.svg</b> 16×16 stand-ins: Polyglot Pilot, PinPoint, WebVakt, Joke Central, Tryggere Hyring, early apps</figcaption></figure>
+    <figure class="card"><div class="checker"><img src="sprites/archive-box.png" width="432" height="504" alt="" loading="lazy"></div><figcaption><b>sprites/archive-box.png</b> the retired shelf / archive</figcaption></figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="px" id="extras">04 · Extras</span><h2>Props, texture and ephemera</h2>
+  <div class="grid">
+    <figure class="card"><div class="checker" style="aspect-ratio:auto;grid-template-columns:repeat(4,1fr);gap:10px">
+      <img src="sprites/lamp.png" width="300" height="570" alt="" style="height:110px"><img src="sprites/potted-plant.png" width="300" height="954" alt="" style="height:110px"><img src="sprites/chair.png" width="450" height="726" alt="" style="height:110px"><img src="sprites/speaker.png" width="324" height="570" alt="" style="height:110px">
+      <img src="sprites/radio.png" width="420" height="396" alt="" style="height:70px"><img src="sprites/tv.png" width="492" height="420" alt="" style="height:70px"><img src="sprites/books.png" width="300" height="270" alt="" style="height:50px"><img src="sprites/keyboard.png" width="480" height="264" alt="" style="height:44px">
+    </div><figcaption><b>sprites/*.png</b> 14 Kenney CC0 props re-rendered as pixel sprites (drag-room furniture)</figcaption></figure>
+    <figure class="card"><div class="checker" style="background:#2a1935"><img src="extras/light-leak.webp" width="1600" height="900" alt="" style="width:100%!important;mix-blend-mode:screen"></div><figcaption><b>extras/light-leak.webp</b> window light with prism fringes (Sunpath)</figcaption></figure>
+    <figure class="card"><div class="checker" style="background:url(extras/dither-ramp.png) 0 0/128px 128px;image-rendering:pixelated"></div><figcaption><b>extras/dither-ramp.png · dither-50.png</b> Bayer 8×8 tiles for section edges</figcaption></figure>
+    <figure class="card"><div class="checker" style="gap:14px"><span class="chip">since 2016</span><span class="chip">113,000+ installs</span><span class="chip">$782 MRR</span><img src="extras/spectrum-rule.svg" width="200" height="20" alt="" style="width:200px!important;height:8px"></div><figcaption><b>extras/chip-frame.svg · spectrum-rule.svg</b> 9-slice pixel chip and divider</figcaption></figure>
+    <figure class="card"><div class="checker" style="gap:18px;grid-auto-flow:column"><img src="extras/cursor-grab.svg" width="32" height="32" alt="" style="width:48px!important"><img src="extras/cursor-grabbing.svg" width="32" height="32" alt="" style="width:48px!important"><span class="pr-sparkle"></span></div><figcaption><b>extras/cursor-*.svg · sparkle-sheet.png</b> pixel cursors and a 4-frame twinkle</figcaption></figure>
+    <figure class="card"><div class="checker" style="background:#2a1935 url(extras/grain.png)"></div><figcaption><b>extras/grain.png</b> 128px tile, soft-light film grain</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="motion"><div class="wrap">
+  <span class="px">05 · Motion study</span><h2>Signature animations</h2>
+  <div class="grid">
+    <figure class="card"><div class="stage"><span class="prism-demo pr-prism-text">pays for itself</span></div><figcaption><b>Prism sweep</b> · white type splits into the spectrum as it enters view (scroll-driven)</figcaption></figure>
+    <figure class="card"><div class="stage"><img class="pixelwipe-demo" src="products/card-mcp-emails-640.jpg" width="640" height="480" alt=""></div><figcaption><b>Pixel wipe</b> · 8 chunky steps, like a sprite drawing in</figcaption></figure>
+    <figure class="card"><div class="stage"><img class="pick" src="products/sprite-harbor.png" width="492" height="774" alt=""></div><figcaption><b>Pick-up</b> · lift, tilt with velocity, springy drop and pixel-grid snap</figcaption></figure>
+    <figure class="card"><div class="stage"><img class="smear-demo pr-velocity" src="products/sprite-fun-libs.png" width="420" height="720" alt=""></div><figcaption><b>Velocity smear</b> · Lenis speed skews and splits pixel things</figcaption></figure>
+    <figure class="card"><div class="stage" style="padding:0"><div class="bulbdemo" id="bulbdemo"></div></div><figcaption><b>Bulb display</b> · the photo's 5×4 bulb panel as a 20-pixel screen</figcaption></figure>
+    <figure class="card"><div class="scrollbox"><div class="inner"><div class="px">scroll this box ↓</div><p class="pr-pixel-in" style="font:600 32px Geist;margin:40px 0">Resolve · Sunpath</p><div class="px">see the hero above + page background</div></div></div><figcaption><b>Resolve &amp; Sunpath</b> · hero pixels → photo on scroll; window light crosses the page as you scroll (a day passes)</figcaption></figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="px">06 · Palette</span><h2>Candy prism, seeded at hue 36°</h2>
+  <div class="spec" style="margin-bottom:16px"></div>
+  <div class="swatches" id="sw"></div>
+</div></section>
+
+<section class="type"><div class="wrap">
+  <span class="px">07 · Type</span><h2>Geist, Geist Mono, Silkscreen</h2>
+  <p class="big">Quiet software,<br><span class="pr-prism-text" style="animation:prismloop 3s ease-in-out infinite alternate">loud results.</span></p>
+  <div class="row"><span class="px">Display · Geist 600</span><span style="font:600 40px/1.05 Geist;letter-spacing:-.035em">Email for AI agents.</span></div>
+  <div class="row"><span class="px">Body · Geist 400</span><span style="max-width:62ch">One MCP URL that gives an agent every tool. A private knowledge base shared by people and AI. A fill-in-the-blanks word game with 113,000+ installs, built at 17.</span></div>
+  <div class="row"><span class="px">Code · Geist Mono</span><span class="mono" style="color:var(--pr-mint)">$ claude mcp add albretsen https://albretsen.no/mcp</span></div>
+  <div class="row"><span class="px">Labels · Silkscreen</span><span style="font:400 16px Silkscreen;letter-spacing:.06em">LIVE · BUILDING · PAUSED · RETIRED</span></div>
+</div></section>
+
+<footer><img src="identity/mark-paper.svg" width="40" height="40" alt=""><p class="px">Prism Room · kit 89 · see ASSETS.md</p></footer>
+<div class="pr-sunpath" aria-hidden="true"></div>
+
+<script>
+  // ?from=N shows the sheet from section N (1-7) for quick review screenshots
+  { const n = +new URLSearchParams(location.search).get('from'); if (n > 1) document.querySelectorAll('section').forEach((s, i) => { if (i < n - 1) s.remove(); }); }
+</script>
+<script type="module">
+  import './interactive/pixel-resolve.js';
+  import './interactive/drag-room.js';
+  import { initMotion, lightBulbs } from './motion.js';
+  const map = await fetch('hero/room-map.json').then(r => r.json()).catch(() => null);
+  const { bulbs } = await initMotion().catch(() => ({ bulbs: lightBulbs }));
+  if (map) {
+    lightBulbs(document.getElementById('bulbs'), map.bulbPanel);
+    // bulb demo: draw a tiny prism "A" in the 5x4 panel
+    const demo = document.getElementById('bulbdemo');
+    lightBulbs(demo, { cols: [12, 31, 50, 69, 88], rows: [16, 39, 62, 85], r: 7 }, '..p...g.g.llllls...m');
+  }
+  const room = document.getElementById('room'), res = document.getElementById('res');
+  res.oninput = () => room.resolve = res.value;
+  document.getElementById('reset').onclick = () => document.getElementById('dr').reset();
+  const P = [['Ink','oklch(0.18 0.045 305)','#160c21','page ground'],['Ink 2','oklch(0.25 0.055 310)','#2a1935','panels'],['Plum','oklch(0.36 0.09 330)','#572953','lines, shadows'],['Fog','oklch(0.90 0.025 330)','#e8d8e6','secondary text'],['Paper','oklch(0.975 0.018 70)','#fff5ea','primary text'],['Peach · seed','oklch(0.79 0.135 36)','#ff9a7d','accent, links'],['Peach deep','oklch(0.68 0.17 36)','#ee6b47','pressed, on light'],['Bubblegum','oklch(0.80 0.13 355)','#ff99c2','spectrum 2'],['Lilac','oklch(0.77 0.10 300)','#bea6eb','spectrum 3'],['Sky','oklch(0.81 0.09 235)','#86cbf3','spectrum 4, links on dark'],['Mint','oklch(0.87 0.10 170)','#8deaca','status live, code'],['Lemon','oklch(0.93 0.12 100)','#faea89','highlight, sun']];
+  document.getElementById('sw').innerHTML = P.map(([n,o,h,u]) => `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b>${o}<br>${h}<br>${u}</div></div>`).join('');
+</script>
+</body>
+</html>

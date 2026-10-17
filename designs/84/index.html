@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en" data-edition="dawn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · Orbit Issue</title>
+<meta name="description" content="Albretsen AS: apps, SaaS and AI-agent infrastructure by Asgeir Albretsen. Published since 2016.">
+<meta name="theme-color" content="#0f0428">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself. Published since 2016.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  // Pick the edition before first paint: the sun's real altitude over Oslo
+  // (same NOAA maths as assets/js/oslo-sun.js, inlined so the right cover loads first).
+  (function () {
+    var d = new Date(), r = Math.PI / 180, n = d.getTime() / 864e5 + 2440587.5 - 2451545
+    var L = (280.46 + .9856474 * n) % 360, g = ((357.528 + .9856003 * n) % 360) * r
+    var la = (L + 1.915 * Math.sin(g) + .02 * Math.sin(2 * g)) * r, e = (23.439 - 4e-7 * n) * r
+    var ra = Math.atan2(Math.cos(e) * Math.sin(la), Math.cos(la)), dec = Math.asin(Math.sin(e) * Math.sin(la))
+    var ha = (((18.697374558 + 24.06570982441908 * n) % 24) * 15 + 10.7522) * r - ra, lat = 59.9139 * r
+    var alt = Math.asin(Math.sin(lat) * Math.sin(dec) + Math.cos(lat) * Math.cos(dec) * Math.cos(ha)) / r
+    var ed = alt < -6 ? 'nocturne' : alt > 8 ? 'zenith' : (Math.sin(ha) < 0 ? 'dawn' : 'dusk')
+    var f = new URLSearchParams(location.search).get('edition')
+    if (/^(nocturne|dawn|zenith|dusk)$/.test(f || '')) ed = f
+    document.documentElement.dataset.edition = ed
+    document.documentElement.classList.add('js')
+  })()
+</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#products">Skip to the products</a>
+
+<header class="bar">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/identity/mark.svg" width="36" height="36" alt="">
+    <span class="wm" aria-hidden="true"></span>
+  </a>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="kicker">Albretsen AS · Software, agents, apps</p>
+    <h1 id="hero-title"><span class="name">Asgeir Albretsen</span> <span class="line">builds software that pays for itself.</span></h1>
+    <p class="lede">Apps, SaaS and infrastructure for AI agents. Published on Google Play since 2016, one product at a time.</p>
+    <div class="cmd">
+      <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button class="copy" type="button" data-copy="#cmd" aria-label="Copy the command">Copy</button>
+    </div>
+    <p class="wire" aria-live="polite"><span class="dot" aria-hidden="true"></span><span class="wire-label">Live</span> <span id="wire">Listening for the next event</span></p>
+  </div>
+
+  <div class="mag-wrap">
+    <div class="mag" id="mag">
+      <!-- page one, under the cover: the live orbit -->
+      <div class="inside" id="inside" inert>
+        <img class="st-sky" alt="" width="2400" height="1200">
+        <canvas id="orbit" aria-label="Four product satellites orbiting the sun. Drag to spin."></canvas>
+        <img class="st-land" alt="" width="2400" height="1200">
+        <div class="grain-tick" aria-hidden="true"></div>
+        <nav class="contents" aria-label="Contents">
+          <p class="kicker">Contents</p>
+          <ol id="contents"></ol>
+          <p class="hint">Drag the orbit. The satellites are the products.</p>
+        </nav>
+      </div>
+
+      <!-- the cover: front + back face, hinged at the spine -->
+      <div class="cover" id="cover">
+        <div class="face front">
+          <picture class="sky">
+            <source type="image/avif" sizes="(max-width: 860px) 100vw, 46vw" data-src="sky:avif">
+            <img data-src="sky:webp" width="1080" height="1350" alt="" fetchpriority="high">
+          </picture>
+          <p class="mast" id="mast" aria-hidden="true">ALBRETSEN</p>
+          <picture class="land">
+            <source type="image/avif" sizes="(max-width: 860px) 100vw, 46vw" data-src="land:avif">
+            <img data-src="land:webp" width="1080" height="1350" alt="A painted fjord under a ringed sun: a flat-topped cliff, sharp peaks, conifers and still water.">
+          </picture>
+          <noscript><img class="fallback" src="assets/hero/cover-dawn-1080.jpg" width="1080" height="1350" alt=""></noscript>
+          <div class="grain-tick" aria-hidden="true"></div>
+          <div class="topline"><span data-ed-no>N°1</span><span data-ed-label>Dawn edition</span></div>
+          <img class="sticker" data-sticker src="assets/extras/sticker-dawn.svg" width="220" height="220" alt="">
+          <div class="lines">
+            <small>Software · Agents · Apps — since 2016</small>
+            <p>Four products in orbit.</p>
+          </div>
+          <span class="corner" aria-hidden="true"></span>
+        </div>
+        <div class="face back">
+          <p class="kicker">From the editor</p>
+          <p class="letter">Albretsen AS is one developer and a short list of products that have to earn their keep. I shipped my first Android app in 2016, started consulting in 2021 and put it all in a company in 2026.</p>
+          <p class="letter">By day I build MCP servers and AI tools for an accounting platform. The rest of the time goes into what you see inside.</p>
+          <p class="sig">Asgeir Albretsen</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mag-ui">
+      <button class="open" id="open" type="button" aria-expanded="false" aria-controls="inside"><span class="o">Open the issue</span><span class="c">Close the issue</span></button>
+      <div class="editions" role="group" aria-label="Edition">
+        <button type="button" data-ed="nocturne">Nocturne</button><button type="button" data-ed="dawn">Dawn</button><button type="button" data-ed="zenith">Orbit</button><button type="button" data-ed="dusk">Dusk</button>
+      </div>
+      <p class="sunline" id="sunline">Edition set by the sun over Norway.</p>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products" aria-labelledby="p-title">
+  <svg class="divider" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60" width="1200" height="60" preserveAspectRatio="xMidYMid meet" fill="none">
+    <defs><linearGradient id="hz" x1="0" x2="1"><stop offset="0" stop-color="currentColor" stop-opacity="0"/><stop offset=".5" stop-color="currentColor"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient>
+    <linearGradient id="sn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1dc"/><stop offset="1" stop-color="#ff7a45"/></linearGradient>
+    <clipPath id="up"><rect width="1200" height="40"/></clipPath></defs>
+    <circle cx="600" cy="40" r="22" fill="url(#sn)" clip-path="url(#up)"/>
+    <ellipse cx="600" cy="34" rx="70" ry="9" transform="rotate(-6 600 34)" stroke="currentColor" stroke-width="1.2"/>
+    <rect x="0" y="39.5" width="1200" height="1" fill="url(#hz)"/>
+    <rect x="560" y="45" width="80" height="1" fill="currentColor" opacity=".5"/>
+    <rect x="580" y="50" width="40" height="1" fill="currentColor" opacity=".3"/>
+  </svg>
+  <header class="p-head">
+    <p class="kicker">Inside this issue</p>
+    <h2 id="p-title">Four features.<br><em>All shipped by one person.</em></h2>
+  </header>
+
+  <div class="p-grid">
+    <div class="stack-wrap">
+      <div class="stack" id="stack" aria-label="Product cards. Arrow keys cycle, Enter flips."></div>
+      <div class="stack-ui">
+        <button type="button" id="prev" aria-label="Previous product">←</button>
+        <span class="count" id="count">1 / 4</span>
+        <button type="button" id="next" aria-label="Next product">→</button>
+        <span class="tip">Drag, throw or tap to flip</span>
+      </div>
+    </div>
+    <article class="feature" id="feature" aria-live="polite"></article>
+  </div>
+
+  <div class="back-issues">
+    <h3 class="kicker">Back issues · retired with honours</h3>
+    <ul id="retired"></ul>
+  </div>
+</section>
+</main>
+
+<footer class="back-cover">
+  <div class="bc-inner">
+    <img class="bc-mark" src="assets/identity/mark.svg" width="72" height="72" alt="" loading="lazy">
+    <p class="avail">Takes one outside engagement at a time.</p>
+    <a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    <span class="barcode" aria-hidden="true"></span>
+    <p class="small">Albretsen AS · Norway · Published since 2016</p>
+  </div>
+</footer>
+
+<script>
+  // Fill the cover sources for the chosen edition synchronously, so the
+  // browser starts the right images immediately (no wasted dawn download).
+  (function () {
+    var ed = document.documentElement.dataset.edition
+    var b = 'assets/hero/cover-' + ed + '-'
+    document.querySelectorAll('.cover [data-src]').forEach(function (el) {
+      var p = el.getAttribute('data-src').split(':'), layer = p[0], fmt = p[1]
+      if (fmt === 'avif') el.srcset = b + layer + '-1080.avif 1080w, ' + b + layer + '-1600.avif 1600w'
+      else el.src = b + layer + '-1080.webp'
+    })
+    document.querySelector('[data-sticker]').src = 'assets/extras/sticker-' + ed + '.svg'
+    // masthead letters for MASTHEAD RISE
+    var m = document.getElementById('mast')
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      m.classList.add('masthead-rise')
+      m.innerHTML = m.textContent.split('').map(function (c, i) { return '<span style="--i:' + i + '">' + c + '</span>' }).join('')
+    }
+  })()
+</script>
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front Light · asset kit 75</title>
+<meta name="description" content="Asset kit for design 75, Front Light: golden-hour fjords, postcards, stamps and keys for Albretsen AS.">
+<link rel="icon" href="identity/favicon.svg">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon.png">
+<link rel="preload" href="fonts/jost-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--linen); }
+  body { margin: 0; color: var(--umber); font: 400 var(--step-0)/1.6 var(--font-sign); background: var(--linen) url(extras/paper-linen.webp); }
+  img, svg, canvas { display: block; max-width: 100%; height: auto; }
+  a { color: var(--copper); }
+  .wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+  .sec { padding: var(--space-6) 0 var(--space-5); border-top: 1px solid var(--rule); }
+  .eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: .28em; text-transform: uppercase; color: var(--copper); margin: 0 0 18px; }
+  h2 { font: 400 var(--step-3)/1.05 var(--font-sign); letter-spacing: .14em; text-transform: uppercase; margin: 0 0 12px; }
+  h3 { font: 500 13px/1.2 var(--font-sign); letter-spacing: .3em; text-transform: uppercase; margin: 0 0 10px; color: var(--sienna); }
+  .lede { font: italic var(--step-1)/1.4 var(--font-script); color: var(--sienna); max-width: 56ch; margin: 0 0 var(--space-4); }
+  .file { font: 400 12px/1.5 var(--font-mono); color: var(--copper); margin-top: 8px; overflow-wrap: anywhere; }
+  .note { font-size: 15px; color: var(--ink-soft); max-width: 62ch; }
+  .grid { display: grid; gap: var(--space-4) var(--space-3); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .g7 { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+  figure { margin: 0; }
+  .paper { background: var(--linen); box-shadow: var(--shadow-paper); border-radius: var(--radius-card); }
+  .pad { padding: var(--space-3); }
+  .checker { background: repeating-conic-gradient(#e9d6b8 0 25%, #f6ead6 0 50%) 0 0 / 22px 22px; }
+
+  /* cover */
+  .cover { display: grid; place-items: center; text-align: center; padding: var(--space-6) 0 var(--space-5); }
+  .cover img { width: min(520px, 80vw); }
+  .cover p { margin: var(--space-3) auto 0; }
+
+  /* hero composite */
+  .hero { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #b8662f; border-radius: var(--radius-card); box-shadow: var(--shadow-lift); }
+  @media (max-width: 640px) { .hero { aspect-ratio: 4 / 5; } }
+  .hero > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero img, .hero canvas { width: 100%; height: 100%; object-fit: cover; }
+  .hero canvas { opacity: 0; transition: opacity 1.2s; }
+  .hero canvas[data-ready] { opacity: 1; }
+  .hero .name { display: grid; place-items: start start; padding: 10% 0 0 7%; pointer-events: none; }
+  .hero .name span { font: 300 clamp(2.2rem, 8.6vw, 8.6rem)/.9 var(--font-sign); letter-spacing: .2em; color: var(--linen); text-transform: uppercase; text-shadow: 0 0 60px rgb(255 236 200 / .35); }
+  @media (max-width: 640px) { .hero .name { place-items: start center; padding: 17% 0 0; } .hero .name span { font-size: 11.4vw; letter-spacing: .14em; } }
+  .hero .line { inset: auto 0 6% 0; height: auto; text-align: center; color: var(--sand); }
+  .hero .line p { margin: 0; font: italic var(--step-2)/1.2 var(--font-script); }
+  .hero .line small { display: block; margin-top: 12px; font: 500 11px/1 var(--font-mono); letter-spacing: .3em; text-transform: uppercase; color: var(--apricot); }
+
+  /* palette */
+  .sw { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-paper); background: var(--linen); }
+  .sw i { display: block; aspect-ratio: 4 / 3; }
+  .sw div { padding: 10px 12px 12px; font: 400 12px/1.5 var(--font-mono); }
+  .sw b { display: block; font: 500 13px/1.4 var(--font-sign); letter-spacing: .2em; text-transform: uppercase; }
+  .ramp { height: 54px; border-radius: var(--radius-card); margin-top: var(--space-3);
+    background: linear-gradient(90deg, #1c0e07, #3d2013, #7a3d1f, #b8662f, #dc9447, #edbb7c, #f2cda8, #f4ddb4, #fbf3e4); }
+
+  /* type */
+  .spec-sign { font: 300 clamp(2.4rem, 7vw, 6rem)/1 var(--font-sign); letter-spacing: .26em; text-transform: uppercase; margin: 0; overflow-wrap: anywhere; }
+  .spec-script { font: italic clamp(1.8rem, 4vw, 3.2rem)/1.15 var(--font-script); color: var(--sienna); margin: 14px 0; }
+  .spec-mono { font: 400 15px/1.7 var(--font-mono); color: var(--umber); background: var(--sand); padding: 12px 16px; border-radius: 3px; overflow-x: auto; white-space: nowrap; }
+  .scale p { margin: 6px 0; }
+
+  /* ephemera stage */
+  .table { background: #e7c99f url(extras/paper-linen.webp); background-blend-mode: multiply; padding: var(--space-4); border-radius: var(--radius-card); display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; justify-content: center; }
+  .table > * { flex: none; }
+  .table .tk { width: min(560px, 100%); --r: -2deg; }
+  .table .lb { width: min(380px, 100%); --r: 3deg; }
+  .table .st { width: 132px; --r: -4deg; }
+
+  /* motion demos */
+  .stage { position: relative; min-height: 280px; border-radius: var(--radius-card); overflow: hidden; background: var(--sand); display: grid; place-items: center; }
+  .stage button, .ctl { font: 500 11px/1 var(--font-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--umber); background: var(--linen); border: 1px solid var(--copper); padding: 9px 12px; border-radius: 2px; cursor: pointer; }
+  .stage button { position: absolute; right: 12px; bottom: 12px; }
+  .fl-demo-name { font: 300 clamp(1.4rem, 3vw, 2.5rem)/1 var(--font-sign); letter-spacing: .22em; margin-right: -.22em; text-transform: uppercase; color: var(--linen); }
+  .shadow-card { width: 62%; aspect-ratio: 3 / 2; background: var(--linen); border-radius: 3px; display: grid; place-items: center; font: italic 22px/1 var(--font-script); color: var(--sienna); }
+  .swing-key { width: 46px; }
+  .motion-txt { font-size: 15px; color: var(--ink-soft); margin: 12px 0 0; }
+  footer { padding: var(--space-5) 0 var(--space-6); text-align: center; font: 500 11px/1.8 var(--font-mono); letter-spacing: .24em; text-transform: uppercase; color: var(--copper); }
+</style>
+</head>
+<body>
+
+<header class="wrap cover">
+  <img src="identity/wordmark-signage.svg" width="480" height="220" alt="Albretsen AS">
+  <p class="eyebrow" style="margin-top:28px">Asset kit 75 · Front Light</p>
+  <p class="lede" style="text-align:center">A fjord at the last minute of the day, a front desk with four keys, postcards that carry the numbers. Quiet, warm, exact.</p>
+</header>
+
+<!-- 1. HERO -->
+<section class="sec wrap" id="hero">
+  <p class="eyebrow">01 · Hero composite, live</p>
+  <h2>First light</h2>
+  <p class="note">Three stacked layers: the graded photograph drawn by <code>interactive/haze.js</code> (the air above the horizon shimmers, the sun's bloom breathes, the pointer nudges it), the name, then <code>fjord-front-right</code>, a cut-out of the sunlit far mountain. The name passes in front of the dark near cliff and sinks behind the far one.</p>
+  <div class="hero" style="margin-top:var(--space-4)">
+    <picture>
+      <source type="image/avif" srcset="hero/fjord-portrait-640.avif 640w, hero/fjord-portrait-1080.avif 1080w" media="(max-width: 640px)">
+      <source type="image/webp" srcset="hero/fjord-portrait-640.webp 640w, hero/fjord-portrait-1080.webp 1080w" media="(max-width: 640px)">
+      <source type="image/avif" srcset="hero/fjord-960.avif 960w, hero/fjord-1600.avif 1600w, hero/fjord-2400.avif 2400w">
+      <img src="hero/fjord-1600.jpg" srcset="hero/fjord-960.webp 960w, hero/fjord-1600.webp 1600w, hero/fjord-2400.webp 2400w" sizes="(max-width: 1240px) 100vw, 1240px" width="1600" height="1116" alt="A fjord at golden hour, the low sun between two cliffs" fetchpriority="high">
+    </picture>
+    <canvas id="haze" aria-hidden="true"></canvas>
+    <div class="name fl-first-light"><span>Albretsen</span></div>
+    <picture>
+      <source srcset="hero/fjord-front-right-portrait-640.webp 640w, hero/fjord-front-right-portrait-1080.webp 1080w" media="(max-width: 640px)">
+      <img src="hero/fjord-front-right-1600.webp" srcset="hero/fjord-front-right-960.webp 960w, hero/fjord-front-right-1600.webp 1600w, hero/fjord-front-right-2400.webp 2400w" sizes="(max-width: 1240px) 100vw, 1240px" width="1600" height="1116" alt="">
+    </picture>
+    <div class="line"><p>Quiet software that pays for itself.</p><small>Albretsen AS · since 2016</small></div>
+  </div>
+</section>
+
+<!-- 2. IMAGERY -->
+<section class="sec wrap" id="imagery">
+  <p class="eyebrow">02 · Hero imagery</p>
+  <h2>Graded light</h2>
+  <p class="note">Public-domain photochroms (Library of Congress, c. 1890-1900) and a NASA ISS photograph, gradient-mapped into one amber family with a low sun added where the light wants it. AVIF, WebP and JPEG at 960, 1600 and 2400 wide.</p>
+  <div class="grid g2" style="margin-top:var(--space-4)">
+    <figure><img src="hero/fjord-1600.webp" width="1600" height="1116" loading="lazy" alt="Fjord between cliffs at sunset"><figcaption class="file">hero/fjord-{960,1600,2400}.{avif,webp,jpg} · the main hero</figcaption></figure>
+    <figure><img src="hero/orbit-1600.webp" width="1600" height="915" loading="lazy" alt="The sun over Earth's horizon seen from orbit, graded amber"><figcaption class="file">hero/orbit-{960,1600,2400} · second scene: the same sun, from 400 km up</figcaption></figure>
+    <figure><img src="hero/lake-1600.webp" width="1600" height="1108" loading="lazy" alt="Still fjord water mirroring snowy peaks"><figcaption class="file">hero/lake-{960,1600} · stillness (Harbor, quiet sections)</figcaption></figure>
+    <figure><img src="hero/village-1600.webp" width="1600" height="1114" loading="lazy" alt="A small Norwegian fjord village with wooden houses"><figcaption class="file">hero/village-{960,1600} · small-town life (Fun Libs, about)</figcaption></figure>
+    <figure class="checker"><img src="hero/fjord-front-1600.webp" width="1600" height="1116" loading="lazy" alt=""><figcaption class="file" style="padding:8px">hero/fjord-front-* · both cliffs + water, sky removed</figcaption></figure>
+    <figure class="checker"><img src="hero/fjord-front-right-1600.webp" width="1600" height="1116" loading="lazy" alt=""><figcaption class="file" style="padding:8px">hero/fjord-front-right-* · far mountain only (name passes behind it)</figcaption></figure>
+  </div>
+  <div class="grid g4" style="margin-top:var(--space-4)">
+    <figure><img src="hero/fjord-portrait-640.webp" width="640" height="1033" loading="lazy" alt="Portrait crop of the fjord"><figcaption class="file">hero/fjord-portrait-{640,1080} · phones</figcaption></figure>
+    <figure class="checker"><img src="hero/fjord-front-right-portrait-640.webp" width="640" height="1033" loading="lazy" alt=""><figcaption class="file" style="padding:8px">hero/fjord-front-right-portrait-*</figcaption></figure>
+  </div>
+</section>
+
+<!-- 3. IDENTITY -->
+<section class="sec wrap" id="identity">
+  <p class="eyebrow">03 · Identity</p>
+  <h2>The mark</h2>
+  <p class="note">An A drawn as a peak, its crossbar a horizon, a half sun resting on it. Wordmarks are outlined Jost capitals at signage spacing; AS in copper.</p>
+  <div class="grid g3" style="margin-top:var(--space-4)">
+    <figure class="paper pad" style="display:grid;place-items:center;min-height:220px"><img src="identity/mark.svg" width="120" height="120" alt="Albretsen mark"><figcaption class="file">identity/mark.svg</figcaption></figure>
+    <figure class="pad" style="display:grid;place-items:center;min-height:220px;background:var(--umber);border-radius:3px"><img src="identity/mark-linen.svg" width="120" height="120" alt="Albretsen mark, light"><figcaption class="file" style="color:var(--apricot)">identity/mark-linen.svg</figcaption></figure>
+    <figure class="paper pad" style="display:grid;place-items:center;min-height:220px;gap:14px"><div style="display:flex;gap:18px;align-items:end"><img src="identity/favicon.svg" width="64" height="64" alt="Favicon"><img src="identity/favicon.svg" width="32" height="32" alt=""><img src="identity/favicon.svg" width="16" height="16" alt=""><img src="identity/apple-touch-icon.png" width="90" height="90" alt="Apple touch icon"></div><figcaption class="file">identity/favicon.svg · apple-touch-icon.png (180)</figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:var(--space-3)">
+    <figure class="paper pad"><img src="identity/wordmark.svg" width="560" height="22" alt="Albretsen AS wordmark" style="width:100%"><figcaption class="file">identity/wordmark.svg</figcaption></figure>
+    <figure class="pad" style="background:var(--umber);border-radius:3px"><img src="identity/wordmark-linen.svg" width="560" height="22" alt="Albretsen AS wordmark, light" style="width:100%"><figcaption class="file" style="color:var(--apricot)">identity/wordmark-linen.svg</figcaption></figure>
+    <figure class="paper pad" style="align-self:start"><img src="identity/lockup.svg" width="520" height="30" alt="Albretsen AS lockup" style="width:100%"><figcaption class="file">identity/lockup.svg</figcaption></figure>
+    <figure class="paper pad"><img src="identity/wordmark-signage.svg" width="300" height="140" alt="Albretsen AS signage" style="width:60%;margin:auto"><figcaption class="file">identity/wordmark-signage.svg</figcaption></figure>
+  </div>
+  <figure style="margin-top:var(--space-4)"><img src="identity/og.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image" style="border-radius:3px;box-shadow:var(--shadow-lift)"><figcaption class="file">identity/og.jpg · 1200×630</figcaption></figure>
+</section>
+
+<!-- 4. PALETTE -->
+<section class="sec wrap" id="palette">
+  <p class="eyebrow">04 · Palette</p>
+  <h2>One amber family</h2>
+  <p class="note">Hue 44 to 83 in OKLCH, cream to burnt umber. Amber is the sun: use it once per screen. Umber is ink. Linen is paper.</p>
+  <div class="grid" style="margin-top:var(--space-4);grid-template-columns:repeat(auto-fit,minmax(104px,1fr))" id="swatches"></div>
+  <div class="ramp" aria-hidden="true"></div>
+</section>
+
+<!-- 5. TYPE -->
+<section class="sec wrap" id="type">
+  <p class="eyebrow">05 · Type</p>
+  <h2>Signage, script, terminal</h2>
+  <div class="grid g2" style="margin-top:var(--space-4);align-items:start">
+    <div>
+      <h3>Jost · signage capitals</h3>
+      <p class="spec-sign">Front Light</p>
+      <p class="spec-sign" style="font-size:clamp(1rem,2.4vw,1.6rem);font-weight:500;letter-spacing:.42em;margin-top:14px;color:var(--copper)">Nº 01 · MCP Emails</p>
+      <p class="file">fonts/jost-variable.woff2 · 100-900 · OFL · tracking .2-.42em, uppercase</p>
+    </div>
+    <div>
+      <h3>Instrument Serif italic · the voice</h3>
+      <p class="spec-script">Quiet software that pays for itself.</p>
+      <p class="file">fonts/instrument-serif-italic.woff2 · OFL · one line per screen, never body copy</p>
+      <h3 style="margin-top:28px">IBM Plex Mono · the facts</h3>
+      <div class="spec-mono">claude mcp add albretsen https://albretsen.no/mcp</div>
+      <p class="file">fonts/ibm-plex-mono-{400,500}.woff2 · OFL · numbers, labels, commands</p>
+    </div>
+  </div>
+  <div class="scale" style="margin-top:var(--space-4)">
+    <p style="font:300 var(--step-3)/1.1 var(--font-sign);letter-spacing:.12em;text-transform:uppercase">Step 3 · 113,000+</p>
+    <p style="font:400 var(--step-2)/1.2 var(--font-sign)">Step 2 · Email for AI agents.</p>
+    <p style="font:400 var(--step-1)/1.3 var(--font-sign)">Step 1 · A private knowledge base shared by people and AI.</p>
+    <p style="font:400 var(--step-0)/1.6 var(--font-sign);max-width:62ch">Step 0 · Body copy in Jost 400 at 1.6 leading. Built at 17 with no marketing, Fun Libs has passed 113,000 installs; MCP Emails gives agents 17 tools across about 100 email providers.</p>
+  </div>
+</section>
+
+<!-- 6. PRODUCTS -->
+<section class="sec wrap" id="products">
+  <p class="eyebrow">06 · Products</p>
+  <h2>Postcards</h2>
+  <p class="note">Each live or building product is a postcard: a graded photograph, the real logo on a perforated stamp, and a postmark carrying its one number from content.js. Sources in <code>src/postcard.html?p=…</code>.</p>
+  <div class="grid g2" style="margin-top:var(--space-4)">
+    <figure><img class="fl-long-shadow" src="products/postcard-mcp-emails-1500.webp" width="1500" height="1000" loading="lazy" alt="MCP Emails postcard" style="border-radius:3px"><figcaption class="file">products/postcard-mcp-emails-{800,1500}.{webp,jpg}</figcaption></figure>
+    <figure><img class="fl-long-shadow" src="products/postcard-fun-libs-1500.webp" width="1500" height="1000" loading="lazy" alt="Fun Libs postcard" style="border-radius:3px"><figcaption class="file">products/postcard-fun-libs-*</figcaption></figure>
+    <figure><img class="fl-long-shadow" src="products/postcard-toolrails-1500.webp" width="1500" height="1000" loading="lazy" alt="Toolrails postcard" style="border-radius:3px"><figcaption class="file">products/postcard-toolrails-*</figcaption></figure>
+    <figure><img class="fl-long-shadow" src="products/postcard-harbor-1500.webp" width="1500" height="1000" loading="lazy" alt="Harbor postcard" style="border-radius:3px"><figcaption class="file">products/postcard-harbor-*</figcaption></figure>
+  </div>
+  <h3 style="margin-top:var(--space-5)">Retired · cancelled stamps</h3>
+  <div class="grid g7" style="margin-top:var(--space-2)">
+    <figure><img src="products/retired/stamp-luma.svg" width="162" height="192" loading="lazy" alt="Luma, retired"><figcaption class="file">stamp-luma.svg (real logo)</figcaption></figure>
+    <figure><img src="products/retired/stamp-polyglot-pilot.svg" width="162" height="192" loading="lazy" alt="Polyglot Pilot, retired"><figcaption class="file">stamp-polyglot-pilot.svg</figcaption></figure>
+    <figure><img src="products/retired/stamp-pinpoint.svg" width="162" height="192" loading="lazy" alt="PinPoint, retired"><figcaption class="file">stamp-pinpoint.svg</figcaption></figure>
+    <figure><img src="products/retired/stamp-webvakt.svg" width="162" height="192" loading="lazy" alt="WebVakt, retired"><figcaption class="file">stamp-webvakt.svg</figcaption></figure>
+    <figure><img src="products/retired/stamp-joke-central.svg" width="162" height="192" loading="lazy" alt="Joke Central, retired"><figcaption class="file">stamp-joke-central.svg</figcaption></figure>
+    <figure><img src="products/retired/stamp-tryggere-hyring.svg" width="162" height="192" loading="lazy" alt="Tryggere Hyring, retired"><figcaption class="file">stamp-tryggere-hyring.svg</figcaption></figure>
+    <figure><img src="products/retired/stamp-early-apps.svg" width="162" height="192" loading="lazy" alt="Early apps, retired"><figcaption class="file">stamp-early-apps.svg</figcaption></figure>
+  </div>
+</section>
+
+<!-- 7. EXTRAS -->
+<section class="sec wrap" id="extras">
+  <p class="eyebrow">07 · Extras</p>
+  <h2>Ephemera on the desk</h2>
+  <p class="note">All text is outlined, so every SVG works as a plain &lt;img&gt;. They drift on the sea breeze here.</p>
+  <div class="table" style="margin-top:var(--space-4)">
+    <img class="tk fl-breeze" style="--i:0" src="extras/ticket-mcp.svg" width="760" height="250" loading="lazy" alt="Ticket: claude mcp add albretsen https://albretsen.no/mcp">
+    <img class="lb fl-breeze" style="--i:1" src="extras/luggage-label.svg" width="520" height="300" loading="lazy" alt="Label: asgeir@albretsen.no">
+    <img class="st fl-breeze" style="--i:2" src="extras/stamp-perforated.svg" width="240" height="288" loading="lazy" alt="">
+    <img class="fl-postmark" style="--r:-12deg;width:180px" src="extras/postmark-2016.svg" width="240" height="240" loading="lazy" alt="Postmark 2016">
+    <img class="fl-postmark" style="--r:8deg;width:180px" src="extras/postmark-2019.svg" width="240" height="240" loading="lazy" alt="Postmark 2019">
+    <img class="fl-postmark" style="--r:-4deg;width:180px" src="extras/postmark-2026.svg" width="240" height="240" loading="lazy" alt="Postmark 2026">
+  </div>
+  <div class="grid g4" style="margin-top:var(--space-4)">
+    <figure><div class="paper" style="aspect-ratio:1;background:url(extras/paper-linen.webp)"></div><figcaption class="file">extras/paper-linen.{webp,jpg} · 512 tile</figcaption></figure>
+    <figure><div style="aspect-ratio:1;border-radius:3px;background:var(--amber) url(extras/grain.png)"></div><figcaption class="file">extras/grain.png · 256 tile, overlay</figcaption></figure>
+    <figure><div class="paper" style="aspect-ratio:1;overflow:hidden"><img src="extras/contours.svg" width="1590" height="1590" loading="lazy" alt=""></div><figcaption class="file">extras/contours.svg · a peak, as section ground</figcaption></figure>
+    <figure><div class="paper" style="aspect-ratio:1;display:grid;place-items:center"><img src="extras/cancel-waves.svg" width="480" height="120" loading="lazy" alt="" style="width:80%"></div><figcaption class="file">extras/cancel-waves.svg</figcaption></figure>
+  </div>
+</section>
+
+<!-- 8. INTERACTIVE -->
+<section class="sec wrap" id="interactive">
+  <p class="eyebrow">08 · Interactive</p>
+  <h2>Four keys on the board</h2>
+  <p class="note">Hover or focus a key: the pigeonhole lamp warms, the real logo rises like a letter into the light, the key swings and the fob turns over to show its number. <code>interactive/keyrack.js</code>, no dependencies. Full-page demo: <a href="interactive/demo.html">interactive/demo.html</a>.</p>
+  <div id="rack" style="margin-top:var(--space-4)"></div>
+</section>
+
+<!-- 9. MOTION -->
+<section class="sec wrap" id="motion">
+  <p class="eyebrow">09 · Motion study</p>
+  <h2>Slow air</h2>
+  <div class="grid g3" style="margin-top:var(--space-4)">
+    <figure>
+      <div class="stage" style="background:url(hero/fjord-960.webp) center/cover">
+        <div class="fl-first-light" id="fl1"><span class="fl-demo-name" style="display:block">Albretsen</span></div>
+        <button type="button" data-replay="fl1">Replay</button>
+      </div>
+      <h3 style="margin-top:14px">1 · First Light</h3>
+      <p class="motion-txt">The name rises out of a soft blur in 2.6 s on a settle curve. Once per visit, on load.</p>
+    </figure>
+    <figure>
+      <div class="stage"><img class="fl-haze" src="hero/lake-960.webp" width="960" height="665" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transform:scale(1.04)"></div>
+      <h3 style="margin-top:14px">2 · Heat Haze</h3>
+      <p class="motion-txt">feTurbulence noise rises through feDisplacementMap at 4-6 px. For the hero, use the WebGL version.</p>
+    </figure>
+    <figure>
+      <div class="stage" style="background:#e7c99f">
+        <img class="fl-breeze" style="--i:0;--r:-3deg;width:62%" src="extras/luggage-label.svg" width="520" height="300" loading="lazy" alt="">
+      </div>
+      <h3 style="margin-top:14px">3 · Sea Breeze</h3>
+      <p class="motion-txt">9-14 s out-of-phase loops, 3-5 px and under half a degree. Paper should feel like it is resting in moving air.</p>
+    </figure>
+    <figure>
+      <div class="stage">
+        <svg class="swing-key fl-swing" id="swing" viewBox="0 0 40 170" width="46" height="196" aria-label="Hover to swing">
+          <circle cx="20" cy="6" r="5" fill="#b8662f"/><circle cx="20" cy="20" r="11" fill="none" stroke="#c98a45" stroke-width="3"/>
+          <rect x="6" y="28" width="28" height="118" rx="14" fill="#F2CDA8" stroke="#B8662F" stroke-width="1.5"/>
+          <text x="20" y="78" text-anchor="middle" font-family="Jost" font-weight="300" font-size="18" fill="#3D2013">01</text>
+        </svg>
+        <button type="button" id="swingbtn">Swing</button>
+      </div>
+      <h3 style="margin-top:14px">4 · Key Swing</h3>
+      <p class="motion-txt">A damped pendulum: 7°, −4.5°, 2.6°, −1.3°, 0.5°, rest, over 2.4 s.</p>
+    </figure>
+    <figure>
+      <div class="stage">
+        <img id="pm" class="fl-postmark" style="--r:-10deg;width:200px" src="extras/postmark-2026.svg" width="240" height="240" alt="">
+        <button type="button" id="pmbtn">Strike</button>
+      </div>
+      <h3 style="margin-top:14px">5 · Postmark</h3>
+      <p class="motion-txt">Strikes once when it scrolls into view: drops, overshoots to 0.97, lands a few degrees off true, ink settles to 82%.</p>
+    </figure>
+    <figure>
+      <div class="stage" id="shadowstage" style="--sun:.2">
+        <div class="shadow-card fl-long-shadow">the sun goes down</div>
+        <input class="ctl" type="range" min="0" max="1" step="0.01" value="0.2" aria-label="Sun height" style="position:absolute;left:12px;right:12px;bottom:12px;padding:0;border:0;background:none;accent-color:#b8662f">
+      </div>
+      <h3 style="margin-top:14px">6 · Long Shadows</h3>
+      <p class="motion-txt">Scroll position sets --sun from 0 to 1; paper shadows lengthen and warm toward the bottom of the page. Drag to preview.</p>
+    </figure>
+  </div>
+</section>
+
+<footer class="wrap">Front Light · design 75 · Albretsen AS · assets/ASSETS.md has the inventory and sources</footer>
+
+<script type="module">
+  import { initMotion } from './motion.js';
+  import { mountKeyRack } from './interactive/keyrack.js';
+  // ?from=products shows the sheet from that section on (handy for screenshots)
+  const from = new URLSearchParams(location.search).get('from');
+  if (from) { for (const el of document.querySelectorAll('body > header, body > section')) { if (el.id === from) break; el.hidden = true; } }
+  initMotion();
+  mountKeyRack(document.getElementById('rack'));
+
+  const sw = [
+    ['Linen', '#FBF3E4', 'oklch(96.6% 0.022 83.3)', 'paper, ground'],
+    ['Sand', '#F4DDB4', 'oklch(90.6% 0.059 82.0)', 'zenith, cards'],
+    ['Peach', '#F2CDA8', 'oklch(87.1% 0.064 66.8)', 'pastel desk, fobs'],
+    ['Apricot', '#EDBB7C', 'oklch(82.3% 0.099 72.2)', 'hover light'],
+    ['Amber', '#DC9447', 'oklch(72.4% 0.127 65.1)', 'the sun, once'],
+    ['Copper', '#B8662F', 'oklch(59.4% 0.125 51.6)', 'links, postmarks'],
+    ['Sienna', '#7A3D1F', 'oklch(43.2% 0.095 45.2)', 'secondary ink'],
+    ['Umber', '#3D2013', 'oklch(27.9% 0.050 44.4)', 'primary ink'],
+    ['Night', '#1C0E07', 'oklch(18.2% 0.028 48.0)', 'deepest shadow'],
+  ];
+  document.getElementById('swatches').innerHTML = sw.map(([n, h, o, u]) =>
+    `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b>${h}<br>${o}<br><span style="color:var(--copper)">${u}</span></div></div>`).join('');
+
+  // motion demo controls
+  document.querySelectorAll('[data-replay]').forEach(b => b.addEventListener('click', () => {
+    const el = document.getElementById(b.dataset.replay); const k = el.firstElementChild;
+    k.style.animation = 'none'; k.offsetWidth; k.style.animation = '';
+  }));
+  const swing = document.getElementById('swing');
+  document.getElementById('swingbtn').addEventListener('click', () => { swing.classList.remove('is-swinging'); swing.getBoundingClientRect(); swing.classList.add('is-swinging'); });
+  swing.addEventListener('animationend', () => swing.classList.remove('is-swinging'));
+  const pm = document.getElementById('pm');
+  document.getElementById('pmbtn').addEventListener('click', () => { pm.classList.remove('is-in'); pm.offsetWidth; pm.classList.add('is-in'); });
+  const st = document.getElementById('shadowstage');
+  st.querySelector('input').addEventListener('input', e => st.style.setProperty('--sun', e.target.value));
+
+  // the shader, after first paint
+  const go = () => import('./interactive/haze.js').then(({ mountHaze }) => {
+    const narrow = matchMedia('(max-width: 640px)').matches;
+    mountHaze(document.getElementById('haze'), narrow
+      ? { src: 'hero/fjord-portrait-1080.webp', sun: [0.52, 0.447], horizon: 0.70 }
+      : { src: 'hero/fjord-1600.webp', sun: [0.466, 0.447], horizon: 0.70 });
+  });
+  'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 1200 }) : setTimeout(go, 300);
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"min": -5.0, "max": 1811.1, "sizeKm": 30.0, "encoding": "h = min + (R*256+G)/65535*(max-min)"}

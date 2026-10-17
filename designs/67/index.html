@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Albretsen AS — Software with a long view</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself: apps, SaaS and infrastructure for AI agents. Albretsen AS, Norway.">
+<meta name="theme-color" content="#5E4A6E">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software with a long view.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/identity/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" href="assets/fonts/bodoni-moda-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" media="(min-width: 701px)"
+  imagesrcset="assets/hero/spires-wide-1024.avif 1024w, assets/hero/spires-wide-1600.avif 1600w, assets/hero/spires-wide-2400.avif 2400w" imagesizes="max(100vw, 178svh)" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(max-width: 700px)"
+  imagesrcset="assets/hero/spires-tall-640.avif 640w, assets/hero/spires-tall-1080.avif 1080w" imagesizes="100vw" fetchpriority="high">
+<link rel="stylesheet" href="css/site.css">
+<script>
+  // Cinematic mode (the pinned pull-back) only with JS and without reduced motion.
+  document.documentElement.classList.add('js');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]still/.test(location.search)) document.documentElement.classList.add('cine');
+</script>
+</head>
+<body>
+<a class="skip" href="#work">Skip to the work</a>
+
+<main>
+  <!-- ============ HERO: one unbroken camera move ============
+       The full-bleed dusk is a postcard. Scroll and the camera pulls back
+       until it lies on the table; keep going and it turns over. -->
+  <section class="hero" aria-label="Albretsen AS">
+    <div class="stage">
+      <header class="masthead">
+        <a href="./" class="masthead__home" aria-label="Albretsen AS, home">
+          <img class="masthead__mark is-light" src="assets/identity/wordmark-reverse.svg" width="200" height="40" alt="">
+          <img class="masthead__mark is-dark" src="assets/identity/wordmark.svg" width="200" height="40" alt="">
+        </a>
+      </header>
+
+      <div class="shadow" aria-hidden="true"></div>
+
+      <!-- FRONT: the picture side. It starts as the whole screen. -->
+      <div class="front">
+       <div class="window">
+        <div class="inner">
+        <div class="scene">
+          <picture>
+            <source media="(max-width: 700px)" type="image/avif" srcset="assets/hero/spires-tall-640.avif 640w, assets/hero/spires-tall-1080.avif 1080w" sizes="100vw">
+            <source media="(max-width: 700px)" type="image/webp" srcset="assets/hero/spires-tall-640.webp 640w, assets/hero/spires-tall-1080.webp 1080w" sizes="100vw">
+            <source media="(max-width: 700px)" srcset="assets/hero/spires-tall-1080.jpg">
+            <source type="image/avif" srcset="assets/hero/spires-wide-1024.avif 1024w, assets/hero/spires-wide-1600.avif 1600w, assets/hero/spires-wide-2400.avif 2400w" sizes="max(100vw, 178svh)">
+            <source type="image/webp" srcset="assets/hero/spires-wide-1024.webp 1024w, assets/hero/spires-wide-1600.webp 1600w, assets/hero/spires-wide-2400.webp 2400w" sizes="max(100vw, 178svh)">
+            <img class="scene__plate" src="assets/hero/spires-wide-1600.jpg" width="1600" height="900" fetchpriority="high" decoding="async"
+              alt="Two stepped towers with fin spires against a mauve and peach dusk, a low sun between them">
+          </picture>
+          <!-- live sky + transparent towers are added here after first paint (desktop only) -->
+        </div>
+        <div class="title">
+          <p class="title__eyebrow">Albretsen AS &nbsp;·&nbsp; Norway</p>
+          <h1 class="title__name">Asgeir Albretsen</h1>
+          <p class="title__line">Software with a long view.</p>
+        </div>
+        </div>
+        <div class="deckle" aria-hidden="true"></div>
+       </div>
+      </div>
+
+      <!-- BACK: the written side. -->
+      <article class="back" id="card-back" aria-label="The back of the postcard">
+        <p class="back__label">From the desk of<br>Asgeir Albretsen</p>
+        <div class="back__msg">
+          <p>I build software that pays for itself: apps, SaaS, and the quiet infrastructure AI agents run on.</p>
+          <p>On Google Play since 2016. A small company with a long view.</p>
+          <p class="back__sign">— Asgeir</p>
+        </div>
+        <div class="back__side">
+          <div class="stampwrap">
+            <div class="secret" aria-hidden="true">
+              <code>claude mcp add albretsen https://albretsen.no/mcp</code>
+              <button type="button" class="secret__copy">Copy</button>
+            </div>
+            <img class="stamp" src="assets/extras/stamp-albretsen.svg" width="240" height="300" alt="" draggable="false">
+            <img class="postmark" src="assets/extras/postmark.svg" width="520" height="220" alt="">
+          </div>
+          <address class="back__addr">
+            <span>Asgeir Albretsen</span>
+            <span>Albretsen AS</span>
+            <span><a class="ah-link" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></span>
+            <span>Norway</span>
+          </address>
+        </div>
+        <p class="back__franked" aria-live="off"><span class="dot" aria-hidden="true"></span><span class="franked__text">Franked just now</span></p>
+      </article>
+
+      <p class="cue" aria-hidden="true"><span>Scroll</span><i></i></p>
+      <button class="turn" type="button" aria-controls="card-back" aria-pressed="false"><span>Turn it over</span> <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M15.5 7.5A6 6 0 1 0 16 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M16 3.5v4.2h-4.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section class="work" id="work" aria-labelledby="work-h">
+    <header class="work__head">
+      <img class="work__rule" src="assets/extras/sunburst-divider.svg" width="300" height="32" alt="" loading="lazy">
+      <p class="eyebrow">Currently in the post</p>
+      <h2 id="work-h" class="work__title">Four things, built to last.</h2>
+      <p class="work__intro">Each one is a business on its own terms: shipped, measured, and kept only while it earns its place.</p>
+    </header>
+
+    <ol class="plates" data-products>
+      <li class="plate" style="--i:0">
+        <a class="plate__frame" href="https://mcpemails.com" rel="noopener" tabindex="-1" aria-hidden="true">
+          <picture>
+            <source type="image/avif" srcset="assets/products/mcp-800.avif 800w, assets/products/mcp-1200.avif 1200w" sizes="(min-width: 1100px) 23vw, (min-width: 640px) 44vw, 92vw">
+            <source type="image/webp" srcset="assets/products/mcp-800.webp 800w, assets/products/mcp-1200.webp 1200w" sizes="(min-width: 1100px) 23vw, (min-width: 640px) 44vw, 92vw">
+            <img class="ah-expose" src="assets/products/mcp-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="A perforated postage stamp printed with the MCP Emails app icon, franked with an Albretsen postmark">
+          </picture>
+        </a>
+        <div class="plate__text">
+          <p class="plate__meta"><span class="status status--live">Live</span><span>Since 2026</span></p>
+          <h3 class="plate__name">MCP Emails</h3>
+          <p class="plate__line">Email for AI agents.</p>
+          <p class="plate__figure"><span class="fig">$782</span> <span class="fig__label">MRR</span></p>
+          <p class="plate__facts">17 tools <span aria-hidden="true">·</span> about 100 email providers <span aria-hidden="true">·</span> open source (AGPL)</p>
+          <a class="ah-link plate__url" href="https://mcpemails.com" rel="noopener">mcpemails.com</a>
+        </div>
+      </li>
+      <li class="plate" style="--i:1">
+        <a class="plate__frame" href="https://funlibs.app" rel="noopener" tabindex="-1" aria-hidden="true">
+          <picture>
+            <source type="image/avif" srcset="assets/products/funlibs-800.avif 800w, assets/products/funlibs-1200.avif 1200w" sizes="(min-width: 1100px) 23vw, (min-width: 640px) 44vw, 92vw">
+            <source type="image/webp" srcset="assets/products/funlibs-800.webp 800w, assets/products/funlibs-1200.webp 1200w" sizes="(min-width: 1100px) 23vw, (min-width: 640px) 44vw, 92vw">
+            <img class="ah-expose" src="assets/products/funlibs-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="A vertical deco blade sign on a tower at dusk, carrying the Fun Libs app icon">
+          </picture>
+        </a>
+        <div class="plate__text">
+          <p class="plate__meta"><span class="status status--live">Live</span><span>Since 2019</span></p>
+          <h3 class="plate__name">Fun Libs</h3>
+          <p class="plate__line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <p class="plate__figure"><span class="fig">113,000+</span> <span class="fig__label">installs</span></p>
+          <p class="plate__facts">built at 17 <span aria-hidden="true">·</span> no marketing <span aria-hidden="true">·</span> v5 shipped 2026</p>
+          <a class="ah-link plate__url" href="https://funlibs.app" rel="noopener">funlibs.app</a>
+        </div>
+      </li>
+      <li class="plate" style="--i:2">
+        <a class="plate__frame" href="https://toolrails.com" rel="noopener" tabindex="-1" aria-hidden="true">
+          <picture>
+            <source type="image/avif" srcset="assets/products/toolrails-800.avif 800w, assets/products/toolrails-1200.avif 1200w" sizes="(min-width: 1100px) 23vw, (min-width: 640px) 44vw, 92vw">
+            <source type="image/webp" srcset="assets/products/toolrails-800.webp 800w, assets/products/toolrails-1200.webp 1200w" sizes="(min-width: 1100px) 23vw, (min-width: 640px) 44vw, 92vw">
+            <img class="ah-expose" src="assets/products/toolrails-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="A brass-framed enamel plaque on a stone facade with the Toolrails icon">
+          </picture>
+        </a>
+        <div class="plate__text">
+          <p class="plate__meta"><span class="status status--building">Building</span><span>Since 2026</span></p>
+          <h3 class="plate__name">Toolrails</h3>
+          <p class="plate__line">One MCP URL that gives an agent every tool.</p>
+          <p class="plate__figure"><span class="fig">4</span> <span class="fig__label">connectors</span></p>
+          <p class="plate__facts">tool search <span aria-hidden="true">·</span> injection guard</p>
+          <a class="ah-link plate__url" href="https://toolrails.com" rel="noopener">toolrails.com</a>
+        </div>
+      </li>
+      <li class="plate" style="--i:3">
+        <a class="plate__frame" href="https://harborknowledge.com" rel="noopener" tabindex="-1" aria-hidden="true">
+          <picture>
+            <source type="image/avif" srcset="assets/products/harbor-800.avif 800w, assets/products/harbor-1200.avif 1200w" sizes="(min-width: 1100px) 23vw, (min-width: 640px) 44vw, 92vw">
+            <source type="image/webp" srcset="assets/products/harbor-800.webp 800w, assets/products/harbor-1200.webp 1200w" sizes="(min-width: 1100px) 23vw, (min-width: 640px) 44vw, 92vw">
+            <img class="ah-expose" src="assets/products/harbor-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="A lit arched window at dusk showing the Harbor mark and a Paused tag">
+          </picture>
+        </a>
+        <div class="plate__text">
+          <p class="plate__meta"><span class="status status--paused">Paused</span><span>Since 2026</span></p>
+          <h3 class="plate__name">Harbor</h3>
+          <p class="plate__line">A private knowledge base shared by people and AI.</p>
+          <p class="plate__figure"><span class="fig">549</span> <span class="fig__label">commits</span></p>
+          <p class="plate__facts">self-hostable <span aria-hidden="true">·</span> AI edits held for approval</p>
+          <a class="ah-link plate__url" href="https://harborknowledge.com" rel="noopener">harborknowledge.com</a>
+        </div>
+      </li>
+    </ol>
+
+    <section class="retired" aria-labelledby="retired-h">
+      <div class="retired__head">
+        <p class="eyebrow" id="retired-h">Cancelled stamps</p>
+        <p class="retired__note">Products that were shipped, learned from, and retired.</p>
+      </div>
+      <ul class="album" data-retired>
+        <li><button type="button" class="stampbtn" style="--r:-3deg" data-name="Luma · 2026" data-line="Norwegian budgeting app with open banking. (378 commits)"><img src="assets/products/retired/luma.svg" width="120" height="150" loading="lazy" decoding="async" alt=""><span class="sr">Luma, 2026. Norwegian budgeting app with open banking. (378 commits)</span></button></li>
+        <li><button type="button" class="stampbtn" style="--r:2deg" data-name="Polyglot Pilot · 2025" data-line="Agents that localised entire codebases, with a dashboard for human reviewers."><img src="assets/products/retired/polyglot-pilot.svg" width="120" height="150" loading="lazy" decoding="async" alt=""><span class="sr">Polyglot Pilot, 2025. Agents that localised entire codebases, with a dashboard for human reviewers.</span></button></li>
+        <li><button type="button" class="stampbtn" style="--r:-1.5deg" data-name="PinPoint · 2025" data-line="GeoGuessr with your own photos: friends guess where your pictures were taken. (16 commits)"><img src="assets/products/retired/pinpoint.svg" width="120" height="150" loading="lazy" decoding="async" alt=""><span class="sr">PinPoint, 2025. GeoGuessr with your own photos: friends guess where your pictures were taken. (16 commits)</span></button></li>
+        <li><button type="button" class="stampbtn" style="--r:3deg" data-name="WebVakt · 2024" data-line="Website change monitoring."><img src="assets/products/retired/webvakt.svg" width="120" height="150" loading="lazy" decoding="async" alt=""><span class="sr">WebVakt, 2024. Website change monitoring.</span></button></li>
+        <li><button type="button" class="stampbtn" style="--r:-2deg" data-name="Daily Jokes / Joke Central · 2024" data-line="Joke apps for iOS and Android."><img src="assets/products/retired/joke-central.svg" width="120" height="150" loading="lazy" decoding="async" alt=""><span class="sr">Daily Jokes / Joke Central, 2024. Joke apps for iOS and Android.</span></button></li>
+        <li><button type="button" class="stampbtn" style="--r:1.5deg" data-name="Tryggere Hyring · 2023" data-line="Background checks for hiring."><img src="assets/products/retired/tryggere-hyring.svg" width="120" height="150" loading="lazy" decoding="async" alt=""><span class="sr">Tryggere Hyring, 2023. Background checks for hiring.</span></button></li>
+        <li><button type="button" class="stampbtn" style="--r:-2.5deg" data-name="IAGO HMS, Rentekalkulator, Prosentkalkulator · 2021" data-line="Early apps."><img src="assets/products/retired/early-apps.svg" width="120" height="150" loading="lazy" decoding="async" alt=""><span class="sr">IAGO HMS, Rentekalkulator, Prosentkalkulator, 2021. Early apps.</span></button></li>
+      </ul>
+      <p class="album__caption" aria-live="polite"><span class="album__name">Hover a stamp</span><span class="album__line">to read what it was.</span></p>
+    </section>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot__band">
+    <picture>
+      <source type="image/avif" srcset="assets/extras/horizon-1024.avif 1024w, assets/extras/horizon-1600.avif 1600w" sizes="100vw">
+      <source type="image/webp" srcset="assets/extras/horizon-1024.webp 1024w, assets/extras/horizon-1600.webp 1600w" sizes="100vw">
+      <img class="ah-expose" src="assets/extras/horizon-1600.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="An empty beach at sunrise with towers on the horizon">
+    </picture>
+    <div class="foot__copy">
+      <img class="foot__mark" src="assets/identity/mark-reverse.svg" width="44" height="44" alt="">
+      <p class="foot__avail">Takes one outside engagement at a time.</p>
+      <p><a class="ah-link foot__mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+    </div>
+  </div>
+  <div class="foot__base">
+    <span>© Albretsen AS · Norway</span>
+    <span>Photographs: public domain, graded in house.</span>
+  </div>
+</footer>
+
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

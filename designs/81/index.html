@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds quiet software that pays for itself. Albretsen AS makes MCP Emails, Fun Libs, Toolrails and Harbor.">
+<meta name="theme-color" content="#070514">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Quiet software that pays for itself.">
+<meta property="og:image" content="assets/og.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="preload" as="image" type="image/avif" imagesrcset="assets/hero/nocturne-960.avif 960w, assets/hero/nocturne-1600.avif 1600w, assets/hero/nocturne-2400.avif 2400w" imagesizes="100vw" media="(min-aspect-ratio: 4/5)">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" } }</script>
+</head>
+<body>
+<a class="skip" href="#work">Skip to the products</a>
+
+<header class="top">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/wordmark-on-dark.svg" alt="Albretsen AS" width="163" height="38">
+  </a>
+  <p class="top-meta mono"><span>Software</span><span aria-hidden="true">·</span><span>Shipping since 2016</span></p>
+</header>
+
+<main>
+<!-- ============================================================ HERO -->
+<section class="vf" id="vf" aria-label="Viewfinder">
+  <div class="vf-stage" id="stage">
+    <picture class="vf-still">
+      <source type="image/avif" media="(max-aspect-ratio: 4/5)" srcset="assets/hero/nocturne-portrait-640.avif 640w, assets/hero/nocturne-portrait-1000.avif 1000w" sizes="100vw">
+      <source type="image/webp" media="(max-aspect-ratio: 4/5)" srcset="assets/hero/nocturne-portrait-640.webp 640w, assets/hero/nocturne-portrait-1000.webp 1000w" sizes="100vw">
+      <source type="image/jpeg" media="(max-aspect-ratio: 4/5)" srcset="assets/hero/nocturne-portrait-640.jpg 640w, assets/hero/nocturne-portrait-1000.jpg 1000w" sizes="100vw">
+      <source type="image/avif" srcset="assets/hero/nocturne-960.avif 960w, assets/hero/nocturne-1600.avif 1600w, assets/hero/nocturne-2400.avif 2400w" sizes="100vw">
+      <source type="image/webp" srcset="assets/hero/nocturne-960.webp 960w, assets/hero/nocturne-1600.webp 1600w, assets/hero/nocturne-2400.webp 2400w" sizes="100vw">
+      <img id="still" src="assets/hero/nocturne-1600.jpg" width="1600" height="900" alt="A paper-cut collage at night: a moon rising behind a snow peak, a dark headland and moonlight broken on the water." fetchpriority="high" decoding="async">
+    </picture>
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="vf-shade" aria-hidden="true"></div>
+  </div>
+
+  <!-- camera chrome -->
+  <div class="vf-chrome" aria-hidden="true">
+    <span class="br br-tl"></span><span class="br br-tr"></span><span class="br br-bl"></span><span class="br br-br"></span>
+    <span class="af" id="af"></span>
+  </div>
+  <p class="vf-label mono" aria-hidden="true"><span class="rec"></span>Frame <span id="frame">24</span></p>
+  <p class="vf-feed mono" aria-live="off"><span class="feed-dot" aria-hidden="true"></span><span id="feed">live</span></p>
+
+  <div class="vf-subject" id="subject">
+    <p class="kicker mono">Albretsen AS</p>
+    <h1>Asgeir Albretsen</h1>
+    <p class="line">Builds quiet software <em>that pays for itself.</em></p>
+  </div>
+
+  <div class="vf-bar mono">
+    <p class="read read-l" aria-hidden="true"><span id="fnum">ƒ/2.8</span><span id="shut" class="hide-s">1/60</span><span class="hide-s">ISO 400</span></p>
+
+    <div class="ring" id="ring" role="slider" tabindex="0" aria-label="Focus distance. Drag, use the arrow keys, or click the scene to focus." aria-valuemin="0" aria-valuemax="100" aria-valuenow="78" aria-valuetext="1.2 kilometres">
+      <div class="ring-window">
+        <div class="ring-scale" id="scale">
+          <span style="--p:0">2 m</span>
+          <span style="--p:.42">40 m</span>
+          <span style="--p:.62">300 m</span>
+          <span style="--p:.78">1.2 km</span>
+          <span style="--p:1">∞</span>
+        </div>
+      </div>
+      <span class="ring-index"></span>
+    </div>
+
+    <p class="read read-r hide-s" aria-hidden="true">
+      <span class="ev"><span class="ev-scale"><i></i><i></i><i></i><i></i><i class="z"></i><i></i><i></i><i></i><i></i><b id="evn"></b></span></span>
+      <span id="ev" class="hide-s">±0.0 EV</span>
+    </p>
+  </div>
+
+  <figure class="print" id="print" aria-hidden="true">
+    <img alt="" width="320" height="180">
+    <figcaption class="mono"></figcaption>
+  </figure>
+</section>
+
+<!-- ============================================================ WORK -->
+<section class="work" id="work" aria-labelledby="work-h">
+  <div class="work-head">
+    <p class="kicker mono" data-rack>01 · In focus</p>
+    <h2 id="work-h" data-rack="80">Four products, <em>sharp.</em></h2>
+    <p class="lede" data-rack="160">Each one earns, grows or teaches something. Everything else is allowed to blur.</p>
+  </div>
+
+  <ol class="cards">
+    <li class="card" id="p1" data-key="1">
+      <div class="mount"><img src="assets/products/mcp-emails-600.webp" srcset="assets/products/mcp-emails-600.webp 600w, assets/products/mcp-emails.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw" width="600" height="750" alt="The MCP Emails wordmark, in focus" loading="lazy" decoding="async"></div>
+      <div class="card-body">
+        <p class="status mono"><span class="dot live"></span>Live · since 2026</p>
+        <h3><a href="https://mcpemails.com" rel="noopener">MCP Emails</a></h3>
+        <p class="pline">Email for AI agents.</p>
+        <p class="figure"><span class="num">$782</span><span class="mono">MRR</span></p>
+        <ul class="facts mono"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+      </div>
+    </li>
+    <li class="card" id="p2" data-key="2">
+      <div class="mount"><img src="assets/products/fun-libs-600.webp" srcset="assets/products/fun-libs-600.webp 600w, assets/products/fun-libs.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw" width="600" height="750" alt="The Fun Libs app icon, in focus" loading="lazy" decoding="async"></div>
+      <div class="card-body">
+        <p class="status mono"><span class="dot live"></span>Live · since 2019</p>
+        <h3><a href="https://funlibs.app" rel="noopener">Fun Libs</a></h3>
+        <p class="pline">A fill-in-the-blanks word game for Android and iOS.</p>
+        <p class="figure"><span class="num">113,000+</span><span class="mono">installs</span></p>
+        <ul class="facts mono"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+      </div>
+    </li>
+    <li class="card" id="p3" data-key="3">
+      <div class="mount"><img src="assets/products/toolrails-600.webp" srcset="assets/products/toolrails-600.webp 600w, assets/products/toolrails.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw" width="600" height="750" alt="The Toolrails icon, in focus" loading="lazy" decoding="async"></div>
+      <div class="card-body">
+        <p class="status mono"><span class="dot building"></span>Building · since 2026</p>
+        <h3><a href="https://toolrails.com" rel="noopener">Toolrails</a></h3>
+        <p class="pline">One MCP URL that gives an agent every tool.</p>
+        <p class="figure"><span class="num">4</span><span class="mono">connectors</span></p>
+        <ul class="facts mono"><li>tool search</li><li>injection guard</li></ul>
+      </div>
+    </li>
+    <li class="card" id="p4" data-key="4">
+      <div class="mount"><img src="assets/products/harbor-600.webp" srcset="assets/products/harbor-600.webp 600w, assets/products/harbor.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 45vw, 92vw" width="600" height="750" alt="The Harbor wordmark, in focus" loading="lazy" decoding="async"></div>
+      <div class="card-body">
+        <p class="status mono"><span class="dot paused"></span>Paused · since 2026</p>
+        <h3><a href="https://harborknowledge.com" rel="noopener">Harbor</a></h3>
+        <p class="pline">A private knowledge base shared by people and AI.</p>
+        <p class="figure"><span class="num">549</span><span class="mono">commits</span></p>
+        <ul class="facts mono"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+      </div>
+    </li>
+  </ol>
+
+  <div class="agent">
+    <p class="agent-k mono">Or let an agent read it</p>
+    <div class="cmd">
+      <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button type="button" class="copy mono" id="copy" aria-label="Copy the command">Copy</button>
+    </div>
+  </div>
+
+  <div class="retired">
+    <div class="retired-head">
+      <p class="kicker mono" data-rack>02 · Out of focus</p>
+      <p class="lede small" data-rack="80">Retired, on purpose. Hover or tab through to pull one sharp.</p>
+    </div>
+    <ul class="negs">
+      <li tabindex="0"><span class="neg-real"><img src="../_shared/products/luma/luma-monogram.svg" width="128" height="128" alt="" loading="lazy"></span><p><b>Luma</b><span class="mono">2026 · 378 commits</span>Norwegian budgeting app with open banking.</p></li>
+      <li tabindex="0"><img src="assets/products/retired/polyglot-pilot.svg" width="120" height="120" alt="" loading="lazy"><p><b>Polyglot Pilot</b><span class="mono">2025</span>Agents that localised entire codebases, with a dashboard for human reviewers.</p></li>
+      <li tabindex="0"><img src="assets/products/retired/pinpoint.svg" width="120" height="120" alt="" loading="lazy"><p><b>PinPoint</b><span class="mono">2025 · 16 commits</span>Friends guess where your photos were taken.</p></li>
+      <li tabindex="0"><img src="assets/products/retired/webvakt.svg" width="120" height="120" alt="" loading="lazy"><p><b>WebVakt</b><span class="mono">2024</span>Website change monitoring.</p></li>
+      <li tabindex="0"><img src="assets/products/retired/joke-central.svg" width="120" height="120" alt="" loading="lazy"><p><b>Joke Central</b><span class="mono">2024</span>Joke apps for iOS and Android.</p></li>
+      <li tabindex="0"><img src="assets/products/retired/tryggere-hyring.svg" width="120" height="120" alt="" loading="lazy"><p><b>Tryggere Hyring</b><span class="mono">2023</span>Background checks for hiring.</p></li>
+      <li tabindex="0"><img src="assets/products/retired/early-apps.svg" width="120" height="120" alt="" loading="lazy"><p><b>Early apps</b><span class="mono">2021</span>IAGO HMS, Rentekalkulator, Prosentkalkulator.</p></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="film" aria-hidden="true"></div>
+  <div class="foot-in">
+    <img class="foot-mark" src="assets/mark-on-dark.svg" width="48" height="48" alt="" loading="lazy">
+    <p class="avail">Takes one outside engagement at a time.</p>
+    <a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    <p class="mono fine">Albretsen AS · <span id="year">2026</span></p>
+  </div>
+</footer>
+
+<!-- shortcuts -->
+<button type="button" class="hint mono" id="hint" aria-controls="sheet" aria-expanded="false"><kbd data-key="?">?</kbd> shortcuts</button>
+<aside class="gg-sheet" id="sheet" aria-hidden="true" aria-labelledby="sheet-h">
+  <h2 id="sheet-h">Controls</h2>
+  <div data-row><span>Focus on the next plane</span><span><kbd data-key="f">F</kbd></span></div>
+  <div data-row><span>Exposure down / up</span><span><kbd data-key="[">[</kbd><kbd data-key="]">]</kbd></span></div>
+  <div data-row><span>Stop down / open up</span><span><kbd data-key="a">A</kbd><kbd data-key="A">⇧A</kbd></span></div>
+  <div data-row><span>Take an exposure</span><span><kbd data-key="Space">Space</kbd></span></div>
+  <div data-row><span>Jump to a product</span><span><kbd data-key="1">1</kbd><kbd data-key="2">2</kbd><kbd data-key="3">3</kbd><kbd data-key="4">4</kbd></span></div>
+  <div data-row><span>Rack through every plane</span><span><kbd data-key="r">R</kbd></span></div>
+  <div data-row><span>Shutter sound <b id="snd-state">off</b></span><span><kbd data-key="s">S</kbd></span></div>
+  <div data-row><span>Open / close this sheet</span><span><kbd data-key="?">?</kbd><kbd data-key="Escape">Esc</kbd></span></div>
+  <p class="sheet-foot mono">Click anywhere in the frame to focus there.</p>
+</aside>
+
+<p class="sr" id="announce" aria-live="polite"></p>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

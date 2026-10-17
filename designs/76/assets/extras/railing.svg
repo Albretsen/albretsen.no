@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 120" role="img" aria-label="Wrought-iron balcony railing frieze"><title>Railing frieze</title>
+<defs><pattern id="r" width="40" height="120" patternUnits="userSpaceOnUse">
+<g fill="none" stroke="#25292b" stroke-width="2.2"><path d="M1 8V112"/><circle cx="21" cy="20" r="9.5"/><circle cx="21" cy="100" r="9.5"/></g></pattern></defs>
+<rect width="480" height="120" fill="url(#r)"/>
+<g fill="#25292b"><rect y="0" width="480" height="5"/><rect y="32" width="480" height="2"/><rect y="86" width="480" height="2"/><rect y="115" width="480" height="5"/></g></svg>

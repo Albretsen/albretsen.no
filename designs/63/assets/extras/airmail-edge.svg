@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 12" width="96" height="12" preserveAspectRatio="none">
+  <!-- Repeat-x border: falu red / clapboard white / slate, diagonal like an envelope edge.
+       Use as: background: url(airmail-edge.svg) repeat-x 0 0 / 48px 6px -->
+  <rect width="96" height="12" fill="#F5EFE4"/>
+  <path d="M0 12 L12 0 H24 L12 12Z M48 12 L60 0 H72 L60 12Z" fill="#8A2E22"/>
+  <path d="M24 12 L36 0 H48 L36 12Z M72 12 L84 0 H96 L84 12Z" fill="#3E4651"/>
+</svg>

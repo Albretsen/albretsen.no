@@ -1,0 +1,83 @@
+/* Clear Noon — motion study (design 65)
+   Six signature movements. All honour prefers-reduced-motion.
+   Easing language: one long, calm curve. Nothing bounces.            */
+
+:root {
+  --ease-noon: cubic-bezier(.2, .7, .2, 1);     /* long settle, like a shadow coming to rest */
+  --ease-drift: cubic-bezier(.45, 0, .55, 1);   /* symmetric, for slow camera drift */
+  --t-dissolve: 2400ms;
+  --t-hold: 7000ms;
+}
+
+/* 1. NOON DISSOLVE ---------------------------------------------------
+   Stacked photographs cross-dissolve: the incoming frame fades in OVER
+   the outgoing one (never through a colour), while each frame drifts on
+   its own, longer timeline so motion never freezes mid-dissolve.
+   Ref: Framer "Cinefade" stacked crossfade; the Premiere Ken Burns
+   freeze problem (adobe community thread) solved by decoupling drift.   */
+.dissolve { position: relative; overflow: hidden; background: #0b1117; }
+.dissolve > picture, .dissolve > img { position: absolute; inset: 0; opacity: 0; transition: opacity var(--t-dissolve) var(--ease-noon); }
+.dissolve > picture img, .dissolve > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dissolve > .is-on { opacity: 1; z-index: 2; }
+.dissolve > .is-off { opacity: 1; z-index: 1; }               /* stays under until the next is fully in */
+.dissolve > .is-on img, .dissolve > img.is-on { animation: noon-drift calc(var(--t-hold) + var(--t-dissolve) * 2) var(--ease-drift) both; }
+@keyframes noon-drift { from { transform: scale(1.06) translate3d(-0.6%, 0.4%, 0); } to { transform: scale(1) translate3d(0, 0, 0); } }
+
+/* 2. RELIEF LENS -----------------------------------------------------
+   A soft circular lens follows the pointer and reveals a second layer
+   (contours, the relief render, the road) under the photograph.
+   Ref: Codrops "Dynamic CSS Masks with Custom Properties and GSAP".     */
+.lens { position: relative; --x: 50%; --y: 50%; --r: 0px; }
+.lens > .lens-under { position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 62%, transparent 100%);
+          mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 62%, transparent 100%); }
+.lens.is-active { --r: 190px; }
+@property --r { syntax: '<length>'; inherits: true; initial-value: 0px; }
+.lens { transition: --r 900ms var(--ease-noon); }
+
+/* 3. ROAD DRAW -------------------------------------------------------
+   The falu-red road draws itself as the timeline scrolls into view.
+   Uses pathLength="1" so dash maths is unitless. Scroll-driven where
+   supported (animation-timeline: view()), JS fallback in motion.js.    */
+.road-draw path#road, .road-draw .road { stroke-dasharray: 1; stroke-dashoffset: 1; }
+@supports (animation-timeline: view()) {
+  .road-draw path#road, .road-draw .road { animation: road-draw linear both; animation-timeline: view(); animation-range: entry 10% cover 60%; }
+}
+@keyframes road-draw { to { stroke-dashoffset: 0; } }
+.road-draw.is-drawn path#road { stroke-dashoffset: 0; transition: stroke-dashoffset 2600ms var(--ease-noon); }
+
+/* 4. SHADOW SWING ----------------------------------------------------
+   Plates and cards carry a hard noon shadow. On hover the "sun" moves:
+   the shadow swings and shortens, the object lifts 2px. Rich but quiet.
+   Ref: physical product shots in Cereal; long-shadow studies.           */
+.swing { transition: transform 700ms var(--ease-noon), filter 700ms var(--ease-noon);
+  filter: drop-shadow(14px 18px 0 rgb(27 35 43 / .16)); }
+.swing:hover, .swing:focus-visible { transform: translateY(-2px); filter: drop-shadow(-6px 8px 0 rgb(27 35 43 / .12)); }
+
+/* 5. CONDENSED RISE --------------------------------------------------
+   Poster-face words rise out of a baseline mask, staggered per letter,
+   then a hairline road rule extends beneath. Ref: editorial hotel sites
+   (split-letter mask reveals), kept slow and small in amplitude.        */
+.rise { display: inline-block; overflow: hidden; padding-bottom: .04em; }
+.rise > span { display: inline-block; transform: translateY(105%); transition: transform 1100ms var(--ease-noon); transition-delay: calc(var(--i, 0) * 45ms); }
+.rise.is-in > span { transform: none; }
+.rule { height: 2px; background: #8e2a1e; transform-origin: 0 50%; transform: scaleX(0); transition: transform 1600ms var(--ease-noon) 500ms; }
+.is-in + .rule, .rule.is-in { transform: scaleX(1); }
+
+/* 6. WINDOW LIGHT ----------------------------------------------------
+   Product houses (inline SVG) reveal hidden detail on hover: panes light
+   up, gold-leaf figures appear on the dark glass, the door opens, Harbor
+   opens its shutters. The CSS lives inside each SVG; this helper lets a
+   parent card trigger it.                                               */
+.house-card:hover svg .litpane, .house-card:focus-within svg .litpane { opacity: .88; }
+.house-card:hover svg .reveal, .house-card:focus-within svg .reveal { opacity: 1; }
+.house-card:hover svg .hide-on-reveal, .house-card:focus-within svg .hide-on-reveal { opacity: 0; }
+.house-card:hover svg .door-leaf, .house-card:focus-within svg .door-leaf { transform: scaleX(.55); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dissolve > * { transition-duration: 1ms !important; animation: none !important; }
+  .rise > span, .rule { transition: none !important; transform: none !important; }
+  .road-draw path#road, .road-draw .road { animation: none !important; stroke-dashoffset: 0 !important; }
+  .lens { transition: none; }
+  .swing { transition: none; }
+}

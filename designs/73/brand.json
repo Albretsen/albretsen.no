@@ -1,0 +1,19 @@
+{
+  "name": "Long Evening",
+  "tagline": "One street, one horizon, and the real sky over Norway right now.",
+  "summary": "A small main street of falu red wooden houses and sun-bleached pastel deco fronts, printed like a 1930s silkscreen poster. The page opens on the light outside Asgeir's window right now, and the scroll walks through the rest of the day while his name sits in the sky behind the ridges. Every live product is a shopfront with its real logo as the sign. The site says ambitious and effective by staying calm, specific and full of light.",
+  "palette": ["#f6b48f", "#b391a8", "#7e8fb0", "#1d1f24", "#fbf5ec", "#9e3b2e", "#d39a45", "#a9dcc6", "#f2a7b4", "#f4dc8e", "#2f3a60", "#c4b877"],
+  "type": ["Nunito 900 (display)", "Nunito 500-800 (text)", "ui-monospace (commands only)"],
+  "voice": "Sunny, plain and quietly sure of itself. Short sentences and real numbers, with no pitch. Example: \"Every sign on the street is a product.\"",
+  "motion": "The Long Dissolve: slow, eased cross-fades between baked stills as you scroll, plus ink that settles into slight misregistration. Nothing bounces, and all of it stops under reduced motion.",
+  "sound": "Silent by default. A future opt-in could add a faint evening ambience (birdsong, a distant bicycle bell) that follows the real time of day.",
+  "mark": "The sun-A: a rounded A whose crossbar is a horizon with a peach sun half risen inside it. It stands in for the first letter of Albretsen.",
+  "inspiration": [
+    "https://commons.wikimedia.org/wiki/File:See_America_LCCN98518589.jpg",
+    "https://commons.wikimedia.org/wiki/File:The_national_parks_preserve_wild_life_LCCN98518597.jpg",
+    "https://www.chateaumarmont.com",
+    "https://stripesessions.com",
+    "https://www.cosmos.so",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations"
+  ]
+}

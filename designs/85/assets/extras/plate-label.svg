@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" width="360" height="120" role="img" aria-label="Plate label">
+  <title>Plate label (edit the text nodes)</title>
+  <rect x="1" y="1" width="358" height="118" rx="3" fill="#f7f5ea" stroke="#091710" stroke-width="1.2"/>
+  <rect x="7" y="7" width="346" height="106" rx="1" fill="none" stroke="#091710" stroke-width=".6"/>
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="10" fill="#091710" letter-spacing=".14em">
+    <text x="22" y="34">PLATE II</text><text x="338" y="34" text-anchor="end" fill="#005e26">FIG. 04</text>
+  </g>
+  <text x="22" y="78" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="34" fill="#091710">Silica, polished</text>
+  <path d="M22 94h316" stroke="#091710" stroke-width=".6" stroke-dasharray="2 4"/>
+</svg>

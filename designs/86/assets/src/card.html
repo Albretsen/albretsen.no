@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roster card render</title>
+<!--
+  Render source for assets/products/card-*.{avif,webp,jpg}.
+  Open card.html?id=mcp-emails (or fun-libs, toolrails, harbor) at 1200x1500 and screenshot.
+  The REAL product logo sits on a glass plinth floating above the Earth's limb,
+  circled by a thin orbit; each product owns one atmospheric emission line.
+-->
+<style>
+@font-face { font-family: Geist; src: url(../fonts/Geist-Variable.woff2) format('woff2'); font-weight: 100 900; }
+@font-face { font-family: GeistMono; src: url(../fonts/GeistMono-Variable.woff2) format('woff2'); font-weight: 100 900; }
+html, body { margin: 0; background: #070d15; }
+.card { position: relative; width: 1200px; height: 1500px; overflow: hidden; background: #070d15 center/cover no-repeat; }
+.card::after { content: ""; position: absolute; inset: 0; background:
+  radial-gradient(60% 40% at 50% 41%, transparent 40%, rgba(7,13,21,.35) 100%),
+  linear-gradient(180deg, rgba(7,13,21,.15), transparent 30%, transparent 70%, rgba(7,13,21,.55)); }
+.halo { position: absolute; left: 50%; top: 41%; width: 760px; height: 760px; translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklch, var(--c) 42%, transparent) 0%, color-mix(in oklch, var(--c) 10%, transparent) 38%, transparent 66%);
+  filter: blur(8px); z-index: 1; }
+svg.orbit { position: absolute; left: 0; top: 0; width: 1200px; height: 1500px; z-index: 2; }
+svg.orbit.front { z-index: 4; }
+.plinth { position: absolute; left: 50%; top: 41%; width: 300px; height: 300px; translate: -50% -50%; z-index: 3;
+  border-radius: 74px; padding: 20px; box-sizing: border-box;
+  background: linear-gradient(160deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 45%, rgba(255,255,255,.08));
+  backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 0 0 1px rgba(255,255,255,.14),
+              0 50px 120px -30px color-mix(in oklch, var(--c) 70%, transparent), 0 30px 60px -20px rgba(0,0,0,.6); }
+.plinth .logo { width: 100%; height: 100%; border-radius: 56px; overflow: hidden; display: grid; place-items: center;
+  box-shadow: 0 1px 0 rgba(255,255,255,.25) inset; }
+.plinth .logo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.reflect { position: absolute; left: 50%; top: calc(41% + 250px); width: 420px; height: 60px; translate: -50% 0; z-index: 2;
+  border-radius: 50%; background: radial-gradient(closest-side, color-mix(in oklch, var(--c) 55%, transparent), transparent); filter: blur(14px); }
+.tag { position: absolute; z-index: 5; font: 500 22px/1 GeistMono, monospace; letter-spacing: .08em; color: rgba(244,245,231,.78); }
+.tag.tl { left: 64px; top: 64px; } .tag.tr { right: 64px; top: 64px; text-align: right; }
+.tag .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--c); margin-right: 14px; box-shadow: 0 0 16px var(--c); vertical-align: 1px; }
+.spectrum { position: absolute; z-index: 5; left: 64px; right: 64px; bottom: 64px; height: 40px; }
+.spectrum i { position: absolute; bottom: 0; width: 2px; height: 16px; background: rgba(244,245,231,.25); }
+.spectrum i.on { height: 40px; width: 3px; background: var(--c); box-shadow: 0 0 18px var(--c); }
+.spectrum::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(244,245,231,.25); }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="halo"></div>
+  <svg class="orbit back" viewBox="0 0 1200 1500" aria-hidden="true"></svg>
+  <div class="reflect"></div>
+  <div class="plinth"><div class="logo" id="logo"></div></div>
+  <svg class="orbit front" viewBox="0 0 1200 1500" aria-hidden="true"></svg>
+  <div class="tag tl"><span class="dot"></span><span id="nm"></span></div>
+  <div class="tag tr" id="idx"></div>
+  <div class="spectrum" id="spec"></div>
+</div>
+<script>
+const P = {
+  'mcp-emails': { c: 'oklch(0.900 0.160 108)', nm: 557.7, line: 'O I', i: '01', logo: '../../../_shared/products/mcp-emails/icon.png' },
+  'fun-libs':   { c: 'oklch(0.800 0.140 70)',  nm: 589.0, line: 'Na I', i: '02', logo: '../../../_shared/products/fun-libs/icon.png' },
+  'toolrails':  { c: 'oklch(0.660 0.150 275)', nm: 427.8, line: 'N2+', i: '03', logo: '../../../_shared/products/toolrails/icon.svg' },
+  'harbor':     { c: 'oklch(0.660 0.170 28)',  nm: 630.0, line: 'O I', i: '04', logo: null },
+};
+const id = new URLSearchParams(location.search).get('id') || 'mcp-emails';
+const p = P[id];
+const card = document.getElementById('card');
+card.style.setProperty('--c', p.c);
+card.style.backgroundImage = `url(../products/plate-${id}.webp)`;
+document.getElementById('nm').textContent = `${p.nm.toFixed(1)} nm`;
+document.getElementById('idx').textContent = `${p.line} / ${p.i}`;
+const logo = document.getElementById('logo');
+if (p.logo) logo.innerHTML = `<img src="${p.logo}" alt="">`;
+else { // Harbor: brand mark as published (cream on near-black), unchanged
+  logo.style.background = '#1b1b1b'; logo.style.color = '#F2EFE9';
+  fetch('../../../_shared/products/harbor/harbor-mark.svg').then(r => r.text()).then(t => { logo.innerHTML = t; const s = logo.querySelector('svg'); s.setAttribute('width', '72%'); s.setAttribute('height', '72%'); });
+}
+// spectrum ruler 400..700 nm with this product's line lit
+const spec = document.getElementById('spec');
+for (let nm = 400; nm <= 700; nm += 10) { const i = document.createElement('i'); i.style.left = ((nm - 400) / 300 * 100) + '%'; spec.appendChild(i); }
+const on = document.createElement('i'); on.className = 'on'; on.style.left = ((p.nm - 400) / 300 * 100) + '%'; spec.appendChild(on);
+// orbit: tilted ellipse, back half behind the plinth, front half over it
+const cx = 600, cy = 615, rx = 380, ry = 92, rot = -12;
+function arc(from, to, steps = 90) {
+  let d = '';
+  for (let s = 0; s <= steps; s++) {
+    const t = from + (to - from) * s / steps, a = rot * Math.PI / 180;
+    const x = rx * Math.cos(t), y = ry * Math.sin(t);
+    d += (s ? 'L' : 'M') + (cx + x * Math.cos(a) - y * Math.sin(a)).toFixed(1) + ',' + (cy + x * Math.sin(a) + y * Math.cos(a)).toFixed(1);
+  }
+  return d;
+}
+const ns = 'http://www.w3.org/2000/svg';
+function path(svg, d, w, op, dash) {
+  const el = document.createElementNS(ns, 'path'); el.setAttribute('d', d); el.setAttribute('fill', 'none');
+  el.setAttribute('stroke', 'rgba(244,245,231,' + op + ')'); el.setAttribute('stroke-width', w);
+  if (dash) el.setAttribute('stroke-dasharray', dash); svg.appendChild(el);
+}
+const back = document.querySelector('.orbit.back'), front = document.querySelector('.orbit.front');
+path(back, arc(Math.PI, 2 * Math.PI), 1.5, .35);
+path(front, arc(0, Math.PI), 2, .7);
+path(back, arc(Math.PI, 2 * Math.PI).replace(/(\d+\.\d),(\d+\.\d)/g, (m, x, y) => x + ',' + (+y - 170).toFixed(1)), 1, .14, '2 10');
+// satellite on the orbit, in the line colour
+const t0 = 0.55, a = rot * Math.PI / 180, sx = rx * Math.cos(t0), sy = ry * Math.sin(t0);
+const sat = document.createElementNS(ns, 'circle');
+sat.setAttribute('cx', cx + sx * Math.cos(a) - sy * Math.sin(a)); sat.setAttribute('cy', cy + sx * Math.sin(a) + sy * Math.cos(a));
+sat.setAttribute('r', 7); sat.setAttribute('fill', p.c); sat.style.filter = `drop-shadow(0 0 10px ${p.c})`; front.appendChild(sat);
+</script>
+</body>
+</html>

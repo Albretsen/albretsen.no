@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drift Field demo</title>
+<style>
+  :root { --night:#041419; --bone:#f8f3e8; --phosphor:#7defda; }
+  html,body { margin:0; height:100%; background:var(--night); color:var(--bone); font:13px/1.4 ui-monospace, monospace; }
+  canvas { position:fixed; inset:0; width:100%; height:100%; display:block; }
+  .ui { position:fixed; left:16px; bottom:16px; display:flex; gap:12px; align-items:center; background:#041419d0; padding:10px 14px; border-radius:10px; }
+  body.bake .ui { display:none }
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="Airbrushed contour lines drifting slowly"></canvas>
+<div class="ui">
+  <button id="boot">Power on</button>
+  <label>hour <input id="hour" type="range" min="0" max="1" step="0.01" value="0"></label>
+</div>
+<script type="module">
+  import { mountDriftField } from './drift-field.js'
+  const q = new URLSearchParams(location.search)
+  if (q.has('bake')) document.body.classList.add('bake')
+  const field = mountDriftField(document.getElementById('c'), { boot: q.has('boot') ? +q.get('boot') : 0, hour: +(q.get('hour') ?? 0), time: +(q.get('t') ?? 0), mode: q.get('mode') || 'raster' })
+  const power = () => {
+    const s = performance.now()
+    const tick = (n) => { const v = Math.min((n - s) / 3200, 1); field.boot(v); if (v < 1) requestAnimationFrame(tick) }
+    requestAnimationFrame(tick)
+  }
+  if (!q.has('boot')) power()
+  document.getElementById('boot').onclick = power
+  document.getElementById('hour').oninput = (e) => field.setHour(+e.target.value)
+</script>
+</body>
+</html>

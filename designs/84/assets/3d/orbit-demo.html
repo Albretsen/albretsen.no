@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit — live 3D demo</title>
+<style>
+  @font-face { font-family: "Bricolage Grotesque"; src: url(../fonts/bricolage-grotesque-var.woff2) format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; font-display: swap; }
+  @font-face { font-family: "Instrument Sans"; src: url(../fonts/instrument-sans-var.woff2) format("woff2"); font-weight: 400 700; font-display: swap; }
+  :root { color-scheme: dark; --ink: #140a26; --cream: #fff1dc; }
+  html, body { margin: 0; height: 100%; background: var(--ink); color: var(--cream); font: 15px/1.5 "Instrument Sans", system-ui, sans-serif; }
+  .stage { position: fixed; inset: 0; overflow: hidden; }
+  .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .stage canvas { position: absolute; left: 50%; top: calc(-6% + var(--sun-y, .3) * 30%); width: min(110vw, 150vh); aspect-ratio: 1.6; translate: -50% 0; cursor: grab; }
+  .stage canvas:active { cursor: grabbing; }
+  .grain { position: absolute; inset: 0; background: url(../extras/grain-tile.png); opacity: .22; mix-blend-mode: overlay; pointer-events: none; }
+  nav { position: fixed; left: 16px; bottom: 16px; display: flex; gap: 6px; flex-wrap: wrap; z-index: 2; }
+  nav button { font: 600 13px/1 "Instrument Sans", sans-serif; letter-spacing: .02em; color: var(--cream); background: #140a2699; border: 1px solid #fff1dc44; border-radius: 999px; padding: 9px 14px; cursor: pointer; backdrop-filter: blur(6px); }
+  nav button[aria-pressed="true"] { background: var(--cream); color: var(--ink); }
+  h1 { position: fixed; left: 16px; top: 12px; margin: 0; font: 800 clamp(20px, 3vw, 28px)/1 "Bricolage Grotesque"; font-stretch: 75%; letter-spacing: -.01em; z-index: 2; }
+  .still nav, .still h1 { display: none; }
+</style>
+</head>
+<body>
+<h1>Orbit · drag to spin</h1>
+<div class="stage">
+  <img id="sky" alt="" width="2400" height="1200">
+  <canvas id="orbit" aria-label="Four product satellites orbiting a grainy sun"></canvas>
+  <img id="land" alt="" width="2400" height="1200">
+  <div class="grain"></div>
+</div>
+<nav>
+  <button data-ed="nocturne">Nocturne</button><button data-ed="dawn">Dawn</button><button data-ed="zenith">Orbit</button><button data-ed="dusk">Dusk</button>
+</nav>
+<script type="module">
+  import { mountOrbit } from './orbit.js'
+  import { applyEdition } from '../js/oslo-sun.js'
+  const q = new URLSearchParams(location.search)
+  const still = q.has('still')
+  if (still) document.body.classList.add('still')
+  const info = applyEdition()
+  let ed = info.edition
+  const set = e => {
+    ed = e
+    sky.src = `../hero/stage-${e}-sky-2400.avif`
+    land.src = `../hero/stage-${e}-land-2400.avif`
+    document.querySelectorAll('nav button').forEach(b => b.setAttribute('aria-pressed', b.dataset.ed === e))
+    orbit?.setEdition(e)
+  }
+  let orbit
+  set(ed)
+  orbit = await mountOrbit(document.getElementById('orbit'), { edition: ed, still })
+  document.querySelectorAll('nav button').forEach(b => b.onclick = () => document.startViewTransition ? document.startViewTransition(() => set(b.dataset.ed)) : set(b.dataset.ed))
+</script>
+</body>
+</html>

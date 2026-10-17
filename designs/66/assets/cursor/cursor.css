@@ -1,0 +1,22 @@
+/* Brass Ring cursor (design 66). Pointer-fine devices only; the system cursor returns for text fields. */
+@media (pointer: fine) {
+  html.has-ring-cursor, html.has-ring-cursor * { cursor: none; }
+  html.has-ring-cursor input, html.has-ring-cursor textarea, html.has-ring-cursor [contenteditable] { cursor: text; }
+}
+.ring-cursor { position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none; width: 44px; height: 44px;
+  margin: -22px 0 0 -22px; will-change: transform; contain: layout style; }
+.ring-cursor svg { position: absolute; inset: 0; overflow: visible; }
+.ring-cursor .ring { transition: opacity 240ms steps(3, end); }
+.ring-cursor .scallop { opacity: 0; transform-origin: 22px 22px; transition: opacity 240ms steps(3, end); }
+.ring-cursor .dot { transition: r 200ms cubic-bezier(.7, 0, .3, 1); }
+/* over something clickable: the ring becomes a café-awning scallop and turns in exact 30deg ticks */
+.ring-cursor.is-active .ring { opacity: 0; }
+.ring-cursor.is-active .scallop { opacity: 1; animation: ring-tick 4.8s steps(12, end) infinite; }
+.ring-cursor.is-down .dot { r: 6; }
+.ring-cursor .label { position: absolute; left: 30px; top: 30px; white-space: nowrap; padding: 5px 10px 6px; border-radius: 999px;
+  background: #F5EDDF; color: #1F2B4A; font: 800 10px/1 Nunito, ui-rounded, system-ui, sans-serif; letter-spacing: .22em; text-transform: uppercase;
+  opacity: 0; transform: translateY(4px); transition: opacity 200ms steps(2, end), transform 200ms steps(2, end); }
+.ring-cursor.has-label .label { opacity: 1; transform: none; }
+.ring-cursor.is-hidden { opacity: 0; }
+@keyframes ring-tick { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .ring-cursor.is-active .scallop { animation: none; } }

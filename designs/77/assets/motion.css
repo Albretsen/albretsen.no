@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Albretsen AS · design 77 "Shutterlight" · motion study
+   Six named signature motions. Slow, centred, deliberate: a camera on a
+   dolly in a miniature set, never a bounce. All motion is off under
+   prefers-reduced-motion; every effect degrades to a still frame.
+
+   Tokens
+   ========================================================================== */
+:root{
+  --ease-set: cubic-bezier(.22,.61,.21,1);     /* a heavy prop settling into place */
+  --ease-camera: cubic-bezier(.45,.05,.25,1);  /* slow in, slow out, like a crane move */
+  --ease-flip: cubic-bezier(.3,.7,.2,1.02);    /* the card lands with a hair of overshoot */
+  --dur-slow: 1.6s;
+  --dur-flip: .9s;
+}
+
+/* --------------------------------------------------------------------------
+   1. DAY PASS  — the whole page is one day. Scroll position is the time of
+   day: the view crossfades dawn → morning → noon → gold and the wall's light
+   follows. Pure CSS where scroll timelines exist; motion.js sets --day
+   elsewhere. Reference: scroll-scrubbed product films on apple.com and the
+   scroll() timeline demos at scroll-driven-animations.style.
+   Markup:
+     <div class="daypass">
+       <img class="daypass__view" data-at="0" …>  (dawn)  …data-at="1|2|3"
+       <div class="daypass__cold"></div><div class="daypass__warm"></div>
+     </div>
+   -------------------------------------------------------------------------- */
+@property --day { syntax: '<number>'; inherits: true; initial-value: 0; }
+.daypass{ position:relative; overflow:hidden; --day:0; }
+.daypass__view{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity: clamp(0, 1 - max(calc(var(--day) * 3 - var(--at, 0)), calc(var(--at, 0) - var(--day) * 3)), 1); transition: opacity .2s linear; }
+.daypass__view[data-at="0"]{ --at:0 } .daypass__view[data-at="1"]{ --at:1 }
+.daypass__view[data-at="2"]{ --at:2 } .daypass__view[data-at="3"]{ --at:3 }
+.daypass__view[data-at="0"]{ opacity:1 } /* base plate always present underneath */
+.daypass__cold, .daypass__warm{ position:absolute; inset:0; pointer-events:none; mix-blend-mode:multiply; }
+.daypass__cold{ background:#6a7fb6; opacity: clamp(0, calc((1 - var(--day) * 2.4) * .7), .7); }
+.daypass__warm{ background:#e9a970; opacity: clamp(0, calc((var(--day) - .66) * 1.6), .5); }
+@supports (animation-timeline: scroll()){
+  html{ animation: day-pass linear both; animation-timeline: scroll(root block); }
+  @keyframes day-pass{ from{ --day:0 } to{ --day:1 } }
+}
+
+/* --------------------------------------------------------------------------
+   2. DOLLY  — slow cinematic parallax through layers. The painting behind the
+   window barely moves (it is far away), the wall moves at scroll speed, the
+   sill and lavender move faster and grow slightly: a dolly-in through the
+   window. Reference: the layered hero of firewatchgame.com; the painted
+   landscape backdrops framing product UI on cursor.com.
+   Markup: .dolly > .dolly__far (view) + .dolly__mid (wall.webp) + .dolly__near (front.webp)
+   -------------------------------------------------------------------------- */
+.dolly{ position:relative; overflow:hidden; aspect-ratio:16/10; }
+.dolly > *{ position:absolute; inset:-4% -2%; width:104%; height:108%; object-fit:cover; will-change:transform; }
+@supports (animation-timeline: view()){
+  .dolly__far { animation: dolly-far  linear both; animation-timeline: view(); animation-range: exit -40% exit 100%; }
+  .dolly__mid { animation: dolly-mid  linear both; animation-timeline: view(); animation-range: exit -40% exit 100%; }
+  .dolly__near{ animation: dolly-near linear both; animation-timeline: view(); animation-range: exit -40% exit 100%; }
+  @keyframes dolly-far { to{ transform: translateY(6%)  scale(1.02) } }
+  @keyframes dolly-mid { to{ transform: translateY(-2%) scale(1.10) } }
+  @keyframes dolly-near{ to{ transform: translateY(-9%) scale(1.22) } }
+}
+
+/* --------------------------------------------------------------------------
+   3. POSTCARD FLIP  — the signature delight. A product is a postcard; turn it
+   over to read the back. The card lifts towards the camera mid-turn (shadow
+   widens, then settles) so it reads as paper, not a UI card.
+   Reference: Codrops 3D card-flip technique (perspective on the parent,
+   preserve-3d, a pre-rotated back face).
+   Markup: <button class="postcard"><span class="postcard__face">front</span>
+           <span class="postcard__face postcard__face--back">back</span></button>
+   -------------------------------------------------------------------------- */
+.postcard{ all:unset; display:block; position:relative; aspect-ratio:3/2; width:100%; cursor:pointer;
+  perspective: 1600px; -webkit-tap-highlight-color: transparent; }
+.postcard__inner{ position:absolute; inset:0; transform-style:preserve-3d; transition: transform var(--dur-flip) var(--ease-flip); }
+.postcard__face{ position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:4px; overflow:hidden;
+  box-shadow: 0 1px 0 #0000000d, 0 18px 30px -18px #3a241477; background:#f4e9d4; }
+.postcard__face img{ width:100%; height:100%; object-fit:cover; display:block; }
+.postcard__face--back{ transform: rotateY(180deg); }
+.postcard.is-flipped .postcard__inner{ transform: rotateY(180deg); }
+.postcard.is-flipping .postcard__inner{ animation: postcard-lift var(--dur-flip) var(--ease-flip); }
+@keyframes postcard-lift{ 50%{ translate: 0 -10px 60px; } }
+.postcard:focus-visible{ outline:2px solid #b9532f; outline-offset:6px; }
+
+/* --------------------------------------------------------------------------
+   4. SHUTTERS  — the curtain-up. On first paint the lavender shutters are
+   closed over the window; they swing open on their hinges, left a beat
+   before right, and the light comes in. Deadpan symmetry, one time only.
+   Reference: the theatrical title reveals of Wes Anderson title cards, built
+   like the hinged-door reveals common on Awwwards sites.
+   Markup: .shutters > .shutter.shutter--l + .shutter.shutter--r  (over the window)
+   -------------------------------------------------------------------------- */
+.shutters{ position:absolute; inset:0; display:grid; grid-template-columns:1fr 1fr; perspective:1400px; pointer-events:none; }
+.shutter{ background: repeating-linear-gradient(180deg, #bdb4d4 0 9px, #8c80b0 9px 13px, #6f6494 13px 16px); border:6px solid #8a7fae; }
+.shutter--l{ transform-origin: left center;  animation: shutter-l var(--dur-slow) var(--ease-camera) .35s both; }
+.shutter--r{ transform-origin: right center; animation: shutter-r var(--dur-slow) var(--ease-camera) .47s both; }
+@keyframes shutter-l{ from{ transform: rotateY(0) } to{ transform: rotateY(-104deg); visibility:hidden } }
+@keyframes shutter-r{ from{ transform: rotateY(0) } to{ transform: rotateY(104deg);  visibility:hidden } }
+
+/* --------------------------------------------------------------------------
+   5. SIGN SWAY  — the Toolrails sign hangs from a rail; touch it and it
+   swings, a damped pendulum that settles in under two seconds.
+   -------------------------------------------------------------------------- */
+.sway{ transform-origin: 50% 0; }
+.sway:hover, .sway.is-swaying{ animation: sign-sway 1.9s var(--ease-set); }
+@keyframes sign-sway{ 0%{rotate:0} 14%{rotate:3.2deg} 32%{rotate:-2.2deg} 50%{rotate:1.3deg} 68%{rotate:-.6deg} 84%{rotate:.25deg} 100%{rotate:0} }
+
+/* --------------------------------------------------------------------------
+   6. TILE LAY  — set dressing. Ceramic tiles are laid one by one as a row
+   scrolls in, centre first, outward symmetrically.
+   Markup: .tilelay > .tilelay__tile (style="--i: distance-from-centre")
+   -------------------------------------------------------------------------- */
+.tilelay__tile{ opacity:0; translate:0 14px; transition: opacity .7s var(--ease-set), translate .7s var(--ease-set); transition-delay: calc(var(--i, 0) * 70ms); }
+.tilelay.is-in .tilelay__tile{ opacity:1; translate:0 0; }
+
+@media (prefers-reduced-motion: reduce){
+  html{ animation:none !important; }
+  .dolly > *, .shutter, .sway, .postcard__inner, .tilelay__tile{ animation:none !important; transition:none !important; }
+  .shutters{ display:none; }
+  .tilelay__tile{ opacity:1; translate:0 0; }
+}

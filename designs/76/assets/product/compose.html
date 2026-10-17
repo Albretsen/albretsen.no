@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Product still</title>
+<meta name="viewport" content="width=1200">
+<!-- Composes a product still: a letterpress card carrying the REAL product logo, standing
+     on a limestone sill in window light, the view out of focus behind it.
+     compose.html?id=mcp-emails&tone=morning|noon|evening   (screenshot at 1200x1500) -->
+<style>
+@font-face{font-family:"Bodoni Moda";src:url(../fonts/bodoni-moda.woff2) format("woff2");font-weight:400 900}
+@font-face{font-family:"Bodoni Moda";src:url(../fonts/bodoni-moda-italic.woff2) format("woff2");font-weight:400 900;font-style:italic}
+@font-face{font-family:"Instrument Sans";src:url(../fonts/instrument-sans.woff2) format("woff2");font-weight:400 700}
+:root{--sun:255,244,228;--shadow:28,34,40;--skew:-38deg;--wash:.16}
+[data-tone=morning]{--sun:222,234,246;--skew:32deg;--wash:.12}
+[data-tone=evening]{--sun:255,196,148;--skew:-48deg;--wash:.2}
+html,body{margin:0;width:1200px;height:1500px;overflow:hidden;background:#cfd6da}
+.stage{position:relative;width:1200px;height:1500px;overflow:hidden}
+.bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04)}
+/* window reveal edges framing the shot */
+.reveal{position:absolute;top:0;bottom:0;width:150px;background:linear-gradient(90deg,#c9c6bf,#e7e4dd 70%,#d8d5ce)}
+.reveal.l{left:0;box-shadow:inset -14px 0 30px rgba(0,0,0,.08)}
+.reveal.r{right:0;transform:scaleX(-1);filter:brightness(.92)}
+.sill{position:absolute;left:0;right:0;bottom:0;height:420px;
+  background:
+   radial-gradient(120% 60% at 50% 0%,rgba(var(--sun),.35),transparent 60%),
+   linear-gradient(#e2dccf,#d5cdbd 18%,#cbc2b1 60%,#bfb5a3)}
+.sill::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(#f6f2ea,#ddd5c7)}
+.sill::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .44 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cast{position:absolute;left:50%;bottom:300px;width:500px;height:700px;margin-left:-250px;transform-origin:50% 100%;
+  transform:skewX(var(--skew)) scaleY(.32);background:rgba(var(--shadow),.42);filter:blur(12px);border-radius:6px}
+.contact{position:absolute;left:50%;bottom:296px;width:560px;height:26px;margin-left:-280px;background:radial-gradient(closest-side,rgba(20,24,28,.6),transparent);filter:blur(2px)}
+.card{position:absolute;left:50%;bottom:300px;width:500px;height:700px;margin-left:-250px;
+  transform:perspective(2400px) rotateY(-7deg) rotateX(2deg);transform-origin:50% 100%;
+  background:#f4f1ea;color:#1d2226;box-shadow:0 1px 0 rgba(0,0,0,.08),inset 0 0 0 1px rgba(0,0,0,.04);
+  display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;opacity:.55;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .6 0 0 0 0 .57 0 0 0 0 .5 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(var(--sun),.0) 30%,rgba(var(--sun),.25) 55%,rgba(0,0,0,.06) 100%)}
+.rule{position:absolute;inset:26px;border:1.5px solid rgba(29,34,38,.75)}
+.logo{margin-top:120px;width:170px;height:170px;object-fit:contain}
+h1{font:500 58px/1 "Bodoni Moda";margin:64px 0 0;letter-spacing:-.01em}
+.line{font:italic 400 25px/1.35 "Bodoni Moda";margin:18px 50px 0;opacity:.85}
+.fig{font:500 22px "Bodoni Moda";margin-top:auto}
+.meta{font:600 14px "Instrument Sans";letter-spacing:.22em;margin:12px 0 84px;opacity:.8}
+/* window-bar shadows drifting across everything */
+.bars{position:absolute;inset:-200px;pointer-events:none;transform:rotate(calc(var(--skew) * .4));
+  background:repeating-linear-gradient(90deg,transparent 0 420px,rgba(var(--shadow),.085) 420px 448px);filter:blur(9px);mix-blend-mode:multiply}
+.wash{position:absolute;inset:0;background:radial-gradient(70% 55% at 62% 40%,rgba(var(--sun),var(--wash)),transparent 70%);mix-blend-mode:screen}
+.grain{position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vig{position:absolute;inset:0;background:radial-gradient(90% 80% at 50% 45%,transparent 55%,rgba(20,24,28,.28))}
+</style></head><body>
+<div class="stage" id="s">
+  <div class="bg" id="bg"></div>
+  <div class="reveal l"></div><div class="reveal r"></div>
+  <div class="sill"></div>
+  <div class="cast"></div><div class="contact"></div>
+  <div class="card"><div class="rule"></div>
+    <img class="logo" id="logo" alt="">
+    <h1 id="name"></h1><p class="line" id="line"></p>
+    <div class="fig" id="fig"></div><div class="meta" id="meta"></div>
+  </div>
+  <div class="bars"></div><div class="wash"></div><div class="vig"></div><div class="grain"></div>
+</div>
+<script type="module">
+import { content } from '../../../_shared/content.js'
+const q = new URLSearchParams(location.search)
+const id = q.get('id') || 'mcp-emails'
+const P = content.products.find((p) => p.id === id)
+const LOGOS = { 'mcp-emails': 'mcp-emails/logo-mark.svg', 'fun-libs': 'fun-libs/icon.png', toolrails: 'toolrails/icon.svg', harbor: 'harbor/harbor-mark-filled.svg' }
+document.documentElement.dataset.tone = q.get('tone') || 'noon'
+document.getElementById('bg').style.backgroundImage = `url(bg/bg-${id}.jpg)`
+document.getElementById('logo').src = '../../../_shared/products/' + LOGOS[id]
+document.getElementById('name').textContent = P.name
+document.getElementById('line').textContent = P.line
+document.getElementById('fig').textContent = P.figure ? `${P.figure.value} ${P.figure.label}` : ''
+const status = { live: 'LIVE', building: 'BUILDING', paused: 'PAUSED' }[P.status]
+document.getElementById('meta').textContent = `SINCE ${P.since}  ·  ${status}`
+</script></body></html>

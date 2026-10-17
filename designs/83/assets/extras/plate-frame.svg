@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" fill="none" stroke="currentColor" preserveAspectRatio="none" aria-hidden="true">
+  <!-- Editorial plate frame. Stretch over a figure (preserveAspectRatio none, vector-effect keeps hairlines crisp).
+       Outer hairline, inner rule, and registration ticks at the corners and mid-edges, like a printed plate. -->
+  <rect x="0.5" y="0.5" width="399" height="499" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".55"/>
+  <rect x="10.5" y="10.5" width="379" height="479" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".9"/>
+  <g stroke-width="1" vector-effect="non-scaling-stroke">
+    <path d="M200 0v8M200 492v8M0 250h8M392 250h8" vector-effect="non-scaling-stroke"/>
+    <path d="M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/>
+  </g>
+</svg>

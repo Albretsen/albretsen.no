@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen AS">
+<defs><mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+    <rect width="64" height="64" fill="#fff"/>
+    <path d="M22 45V31.5h3.2V25h3.3v-6.5h2.3V11h2.4v7.5h2.3V25h3.3v6.5H42V45z" fill="#000"/>
+    <path d="M29.4 45v-5.6a2.6 2.6 0 0 1 5.2 0V45z" fill="#fff"/>
+    <rect x="0" y="45" width="64" height="2.6" fill="#000"/>
+    <rect x="0" y="50.6" width="64" height="2.2" fill="#000"/>
+    <rect x="0" y="55.4" width="64" height="1.8" fill="#000"/>
+  </mask></defs>
+  <circle cx="32" cy="32" r="26" fill="#B5352B" mask="url(#m)"/>
+</svg>

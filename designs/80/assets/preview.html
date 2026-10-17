@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pavilion Light — asset kit</title>
+<meta name="description" content="Asset kit 80 for albretsen.no: a symmetrical pastel miniature, one horizon from sunrise to sunset.">
+<link rel="icon" href="identity/favicon.svg"><link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="preload" href="fonts/antonio-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="motion.css">
+<style>
+  *{box-sizing:border-box}
+  html{background:var(--cream);color:var(--ink);font:400 var(--t-body)/1.6 var(--font-text);-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--cream) url(extras/texture-plaster-512.webp) 0 0/512px;}
+  img{display:block;max-width:100%;height:auto}
+  .wrap{width:min(1240px,100% - 32px);margin-inline:auto}
+  .label{font:600 var(--t-label) var(--font-poster);letter-spacing:.28em;text-transform:uppercase;color:var(--zinc-deep)}
+  .label b{color:var(--cafe);font-weight:600}
+  h2{font:500 var(--t-display)/1 var(--font-poster);letter-spacing:.05em;text-transform:uppercase;margin:.3em 0 .5em}
+  p{max-width:62ch}
+  section{padding-block:clamp(4rem,10vh,8rem);border-top:1px solid color-mix(in oklch,var(--zinc) 45%,transparent)}
+  .grid{display:grid;gap:clamp(12px,2vw,24px)}
+  figure{margin:0}
+  figcaption{font:400 .85rem/1.45 var(--font-text);color:var(--zinc-deep);margin-top:.6rem}
+  figcaption code,code{font:500 .78rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink);background:color-mix(in oklch,var(--cream-warm) 70%,transparent);padding:.05em .35em;border-radius:2px}
+  .frame{background:var(--cream-warm);border:1px solid color-mix(in oklch,var(--zinc) 40%,transparent)}
+
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:center;padding-block:22px}
+  .top img{width:220px}
+  /* hero */
+  .hero{position:relative;aspect-ratio:16/9;overflow:hidden;max-height:92vh;width:100%}
+  .hero img{width:100%;height:100%;object-fit:cover}
+  .hero .copy{z-index:2;position:absolute;left:50%;translate:-50% 0;top:clamp(20px,6%,72px);width:min(900px,92%);text-align:center}
+  .hero h1{font:600 clamp(2.4rem,4.6vw,4.6rem)/.95 var(--font-poster);letter-spacing:.03em;text-transform:uppercase;margin:0;color:var(--ink)}
+  .hero h1 em{font-style:normal;color:var(--cafe)}
+  .hero .lead{font:600 var(--t-label) var(--font-poster);letter-spacing:.28em;text-transform:uppercase;margin:1rem auto 0;color:var(--zinc-deep)}
+  .hero .rise{white-space:nowrap;width:max-content;margin-inline:auto}
+  @media (max-width:700px){ .hero{aspect-ratio:2/3;max-height:none} .hero h1{font-size:2.6rem} }
+
+  .two{grid-template-columns:2fr 1fr}
+  .days{grid-template-columns:repeat(3,1fr)}
+  .kiosks{grid-template-columns:repeat(4,1fr)}
+  .tiles{grid-template-columns:repeat(7,1fr)}
+  .ids{grid-template-columns:repeat(4,1fr);align-items:stretch}
+  .ids .frame{display:grid;place-items:center;padding:28px;min-height:180px}
+  .swatches{grid-template-columns:repeat(6,1fr)}
+  .sw{border:1px solid color-mix(in oklch,var(--zinc) 40%,transparent);background:#fff8}
+  .sw i{display:block;aspect-ratio:4/3}
+  .sw div{padding:10px 12px;font:.78rem/1.45 var(--font-text)}
+  .sw strong{font:600 .78rem var(--font-poster);letter-spacing:.18em;text-transform:uppercase;display:block}
+  .cuts{grid-template-columns:repeat(4,1fr);align-items:end;padding:40px 24px 0;background:linear-gradient(var(--sky),var(--cream) 70%)}
+  .cuts img{margin-inline:auto;max-height:300px;width:auto}
+  .extras{grid-template-columns:1fr 1fr 1fr}
+  .posters{grid-template-columns:1.2fr 1fr 1fr;align-items:start}
+  .motion{grid-template-columns:1fr 1fr}
+  .demo{min-height:220px;padding:28px;position:relative;overflow:hidden}
+  .spec .big{font:600 clamp(4rem,12vw,9rem)/.88 var(--font-poster);text-transform:uppercase;letter-spacing:.02em;margin:0}
+  .spec .mid{font:500 2.4rem/1 var(--font-poster);text-transform:uppercase;letter-spacing:.08em}
+  .spec .txt{font:350 1.35rem/1.45 var(--font-text);max-width:40ch}
+  .spec .weights span{font-family:var(--font-poster);font-size:2rem;text-transform:uppercase;margin-right:1.2rem}
+  iframe{width:100%;aspect-ratio:16/9;border:0;display:block;background:var(--cream-warm)}
+  .btn{font:600 11px var(--font-poster);letter-spacing:.22em;text-transform:uppercase;border:1px solid var(--ink);background:none;padding:10px 14px;cursor:pointer;color:var(--ink)}
+  .scrub{height:260vh;position:relative}
+  .scrub .pin{position:sticky;top:0;height:100vh;display:grid;place-items:center;text-align:center}
+  .scrub .sky{position:absolute;inset:0;background:
+     linear-gradient(color-mix(in oklch,var(--dusk) calc(max(0, var(--t) - .8) * 400%),transparent),transparent),
+     linear-gradient(180deg, color-mix(in oklch, var(--sky) calc((1 - var(--t)) * 100%), var(--flamingo)), var(--cream));}
+  .scrub .inner{position:relative;width:min(900px,100%);padding:16px}
+  .scrub .num{font:600 clamp(3rem,10vw,7rem)/1 var(--font-poster);letter-spacing:.04em}
+  @media (max-width:900px){ .two,.motion,.posters{grid-template-columns:1fr} .days,.kiosks,.ids{grid-template-columns:1fr 1fr} .tiles{grid-template-columns:repeat(4,1fr)} .swatches{grid-template-columns:repeat(3,1fr)} .extras{grid-template-columns:1fr} .cuts{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:520px){ .top .label{display:none} .days,.kiosks{grid-template-columns:1fr} .tiles{grid-template-columns:repeat(2,1fr)} .swatches{grid-template-columns:repeat(2,1fr)} }
+</style></head>
+<body>
+<header class="wrap top"><img src="identity/lockup.svg" width="300" height="64" alt="Albretsen AS"><span class="label">Asset kit <b>80</b> / Pavilion Light</span></header>
+
+<!-- HERO: still first, heat haze on the horizon band, horizon-rise headline -->
+<div class="hero" id="hero">
+  <picture>
+    <source media="(max-width:700px)" type="image/avif" srcset="hero/hero-portrait-720.avif 720w, hero/hero-portrait-1080.avif 1080w">
+    <source media="(max-width:700px)" type="image/webp" srcset="hero/hero-portrait-720.webp 720w, hero/hero-portrait-1080.webp 1080w">
+    <source media="(max-width:700px)" srcset="hero/hero-portrait-720.jpg 720w, hero/hero-portrait-1080.jpg 1080w">
+    <source type="image/avif" srcset="hero/hero-morning-960.avif 960w, hero/hero-morning-1600.avif 1600w, hero/hero-morning-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="hero/hero-morning-960.webp 960w, hero/hero-morning-1600.webp 1600w, hero/hero-morning-2400.webp 2400w" sizes="100vw">
+    <img src="hero/hero-morning-1600.jpg" srcset="hero/hero-morning-960.jpg 960w, hero/hero-morning-1600.jpg 1600w, hero/hero-morning-2400.jpg 2400w" sizes="100vw" width="2400" height="1350" fetchpriority="high"
+      alt="A cream Streamline deco pavilion with a stepped flamingo tower and brass finial, on a golden bluff above a pastel sea in morning light">
+  </picture>
+  <div class="copy">
+    <h1><span class="rise"><span>Quiet software,</span></span><span class="rise"><span>built in <em>daylight.</em></span></span></h1>
+    <p class="lead">Sample hero / heat haze + horizon rise</p>
+  </div>
+</div>
+
+<main class="wrap">
+<section>
+  <span class="label">01 / Direction</span>
+  <h2>One horizon, one building, one day</h2>
+  <p>Pavilion Light is a symmetrical miniature: a cream Streamline deco pavilion with a stepped tower and a brass finial. It stands on a golden California bluff above a pastel Miami sea. Everything is built in three.js from primitives, so the scene is both a set of renders and a live page. Scrolling moves the sun from first light to sunset. At noon the sun crowns the finial, which is the brand mark come true. The palette is Parisian (zinc, cream, café red, brass) and the light is Miami morning. The tone is Nordic understatement: one idea per screen and a lot of air.</p>
+</section>
+
+<section>
+  <span class="label">02 / Hero imagery</span>
+  <h2>Stills, baked from the live scene</h2>
+  <div class="grid two">
+    <figure><picture><source type="image/avif" srcset="hero/hero-terrace-1600.avif"><img src="hero/hero-terrace-1600.jpg" width="1600" height="900" loading="lazy" alt="Three-quarter view of the pavilion terrace at golden hour, parasols and cypresses"></picture>
+      <figcaption><code>hero/hero-terrace-{960,1600,2400}.{avif,webp,jpg}</code>: the second hero, a three-quarter view at golden hour. Use it for the about section or the OG image.</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="hero/hero-portrait-1080.avif"><img src="hero/hero-portrait-1080.jpg" width="1080" height="1620" loading="lazy" alt="Portrait framing of the pavilion in morning light"></picture>
+      <figcaption><code>hero/hero-portrait-{720,1080}</code>: the mobile hero, with lots of sky for the headline. <code>hero-portrait-sunset-1080</code> is the same framing at sunset.</figcaption></figure>
+  </div>
+  <div class="grid days" style="margin-top:24px">
+    <figure><picture><source type="image/avif" srcset="hero/day-01-first-light-1600.avif"><img src="hero/day-01-first-light-1600.jpg" width="1600" height="900" loading="lazy" alt="First light"></picture><figcaption>day-01 First light</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="hero/day-02-morning-1600.avif"><img src="hero/day-02-morning-1600.jpg" width="1600" height="900" loading="lazy" alt="Morning"></picture><figcaption>day-02 Morning (default)</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="hero/day-03-noon-1600.avif"><img src="hero/day-03-noon-1600.jpg" width="1600" height="900" loading="lazy" alt="Noon, the sun crowning the finial"></picture><figcaption>day-03 Noon: the sun crowns the finial</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="hero/day-04-golden-1600.avif"><img src="hero/day-04-golden-1600.jpg" width="1600" height="900" loading="lazy" alt="Golden hour"></picture><figcaption>day-04 Golden hour</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="hero/day-05-sunset-1600.avif"><img src="hero/day-05-sunset-1600.jpg" width="1600" height="900" loading="lazy" alt="Sunset"></picture><figcaption>day-05 Sunset, the sun drops behind the golden hill</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="hero/day-06-after-hours-1600.avif"><img src="hero/day-06-after-hours-1600.jpg" width="1600" height="900" loading="lazy" alt="After hours: night, windows lit, stars forming the mark"></picture><figcaption>day-06 After hours: the easter egg. The stars gather into the mark.</figcaption></figure>
+  </div>
+  <figure style="margin-top:24px;max-width:640px"><picture><source type="image/avif" srcset="hero/noon-crown-1600.avif"><img src="hero/noon-crown-1600.jpg" width="1600" height="1000" loading="lazy" alt="Close view of the tower with the noon sun directly above the brass finial"></picture><figcaption><code>hero/noon-crown-1600</code>: the mark, photographed. Use it for a 404 page or a blog header.</figcaption></figure>
+</section>
+
+<section>
+  <span class="label">03 / Interactive</span>
+  <h2>The live pavilion</h2>
+  <p>This is <code>3d/pavilion.js</code>, an ES module built on vendored three.js r170. Drag the slider or pick a time. <strong>Hidden:</strong> click the sun three times, or press <kbd>N</kbd>. Night falls, the windows light up and the stars gather into the Albretsen mark. The iframe only loads when it scrolls into view.</p>
+  <iframe src="3d/demo.html" loading="lazy" title="Live 3D pavilion demo"></iframe>
+</section>
+
+<section>
+  <span class="label">04 / Products</span>
+  <h2>A kiosk for each product</h2>
+  <p>Each product gets its own small deco kiosk, with the real logo on the sign and the real name under it. Each one stands at a different hour. Harbor is paused, so its shutter is down. Hover a card to see the awning unroll (motion 3).</p>
+  <div class="grid kiosks">
+    <figure class="awning-card frame" tabindex="0"><picture><source type="image/avif" srcset="products/kiosk-mcp-emails-600.avif 600w, products/kiosk-mcp-emails-1200.avif 1200w" sizes="(max-width:520px) 100vw, 25vw"><img src="products/kiosk-mcp-emails-600.jpg" width="1200" height="1500" loading="lazy" alt="Deco kiosk with the MCP Emails logo on its sign, morning"></picture></figure>
+    <figure class="awning-card frame" tabindex="0"><picture><source type="image/avif" srcset="products/kiosk-fun-libs-600.avif 600w, products/kiosk-fun-libs-1200.avif 1200w" sizes="(max-width:520px) 100vw, 25vw"><img src="products/kiosk-fun-libs-600.jpg" width="1200" height="1500" loading="lazy" alt="Deco kiosk with the Fun Libs icon, noon"></picture></figure>
+    <figure class="awning-card frame" tabindex="0"><picture><source type="image/avif" srcset="products/kiosk-toolrails-600.avif 600w, products/kiosk-toolrails-1200.avif 1200w" sizes="(max-width:520px) 100vw, 25vw"><img src="products/kiosk-toolrails-600.jpg" width="1200" height="1500" loading="lazy" alt="Deco kiosk with the Toolrails icon, afternoon"></picture></figure>
+    <figure class="awning-card frame" tabindex="0"><picture><source type="image/avif" srcset="products/kiosk-harbor-600.avif 600w, products/kiosk-harbor-1200.avif 1200w" sizes="(max-width:520px) 100vw, 25vw"><img src="products/kiosk-harbor-600.jpg" width="1200" height="1500" loading="lazy" alt="Deco kiosk with the Harbor mark, shutter down, at sunset"></picture></figure>
+  </div>
+  <p class="label" style="margin-top:48px">Retired: house-number tiles <code>products/retired/*.svg</code></p>
+  <div class="grid tiles">
+    <img src="products/retired/luma.svg" width="120" height="150" loading="lazy" alt="Luma, retired">
+    <img src="products/retired/polyglot-pilot.svg" width="120" height="150" loading="lazy" alt="Polyglot Pilot, retired">
+    <img src="products/retired/pinpoint.svg" width="120" height="150" loading="lazy" alt="PinPoint, retired">
+    <img src="products/retired/webvakt.svg" width="120" height="150" loading="lazy" alt="WebVakt, retired">
+    <img src="products/retired/joke-central.svg" width="120" height="150" loading="lazy" alt="Joke Central, retired">
+    <img src="products/retired/tryggere-hyring.svg" width="120" height="150" loading="lazy" alt="Tryggere Hyring, retired">
+    <img src="products/retired/early-apps.svg" width="120" height="150" loading="lazy" alt="Early apps, retired">
+  </div>
+</section>
+
+<section>
+  <span class="label">05 / Identity</span>
+  <h2>The sun over the pavilion</h2>
+  <p>The mark is a café-red sun with the stepped tower cut out of it. Its arched door forms the counter of an A, and three sea lines run under the horizon. All lettering is outlined from Antonio 560, so the SVGs need no font.</p>
+  <div class="grid ids">
+    <div class="frame"><img src="identity/mark.svg" width="120" height="120" alt="Mark"></div>
+    <div class="frame" style="background:var(--cafe)"><img src="identity/mark-cream.svg" width="120" height="120" alt="Mark, cream"></div>
+    <div class="frame"><img src="identity/favicon.svg" width="64" height="64" alt="Favicon"><img src="identity/apple-touch-icon-180.png" width="90" height="90" alt="Apple touch icon" style="margin-top:12px"></div>
+    <div class="frame"><img src="identity/wordmark.svg" width="292" height="48" alt="Wordmark"></div>
+  </div>
+  <div class="grid two" style="margin-top:24px">
+    <figure><img src="identity/og-image-1200x630.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image"><figcaption><code>identity/og-image-1200x630.jpg</code> (source: <code>og-source.html</code>)</figcaption></figure>
+    <div class="grid" style="align-content:start">
+      <div class="frame" style="padding:28px"><img src="identity/lockup.svg" width="300" height="64" alt="Lockup"></div>
+      <div class="frame" style="padding:28px;background:var(--ink)"><img src="identity/lockup-cream.svg" width="300" height="64" alt="Lockup, cream"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="label">06 / Palette</span>
+  <h2>Plaster, zinc and brass in pastel light</h2>
+  <div class="grid swatches" id="sw"></div>
+</section>
+
+<section class="spec">
+  <span class="label">07 / Type</span>
+  <h2>Antonio + Source Sans 3</h2>
+  <p class="big">Albretsen</p>
+  <p class="mid" style="color:var(--cafe)">Software that pays for itself</p>
+  <p class="txt">Source Sans 3 is a humanist sans with open apertures and calm rhythm, which makes it the quiet voice next to the condensed poster caps. Æ Ø Å æ ø å. 113,000+ installs. 17 tools. $782 MRR.</p>
+  <p class="weights"><span style="font-weight:200">Antonio 200</span><span style="font-weight:400">Antonio 400</span><span style="font-weight:600">Antonio 600</span><span style="font-weight:700">700</span></p>
+  <p class="label">Labels: Antonio 600, caps, .28em tracking / Body: Source Sans 3 400, 17px, 1.6</p>
+</section>
+
+<section>
+  <span class="label">08 / Extras</span>
+  <h2>Set pieces and ephemera</h2>
+  <div class="cuts grid frame">
+    <img class="breeze" src="extras/cutouts/cypress.webp" width="214" height="1038" loading="lazy" alt="Cypress cut-out">
+    <img class="breeze" src="extras/cutouts/parasol.webp" width="566" height="587" loading="lazy" alt="Parasol table cut-out">
+    <img class="breeze" src="extras/cutouts/finial.webp" width="350" height="830" loading="lazy" alt="Brass finial cut-out">
+    <img class="breeze" src="extras/cutouts/tower.webp" width="674" height="922" loading="lazy" alt="Stepped tower cut-out">
+  </div>
+  <p><code>extras/cutouts/*.webp</code>: transparent renders from <code>createProp()</code>. These use Sea Breeze (motion 1).</p>
+  <div class="grid extras" style="margin-top:24px">
+    <figure><img src="extras/ephemera-day-card.svg" width="360" height="600" loading="lazy" alt="Day card: one horizon, six settings of light"><figcaption><code>ephemera-day-card.svg</code>: a time card for the six settings of light. It doubles as a menu for scrubbing the hero.</figcaption></figure>
+    <div class="grid" style="align-content:start">
+      <figure><div class="frame" style="height:200px;background:url(extras/pattern-sunburst.svg) 0 0/160px 80px"></div><figcaption><code>pattern-sunburst.svg</code>: a tileable deco fan</figcaption></figure>
+      <figure><div style="height:22px;background:url(extras/divider-awning.svg) 0 0/48px 20px repeat-x"></div><figcaption><code>divider-awning.svg</code>: a scalloped valance divider</figcaption></figure>
+      <figure><img src="extras/divider-horizon.svg" width="1200" height="60" loading="lazy" alt="Horizon divider"><figcaption><code>divider-horizon.svg</code>: a horizon rule with a setting sun</figcaption></figure>
+      <figure><div class="frame" style="height:120px;background:url(extras/texture-plaster-512.webp) 0 0/512px"></div><figcaption><code>texture-plaster-512.webp</code>: seamless plaster grain (this page uses it)</figcaption></figure>
+    </div>
+    <div class="grid" style="align-content:start">
+      <figure><img src="posters/study-lassen-1938.jpg" width="1200" height="713" loading="lazy" alt="Sun-bleached crop of a 1938 Lassen Volcanic National Park poster"><figcaption><code>posters/study-lassen-1938</code></figcaption></figure>
+      <figure><img src="posters/study-fort-marion-1938.jpg" width="1200" height="1031" loading="lazy" alt="Sun-bleached crop of a 1938 Fort Marion poster, water and wall"><figcaption><code>posters/study-fort-marion-1938</code></figcaption></figure>
+      <figure><img src="posters/study-see-america-1938.jpg" width="1200" height="1247" loading="lazy" alt="Sun-bleached crop of a 1938 See America poster, stone arch"><figcaption><code>posters/study-see-america-1938</code>: public-domain WPA silkscreens with the lettering cropped out, regraded to the palette. Use them as blog covers or framed pictures, never as hero images.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="label">09 / Motion study</span>
+  <h2>Drift, never bounce</h2>
+  <div class="grid motion">
+    <div class="frame demo"><p class="label">1 Sea Breeze <code>.breeze .sway</code></p>
+      <div style="display:flex;gap:24px;align-items:end;justify-content:center;height:180px">
+        <img class="breeze" src="extras/cutouts/cypress.webp" width="34" height="165" alt="">
+        <img class="breeze" src="extras/cutouts/parasol.webp" width="150" height="156" alt="">
+        <img class="breeze" src="extras/cutouts/cypress.webp" width="30" height="146" alt="">
+      </div>
+      <div class="sway" style="height:22px;margin-top:12px;background:url(extras/divider-awning.svg) 0 0/48px 20px repeat-x"></div>
+      <p>Two periods that never line up (11 s and 7.3 s), moving about 6 px. Adapted from the slow product loops on Jacquemus and from real heat shimmer.</p></div>
+    <div class="frame demo"><p class="label">2 Horizon Rise <code>.rise</code></p>
+      <h3 id="riseDemo" style="font:600 3.4rem/.95 var(--font-poster);text-transform:uppercase;margin:12px 0"><span class="rise"><span>Effective.</span></span><span class="rise"><span>Reasonable.</span></span></h3>
+      <button class="btn" id="replay">Replay</button>
+      <p>A brass hairline draws first, then the words rise from behind it. Adapted from the start-frame/end-frame reveals on Apple product pages.</p></div>
+    <div class="frame demo"><p class="label">3 Awning Unroll <code>.awning-card</code></p>
+      <div class="awning-card" tabindex="0" style="background:var(--cream);padding:40px 24px 24px;border:1px solid var(--zinc)"><strong style="font:600 1.6rem var(--font-poster);text-transform:uppercase;letter-spacing:.06em">Hover me</strong><p style="margin:.4em 0 0">The valance drops and the card settles 2 px. Adapted from the card lifts on Stripe Sessions.</p></div></div>
+    <div class="frame demo"><p class="label">4 Heat Haze <code>heatHaze(el)</code></p>
+      <div id="hazeDemo" style="position:relative;aspect-ratio:16/9"><img src="hero/hero-terrace-960.jpg" width="960" height="540" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+      <p>feTurbulence plus feDisplacementMap, limited to a thin band above the horizon. It runs at about 24 fps and pauses off-screen (technique from Codrops and Framer). It is also running on the hero at the top of this page.</p></div>
+  </div>
+</section>
+</main>
+
+<!-- 5 SUN SCRUB: scroll through this block -->
+<section class="scrub" id="scrub" style="border:0;padding:0">
+  <div class="pin"><div class="sky"></div>
+    <div class="inner"><span class="label">5 Sun Scrub <code>sunScrub(section, onTime)</code></span>
+      <div class="num" id="clock">06:10</div>
+      <div class="sun-track" style="margin:24px 0"></div>
+      <p style="margin-inline:auto">Scroll sets <code>--t</code>, the time of day. On the site it drives <code>pavilion.setTime(t)</code>, so the real scene scrubs from first light to sunset. Adapted from Apple's scroll-scrubbed product sequences, but with a live scene in place of video frames.</p></div>
+  </div>
+</section>
+<footer class="wrap" style="padding:48px 0 64px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><img src="identity/mark.svg" width="40" height="40" alt=""><span class="label">Albretsen AS / albretsen.no / asset kit 80</span></footer>
+
+<script type="module">
+  import { horizonRise, heatHaze, sunScrub } from './motion.js'
+  const SW = [['Cream','#F3EBDD','oklch(94.3% 0.021 81.8)'],['Cream warm','#EADBC4','oklch(89.7% 0.035 78.7)'],['Zinc','#8E959B','oklch(66.6% 0.012 243.7)'],['Zinc deep','#565C63','oklch(47.2% 0.014 252.2)'],['Ink','#2A2A2E','oklch(28.7% 0.007 285.9)'],['Café','#B5352B','oklch(52.0% 0.166 28.6)'],['Brass','#B8924A','oklch(68.1% 0.101 81.6)'],['Flamingo','#EFA6AE','oklch(79.7% 0.087 12.0)'],['Mint','#BFE3D3','oklch(88.5% 0.044 166.7)'],['Sky','#CFE3EE','oklch(90.4% 0.026 231.6)'],['Ochre','#D9B36C','oklch(78.5% 0.100 82.1)'],['Dusk','#4E4F86','oklch(45.3% 0.089 281.4)']]
+  document.getElementById('sw').innerHTML = SW.map(([n,h,o]) => `<div class="sw"><i style="background:${h}"></i><div><strong>${n}</strong>${h}<br>${o}</div></div>`).join('')
+  horizonRise()
+  addEventListener('load', () => {
+    heatHaze(document.getElementById('hero'), { top: 0.5, height: 0.1 })
+    heatHaze(document.getElementById('hazeDemo'), { top: 0.55, height: 0.14, scale: 7 })
+  })
+  document.getElementById('replay').onclick = () => {
+    const els = document.querySelectorAll('#riseDemo .rise'); els.forEach((e) => e.classList.remove('is-in'))
+    requestAnimationFrame(() => requestAnimationFrame(() => els.forEach((e) => e.classList.add('is-in'))))
+  }
+  const clock = document.getElementById('clock')
+  sunScrub(document.getElementById('scrub'), (t) => {
+    const m = Math.round((6 + 10 / 60) * 60 + t * (20.25 - 6.1667) * 60)
+    clock.textContent = String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0')
+  })
+</script>
+</body></html>

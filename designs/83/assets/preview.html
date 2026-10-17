@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warm Boot, asset kit 83</title>
+<meta name="description" content="Contact sheet for design 83, Warm Boot: retro-futurist airbrush, a boot sequence that becomes the homepage.">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon-180.png">
+<link rel="preload" href="fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: Newsreader; src: url(fonts/newsreader-latin.woff2) format('woff2'); font-weight: 200 800; font-display: swap; }
+  @font-face { font-family: Newsreader; font-style: italic; src: url(fonts/newsreader-italic-latin.woff2) format('woff2'); font-weight: 200 800; font-display: swap; }
+  @font-face { font-family: 'Martian Mono'; src: url(fonts/martian-mono-latin.woff2) format('woff2'); font-weight: 100 800; font-stretch: 75% 112.5%; font-display: swap; }
+
+  :root {
+    --night: oklch(0.18 0.025 220);      /* #041419 */
+    --dusk-teal: oklch(0.31 0.055 226);  /* #063645 */
+    --umber: oklch(0.27 0.040 45);       /* #372016 */
+    --ink: oklch(0.22 0.020 50);         /* #221812 */
+    --terracotta: oklch(0.60 0.120 38);  /* #bc6449 */
+    --mauve: oklch(0.55 0.065 338);      /* #8b637f */
+    --ochre: oklch(0.78 0.120 70);       /* #e8a95c */
+    --sand: oklch(0.90 0.045 80);        /* #eedbbd */
+    --bone: oklch(0.965 0.016 85);       /* #f8f3e8 */
+    --verdigris: oklch(0.64 0.085 180);  /* #499d8e  seed hue 180 */
+    --phosphor: oklch(0.88 0.110 180);   /* #7defda  the electric accent */
+    --serif: Newsreader, 'Iowan Old Style', Georgia, serif;
+    --mono: 'Martian Mono', ui-monospace, Menlo, monospace;
+    --bg: var(--night); --fg: var(--sand); --muted: oklch(0.72 0.03 80); --rule: oklch(0.40 0.03 220);
+    --gutter: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box }
+  html { background: var(--bg); color-scheme: dark; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.55 var(--serif); font-variation-settings: 'opsz' 16; -webkit-font-smoothing: antialiased; }
+  img, picture, canvas, svg, video { display: block; max-width: 100%; }
+  a { color: var(--phosphor); }
+  .label { font: 400 11px/1.3 var(--mono); font-stretch: 112.5%; letter-spacing: .12em; text-transform: uppercase; color: var(--phosphor); }
+  .muted { color: var(--muted) }
+  section { padding: clamp(56px, 9vw, 120px) var(--gutter); border-top: 1px solid var(--rule); }
+  .wrap { max-width: 1320px; margin: 0 auto; }
+  h2 { font: 360 clamp(34px, 5vw, 64px)/1.02 var(--serif); font-variation-settings: 'opsz' 72; letter-spacing: -0.015em; margin: 10px 0 14px; color: var(--bone); }
+  h3 { font: 400 22px/1.2 var(--serif); font-variation-settings: 'opsz' 36; margin: 0 0 6px; color: var(--bone); }
+  .lede { max-width: 62ch; color: var(--muted); margin: 0 0 40px; }
+  figure { margin: 0 }
+  figcaption { font: 400 11px/1.5 var(--mono); letter-spacing: .04em; color: var(--muted); margin-top: 10px; }
+  figcaption b { color: var(--sand); font-weight: 400 }
+  .grid { display: grid; gap: clamp(16px, 2.4vw, 32px); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .g6 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); }
+  .tile { background: oklch(0.21 0.03 222); border: 1px solid var(--rule); border-radius: 4px; padding: 20px; }
+  .tile.light { background: var(--bone) url(extras/paper-bone-768.webp); color: var(--ink); border-color: oklch(0.85 0.03 80); }
+  button { font: 400 11px/1 var(--mono); font-stretch: 112.5%; letter-spacing: .1em; text-transform: uppercase; color: var(--night); background: var(--phosphor); border: 0; border-radius: 2px; padding: 10px 14px; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--phosphor); box-shadow: inset 0 0 0 1px currentColor; }
+  input[type=range] { accent-color: var(--phosphor); }
+
+  /* ── 0. Boot hero ───────────────────────────────────── */
+  .boot { position: relative; height: min(100svh, 980px); min-height: 560px; overflow: hidden; background: var(--night); border: 0; padding: 0; }
+  .boot canvas.field { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .boot .log { position: absolute; left: var(--gutter); right: var(--gutter); top: 50%; translate: 0 -50%; max-width: 680px; margin: 0 auto; font: 400 clamp(11px, 1.3vw, 14px)/1.9 var(--mono); color: var(--phosphor); letter-spacing: .04em; }
+  .wb-log-row { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px dashed oklch(0.88 0.11 180 / .18); white-space: nowrap; overflow: hidden; }
+  .wb-log-status { color: var(--sand); }
+  .boot .mast { position: absolute; left: var(--gutter); right: var(--gutter); top: clamp(20px, 4vw, 40px); display: flex; justify-content: space-between; align-items: center; z-index: 2; }
+  .boot .mast svg { width: 44px; height: 44px; }
+  .boot .title { position: absolute; left: var(--gutter); bottom: clamp(28px, 6vw, 72px); z-index: 2; max-width: 900px; }
+  .boot h1 { font: 330 clamp(44px, 8vw, 120px)/0.95 var(--serif); font-variation-settings: 'opsz' 72; letter-spacing: -0.02em; margin: 12px 0 0; color: var(--bone); text-shadow: 0 2px 30px oklch(0.18 0.025 220 / .6); }
+  .boot h1 em { font-style: italic; color: var(--ochre); }
+  .boot .replay { position: absolute; right: var(--gutter); bottom: clamp(28px, 6vw, 72px); z-index: 2; }
+  @media (max-width: 760px) { .boot .replay { bottom: auto; top: 76px; } .boot h1 { font-size: clamp(38px, 10vw, 60px); } }
+
+  /* ── 1. Hero imagery ────────────────────────────────── */
+  .hero-pic { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 3px; }
+  .hero-pic img { width: 100%; height: 100%; object-fit: cover; }
+  .drift-demo { position: relative; height: 220vh; }
+  .drift-demo .sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .drift-demo picture, .drift-demo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .drift-demo .over { opacity: 0; }
+  .drift-demo .cap { position: absolute; left: var(--gutter); bottom: 32px; z-index: 3; }
+  .drift-demo .cap h2 { margin: 6px 0 0; text-shadow: 0 2px 24px rgb(4 20 25 / .7); }
+  .portraits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 520px; }
+  .portraits img { aspect-ratio: 9 / 14; width: 100%; height: auto; object-fit: cover; border-radius: 3px; }
+
+  /* ── 2. Identity ────────────────────────────────────── */
+  .id-tile { display: grid; place-items: center; min-height: 220px; }
+  .id-tile.dark { background: var(--night); }
+  .mark-inline { width: 120px; height: 120px; }
+  .wm-dark { color: var(--bone); width: min(100%, 420px); height: auto; }
+  .wm-light { color: var(--ink); width: min(100%, 420px); height: auto; }
+
+  /* ── 3. Palette ─────────────────────────────────────── */
+  .swatch { border-radius: 3px; overflow: hidden; border: 1px solid var(--rule); }
+  .swatch .chip { height: 112px; }
+  .swatch .meta { padding: 10px 12px; font: 400 11px/1.6 var(--mono); color: var(--muted); }
+  .swatch .meta b { display: block; font: 400 15px/1.3 var(--serif); color: var(--bone); letter-spacing: 0; }
+  .ramp { height: 56px; border-radius: 3px; margin-top: 18px;
+    background: linear-gradient(90deg in oklch, var(--dusk-teal), var(--mauve), var(--terracotta), var(--ochre), var(--sand)); }
+
+  /* ── 4. Type ────────────────────────────────────────── */
+  .spec-display { font: 330 clamp(48px, 9vw, 132px)/0.92 var(--serif); font-variation-settings: 'opsz' 72; letter-spacing: -0.025em; color: var(--bone); margin: 0; }
+  .spec-display em { color: var(--ochre); }
+  .spec-row { display: grid; grid-template-columns: 180px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+  @media (max-width: 640px) { .spec-row { grid-template-columns: 1fr; gap: 6px; } }
+  .decode-demo { font: 400 clamp(16px, 2vw, 22px)/1.4 var(--mono); font-stretch: 100%; color: var(--phosphor); cursor: pointer; }
+
+  /* ── 5. Products ────────────────────────────────────── */
+  .prod img { aspect-ratio: 4 / 5; width: 100%; height: auto; object-fit: cover; border-radius: 3px; }
+  .prod .row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; gap: 12px; }
+  .prod .fig { font: 400 13px/1 var(--mono); color: var(--ochre); white-space: nowrap; }
+  .prod p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+  .specimen { display: grid; grid-template-rows: 200px auto; align-items: end; justify-items: center; text-align: center; }
+  .specimen img { max-height: 190px; width: auto; }
+  .specimen .n { font: 400 15px/1.25 var(--serif); color: var(--bone); margin-top: 12px; }
+  .specimen .y { font: 400 10px/1.4 var(--mono); color: var(--muted); letter-spacing: .1em; }
+
+  /* ── 6. Extras ──────────────────────────────────────── */
+  .strip img { width: 100%; height: auto; aspect-ratio: 2400 / 220; border-radius: 2px; }
+  .texture { height: 200px; border-radius: 3px; border: 1px solid var(--rule); }
+  .framed { position: relative; padding: 22px; color: var(--sand); }
+  .framed > img.frame { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .framed svg.frame { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--sand); }
+
+  /* ── 7. Interactive ─────────────────────────────────── */
+  .stage { position: relative; aspect-ratio: 16 / 9; border-radius: 3px; overflow: hidden; background: var(--night); border: 1px solid var(--rule); }
+  .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .stage.stone { aspect-ratio: 1 / 1; background: linear-gradient(#041419 0%, #063645 42%, #8b637f 66%, #e8a95c 76%, #372016 76.3%, #041419 100%); }
+  .controls { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; margin-top: 14px; font: 400 11px/1 var(--mono); color: var(--muted); }
+  .controls label { display: flex; gap: 8px; align-items: center; }
+
+  /* ── 8. Motion ──────────────────────────────────────── */
+  .motion-card { display: flex; flex-direction: column; gap: 14px; }
+  .pow-target { aspect-ratio: 16 / 9; border-radius: 3px; overflow: hidden; background: #000; }
+  .pow-target img { width: 100%; height: 100%; object-fit: cover; }
+  .still .drift-demo { height: auto } .still .drift-demo .sticky { position: relative; height: 56vw } .still .boot { height: 900px }
+  footer { padding: 48px var(--gutter); border-top: 1px solid var(--rule); font: 400 11px/1.6 var(--mono); color: var(--muted); }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) { /* the kit is a night-first brand; light sections use .tile.light */ }
+  }
+</style>
+</head>
+<body>
+
+<!-- 0 · BOOT ─────────────────────────────────────────────────────────── -->
+<section class="boot" id="boot" aria-label="Warm boot: the homepage hero powering on">
+  <canvas class="field" id="field" width="1440" height="900" aria-hidden="true"></canvas>
+  <div class="log" id="log" aria-live="off"></div>
+  <div class="mast">
+    <svg viewBox="0 0 64 64" class="wb-blink" role="img" aria-label="Albretsen AS mark">
+      <defs><linearGradient id="sunA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eedbbd"/><stop offset=".45" stop-color="#e8a95c"/><stop offset="1" stop-color="#bc6449"/></linearGradient>
+      <mask id="bandsA"><rect width="64" height="64" fill="#fff"/><g fill="#000"><rect y="29.2" width="64" height="1.2"/><rect y="33.6" width="64" height="1.8"/><rect y="38" width="64" height="2.6"/><rect y="42.4" width="64" height="3.4"/></g></mask></defs>
+      <circle cx="32" cy="27" r="23" fill="url(#sunA)" mask="url(#bandsA)"/><rect class="cursor" x="17" y="55" width="30" height="4.2" rx=".6" fill="#7defda"/>
+    </svg>
+    <span class="label">Design 83 · Asset kit · Warm Boot</span>
+  </div>
+  <div class="title">
+    <span class="label" data-decode>Albretsen AS · Norway · since 2016</span>
+    <h1><span data-decode>Warm boot.</span><br>Software that <em>pays for itself.</em></h1>
+  </div>
+  <button class="replay ghost" id="replay" type="button">Boot again</button>
+</section>
+
+<!-- 1 · HERO IMAGERY ─────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="wrap">
+    <span class="label">01 · Hero imagery</span>
+    <h2>Two hours of the same desert.</h2>
+    <p class="lede">Procedural matte paintings in the manner of 1970s airbrush covers: OKLab gradients, flat-topped mesas with rim light, banded sun, fine spatter grain. <em>First light</em> is the hero; <em>Blue hour</em> is the same world later, a CC0 stone drifting over a salt mirror. Each ships in AVIF / WebP / JPEG at 828, 1280, 1920 and 2560, plus 9:14 portrait crops for phones.</p>
+    <div class="grid g2">
+      <figure>
+        <div class="hero-pic"><picture>
+          <source type="image/avif" srcset="hero/first-light-828.avif 828w, hero/first-light-1280.avif 1280w, hero/first-light-1920.avif 1920w, hero/first-light-2560.avif 2560w" sizes="(min-width: 1000px) 50vw, 100vw">
+          <source type="image/webp" srcset="hero/first-light-828.webp 828w, hero/first-light-1280.webp 1280w, hero/first-light-1920.webp 1920w, hero/first-light-2560.webp 2560w" sizes="(min-width: 1000px) 50vw, 100vw">
+          <img src="hero/first-light-1280.jpg" width="1280" height="720" alt="Airbrushed desert at dawn: banded sun rising behind layered flat-topped mesas, a dark cliff on the left." fetchpriority="high">
+        </picture></div>
+        <figcaption><b>hero/first-light-*</b> · 16:9 · 2560 AVIF 47 KB · focus x 0.60</figcaption>
+      </figure>
+      <figure>
+        <div class="hero-pic"><picture>
+          <source type="image/avif" srcset="hero/blue-hour-828.avif 828w, hero/blue-hour-1280.avif 1280w, hero/blue-hour-1920.avif 1920w, hero/blue-hour-2560.avif 2560w" sizes="(min-width: 1000px) 50vw, 100vw">
+          <source type="image/webp" srcset="hero/blue-hour-828.webp 828w, hero/blue-hour-1280.webp 1280w, hero/blue-hour-1920.webp 1920w, hero/blue-hour-2560.webp 2560w" sizes="(min-width: 1000px) 50vw, 100vw">
+          <img src="hero/blue-hour-1280.jpg" width="1280" height="720" alt="Blue hour over a salt flat: a standing stone floats above the horizon, mirrored in wet salt crossed by polygon cracks." loading="lazy">
+        </picture></div>
+        <figcaption><b>hero/blue-hour-*</b> · 16:9 · 2560 AVIF 59 KB · focus x 0.66</figcaption>
+      </figure>
+    </div>
+    <div style="margin-top:32px" class="portraits">
+      <figure><img src="hero/first-light-portrait-600.webp" width="600" height="933" alt="Portrait crop of First light" loading="lazy"><figcaption>portrait-600 / 900</figcaption></figure>
+      <figure><img src="hero/blue-hour-portrait-600.webp" width="600" height="933" alt="Portrait crop of Blue hour" loading="lazy"><figcaption>portrait-600 / 900</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- Horizon drift: scroll scrubs the hour -->
+<div class="drift-demo" id="drift" aria-label="Scroll demo: dawn turns to blue hour">
+  <div class="sticky">
+    <picture class="base"><source type="image/avif" srcset="hero/first-light-1920.avif 1920w, hero/first-light-1280.avif 1280w, hero/first-light-828.avif 828w" sizes="100vw"><img class="base-img" src="hero/first-light-1280.jpg" width="1280" height="720" alt="" loading="lazy"></picture>
+    <picture class="over"><source type="image/avif" srcset="hero/blue-hour-1920.avif 1920w, hero/blue-hour-1280.avif 1280w, hero/blue-hour-828.avif 828w" sizes="100vw"><img src="hero/blue-hour-1280.jpg" width="1280" height="720" alt="" loading="lazy"></picture>
+    <div class="cap"><span class="label">Motion 03 · Horizon drift</span><h2>Scroll, and the day passes.</h2></div>
+  </div>
+</div>
+
+<!-- 2 · IDENTITY ─────────────────────────────────────────────────────── -->
+<section id="identity">
+  <div class="wrap">
+    <span class="label">02 · Identity</span>
+    <h2>A sun, and a cursor waiting.</h2>
+    <p class="lede">The mark is the banded sun of the paintings sitting over a terminal underscore: a horizon and a prompt. The cursor blinks at 530 ms in motion; it is still everywhere else. Wordmark: Newsreader at display optical size, with <span style="font-family:var(--mono)">AS</span> in wide Martian Mono.</p>
+    <div class="grid g3">
+      <figure class="tile id-tile dark"><img class="mark-inline" src="brand/mark.svg" width="120" height="120" alt="Albretsen AS mark"><figcaption>brand/mark.svg</figcaption></figure>
+      <figure class="tile id-tile light"><img class="mark-inline" src="brand/mark.svg" width="120" height="120" alt="Albretsen AS mark on bone"><figcaption style="color:#6b5a4c">mark.svg on bone</figcaption></figure>
+      <figure class="tile id-tile dark" style="color:var(--sand)"><svg class="mark-inline wb-blink" viewBox="0 0 64 64" role="img" aria-label="Mono mark"><mask id="bandsM"><rect width="64" height="64" fill="#fff"/><g fill="#000"><rect y="29.2" width="64" height="1.2"/><rect y="33.6" width="64" height="1.8"/><rect y="38" width="64" height="2.6"/><rect y="42.4" width="64" height="3.4"/></g></mask><circle cx="32" cy="27" r="23" fill="currentColor" mask="url(#bandsM)"/><rect class="cursor" x="17" y="55" width="30" height="4.2" rx=".6" fill="currentColor"/></svg><figcaption>brand/mark-mono.svg (currentColor) · cursor blinking</figcaption></figure>
+      <figure class="tile id-tile dark"><div style="display:flex;gap:24px;align-items:end"><img src="brand/favicon.svg" width="64" height="64" alt="Favicon"><img src="brand/apple-touch-icon-180.png" width="90" height="90" alt="Apple touch icon"><img src="brand/favicon-32.png" width="32" height="32" alt="32 px favicon"></div><figcaption>favicon.svg · apple-touch-icon-180.png · favicon-32.png</figcaption></figure>
+      <figure class="tile id-tile dark"><img class="wm-dark" src="brand/wordmark-sand.svg" width="420" height="85" alt="Albretsen AS wordmark"><figcaption>brand/wordmark-sand.svg · wordmark.svg (currentColor)</figcaption></figure>
+      <figure class="tile id-tile light"><img class="wm-light" src="brand/lockup.svg" width="420" height="76" alt="Albretsen AS lockup"><figcaption style="color:#6b5a4c">brand/lockup.svg (currentColor text)</figcaption></figure>
+    </div>
+    <figure style="margin-top:32px"><img src="brand/og-image-1200x630.jpg" width="1200" height="630" alt="Open Graph image: wordmark over the First light painting with the line 'I build software that pays for itself.'" loading="lazy" style="border-radius:3px"><figcaption><b>brand/og-image-1200x630.jpg</b> · source: brand/og-source.html</figcaption></figure>
+  </div>
+</section>
+
+<!-- 3 · PALETTE ──────────────────────────────────────────────────────── -->
+<section id="palette">
+  <div class="wrap">
+    <span class="label">03 · Palette</span>
+    <h2>Earth, lit from below the horizon.</h2>
+    <p class="lede">Warm earth tones (umber, terracotta, ochre, sand, bone) against a night built on the seed hue, 180° in OKLCH: deep teal for ground, verdigris for calm accents, phosphor for anything electric (boot text, cursor, scanline). Phosphor is used sparingly, never for body text on light grounds.</p>
+    <div class="grid g6" id="swatches"></div>
+    <div class="ramp" role="img" aria-label="The dawn ramp, interpolated in OKLCH"></div>
+    <figcaption>The dawn ramp, interpolated in OKLCH: dusk-teal → mauve → terracotta → ochre → sand. Every gradient in the paintings follows it.</figcaption>
+  </div>
+</section>
+
+<!-- 4 · TYPE ─────────────────────────────────────────────────────────── -->
+<section id="type">
+  <div class="wrap">
+    <span class="label">04 · Type</span>
+    <p class="spec-display">Editorial <em>gravitas,</em><br>terminal timing.</p>
+    <div style="margin-top:40px">
+      <div class="spec-row"><span class="label">Display · Newsreader 330 · opsz 72</span><span style="font:330 48px/1.05 var(--serif);font-variation-settings:'opsz' 72;color:var(--bone);letter-spacing:-0.02em">Email for AI agents.</span></div>
+      <div class="spec-row"><span class="label">Italic · Newsreader 360</span><span style="font:italic 360 32px/1.2 var(--serif);font-variation-settings:'opsz' 48;color:var(--ochre)">A fill-in-the-blanks word game, built at 17.</span></div>
+      <div class="spec-row"><span class="label">Body · Newsreader 400 · opsz 16</span><span style="max-width:62ch">One MCP URL that gives an agent every tool. Albretsen AS builds whatever is profitable: apps, SaaS and infrastructure for AI agents, and takes one outside engagement at a time.</span></div>
+      <div class="spec-row"><span class="label">Mono · Martian Mono · wdth 112.5</span><span style="font:400 14px/1.6 var(--mono);font-stretch:112.5%;letter-spacing:.06em;text-transform:uppercase;color:var(--phosphor)">Boot 00:00:07 · 17 tools · ~100 providers · OK_</span></div>
+      <div class="spec-row"><span class="label">Decode (click)</span><span class="decode-demo" id="decodeDemo" data-text="claude mcp add albretsen https://albretsen.no/mcp">claude mcp add albretsen https://albretsen.no/mcp</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · PRODUCTS ─────────────────────────────────────────────────────── -->
+<section id="products">
+  <div class="wrap">
+    <span class="label">05 · Product visuals</span>
+    <h2>Every product is a sun at its own hour.</h2>
+    <p class="lede">The real logo, unchanged, carried by the sun in a painting of its own. The hour encodes status: live products are up (MCP Emails at sunrise, Fun Libs at noon), Toolrails is building and cresting the ridge, Harbor is paused at blue hour. Retired products are specimens from Haeckel's plate of radiolarians: precise, finished, kept in the archive.</p>
+    <div class="grid g4" id="prodGrid"></div>
+    <h3 style="margin-top:56px">Retired</h3>
+    <p class="muted" style="margin:0 0 20px;font-size:15px">Luma keeps its real logo on a set sun. The rest have no surviving brand assets, so each gets a specimen.</p>
+    <div class="grid g6" id="retired"></div>
+  </div>
+</section>
+
+<!-- 6 · EXTRAS ───────────────────────────────────────────────────────── -->
+<section id="extras">
+  <div class="wrap">
+    <span class="label">06 · Extras</span>
+    <h2>Texture, ephemera, specimens.</h2>
+    <div class="grid g2">
+      <figure class="tile" style="display:grid;place-items:center;background:#041419"><img src="extras/signal-phosphor.webp" width="640" height="933" alt="Radiolarian with radiating spines, tinted phosphor" loading="lazy" style="max-height:520px;width:auto"><figcaption><b>extras/signal-phosphor.webp</b> (+ signal-sand) · Haeckel, Tafel 31 · the electric specimen</figcaption></figure>
+      <div class="grid" style="align-content:start">
+        <figure class="framed"><svg class="frame" viewBox="0 0 400 500" preserveAspectRatio="none" fill="none" stroke="currentColor" aria-hidden="true"><rect x=".5" y=".5" width="399" height="499" vector-effect="non-scaling-stroke" opacity=".55"/><rect x="10.5" y="10.5" width="379" height="479" vector-effect="non-scaling-stroke" opacity=".9"/><path d="M200 0v8M200 492v8M0 250h8M392 250h8M0 22h6M22 0v6M394 22h6M378 0v6M0 478h6M22 494v6M394 478h6M378 494v6" vector-effect="non-scaling-stroke"/></svg>
+          <img src="extras/specimen-b-sand.webp" width="640" height="824" alt="Radiolarian specimen in sand, framed as a printed plate" loading="lazy" style="max-height:300px;width:auto;margin:16px auto">
+          <figcaption style="text-align:center"><b>extras/plate-frame.svg</b> around <b>specimen-b-sand.webp</b></figcaption></figure>
+        <div class="grid g2" style="grid-template-columns:1fr 1fr">
+          <figure><div class="texture" style="background:var(--bone) url(extras/paper-bone-768.webp)"></div><figcaption><b>paper-bone-768</b> · ambientCG Paper003</figcaption></figure>
+          <figure><div class="texture" style="background:#063645 url(extras/grain-256.png);background-blend-mode:overlay"></div><figcaption><b>grain-256.png</b> · tileable</figcaption></figure>
+          <figure><div class="texture wb-raster" style="background:linear-gradient(#e8a95c,#bc6449)"></div><figcaption><b>scanlines.svg</b> · 4px raster</figcaption></figure>
+          <figure><div class="texture wb-sweep is-in" id="sweepDemo" style="background:url(products/mcp-emails-480.webp) center/cover"></div><figcaption><b>.wb-sweep</b> · click to replay</figcaption></figure>
+        </div>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:32px;gap:12px">
+      <figure class="strip"><img src="extras/horizon-dawn.webp" width="2400" height="220" alt="Dawn horizon strip" loading="lazy"></figure>
+      <figure class="strip"><img src="extras/horizon-noon.webp" width="2400" height="220" alt="Noon horizon strip" loading="lazy"></figure>
+      <figure class="strip"><img src="extras/horizon-dusk.webp" width="2400" height="220" alt="Dusk horizon strip" loading="lazy"></figure>
+      <figure class="strip"><img src="extras/horizon-night.webp" width="2400" height="220" alt="Night horizon strip" loading="lazy"><figcaption><b>extras/horizon-{dawn,noon,dusk,night}.webp</b> · 2400×220 section dividers, 5–8 KB each</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · INTERACTIVE ──────────────────────────────────────────────────── -->
+<section id="interactive">
+  <div class="wrap">
+    <span class="label">07 · Interactive</span>
+    <h2>The raster rises into mesas.</h2>
+    <p class="lede"><b>Drift Field</b> (canvas 2D, no dependencies): CRT scanlines in perspective, displaced by terraced simplex noise so each line becomes a ridge. Power-on, hour and pointer are all live. <b>Drift Stone</b> (three.js): Poly Haven's CC0 Rock 09, stood upright and shaded with a painted ramp instead of PBR, with a raster scan-in.</p>
+    <div class="stage" id="stage2"><canvas id="field2" width="1280" height="720" aria-label="Drift Field, interactive"></canvas></div>
+    <div class="controls">
+      <button type="button" id="power2">Power on</button>
+      <label>hour <input type="range" id="hour2" min="0" max="1" step="0.01" value="0"></label>
+      <label><input type="checkbox" id="mode2"> contour mode</label>
+      <a href="generative/demo.html">full-screen demo</a>
+    </div>
+    <div class="grid g2" style="margin-top:48px;align-items:start">
+      <div><div class="stage stone" id="stoneStage"><canvas id="stone" aria-label="Drift Stone, 3D"></canvas></div>
+        <div class="controls"><button type="button" id="stoneBoot">Scan in</button><label>dusk <input type="range" id="stoneDusk" min="0" max="1" step="0.01" value="0.3"></label><a href="3d/demo.html">demo</a></div></div>
+      <div class="tile"><h3>Drift Stone</h3><p class="muted" style="font-size:15px;margin:0">assets/3d/drift-stone.glb (398 KB: geometry + 512 px normal and AO) and drift-stone.js. Transparent canvas, so it floats over either painting. <code>boot(0..1)</code> scans it in top-down with a phosphor edge; <code>setDusk(0..1)</code> moves the light from ochre to verdigris. Loaded only when this section is near the viewport.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · MOTION ───────────────────────────────────────────────────────── -->
+<section id="motion">
+  <div class="wrap">
+    <span class="label">08 · Motion study</span>
+    <h2>Four moves, one beat.</h2>
+    <p class="lede">The rhythm unit is a 120 ms beat. Everything snaps to it, so the motion reads as a machine doing its checks, calm and certain, not as decoration.</p>
+    <div class="grid g2">
+      <div class="motion-card tile"><span class="label">01 · Decode</span><p class="muted" style="margin:0;font-size:15px">Text scrambles through terminal glyphs and resolves left to right on the beat. For the masthead, section labels and the MCP command.</p><div class="decode-demo" data-replay data-text="MCP Emails · 17 tools · about 100 email providers">MCP Emails · 17 tools · about 100 email providers</div></div>
+      <div class="motion-card tile"><span class="label">02 · Warm boot</span><p class="muted" style="margin:0;font-size:15px">A POST log types and decodes to OK, collapses to one line at the horizon, and the landscape rises out of that line. See the top of this page.</p><button type="button" class="ghost" onclick="document.getElementById('replay').click();scrollTo({top:0,behavior:'smooth'})">Replay at top</button></div>
+      <div class="motion-card tile"><span class="label">03 · Power on (CSS)</span><div class="pow-target"><img id="powImg" src="hero/first-light-828.webp" width="828" height="466" alt="" loading="lazy"></div><button type="button" class="ghost" id="powBtn">Power on</button></div>
+      <div class="motion-card tile"><span class="label">04 · Horizon drift</span><p class="muted" style="margin:0;font-size:15px">Scroll scrubs the hour: the paintings cross-fade dawn to blue hour and the Drift Field re-tints. ScrollTrigger, scrub 0.8. Demonstrated in the pinned section after the hero images.</p><span class="label" style="color:var(--sand)">+ cursor blink and scanline sweep in motion.css</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>Design 83 · Warm Boot · Asset kit for Albretsen AS. Sources and licences in ASSETS.md.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+  import { content } from '../../_shared/content.js'
+  import { mountDriftField } from './generative/drift-field.js'
+  import { decode, bootSequence, horizonDrift, sweepIn } from './motion.js'
+
+  const q = new URLSearchParams(location.search)
+  const STILL = q.has('still') // for screenshots: render end states
+  if (STILL) document.documentElement.classList.add('still')
+  if (q.get('from')) { let el = document.getElementById(q.get('from')); while (el && el.previousElementSibling) { el = el.previousElementSibling; if (el.tagName !== 'SCRIPT') el.style.display = 'none' } }
+
+  // palette swatches
+  const PAL = [
+    ['Night', 'oklch(0.18 0.025 220)', '#041419'], ['Dusk teal', 'oklch(0.31 0.055 226)', '#063645'],
+    ['Umber', 'oklch(0.27 0.040 45)', '#372016'], ['Terracotta', 'oklch(0.60 0.120 38)', '#bc6449'],
+    ['Mauve', 'oklch(0.55 0.065 338)', '#8b637f'], ['Ochre', 'oklch(0.78 0.120 70)', '#e8a95c'],
+    ['Sand', 'oklch(0.90 0.045 80)', '#eedbbd'], ['Bone', 'oklch(0.965 0.016 85)', '#f8f3e8'],
+    ['Verdigris', 'oklch(0.64 0.085 180)', '#499d8e'], ['Phosphor', 'oklch(0.88 0.110 180)', '#7defda'],
+  ]
+  document.getElementById('swatches').innerHTML = PAL.map(([n, o, h]) =>
+    `<div class="swatch"><div class="chip" style="background:${o}"></div><div class="meta"><b>${n}</b>${o}<br>${h}</div></div>`).join('')
+
+  // products (facts from _shared/content.js)
+  const byId = Object.fromEntries(content.products.map((p) => [p.id, p]))
+  const HOURS = { 'mcp-emails': 'sunrise', 'fun-libs': 'noon', 'toolrails': 'cresting', 'harbor': 'blue hour' }
+  document.getElementById('prodGrid').innerHTML = ['mcp-emails', 'fun-libs', 'toolrails', 'harbor'].map((id) => {
+    const p = byId[id]
+    return `<figure class="prod wb-sweep"><picture>
+      <source type="image/avif" srcset="products/${id}-480.avif 480w, products/${id}-800.avif 800w, products/${id}-1200.avif 1200w" sizes="(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw">
+      <source type="image/webp" srcset="products/${id}-480.webp 480w, products/${id}-800.webp 800w, products/${id}-1200.webp 1200w" sizes="(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw">
+      <img src="products/${id}-800.jpg" width="800" height="1000" alt="${p.name} logo carried by the sun in an airbrushed landscape at ${HOURS[id]}" loading="lazy"></picture>
+      <div class="row"><h3>${p.name}</h3><span class="fig">${p.figure.value} ${p.figure.label}</span></div>
+      <p>${p.line}</p><figcaption>products/${id}-{480,800,1200}.{avif,webp,jpg} · ${p.status} · ${HOURS[id]}</figcaption></figure>`
+  }).join('')
+  const RET = [['luma', null], ['polyglot-pilot', 'polyglot-pilot'], ['pinpoint', 'pinpoint'], ['webvakt', 'webvakt'], ['joke-central', 'joke-central'], ['tryggere-hyring', 'tryggere-hyring'], ['early-apps', 'early-apps']]
+  document.getElementById('retired').innerHTML = RET.map(([id, f]) => {
+    const p = byId[id]
+    const img = f ? `<img src="products/retired/${f}-sand.webp" width="360" height="540" alt="Radiolarian specimen standing in for ${p.name}" loading="lazy">`
+                  : `<img src="products/luma-480.webp" width="480" height="600" alt="Luma logo on a setting sun" loading="lazy" style="border-radius:3px;max-height:190px">`
+    return `<figure class="specimen"><div>${img}</div><figcaption><div class="n">${p.name}</div><div class="y">${p.since} · retired</div></figcaption></figure>`
+  }).join('')
+
+  // 0 · boot hero
+  const field = mountDriftField(document.getElementById('field'), { boot: STILL ? 1 : 0 })
+  const LOG = [
+    { text: 'POST  albretsen.no  memory 2016–2026', ok: 'OK' },
+    { text: 'mount /products  mcp-emails fun-libs toolrails harbor', ok: 'OK' },
+    { text: 'check fun-libs  113,000+ installs', ok: 'OK' },
+    { text: 'check mcp-emails  $782 MRR', ok: 'OK' },
+    { text: 'load  /mcp  claude mcp add albretsen', ok: 'OK' },
+    { text: 'warm boot', ok: 'READY' },
+  ]
+  const runBoot = () => {
+    const log = document.getElementById('log')
+    log.style.cssText = ''
+    if (window.gsap) gsap.set(log, { clearProps: 'all' })
+    field.boot(0)
+    bootSequence({ log, lines: LOG, field, onDone: () => document.querySelectorAll('.title [data-decode]').forEach((el, i) => decode(el, { delay: i * 0.12 })) })
+  }
+  const ready = () => {
+    if (STILL) { document.getElementById('log').style.display = 'none'; return }
+    runBoot()
+    horizonDrift({ section: document.getElementById('drift'), fade: document.querySelector('#drift .over'), end: 'bottom bottom' })
+  }
+  if (window.gsap) ready(); else addEventListener('load', ready)
+  document.getElementById('replay').onclick = runBoot
+
+  // decode demos
+  document.querySelectorAll('.decode-demo').forEach((el) => { el.addEventListener('click', () => decode(el)) })
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && !STILL) { decode(e.target); io.unobserve(e.target) } }), { threshold: 0.6 })
+  document.querySelectorAll('[data-replay]').forEach((el) => io.observe(el))
+
+  // sweeps
+  sweepIn(document.querySelectorAll('.prod.wb-sweep'))
+  document.getElementById('sweepDemo').onclick = (e) => { const t = e.currentTarget; t.classList.remove('is-in'); void t.offsetWidth; t.classList.add('is-in') }
+
+  // power-on demo
+  document.getElementById('powBtn').onclick = () => { const i = document.getElementById('powImg'); i.classList.remove('wb-power-on'); void i.offsetWidth; i.classList.add('wb-power-on') }
+
+  // 7 · interactive field
+  let field2 = null
+  const makeField2 = (mode) => {
+    if (field2) field2.destroy()
+    const old = document.getElementById('field2'); const c = old.cloneNode(); old.replaceWith(c)
+    field2 = mountDriftField(c, { boot: 1, mode, hour: +document.getElementById('hour2').value })
+  }
+  const io2 = new IntersectionObserver((es) => { if (es[0].isIntersecting) { makeField2('raster'); io2.disconnect() } }, { rootMargin: '200px' })
+  io2.observe(document.getElementById('stage2'))
+  document.getElementById('hour2').oninput = (e) => field2 && field2.setHour(+e.target.value)
+  document.getElementById('mode2').onchange = (e) => makeField2(e.target.checked ? 'contour' : 'raster')
+  document.getElementById('power2').onclick = () => {
+    if (!field2) return
+    if (window.gsap) { const p = { v: 0 }; gsap.to(p, { v: 1, duration: 3.2, ease: 'power1.inOut', onUpdate: () => field2.boot(p.v) }) } else field2.boot(1)
+  }
+
+  // 7 · 3D stone, lazy
+  let stone = null
+  const io3 = new IntersectionObserver(async (es) => {
+    if (!es[0].isIntersecting) return
+    io3.disconnect()
+    const { mountDriftStone } = await import('./3d/drift-stone.js')
+    stone = await mountDriftStone(document.getElementById('stone'), { glb: '3d/drift-stone.glb', boot: STILL ? 1 : 0, dusk: 0.3, rotY: 0.4, fov: 26 })
+    if (!STILL) scanStone()
+  }, { rootMargin: '300px' })
+  io3.observe(document.getElementById('stoneStage'))
+  const scanStone = () => { if (!stone) return; if (window.gsap) { const p = { v: 0 }; gsap.to(p, { v: 1, duration: 2.2, ease: 'power2.inOut', onUpdate: () => stone.boot(p.v) }) } else stone.boot(1) }
+  document.getElementById('stoneBoot').onclick = scanStone
+  document.getElementById('stoneDusk').oninput = (e) => stone && stone.setDusk(+e.target.value)
+</script>
+</body>
+</html>

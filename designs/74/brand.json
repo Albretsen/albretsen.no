@@ -1,0 +1,20 @@
+{
+  "name": "Afterglow Diorama",
+  "tagline": "A cut-paper coast that pulls back into a miniature you can turn, under the real sky over Norway.",
+  "summary": "The homepage opens on a full-bleed paper landscape at afterglow, with the name set behind the mountain. As you scroll, the whole coast pulls back into an arched shadow box on a sunlit desk. It was a miniature all along, made at a small scale on purpose, and its sky is the sky over Norway right now. The products follow as one day: each keeps its own hour, and the page passes from morning to night as you read. The direction pairs playful precision with calm, warm light, which suits a small company that builds exact things that pay for themselves.",
+  "palette": ["#F5EBDC", "#2E2240", "#C2603E", "#D9A441", "#2F6E9E", "#A99BD1", "#E7A39A", "#FFC979"],
+  "type": ["Josefin Sans (spaced signage capitals)", "Instrument Serif (italic headlines, roman text)", "DM Mono (figures, command, sky readout)"],
+  "voice": "Plain, exact, a little playful. The sentences are short, with no adjectives about itself. Example: \"Small, exact software that pays for itself.\"",
+  "motion": "Light does the moving: the coast pulls back into the box, a day passes as you scroll, and capitals and lamps switch on in turn, all on one paper-soft ease.",
+  "sound": "Off by default; when switched on, a glass tink as lamps or the copy button light, and a soft card settle when the diorama is let go.",
+  "mark": "An arch holding a sun behind an A-shaped peak, where the horizon cut forms the A's crossbar, next to an outlined, widely spaced ALBRETSEN wordmark.",
+  "inspiration": [
+    "https://www.apartamentomagazine.com",
+    "https://www.cosmos.so",
+    "https://news.fontstand.com/fonts-in-use/fonts-in-use-sleeping-over/",
+    "https://library.superhi.com/posts/the-parallax-effect",
+    "https://special.library.unlv.edu/node/268768",
+    "https://github.com/mourner/suncalc",
+    "https://polyhaven.com/a/belfast_sunset_puresky"
+  ]
+}

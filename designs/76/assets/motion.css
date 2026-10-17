@@ -1,0 +1,75 @@
+/* Zinc & Granite: motion study.
+   Four signature movements. All are slow, single and unbroken; nothing bounces.
+   Easing: one curve for the whole brand, a long exhale. All disabled under reduced motion.
+
+   1. LONG DOLLY   one camera move per page, scroll-linked (motion.js: longDolly).
+                   Studied from scroll-camera fly-throughs (Codrops: "Building a scroll-driven
+                   3D gallery", "Cinematic 3D scroll experiences with GSAP"): state is computed
+                   from absolute scroll progress, never accumulated, so it never drifts.
+   2. SHUTTERS     an image opens like a pair of French windows when it enters the view.
+   3. DAY DRIFT    a patch of arched window light crosses a section and warms from silver
+                   to gold, the way light moves across a wall over an afternoon.
+   4. ITALIC TURN  a didone word turns to its italic on hover, letter-spacing easing in,
+                   the only "flourish" the type ever makes.
+   (+) WINDOW CURSOR is in cursor.js. */
+
+:root {
+  --ease-exhale: cubic-bezier(.16, .84, .24, 1);
+  --t-slow: 1600ms;
+  --t-calm: 900ms;
+}
+
+/* ---------- 2. SHUTTERS ------------------------------------------------- */
+.shutters { position: relative; overflow: hidden; perspective: 1800px; }
+.shutters > img, .shutters > picture { display: block; width: 100%; height: auto; transform: scale(1.06); transition: transform var(--t-slow) var(--ease-exhale) 200ms; }
+.shutters::before, .shutters::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 50.5%; z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.05), transparent 30%),
+    repeating-linear-gradient(180deg, #e9e5dc 0 34px, #dcd7cc 34px 36px);
+  box-shadow: inset 0 0 0 10px #eeebe4;
+  transition: transform var(--t-slow) var(--ease-exhale);
+}
+.shutters::before { left: 0; transform-origin: 0 50%; }
+.shutters::after { right: 0; transform-origin: 100% 50%; }
+.shutters.is-open::before { transform: rotateY(-96deg); }
+.shutters.is-open::after { transform: rotateY(96deg); }
+.shutters.is-open > img, .shutters.is-open > picture { transform: scale(1); }
+
+/* ---------- 3. DAY DRIFT ------------------------------------------------ */
+.day-drift { position: relative; overflow: hidden; isolation: isolate; }
+.day-drift::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  width: 34%; aspect-ratio: 4 / 7; top: 4%; left: -40%;
+  background: url(extras/window-light.svg) center / contain no-repeat;
+  filter: blur(10px) saturate(.4); opacity: .0; mix-blend-mode: multiply;
+  transform: skewX(-24deg);
+  animation: day-drift 24s var(--ease-exhale) infinite alternate;
+}
+@keyframes day-drift {
+  0%   { left: -40%; opacity: 0;   filter: blur(14px) saturate(.2) hue-rotate(160deg) brightness(1.1); transform: skewX(28deg); }
+  20%  { opacity: .55; }
+  50%  { left: 33%;  opacity: .7;  filter: blur(9px) saturate(.6); transform: skewX(0deg); }
+  80%  { opacity: .55; }
+  100% { left: 106%; opacity: 0;   filter: blur(12px) saturate(1.3) sepia(.4); transform: skewX(-28deg); }
+}
+
+/* ---------- 4. ITALIC TURN ---------------------------------------------- */
+.italic-turn { display: inline-block; position: relative; font-style: normal; transition: letter-spacing var(--t-calm) var(--ease-exhale); }
+.italic-turn > span { display: inline-block; transition: opacity 500ms var(--ease-exhale), transform var(--t-calm) var(--ease-exhale); }
+.italic-turn > span + span { position: absolute; left: 0; top: 0; font-style: italic; opacity: 0; transform: translateY(.06em) skewX(-4deg); }
+.italic-turn:hover, .italic-turn:focus-visible { letter-spacing: .012em; }
+.italic-turn:hover > span:first-child, .italic-turn:focus-visible > span:first-child { opacity: 0; transform: translateY(-.04em); }
+.italic-turn:hover > span + span, .italic-turn:focus-visible > span + span { opacity: 1; transform: none; }
+
+/* ---------- 1. LONG DOLLY (CSS fallback for a still hero) ---------------- */
+/* motion.js writes --dolly (0..1); the image glides toward the window, one move, no cuts. */
+.long-dolly { overflow: hidden; }
+.long-dolly img { transform-origin: 50% 46%; transform: scale(calc(1 + var(--dolly, 0) * .55)) translateY(calc(var(--dolly, 0) * 2%)); will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .day-drift::before { animation: none; opacity: .4; left: 30%; }
+  .shutters::before, .shutters::after { display: none; }
+  .long-dolly img { transform: none; }
+  .italic-turn, .italic-turn > span { transition: none; }
+}

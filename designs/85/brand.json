@@ -1,0 +1,20 @@
+{
+  "name": "Silica Atlas",
+  "tagline": "Ink, then glass: one Haeckel plate, printed in 2016 and polished into glass today.",
+  "summary": "The hero is a single 1904 plate of diatoms, which are organisms that build their shells from silica, the raw material of glass. The left half is an ink print and the right half is ray-traced green glass, split by a seam you can drag through ten years, with each year labelled by what shipped then. The products sit on the same atlas sheet as paperweights, so the whole site tells one story: careful work in the same hand, made in a better material every year.",
+  "palette": ["#f7f5ea", "#091710", "#389e3d", "#005e26", "#d1f2d7", "#a0f08f", "#5a675f"],
+  "type": ["Bricolage Grotesque", "Instrument Serif Italic", "JetBrains Mono"],
+  "voice": "Plain, exact and a little dry, like a plate caption. Facts carry the weight and one phrase per screen gets the serif. Example: \"I build software that pays for itself. The first app was ink on paper. Today it is glass.\"",
+  "motion": "Glass settles and ink draws: springs that overshoot once, strokes drawn at an even pressure, and nothing that loops for attention.",
+  "sound": "Off until toggled in the footer. Then the seam ticks like a glass ratchet at every year it crosses, pitched up toward 2026, and dropped lenses land with a softer tick.",
+  "mark": "One lens split down its axis, with an engraved hatched half and a polished green glass half, beside an outlined Bricolage Grotesque wordmark.",
+  "inspiration": [
+    "https://commons.wikimedia.org/wiki/File:Haeckel_Diatomea.jpg",
+    "https://www.biodiversitylibrary.org/",
+    "https://motion.dev/examples",
+    "https://vercel.com/home",
+    "https://www.shadertoy.com",
+    "https://rive.app/community/files/1497-2922-geometric-loading-animation",
+    "https://brm.io/matter-js/"
+  ]
+}

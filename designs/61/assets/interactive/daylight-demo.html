@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daylight demo</title>
+<style>
+@font-face{font-family:"Jost";src:url(../fonts/Jost-latin.woff2) format("woff2");font-weight:400 600}
+:root{--ink:#6E2233;--paper:#FBF3E6}
+html,body{margin:0;height:100%;background:var(--paper)}
+.stage{position:relative;height:100%}
+.stage img,.stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.stage canvas{opacity:0;transition:opacity .6s}
+.stage canvas[data-ready]{opacity:1}
+.ui{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:14px;align-items:center;background:var(--paper);color:var(--ink);padding:10px 18px;border:1px solid var(--ink);font:500 11px Jost,sans-serif;letter-spacing:.2em;text-transform:uppercase}
+input[type=range]{width:min(50vw,360px);accent-color:#E8959A}
+</style>
+</head>
+<body>
+<div class="stage">
+  <img src="../hero/calanque-morning-1600.avif" width="1600" height="1026" alt="A rocky cove in morning light, after Henri-Edmond Cross">
+  <canvas id="c" aria-hidden="true"></canvas>
+</div>
+<div class="ui"><span>Dawn</span><input id="t" type="range" min="0" max="1" step="0.001" value="0.25" aria-label="Time of day"><span>Dusk</span></div>
+<script type="module">
+import { createDaylight } from './daylight.js'
+const q = new URLSearchParams(location.search)
+const day = createDaylight(document.getElementById('c'), { src: '../hero/calanque-morning-1600.avif', time: +(q.get('t') ?? 0.25) })
+const r = document.getElementById('t'); r.value = q.get('t') ?? 0.25
+r.addEventListener('input', () => day?.setTime(+r.value))
+if (q.has('ui')) document.querySelector('.ui').remove()
+</script>
+</body>
+</html>

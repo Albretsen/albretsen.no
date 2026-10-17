@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zinc &amp; Granite</title>
+<meta name="description" content="Asset kit 76 for Albretsen AS: a Haussmann room whose arched window opens onto a fjord.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon.png">
+<link rel="preload" href="fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni-moda.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni-moda-italic.woff2) format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(fonts/instrument-sans.woff2) format("woff2");font-weight:400 700;font-display:swap}
+:root{
+  --snow:#f1efe9;--plaster:#e3e6e3;--zinc:#a8b0b3;--granite:#5c6266;--ink:#1d2226;
+  --glacier:#9dbccb;--moss:#68774c;--stone:#d9c7a4;--evening:#f0b98e;--iron:#25292b;
+  --bg:var(--snow);--fg:var(--ink);--muted:var(--granite);--line:rgba(29,34,38,.16);--card:#f7f5f0;
+  --serif:"Bodoni Moda",Didot,"Bodoni 72",serif;--sans:"Instrument Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#171b1e;--fg:#ebe8e1;--muted:#a3aaad;--line:rgba(235,232,225,.14);--card:#1f2428}}
+:root[data-theme=dark]{--bg:#171b1e;--fg:#ebe8e1;--muted:#a3aaad;--line:rgba(235,232,225,.14);--card:#1f2428}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg)}
+body{margin:0;background:var(--bg);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+@media (min-width:760px){.wrap{padding:0 40px}}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+header.top img{height:30px;width:auto}
+header.top{gap:16px;flex-wrap:wrap}
+.kicker{font:600 11px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+h1,h2{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(44px,8vw,108px);line-height:.95}
+h2{font-size:clamp(30px,4.4vw,52px);line-height:1.02}
+em{font-style:italic}
+section{padding:64px 0;border-top:1px solid var(--line)}
+.lede{font:italic 400 clamp(19px,2.2vw,24px)/1.4 var(--serif);max-width:44ch;color:var(--fg);opacity:.9}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.g6{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+figure{margin:0}
+figcaption{font:400 13px/1.45 var(--sans);color:var(--muted);margin-top:8px}
+figcaption b{font-weight:600;color:var(--fg)}
+.hero{position:relative;margin-top:8px}
+.hero picture img{width:100%;aspect-ratio:16/9;object-fit:cover}
+@media (max-width:700px){.hero picture img{aspect-ratio:3/4}}
+.hero .over{position:absolute;left:0;right:0;bottom:0;padding:clamp(16px,4vw,48px);color:var(--snow);background:linear-gradient(transparent,rgba(29,34,38,.55))}
+.hero .over h1{color:var(--snow)}
+.hero .over p{font:italic 400 clamp(17px,2vw,24px) var(--serif);margin:8px 0 0}
+.swatch{border-radius:4px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.swatch i{display:block;height:84px}
+.swatch div{padding:10px 12px;font-size:12px;line-height:1.5}
+.swatch b{font:500 17px var(--serif);display:block}
+.spec{display:grid;gap:22px}
+.spec .big{font:500 clamp(56px,10vw,140px)/.9 var(--serif);letter-spacing:-.02em}
+.spec .big em{font-weight:400}
+.row{display:flex;flex-wrap:wrap;gap:16px 40px;align-items:baseline}
+.mono{font:13px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}
+.tile{background:#f7f5f0;border:1px solid var(--line);border-radius:4px;padding:22px;display:grid;place-items:center;min-height:180px}
+.tile.dark{background:var(--ink)}
+.texture{height:180px;border-radius:4px;border:1px solid var(--line)}
+.stamp{display:grid;place-items:center;padding:8px}
+.stamp img{width:100%;max-width:150px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.12))}
+.luma{width:100%;max-width:150px;aspect-ratio:128/158;background:#f4f1ea;display:grid;place-items:center;padding:22px;
+  -webkit-mask:radial-gradient(circle 4.2px at 50% 0,#0000 98%,#000) 0 -4px/10px 100% repeat-x, linear-gradient(#000,#000) 0 6px/100% calc(100% - 12px) no-repeat;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.12))}
+.luma img{width:70%}
+.demo-frame{width:100%;aspect-ratio:16/10;border:0;border-radius:4px;background:#dfe2df;display:block}
+@media (max-width:600px){.demo-frame{aspect-ratio:3/4}}
+.motion-card{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:20px}
+.motion-card h3{font:500 24px var(--serif);margin:0 0 4px}
+.motion-card p{margin:0 0 14px;font-size:14px;color:var(--muted)}
+.drift-demo{height:240px;background:var(--plaster);border-radius:3px;display:grid;place-items:center;font:italic 400 26px var(--serif);color:var(--ink)}
+.turn-demo{font:500 clamp(40px,6vw,64px)/1.1 var(--serif)}
+.dolly-demo{height:340px;overflow-y:auto;border-radius:3px;position:relative}
+.dolly-demo .track{height:1100px;position:relative}
+.dolly-demo .pin{position:sticky;top:0;height:340px;overflow:hidden}
+.dolly-demo .pin img{width:100%;height:100%;object-fit:cover}
+.dolly-demo .hint{position:absolute;left:12px;bottom:10px;color:var(--snow);font:italic 400 17px var(--serif);text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.cursor-zone{height:240px;border-radius:3px;background:var(--plaster);display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;padding:16px}
+.cursor-zone a{font:500 20px var(--serif);color:var(--ink)}
+.cursor-zone img{height:150px;width:auto;border-radius:2px}
+footer{padding:48px 0 80px;color:var(--muted);font-size:13px}
+a{color:inherit}
+</style>
+</head>
+<body class="day-drift-page">
+<div class="wrap">
+  <header class="top">
+    <picture><source srcset="identity/lockup-snow.svg" media="(prefers-color-scheme: dark)"><img src="identity/lockup.svg" alt="Albretsen AS" width="230" height="30"></picture>
+    <span class="kicker">Asset kit 76 · Zinc &amp; Granite</span>
+  </header>
+
+  <!-- HERO -->
+  <figure class="hero">
+    <picture>
+      <source media="(max-width:700px)" type="image/avif" srcset="img/hero-evening-portrait-800.avif 800w, img/hero-evening-portrait-1200.avif 1200w">
+      <source media="(max-width:700px)" type="image/webp" srcset="img/hero-evening-portrait-800.webp 800w, img/hero-evening-portrait-1200.webp 1200w">
+      <source type="image/avif" srcset="img/hero-evening-828.avif 828w, img/hero-evening-1280.avif 1280w, img/hero-evening-1920.avif 1920w, img/hero-evening-2560.avif 2560w" sizes="(min-width:1240px) 1160px, 100vw">
+      <source type="image/webp" srcset="img/hero-evening-828.webp 828w, img/hero-evening-1280.webp 1280w, img/hero-evening-1920.webp 1920w, img/hero-evening-2560.webp 2560w" sizes="(min-width:1240px) 1160px, 100vw">
+      <img src="img/hero-evening-1280.jpg" width="1280" height="720" alt="A pale Haussmann room at evening: an arched French window stands open onto a fjord between granite cliffs; low gold sun lays the window across a chevron oak floor." fetchpriority="high">
+    </picture>
+    <div class="over"><h1>Albretsen <em>AS</em></h1><p>I build software that pays for itself.</p></div>
+  </figure>
+
+  <section>
+    <p class="kicker">Vision</p>
+    <h2>A Paris room. A Norwegian <em>view.</em></h2>
+    <p class="lede">Zinc roofs and fjord granite share one colour: silver. The site is a single, calm room with tall boiserie walls and a chevron oak floor, and one arched window that opens onto a fjord. Light crosses the floor as the day passes; the camera makes one slow walk to the window. The products sit on the sill.</p>
+  </section>
+
+  <!-- HERO IMAGERY -->
+  <section>
+    <p class="kicker">Hero imagery · baked from the room (three.js, GTAO, AgX tone mapping) and finished by hand</p>
+    <div class="grid g2" style="margin-top:20px">
+      <figure><picture><source type="image/avif" srcset="img/hero-noon-1280.avif 1280w, img/hero-noon-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="img/hero-noon-1280.jpg" width="1280" height="720" alt="The room at noon from the corner: the fanlight's sunburst falls across the floor" loading="lazy"></picture>
+        <figcaption><b>hero-noon</b> · the corner view; the fanlight throws its sunburst on the parquet. Dahl and Pissarro hang facing each other.</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="img/hero-window-1280.avif 1280w, img/hero-window-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="img/hero-window-1280.jpg" width="1280" height="720" alt="Halfway to the window: the open French doors, the iron railing, the fjord below" loading="lazy"></picture>
+        <figcaption><b>hero-window</b> · halfway through the one camera move, late morning.</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="img/balcony-morning-1280.avif 1280w, img/balcony-morning-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="img/balcony-morning-1280.jpg" width="1280" height="720" alt="At the window in silver morning light: railing and fjord with mist in the valley" loading="lazy"></picture>
+        <figcaption><b>balcony-morning</b> · the end of the move: silver overcast, mist in the fjord.</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="img/hero-evening-portrait-800.avif 800w"><img src="img/hero-evening-portrait-800.jpg" width="800" height="1067" alt="Portrait crop of the evening room for phones" loading="lazy" style="max-height:640px;width:auto;margin:0 auto"></picture>
+        <figcaption><b>hero-evening-portrait</b> · a true portrait render for phones, not a crop.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- PALETTE -->
+  <section>
+    <p class="kicker">Palette · fjord: granite, glacier blue, snow, moss · plus Paris stone and evening light</p>
+    <div class="grid g6" style="margin-top:20px" id="palette"></div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="spec">
+    <p class="kicker">Type · Bodoni Moda (didone, optical sizes 6–96) with italic accents · Instrument Sans for labels</p>
+    <div class="big">Quiet <em>software</em></div>
+    <div class="row">
+      <span style="font:500 44px var(--serif)">Albretsen AS</span>
+      <span style="font:italic 400 44px var(--serif)">pays for itself.</span>
+      <span style="font:600 12px var(--sans);letter-spacing:.22em">SINCE 2016 · NORWAY</span>
+    </div>
+    <p style="font:400 18px/1.65 var(--serif);max-width:60ch;margin:0">Body may run in Bodoni Moda at its small optical size, where the hairlines thicken for reading: <em>MCP Emails</em> gives AI agents an inbox, with 17 tools across about 100 email providers. Numerals 0123456789 and æøå ÆØÅ.</p>
+    <p class="mono">Aa Bb Cc · display 500 / opsz 96 · italic 400 · text 400 / opsz 11 · labels Instrument Sans 600, tracking .22em, caps</p>
+  </section>
+
+  <!-- IDENTITY -->
+  <section>
+    <p class="kicker">Identity · the mark is the window: a round-headed French window, open onto a ridge</p>
+    <div class="grid g4" style="margin-top:20px">
+      <figure><div class="tile"><img src="identity/mark.svg" width="120" height="120" alt="Mark"></div><figcaption><b>mark.svg</b> (+ mark-snow.svg)</figcaption></figure>
+      <figure><div class="tile dark"><img src="identity/wordmark-snow.svg" width="260" height="38" alt="Wordmark on ink"></div><figcaption><b>wordmark.svg</b> outlined Bodoni Moda (+ snow)</figcaption></figure>
+      <figure><div class="tile"><div style="display:flex;gap:18px;align-items:end"><img src="identity/favicon.svg" width="64" height="64" alt="Favicon"><img src="identity/favicon.svg" width="32" height="32" alt=""><img src="identity/favicon.svg" width="16" height="16" alt=""><img src="identity/apple-touch-icon.png" width="90" height="90" alt="Touch icon" style="border-radius:20px"></div></div><figcaption><b>favicon.svg</b> · apple-touch-icon.png 180</figcaption></figure>
+      <figure><div class="tile"><img src="identity/lockup.svg" width="300" height="40" alt="Lockup"></div><figcaption><b>lockup.svg</b> mark + wordmark</figcaption></figure>
+    </div>
+    <figure style="margin-top:18px"><img src="identity/og-image.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy"><figcaption><b>og-image.jpg</b> 1200×630 (source: identity/og-source.html)</figcaption></figure>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section>
+    <p class="kicker">Products · real logos, unchanged, on cotton cards standing on the limestone sill</p>
+    <div class="grid g4" style="margin-top:20px" id="products"></div>
+    <p class="kicker" style="margin-top:44px">Retired · perforated stamps; Luma keeps its real monogram</p>
+    <div class="grid g6" style="margin-top:16px" id="retired"></div>
+  </section>
+
+  <!-- EXTRAS -->
+  <section>
+    <p class="kicker">Extras · the zinc and the granite, two paintings, textures, architectural details</p>
+    <div class="grid g2" style="margin-top:20px">
+      <figure><picture><source type="image/avif" srcset="extras/granite-mist-1200.avif"><img src="extras/granite-mist-1200.jpg" width="1200" height="798" alt="A mountain wrapped in low cloud above a fjord, graded silver" loading="lazy"></picture><figcaption><b>granite-mist</b> · CC0 photograph, silver grade</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="extras/zinc-roofs-1200.avif"><img src="extras/zinc-roofs-1200.jpg" width="1200" height="744" alt="Paris zinc roofs and Haussmann facades from above, silver grade" loading="lazy"></picture><figcaption><b>zinc-roofs</b> · CC0 photograph, silver grade</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="extras/dahl-hallingdal-700.avif"><img src="extras/dahl-hallingdal-700.jpg" width="700" height="472" alt="J.C. Dahl, View over Hallingdal, 1844" loading="lazy"></picture><figcaption><b>dahl-hallingdal</b> · J.C. Dahl, 1844 · The Met, public domain</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="extras/pissarro-montmartre-700.avif"><img src="extras/pissarro-montmartre-700.jpg" width="700" height="565" alt="Camille Pissarro, The Boulevard Montmartre on a Winter Morning, 1897" loading="lazy"></picture><figcaption><b>pissarro-montmartre</b> · Pissarro, 1897 · The Met, public domain</figcaption></figure>
+    </div>
+    <div class="grid g4" style="margin-top:18px">
+      <figure><div class="texture" style="background:url(extras/paper-tile.webp)"></div><figcaption><b>paper-tile.webp</b> seamless cotton paper</figcaption></figure>
+      <figure><div class="texture" style="background:url(extras/zinc-tile.webp) 0 0/256px"></div><figcaption><b>zinc-tile.webp</b> seamless standing-seam zinc</figcaption></figure>
+      <figure><div class="tile"><img src="extras/railing.svg" width="240" height="60" alt="Railing frieze"></div><figcaption><b>railing.svg</b> balcony frieze / divider</figcaption></figure>
+      <figure><div class="tile"><img src="extras/window-light.svg" width="80" height="140" alt="Window light patch"></div><figcaption><b>window-light.svg</b> light patch for Day Drift</figcaption></figure>
+    </div>
+    <figure style="margin-top:18px"><div class="tile" style="min-height:90px"><img src="extras/cornice.svg" width="1000" height="34" alt="Cornice rule" style="width:100%"></div><figcaption><b>cornice.svg</b> section rule, stretches to any width</figcaption></figure>
+  </section>
+
+  <!-- INTERACTIVE -->
+  <section>
+    <p class="kicker">Interactive · room/room.js (three.js 0.169) · drag the day, walk to the window</p>
+    <iframe class="demo-frame" src="room/demo.html" loading="lazy" title="The room, live"></iframe>
+    <figcaption>Loads only when scrolled near. Until the first frame renders, the baked hero stands in, so nothing shifts.</figcaption>
+  </section>
+
+  <!-- MOTION -->
+  <section>
+    <p class="kicker">Motion study · motion.css + motion.js + cursor.js</p>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="motion-card"><h3>1 · Long Dolly</h3><p>One camera move for the whole page, scroll-linked, damped, never cut. Scroll inside the frame.</p>
+        <div class="dolly-demo" id="dolly"><div class="track"><div class="pin long-dolly"><img src="img/hero-evening-1280.jpg" width="1280" height="720" alt="" loading="lazy"><span class="hint">scroll ↓</span></div></div></div></div>
+      <div class="motion-card"><h3>2 · Shutters</h3><p>Images open like a pair of French windows as they enter the view.</p>
+        <div class="shutters" id="shut"><img src="extras/granite-mist-800.jpg" width="800" height="532" alt="" loading="lazy"></div>
+        <p style="margin:10px 0 0"><button id="reshut" style="font:600 11px var(--sans);letter-spacing:.18em;background:none;border:1px solid var(--line);padding:8px 14px;border-radius:99px;color:inherit">CLOSE AND OPEN AGAIN</button></p></div>
+      <div class="motion-card"><h3>3 · Day Drift</h3><p>A patch of arched window light crosses the section, silver at first, gold by the end.</p>
+        <div class="drift-demo day-drift">An afternoon in 24 seconds.</div></div>
+      <div class="motion-card"><h3>4 · Italic Turn</h3><p>A word turns to its italic on hover, the only flourish the type ever makes.</p>
+        <div class="turn-demo">Quiet <span class="italic-turn" tabindex="0">software</span><br><span class="italic-turn" tabindex="0">effective</span> work</div></div>
+      <div class="motion-card" style="grid-column:1/-1"><h3>+ · Window Cursor</h3><p>The signature delight: a small arched window trails the pointer on a soft spring; over a link its fanlight fills with stone-coloured light, over an image it widens into a pane.</p>
+        <div class="cursor-zone"><a href="#products">Hover this link</a><img src="product/mcp-emails-600.jpg" width="600" height="750" alt="" loading="lazy"><a href="#palette">or this one</a></div></div>
+    </div>
+  </section>
+
+  <footer>Albretsen AS · asset kit 76 · Zinc &amp; Granite · see ASSETS.md for sources and licences.</footer>
+</div>
+
+<script type="module">
+import { content } from '../../_shared/content.js'
+import { longDolly, shutters, italicTurn } from './motion.js'
+import { windowCursor } from './cursor.js'
+
+const pal = [
+  ['Snow', '#f1efe9', 'oklch(95.2% 0.008 91)', 'paper, page'],
+  ['Plaster', '#e3e6e3', 'oklch(92.2% 0.005 146)', 'walls, panels'],
+  ['Zinc', '#a8b0b3', 'oklch(75.2% 0.010 222)', 'roofs, rules'],
+  ['Glacier', '#9dbccb', 'oklch(77.7% 0.040 229)', 'links, focus'],
+  ['Granite', '#5c6266', 'oklch(49.2% 0.010 237)', 'secondary text'],
+  ['Ink', '#1d2226', 'oklch(24.9% 0.011 242)', 'type, mark'],
+  ['Moss', '#68774c', 'oklch(54.5% 0.066 124)', 'status: live'],
+  ['Stone', '#d9c7a4', 'oklch(83.6% 0.051 84)', 'warm accents'],
+  ['Evening', '#f0b98e', 'oklch(82.6% 0.085 59)', 'light only, never type'],
+  ['Iron', '#25292b', 'oklch(27.8% 0.007 229)', 'railing, details'],
+]
+document.getElementById('palette').innerHTML = pal.map(([n, h, o, u]) => `<div class="swatch"><i style="background:${h}"></i><div><b>${n}</b>${h}<br><span class="mono">${o}</span><br>${u}</div></div>`).join('')
+
+const live = ['mcp-emails', 'fun-libs', 'toolrails', 'harbor']
+document.getElementById('products').innerHTML = live.map((id) => {
+  const p = content.products.find((x) => x.id === id)
+  return `<figure><picture><source type="image/avif" srcset="product/${id}-600.avif 600w, product/${id}-1200.avif 1200w" sizes="(min-width:900px) 25vw, 50vw"><img src="product/${id}-600.jpg" width="600" height="750" alt="${p.name} card on a stone sill" loading="lazy"></picture><figcaption><b>${p.name}</b> · ${p.line}</figcaption></figure>`
+}).join('')
+const retired = ['polyglot-pilot', 'pinpoint', 'webvakt', 'joke-central', 'tryggere-hyring', 'early-apps']
+document.getElementById('retired').innerHTML =
+  `<figure class="stamp"><div class="luma"><img src="../../_shared/products/luma/luma-monogram.svg" alt="Luma"></div><figcaption><b>Luma</b> · real monogram</figcaption></figure>` +
+  retired.map((id) => { const p = content.products.find((x) => x.id === id); return `<figure class="stamp"><img src="product/retired/${id}.svg" width="128" height="158" alt="${p.name}" loading="lazy"><figcaption><b>${p.name}</b> · ${p.since}</figcaption></figure>` }).join('')
+
+// motion demos
+const dollyBox = document.getElementById('dolly')
+const pin = dollyBox.querySelector('.pin')
+const update = () => { const max = dollyBox.scrollHeight - dollyBox.clientHeight; pin.style.setProperty('--dolly', (dollyBox.scrollTop / max).toFixed(4)) }
+dollyBox.addEventListener('scroll', update, { passive: true }); update()
+longDolly(document.body) // also exposes --dolly on <body> for the whole page
+shutters(); italicTurn()
+document.getElementById('reshut').onclick = () => { const s = document.getElementById('shut'); s.classList.remove('is-open'); setTimeout(() => s.classList.add('is-open'), 900) }
+windowCursor()
+</script>
+</body>
+</html>

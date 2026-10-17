@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen AS">
+  <title>Albretsen AS</title>
+  <defs><clipPath id="amm"><path d="M12 58V30a20 20 0 0 1 40 0v28z"/></clipPath></defs>
+  <path d="M12 58V30a20 20 0 0 1 40 0v28z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
+  <g clip-path="url(#amm)" fill="currentColor">
+    <path d="M23.5 44a8.5 8.5 0 0 1 17 0z"/>
+    <rect x="0" y="43.2" width="64" height="1.6"/>
+    <rect x="23.5" y="47.2" width="17" height="1.6"/><rect x="26.5" y="51" width="11" height="1.6"/><rect x="29.5" y="54.6" width="5" height="1.6"/>
+  </g>
+  <rect x="8" y="57.4" width="48" height="2.8" rx="1.4" fill="currentColor"/>
+</svg>

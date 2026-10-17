@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS · Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself: apps, SaaS and the infrastructure AI agents run on.">
+<meta name="theme-color" content="#1B3557">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="I build software that pays for itself.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/identity/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/schibsted-grotesk-vf.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" fetchpriority="high"
+  imagesrcset="assets/hero/first-light-640.avif 640w, assets/hero/first-light-1280.avif 1280w, assets/hero/first-light-1920.avif 1920w, assets/hero/first-light-2560.avif 2560w" imagesizes="max(100vw, 150svh)">
+<script>
+  // theme before first paint, so night visitors never see a flash of day
+  (function () {
+    var q = new URLSearchParams(location.search).get('theme'), s = null;
+    try { s = localStorage.getItem('albretsen-theme'); } catch (e) {}
+    var t = (q === 'day' || q === 'night') ? q : s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day');
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="ripple" x="-5%" y="-20%" width="110%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.004 0.09" numOctaves="2" seed="9"/><feDisplacementMap in="SourceGraphic" scale="14" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+<a class="skip" href="#products">Skip to products</a>
+<div class="daylong-ribbon" aria-hidden="true"></div>
+
+<header class="bar" id="bar">
+  <a class="bar__brand" href="#top" aria-label="Albretsen AS, back to the top">
+    <img class="bar__mark" src="assets/identity/mark.svg" width="30" height="30" alt="">
+    <span class="bar__word" aria-hidden="true"></span>
+  </a>
+  <p class="bar__clock" aria-hidden="true">
+    <svg class="bar__arc" width="32" height="26" viewBox="0 0 32 26"><use id="clock-arc" href="assets/extras/sun-arcs.svg#arc-0610"/></svg>
+    <span class="bar__time" id="clock-time">06:10</span>
+    <span class="bar__hour" id="clock-name">First light</span>
+  </p>
+  <nav class="bar__nav" aria-label="Main">
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+    <button class="sunset-switch" id="switch" type="button" aria-label="Switch to night"></button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="top" aria-label="Introduction">
+  <div class="hero__stage" id="stage">
+    <picture class="hero__still">
+      <source type="image/avif" srcset="assets/hero/first-light-640.avif 640w, assets/hero/first-light-1280.avif 1280w, assets/hero/first-light-1920.avif 1920w, assets/hero/first-light-2560.avif 2560w" sizes="max(100vw, 150svh)">
+      <source type="image/webp" srcset="assets/hero/first-light-640.webp 640w, assets/hero/first-light-1280.webp 1280w, assets/hero/first-light-1920.webp 1920w" sizes="max(100vw, 150svh)">
+      <img src="assets/hero/first-light-1280.jpg" width="1920" height="1280" fetchpriority="high" decoding="async"
+        alt="A fjord a few minutes before sunrise: deep blue sky, a crescent moon, and a thin gold line on the horizon">
+    </picture>
+    <img class="hero__nightstill" id="nightstill" width="1920" height="1280" alt="" aria-hidden="true">
+    <canvas class="hero__canvas" id="sunline" aria-hidden="true"></canvas>
+
+    <div class="hero__sky">
+      <h1 class="hero__name" id="name">
+        <span class="hero__first"><span>Asgeir</span></span>
+        <span class="hero__last"><span>Albretsen</span></span>
+      </h1>
+    </div>
+    <div class="hero__water" aria-hidden="true">
+      <p class="hero__name hero__name--mirror">
+        <span class="hero__first"><span>Asgeir</span></span>
+        <span class="hero__last"><span>Albretsen</span></span>
+      </p>
+    </div>
+
+    <button class="hero__moon" id="moon" type="button" aria-label="Turn the hero to night">
+      <span class="hero__hint">Tap the moon</span>
+    </button>
+    <button class="hero__sunspot" id="sunspot" type="button" aria-label="Bring the morning back" hidden>
+      <span class="hero__hint">Morning</span>
+    </button>
+
+    <div class="hero__foot">
+      <div class="hero__lede">
+        <p class="hero__line">I build software <em>that pays for itself.</em></p>
+        <p class="hero__sub">Albretsen AS makes apps, SaaS and the plumbing AI agents run on. Shipping to Google Play since 2016.</p>
+      </div>
+      <p class="hero__feed" aria-live="off">
+        <span class="hero__live" aria-hidden="true"></span>
+        <span class="hero__feedtext" id="feed">Right now, somewhere: a story completed in Fun Libs</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products" aria-labelledby="products-title">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow"><svg width="32" height="26" aria-hidden="true"><use href="assets/extras/sun-arcs.svg#arc-0930"/></svg><span>09:30 · The work</span></p>
+      <h2 class="horizon-rise sec-title" id="products-title" data-lines="Four products,|each at its <em>hour</em>.">Four products, each at its hour.</h2>
+      <p class="sec-intro">Albretsen AS builds whatever earns its keep. Some things ship, some pause, some retire. These four are in daylight now, each set on a wall at the hour it suits.</p>
+    </header>
+
+    <ol class="walls" id="walls">
+      <li class="wall" data-id="mcp-emails">
+        <a class="wall__link" href="https://mcpemails.com" rel="noopener">
+          <figure class="wall__fig">
+            <picture>
+              <source type="image/avif" srcset="assets/products/mcp-emails-600.avif 600w, assets/products/mcp-emails-1200.avif 1200w" sizes="(min-width: 860px) 44vw, 92vw">
+              <source type="image/webp" srcset="assets/products/mcp-emails-600.webp 600w, assets/products/mcp-emails-1200.webp 1200w" sizes="(min-width: 860px) 44vw, 92vw">
+              <img src="assets/products/mcp-emails-800.jpg" width="800" height="600" loading="lazy" decoding="async" alt="The MCP Emails icon as a glazed plaque on a sunlit wall at 07:40">
+            </picture>
+            <span class="wall__sun" aria-hidden="true"></span>
+          </figure>
+          <div class="wall__meta">
+            <p class="wall__hour"><svg width="32" height="26" aria-hidden="true"><use href="assets/extras/sun-arcs.svg#arc-0700"/></svg><span>07:40</span><span class="wall__status wall__status--live">Live</span></p>
+            <h3 class="wall__name">MCP Emails</h3>
+            <p class="wall__line" data-k="line">Email for AI agents.</p>
+            <p class="wall__figure"><span class="wall__num" data-k="value">$782</span><span class="wall__lab" data-k="label">MRR</span></p>
+            <ul class="wall__facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+            <span class="wall__url">mcpemails.com<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span>
+          </div>
+        </a>
+      </li>
+      <li class="wall" data-id="fun-libs">
+        <a class="wall__link" href="https://funlibs.app" rel="noopener">
+          <figure class="wall__fig">
+            <picture>
+              <source type="image/avif" srcset="assets/products/fun-libs-600.avif 600w, assets/products/fun-libs-1200.avif 1200w" sizes="(min-width: 860px) 44vw, 92vw">
+              <source type="image/webp" srcset="assets/products/fun-libs-600.webp 600w, assets/products/fun-libs-1200.webp 1200w" sizes="(min-width: 860px) 44vw, 92vw">
+              <img src="assets/products/fun-libs-800.jpg" width="800" height="600" loading="lazy" decoding="async" alt="The Fun Libs icon as a glazed plaque on a sunlit wall at 11:15">
+            </picture>
+            <span class="wall__sun" aria-hidden="true"></span>
+          </figure>
+          <div class="wall__meta">
+            <p class="wall__hour"><svg width="32" height="26" aria-hidden="true"><use href="assets/extras/sun-arcs.svg#arc-1200"/></svg><span>11:15</span><span class="wall__status wall__status--live">Live</span></p>
+            <h3 class="wall__name">Fun Libs</h3>
+            <p class="wall__line" data-k="line">A fill-in-the-blanks word game for Android and iOS.</p>
+            <p class="wall__figure"><span class="wall__num" data-k="value">113,000+</span><span class="wall__lab" data-k="label">installs</span></p>
+            <ul class="wall__facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+            <span class="wall__url">funlibs.app<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span>
+          </div>
+        </a>
+      </li>
+      <li class="wall" data-id="toolrails">
+        <a class="wall__link" href="https://toolrails.com" rel="noopener">
+          <figure class="wall__fig">
+            <picture>
+              <source type="image/avif" srcset="assets/products/toolrails-600.avif 600w, assets/products/toolrails-1200.avif 1200w" sizes="(min-width: 860px) 44vw, 92vw">
+              <source type="image/webp" srcset="assets/products/toolrails-600.webp 600w, assets/products/toolrails-1200.webp 1200w" sizes="(min-width: 860px) 44vw, 92vw">
+              <img src="assets/products/toolrails-800.jpg" width="800" height="600" loading="lazy" decoding="async" alt="The Toolrails icon as a glazed plaque on a sunlit wall at 15:30">
+            </picture>
+            <span class="wall__sun" aria-hidden="true"></span>
+          </figure>
+          <div class="wall__meta">
+            <p class="wall__hour"><svg width="32" height="26" aria-hidden="true"><use href="assets/extras/sun-arcs.svg#arc-1530"/></svg><span>15:30</span><span class="wall__status wall__status--building">Building</span></p>
+            <h3 class="wall__name">Toolrails</h3>
+            <p class="wall__line" data-k="line">One MCP URL that gives an agent every tool.</p>
+            <p class="wall__figure"><span class="wall__num" data-k="value">4</span><span class="wall__lab" data-k="label">connectors</span></p>
+            <ul class="wall__facts"><li>tool search</li><li>injection guard</li></ul>
+            <span class="wall__url">toolrails.com<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span>
+          </div>
+        </a>
+      </li>
+      <li class="wall" data-id="harbor">
+        <a class="wall__link" href="https://harborknowledge.com" rel="noopener">
+          <figure class="wall__fig">
+            <picture>
+              <source type="image/avif" srcset="assets/products/harbor-600.avif 600w, assets/products/harbor-1200.avif 1200w" sizes="(min-width: 860px) 44vw, 92vw">
+              <source type="image/webp" srcset="assets/products/harbor-600.webp 600w, assets/products/harbor-1200.webp 1200w" sizes="(min-width: 860px) 44vw, 92vw">
+              <img src="assets/products/harbor-800.jpg" width="800" height="600" loading="lazy" decoding="async" alt="The Harbor icon as a glazed plaque on a sunlit wall at 18:50">
+            </picture>
+            <span class="wall__sun" aria-hidden="true"></span>
+          </figure>
+          <div class="wall__meta">
+            <p class="wall__hour"><svg width="32" height="26" aria-hidden="true"><use href="assets/extras/sun-arcs.svg#arc-1820"/></svg><span>18:50</span><span class="wall__status wall__status--paused">Paused</span></p>
+            <h3 class="wall__name">Harbor</h3>
+            <p class="wall__line" data-k="line">A private knowledge base shared by people and AI.</p>
+            <p class="wall__figure"><span class="wall__num" data-k="value">549</span><span class="wall__lab" data-k="label">commits</span></p>
+            <ul class="wall__facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+            <span class="wall__url">harborknowledge.com<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span>
+          </div>
+        </a>
+      </li>
+    </ol>
+
+    <section class="earlier" aria-labelledby="earlier-title">
+      <h3 class="earlier__title" id="earlier-title"><span>Earlier light</span><img src="assets/extras/horizon-rule.svg" width="480" height="40" alt="" class="earlier__rule"></h3>
+      <ul class="earlier__list" id="earlier">
+        <li class="ret"><span class="tile tile--luma"><img src="../_shared/products/luma/logo.png" width="46" height="13" alt="" loading="lazy"></span><div><p class="ret__name">Luma <span class="ret__year">2026</span></p><p class="ret__line">Norwegian budgeting app with open banking.</p></div></li>
+        <li class="ret"><img class="tile" src="assets/products/retired/polyglot-pilot.svg" width="56" height="56" alt="" loading="lazy"><div><p class="ret__name">Polyglot Pilot <span class="ret__year">2025</span></p><p class="ret__line">Agents that localised entire codebases, with a dashboard for human reviewers.</p></div></li>
+        <li class="ret"><img class="tile" src="assets/products/retired/pinpoint.svg" width="56" height="56" alt="" loading="lazy"><div><p class="ret__name">PinPoint <span class="ret__year">2025</span></p><p class="ret__line">GeoGuessr with your own photos: friends guess where your pictures were taken.</p></div></li>
+        <li class="ret"><img class="tile" src="assets/products/retired/webvakt.svg" width="56" height="56" alt="" loading="lazy"><div><p class="ret__name">WebVakt <span class="ret__year">2024</span></p><p class="ret__line">Website change monitoring.</p></div></li>
+        <li class="ret"><img class="tile" src="assets/products/retired/joke-central.svg" width="56" height="56" alt="" loading="lazy"><div><p class="ret__name">Daily Jokes / Joke Central <span class="ret__year">2024</span></p><p class="ret__line">Joke apps for iOS and Android.</p></div></li>
+        <li class="ret"><img class="tile" src="assets/products/retired/tryggere-hyring.svg" width="56" height="56" alt="" loading="lazy"><div><p class="ret__name">Tryggere Hyring <span class="ret__year">2023</span></p><p class="ret__line">Background checks for hiring.</p></div></li>
+        <li class="ret"><img class="tile" src="assets/products/retired/early-apps.svg" width="56" height="56" alt="" loading="lazy"><div><p class="ret__name">IAGO HMS, Rentekalkulator, Prosentkalkulator <span class="ret__year">2021</span></p><p class="ret__line">Early apps.</p></div></li>
+      </ul>
+    </section>
+  </div>
+</section>
+</main>
+
+<footer class="foot" id="contact">
+  <picture class="foot__photo foot__photo--day">
+    <source type="image/avif" srcset="assets/hero/long-light-640.avif 640w, assets/hero/long-light-1280.avif 1280w, assets/hero/long-light-1920.avif 1920w, assets/hero/long-light-2560.avif 2560w" sizes="100vw">
+    <source type="image/webp" srcset="assets/hero/long-light-640.webp 640w, assets/hero/long-light-1280.webp 1280w, assets/hero/long-light-1920.webp 1920w" sizes="100vw">
+    <img src="assets/hero/long-light-1280.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="Palms along a curving coast road with the low sun behind them">
+  </picture>
+  <picture class="foot__photo foot__photo--night">
+    <source type="image/avif" srcset="assets/hero/after-hours-1280.avif 1280w, assets/hero/after-hours-1920.avif 1920w, assets/hero/after-hours-2560.avif 2560w" sizes="100vw">
+    <source type="image/webp" srcset="assets/hero/after-hours-1280.webp 1280w, assets/hero/after-hours-1920.webp 1920w" sizes="100vw">
+    <img src="assets/hero/after-hours-1280.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="Palm silhouettes against a violet dusk">
+  </picture>
+  <div class="foot__inner wrap">
+    <p class="eyebrow eyebrow--light"><svg width="32" height="26" aria-hidden="true"><use id="foot-arc" href="assets/extras/sun-arcs.svg#arc-1820"/></svg><span id="foot-hour">18:20 · Long light</span></p>
+    <p class="foot__avail">Takes one outside engagement at a time.</p>
+    <p class="foot__mail"><a href="mailto:asgeir@albretsen.no" id="mail">asgeir@albretsen.no</a>
+      <button class="copy" type="button" data-copy="asgeir@albretsen.no" aria-label="Copy the email address"><span class="copy__label">Copy</span></button></p>
+    <div class="foot__mcp">
+      <p class="foot__mcplabel">Or let your agent find its own way in</p>
+      <div class="cmd">
+        <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button class="copy copy--cmd" type="button" data-copy="claude mcp add albretsen https://albretsen.no/mcp" aria-label="Copy the command"><span class="copy__label">Copy</span></button>
+      </div>
+    </div>
+    <div class="foot__base">
+      <img src="assets/identity/mark-mono.svg" width="22" height="22" alt="" class="foot__mono">
+      <span>Albretsen AS · Norway</span>
+      <span>Photographs CC0, via Wikimedia Commons</span>
+    </div>
+  </div>
+</footer>
+
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

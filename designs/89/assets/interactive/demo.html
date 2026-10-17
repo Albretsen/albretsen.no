@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prism Room Demo</title>
+<style>
+  :root{color-scheme:dark}
+  body{margin:0;background:#160c21;color:#fff5ea;font:14px/1.5 ui-monospace,Menlo,monospace}
+  .stage{position:relative;max-width:1400px;margin:0 auto;container-type:inline-size}
+  .stage drag-room{position:absolute;inset:0}
+  .bar{max-width:1400px;margin:0 auto;padding:16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  input[type=range]{width:260px;accent-color:#ff9a7d}
+  button{font:inherit;background:#2a1935;color:#fff5ea;border:1px solid #572953;padding:6px 12px;border-radius:6px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <pixel-resolve id="room" src="../hero/room-1920.jpg" placeholder="../hero/room-pixel-320.png" width="2560" height="1761" lens alt="A sunlit room with a bulb panel, a gilt mirror and a round table"></pixel-resolve>
+  <drag-room ratio="2560/1761" store="prism-room-demo" id="dr">
+    <img data-drag data-id="mcp-emails" data-x="88.36" data-y="62.35" data-w="11.25" src="../products/sprite-mcp-emails.png" width="576" height="534" alt="MCP Emails">
+    <img data-drag data-id="toolrails" data-x="28.13" data-y="58.6" data-w="10.53" src="../products/sprite-toolrails.png" width="642" height="528" alt="Toolrails">
+    <img data-drag data-id="fun-libs" data-x="21.29" data-y="50.09" data-w="5.58" src="../products/sprite-fun-libs.png" width="420" height="720" alt="Fun Libs">
+    <img data-drag data-id="harbor" data-x="64.06" data-y="70.3" data-w="8.07" src="../products/sprite-harbor.png" width="492" height="774" alt="Harbor">
+    <img data-drag data-id="plant" data-x="71.48" data-y="70.98" data-w="3.94" src="../sprites/plant.png" width="252" height="372" alt="Plant">
+  </drag-room>
+</div>
+<div class="bar">
+  <label>resolve <input id="res" type="range" min="0" max="1" step="0.01" value="0.35"></label>
+  <button id="reset">reset room</button>
+  <span>drag the objects · hover the photo for the prism lens · arrow keys nudge</span>
+</div>
+<script type="module">
+  import '../interactive/pixel-resolve.js';
+  import '../interactive/drag-room.js';
+  const room = document.getElementById('room'), res = document.getElementById('res');
+  room.resolve = res.value; res.oninput = () => room.resolve = res.value;
+  document.getElementById('reset').onclick = () => document.getElementById('dr').reset();
+</script>
+</body>
+</html>

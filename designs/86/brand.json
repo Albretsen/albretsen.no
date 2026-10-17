@@ -1,0 +1,20 @@
+{
+  "name": "Airglow",
+  "tagline": "The view from low orbit: the name set behind the curve of the Earth, the products standing on a quiet ring above first light.",
+  "summary": "Real public-domain NASA photographs of the Earth's night limb, graded to one disciplined palette, carry a calm technologist's site. The products are the cast of a serene character-select: four glass tiles on a lattice ring that turns as you scroll (pre-rendered frames, with the live three.js scene one click away). Each product owns one real emission line of the night sky, so colour carries meaning and nothing else shouts.",
+  "palette": ["#070d15", "#101822", "#2a343e", "#acac9e", "#f4f5e7", "#e9e558", "#f7ac4d", "#7988ed", "#e86154", "#52afe7"],
+  "type": ["Geist Light (250-300, -0.045em)", "Geist Regular", "Geist Mono"],
+  "voice": "Plain, third person, short; facts carry the weight and adjectives stay home. Example: \"Asgeir Albretsen builds software that pays for itself.\"",
+  "motion": "Everything moves the way things move from orbit: slow, continuous, long expo ease-outs, no bounce; the only fast thing is the visitor's own scroll.",
+  "sound": "Silent. The page makes no sound; any future tone (a soft sine at the selected product's wavelength mapped to pitch) must be opt-in.",
+  "mark": "An 'A' whose crossbar is the curved limb of the planet with first light at the apex; the full name is set huge behind the Earth's edge, clipped by the planet itself.",
+  "inspiration": [
+    "https://images.nasa.gov/details/iss072e030246",
+    "https://images.nasa.gov/details/iss066e008713",
+    "https://lusion.co",
+    "https://stripe.com",
+    "https://www.cosmos.so",
+    "https://www.are.na/explore",
+    "https://cuberto.com/blog/cursor-magnetic-js-component/"
+  ]
+}

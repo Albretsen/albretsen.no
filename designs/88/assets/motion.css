@@ -1,0 +1,53 @@
+/* Design 88 "Labelled Sky" — motion study, CSS half.
+   Signature animations live in motion.js (Web Animations API). This file holds the
+   tokens, the static sticker system they animate, and the reduced-motion contract. */
+
+:root {
+  --cream: #F9F2E2;  --paper: #EDE2CC;  --forest: #1A4A32;  --ink: #173F2B;
+  --night: #05170F;  --brass: #C2964D;  --brass-l: #E8CB84; --signal: #D4407C; --moss: #6C9173;
+
+  /* springs baked into linear() (stiffness/damping noted) */
+  --ease-snap: linear(0, .047, .165, .322, .493, .659, .806, .927, 1.018, 1.081, 1.118, 1.134, 1.133, 1.121, 1.101, 1.079, 1.056, 1.034, 1.016, 1.002, .992, .986, .982, .982, .983, .985, .988, .991, .994, .997, .999, 1.001, 1.002, 1); /* k170 c14 */
+  --ease-stamp: linear(0, .073, .255, .493, .74, .959, 1.126, 1.233, 1.28, 1.276, 1.235, 1.172, 1.101, 1.035, .981, .944, .924, .92, .928, .944, .963, .983, 1, 1.012, 1.02, 1.023, 1.022, 1.018, 1.013, 1.007, 1.002, .998, .995, .994, .996, .999, 1); /* k260 c12 */
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --shadow-step: 4px;
+}
+
+/* The sticker: hard offset shadow, chunky border, slight rotation. */
+.st-sticker {
+  --lift: 0;
+  position: relative; background: var(--cream); color: var(--forest);
+  border: 3px solid var(--forest); border-radius: 14px;
+  box-shadow: calc(var(--shadow-step) + var(--lift) * 1px) calc(var(--shadow-step) + var(--lift) * 1px) 0 var(--forest);
+  transform: rotate(var(--rot, -1.5deg));
+}
+.st-sticker.is-brass { box-shadow: 6px 6px 0 var(--brass); }
+
+/* Peel corner: a folded triangle that grows on hover (driven by --peel, animated in JS). */
+.st-peel { --peel: 0px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--peel)), calc(100% - var(--peel)) 100%, 0 100%); }
+.st-peel::after {
+  content: ""; position: absolute; right: 0; bottom: 0; width: var(--peel); height: var(--peel);
+  background: linear-gradient(135deg, var(--paper) 50%, transparent 50%); border-top-left-radius: 4px;
+  filter: drop-shadow(-2px -2px 0 var(--forest));
+}
+
+/* Chips and labels */
+.st-chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 2px solid var(--forest);
+  border-radius: 999px; background: var(--cream); font: 600 11px/1 "Martian Mono", ui-monospace, monospace;
+  letter-spacing: .08em; text-transform: uppercase; box-shadow: 3px 3px 0 var(--forest); }
+.st-chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot, var(--signal)); }
+
+/* Loupe: a hidden layer revealed through a circular window (radius animated in JS). */
+.st-loupe { position: relative; overflow: hidden; --r: 0px; --x: 50%; --y: 50%; }
+.st-loupe > .st-loupe-hidden { position: absolute; inset: 0; clip-path: circle(var(--r) at var(--x) var(--y)); pointer-events: none; }
+.st-loupe-ring { position: absolute; width: calc(var(--r) * 2); height: calc(var(--r) * 2); left: var(--x); top: var(--y);
+  translate: -50% -50%; border: 3px solid var(--brass-l); border-radius: 50%; box-shadow: 0 0 0 2px var(--forest), 6px 6px 0 2px rgba(0,0,0,.35); pointer-events: none; }
+
+/* Twinkle for SVG stars (CSS-only fallback / idle state) */
+@keyframes st-twinkle { 0%, 100% { opacity: 1 } 50% { opacity: .55 } }
+.st-twinkle { animation: st-twinkle 3.2s var(--ease-out) infinite; animation-delay: calc(var(--i, 0) * -0.37s); }
+
+@media (prefers-reduced-motion: reduce) {
+  .st-twinkle { animation: none; }
+  .st-sticker { transition: none; }
+}

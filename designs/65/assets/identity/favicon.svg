@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>.bg{fill:#1b232b}.pk{fill:#f4f1ea}@media (prefers-color-scheme: dark){.bg{fill:#f4f1ea}.pk{fill:#1b232b}}</style>
+  <rect class="bg" width="64" height="64" rx="12"/>
+  <path class="pk" d="M32 9 L47 55 H40.4 L32 27.6 L23.6 55 H17 Z"/>
+  <path d="M26.5 46 L37.7 44.6" stroke="#b33a26" stroke-width="3"/>
+</svg>

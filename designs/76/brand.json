@@ -1,0 +1,19 @@
+{
+  "name": "Zinc & Granite",
+  "tagline": "A Paris room with one window open onto a Norwegian fjord; scrolling is one slow walk to it.",
+  "summary": "An arch cut in the paper opens onto a sunlit Haussmann room, and the room's own arched window opens onto granite cliffs. The page is a single unbroken camera move from the back of the room to the balcony, where the MCP command waits on the sill. It reads as a calm, exacting technologist: the 3D room is real, it is lit for the visitor's own hour, and nothing on the page shouts.",
+  "palette": ["#f1efe9", "#e3e6e3", "#a8b0b3", "#9dbccb", "#5c6266", "#1d2226", "#68774c", "#d9c7a4", "#f0b98e"],
+  "type": ["Bodoni Moda (display, opsz 96, italic accents)", "Bodoni Moda (text, low opsz)", "Instrument Sans (labels) + system mono for commands"],
+  "voice": "First person, short, plain and warm; numbers stated, never sold. \"Quiet software that pays for itself.\"",
+  "motion": "One slow, unbroken, scroll-linked camera move per page on a single exhale curve; light is the only other thing that moves.",
+  "sound": "Silent by default; if ever added, an opt-in room tone (wind through an open window) that never plays on its own.",
+  "mark": "A round-headed French window opening onto a mountain ridge, beside a Bodoni wordmark with an italic AS, all outlined so it needs no font.",
+  "inspiration": [
+    "https://www.snohetta.com",
+    "https://accidentallywesanderson.com",
+    "https://www.kinfolk.com",
+    "https://www.rauno.me",
+    "https://tympanus.net/codrops/2025/11/19/how-to-build-cinematic-3d-scroll-experiences-with-gsap/",
+    "https://motion.dev/blog/introducing-magnetic-cursors-in-motion-cursor"
+  ]
+}

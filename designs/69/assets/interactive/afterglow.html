@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afterglow dissolve</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #2A2D4F; color: #FBF8F4; font: 300 14px/1.5 system-ui, sans-serif; }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .ui { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 8px; }
+  button { font: inherit; color: inherit; background: rgba(42,45,79,.35); border: 1px solid rgba(251,248,244,.4); border-radius: 999px; padding: 6px 14px; cursor: pointer; backdrop-filter: blur(6px); }
+</style>
+</head>
+<body>
+<div class="stage">
+  <canvas id="c" aria-label="Photographs dissolving from cliffs to town to shore"></canvas>
+  <div class="ui">
+    <button data-i="0">Cliffs</button><button data-i="1">Towers</button><button data-i="2">Shore</button>
+  </div>
+</div>
+<script type="module">
+  import { createAfterglow } from './afterglow.js'
+  const wide = innerWidth / innerHeight > 1
+  const v = (n) => `../hero/${n}${wide ? '' : '-tall'}-${wide ? 1600 : 1200}.webp`
+  const ag = createAfterglow(document.getElementById('c'), [
+    { src: v('cliffs'), horizon: wide ? 0.449 : 0.449, sunX: wide ? 0.86 : 0.98 },
+    { src: v('towers'), horizon: 1.2, sunX: 0.9 },
+    { src: v('shore'),  horizon: 0.505, sunX: wide ? 0.36 : 0.5 },
+  ], { hold: 5000, fade: 2800 })
+  document.querySelectorAll('button').forEach(b => b.onclick = () => ag.go(+b.dataset.i))
+  if (location.hash === '#flash') ag.ready.then(() => setTimeout(ag.greenFlash, 300))
+  if (location.hash === '#mid') ag.ready.then(() => ag.go(1))
+</script>
+</body>
+</html>

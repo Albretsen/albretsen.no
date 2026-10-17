@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Long Evening, asset kit 63</title>
+<meta name="description" content="Asset kit for Albretsen AS, direction 63: The Long Evening.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preload" href="fonts/bodoni-moda-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: "Bodoni Moda"; src: url(fonts/bodoni-moda-display.woff2) format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Bodoni Moda"; src: url(fonts/bodoni-moda-display-italic.woff2) format("woff2"); font-weight: 400 600; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Schibsted Grotesk"; src: url(fonts/schibsted-grotesk.woff2) format("woff2"); font-weight: 400 900; font-display: swap; }
+  :root {
+    --clapboard: #F5EFE4; --cardstock: #F1E8DA; --falu: #8A2E22; --ochre: #C9973A; --slate: #3E4651;
+    --ink: #23252D; --haze: #E9C7B2; --fogline: #4A4C5A; --marine: #BFD0D6; --sunglow: #E6B661;
+    --serif: "Bodoni Moda", Didot, "Bodoni 72", serif; --sans: "Schibsted Grotesk", system-ui, sans-serif;
+    --gutter: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--clapboard); }
+  body { margin: 0; color: var(--ink); font: 400 16px/1.55 var(--sans); }
+  img, svg, canvas { display: block; max-width: 100%; }
+  img { height: auto; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+  header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px var(--gutter); max-width: 1320px; margin: 0 auto; }
+  header.top img { height: 34px; width: auto; }
+  .eyebrow { font: 500 11px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; }
+  h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; margin: 0; }
+  h2 { font-size: clamp(30px, 4.4vw, 56px); line-height: 1.02; }
+  h2 em { font-style: italic; }
+  section.wrap { padding-top: clamp(56px, 9vw, 120px); padding-bottom: clamp(56px, 9vw, 120px); }
+  section + section { border-top: 1px solid rgb(35 37 45 / .12); }
+  .head { display: grid; grid-template-columns: 1fr minmax(0, 420px); gap: 24px 48px; align-items: end; margin-bottom: 40px; }
+  .head p { margin: 0; color: rgb(35 37 45 / .78); }
+  @media (max-width: 760px) { .head { grid-template-columns: 1fr; } }
+  .cap { font: 400 12.5px/1.45 var(--sans); color: rgb(35 37 45 / .7); margin-top: 10px; }
+  .cap b { font-weight: 600; color: var(--ink); }
+  .grid { display: grid; gap: 28px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 900px) { .g3, .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .g2, .g3 { grid-template-columns: 1fr; } }
+  .ratio { aspect-ratio: 3 / 2; width: 100%; height: auto; object-fit: cover; }
+  .tile { background: var(--cardstock); padding: 28px; display: grid; place-items: center; min-height: 220px; }
+  .tile.dark { background: var(--ink); }
+
+  /* hero (full bleed) */
+  .hero { position: relative; }
+  .hero .lx-fog { aspect-ratio: 3 / 2; max-height: 100svh; width: 100%; }
+  .hero .meta { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(16px, 3vw, 36px); display: flex; justify-content: space-between; gap: 16px; color: var(--clapboard); }
+  .hero .meta .line { font: italic 400 clamp(18px, 2.2vw, 28px)/1.2 var(--serif); }
+  .tag { position: absolute; top: 16px; left: var(--gutter); color: var(--ink); }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+  @media (max-width: 760px) { .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .sw { padding: 92px 16px 16px; font: 400 12px/1.5 var(--sans); }
+  .sw b { display: block; font: italic 400 22px/1.1 var(--serif); margin-bottom: 6px; }
+
+  /* type */
+  .spec-display { font: 400 clamp(64px, 13vw, 190px)/.9 var(--serif); letter-spacing: -.02em; margin: 0; }
+  .spec-display em { font-style: italic; }
+  .spec-row { display: grid; grid-template-columns: 180px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid rgb(35 37 45 / .14); align-items: baseline; }
+  @media (max-width: 620px) { .spec-row { grid-template-columns: 1fr; } }
+
+  /* stamps row */
+  .stamps { display: flex; flex-wrap: wrap; gap: 18px; align-items: end; }
+  .stamps img { width: clamp(84px, 12vw, 132px); height: auto; }
+
+  /* room */
+  .room { position: relative; aspect-ratio: 16 / 10; background: #e9dfcf url(room/room-afternoon-1600.webp) center / cover; }
+  .room canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .room .go { position: absolute; left: 50%; bottom: 18px; translate: -50% 0; }
+  .btn { all: unset; cursor: pointer; font: 500 11px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; padding: 12px 18px; background: var(--clapboard); color: var(--ink); border: 1px solid var(--ink); }
+  .btn:focus-visible { outline: 2px solid var(--falu); outline-offset: 3px; }
+  .controls { display: flex; gap: 14px; align-items: center; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  input[type=range] { width: min(420px, 70vw); accent-color: var(--falu); }
+
+  /* extras */
+  .texture { height: 220px; }
+  .palmwall { height: 320px; background: var(--clapboard) url(extras/clapboard-white.webp) 0 0 / 256px; position: relative; overflow: hidden; }
+  .palmwall img { position: absolute; right: -6%; top: -8%; width: 80%; height: auto; mix-blend-mode: multiply; }
+  .airmail { height: 6px; background: url(extras/airmail-edge.svg) repeat-x 0 0 / 48px 6px; }
+
+  /* motion demos */
+  .demo { background: var(--cardstock); padding: 24px; }
+  .demo h3 { font: italic 400 26px/1.1 var(--serif); margin: 0 0 6px; }
+  .demo p { margin: 0 0 16px; font-size: 14px; color: rgb(35 37 45 / .78); }
+  .whip-stage { aspect-ratio: 3 / 2; }
+  .wipe-demo { aspect-ratio: 3 / 2; overflow: hidden; }
+  .wipe-demo img { width: 100%; height: 100%; object-fit: cover; }
+  .wipe-demo.play img { animation: lx-horizon 1200ms var(--lx-ease) both; }
+  .sun-demo { position: relative; aspect-ratio: 3 / 2; background: var(--clapboard) url(extras/clapboard-white.webp) 0 0 / 200px; overflow: hidden; }
+  .sun-demo .patch { position: absolute; inset: 0; background: url(extras/window-light.svg) no-repeat; background-size: 80% auto; mix-blend-mode: multiply;
+    background-position: calc(5% + var(--t, 0) * 70%) calc(20% + var(--t, 0) * 30%); filter: saturate(calc(1 + var(--t, 0) * .8)) hue-rotate(calc(var(--t, 0) * -14deg)); }
+  .sun-demo .shadow { position: absolute; width: 70%; right: calc(-20% + var(--t, 0) * 30%); top: -10%; mix-blend-mode: multiply; opacity: calc(.5 + var(--t, 0) * .4); }
+  footer { padding: 48px var(--gutter) 72px; text-align: center; }
+  footer img { margin: 0 auto 14px; width: 220px; height: auto; }
+</style>
+</head>
+<body class="lx-evening-bg">
+
+<header class="top">
+  <img src="identity/lockup.svg" alt="Albretsen AS" width="192" height="34">
+  <span class="eyebrow">Kit 63 · The Long Evening</span>
+</header>
+
+<!-- HERO A: layered, live type -->
+<div class="hero">
+  <div class="lx-fog" id="fogHero">
+    <picture>
+      <source type="image/avif" srcset="hero/fog-768.avif 768w, hero/fog-1280.avif 1280w, hero/fog-1600.avif 1600w, hero/fog-1920.avif 1920w, hero/fog-2560.avif 2560w" sizes="100vw">
+      <source type="image/webp" srcset="hero/fog-768.webp 768w, hero/fog-1280.webp 1280w, hero/fog-1600.webp 1600w, hero/fog-1920.webp 1920w, hero/fog-2560.webp 2560w" sizes="100vw">
+      <img src="hero/fog-1600.jpg" width="1600" height="1067" alt="Fog filling a coastal valley at sunset, a dark ridge on the right" fetchpriority="high">
+    </picture>
+    <svg class="lx-fog__name" viewBox="0 0 3840 2560" preserveAspectRatio="xMidYMid slice" aria-hidden="false" role="img" aria-label="Albretsen">
+      <text x="154" y="1224" font-size="649" font-weight="440" fill="#4A4C5A" fill-opacity=".8">Albretsen</text>
+    </svg>
+    <picture>
+      <source type="image/avif" srcset="hero/fog-foreground-1280.avif 1280w, hero/fog-foreground-1920.avif 1920w, hero/fog-foreground-2560.avif 2560w" sizes="100vw">
+      <img src="hero/fog-foreground-1920.webp" srcset="hero/fog-foreground-1280.webp 1280w, hero/fog-foreground-1920.webp 1920w" sizes="100vw" width="1920" height="1280" alt="" decoding="async">
+    </picture>
+  </div>
+  <span class="tag eyebrow">Hero A · fog · live type between photo and matte</span>
+  <div class="meta"><span class="line">Software that pays for itself.</span><span class="eyebrow">Albretsen AS · Norway</span></div>
+</div>
+
+<main>
+<section class="wrap">
+  <div class="head">
+    <h2>The Long <em>Evening</em></h2>
+    <p>California light seen through a Norwegian window. Golden hills, fog banks and palm-lined boulevards at the hour that never quite turns to night, kept in a small-town palette of white clapboard, falu red, ochre and slate. The name is set into the landscape, so it reads as part of the place. Products arrive as postcards. Motion is centred, lateral and deadpan.</p>
+  </div>
+  <div class="grid g2">
+    <figure style="margin:0">
+      <div class="lx-fog" style="aspect-ratio:3/2">
+        <picture>
+          <source type="image/avif" srcset="hero/boulevard-768.avif 768w, hero/boulevard-1280.avif 1280w, hero/boulevard-1920.avif 1920w" sizes="(max-width: 620px) 100vw, 50vw">
+          <img src="hero/boulevard-1280.webp" width="1280" height="853" alt="A road curving between palm trees toward a low sun by the sea" loading="lazy">
+        </picture>
+        <svg class="lx-fog__name" viewBox="0 0 3840 2560" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Albretsen">
+          <text x="270" y="1024" font-size="744" font-weight="440" fill="#8A2E22" fill-opacity=".8">Albretsen</text>
+        </svg>
+        <picture>
+          <source type="image/avif" srcset="hero/boulevard-foreground-1280.avif 1280w, hero/boulevard-foreground-1920.avif 1920w" sizes="(max-width: 620px) 100vw, 50vw">
+          <img src="hero/boulevard-foreground-1280.webp" width="1280" height="853" alt="" loading="lazy">
+        </picture>
+      </div>
+      <figcaption class="cap"><b>Hero B · boulevard.</b> The same three-layer stack, with the name in falu red behind the palms. <code>hero/boulevard-*</code> + <code>boulevard-foreground-*</code></figcaption>
+    </figure>
+    <figure style="margin:0">
+      <img class="ratio" src="hero/fog-named-1280.webp" width="1280" height="853" alt="Composited still of the fog hero with the name" loading="lazy">
+      <figcaption class="cap"><b>Composited still.</b> Baked versions of both heroes with the name included, for social, print and no-JS use. <code>hero/*-named-*</code></figcaption>
+    </figure>
+    <figure style="margin:0">
+      <img class="ratio" src="hero/boulevard-named-1280.webp" width="1280" height="853" alt="Composited still of the boulevard hero with the name" loading="lazy">
+      <figcaption class="cap"><b>Boulevard, composited.</b></figcaption>
+    </figure>
+    <figure style="margin:0">
+      <img class="ratio" style="aspect-ratio:1200/630" src="identity/og-1200x630.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy">
+      <figcaption class="cap"><b>Open Graph, 1200×630.</b> <code>identity/og-1200x630.jpg</code></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="head"><h2>Identity</h2><p>The mark is a Bodoni A whose crossbar is the horizon. A low ochre sun sets exactly on it. The type is outlined in every file, so the marks render the same everywhere.</p></div>
+  <div class="grid g4">
+    <figure style="margin:0"><div class="tile"><img src="identity/mark.svg" width="160" height="160" alt="Albretsen AS mark"></div><figcaption class="cap"><b>mark.svg</b> falu</figcaption></figure>
+    <figure style="margin:0"><div class="tile"><img src="identity/mark-light.svg" width="160" height="160" alt="Mark, light"></div><figcaption class="cap"><b>mark-light.svg</b></figcaption></figure>
+    <figure style="margin:0"><div class="tile dark"><img src="identity/mark-night.svg" width="160" height="160" alt="Mark, night"></div><figcaption class="cap"><b>mark-night.svg</b></figcaption></figure>
+    <figure style="margin:0"><div class="tile" style="gap:18px;grid-auto-flow:column"><img src="identity/favicon.svg" width="64" height="64" alt="Favicon"><img src="identity/favicon-180.png" width="90" height="90" alt="Apple touch icon"><img src="identity/favicon.svg" width="16" height="16" alt="Favicon at 16 pixels"></div><figcaption class="cap"><b>favicon.svg</b> + <b>favicon-180.png</b> (grotesk A survives 16 px)</figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:28px">
+    <figure style="margin:0"><div class="tile"><img src="identity/wordmark.svg" width="460" height="99" alt="Albretsen AS wordmark"></div><figcaption class="cap"><b>wordmark.svg</b></figcaption></figure>
+    <figure style="margin:0"><div class="tile dark"><img src="identity/wordmark-light.svg" width="460" height="99" alt="Wordmark, light"></div><figcaption class="cap"><b>wordmark-light.svg</b></figcaption></figure>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="head"><h2>Palette</h2><p>Norwegian small-town paint on Californian light. Clapboard white is the page and ink is the text. Falu red marks the one thing that matters on each screen. Ochre is the sun. Slate does the quiet work.</p></div>
+  <div class="swatches">
+    <div class="sw" style="background:#F5EFE4;outline:1px solid rgb(35 37 45 / .1)"><b>Clapboard</b>#F5EFE4<br>oklch(95.4% 0.016 82.8)</div>
+    <div class="sw" style="background:#8A2E22;color:#F5EFE4"><b>Falu red</b>#8A2E22<br>oklch(43.6% 0.128 30.4)</div>
+    <div class="sw" style="background:#C9973A"><b>Ochre</b>#C9973A<br>oklch(70.7% 0.123 79.6)</div>
+    <div class="sw" style="background:#3E4651;color:#F5EFE4"><b>Slate</b>#3E4651<br>oklch(39.1% 0.021 256.4)</div>
+    <div class="sw" style="background:#23252D;color:#F5EFE4"><b>Ink</b>#23252D<br>oklch(26.6% 0.015 274.3)</div>
+    <div class="sw" style="background:#F1E8DA"><b>Card stock</b>#F1E8DA<br>oklch(93.4% 0.021 79.1)</div>
+    <div class="sw" style="background:#E9C7B2"><b>Dusk haze</b>#E9C7B2<br>oklch(85.3% 0.048 53.6)</div>
+    <div class="sw" style="background:#E6B661"><b>Sun glow</b>#E6B661<br>oklch(80.3% 0.117 80.1)</div>
+    <div class="sw" style="background:#BFD0D6"><b>Marine layer</b>#BFD0D6<br>oklch(84.7% 0.020 220.9)</div>
+    <div class="sw" style="background:#4A4C5A;color:#F5EFE4"><b>Fog line</b>#4A4C5A<br>oklch(42.0% 0.023 278.9)</div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="head"><h2>Type</h2><p>Bodoni Moda, pinned to its 96 pt optical size, for display: high contrast with hairlines that catch the light. Schibsted Grotesk handles everything functional. It was drawn for a Norwegian newsroom, so it is quietly at home here. Both are OFL and self-hosted as Latin subsets (24–42 KB each).</p></div>
+  <p class="spec-display">Albretsen <em>AS</em></p>
+  <div class="spec-row"><span class="eyebrow">Display / 400</span><span style="font:400 clamp(30px,4vw,52px)/1.05 var(--serif)">Quiet software that pays for itself.</span></div>
+  <div class="spec-row"><span class="eyebrow">Display italic</span><span style="font:italic 400 clamp(26px,3.2vw,40px)/1.1 var(--serif)">Email for AI agents. One URL, every tool.</span></div>
+  <div class="spec-row"><span class="eyebrow">Grotesk / 400</span><span style="max-width:62ch">MCP Emails gives an agent a real inbox: 17 tools across about 100 email providers, open source under AGPL. Fun Libs has passed 113,000 installs without a marketing budget. Æ Ø Å æ ø å.</span></div>
+  <div class="spec-row"><span class="eyebrow">Grotesk / caps</span><span class="eyebrow" style="font-size:13px">Live · Building · Paused · Since 2016</span></div>
+  <div class="spec-row"><span class="eyebrow">Figures</span><span style="font:400 clamp(30px,4vw,48px)/1 var(--serif);font-variant-numeric:lining-nums">$782 MRR · 113,000+ · 549 commits</span></div>
+</section>
+
+<section class="wrap lx-sunlit">
+  <div class="head"><h2>Products, <em>as postcards</em></h2><p>Each live or building product is a postcard. The front carries a graded photograph and a stamp with the real product logo. Click a card to flip it. The back is live HTML with the product line, its facts and its address.</p></div>
+  <div class="grid g2">
+    <button class="lx-postcard" aria-pressed="false" aria-label="MCP Emails postcard, flip">
+      <span class="lx-postcard__inner">
+        <span class="lx-postcard__face lx-postcard__front"><picture><source type="image/avif" srcset="products/postcard-mcp-emails-750.avif 750w, products/postcard-mcp-emails-1200.avif 1200w" sizes="(max-width:620px) 100vw, 50vw"><img src="products/postcard-mcp-emails-750.webp" width="750" height="500" alt="Postcard: MCP Emails, Email for AI agents" loading="lazy"></picture></span>
+        <span class="lx-postcard__face lx-postcard__back">
+          <span class="lx-postcard__msg"><h3>MCP Emails</h3>Email for AI agents. 17 tools, about 100 email providers, open source (AGPL).<br><br><b>$782</b> MRR.</span>
+          <img class="lx-postcard__stamp" src="products/stamp-mcp-emails.webp" width="190" height="230" alt="">
+          <span class="lx-postcard__addr"><span>MCP Emails</span><span>mcpemails.com</span><span>Live since 2026</span></span>
+        </span>
+      </span>
+    </button>
+    <button class="lx-postcard" aria-pressed="false" aria-label="Fun Libs postcard, flip">
+      <span class="lx-postcard__inner">
+        <span class="lx-postcard__face lx-postcard__front"><picture><source type="image/avif" srcset="products/postcard-fun-libs-750.avif 750w, products/postcard-fun-libs-1200.avif 1200w" sizes="(max-width:620px) 100vw, 50vw"><img src="products/postcard-fun-libs-750.webp" width="750" height="500" alt="Postcard: Fun Libs" loading="lazy"></picture></span>
+        <span class="lx-postcard__face lx-postcard__back">
+          <span class="lx-postcard__msg"><h3>Fun Libs</h3>A fill-in-the-blanks word game for Android and iOS. Built at 17, no marketing, v5 shipped 2026.<br><br><b>113,000+</b> installs.</span>
+          <img class="lx-postcard__stamp" src="products/stamp-fun-libs.webp" width="190" height="230" alt="">
+          <span class="lx-postcard__addr"><span>Fun Libs</span><span>funlibs.app</span><span>Live since 2019</span></span>
+        </span>
+      </span>
+    </button>
+    <button class="lx-postcard" aria-pressed="false" aria-label="Toolrails postcard, flip">
+      <span class="lx-postcard__inner">
+        <span class="lx-postcard__face lx-postcard__front"><picture><source type="image/avif" srcset="products/postcard-toolrails-750.avif 750w, products/postcard-toolrails-1200.avif 1200w" sizes="(max-width:620px) 100vw, 50vw"><img src="products/postcard-toolrails-750.webp" width="750" height="500" alt="Postcard: Toolrails" loading="lazy"></picture></span>
+        <span class="lx-postcard__face lx-postcard__back">
+          <span class="lx-postcard__msg"><h3>Toolrails</h3>One MCP URL that gives an agent every tool. Tool search, injection guard.<br><br><b>4</b> connectors.</span>
+          <img class="lx-postcard__stamp" src="products/stamp-toolrails.webp" width="190" height="230" alt="">
+          <span class="lx-postcard__addr"><span>Toolrails</span><span>toolrails.com</span><span>Building, 2026</span></span>
+        </span>
+      </span>
+    </button>
+    <button class="lx-postcard" aria-pressed="false" aria-label="Harbor postcard, flip">
+      <span class="lx-postcard__inner">
+        <span class="lx-postcard__face lx-postcard__front"><picture><source type="image/avif" srcset="products/postcard-harbor-750.avif 750w, products/postcard-harbor-1200.avif 1200w" sizes="(max-width:620px) 100vw, 50vw"><img src="products/postcard-harbor-750.webp" width="750" height="500" alt="Postcard: Harbor" loading="lazy"></picture></span>
+        <span class="lx-postcard__face lx-postcard__back">
+          <span class="lx-postcard__msg"><h3>Harbor</h3>A private knowledge base shared by people and AI. Self-hostable; AI edits held for approval.<br><br><b>549</b> commits.</span>
+          <img class="lx-postcard__stamp" src="products/stamp-harbor.webp" width="190" height="230" alt="">
+          <span class="lx-postcard__addr"><span>Harbor</span><span>harborknowledge.com</span><span>Paused, 2026</span></span>
+        </span>
+      </span>
+    </button>
+  </div>
+  <h3 class="eyebrow" style="margin:56px 0 18px">Retired, kept in the album</h3>
+  <div class="stamps">
+    <img src="products/stamp-retired-luma@2x.webp" width="320" height="380" alt="Luma stamp (real Luma logo)" loading="lazy">
+    <img src="products/stamp-retired-polyglot-pilot@2x.webp" width="320" height="380" alt="Polyglot Pilot stamp" loading="lazy">
+    <img src="products/stamp-retired-pinpoint@2x.webp" width="320" height="380" alt="PinPoint stamp" loading="lazy">
+    <img src="products/stamp-retired-webvakt@2x.webp" width="320" height="380" alt="WebVakt stamp" loading="lazy">
+    <img src="products/stamp-retired-joke-central@2x.webp" width="320" height="380" alt="Joke Central stamp" loading="lazy">
+    <img src="products/stamp-retired-tryggere-hyring@2x.webp" width="320" height="380" alt="Tryggere Hyring stamp" loading="lazy">
+    <img src="products/stamp-retired-early-apps@2x.webp" width="320" height="380" alt="Early apps stamp" loading="lazy">
+  </div>
+  <p class="cap">Live stamps use each product's real logo, unchanged: <code>stamp-mcp-emails</code>, <code>stamp-fun-libs</code>, <code>stamp-toolrails</code>, <code>stamp-harbor</code>. Retired stand-ins use a Bodoni initial on a muted ground. Luma uses its real logo.</p>
+</section>
+
+<section class="wrap">
+  <div class="head"><h2>The room, <em>as the day passes</em></h2><p>A three.js scene with dead-centre framing: clapboard walls, a slate floor and a falu-red credenza, with the four postcards on the wall. A low sun crosses the window, and its patch slides and lengthens across the floor. Drive <code>setTime(0…1)</code> from scroll. The module loads only on demand. Baked stills are provided for first paint.</p></div>
+  <div class="room" id="room"><button class="btn go" id="roomGo">Load the 3D room</button></div>
+  <div class="controls"><span class="eyebrow">Late afternoon</span><input id="roomT" type="range" min="0" max="1" step="0.001" value="0.18" aria-label="Time of day" disabled><span class="eyebrow">Evening</span></div>
+  <div class="grid g2" style="margin-top:28px">
+    <figure style="margin:0"><img class="ratio" style="aspect-ratio:16/10" src="room/room-afternoon-960.webp" width="960" height="600" alt="The room in late afternoon" loading="lazy"><figcaption class="cap"><b>room-afternoon</b> (t = 0.18)</figcaption></figure>
+    <figure style="margin:0"><img class="ratio" style="aspect-ratio:16/10" src="room/room-evening-960.webp" width="960" height="600" alt="The room in the evening" loading="lazy"><figcaption class="cap"><b>room-evening</b> (t = 0.92)</figcaption></figure>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="head" id="extras"><h2>Texture <em>&amp;</em> ephemera</h2><p>Small things that give a page its life: painted boards, card stock, a palm shadow on a sunlit wall, a postmark, an airmail edge, and the same evening seen from orbit.</p></div>
+  <div class="grid g3">
+    <figure style="margin:0"><div class="texture" style="background:url(extras/clapboard-white.webp) 0 0 / 256px"></div><figcaption class="cap"><b>clapboard-white.webp</b> seamless tile</figcaption></figure>
+    <figure style="margin:0"><div class="texture" style="background:url(extras/clapboard-falu.webp) 0 0 / 256px"></div><figcaption class="cap"><b>clapboard-falu.webp</b> seamless tile</figcaption></figure>
+    <figure style="margin:0"><div class="texture" style="background:url(extras/paper-cardstock.webp) 0 0 / 256px"></div><figcaption class="cap"><b>paper-cardstock.webp</b> seamless tile</figcaption></figure>
+    <figure style="margin:0;grid-column:span 2"><div class="palmwall"><img src="extras/palm-shadow.webp" width="1200" height="923" alt="" loading="lazy"></div><figcaption class="cap"><b>palm-shadow.webp</b>, a gobo cut from the boulevard photograph, laid over clapboard with multiply</figcaption></figure>
+    <figure style="margin:0"><div class="tile" style="min-height:320px"><img src="extras/postmark.png" width="315" height="150" alt="Postmark: Albretsen AS, Norway, 2016" loading="lazy"></div><figcaption class="cap"><b>postmark.png</b></figcaption></figure>
+    <figure style="margin:0"><div class="tile"><img src="extras/sun-horizon.svg" width="480" height="40" alt=""></div><figcaption class="cap"><b>sun-horizon.svg</b> section divider</figcaption></figure>
+    <figure style="margin:0"><div class="tile" style="padding:0;place-items:stretch"><div class="airmail" style="height:12px;background-size:96px 12px"></div></div><figcaption class="cap"><b>airmail-edge.svg</b> repeat-x border</figcaption></figure>
+    <figure style="margin:0"><div class="tile" style="padding:0;background:#efe4d4 url(extras/clapboard-white.webp) 0 0/200px"><img src="extras/window-light.svg" width="1200" height="800" alt="" style="mix-blend-mode:multiply"></div><figcaption class="cap"><b>window-light.svg</b> four-pane sun patch</figcaption></figure>
+    <figure style="margin:0;grid-column:1/-1"><picture><source type="image/avif" srcset="extras/orbit-evening-1280.avif 1280w, extras/orbit-evening-2400.avif 2400w" sizes="100vw"><img src="extras/orbit-evening-1280.webp" srcset="extras/orbit-evening-1280.webp 1280w, extras/orbit-evening-2400.webp 2400w" sizes="100vw" width="1280" height="460" alt="Sunset over Pacific clouds seen from the International Space Station" loading="lazy" style="width:100%;height:auto"></picture><figcaption class="cap"><b>orbit-evening</b>: NASA ISS059-E-101098, levelled to a dead-flat horizon. A band for the bottom of a page.</figcaption></figure>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="head" id="motion"><h2>Motion, <em>deadpan</em></h2><p>One symmetric curve, <code>cubic-bezier(.65,0,.35,1)</code>, used everywhere. Moves are centred or lateral, never diagonal, and nothing overshoots. The code is in <code>motion.css</code> and <code>motion.js</code>.</p></div>
+  <div class="grid g2">
+    <div class="demo">
+      <h3>1 · Postcard flip</h3>
+      <p>Rotate 180° on Y, rising toward the viewer on the same curve and settling flat. The back is live text.</p>
+      <button class="lx-postcard" aria-pressed="false" aria-label="Demo postcard, flip">
+        <span class="lx-postcard__inner">
+          <span class="lx-postcard__face lx-postcard__front"><img src="products/postcard-toolrails-750.webp" width="750" height="500" alt="" loading="lazy"></span>
+          <span class="lx-postcard__face lx-postcard__back"><span class="lx-postcard__msg"><h3>Toolrails</h3>One MCP URL that gives an agent every tool.</span><img class="lx-postcard__stamp" src="products/stamp-toolrails.webp" width="190" height="230" alt=""><span class="lx-postcard__addr"><span>toolrails.com</span><span>Building</span></span></span>
+        </span>
+      </button>
+    </div>
+    <div class="demo">
+      <h3>2 · Horizon wipe</h3>
+      <p>The image opens from its horizon line, top and bottom at the same rate. On the site this is tied to scroll with <code>view()</code>.</p>
+      <div class="wipe-demo" id="wipe" style="--horizon:42%"><img src="hero/fog-1280.webp" width="1280" height="853" alt="" loading="lazy"></div>
+      <div class="controls"><button class="btn" id="wipeGo">Replay</button></div>
+    </div>
+    <div class="demo">
+      <h3>3 · Sun traverse</h3>
+      <p>One number, <code>--sun</code>, carries the time of day. Scroll position sets it. The light patch slides and warms, and the palm shadow lengthens.</p>
+      <div class="sun-demo" id="sunDemo"><div class="patch"></div><img class="shadow" src="extras/palm-shadow.webp" width="1200" height="923" alt="" loading="lazy"></div>
+      <div class="controls"><input id="sunT" type="range" min="0" max="1" step="0.001" value="0" aria-label="Sun position"><button class="btn" id="sunPlay">Play</button></div>
+    </div>
+    <div class="demo">
+      <h3>4 · Deadpan pan</h3>
+      <p>A lateral whip between postcards, exactly one card wide. The only blur is at the midpoint.</p>
+      <div class="lx-pan whip-stage" id="pan"><div class="lx-pan__track">
+        <img src="products/postcard-mcp-emails-750.webp" width="750" height="500" alt="MCP Emails" loading="lazy">
+        <img src="products/postcard-fun-libs-750.webp" width="750" height="500" alt="Fun Libs" loading="lazy">
+        <img src="products/postcard-toolrails-750.webp" width="750" height="500" alt="Toolrails" loading="lazy">
+        <img src="products/postcard-harbor-750.webp" width="750" height="500" alt="Harbor" loading="lazy">
+      </div></div>
+      <div class="controls"><button class="btn" id="panPrev">Previous</button><button class="btn" id="panNext">Next</button></div>
+    </div>
+  </div>
+  <p class="cap" style="margin-top:20px"><b>5 · Into the fog</b> is the hero at the top of this page. As it scrolls away, the name sinks a few percent behind the foreground matte and into the fog.</p>
+</section>
+</main>
+
+<div class="airmail"></div>
+<footer>
+  <img src="identity/wordmark.svg" width="460" height="99" alt="Albretsen AS">
+  <span class="eyebrow">Asset kit 63 · The Long Evening</span>
+</footer>
+
+<script type="module">
+  import { initPostcards, initHorizon, initSun, initPan } from './motion.js'
+  // review aid: ?only=5 shows just the 5th section (headless screenshots cannot scroll)
+  const only = new URLSearchParams(location.search).get('only')
+  if (only) { document.querySelector('.hero').hidden = true; document.querySelectorAll('main > section').forEach((s, i) => { if (i + 1 !== +only) s.hidden = true }) }
+  initPostcards(); initHorizon()
+  initPan(document.getElementById('pan'), document.getElementById('panPrev'), document.getElementById('panNext'))
+
+  // horizon wipe replay
+  const wipe = document.getElementById('wipe')
+  const replay = () => { wipe.classList.remove('play'); void wipe.offsetWidth; wipe.classList.add('play') }
+  document.getElementById('wipeGo').onclick = replay
+  new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { replay(); io.disconnect() } }, { threshold: .4 }).observe(wipe)
+
+  // sun traverse demo
+  const sunDemo = document.getElementById('sunDemo'), sunT = document.getElementById('sunT')
+  const setSun = v => { sunDemo.style.setProperty('--t', v); sunT.value = v }
+  sunT.oninput = () => setSun(+sunT.value)
+  let playing = 0
+  document.getElementById('sunPlay').onclick = () => {
+    cancelAnimationFrame(playing); const s = performance.now()
+    const step = n => { const v = Math.min(1, (n - s) / 4000); setSun(v); if (v < 1) playing = requestAnimationFrame(step) }
+    playing = requestAnimationFrame(step)
+  }
+  new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { document.getElementById('sunPlay').click(); io.disconnect() } }, { threshold: .5 }).observe(sunDemo)
+
+  // the 3D room: lazy, on request or when scrolled near; scroll drives the time of day
+  let room = null
+  const roomEl = document.getElementById('room'), roomT = document.getElementById('roomT')
+  async function loadRoom() {
+    if (room) return
+    document.getElementById('roomGo').remove()
+    const { mountRoom } = await import('./room/room.js')
+    room = await mountRoom(roomEl, { base: './', time: +roomT.value })
+    roomT.disabled = false
+    roomT.oninput = () => room.setTime(+roomT.value)
+  }
+  document.getElementById('roomGo').onclick = loadRoom
+  if (!location.search.includes('noroom')) new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { loadRoom(); io.disconnect() } }, { rootMargin: '200px' }).observe(roomEl)
+  initSun(v => { if (room && document.activeElement !== roomT) { const t = Math.min(1, Math.max(0, (v - .45) / .3)); roomT.value = t; room.setTime(t) } })
+</script>
+</body>
+</html>

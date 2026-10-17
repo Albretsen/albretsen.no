@@ -1,0 +1,19 @@
+{
+  "name": "Heure Bleue",
+  "tagline": "A terrace at blue hour where the visitor drags the sun, and the whole town answers.",
+  "summary": "The view from a terrace in the minutes after sunset: zinc rooftops, white houses stepping down to a bay, windows coming on one by one. The scene is a live three.js town built from primitives, painted like a 1930s travel poster in an Anderson pastel palette. The visitor can drag the sun and every window, wall and wave responds. Light and calm carry the atmosphere, and precise engineering underneath shows the skill, so the subject stays a technology company and its products.",
+  "palette": ["#232c57", "#f4eadb", "#7a78b2", "#f2b5b8", "#d9a42b", "#6e1f33", "#a9c6e0", "#ffd27a"],
+  "type": ["Federo", "Instrument Sans", "Poiret One (large figures only)"],
+  "voice": "Calm and exact, with a little wit and no superlatives. It says what is running and what it earns, then stops. Example: \"Small software, run properly.\"",
+  "motion": "Slow and small like heat haze and sea breeze: shutters open, letters settle, windows light one by one, and the sun drifts home to blue hour six seconds after you let go.",
+  "sound": "Silent by default. Once switched on, a low sea-air hush plays, and a single glass chime sounds when the sun crosses the horizon or a ticket is postmarked.",
+  "mark": "An arched terrace window at blue hour, with the sun on the sea and three reflection bars, beside ALBRETSEN in outlined Federo capitals.",
+  "inspiration": [
+    "https://www.kinfolk.com",
+    "https://www.cursor.com",
+    "https://en.wikipedia.org/wiki/Roger_Broders",
+    "https://www.w3.org/WAI/ARIA/apg/patterns/slider/",
+    "https://demosthenes.info/blog/883/Animated-Day-Night-Cycle-With-CSS-and-SVG",
+    "https://unsplash.com/t/travel"
+  ]
+}

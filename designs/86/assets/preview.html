@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airglow — asset kit 86</title>
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="palette.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+@font-face { font-family: Geist; src: url(fonts/Geist-Variable.woff2) format('woff2'); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: GeistMono; src: url(fonts/GeistMono-Variable.woff2) format('woff2'); font-weight: 100 900; font-display: swap; }
+* { box-sizing: border-box; }
+html { background: var(--void); color: var(--starlight); font: 400 17px/1.6 Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0; }
+img, svg, canvas { display: block; max-width: 100%; height: auto; }
+.wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+.mono { font-family: GeistMono, ui-monospace, monospace; font-size: 12.5px; letter-spacing: .04em; color: var(--mist); }
+h2 { font-weight: 300; font-size: clamp(30px, 4vw, 52px); letter-spacing: -.03em; line-height: 1.05; margin: 0 0 12px; }
+h3 { font-weight: 500; font-size: 15px; margin: 0 0 4px; }
+p { margin: 0; color: color-mix(in oklch, var(--starlight) 78%, var(--void)); max-width: 62ch; }
+section { padding: clamp(72px, 12vw, 160px) 0 0; }
+.kicker { display: flex; gap: 16px; align-items: baseline; margin-bottom: 28px; }
+.kicker .mono:first-child { color: var(--greenline); }
+.grid { display: grid; gap: 20px; }
+.g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); }
+.g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.tile { background: var(--night); border: 1px solid color-mix(in oklch, var(--starlight) 9%, transparent); border-radius: 18px; padding: 20px; }
+figure { margin: 0; }
+figcaption { margin-top: 10px; }
+hr.limb { border: 0; height: 60px; background: url(extras/limb-divider.svg) center / 100% 100% no-repeat; margin: 0; }
+
+/* header */
+header.top { position: absolute; z-index: 5; top: 0; left: 0; right: 0; padding: 24px 0; }
+header.top .wrap { display: flex; justify-content: space-between; align-items: center; }
+header.top img { height: 36px; width: auto; }
+
+/* hero */
+.limb-hero picture { position: static; }
+.limb-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.limb-hero { width: 100%; max-height: 100svh; background: var(--void); }
+.limb-hero__name { top: 46%; font-weight: 300; font-size: 16.5vw; letter-spacing: -.045em; line-height: 1; color: var(--starlight); }
+.hero-line { position: absolute; z-index: 3; left: 0; right: 0; bottom: 6%; text-align: center; max-width: none; font-size: clamp(15px, 1.6vw, 21px); color: color-mix(in oklch, var(--starlight) 88%, transparent); }
+.hero-b .limb-hero__name { top: 5.5%; font-size: 15vw; }
+@media (max-width: 700px) {
+  .limb-hero { aspect-ratio: 9 / 16; }
+  .limb-hero.hero-a, .limb-hero.hero-b { aspect-ratio: 16 / 9; } /* clip paths are drawn for the 16:9 crop */
+}
+
+/* palette */
+.sw { border-radius: 14px; overflow: hidden; border: 1px solid color-mix(in oklch, var(--starlight) 9%, transparent); }
+.sw b { display: block; height: 96px; }
+.sw div { padding: 12px 14px; background: var(--night); }
+.sw small { display: block; font: 12px/1.5 GeistMono, monospace; color: var(--mist); }
+
+/* type */
+.specimen .big { font-weight: 250; font-size: clamp(56px, 10vw, 140px); line-height: .95; letter-spacing: -.05em; }
+.specimen .mid { font-weight: 400; font-size: clamp(22px, 2.6vw, 32px); letter-spacing: -.02em; line-height: 1.25; max-width: 30ch; }
+
+/* cards */
+.card img { border-radius: 18px; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.retired { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.retired img { width: 96px; height: 96px; }
+
+/* scrub */
+.scrub { height: 360vh; }
+.scrub__hud { position: absolute; z-index: 2; inset: auto 0 9vh; text-align: center; pointer-events: none; }
+.scrub__hud .name { font-weight: 300; font-size: clamp(34px, 5vw, 72px); letter-spacing: -.03em; line-height: 1; transition: opacity .4s; }
+.scrub__hud .line { color: var(--mist); margin-top: 10px; }
+.scrub__top { position: absolute; z-index: 2; top: 32px; left: 0; right: 0; }
+.scrub__bar { position: absolute; z-index: 2; left: 50%; bottom: 4vh; width: 160px; height: 1px; translate: -50% 0; background: color-mix(in oklch, var(--starlight) 18%, transparent); }
+.scrub__bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--greenline); width: 0; }
+
+/* live roster */
+.live { position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; background: var(--void); border: 1px solid color-mix(in oklch, var(--starlight) 9%, transparent); }
+.live iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* lottie */
+.lot { aspect-ratio: 1; display: grid; place-items: center; }
+.lot.wide { aspect-ratio: 10 / 3; }
+.lot > div { width: 100%; height: 100%; }
+
+/* motion demos */
+.drift { position: relative; height: 260px; border-radius: 18px; overflow: hidden; background: var(--void); border: 1px solid color-mix(in oklch, var(--starlight) 9%, transparent); }
+.drift::after { content: ""; position: absolute; left: -10%; right: -10%; bottom: -60px; height: 120px; border-radius: 50%; box-shadow: 0 -2px 0 var(--limb), 0 -10px 30px color-mix(in oklch, var(--limb) 50%, transparent); }
+.btnrow { display: flex; flex-wrap: wrap; gap: 22px; align-items: center; padding: 40px 10px; }
+.links { display: flex; flex-wrap: wrap; gap: 28px; font-size: 20px; }
+
+.ext { background: var(--void); border-radius: 14px; border: 1px solid color-mix(in oklch, var(--starlight) 9%, transparent); overflow: hidden; }
+.texture { height: 200px; border-radius: 14px; border: 1px solid color-mix(in oklch, var(--starlight) 9%, transparent); }
+footer { padding: 140px 0 80px; }
+/* contact-sheet mode for tall screenshots: preview.html#flat */
+.flat .scrub { height: auto; } .flat .scrub__stage { position: relative; height: 810px; } .flat .limb-hero { max-height: 810px; }
+</style>
+</head>
+<body>
+<!-- Inline the limb clip paths so clip-path:url(#...) resolves. -->
+<div id="clips" hidden></div>
+
+<header class="top"><div class="wrap">
+  <img src="identity/wordmark.svg" alt="Albretsen AS" style="color: var(--starlight)" width="220" height="36" id="wm">
+  <span class="mono">Asset kit 86 · Airglow</span>
+</div></header>
+
+<!-- HERO A: first light, name set behind the Earth's limb -->
+<div class="limb-hero hero-b">
+  <picture>
+    <source type="image/avif" srcset="hero/firstlight-960.avif 960w, hero/firstlight-1600.avif 1600w, hero/firstlight-2560.avif 2560w" sizes="100vw">
+    <source type="image/webp" srcset="hero/firstlight-960.webp 960w, hero/firstlight-1600.webp 1600w" sizes="100vw">
+    <img class="limb-hero__sky" src="hero/firstlight-1600.jpg" width="1600" height="900" alt="Orbital sunrise over the Earth's limb, photographed from the International Space Station" fetchpriority="high">
+  </picture>
+  <h1 class="limb-hero__name limb-rise" style="top: 50.5%">Albretsen</h1>
+  <picture>
+    <source type="image/avif" srcset="hero/firstlight-960.avif 960w, hero/firstlight-1600.avif 1600w, hero/firstlight-2560.avif 2560w" sizes="100vw">
+    <img class="limb-hero__earth" src="hero/firstlight-1600.jpg" width="1600" height="900" alt="" style="clip-path: url(#limb-firstlight)">
+  </picture>
+  <p class="hero-line">I build software that pays for itself.</p>
+</div>
+
+<main class="wrap">
+
+<section>
+  <div class="kicker"><span class="mono">00</span><span class="mono">Direction</span></div>
+  <h2>Airglow</h2>
+  <p>The view from low orbit, kept honest: real NASA photographs of the Earth's night limb, graded to one disciplined palette. The products are the cast of a quiet character-select screen: four tiles standing on a lattice ring above first light, each owning one atmospheric emission line. Serene and spacious: one idea per screen, a lot of dark sky.</p>
+</section>
+
+<section>
+  <div class="kicker"><span class="mono">01</span><span class="mono">Hero imagery</span></div>
+  <div class="grid g2">
+    <figure>
+      <div class="limb-hero hero-a" style="border-radius:18px">
+        <picture>
+          <source type="image/avif" srcset="hero/greenline-960.avif 960w, hero/greenline-1600.avif 1600w, hero/greenline-2560.avif 2560w" sizes="(max-width: 1000px) 100vw, 620px">
+          <source type="image/webp" srcset="hero/greenline-960.webp 960w, hero/greenline-1600.webp 1600w" sizes="(max-width: 1000px) 100vw, 620px">
+          <img class="limb-hero__sky" src="hero/greenline-1600.jpg" width="1600" height="900" alt="Aurora over a cloud deck at night, seen from the ISS" loading="lazy">
+        </picture>
+        <span class="limb-hero__name" style="top: 23%; font-size: 8.4vw; font-size: min(8.4vw, 104px)">Albretsen</span>
+        <picture>
+          <source type="image/avif" srcset="hero/greenline-960.avif 960w, hero/greenline-1600.avif 1600w" sizes="(max-width: 1000px) 100vw, 620px">
+          <img class="limb-hero__earth" src="hero/greenline-1600.jpg" width="1600" height="900" alt="" loading="lazy" style="clip-path: url(#limb-greenline)">
+        </picture>
+      </div>
+      <figcaption class="mono">hero/greenline-* · aurora over cloud deck (iss066e008713) · with limb-clips.svg</figcaption>
+    </figure>
+    <figure>
+      <img src="hero/firstlight-1600.webp" width="1600" height="900" alt="Orbital sunrise" loading="lazy" style="border-radius:18px">
+      <figcaption class="mono">hero/firstlight-* · orbital sunrise (iss072e030246), unretouched apart from grade and crop</figcaption>
+    </figure>
+  </div>
+  <div class="grid g4" style="margin-top:20px">
+    <figure><img src="hero/greenline-portrait-720.webp" width="720" height="1028" alt="Aurora portrait crop" loading="lazy" style="border-radius:18px"><figcaption class="mono">greenline-portrait (phones)</figcaption></figure>
+    <figure><img src="hero/firstlight-portrait-720.webp" width="720" height="900" alt="Sunrise portrait crop" loading="lazy" style="border-radius:18px"><figcaption class="mono">firstlight-portrait (phones)</figcaption></figure>
+    <figure><img src="identity/og-1200x630.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy" style="border-radius:12px"><figcaption class="mono">identity/og-1200x630.jpg</figcaption></figure>
+    <figure class="tile" style="display:grid;place-items:center;gap:18px">
+      <img src="identity/favicon.svg" width="96" height="96" alt="Favicon">
+      <div style="display:flex;gap:18px;align-items:center"><img src="identity/mark-on-dark.svg" width="48" height="48" alt=""><span style="background:var(--starlight);border-radius:10px;padding:6px"><img src="identity/mark-on-light.svg" width="40" height="40" alt=""></span><img src="identity/favicon-180.png" width="48" height="48" alt=""></div>
+      <figcaption class="mono">mark · favicon.svg · favicon-180.png</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="kicker"><span class="mono">02</span><span class="mono">The roster: image-sequence scrub</span></div>
+  <h2>Scroll to turn the ring.</h2>
+  <p>72 frames (1280×720) and 48 portrait frames (720×1280), baked from the live three.js scene in roster/roster.js. Scroll progress maps to a frame; the ring lingers on each product and glides between them.</p>
+</section>
+</main>
+
+<div class="scrub" id="scrub">
+  <div class="scrub__stage">
+    <img class="scrub__poster" src="roster/frames/land/f000.webp" width="1280" height="720" alt="">
+    <canvas></canvas>
+    <div class="scrub__top wrap"><span class="mono" id="snm">557.7 nm · O I</span></div>
+    <div class="scrub__hud"><div class="name" id="sname">MCP Emails</div><div class="line" id="sline">Email for AI agents.</div></div>
+    <div class="scrub__bar"><i id="sbar"></i></div>
+  </div>
+</div>
+
+<main class="wrap">
+<section style="padding-top:80px">
+  <div class="kicker"><span class="mono">03</span><span class="mono">Interactive: the roster, live</span></div>
+  <div class="live" id="live"><span class="mono" style="position:absolute;inset:0;display:grid;place-items:center">Loading three.js scene…</span></div>
+  <p class="mono" style="margin-top:10px">roster/roster.js + roster/demo.html · click a tile, use ← →, move the pointer for parallax</p>
+</section>
+
+<section>
+  <div class="kicker"><span class="mono">04</span><span class="mono">Products</span></div>
+  <h2>Each product owns one line of light.</h2>
+  <p>Real logos, unchanged, on glass plinths above graded NASA plates. Text is left to the page; the plates also ship without the logo for live layering.</p>
+  <div class="grid g4" style="margin-top:36px">
+    <figure class="card"><picture><source type="image/avif" srcset="products/card-mcp-emails-600.avif 600w, products/card-mcp-emails-1200.avif 1200w" sizes="(max-width:600px) 100vw, 300px"><img src="products/card-mcp-emails-600.webp" width="600" height="750" alt="MCP Emails" loading="lazy"></picture><figcaption><h3>MCP Emails</h3><span class="mono">557.7 nm · oxygen green · live</span></figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="products/card-fun-libs-600.avif 600w, products/card-fun-libs-1200.avif 1200w" sizes="(max-width:600px) 100vw, 300px"><img src="products/card-fun-libs-600.webp" width="600" height="750" alt="Fun Libs" loading="lazy"></picture><figcaption><h3>Fun Libs</h3><span class="mono">589.0 nm · sodium · live</span></figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="products/card-toolrails-600.avif 600w, products/card-toolrails-1200.avif 1200w" sizes="(max-width:600px) 100vw, 300px"><img src="products/card-toolrails-600.webp" width="600" height="750" alt="Toolrails" loading="lazy"></picture><figcaption><h3>Toolrails</h3><span class="mono">427.8 nm · nitrogen · building</span></figcaption></figure>
+    <figure class="card"><picture><source type="image/avif" srcset="products/card-harbor-600.avif 600w, products/card-harbor-1200.avif 1200w" sizes="(max-width:600px) 100vw, 300px"><img src="products/card-harbor-600.webp" width="600" height="750" alt="Harbor" loading="lazy"></picture><figcaption><h3>Harbor</h3><span class="mono">630.0 nm · oxygen red · paused</span></figcaption></figure>
+  </div>
+  <div class="tile" style="margin-top:20px">
+    <div class="kicker" style="margin-bottom:16px"><span class="mono">Retired</span><span class="mono">dimmed bodies · products/retired/*.svg (Luma: real monogram)</span></div>
+    <div class="retired">
+      <span style="width:96px;height:96px;border-radius:22px;background:#F4EFE6;display:grid;place-items:center;padding:12px"><img src="../../_shared/products/luma/logo.png" width="782" height="217" alt="Luma" style="width:100%;height:auto"></span>
+      <img src="products/retired/polyglot-pilot.svg" width="96" height="96" alt="Polyglot Pilot">
+      <img src="products/retired/pinpoint.svg" width="96" height="96" alt="PinPoint">
+      <img src="products/retired/webvakt.svg" width="96" height="96" alt="WebVakt">
+      <img src="products/retired/joke-central.svg" width="96" height="96" alt="Joke Central">
+      <img src="products/retired/tryggere-hyring.svg" width="96" height="96" alt="Tryggere Hyring">
+      <img src="products/retired/early-apps.svg" width="96" height="96" alt="Early apps">
+    </div>
+  </div>
+</section>
+
+<hr class="limb" style="margin-top:120px">
+
+<section style="padding-top:60px">
+  <div class="kicker"><span class="mono">05</span><span class="mono">Palette · OKLCH, seed hue 108°</span></div>
+  <div class="grid g4" id="palette"></div>
+</section>
+
+<section>
+  <div class="kicker"><span class="mono">06</span><span class="mono">Type · Geist + Geist Mono (OFL)</span></div>
+  <div class="specimen">
+    <div class="big">Quiet software.</div>
+    <div class="mid" style="margin-top:28px">Products that run while their maker sleeps: an inbox for agents, a word game with 113,000+ installs, one MCP URL for every tool.</div>
+    <p class="mono" style="margin-top:24px">GEIST MONO 12.5 / +0.04em — 557.7 nm · $782 MRR · 17 tools · since 2016</p>
+    <p class="mono" style="margin-top:8px">Display Geist 250–300, −0.045em · Body Geist 400 17/1.6 · Labels Geist Mono 400</p>
+  </div>
+</section>
+
+<section>
+  <div class="kicker"><span class="mono">07</span><span class="mono">Motion · Lottie (lottie-web 5.12.2)</span></div>
+  <div class="grid g3">
+    <figure class="tile"><div class="lot" data-lottie="lottie/orbit-loader.json"></div><figcaption class="mono">orbit-loader.json · loading, idle</figcaption></figure>
+    <figure class="tile"><div class="lot" data-lottie="lottie/select-pulse.json"></div><figcaption class="mono">select-pulse.json · the selected product</figcaption></figure>
+    <figure class="tile"><div class="lot wide" data-lottie="lottie/limb-draw.json"></div><figcaption class="mono">limb-draw.json · section intro, first light</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <div class="kicker"><span class="mono">08</span><span class="mono">Motion study · motion.css / motion.js</span></div>
+  <div class="grid g2">
+    <div class="tile">
+      <h3>Magnetic pull</h3><p class="mono">Buttons lean toward the cursor; labels lean further; critically damped return.</p>
+      <div class="btnrow">
+        <button class="btn-orbit" data-magnetic="0.35"><span class="magnetic__label">Read the MCP Emails story</span></button>
+        <button class="btn-ghost" data-magnetic="0.3"><span class="magnetic__label">asgeir@albretsen.no</span></button>
+      </div>
+    </div>
+    <div class="tile">
+      <h3>Spectral line</h3><p class="mono">Links underline in their product's emission colour.</p>
+      <div class="links" style="padding:40px 10px">
+        <a class="spectral" data-product="mcp-emails" href="#" data-magnetic="0.2">MCP Emails</a>
+        <a class="spectral" data-product="fun-libs" href="#" data-magnetic="0.2">Fun Libs</a>
+        <a class="spectral" data-product="toolrails" href="#" data-magnetic="0.2">Toolrails</a>
+        <a class="spectral" data-product="harbor" href="#" data-magnetic="0.2">Harbor</a>
+      </div>
+    </div>
+    <div class="drift"><div class="airglow-sky"></div><div class="airglow-lattice"></div><span class="mono" style="position:absolute;left:20px;top:16px">Airglow drift · stars + lattice</span></div>
+    <div class="tile" style="display:grid;place-items:center;min-height:260px;overflow:hidden">
+      <div style="position:relative;width:100%;text-align:center">
+        <span class="limb-rise" id="rise" style="display:inline-block;font-weight:300;font-size:64px;letter-spacing:-.04em">Albretsen</span>
+        <div style="height:2px;background:linear-gradient(90deg,transparent,var(--limb),var(--starlight),var(--sodium),transparent);margin-top:-10px;position:relative"></div>
+      </div>
+      <button class="btn-ghost" onclick="const r=document.getElementById('rise');r.style.animation='none';r.offsetWidth;r.style.animation=''">Replay limb rise</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker"><span class="mono">09</span><span class="mono">Extras</span></div>
+  <div class="grid" style="gap:20px">
+    <figure class="ext" style="padding:24px"><img src="extras/spectrum.svg" width="1200" height="160" alt="Emission line spectrum" loading="lazy"><figcaption class="mono">extras/spectrum.svg · legend for the product colours</figcaption></figure>
+    <figure class="ext"><img src="extras/ground-track.svg" width="1600" height="400" alt="Ground track" loading="lazy"><figcaption class="mono" style="padding:0 16px 14px">extras/ground-track.svg · section background, "flow"</figcaption></figure>
+    <div class="grid g3">
+      <figure><div class="texture" style="background: var(--void) url(textures/stars-1024.webp) 0 0 / 512px"></div><figcaption class="mono">textures/stars-1024 (tileable, alpha)</figcaption></figure>
+      <figure><div class="texture" style="background: var(--void) url(textures/lattice.svg) 0 0 / 80px auto"></div><figcaption class="mono">textures/lattice.svg (tileable)</figcaption></figure>
+      <figure><div class="texture" style="background: var(--night) url(textures/grain-256.png); background-blend-mode: overlay; opacity:.9"></div><figcaption class="mono">textures/grain-256.png (overlay at 4–8%)</figcaption></figure>
+    </div>
+    <div class="tile" style="display:flex;gap:28px;align-items:center;flex-wrap:wrap">
+      <img src="extras/status-live.svg" width="28" height="28" alt=""><span class="mono">live</span>
+      <img src="extras/status-building.svg" width="28" height="28" alt=""><span class="mono">building</span>
+      <img src="extras/status-paused.svg" width="28" height="28" alt=""><span class="mono">paused</span>
+      <img src="extras/status-retired.svg" width="28" height="28" alt=""><span class="mono">retired</span>
+      <span class="mono" style="margin-left:auto">extras/status-*.svg</span>
+    </div>
+  </div>
+</section>
+
+<footer><img src="identity/wordmark.svg" width="260" height="42" alt="Albretsen AS" style="color:var(--starlight)"><p class="mono" style="margin-top:14px">Imagery: NASA (public domain). Type: Geist (OFL). Everything else made for this kit.</p></footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js" defer></script>
+<script type="module">
+import { magnetic, orbitScrub } from './motion.js';
+
+// clip paths + wordmark inline (so currentColor follows CSS)
+fetch('hero/limb-clips.svg').then(r => r.text()).then(t => { document.getElementById('clips').innerHTML = t; document.getElementById('clips').hidden = false; });
+document.querySelectorAll('img[src$="wordmark.svg"]').forEach(async img => {
+  const t = await (await fetch(img.src)).text(); const s = document.createElement('span');
+  s.innerHTML = t; const svg = s.firstElementChild; svg.setAttribute('height', img.getAttribute('height')); svg.setAttribute('width', img.getAttribute('width'));
+  svg.style.color = 'var(--starlight)'; img.replaceWith(svg);
+});
+
+// palette
+fetch('palette.json').then(r => r.json()).then(p => {
+  document.getElementById('palette').innerHTML = Object.entries(p).map(([k, v]) =>
+    `<div class="sw"><b style="background:${v.oklch}"></b><div><h3>${k}</h3><small>${v.oklch}</small><small>${v.hex}</small><small style="margin-top:6px;color:var(--starlight);opacity:.7">${v.use}</small></div></div>`).join('');
+});
+
+// scrub
+const P = [
+  ['MCP Emails', 'Email for AI agents.', '557.7 nm · O I', '#e9e558'],
+  ['Fun Libs', 'A fill-in-the-blanks word game for Android and iOS.', '589.0 nm · Na I', '#f7ac4d'],
+  ['Toolrails', 'One MCP URL that gives an agent every tool.', '427.8 nm · N2+', '#7988ed'],
+  ['Harbor', 'A private knowledge base shared by people and AI.', '630.0 nm · O I', '#e86154'],
+];
+orbitScrub(document.getElementById('scrub'), {
+  onProduct: i => { sname.textContent = P[i][0]; sline.textContent = P[i][1]; snm.textContent = P[i][2]; sbar.style.background = P[i][3]; },
+  onProgress: t => { sbar.style.width = (t * 100).toFixed(1) + '%'; },
+});
+
+magnetic();
+
+// screenshot helper: preview.html#y=2400 jumps to a scroll offset
+if (location.hash.startsWith('#flat')) document.documentElement.classList.add('flat');
+if (location.hash === '#flat2') { // screenshot helper: show only the lower half (sections 07+)
+  const all = [...document.querySelectorAll('body > div, body > header, main > section, main > hr')];
+  const k = all.findIndex(el => el.textContent.includes('Motion · Lottie'));
+  all.slice(0, k).forEach(el => el.style.display = 'none');
+}
+const jump = location.hash.match(/^#y=(\d+)/); if (jump) addEventListener('load', () => scrollTo(0, +jump[1]));
+
+// live roster after first paint, when scrolled near
+const live = document.getElementById('live');
+new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { io.disconnect(); live.innerHTML = '<iframe src="roster/demo.html" title="Live roster" loading="lazy"></iframe>'; } }, { rootMargin: '400px' }).observe(live);
+
+// lottie
+function startLottie() {
+  if (!window.lottie) return setTimeout(startLottie, 100);
+  document.querySelectorAll('[data-lottie]').forEach(el => lottie.loadAnimation({ container: el, renderer: 'svg', loop: true, autoplay: true, path: el.dataset.lottie }));
+}
+startLottie();
+</script>
+</body>
+</html>

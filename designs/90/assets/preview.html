@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Six Faces Kit</title>
+<meta name="description" content="Asset kit for design 90, Six Faces: an ultramarine nocturne and a die that only lands on true numbers.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<link rel="preload" href="fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/"}}</script>
+<link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="interactive/throw-cube.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { background: var(--bg); }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.55 var(--f-mono); overflow-x: hidden; transition: none; }
+  a { color: inherit; }
+  img { max-width: 100%; height: auto; display: block; }
+  .wrap { width: min(1280px, 100% - 32px); margin-inline: auto; }
+  .kicker { font: 500 11px/1.2 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--c-sodium); }
+  :root[data-theme="day"] .kicker { color: var(--c-field); }
+  h2 { font: 800 clamp(30px, 5vw, 64px)/.92 var(--f-display); font-stretch: 125%; letter-spacing: -.035em; margin: .25em 0 .5em; }
+  section { padding: clamp(56px, 9vw, 120px) 0; border-top: 1px solid var(--rule); }
+  .lede { max-width: 62ch; color: var(--ink-2); }
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .g6 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr)); }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); display: flex; justify-content: space-between; gap: 12px; }
+  figcaption b { font-weight: 500; color: var(--ink); }
+  .tile { background: var(--bg-2); border: 1px solid var(--rule); border-radius: 10px; display: grid; place-items: center; padding: 28px; min-height: 180px; }
+  .tile.paper { background: var(--c-paper); }
+  .tile.field { background: var(--c-field); }
+
+  /* ---- masthead ---- */
+  .mast { position: relative; min-height: min(100svh, 980px); display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; isolation: isolate; color: var(--c-paper); }
+  .mast picture, .mast picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .mast .night-only, .mast .day-only { transition: opacity .01s; }
+  :root[data-theme="day"] .mast .night-only { opacity: 0; }
+  :root:not([data-theme="day"]) .mast .day-only { opacity: 0; }
+  :root[data-theme="day"] .mast { color: var(--c-deep); }
+  .mast::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(0 10 42 / .35), transparent 30%, transparent 70%, rgb(0 10 42 / .55)); }
+  :root[data-theme="day"] .mast::after { background: linear-gradient(180deg, rgb(241 248 255 / .4), transparent 30%); }
+  .bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; }
+  .bar img { width: 220px; height: auto; }
+  .mast h1 { align-self: end; margin: 0 auto; font: 800 clamp(56px, 15.5vw, 236px)/.8 var(--f-display); font-stretch: 125%; letter-spacing: -.055em; white-space: nowrap; }
+  .mast .sub { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; padding: 22px 0 28px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .mast .sub span:first-child { color: var(--c-sodium); }
+  :root[data-theme="day"] .mast .sub span:first-child { color: var(--c-field); }
+
+  /* ---- palette ---- */
+  .sw { border-radius: 10px; overflow: hidden; border: 1px solid var(--rule); }
+  .sw i { display: block; aspect-ratio: 4 / 3; }
+  .sw div { padding: 10px 12px; font-size: 11px; line-height: 1.5; letter-spacing: .03em; background: var(--bg-2); }
+  .sw b { display: block; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; }
+
+  /* ---- type ---- */
+  .spec { display: grid; gap: 28px; }
+  .spec .d1 { font: 800 clamp(48px, 10vw, 150px)/.85 var(--f-display); font-stretch: 125%; letter-spacing: -.05em; }
+  .spec .d2 { font: 600 clamp(26px, 4vw, 48px)/1.05 var(--f-display); font-stretch: 100%; letter-spacing: -.02em; max-width: 22ch; }
+  .spec .d3 { font: 400 clamp(15px, 1.6vw, 18px)/1.6 var(--f-mono); max-width: 60ch; color: var(--ink-2); }
+  .spec .meta { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 8px; }
+
+  /* ---- die ---- */
+  .die-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; align-items: stretch; }
+  .die-box { position: relative; min-height: 560px; border-radius: 14px; overflow: hidden; background: radial-gradient(80% 70% at 50% 40%, var(--c-field), var(--c-deep) 65%, var(--c-night)); color: var(--c-paper); }
+  .die-box #stage { position: absolute; inset: 0; min-height: 0; }
+  .die-box .hud { position: absolute; left: 16px; right: 16px; bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; z-index: 2; pointer-events: none; }
+  .die-box .hud button { pointer-events: auto; }
+  .die-box .hud output { color: var(--c-sodium); }
+  .btn { font: 500 11px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: inherit; background: transparent; border: 1px solid currentColor; border-radius: 999px; padding: .8em 1.1em; cursor: pointer; opacity: .9; }
+  .btn:focus-visible { outline: 2px solid var(--c-sodium); outline-offset: 3px; }
+  .live3d { position: relative; min-height: 560px; border-radius: 14px; overflow: hidden; background: radial-gradient(60% 45% at 62% 30%, rgb(82 169 254 / .55), transparent 70%), linear-gradient(180deg, #0159d4 0 36%, #00226c 74%); }
+  .live3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .live3d .btn { position: absolute; left: 16px; bottom: 14px; color: var(--c-paper); }
+
+  /* ---- motion study ---- */
+  .study { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+  .card { overflow: hidden; border: 1px solid var(--rule); border-radius: 12px; padding: 20px; display: grid; gap: 14px; align-content: start; background: var(--bg-2); }
+  .card h3 { margin: 0; font: 800 22px/1 var(--f-display); font-stretch: 125%; letter-spacing: -.02em; }
+  .card p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .count-demo { font: 800 clamp(34px, 3.6vw, 52px)/1 var(--f-display); font-stretch: 125%; letter-spacing: -.04em; }
+  .redact-demo { list-style: none; margin: 0; padding: 0; font: 600 20px/1.9 var(--f-display); }
+  .develop-demo { aspect-ratio: 3 / 2; border-radius: 8px; }
+
+  .net { background: var(--c-night); border-radius: 12px; padding: 12px; }
+  .stamp { width: 100%; max-width: 360px; }
+  .tape { width: 100%; }
+  .grain-sw { aspect-ratio: 1; border-radius: 10px; background: url(extras/grain.png) repeat, var(--c-field); background-blend-mode: overlay; }
+  .crop { position: relative; }
+  .crop::after { content: ""; position: absolute; inset: -12px; background: url(extras/crop-marks.svg) center / 100% 100% no-repeat; pointer-events: none; }
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--rule); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<!-- ============ MASTHEAD: hero A (aurora, nocturne grade) with the theme show ============ -->
+<header class="mast">
+  <picture class="night-only">
+    <source type="image/avif" srcset="hero/aurora-night-640.avif 640w, hero/aurora-night-1280.avif 1280w, hero/aurora-night-1920.avif 1920w, hero/aurora-night-2560.avif 2560w" sizes="(orientation: portrait) 150vh, 100vw">
+    <source type="image/webp" srcset="hero/aurora-night-640.webp 640w, hero/aurora-night-1280.webp 1280w, hero/aurora-night-1920.webp 1920w" sizes="(orientation: portrait) 150vh, 100vw">
+    <img src="hero/aurora-night-1280.jpg" srcset="hero/aurora-night-1280.jpg 1280w, hero/aurora-night-1920.jpg 1920w" sizes="(orientation: portrait) 150vh, 100vw" width="2560" height="1707" alt="Aurora over a dark fjord, graded entirely in ultramarine." fetchpriority="high">
+  </picture>
+  <picture class="day-only">
+    <source type="image/avif" srcset="hero/aurora-day-640.avif 640w, hero/aurora-day-1280.avif 1280w, hero/aurora-day-1920.avif 1920w" sizes="(orientation: portrait) 150vh, 100vw">
+    <source type="image/webp" srcset="hero/aurora-day-640.webp 640w, hero/aurora-day-1280.webp 1280w, hero/aurora-day-1920.webp 1920w" sizes="(orientation: portrait) 150vh, 100vw">
+    <img src="hero/aurora-day-1280.jpg" width="1920" height="1280" alt="" loading="lazy">
+  </picture>
+  <div class="wrap bar">
+    <img src="logo-mark-reverse.svg" width="44" height="44" alt="Albretsen AS" style="width:44px">
+    <button class="turn-switch" type="button" data-turn-switch aria-label="Switch theme"><span class="ts-cube" aria-hidden="true"><i></i><i></i><i></i></span><span class="ts-label">Nocturne</span></button>
+  </div>
+  <h1 class="wrap">Albretsen</h1>
+  <div class="wrap sub"><span>Design 90 · Six Faces · asset kit</span><span>Ultramarine nocturne · brutal honesty · a die that only lands on true numbers</span></div>
+</header>
+
+<main>
+<!-- ============ IDENTITY ============ -->
+<section class="wrap" id="identity">
+  <p class="kicker">01 · Identity</p>
+  <h2>A cube with one pip.</h2>
+  <p class="lede">The mark is the die seen from its corner: paper top, ultramarine sides, one sodium pip for the one number that matters. Wordmark is Archivo at full width and weight, outlined to paths.</p>
+  <div class="grid g4" style="margin-top:32px">
+    <figure><div class="tile paper"><img src="logo-mark.svg" width="120" height="120" alt="Albretsen AS mark"></div><figcaption><b>logo-mark.svg</b><span>on light</span></figcaption></figure>
+    <figure><div class="tile field"><img src="logo-mark-reverse.svg" width="120" height="120" alt="Albretsen AS mark, reverse"></div><figcaption><b>logo-mark-reverse.svg</b><span>on ultramarine</span></figcaption></figure>
+    <figure><div class="tile paper"><img src="favicon.svg" width="64" height="64" alt="favicon"><img src="favicon-180.png" width="90" height="90" alt="touch icon" style="margin-top:12px"></div><figcaption><b>favicon.svg · favicon-180.png</b></figcaption></figure>
+    <figure><div class="tile paper"><img src="logo-wordmark.svg" width="724" height="56" alt="Albretsen AS wordmark" style="width:100%"></div><figcaption><b>logo-wordmark.svg</b><span>currentColor</span></figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <figure><div class="tile paper" style="min-height:140px"><img src="logo-lockup.svg" width="552" height="68" alt="Albretsen AS lockup"></div><figcaption><b>logo-lockup.svg</b><span>mark + wordmark</span></figcaption></figure>
+    <figure><img src="og-image.jpg" width="1200" height="630" alt="Open Graph image: the die on snow tracks with the line 'I build software that pays for itself.'" loading="lazy" style="border-radius:10px"><figcaption><b>og-image.jpg</b><span>1200 × 630</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ PALETTE ============ -->
+<section class="wrap" id="palette-s">
+  <p class="kicker">02 · Palette</p>
+  <h2>Ultramarine owns the page.</h2>
+  <p class="lede">Seed hue 252° in OKLCH. Seven blues from night to paper, and exactly one warm light: sodium, used for a pip, a scan line, a fact label. Never for a block.</p>
+  <div class="grid g6" style="margin-top:32px" id="palette"></div>
+</section>
+
+<!-- ============ TYPE ============ -->
+<section class="wrap" id="type">
+  <p class="kicker">03 · Type</p>
+  <h2>Wide, heavy, and plain.</h2>
+  <div class="spec">
+    <div><div class="d1">$782 MRR</div><div class="meta">Archivo · wdth 125 · wght 800 · tracking −0.05em · numbers and the name</div></div>
+    <div><div class="d2">Software that pays for itself, and the numbers to prove it.</div><div class="meta">Archivo · wdth 100 · wght 600 · statements</div></div>
+    <div><div class="d3">Fun Libs was built at 17 with no marketing. Toolrails is not finished. Harbor is paused. Seven products are retired, and they are listed, not hidden.</div><div class="meta">IBM Plex Mono · 400 / 500 · body, labels, facts</div></div>
+  </div>
+</section>
+
+<!-- ============ HERO IMAGERY ============ -->
+<section class="wrap" id="imagery">
+  <p class="kicker">04 · Hero imagery</p>
+  <h2>Real places, one colour.</h2>
+  <p class="lede">Public-domain and CC0 photographs graded through a single OKLab ramp: night ink → ultramarine → electric → paper. The day theme prints the same frame as a negative, like a cyanotype. Each image develops in on scroll.</p>
+  <div class="grid g2" style="margin-top:32px">
+    <figure><div class="develop crop"><picture><source type="image/avif" srcset="hero/die-on-snow-960.avif 960w, hero/die-on-snow-1600.avif 1600w, hero/die-on-snow-2400.avif 2400w" sizes="(min-width: 900px) 50vw, 100vw"><img src="hero/die-on-snow-1600.jpg" width="1600" height="1000" alt="An ultramarine die with the MCP Emails label resting on tyre tracks in snow." loading="lazy"></picture></div><figcaption><b>hero/die-on-snow</b><span>three.js render on graded photo</span></figcaption></figure>
+    <figure><div class="develop"><picture><source type="image/avif" srcset="hero/summit-night-640.avif 640w, hero/summit-night-1280.avif 1280w, hero/summit-night-1920.avif 1920w" sizes="(min-width: 900px) 50vw, 100vw"><img src="hero/summit-night-1280.jpg" width="1280" height="850" alt="A lone figure on a rock above a valley, graded ultramarine." loading="lazy"></picture></div><figcaption><b>hero/summit-night</b><span>the ambition frame</span></figcaption></figure>
+    <figure><div class="develop"><picture><source type="image/avif" srcset="hero/orbit-night-640.avif 640w, hero/orbit-night-1280.avif 1280w, hero/orbit-night-1920.avif 1920w" sizes="(min-width: 900px) 50vw, 100vw"><img src="hero/orbit-night-1280.jpg" width="1280" height="784" alt="Northern Europe seen from orbit, graded ultramarine." loading="lazy"></picture></div><figcaption><b>hero/orbit-night</b><span>NASA, public domain</span></figcaption></figure>
+    <figure><div class="develop"><picture><source type="image/avif" srcset="hero/aurora-day-640.avif 640w, hero/aurora-day-1280.avif 1280w, hero/aurora-day-1920.avif 1920w" sizes="(min-width: 900px) 50vw, 100vw"><img src="hero/aurora-day-1280.jpg" width="1280" height="854" alt="The aurora frame printed as an ultramarine negative on paper." loading="lazy"></picture></div><figcaption><b>hero/aurora-day</b><span>day theme negative</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVE ============ -->
+<section class="wrap" id="interactive">
+  <p class="kicker">05 · Interactive · centrepiece</p>
+  <h2>Throw it. It lands on a true number.</h2>
+  <p class="lede">Left: the Honest Die, CSS 3D transforms only. Grab, spin, throw; it bounces off the frame, loses energy and lands square on one face, upright, via a Motion spring. Right: the same object in three.js, kept live (loads on demand).</p>
+  <div class="die-row" style="margin-top:32px">
+    <div class="die-box"><div id="stage"></div><div class="hud"><output id="landed">Drag the die</output><button class="btn" id="roll" type="button">Roll</button></div></div>
+    <div class="live3d" id="live3d"><button class="btn" type="button" id="load3d">Load live three.js die</button></div>
+  </div>
+  <p style="margin-top:14px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)"><a href="interactive/demo.html">interactive/demo.html</a> · <a href="3d/live.html">3d/live.html</a> · <a href="3d/render.html?shot=hero">3d/render.html (bake stage)</a></p>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="wrap" id="products-s">
+  <p class="kicker">06 · Products</p>
+  <h2>Each product is a die.</h2>
+  <p class="lede">The real logo on a paper label, the one number on top, the facts on the side. Rendered in three.js on studio sweeps of the palette. Retired products get a die face with pips instead of a logo: honest, small, still on the record.</p>
+  <div class="grid g4" style="margin-top:32px" id="products"></div>
+  <div class="grid g6" style="margin-top:28px" id="retired"></div>
+</section>
+
+<!-- ============ EXTRAS ============ -->
+<section class="wrap" id="extras">
+  <p class="kicker">07 · Extras</p>
+  <h2>Texture and evidence.</h2>
+  <div class="grid g3" style="margin-top:32px">
+    <figure><div class="develop"><picture><source type="image/avif" srcset="extras/tracks-night-800.avif 800w, extras/tracks-night-1600.avif 1600w" sizes="(min-width: 900px) 33vw, 100vw"><img src="extras/tracks-night-800.jpg" width="800" height="601" alt="Tyre tracks in snow, graded ultramarine: a field of vectors." loading="lazy"></picture></div><figcaption><b>extras/tracks-night</b><span>section ground</span></figcaption></figure>
+    <figure><div class="develop"><picture><source type="image/avif" srcset="extras/lights-night-800.avif 800w, extras/lights-night-1600.avif 1600w" sizes="(min-width: 900px) 33vw, 100vw"><img src="extras/lights-night-800.jpg" width="800" height="600" alt="Europe at night from orbit, graded ultramarine." loading="lazy"></picture></div><figcaption><b>extras/lights-night</b><span>density</span></figcaption></figure>
+    <figure><img src="extras/vector-field.svg" width="1600" height="1000" alt="A field of small vectors in electric blue with a few sodium outliers." loading="lazy" style="border-radius:8px"><figcaption><b>extras/vector-field.svg</b><span>salted 033eb1</span></figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <figure><div class="net"><img src="extras/die-net.svg" width="840" height="672" alt="The die unfolded into a cross of six faces, each with a true number." loading="lazy"></div><figcaption><b>extras/die-net.svg</b><span>about / colophon</span></figcaption></figure>
+    <div class="grid" style="align-content:start">
+      <figure><div class="tile paper" style="min-height:0"><img class="stamp" src="extras/caption-label.svg" width="360" height="140" alt="Caption label: measured, not estimated." loading="lazy"></div><figcaption><b>extras/caption-label.svg</b><span>plate caption</span></figcaption></figure>
+      <figure><img class="tape" src="extras/retired-tape.svg" width="600" height="36" alt="Retired tape" loading="lazy"><figcaption><b>extras/retired-tape.svg</b><span>divider for the retired list</span></figcaption></figure>
+      <div class="grid g2" style="grid-template-columns:1fr 1fr">
+        <figure><div class="grain-sw"></div><figcaption><b>extras/grain.png</b><span>overlay tile</span></figcaption></figure>
+        <figure><div class="tile" style="min-height:0;aspect-ratio:1"><img src="extras/crop-marks.svg" width="400" height="300" alt="Crop marks" loading="lazy"></div><figcaption><b>extras/crop-marks.svg</b><span>photo frame</span></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOTION STUDY ============ -->
+<section class="wrap" id="motion">
+  <p class="kicker">08 · Motion study · motion.css + motion.js</p>
+  <h2>Five moves, all honest.</h2>
+  <div class="study" style="margin-top:32px">
+    <div class="card"><span class="kicker">1 · Throw &amp; land</span><h3>The die</h3><p>Inertia while flying, bounce off the frame with 0.55 restitution, wall hits turn speed into spin, then a Motion spring (stiffness 260, damping 17) lands it square and upright. See section 05.</p></div>
+    <div class="card"><span class="kicker">2 · The Turn</span><h3>Theme switch</h3><p>The page is one face of a cube. Switching theme turns it 90° to the other face through a sodium-lit void (View Transitions + CSS 3D). The hero swaps to its negative print.</p><button class="btn" type="button" data-turn-switch>Turn the page</button></div>
+    <div class="card"><span class="kicker">3 · Develop</span><h3>Photographs develop</h3><p>Flat ultramarine first, then the frame develops top-down behind a sodium scan line, contrast rising as it goes.</p><div class="develop develop-demo" id="dev"><img src="hero/summit-night-640.webp" width="640" height="425" alt="" loading="lazy"></div><button class="btn" type="button" id="dev-btn">Replay</button></div>
+    <div class="card"><span class="kicker">4 · Honest count</span><h3>Stops dead</h3><p>Counts up and stops exactly on the true value. No overshoot, no bounce. A sodium rule marks it exact.</p><div class="count-demo"><span class="count" data-count="113,000+" id="cnt">0</span></div><button class="btn" type="button" id="cnt-btn">Replay</button></div>
+    <div class="card"><span class="kicker">5 · Redact</span><h3>Retired, on the record</h3><p>A bar is drawn through each retired product, then the word "retired". Nothing is deleted from the list.</p><ul class="redact-demo" id="red"><li><span class="redact">Luma</span></li><li><span class="redact">PinPoint</span></li><li><span class="redact">WebVakt</span></li></ul><button class="btn" type="button" id="red-btn">Replay</button></div>
+  </div>
+</section>
+</main>
+
+<footer class="wrap">Design 90 · Six Faces · every number from designs/_shared/content.js · photographs CC0 / public domain, see ASSETS.md</footer>
+
+<script type="module">
+import { autoInit, develop, honestCount, redact } from './motion.js'
+import { createThrowCube } from './interactive/throw-cube.js'
+import { FACES } from './interactive/faces.js'
+
+// ?only=<section id> shows one section (handy for screenshots)
+const only = new URLSearchParams(location.search).get('only')
+if (only) { document.querySelector('.mast').hidden = true; document.querySelectorAll('main > section').forEach((x) => { x.hidden = x.id !== only }) }
+
+// palette
+const PAL = [
+  ['night', 'oklch(0.16 0.07 262)', '#000a2a', 'deepest ground'], ['deep', 'oklch(0.29 0.134 262)', '#00226c', 'nocturne page'],
+  ['field', 'oklch(0.50 0.203 260)', '#0159d4', 'the owner'], ['seed', 'oklch(0.62 0.184 252)', '#0587f0', 'seed hue 252'],
+  ['electric', 'oklch(0.72 0.15 250)', '#52a9fe', 'links, vectors'], ['mist', 'oklch(0.92 0.038 252)', '#d3e7fe', 'secondary ink'],
+  ['paper', 'oklch(0.975 0.012 252)', '#f1f8ff', 'day page, type'], ['sodium', 'oklch(0.82 0.143 70)', '#ffb250', 'the one warm light'],
+]
+document.getElementById('palette').innerHTML = PAL.map(([n, o, h, u]) => `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b>${o}<br>${h} · ${u}</div></div>`).join('')
+
+// products
+const PRODS = [['mcp-emails', 'MCP Emails', 'live · $782 MRR'], ['fun-libs', 'Fun Libs', 'live · 113,000+ installs'], ['toolrails', 'Toolrails', 'building · 4 connectors'], ['harbor', 'Harbor', 'paused · 549 commits']]
+document.getElementById('products').innerHTML = PRODS.map(([id, n, f]) => `<figure><picture><source type="image/avif" srcset="products/die-${id}-700.avif 700w, products/die-${id}-1400.avif 1400w" sizes="(min-width: 900px) 25vw, 100vw"><img src="products/die-${id}-700.jpg" width="700" height="700" alt="${n} as a die: real logo on the front, its number on top." loading="lazy" style="border-radius:10px"></picture><figcaption><b>products/die-${id}</b><span>${f}</span></figcaption></figure>`).join('')
+const RET = [['polyglot-pilot', 'Polyglot Pilot'], ['pinpoint', 'PinPoint'], ['webvakt', 'WebVakt'], ['joke-central', 'Joke Central'], ['tryggere-hyring', 'Tryggere Hyring'], ['early-apps', 'Early apps']]
+document.getElementById('retired').innerHTML = `<figure><div class="tile paper" style="min-height:0;aspect-ratio:1"><img src="../../_shared/products/luma/luma-monogram.svg" width="96" height="96" alt="Luma logo (real)" loading="lazy"></div><figcaption><b>Luma</b><span>retired · real logo</span></figcaption></figure>` +
+  RET.map(([id, n]) => `<figure><img src="products/retired/${id}.svg" width="240" height="240" alt="${n}, retired: stand-in die face" loading="lazy"><figcaption><b>${n}</b><span>stand-in</span></figcaption></figure>`).join('')
+
+// motion
+autoInit()
+if (new URLSearchParams(location.search).get('theme') === 'day') document.documentElement.dataset.theme = 'day'
+document.getElementById('dev-btn').onclick = () => { const d = document.getElementById('dev'); d.classList.remove('is-done'); develop(d) }
+document.getElementById('cnt-btn').onclick = () => { const c = document.getElementById('cnt'); c.classList.remove('is-exact'); honestCount(c) }
+document.getElementById('red-btn').onclick = () => document.querySelectorAll('#red .redact').forEach((r, i) => { r.style.setProperty('--r', 0); r.style.setProperty('--ro', 0); setTimeout(() => redact(r), i * 260) })
+
+// the CSS 3D die
+const stage = document.getElementById('stage')
+const die = createThrowCube(stage, FACES, { size: Math.min(280, Math.round(innerWidth * 0.55)), introDelay: 900 })
+stage.addEventListener('settle', (e) => { const f = e.detail.data; document.getElementById('landed').textContent = `${f.value} ${f.label} · ${f.kicker}` })
+document.getElementById('roll').onclick = () => die.roll()
+
+// three.js die, on demand
+document.getElementById('load3d').onclick = async (ev) => {
+  ev.currentTarget.remove()
+  const { mountDie } = await import('./3d/die-scene.js')
+  const cv = document.createElement('canvas'); document.getElementById('live3d').append(cv)
+  mountDie(cv, { product: 'fun-libs', live: true, camera: [4.4, 2.8, 7.2], fov: 30, lookY: 0.95, pose: { x: 0, y: -0.2, z: 0 } })
+}
+</script>
+</body>
+</html>

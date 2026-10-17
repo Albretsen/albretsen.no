@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · Software that pays for itself</title>
+<meta name="description" content="Albretsen AS builds apps, SaaS and infrastructure for AI agents. Published on Google Play since 2016.">
+<meta name="theme-color" content="#1b232b">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software, built to pay for itself.">
+<meta property="og:image" content="assets/identity/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" href="assets/fonts/antonio-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/alegreya-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" imagesrcset="assets/hero/aerial-fjord-fingers-960.avif 960w, assets/hero/aerial-fjord-fingers-1600.avif 1600w, assets/hero/aerial-fjord-fingers-2400.avif 2400w" imagesizes="100vw" media="(min-width: 701px)">
+<link rel="preload" as="image" type="image/avif" href="assets/hero/coast-portrait-600.avif" media="(max-width: 700px)">
+<script>document.documentElement.classList.add('js');if(/[?&]flat/.test(location.search))document.documentElement.style.setProperty('--hero-h','900px')</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="top" aria-label="Site">
+  <a class="brand" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/identity/mark-bare-snow.svg" width="20" height="22" alt="">
+    <img class="brand-word" src="assets/identity/wordmark-snow.svg" width="127" height="32" alt="Albretsen AS">
+  </a>
+  <nav aria-label="Sections">
+    <a href="#products">Products</a>
+    <a href="#road">The road</a>
+    <a href="mailto:asgeir@albretsen.no" data-email>Write</a>
+  </nav>
+</header>
+
+<main>
+<!-- HERO ------------------------------------------------------------------>
+<section class="hero" aria-labelledby="hero-name">
+  <div class="dissolve hero-frames" id="frames" aria-hidden="true">
+    <picture class="is-on" data-caption="Frame 01 · Terra / ASTER · 17.04.2002">
+      <source media="(max-width: 700px)" type="image/avif" srcset="assets/hero/coast-portrait-600.avif 600w, assets/hero/coast-portrait-1000.avif 1000w, assets/hero/coast-portrait-1300.avif 1300w" sizes="100vw">
+      <source media="(max-width: 700px)" type="image/webp" srcset="assets/hero/coast-portrait-1000.webp">
+      <source type="image/avif" srcset="assets/hero/aerial-fjord-fingers-960.avif 960w, assets/hero/aerial-fjord-fingers-1600.avif 1600w, assets/hero/aerial-fjord-fingers-2400.avif 2400w" sizes="100vw">
+      <img src="assets/hero/aerial-fjord-fingers-1280.jpg" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    <picture class="later" data-caption="Frame 02 · Terra / ASTER · snowfield">
+      <source type="image/avif" data-srcset="assets/hero/aerial-snowfield-960.avif 960w, assets/hero/aerial-snowfield-1600.avif 1600w, assets/hero/aerial-snowfield-2400.avif 2400w" sizes="100vw">
+      <img data-src="assets/hero/aerial-snowfield-1280.jpg" width="1280" height="720" alt="" decoding="async">
+    </picture>
+    <picture class="later" data-caption="Frame 03 · Terra / ASTER · river valley">
+      <source type="image/avif" data-srcset="assets/hero/aerial-river-road-960.avif 960w, assets/hero/aerial-river-road-1600.avif 1600w" sizes="100vw">
+      <img data-src="assets/hero/aerial-river-road-1280.jpg" width="1280" height="720" alt="" decoding="async">
+    </picture>
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <p class="eyebrow eyebrow--snow">Albretsen AS · Software since 2016</p>
+    <h1 id="hero-name" class="name"><span class="name-text">Albretsen</span></h1>
+    <div class="rule rule--hero" aria-hidden="true"></div>
+    <p class="hero-line">Apps, SaaS and infrastructure for AI agents.<br>Quiet software, built to pay for itself.</p>
+  </div>
+
+  <div class="hero-foot">
+    <div class="cmd" role="group" aria-label="Connect an agent">
+      <span class="cmd-label">Give your agent the whole company</span>
+      <button class="cmd-line" type="button" data-copy="claude mcp add albretsen https://albretsen.no/mcp" aria-describedby="cmd-status">
+        <code><span class="cmd-dim">$</span> claude mcp add albretsen https://albretsen.no/mcp</code>
+        <span class="cmd-act" aria-hidden="true"><span class="cmd-copy">Copy</span><span class="cmd-done">Copied</span></span>
+      </button>
+      <span id="cmd-status" class="sr" aria-live="polite"></span>
+    </div>
+    <div class="now" aria-live="off">
+      <span class="now-dot" aria-hidden="true"></span>
+      <span class="now-label">Now</span>
+      <span class="now-stack" id="now"><span class="now-item is-on">Reading the live feed</span></span>
+    </div>
+    <p class="frame-cap" id="frame-cap" aria-hidden="true">Frame 01 · Terra / ASTER · 17.04.2002</p>
+  </div>
+</section>
+
+<!-- PRODUCTS --------------------------------------------------------------->
+<section class="products" id="products" aria-labelledby="products-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Products</p>
+      <h2 id="products-h" class="h2">Four houses on one street</h2>
+      <p class="lede">Each one is built by the same hand, priced to stand on its own, and kept as plain as it can be. Hover or tab to a house and the lights come on.</p>
+    </header>
+
+    <ul class="street" id="street"></ul>
+
+    <div class="earlier">
+      <h3 class="h3">Earlier work</h3>
+      <p class="earlier-note">Retired, not forgotten. Each one taught something the four above use daily.</p>
+      <ul class="plates" id="plates"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- THE ROAD --------------------------------------------------------------->
+<section class="road" id="road" aria-labelledby="road-h">
+  <div class="wrap road-grid">
+    <header class="sec-head road-head">
+      <p class="eyebrow">2016 to today</p>
+      <h2 id="road-h" class="h2">Ten years, one road</h2>
+      <p class="lede">The timeline is drawn on a real valley floor: 26.7 km, traced from elevation data as the path of least effort. Move across the relief to see the contours beneath it.</p>
+      <ol class="stops" id="stops"></ol>
+    </header>
+
+    <div class="stage-col">
+      <div class="stage lens" id="stage">
+        <picture class="stage-img">
+          <source type="image/avif" srcset="assets/hero/relief-romsdal-1000.avif 1000w, assets/hero/relief-romsdal-1600.avif 1600w" sizes="(min-width: 1000px) 50vw, 100vw">
+          <img src="assets/hero/relief-romsdal-1200.jpg" width="1200" height="1200" alt="Shaded relief of a steep valley under a high sun, with a red road along its floor." loading="lazy" decoding="async">
+        </picture>
+        <div class="lens-under" aria-hidden="true"><img src="assets/extras/contours-romsdal.svg" width="1000" height="1000" alt="" loading="lazy"></div>
+        <svg class="road-svg road-draw" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false">
+          <path id="road" class="road" pathLength="1" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M427.4 207.4 L448.2 227.3 L453.9 236.0 L453.6 245.0 L444.5 268.0 L442.7 278.0 L444.2 285.1 L449.2 291.3 L463.0 300.7 L473.0 302.6 L479.2 299.4 L490.3 286.8 L500.0 284.7 L532.0 293.9 L544.5 302.8 L553.1 313.0 L568.9 346.0 L575.4 371.0 L575.6 383.0 L571.2 408.0 L569.5 437.0 L570.8 455.0 L574.7 468.0 L581.7 477.7 L591.0 485.9 L616.0 497.5 L634.2 514.8 L652.5 523.8 L668.6 553.6 L683.7 571.0 L714.2 623.1 L722.0 627.7 L732.0 630.5 L797.0 640.9 L831.0 648.3 L855.0 656.2 L894.0 661.4 L933.0 655.3 L949.0 657.3 L967.0 665.4 L993.1 687.7"/>
+        </svg>
+        <div class="posts" id="posts"></div>
+        <div class="model" id="model" aria-hidden="true"></div>
+        <div class="tag" id="tag" aria-hidden="true"><b></b><span></span></div>
+      </div>
+      <div class="stage-bar">
+        <button class="ghost" type="button" id="lift" hidden>Lift the model into 3D</button>
+        <label class="drive" id="drive" hidden><span>Drive</span><input type="range" min="0" max="1" step="0.001" value="0" aria-label="Move along the road"></label>
+        <p class="stage-cap">Elevation: Copernicus GLO-30, 30 × 30 km. Hard noon sun.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <img class="foot-mark" src="assets/identity/mark-bare.svg" width="48" height="52" alt="">
+    <div>
+      <p class="avail">Takes one outside engagement at a time.</p>
+      <p><a class="mail" href="mailto:asgeir@albretsen.no" data-email>asgeir@albretsen.no</a></p>
+    </div>
+    <p class="credits">Albretsen AS, Norway. Orbital imagery: NASA Earth Observatory, ASTER/Terra (USGS EROS) and MODIS/Terra, public domain. Elevation: Copernicus GLO-30 DEM © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018, provided under COPERNICUS by the European Union and ESA. Type: Antonio and Alegreya Sans, SIL OFL.</p>
+  </div>
+</footer>
+
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

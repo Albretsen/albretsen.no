@@ -1,0 +1,84 @@
+/* Front Light (design 75): tokens. One amber family, cream to burnt umber.
+   Import first: <link rel="stylesheet" href="assets/tokens.css"> */
+
+@font-face {
+  font-family: "Jost";
+  src: url("fonts/jost-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/instrument-serif-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/ibm-plex-mono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/ibm-plex-mono-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  /* palette: golden hour, one hue family (OKLCH hue 44-83) */
+  --linen:   #FBF3E4; /* oklch(96.6% 0.022 83.3)  paper, page ground */
+  --sand:    #F4DDB4; /* oklch(90.6% 0.059 82.0)  sky at the zenith, cards */
+  --peach:   #F2CDA8; /* oklch(87.1% 0.064 66.8)  pastel desk, key fobs */
+  --apricot: #EDBB7C; /* oklch(82.3% 0.099 72.2)  hover light, stamps */
+  --amber:   #DC9447; /* oklch(72.4% 0.127 65.1)  the sun; one accent per screen */
+  --copper:  #B8662F; /* oklch(59.4% 0.125 51.6)  links, postmarks, AS */
+  --sienna:  #7A3D1F; /* oklch(43.2% 0.095 45.2)  secondary text on linen */
+  --umber:   #3D2013; /* oklch(27.9% 0.050 44.4)  primary text, mark */
+  --night:   #1C0E07; /* oklch(18.2% 0.028 48.0)  deepest shadow, dark sections */
+
+  --ink: var(--umber);
+  --ink-soft: color-mix(in oklab, var(--umber) 72%, var(--linen));
+  --rule: color-mix(in oklab, var(--copper) 40%, transparent);
+
+  /* type */
+  --font-sign: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --font-script: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --track-sign: 0.32em;   /* spaced signage capitals */
+  --track-label: 0.22em;  /* small labels */
+
+  --step--1: clamp(0.78rem, 0.74rem + 0.18vw, 0.88rem);
+  --step-0:  clamp(1rem, 0.96rem + 0.22vw, 1.13rem);
+  --step-1:  clamp(1.25rem, 1.14rem + 0.5vw, 1.6rem);
+  --step-2:  clamp(1.6rem, 1.36rem + 1.1vw, 2.4rem);
+  --step-3:  clamp(2.2rem, 1.7rem + 2.4vw, 4rem);
+  --step-hero: clamp(3.2rem, 1rem + 11vw, 13rem);
+
+  /* space: generous, one idea per screen */
+  --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2.5rem;
+  --space-5: 4rem;   --space-6: 6.5rem; --space-7: 10rem;
+
+  --radius-card: 3px;     /* paper is barely rounded */
+  --shadow-paper: 0 1px 0 rgb(61 32 19 / .06), 0 14px 30px -18px rgb(61 32 19 / .45);
+  --shadow-lift:  0 2px 0 rgb(61 32 19 / .05), 0 28px 50px -24px rgb(61 32 19 / .55);
+
+  --ease-breeze: cubic-bezier(.25, .1, .25, 1);
+  --ease-settle: cubic-bezier(.2, .8, .2, 1);
+}
+
+.sign {
+  font-family: var(--font-sign);
+  font-weight: 450;
+  text-transform: uppercase;
+  letter-spacing: var(--track-sign);
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+}

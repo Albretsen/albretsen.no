@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stucco Hour · asset kit 70</title>
+<meta name="description" content="Asset kit for Albretsen AS, direction 70: Stucco Hour. Whitewash, low gold light and a sky that follows the real time of day in Norway.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="preload" href="fonts/eb-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face{font-family:"EB Garamond";src:url(fonts/eb-garamond-latin.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  @font-face{font-family:"EB Garamond";src:url(fonts/eb-garamond-italic-latin.woff2) format("woff2");font-weight:400 800;font-style:italic;font-display:swap}
+  :root{
+    --lime:#F6F1E8; --sand:#E9DCC6; --dune:#CDB48E; --poppy:#E4572E; --terracotta:#B5603A;
+    --sage:#8E9D80; --sage-deep:#5F6F58; --sky:#A9C7DB; --sky-deep:#4F7FA3; --boug:#C2306B;
+    --ink:#2A2420; --dusk:#1C2433;
+    --serif:"EB Garamond", "Iowan Old Style", Garamond, Georgia, serif;
+    --gutter:clamp(16px, 4vw, 56px);
+  }
+  *{box-sizing:border-box}
+  html{background:var(--lime);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--lime) url(extras/limewash-768.webp) repeat;background-size:768px}
+  img{max-width:100%;height:auto;display:block}
+  a{color:inherit}
+  .wrap{padding:0 var(--gutter);max-width:1440px;margin:0 auto}
+  header.top{display:flex;justify-content:space-between;align-items:center;padding:22px var(--gutter);gap:16px}
+  header.top img{height:34px;width:auto}
+  .eyebrow{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-deep)}
+  h2{font-weight:450;font-size:clamp(32px,4.4vw,58px);line-height:1.04;letter-spacing:-.01em;margin:0 0 .3em}
+  h3{font-weight:500;font-size:22px;margin:0 0 .2em}
+  p{margin:0 0 1em;max-width:62ch}
+  section{padding:clamp(56px,9vw,128px) 0;border-top:1px solid rgba(42,36,32,.12)}
+  .lede{font-size:clamp(20px,2vw,24px);max-width:46ch}
+  .grid{display:grid;gap:clamp(16px,2.4vw,32px)}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+  figure{margin:0}
+  figcaption{font-size:14px;line-height:1.4;color:#5a514a;margin-top:10px}
+  figcaption b{font-weight:600;color:var(--ink)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82em;background:rgba(42,36,32,.06);padding:.1em .35em;border-radius:4px}
+
+  /* ---------- hero: the name painted on the plaster above the arch */
+  .hero{position:relative;aspect-ratio:16/9;max-height:100svh;width:100%;overflow:hidden;background:#cdbba0}
+  .hero picture img{width:100%;height:100%;object-fit:cover}
+  .hero .name{position:absolute;left:46%;top:7.5%;translate:-50% 0;margin:0;font-weight:430;font-size:clamp(44px,8.4vw,140px);line-height:.9;letter-spacing:-.005em;color:#3a2e26;mix-blend-mode:multiply;opacity:.78;white-space:nowrap}
+  .hero .line{position:absolute;left:46%;top:calc(7.5% + clamp(44px,8.4vw,140px)*1.0);translate:-50% 0;font-size:clamp(13px,1.3vw,19px);letter-spacing:.24em;text-transform:uppercase;color:#4b3e34;mix-blend-mode:multiply;opacity:.8;white-space:nowrap}
+  @media (max-width:700px){ .hero{aspect-ratio:2/3} .hero .name{left:50%;top:9%;font-size:15vw} .hero .line{left:50%;top:calc(9% + 15vw);font-size:11px} }
+
+  /* ---------- time of day */
+  .tod figure{position:relative}
+  .tod figure.now::after{content:"now";position:absolute;top:10px;left:10px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;background:var(--poppy);color:#fff;padding:3px 9px;border-radius:999px}
+  .tod img{aspect-ratio:16/9;object-fit:cover;width:100%}
+
+  /* ---------- palette */
+  .sw{border-radius:14px;overflow:hidden;background:#fff8;border:1px solid rgba(42,36,32,.08)}
+  .sw i{display:block;height:110px}
+  .sw div{padding:10px 12px 12px;font-size:14px;line-height:1.35}
+  .sw b{font-weight:600;display:block;font-size:16px}
+
+  /* ---------- type */
+  .spec .huge{font-size:clamp(64px,13vw,200px);line-height:.9;font-weight:430;letter-spacing:-.01em;margin:0}
+  .spec .it{font-style:italic;font-size:clamp(28px,3.4vw,44px);line-height:1.15;margin:.3em 0}
+  .spec .sc{font-size:14px;letter-spacing:.24em;text-transform:uppercase}
+  .spec .nums{font-variant-numeric:oldstyle-nums proportional-nums;font-size:clamp(28px,3vw,40px)}
+  .spec .lining{font-variant-numeric:lining-nums tabular-nums}
+
+  /* ---------- identity */
+  .tile{display:grid;place-items:center;aspect-ratio:4/3;border-radius:16px;background:#fffaf2;border:1px solid rgba(42,36,32,.08);padding:24px}
+  .tile.dark{background:var(--dusk)}
+  .tile.sand{background:var(--sand)}
+
+  /* ---------- products */
+  .prod figure{background:#fffaf2;border-radius:18px;overflow:hidden;border:1px solid rgba(42,36,32,.08)}
+  .prod img{aspect-ratio:4/5;object-fit:cover;width:100%}
+  .prod .meta{padding:16px 18px 20px}
+  .prod .fig{font-size:34px;line-height:1.1;font-variant-numeric:oldstyle-nums;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px}
+  .prod .fig small{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-deep)}
+  .prod .st{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--poppy)}
+  .retired{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+  .retired > img{width:96px;height:120px}
+  .prod figure.leak{padding:0}
+  .retired .luma img{width:68px;height:auto}
+  .retired .luma{width:96px;height:120px;display:grid;place-items:center;background:var(--sand);border-radius:48px 48px 0 0;padding:0 14px}
+
+  /* ---------- extras */
+  .xt{aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:1px solid rgba(42,36,32,.08);background:#fffaf2;display:grid;place-items:center;position:relative}
+  .xt.tex{background-repeat:repeat}
+
+  /* ---------- motion demos */
+  .stage{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#cdbba0}
+  .stage img{width:100%;height:100%;object-fit:cover}
+  .scrub{display:flex;gap:12px;align-items:center;margin-top:12px;font-size:15px}
+  .scrub input{flex:1;accent-color:var(--poppy)}
+  button.pill{font:inherit;font-size:13px;letter-spacing:.16em;text-transform:uppercase;background:none;border:1px solid var(--ink);border-radius:999px;padding:5px 14px;cursor:pointer;color:var(--ink)}
+  .raking-demo{min-height:420px;border-radius:18px;background:var(--lime) url(extras/limewash-768.webp);display:grid;place-items:center;text-align:center;padding:40px}
+  .raking-demo p{font-size:clamp(26px,3vw,40px);line-height:1.15;max-width:18ch;margin:0 auto}
+  .leak{border-radius:18px;background:#fffaf2;border:1px solid rgba(42,36,32,.08);padding:28px;min-height:220px}
+  .arch-reveal{aspect-ratio:4/5;overflow:hidden;border-radius:0}
+  .arch-reveal img{width:100%;height:100%;object-fit:cover}
+  .skybox{position:relative;aspect-ratio:21/9;border-radius:18px;overflow:hidden;background:var(--sky)}
+  .skybox canvas{position:absolute;inset:0;width:100%;height:100%}
+  .skybox .read{position:absolute;left:18px;bottom:16px;color:#fff;font-size:15px;letter-spacing:.14em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+  footer{padding:48px var(--gutter) 80px;font-size:14px;color:#5a514a}
+</style>
+</head>
+<body>
+<header class="top">
+  <img src="identity/lockup.svg" width="380" height="80" alt="Albretsen AS">
+  <span class="eyebrow">Asset kit 70 · Stucco Hour</span>
+</header>
+
+<!-- 1. Hero A: the name painted on the plaster -->
+<figure class="hero dawn" aria-label="Hero: terrace at golden hour">
+  <picture>
+    <source media="(max-width:700px)" type="image/avif" srcset="hero/terrace-golden-portrait-800.avif 800w, hero/terrace-golden-portrait-1200.avif 1200w" sizes="100vw">
+    <source media="(max-width:700px)" type="image/webp" srcset="hero/terrace-golden-portrait-800.webp 800w, hero/terrace-golden-portrait-1200.webp 1200w" sizes="100vw">
+    <source type="image/avif" srcset="hero/terrace-golden-960.avif 960w, hero/terrace-golden-1600.avif 1600w, hero/terrace-golden-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="hero/terrace-golden-960.webp 960w, hero/terrace-golden-1600.webp 1600w, hero/terrace-golden-2400.webp 2400w" sizes="100vw">
+    <img class="dawn__after" src="hero/terrace-golden-1600.jpg" width="1600" height="904" alt="A whitewashed room with one arched opening onto the sea; low sun lays an arch of gold light on the wall and stripes across a terracotta floor." fetchpriority="high">
+  </picture>
+  <p class="name dawn-type">Albretsen</p>
+  <p class="line dawn-type">Software that pays for itself</p>
+  <div class="heliotrope"><i class="heliotrope__sun"></i></div>
+</figure>
+
+<div class="wrap">
+<section>
+  <p class="eyebrow">Direction</p>
+  <h2>Stucco Hour</h2>
+  <p class="lede">A whitewashed house on a warm coast, photographed at the hour when the light is low and long. Everything is still except the sun. The sky on the page follows the real sun over Norway, so the site is never quite the same twice.</p>
+  <p>The products sit in the architecture like objects set into a wall: one niche each, each at its own hour. No postcards, no tourist props. Plaster, light, a few flowers, and work.</p>
+</section>
+
+<!-- Hero B -->
+<section>
+  <p class="eyebrow">Hero B · facade, morning</p>
+  <figure>
+    <picture>
+      <source media="(max-width:700px)" type="image/avif" srcset="hero/facade-morning-portrait-800.avif 800w, hero/facade-morning-portrait-1200.avif 1200w" sizes="100vw">
+      <source media="(max-width:700px)" type="image/webp" srcset="hero/facade-morning-portrait-800.webp 800w, hero/facade-morning-portrait-1200.webp 1200w" sizes="100vw">
+      <source type="image/avif" srcset="hero/facade-morning-960.avif 960w, hero/facade-morning-1600.avif 1600w, hero/facade-morning-2400.avif 2400w" sizes="(max-width:1440px) 92vw, 1340px">
+      <source type="image/webp" srcset="hero/facade-morning-960.webp 960w, hero/facade-morning-1600.webp 1600w, hero/facade-morning-2400.webp 2400w" sizes="(max-width:1440px) 92vw, 1340px">
+      <img src="hero/facade-morning-1600.jpg" width="1600" height="904" alt="A symmetric whitewashed house front with sage shutters, an arched door, two clipped bay trees and bougainvillea climbing the right side, in raking morning light." loading="lazy" style="border-radius:18px">
+    </picture>
+    <figcaption><b>hero/facade-morning</b> · 2400/1600/960 landscape + 1200/800 portrait · AVIF, WebP, JPEG. Path-traced in-house (src/render.js), graded with src/grade.py. The sky band at the top is room for the name.</figcaption>
+  </figure>
+</section>
+
+<!-- time of day -->
+<section class="tod">
+  <p class="eyebrow">Signature delight</p>
+  <h2>The same room, at the real hour</h2>
+  <p>Four renders of hero A. <code>interactive/sky.js</code> reports the sun's phase in Norway (night, blue, golden, day); the site shows the matching plate. The highlighted one is the current phase.</p>
+  <div class="grid g4" id="tod">
+    <figure data-phase="day"><img src="hero/terrace-day-960.jpg" width="960" height="544" alt="Terrace room at midday" loading="lazy"><figcaption><b>day</b> · sun above 10°</figcaption></figure>
+    <figure data-phase="golden"><img src="hero/terrace-golden-960.jpg" width="960" height="544" alt="Terrace room at golden hour" loading="lazy"><figcaption><b>golden</b> · 0° to 10°</figcaption></figure>
+    <figure data-phase="blue"><img src="hero/terrace-blue-960.jpg" width="960" height="544" alt="Terrace room at blue hour" loading="lazy"><figcaption><b>blue</b> · 0° to −6°</figcaption></figure>
+    <figure data-phase="night"><img src="hero/terrace-night-960.jpg" width="960" height="544" alt="Terrace room at night" loading="lazy"><figcaption><b>night</b> · below −6°</figcaption></figure>
+  </div>
+</section>
+
+<!-- live sky -->
+<section>
+  <p class="eyebrow">Interactive · interactive/sky.js</p>
+  <h2>Live sky</h2>
+  <p>A physically based sky (Rayleigh, Mie and ozone) for where the sun is over Norway right now, drawn in a WebGL2 shader at reduced resolution and redrawn once a minute. It also writes <code>--sky-zenith</code>, <code>--sky-horizon</code>, <code>--sun-color</code> and <code>--sky-phase</code>, so the page can follow the light. Drag to try other hours. <a href="interactive/sky-demo.html">Full-screen demo</a>.</p>
+  <div class="skybox"><canvas id="sky"></canvas><span class="read" id="skyread"></span></div>
+  <div class="scrub"><span id="skytime">--:--</span><input id="skyr" type="range" min="0" max="1439" aria-label="Hour of the day in Norway"><button class="pill" id="skynow">Now</button></div>
+</section>
+
+<!-- products -->
+<section class="prod" id="products-section">
+  <p class="eyebrow">Products</p>
+  <h2>Set into the wall</h2>
+  <p>One niche, four hours. The real product icons, unaltered, mounted as glazed plaques. The light tells the status: live products in daylight, the paused one at dusk.</p>
+  <div class="grid g4" id="products"></div>
+  <h3 style="margin-top:48px">Retired</h3>
+  <p>Small arched stand-ins in the same language. Luma keeps its real logo.</p>
+  <div class="retired" id="retired"></div>
+</section>
+
+<!-- identity -->
+<section>
+  <p class="eyebrow">Identity</p>
+  <h2>An arch that is an A</h2>
+  <p>The mark is a round-headed arch whose crossbar is the horizon, with the sun resting on it. The wordmark is EB Garamond at weight 470, outlined.</p>
+  <div class="grid g3">
+    <figure><div class="tile"><img src="identity/mark.svg" width="140" height="140" alt="Albretsen mark"></div><figcaption><b>identity/mark.svg</b></figcaption></figure>
+    <figure><div class="tile dark"><img src="identity/mark-light.svg" width="140" height="140" alt="Albretsen mark, light"></div><figcaption><b>identity/mark-light.svg</b> · on dusk</figcaption></figure>
+    <figure><div class="tile"><img src="identity/wordmark.svg" width="395" height="128" alt="Albretsen wordmark"></div><figcaption><b>identity/wordmark.svg</b> · also <code>wordmark-currentcolor.svg</code></figcaption></figure>
+    <figure><div class="tile sand"><img src="identity/lockup.svg" width="380" height="80" alt="Albretsen AS lockup"></div><figcaption><b>identity/lockup.svg</b></figcaption></figure>
+    <figure><div class="tile"><div style="display:flex;gap:20px;align-items:end"><img src="identity/favicon.svg" width="64" height="64" alt="Favicon"><img src="identity/favicon.svg" width="32" height="32" alt=""><img src="identity/favicon.svg" width="16" height="16" alt=""><img src="identity/apple-touch-icon-180.png" width="90" height="90" alt="Touch icon" style="border-radius:20px"></div></div><figcaption><b>identity/favicon.svg</b> (follows dark mode) · <b>apple-touch-icon-180.png</b></figcaption></figure>
+    <figure><div class="tile" style="padding:0;overflow:hidden"><img src="identity/og-1200x630.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy"></div><figcaption><b>identity/og-1200x630.jpg</b></figcaption></figure>
+  </div>
+</section>
+
+<!-- palette -->
+<section>
+  <p class="eyebrow">Palette</p>
+  <h2>Sand, poppy, sage, sky</h2>
+  <div class="grid g4" id="palette"></div>
+</section>
+
+<!-- type -->
+<section class="spec" id="type">
+  <p class="eyebrow">Type · EB Garamond (OFL), self-hosted, variable 400–800 + italic</p>
+  <p class="huge">Albretsen</p>
+  <p class="it">Quiet software that pays for itself.</p>
+  <div class="grid g2" style="margin-top:32px">
+    <div>
+      <p class="sc">Small caps label · tracked 0.24em</p>
+      <h2 style="font-size:40px">Email for AI agents.</h2>
+      <p>Body at 18/28. A classic book face, set generously: the voice is calm and exact. Garamond's old-style figures sit inside the text like words: since 2016, 113,000+ installs, 17 tools.</p>
+    </div>
+    <div>
+      <p class="nums">0123456789 · $782 · 549</p>
+      <p class="nums lining">0123456789 · $782 · 549 <span class="sc" style="font-size:12px">lining, tabular</span></p>
+      <p style="font-size:15px">Pair with the system monospace for commands only: <code>claude mcp add albretsen https://albretsen.no/mcp</code></p>
+    </div>
+  </div>
+</section>
+
+<!-- extras -->
+<section id="extras">
+  <p class="eyebrow">Extras</p>
+  <h2>Plaster, light, a few flowers</h2>
+  <div class="grid g3">
+    <figure><div class="xt tex" style="background-image:url(extras/limewash-768.webp)"></div><figcaption><b>extras/limewash-768.webp</b> · seamless lime-wash plaster, page background</figcaption></figure>
+    <figure><div class="xt tex" style="background:var(--sand) url(extras/grain-256.png)"></div><figcaption><b>extras/grain-256.png</b> · seamless grain overlay (alpha)</figcaption></figure>
+    <figure><div class="xt" style="background:#d9c9b0 url(extras/louvre-light.webp) center/90% auto no-repeat"></div><figcaption><b>extras/louvre-light.webp</b> · warm light through a louvred shutter, for <i>Long Shadow</i></figcaption></figure>
+    <figure><div class="xt tex" style="background:var(--lime) url(extras/leaf-shadow-1024.webp);background-size:512px"></div><figcaption><b>extras/leaf-shadow-1024.webp</b> · seamless leaf-dapple shadow</figcaption></figure>
+    <figure><div class="xt"><img src="extras/bougainvillea-garland.svg" width="900" height="360" alt="Bougainvillea garland" style="width:92%"></div><figcaption><b>extras/bougainvillea-garland.svg</b> · cut-out for section heads</figcaption></figure>
+    <figure><div class="xt"><img src="extras/shutters.svg" width="320" height="300" alt="Sage shutters" style="width:62%"></div><figcaption><b>extras/shutters.svg</b></figcaption></figure>
+    <figure><div class="xt"><img src="extras/arch-outline.svg" width="400" height="560" alt="Arch outline" style="height:86%;width:auto"></div><figcaption><b>extras/arch-outline.svg</b> · and <code>arch-mask.svg</code> for CSS masks</figcaption></figure>
+    <figure><div class="xt"><img src="extras/horizon-rule.svg" width="1200" height="40" alt="Horizon rule" style="width:90%"></div><figcaption><b>extras/horizon-rule.svg</b> · section divider</figcaption></figure>
+    <figure><div class="xt"><img src="extras/sun-path.svg" width="600" height="200" alt="Sun path" style="width:90%"></div><figcaption><b>extras/sun-path.svg</b> · for the live-sky readout</figcaption></figure>
+  </div>
+</section>
+
+<!-- motion -->
+<section id="motion">
+  <p class="eyebrow">Motion · motion.css + motion.js</p>
+  <h2>The sun moves, everything else is still</h2>
+  <div class="grid g2">
+    <figure>
+      <div class="stage" id="helio" style="--sun-t:.5"><img src="hero/facade-morning-960.jpg" width="960" height="544" alt="" loading="lazy"><div class="heliotrope"><i class="heliotrope__sun"></i></div></div>
+      <div class="scrub"><span>Heliotrope</span><input id="sunr" type="range" min="0" max="1" step="0.001" value="0.5" aria-label="Sun position"><button class="pill" id="sunplay">Play a day</button></div>
+      <figcaption><b>1. Heliotrope.</b> One sun disc on an arc, driven by <code>--sun-t</code>. Live, it follows today's sunrise to sunset in Norway (<code>sunClock()</code>).</figcaption>
+    </figure>
+    <figure>
+      <div class="raking raking--scroll raking-demo"><div class="raking__light"></div><p>Light comes in long. The words stay where they are.</p></div>
+      <figcaption><b>2. Long Shadow.</b> A louvred light patch slides, leans and warms as the section crosses the viewport (CSS <code>animation-timeline: view()</code>, JS fallback).</figcaption>
+    </figure>
+    <figure>
+      <div class="stage dawn" id="dawn"><img class="dawn__before" src="hero/terrace-blue-960.jpg" width="960" height="544" alt="" loading="lazy"><img class="dawn__after" src="hero/terrace-golden-960.jpg" width="960" height="544" alt="" loading="lazy"></div>
+      <div class="scrub"><span>Slow Dawn</span><button class="pill" id="dawnbtn">Replay</button></div>
+      <figcaption><b>3. Slow Dawn.</b> On load the hero rises from its blue-hour plate to the current light over 2.4 s. Type appears by exposure, never by movement.</figcaption>
+    </figure>
+    <figure>
+      <div class="grid g2">
+        <div class="leak"><p class="sc" style="font-size:12px;letter-spacing:.2em;text-transform:uppercase">Hover</p><h3>Light Leak</h3><p style="font-size:15px">A pool of warm light drifts after the pointer, slowly. The card never lifts.</p></div>
+        <div class="arch-reveal"><img src="products/mcp-emails-niche-600.jpg" width="600" height="752" alt="" loading="lazy"></div>
+      </div>
+      <figcaption><b>4. Light Leak</b> and <b>5. Arch Reveal</b>: images arrive through a widening arched opening.</figcaption>
+    </figure>
+  </div>
+</section>
+</div>
+
+<footer>Everything here is generated in code or drawn by hand for this kit, except the product icons (Asgeir's own) and EB Garamond (SIL OFL). Full inventory, sources and licences: <a href="ASSETS.md">ASSETS.md</a>.</footer>
+
+<script type="module">
+  import { content } from '../../_shared/content.js';
+  import { mountSky } from './interactive/sky.js';
+  import { initMotion } from './motion.js';
+  // ?only=<section id> shows a single section (handy for screenshots)
+  const only = new URLSearchParams(location.search).get('only');
+  if (only) document.querySelectorAll('section, figure.hero').forEach(s => { if (s.id !== only) s.style.display = 'none'; });
+
+  // palette
+  const pal = [['Lime white','#F6F1E8','oklch(96.0% 0.013 82.4)','page, plaster'],['Sand','#E9DCC6','oklch(89.9% 0.033 81.0)','panels, tiles'],['Dune','#CDB48E','oklch(78.2% 0.059 78.1)','rules, quiet UI'],['Poppy','#E4572E','oklch(63.7% 0.184 36.5)','the sun; one accent per screen'],['Terracotta','#B5603A','oklch(58.1% 0.122 43.8)','floors, pots, warm links'],['Sage','#8E9D80','oklch(67.6% 0.045 129.9)','shutters, secondary'],['Sage deep','#5F6F58','oklch(52.2% 0.040 136.2)','labels on light (AA)'],['Sky','#A9C7DB','oklch(81.4% 0.043 237.3)','sky, cool fills'],['Sky deep','#4F7FA3','oklch(57.7% 0.076 242.2)','links on lime'],['Bougainvillea','#C2306B','oklch(55.2% 0.187 1.2)','rare: one flower, never a button'],['Ink','#2A2420','oklch(26.6% 0.012 55.8)','text'],['Dusk','#1C2433','oklch(26.0% 0.031 262.7)','night theme ground']];
+  document.getElementById('palette').innerHTML = pal.map(([n,h,o,u]) => `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b>${h}<br>${o}<br><span style="color:#6b625a">${u}</span></div></div>`).join('');
+
+  // products
+  const niche = { 'mcp-emails': 'mcp-emails', 'fun-libs': 'fun-libs', toolrails: 'toolrails', harbor: 'harbor' };
+  const hours = { 'mcp-emails': 'morning, louvred light', 'fun-libs': 'noon, leaf shadow', toolrails: 'golden hour, arched-window light', harbor: 'dusk, paused' };
+  document.getElementById('products').innerHTML = content.products.filter(p => niche[p.id]).map(p => `
+    <figure class="leak"><picture><source type="image/avif" srcset="products/${p.id}-niche-600.avif 600w, products/${p.id}-niche-960.avif 960w" sizes="(max-width:700px) 92vw, 320px"><source type="image/webp" srcset="products/${p.id}-niche-600.webp 600w, products/${p.id}-niche-960.webp 960w" sizes="(max-width:700px) 92vw, 320px"><img src="products/${p.id}-niche-600.jpg" width="600" height="752" alt="${p.name} icon set into an arched niche in a lime-washed wall" loading="lazy"></picture>
+      <div class="meta"><span class="st">${p.status} · since ${p.since}</span><h3>${p.name}</h3><p style="font-size:15px;margin:0 0 10px">${p.line}</p>${p.figure ? `<div class="fig">${p.figure.value}<small>${p.figure.label}</small></div>` : ''}<figcaption>products/${p.id}-niche · ${hours[p.id]}</figcaption></div></figure>`).join('');
+  const ret = ['polyglot-pilot','pinpoint','webvakt','joke-central','tryggere-hyring','early-apps'];
+  document.getElementById('retired').innerHTML = `<div class="luma"><img src="products/retired/luma-logo.png" width="160" height="45" alt="Luma (retired)"></div>` + ret.map(r => `<img src="products/retired/${r}.svg" width="96" height="120" alt="${r} (retired)">`).join('');
+
+  // live sky
+  const canvas = document.getElementById('sky');
+  const sky = mountSky(canvas, { lat: 59.91, lon: 10.75, cssTarget: document.documentElement });
+  const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit' });
+  const r = document.getElementById('skyr');
+  const midnight = d => { const day = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d); const g = new Date(day + 'T00:00:00Z'); const off = new Date(g.toLocaleString('en-US', { timeZone: 'Europe/Oslo' })) - new Date(g.toLocaleString('en-US', { timeZone: 'UTC' })); return new Date(g - off); };
+  canvas.addEventListener('skychange', e => {
+    const s = e.detail;
+    document.getElementById('skytime').textContent = fmt.format(s.time);
+    document.getElementById('skyread').textContent = `${s.phase} · sun ${s.elevation.toFixed(1)}°`;
+    r.value = Math.round((s.time - midnight(s.time)) / 60000);
+    document.querySelectorAll('#tod figure').forEach(f => f.classList.toggle('now', f.dataset.phase === s.phase));
+  });
+  r.addEventListener('input', () => sky.setTime(new Date(+midnight(new Date()) + r.value * 60000)));
+  document.getElementById('skynow').onclick = () => sky.setTime(null);
+
+  // motion
+  initMotion();
+  const helio = document.getElementById('helio'), sunr = document.getElementById('sunr');
+  sunr.addEventListener('input', () => helio.style.setProperty('--sun-t', sunr.value));
+  let play = 0;
+  document.getElementById('sunplay').onclick = () => {
+    cancelAnimationFrame(play); const t0 = performance.now();
+    const step = t => { const k = Math.min(1, (t - t0) / 9000); sunr.value = k; helio.style.setProperty('--sun-t', k); if (k < 1) play = requestAnimationFrame(step); };
+    play = requestAnimationFrame(step);
+  };
+  document.getElementById('dawnbtn').onclick = () => { const a = document.querySelector('#dawn .dawn__after'); a.style.animation = 'none'; a.offsetWidth; a.style.animation = ''; };
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "Six Faces",
+  "tagline": "An ultramarine nocturne built around a die that only lands on true numbers.",
+  "summary": "Graded CC0 and NASA photographs turn the whole site into one saturated ultramarine, with a single sodium-amber light for what matters. The hero is the Honest Die, a CSS 3D cube you grab and throw: whichever real number lands face up, the photograph behind it develops into that number's scene. It presents Albretsen AS as effective and plain-spoken: live, building, paused and retired are all printed as clearly as the revenue.",
+  "palette": ["#0159d4", "#00226c", "#000a2a", "#52a9fe", "#d3e7fe", "#f1f8ff", "#ffb250"],
+  "type": ["Archivo (wdth 125, wght 800)", "Archivo (wdth 100-112, wght 600-700)", "IBM Plex Mono 400/500"],
+  "voice": "Brutal honesty, said calmly: numbers first, no rounding, no adjectives. \"Toolrails has 4 connectors. It is not finished, and says so.\"",
+  "motion": "Physical and then exact: things fly with inertia, then land square on a spring; photographs develop behind a sodium scan line; the theme turns the whole page like a cube face.",
+  "sound": "Off by default; when turned on, one soft wooden knock each time the die lands.",
+  "mark": "An isometric die seen from its corner, paper top and ultramarine sides, with one sodium pip for the one number that matters, beside an outlined Archivo wordmark.",
+  "inspiration": [
+    "https://ui.aceternity.com/components",
+    "https://motion.dev/docs/animate",
+    "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+    "https://commons.wikimedia.org/wiki/File:Lofoten,_Norway_(Unsplash).jpg",
+    "https://commons.wikimedia.org/wiki/File:ISS-43_Northern_Europe.jpg",
+    "https://commons.wikimedia.org/wiki/File:BlackMarble20161km.jpg"
+  ]
+}

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Viewfinder frame">
+  <title>Viewfinder frame — cut-paper mask, focus reticle and exposure scale</title>
+  <defs>
+    <filter id="soft" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <mask id="aperture">
+      <rect width="1600" height="900" fill="#fff"/>
+      <rect x="54" y="46" width="1492" height="808" rx="34" fill="#000"/>
+    </mask>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#110c28"/><stop offset="1" stop-color="#070514"/>
+    </linearGradient>
+  </defs>
+  <!-- the shadow the paper mask throws into the scene -->
+  <rect x="54" y="46" width="1492" height="808" rx="34" fill="none" stroke="#070514" stroke-width="26" opacity=".55" filter="url(#soft)"/>
+  <!-- cut-paper mask -->
+  <rect width="1600" height="900" fill="url(#card)" mask="url(#aperture)"/>
+  <!-- lit inner cut edge -->
+  <rect x="54.5" y="46.5" width="1491" height="807" rx="33.5" fill="none" stroke="#bbb6ef" stroke-opacity=".35" stroke-width="1.2"/>
+
+  <g fill="none" stroke="#d9d7f8" stroke-width="1.6" stroke-linecap="round" opacity=".8">
+    <!-- AF brackets -->
+    <path d="M120 112 v-28 h28 M1480 112 v-28 h-28 M120 788 v28 h28 M1480 788 v28 h-28"/>
+    <!-- split-prism focus reticle -->
+    <circle cx="800" cy="450" r="46" stroke-opacity=".6"/>
+    <path d="M754 450 h92" stroke-opacity=".45"/>
+    <circle cx="800" cy="450" r="2.2" fill="#d9d7f8" stroke="none"/>
+  </g>
+
+  <!-- exposure scale -->
+  <g font-family="Geist Mono, ui-monospace, Menlo, monospace" font-size="13" fill="#bbb6ef" text-anchor="middle" letter-spacing=".06em">
+    <g stroke="#bbb6ef" stroke-width="1.4">
+      <path d="M680 878 v-10 M710 878 v-6 M740 878 v-6 M770 878 v-6 M800 880 v-14 M830 878 v-6 M860 878 v-6 M890 878 v-6 M920 878 v-10"/>
+    </g>
+    <path d="M800 862 l-5 -7 h10 z" fill="#f9f9ff"/>
+    <text x="664" y="883">−2</text><text x="936" y="883">+2</text>
+    <text x="230" y="883" text-anchor="start" opacity=".75">ƒ/2.8</text>
+    <text x="330" y="883" text-anchor="start" opacity=".75">1/60</text>
+    <text x="1370" y="883" text-anchor="end" opacity=".75">ISO 400</text>
+    <text x="1488" y="31" text-anchor="end" opacity=".75">24</text>
+    <text x="112" y="31" text-anchor="start" opacity=".75">ALBRETSEN AS</text>
+  </g>
+</svg>

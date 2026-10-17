@@ -1,0 +1,62 @@
+[
+  {
+    "time": "05:00",
+    "name": "Before light",
+    "top": "#0C1A2B",
+    "horizon": "#2E4A6E"
+  },
+  {
+    "time": "06:10",
+    "name": "First light",
+    "top": "#1B3557",
+    "horizon": "#F2A35E"
+  },
+  {
+    "time": "07:00",
+    "name": "Sunrise",
+    "top": "#6F93BF",
+    "horizon": "#F6C27A"
+  },
+  {
+    "time": "09:30",
+    "name": "Morning",
+    "top": "#8DB6DD",
+    "horizon": "#F3E3C7"
+  },
+  {
+    "time": "12:00",
+    "name": "Noon",
+    "top": "#6FA3D6",
+    "horizon": "#D6E7F2"
+  },
+  {
+    "time": "15:30",
+    "name": "Afternoon",
+    "top": "#8CB2D2",
+    "horizon": "#F1DDB8"
+  },
+  {
+    "time": "18:20",
+    "name": "Long light",
+    "top": "#A8B7C9",
+    "horizon": "#F3A55E"
+  },
+  {
+    "time": "19:40",
+    "name": "Dusk",
+    "top": "#6B4C7E",
+    "horizon": "#F2A07A"
+  },
+  {
+    "time": "21:00",
+    "name": "Blue hour",
+    "top": "#1E2F55",
+    "horizon": "#8A6E95"
+  },
+  {
+    "time": "23:30",
+    "name": "Lamps on",
+    "top": "#08121F",
+    "horizon": "#13263C"
+  }
+]

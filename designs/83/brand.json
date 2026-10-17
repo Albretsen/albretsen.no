@@ -1,0 +1,20 @@
+{
+  "name": "Warm Boot",
+  "tagline": "The site powers on, and the signal develops into a painting.",
+  "summary": "On a first visit a POST log of the company decodes to OK, collapses into one phosphor line, and a generative raster landscape rises out of it. The raster then thins scanline by scanline until only an airbrushed dawn painting is left, and the signal stays underneath for a lens to find. It presents Albretsen AS as a machine that checks itself and then gets out of the way: calm, exact and lit from below the horizon. Products are suns at their own hour, retired ones are filed as specimens.",
+  "palette": ["#041419", "#063645", "#bc6449", "#e8a95c", "#eedbbd", "#f8f3e8", "#221812", "#7defda"],
+  "type": ["Newsreader (display, opsz 72, weight 330)", "Newsreader (text, opsz 16)", "Martian Mono (labels, wdth 112.5, uppercase)"],
+  "voice": "Editorial and plain, like a caption on a plate: facts first, one italic phrase of warmth per line. \"Builds quiet software that pays for itself.\"",
+  "motion": "Everything moves on a 120 ms beat: text decodes left to right, rasters open from a single line, and pictures develop as scanlines thin to nothing.",
+  "sound": "Off until asked for; then a low CRT hum swells on power-on and each check lands as a soft pentatonic tick.",
+  "mark": "A banded sun above a terminal-cursor bar that blinks: dawn and a prompt in one glyph, set beside the name in wide Martian Mono.",
+  "inspiration": [
+    "https://www.abramsbooks.com/product/worlds-beyond-time_9781647000707/",
+    "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+    "https://gsap.com/docs/v3/Plugins/ScrambleTextPlugin/",
+    "https://codepen.io/lbebber/pen/XJRdrV",
+    "https://www.tylerxhobbs.com/words/flow-fields",
+    "https://polyhaven.com/a/rock_09",
+    "https://commons.wikimedia.org/wiki/File:Kunstformen_der_Natur_(Tafel_31)_BHL47388125.jpg"
+  ]
+}

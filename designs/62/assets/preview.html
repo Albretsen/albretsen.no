@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morning Elevation · Asset kit 62</title>
+<meta name="description" content="Asset kit for Albretsen AS, direction 62: Morning Elevation.">
+<link rel="icon" href="identity/favicon.svg">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="stylesheet" href="motion.css">
+<style>
+@font-face{font-family:Italiana;src:url(fonts/italiana.woff2) format('woff2');font-display:swap}
+@font-face{font-family:Jost;src:url(fonts/jost-var.woff2) format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:Jost;src:url(fonts/jost-italic-var.woff2) format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:'Poiret One';src:url(fonts/poiret-one.woff2) format('woff2');font-display:swap}
+:root{
+  color-scheme:light;
+  --linseed:#f7f1e6; --peach:#f2b98f; --gold:#f6c56b; --ember:#e48e5c; --paleblue:#b9cfe3;
+  --shutter:#9fbad0; --shutter-deep:#7f9db6; --silver:#dfe3e6; --falu:#8e3326; --ink:#2b2d3a; --box:#3d5a3a;
+  --bg:#f4ece1; --line:rgb(43 45 58 / .14);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Jost,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;background:url(extras/linen-grain-256.png);opacity:.35;mix-blend-mode:multiply;z-index:50}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+h1,h2,h3{font-family:Italiana,serif;font-weight:400;letter-spacing:.14em;text-transform:uppercase;margin:0}
+h2{font-size:clamp(26px,3.4vw,40px)}
+.eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;opacity:.65}
+section{padding:clamp(56px,9vw,120px) 0;border-top:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.head p{max-width:520px;margin:0;opacity:.8}
+figure{margin:0}
+figcaption{font-size:13px;line-height:1.5;margin-top:10px;opacity:.75}
+figcaption code{font-size:12px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;background:rgb(43 45 58 / .06);padding:1px 5px;border-radius:4px}
+.grid{display:grid;gap:clamp(16px,2.4vw,32px)}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.g7{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.card{background:var(--linseed);border:1px solid var(--line);border-radius:6px;padding:20px}
+/* cover */
+.cover{position:relative;min-height:min(100svh,1000px);display:grid;place-items:start center;text-align:center;overflow:hidden;background:#e8d6c6}
+.cover picture,.cover picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover .t{position:relative;padding-top:clamp(56px,10vh,110px)}
+.cover .wm{font-family:Italiana,serif;font-size:clamp(40px,9vw,128px);line-height:1;--me-tracking:.3em;margin-right:-.3em;text-transform:uppercase}
+.cover .sub{margin-top:18px;font-size:13px;letter-spacing:.3em;text-transform:uppercase}
+.cover .meta{position:absolute;left:0;right:0;bottom:24px;display:flex;justify-content:space-between;padding:0 clamp(16px,4vw,48px);font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+/* palette */
+.sw{border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--linseed)}
+.sw i{display:block;aspect-ratio:4/3}
+.sw div{padding:10px 12px;font-size:12px;line-height:1.5}
+.sw b{display:block;font-weight:500;font-size:13px;letter-spacing:.06em}
+/* type */
+.spec-d{font-family:Italiana,serif;font-size:clamp(44px,8vw,112px);line-height:1;letter-spacing:.12em;text-transform:uppercase}
+.spec-p{font-family:'Poiret One',serif;font-size:clamp(22px,3vw,34px);letter-spacing:.08em}
+.spec-t{max-width:62ch;font-size:19px}
+.weights span{display:inline-block;margin-right:18px;font-size:22px}
+/* identity */
+.id-tile{display:grid;place-items:center;aspect-ratio:16/10;border-radius:6px;border:1px solid var(--line);background:var(--linseed);padding:24px}
+.id-tile.dark{background:var(--ink)}
+.id-tile.peach{background:var(--peach)}
+/* motion */
+.me-sky{height:min(62vh,520px);border-radius:8px;border:1px solid var(--line)}
+.me-sky .house{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(70%,560px);opacity:.92}
+.ctl{display:flex;gap:16px;align-items:center;margin-top:16px;flex-wrap:wrap;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.track{flex:1;min-width:200px;height:30px;position:relative;cursor:ew-resize;touch-action:none}
+.track::before{content:'';position:absolute;left:0;right:0;top:50%;border-top:1px dashed rgb(43 45 58 / .45)}
+.knob{position:absolute;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fffaf0,#f6c56b);box-shadow:0 0 0 7px rgb(246 197 107 / .25)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;background:none;border:1px solid rgb(43 45 58 / .35);border-radius:999px;padding:8px 14px;color:inherit;cursor:pointer}
+button[aria-pressed=true]{background:var(--ink);color:var(--linseed)}
+.rake{background:var(--linseed);border-radius:6px;padding:28px;font-family:Italiana,serif;font-size:26px;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.shut{aspect-ratio:4/5;border-radius:4px;overflow:hidden;border:10px solid var(--linseed);box-shadow:0 1px 0 var(--line)}
+.shut img{width:100%;height:100%;object-fit:cover}
+.lampbox{border-radius:6px;overflow:hidden}
+.demo-frame{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;background:#e9d8c9 url(img/backdrop-sky-mountains-1920.webp) center/cover}
+@media (max-width:700px){.demo-frame{aspect-ratio:3/4}}
+.inv{width:100%;border-collapse:collapse;font-size:14px}
+.inv td{padding:6px 8px;border-top:1px solid var(--line);vertical-align:top}
+.leafy{position:relative;border-radius:6px;overflow:hidden;background:url(extras/clapboard-peach-512.jpg) 0 0/256px;aspect-ratio:16/9}
+.leafy::after{content:'';position:absolute;inset:0;background:url(extras/leaf-shadow-1600.png) center/cover;mix-blend-mode:multiply;transform:translateX(calc((var(--me-t) - .16) * -20%)) skewX(calc((var(--me-t) - .5) * 30deg));transition:transform .2s linear}
+.tile{border-radius:6px;aspect-ratio:1;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <picture>
+    <source media="(max-aspect-ratio: 1/1)" type="image/avif" srcset="img/hero-facade-dawn-tall-800.avif 800w, img/hero-facade-dawn-tall-1200.avif 1200w">
+    <source media="(max-aspect-ratio: 1/1)" type="image/webp" srcset="img/hero-facade-dawn-tall-800.webp 800w, img/hero-facade-dawn-tall-1200.webp 1200w">
+    <source type="image/avif" srcset="img/hero-facade-dawn-1024.avif 1024w, img/hero-facade-dawn-1600.avif 1600w, img/hero-facade-dawn-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="img/hero-facade-dawn-1024.webp 1024w, img/hero-facade-dawn-1600.webp 1600w, img/hero-facade-dawn-2400.webp 2400w" sizes="100vw">
+    <img src="img/hero-facade-dawn-1600.jpg" width="1600" height="900" alt="A perfectly symmetrical peach wooden house at sunrise; the four products are lit in its ground-floor windows; alpenglow on the mountains behind" fetchpriority="high">
+  </picture>
+  <div class="t">
+    <div class="wm me-deco" id="wm">Albretsen</div>
+    <div class="sub">Morning Elevation · asset kit 62</div>
+  </div>
+  <div class="meta"><span>Albretsen AS</span><span>The sun moves. Everything else is still.</span></div>
+</header>
+
+<main>
+<section class="wrap" id="vision">
+  <div class="head">
+    <div><div class="eyebrow">01 · Direction</div><h2>Morning Elevation</h2></div>
+    <p>A Norwegian small town at seven, drawn like an architect's front elevation. One perfectly symmetrical wooden house, painted the colour of first light. Its ground-floor windows are lit, and in each one stands a product. The company is the building, so nothing about it needs to shout. Only the sun moves.</p>
+  </div>
+  <figure>
+    <img src="extras/elevation-drawing.svg" width="960" height="560" alt="Front elevation drawing of the house with the sun's arc dashed overhead" loading="lazy" style="width:100%;background:var(--linseed);border-radius:6px;padding:clamp(12px,3vw,40px)">
+    <figcaption><code>extras/elevation-drawing.svg</code>: the same dimensions as the 3D model (15 m facade, 1:100). Use it for the about section or as a quiet blog header.</figcaption>
+  </figure>
+</section>
+
+<section class="wrap" id="heroes">
+  <div class="head">
+    <div><div class="eyebrow">02 · Hero imagery</div><h2>Matte paintings</h2></div>
+    <p>Each one combines real photographs (sky and mountains from Wikimedia Commons, CC0) with a three.js house dressed in CC0 photo textures. Every image ships as AVIF, WebP and JPEG at several widths.</p>
+  </div>
+  <div class="grid">
+    <figure><img src="img/hero-facade-dawn-1600.jpg" width="1600" height="900" alt="The facade at dawn" loading="lazy"><figcaption><b>hero-facade-dawn</b> 2400 / 1600 / 1024. First light from the left, with leaf shadows from birches out of frame. The main hero, with the sky left free for the wordmark.</figcaption></figure>
+    <div class="grid g2">
+      <figure><img src="img/hero-facade-dawn-tall-800.jpg" width="800" height="1200" alt="The facade at dawn, portrait crop" loading="lazy"><figcaption><b>hero-facade-dawn-tall</b> 1200 / 800. A separate camera for phones rather than a crop, so the house stays whole.</figcaption></figure>
+      <div class="grid">
+        <figure><img src="img/hero-facade-dusk-1280.jpg" width="1280" height="720" alt="The facade in late golden light" loading="lazy"><figcaption><b>hero-facade-dusk</b> 2400 / 1280. The same house in the evening, with the sun on the right and the door in shade. Use it for the footer or as the end of the scroll.</figcaption></figure>
+        <figure><img src="img/hero-town-morning-1440.jpg" width="1440" height="810" alt="A Norwegian mining town with church tower and picket fence under a peach morning sky" loading="lazy"><figcaption><b>hero-town-morning</b> 2160 / 1440 / 960. A real CC0 photograph of Røros (the storm sky replaced with a graded CC0 sky) and the town relit for sunrise. The second hero, for the blog or the "about" page.</figcaption></figure>
+        <figure><img src="img/backdrop-sky-mountains-1920.jpg" width="1920" height="1080" alt="Hazy alpenglow mountains under a peach sky" loading="lazy"><figcaption><b>backdrop-sky-mountains</b> 1920. The empty plate behind the live 3D scene. It also works on its own as a page header.</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="identity">
+  <div class="head">
+    <div><div class="eyebrow">03 · Identity</div><h2>The pediment A</h2></div>
+    <p>An A drawn as a classical pediment. Its crossbar is the horizon, and a half sun rises under the apex. It works as a capital letter, a gable and a sunrise.</p>
+  </div>
+  <div class="grid g3">
+    <figure><div class="id-tile"><img src="identity/mark.svg" width="120" height="120" alt="Albretsen mark"></div><figcaption><code>identity/mark.svg</code></figcaption></figure>
+    <figure><div class="id-tile dark"><img src="identity/mark-light.svg" width="120" height="120" alt="Albretsen mark, light"></div><figcaption><code>identity/mark-light.svg</code></figcaption></figure>
+    <figure><div class="id-tile peach"><img src="identity/favicon.svg" width="96" height="96" alt="Favicon"><img src="identity/favicon-180.png" width="60" height="60" alt="Apple touch icon" style="margin-top:12px"></div><figcaption><code>favicon.svg</code> + <code>favicon-180.png</code></figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:32px">
+    <figure><div class="id-tile" style="aspect-ratio:auto;padding:40px"><img src="identity/wordmark.svg" width="425" height="64" alt="Albretsen AS wordmark" style="width:100%"></div><figcaption><code>identity/wordmark.svg</code>: mark, Italiana with wide Deco tracking, and AS in Jost. Glyphs are outlined, so no font is needed.</figcaption></figure>
+    <figure><div class="id-tile" style="aspect-ratio:auto;padding:40px;color:var(--falu)"><img src="identity/wordmark-type.svg" width="772" height="90" alt="Albretsen" style="width:100%"></div><figcaption><code>identity/wordmark-type.svg</code>: name only, filled with <code>currentColor</code> when inlined. Use it for hero settings.</figcaption></figure>
+  </div>
+  <figure style="margin-top:32px"><img src="identity/og-1200x630.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy"><figcaption><code>identity/og-1200x630.jpg</code></figcaption></figure>
+</section>
+
+<section class="wrap" id="palette">
+  <div class="head"><div><div class="eyebrow">04 · Palette</div><h2>Sunrise on wood</h2></div><p>Peach, gold and pale blue carry the light. Linseed and ink carry the type. Falu red is for the neighbours only, so use it sparingly.</p></div>
+  <div class="grid g7">
+    <div class="sw"><i style="background:#f7f1e6"></i><div><b>Linseed</b>#f7f1e6<br>oklch(96.0% 0.016 82.8)</div></div>
+    <div class="sw"><i style="background:#f2b98f"></i><div><b>Facade peach</b>#f2b98f<br>oklch(82.8% 0.086 57.6)</div></div>
+    <div class="sw"><i style="background:#f6c56b"></i><div><b>Sunrise gold</b>#f6c56b<br>oklch(84.9% 0.122 81.1)</div></div>
+    <div class="sw"><i style="background:#e48e5c"></i><div><b>Ember</b>#e48e5c<br>oklch(72.6% 0.124 50.0)</div></div>
+    <div class="sw"><i style="background:#b9cfe3"></i><div><b>Pale sky</b>#b9cfe3<br>oklch(84.4% 0.037 245.7)</div></div>
+    <div class="sw"><i style="background:#9fbad0"></i><div><b>Shutter blue</b>#9fbad0<br>oklch(77.6% 0.043 242.8)</div></div>
+    <div class="sw"><i style="background:#7f9db6"></i><div><b>Louvre</b>#7f9db6<br>oklch(68.2% 0.050 243.7)</div></div>
+    <div class="sw"><i style="background:#dfe3e6"></i><div><b>Overcast</b>#dfe3e6<br>oklch(91.4% 0.006 239.8)</div></div>
+    <div class="sw"><i style="background:#8e3326"></i><div><b>Falu red</b>#8e3326<br>oklch(45.0% 0.126 30.7)</div></div>
+    <div class="sw"><i style="background:#3d5a3a"></i><div><b>Box hedge</b>#3d5a3a<br>oklch(43.5% 0.062 142.2)</div></div>
+    <div class="sw"><i style="background:#2b2d3a"></i><div><b>Ink</b>#2b2d3a<br>oklch(30.1% 0.024 278.0)</div></div>
+  </div>
+</section>
+
+<section class="wrap" id="type">
+  <div class="head"><div><div class="eyebrow">05 · Typography</div><h2>Deco and quiet</h2></div><p><b>Italiana</b> (display, OFL) set in capitals with 0.3em tracking. <b>Jost</b> (text, OFL, variable 100–900) is a geometric face of the same era that stays out of the way. <b>Poiret One</b> appears only as an occasional accent.</p></div>
+  <div class="spec-d">Albretsen</div>
+  <div class="spec-p" style="margin:12px 0 28px">Quiet software that pays for itself</div>
+  <p class="spec-t">MCP Emails gives AI agents an inbox: 17 tools and about 100 email providers. Fun Libs has reached 113,000+ installs with no marketing, and v5 shipped in 2026. Asgeir has published on Google Play since 2016.</p>
+  <div class="weights"><span style="font-weight:300">Light 300</span><span style="font-weight:400">Book 400</span><span style="font-weight:500">Medium 500</span><span style="font-style:italic">Italic</span></div>
+</section>
+
+<section class="wrap" id="products">
+  <div class="head"><div><div class="eyebrow">06 · Products</div><h2>Lit windows</h2></div><p>Each live product stands in its own shop window, with its real logo on a card, rendered from the same 3D house. Retired products are windows with the shutters closed, a dignified kind of "closed".</p></div>
+  <div class="grid g4">
+    <figure><picture><source type="image/avif" srcset="products/window-mcp-emails-640.avif 640w, products/window-mcp-emails-1200.avif 1200w" sizes="(max-width:700px) 100vw, 25vw"><img src="products/window-mcp-emails-640.jpg" width="640" height="800" alt="MCP Emails in a lit shop window" loading="lazy"></picture><figcaption><b>MCP Emails</b> · window-mcp-emails</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="products/window-fun-libs-640.avif 640w, products/window-fun-libs-1200.avif 1200w" sizes="(max-width:700px) 100vw, 25vw"><img src="products/window-fun-libs-640.jpg" width="640" height="800" alt="Fun Libs in a lit shop window" loading="lazy"></picture><figcaption><b>Fun Libs</b> · window-fun-libs</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="products/window-toolrails-640.avif 640w, products/window-toolrails-1200.avif 1200w" sizes="(max-width:700px) 100vw, 25vw"><img src="products/window-toolrails-640.jpg" width="640" height="800" alt="Toolrails in a lit shop window" loading="lazy"></picture><figcaption><b>Toolrails</b> · window-toolrails</figcaption></figure>
+    <figure><picture><source type="image/avif" srcset="products/window-harbor-640.avif 640w, products/window-harbor-1200.avif 1200w" sizes="(max-width:700px) 100vw, 25vw"><img src="products/window-harbor-640.jpg" width="640" height="800" alt="Harbor in a lit shop window" loading="lazy"></picture><figcaption><b>Harbor</b> · window-harbor</figcaption></figure>
+  </div>
+  <div class="grid g7" style="margin-top:40px">
+    <img src="products/retired/shutters-luma.svg" width="160" height="270" alt="Luma, retired 2026" loading="lazy">
+    <img src="products/retired/shutters-polyglot-pilot.svg" width="160" height="270" alt="Polyglot Pilot, retired" loading="lazy">
+    <img src="products/retired/shutters-pinpoint.svg" width="160" height="270" alt="PinPoint, retired" loading="lazy">
+    <img src="products/retired/shutters-webvakt.svg" width="160" height="270" alt="WebVakt, retired" loading="lazy">
+    <img src="products/retired/shutters-joke-central.svg" width="160" height="270" alt="Joke Central, retired" loading="lazy">
+    <img src="products/retired/shutters-tryggere-hyring.svg" width="160" height="270" alt="Tryggere Hyring, retired" loading="lazy">
+    <img src="products/retired/shutters-early-apps.svg" width="160" height="270" alt="Early apps, retired" loading="lazy">
+  </div>
+</section>
+
+<section class="wrap" id="extras">
+  <div class="head"><div><div class="eyebrow">07 · Extras</div><h2>Texture and detail</h2></div><p>Small things that make the pages feel inhabited: painted boards, linen grain, a morning shadow, a real cabin window, an enamel plaque and a fanlight rule.</p></div>
+  <div class="grid g3">
+    <figure><div class="leafy"></div><figcaption><code>clapboard-peach-512.jpg</code> (seamless) under <code>leaf-shadow-1600.png</code> (multiply). The shadow drifts with <code>--me-t</code>.</figcaption></figure>
+    <figure><img src="extras/cabin-window-700.jpg" width="700" height="614" alt="An old log-cabin window in warm light" loading="lazy"><figcaption><code>cabin-window</code>: a real photograph by Steinar Engeland (CC0), graded into the palette.</figcaption></figure>
+    <figure><div class="card" style="display:grid;place-items:center;aspect-ratio:16/11"><img src="extras/plaque-since-2016.svg" width="220" height="160" alt="Enamel plaque: since 2016 on Google Play"></div><figcaption><code>plaque-since-2016.svg</code>: an enamel house plaque.</figcaption></figure>
+    <figure><div class="card" style="display:grid;place-items:center;aspect-ratio:16/11"><img src="extras/fanlight-divider.svg" width="240" height="48" alt="" style="width:80%"></div><figcaption><code>fanlight-divider.svg</code>: a section rule taken from the door's fanlight.</figcaption></figure>
+    <figure><div class="grid" style="gap:12px;grid-template-columns:1fr 1fr"><div class="tile" style="background:url(extras/clapboard-falu-512.jpg) 0 0/200px"></div><div class="tile" style="background:var(--linseed) url(extras/linen-grain-256.png)"></div></div><figcaption><code>clapboard-falu-512.jpg</code> and <code>linen-grain-256.png</code> (alpha, tileable)</figcaption></figure>
+    <figure><div class="card" style="display:grid;place-items:center;aspect-ratio:16/11;background:#b9cfe3"><img src="extras/sun.svg" width="160" height="160" alt="Sun disc"></div><figcaption><code>sun.svg</code>: the sun disc, the one moving thing.</figcaption></figure>
+  </div>
+</section>
+
+<section class="wrap" id="motion">
+  <div class="head"><div><div class="eyebrow">08 · Motion study</div><h2>Only the sun moves</h2></div><p>One variable, <code>--me-t</code>, holds the time of day. Scroll sets it on a site; here you drag it. Everything below reads it. See <code>motion.css</code> / <code>motion.js</code>.</p></div>
+  <div class="me-sky" id="sky"><div class="me-sun"></div><img class="house" src="extras/elevation-drawing.svg" width="960" height="560" alt="" style="filter:none;mix-blend-mode:multiply"></div>
+  <div class="ctl"><span>Dawn</span><div class="track" id="track"><div class="knob" id="knob"></div></div><span>Dusk</span><button id="play" aria-pressed="false">Play a day</button></div>
+  <p class="eyebrow" style="margin-top:8px">1 · Sun arc: the sky gradient and the disc follow an elliptical arc.</p>
+  <div class="grid g3" style="margin-top:40px">
+    <div><div class="rake me-rake me-rake-text">Light rake</div><p class="eyebrow" style="margin-top:12px">2 · Shadows swing and lengthen with the sun</p></div>
+    <div><div class="me-shutter shut" id="sh1"><img src="products/window-mcp-emails-640.jpg" width="640" height="800" alt="MCP Emails behind shutters" loading="lazy"></div><p class="eyebrow" style="margin-top:12px">3 · Shutter open (on view) · <button id="reshut">Again</button></p></div>
+    <div><div class="me-lamp lampbox"><img src="products/window-toolrails-640.jpg" width="640" height="800" alt="Toolrails window, lamps warming at dusk" loading="lazy"></div><p class="eyebrow" style="margin-top:12px">5 · Lamplight: drag toward dusk</p></div>
+  </div>
+  <p class="eyebrow" style="margin-top:28px">4 · Deco settle: the cover wordmark · <button id="replay">Replay</button></p>
+</section>
+
+<section class="wrap" id="live">
+  <div class="head"><div><div class="eyebrow">09 · Interactive</div><h2>The house, live</h2></div><p><code>3d/facade.js</code> builds the house in three.js from primitives (r170 from a pinned CDN, loaded lazily). <code>setSun(t)</code> moves the light, and shadows, windows and colour follow. <code>audio/ambient.js</code> adds an opt-in synthesised soundscape of wind, a far sea and a town square at seven, with no audio files.</p></div>
+  <iframe class="demo-frame" data-src="3d/demo.html" title="Live facade demo" loading="lazy"></iframe>
+  <div class="ctl"><button id="snd" aria-pressed="false">Ambient sound</button><span style="opacity:.65">Opt-in. It fades in over 2.5 s and goes quiet when the tab is hidden.</span></div>
+</section>
+
+<section class="wrap" id="files">
+  <div class="head"><div><div class="eyebrow">10 · Files</div><h2>Inventory</h2></div><p>The full inventory, with sources and licences, is in <code>ASSETS.md</code>.</p></div>
+  <table class="inv"><tbody>
+    <tr><td>img/</td><td>hero-facade-dawn(-tall), hero-facade-dusk, hero-town-morning, backdrop-sky-mountains, sky-dawn-2400</td></tr>
+    <tr><td>identity/</td><td>mark, mark-light, wordmark, wordmark-type, favicon (svg + 180 png), og-1200x630</td></tr>
+    <tr><td>products/</td><td>window-* (4 live), retired/shutters-* (7), logos/ (real, unchanged)</td></tr>
+    <tr><td>extras/</td><td>elevation-drawing, fanlight-divider, plaque-since-2016, sun, clapboard-peach/falu, linen-grain, leaf-shadow, cabin-window</td></tr>
+    <tr><td>3d/</td><td>facade.js, demo.html, bake.html, tex/ (CC0 ambientCG)</td></tr>
+    <tr><td>audio/</td><td>ambient.js</td></tr>
+    <tr><td>motion.css · motion.js</td><td>Sun arc, light rake, shutter open, deco settle, lamplight</td></tr>
+  </tbody></table>
+</section>
+</main>
+
+<script>
+// review helper: preview.html?from=products hides everything above that section (for screenshots)
+{ const f = new URLSearchParams(location.search).get('from'); if (f) { document.querySelector('.cover').hidden = true
+  for (const s of document.querySelectorAll('main > section')) { if (s.id === f) break; s.hidden = true } } }
+</script>
+<script type="module">
+import { initMotion, sunScrubber } from './motion.js'
+import { Ambience } from './audio/ambient.js'
+const m = initMotion({ source: 'none' })
+const knob = document.getElementById('knob')
+sunScrubber(document.getElementById('track'), m)
+m.onChange((t) => { knob.style.left = (t * 100) + '%' })
+m.set(0.16)
+let playing = 0
+document.getElementById('play').onclick = (e) => {
+  if (playing) { cancelAnimationFrame(playing); playing = 0; e.target.setAttribute('aria-pressed', 'false'); return }
+  e.target.setAttribute('aria-pressed', 'true')
+  let t = 0.05; const step = () => { t += 0.0025; m.set(t > 0.95 ? (t = 0.05) : t); playing = requestAnimationFrame(step) }; step()
+}
+document.getElementById('reshut').onclick = () => { const s = document.getElementById('sh1'); s.classList.remove('is-open'); setTimeout(() => s.classList.add('is-open'), 700) }
+document.getElementById('replay').onclick = () => { const w = document.getElementById('wm'); w.style.animation = 'none'; w.offsetWidth; w.style.animation = ''; scrollTo({ top: 0 }) }
+const amb = new Ambience(); m.onChange((t) => amb.setTimeOfDay(t))
+const snd = document.getElementById('snd'); snd.onclick = () => snd.setAttribute('aria-pressed', amb.toggle())
+// load the live 3D only when its section approaches
+const fr = document.querySelector('.demo-frame')
+if (!location.search.includes('noframe')) new IntersectionObserver((es, io) => es.forEach((e) => { if (e.isIntersecting) { fr.src = fr.dataset.src; io.disconnect() } }), { rootMargin: '400px' }).observe(fr)
+</script>
+</body>
+</html>

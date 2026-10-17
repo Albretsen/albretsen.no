@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" role="img" aria-label="Albretsen AS">
+  <title>Albretsen AS</title><rect width="64" height="64" rx="14" fill="#22304F"/>
+  <defs><clipPath id="w"><path d="M16 56V28a16 16 0 0 1 32 0v28z"/></clipPath></defs>
+  <g clip-path="url(#w)">
+    <circle cx="32" cy="38" r="9.5" fill="#EE8FA6"/>
+    <rect x="10" y="38" width="44" height="20" fill="#22304F"/>
+    <rect x="21" y="42.2" width="22" height="2.4" rx="1.2" fill="#9CC8EA"/>
+    <rect x="24.5" y="47.2" width="15" height="2.4" rx="1.2" fill="#A6DCC6"/>
+    <rect x="28" y="52.2" width="8" height="2.4" rx="1.2" fill="#9CC8EA"/>
+  </g>
+  <path d="M16 56V28a16 16 0 0 1 32 0v28" fill="none" stroke="#FBF7F2" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M11 56h42" stroke="#FBF7F2" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M16 38h32" stroke="#FBF7F2" stroke-width="1.6"/>
+</svg>

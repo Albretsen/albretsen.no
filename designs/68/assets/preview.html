@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noon &amp; Dusk asset kit</title>
+<meta name="description" content="Albretsen AS, design 68: the asset kit. Gouache-painted Mediterranean noon and LA dusk, a Parisian didone, a day/night switch.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preload" as="font" type="font/woff2" href="fonts/BodoniModa.woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: 'Bodoni Moda'; src: url(fonts/BodoniModa.woff2) format('woff2'); font-weight: 400 900; font-display: swap; }
+  @font-face { font-family: 'Bodoni Moda'; font-style: italic; src: url(fonts/BodoniModa-Italic.woff2) format('woff2'); font-weight: 400 900; font-display: swap; }
+  @font-face { font-family: 'Jost'; src: url(fonts/Jost.woff2) format('woff2'); font-weight: 300 700; font-display: swap; }
+
+  :root {
+    --paper: #f6ede1; --ink: #211c24; --ink-2: #5d5360; --rule: #211c2433;
+    --peach: #ef9f7c; --mauve: #a0809e; --smog: #7d93ad; --ochre: #e2b25e;
+    --shutter: #2f5a46; --terracotta: #c9694b; --sun: #ef9f7c; --moon: #f4e7d6;
+    --card: #fbf5ec;
+    color-scheme: light;
+  }
+  :root[data-theme="night"] {
+    --paper: #221d2a; --ink: #f4e7d6; --ink-2: #b9a9b6; --rule: #f4e7d633; --card: #2b2534;
+    --sun: #f6c08f; --shutter: #24443a;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 16px/1.6 Jost, 'Futura', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .paper { background-image: url(extras/grain-512.webp); background-size: 512px; background-blend-mode: multiply; }
+  a { color: inherit; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 40px; } }
+
+  /* masthead */
+  header.mast { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+  header.mast .l { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); }
+  header.mast .c { color: var(--ink); width: min(280px, 48vw); }
+  header.mast .c svg { display: block; width: 100%; height: auto; }
+  header.mast .r { justify-self: end; display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); }
+  @media (max-width: 640px) { header.mast .l, header.mast .r span { display: none; } }
+
+  .eyebrow { font: 500 11px/1 Jost, sans-serif; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-2); }
+  h1, h2, h3 { font-family: 'Bodoni Moda', Didot, 'Bodoni 72', serif; font-weight: 400; margin: 0; letter-spacing: -.01em; font-optical-sizing: auto; }
+  h2 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.05; }
+  h2 em, h1 em { font-style: italic; }
+  section { padding: clamp(64px, 10vw, 128px) 0; border-bottom: 1px solid var(--rule); }
+  .sec-head { display: grid; gap: 14px; text-align: center; margin-bottom: clamp(32px, 6vw, 64px); }
+  .sec-head p { max-width: 560px; margin: 0 auto; color: var(--ink-2); }
+
+  /* opening spread */
+  .spread { padding-top: 48px; text-align: center; }
+  .spread h1 { font-size: clamp(44px, 9vw, 128px); line-height: .95; margin: 18px 0 28px; }
+  .spread .dek { max-width: 520px; margin: 0 auto 40px; color: var(--ink-2); }
+  .hero-frame { position: relative; }
+  .hero-frame .m-arch { aspect-ratio: 2548 / 1697; }
+  .hero-frame picture { display: block; }
+  .hero-frame .night-pic { display: none; }
+  :root[data-theme="night"] .hero-frame .day-pic { display: none; }
+  :root[data-theme="night"] .hero-frame .night-pic { display: block; }
+  .m-arch img { aspect-ratio: 2548 / 1697; object-fit: cover; background: #c9a98f url(hero/terrace-day-lqip.webp) center / cover; }
+  .night-pic img { background-color: #5c4f68; background-image: url(hero/terrace-dusk-lqip.webp); }
+  .m-caption { margin: 36px auto 0; font-family: 'Bodoni Moda', serif; font-size: clamp(22px, 3vw, 34px); line-height: 1.3; }
+  .m-caption em { font-style: italic; }
+  .replay { margin-top: 18px; }
+
+  .btn { font: 500 11px/1 Jost, sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); background: none; border: 1px solid var(--ink); border-radius: 999px; padding: 12px 22px; cursor: pointer; }
+  .btn:hover { background: var(--ink); color: var(--paper); }
+
+  /* grids */
+  .grid { display: grid; gap: 24px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; font-size: 13px; color: var(--ink-2); display: flex; justify-content: space-between; gap: 12px; }
+  figcaption b { font-weight: 500; color: var(--ink); }
+  .tile { background: var(--card); border: 1px solid var(--rule); display: grid; place-items: center; padding: 28px; aspect-ratio: 1; }
+  .tile.wide { aspect-ratio: 16 / 9; }
+  .tile img, .tile svg { max-width: 100%; max-height: 100%; height: auto; }
+  img { max-width: 100%; height: auto; display: block; }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--rule); }
+  .sw { padding: 0 0 14px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 12px; }
+  .sw i { display: block; aspect-ratio: 4 / 3; margin-bottom: 12px; }
+  .sw b { display: block; font: 400 20px/1.2 'Bodoni Moda', serif; padding: 0 14px; }
+  .sw span { display: block; padding: 0 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+  /* type */
+  .spec { display: grid; gap: 40px; }
+  .spec .big { font: 400 clamp(56px, 11vw, 150px)/.9 'Bodoni Moda', serif; text-align: center; }
+  .spec .big em { font-style: italic; color: var(--terracotta); }
+  .spec .row { display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: baseline; border-top: 1px solid var(--rule); padding-top: 18px; }
+  @media (max-width: 640px) { .spec .row { grid-template-columns: 1fr; gap: 6px; } }
+  .t-h2 { font: 400 44px/1.05 'Bodoni Moda', serif; }
+  .t-h3 { font: italic 400 28px/1.2 'Bodoni Moda', serif; }
+  .t-body { font: 400 17px/1.65 Jost, sans-serif; max-width: 60ch; }
+  .t-label { font: 500 11px/1 Jost, sans-serif; letter-spacing: .24em; text-transform: uppercase; }
+  .t-figure { font: 400 64px/1 'Bodoni Moda', serif; font-variant-numeric: lining-nums; }
+
+  /* products */
+  .plate figcaption { display: block; }
+  .plate h3 { font-size: 26px; margin-top: 14px; }
+  .plate p { margin: 4px 0 0; color: var(--ink-2); font-size: 14px; }
+  .plate .fig { font: italic 400 20px 'Bodoni Moda', serif; color: var(--ink); }
+  .whip-demo { max-width: 520px; margin: 48px auto 0; text-align: center; }
+  .whip-demo .m-whip { aspect-ratio: 4 / 5; border: 1px solid var(--rule); }
+  .whip-demo .m-whip img { width: 100%; height: 100%; object-fit: cover; }
+  .whip-demo .ctrl { display: flex; justify-content: center; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .whip-demo .ctrl button[aria-current="true"] { background: var(--ink); color: var(--paper); }
+
+  .retired { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 18px; }
+
+  /* extras */
+  .washes { position: relative; aspect-ratio: 16 / 9; background: var(--card); overflow: hidden; border: 1px solid var(--rule); }
+  .washes img { position: absolute; width: 46%; height: auto; mix-blend-mode: multiply; }
+  :root[data-theme="night"] .washes img { mix-blend-mode: screen; opacity: .7; }
+  .paper-swatch { aspect-ratio: 1; background: url(extras/paper-512.webp) 0 0 / 256px; border: 1px solid var(--rule); }
+  .grain-swatch { aspect-ratio: 1; background: var(--peach) url(extras/grain-512.webp) 0 0 / 256px; background-blend-mode: multiply; border: 1px solid var(--rule); }
+  .arch-demo { aspect-ratio: 400 / 520; -webkit-mask: url(extras/arch-mask.svg) center / 100% 100% no-repeat; mask: url(extras/arch-mask.svg) center / 100% 100% no-repeat; background: url(hero/alley-day-640.webp) center / cover; }
+  .postmark { color: var(--ink); }
+  .shutter-svg svg { width: 100%; height: auto; }
+  .shutter-svg #leaf-l, .shutter-svg #leaf-r { transition: transform 900ms var(--ease-deadpan); transform-box: view-box; }
+  .shutter-svg.open #leaf-l { transform: perspective(900px) rotateY(-72deg); }
+  .shutter-svg.open #leaf-r { transform: perspective(900px) rotateY(72deg); }
+
+  /* shutter swap demo */
+  .swap-frame { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border: 1px solid var(--rule); }
+  .swap-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  /* interactive */
+  .roofs { position: relative; aspect-ratio: 16 / 9; border: 1px solid var(--rule); background: #e9dccb url(interactive/rooftops-poster-day.webp) center / cover; }
+  :root[data-theme="night"] .roofs { background-image: url(interactive/rooftops-poster-night.webp); }
+  .roofs canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+  footer { padding: 64px 0 80px; text-align: center; color: var(--ink-2); font-size: 13px; }
+  footer svg { width: 44px; height: auto; color: var(--ink); margin-bottom: 14px; }
+  .note { font-size: 13px; color: var(--ink-2); text-align: center; margin-top: 18px; }
+</style>
+</head>
+<body class="paper">
+<div class="wrap">
+  <header class="mast">
+    <div class="l">Design 68 · Asset kit</div>
+    <a class="c" href="#" aria-label="Albretsen AS">
+      <span id="lockup-slot" style="display:block;aspect-ratio:7.6/1"></span>
+    </a>
+    <div class="r"><span>Noon / Dusk</span>
+      <button class="m-sunset" id="sunset" type="button" aria-label="Switch between day and night" aria-pressed="false"><i class="sun"></i><i class="moon"></i><i class="sea"></i></button>
+    </div>
+  </header>
+
+  <!-- 1. OPENING SPREAD ---------------------------------------------------- -->
+  <section class="spread" style="border-bottom:0">
+    <div class="eyebrow">Noon &amp; Dusk · an opening spread</div>
+    <h1>Quiet software,<br><em>in hard light.</em></h1>
+    <p class="dek">Gouache-painted plates from CC0 photographs: Mediterranean noon by day, an LA dusk by night. Press the sun in the corner.</p>
+    <div class="hero-frame">
+      <figure class="m-arch" id="arch">
+        <picture class="day-pic">
+          <source type="image/avif" srcset="hero/terrace-day-640.avif 640w, hero/terrace-day-1280.avif 1280w, hero/terrace-day-1920.avif 1920w, hero/terrace-day-2400.avif 2400w" sizes="100vw">
+          <source type="image/webp" srcset="hero/terrace-day-640.webp 640w, hero/terrace-day-1280.webp 1280w, hero/terrace-day-1920.webp 1920w, hero/terrace-day-2400.webp 2400w" sizes="100vw">
+          <img src="hero/terrace-day-1280.jpg" width="2548" height="1697" alt="A gouache painting of a sunlit terrace between two ochre houses, opening onto the sea at noon" fetchpriority="high">
+        </picture>
+        <picture class="night-pic">
+          <source type="image/avif" srcset="hero/terrace-dusk-640.avif 640w, hero/terrace-dusk-1280.avif 1280w, hero/terrace-dusk-1920.avif 1920w, hero/terrace-dusk-2400.avif 2400w" sizes="100vw">
+          <source type="image/webp" srcset="hero/terrace-dusk-640.webp 640w, hero/terrace-dusk-1280.webp 1280w, hero/terrace-dusk-1920.webp 1920w, hero/terrace-dusk-2400.webp 2400w" sizes="100vw">
+          <img src="hero/terrace-dusk-1280.jpg" width="2548" height="1697" alt="The same terrace at dusk: a peach sun sitting on the horizon, exactly on the axis" loading="lazy">
+        </picture>
+      </figure>
+    </div>
+    <p class="m-caption" id="caption"><span>I build software</span><span><em>that pays for itself.</em></span></p>
+    <button class="btn replay" id="replay" type="button">Replay caption</button>
+  </section>
+
+  <!-- 2. HERO IMAGERY ------------------------------------------------------ -->
+  <section id="s-hero">
+    <div class="sec-head"><div class="eyebrow">01 · Hero imagery</div><h2>Three plates, <em>painted</em></h2>
+      <p>Every plate ships as AVIF, WebP and JPEG at 640, 1280, 1920 and 2400 px, with a 24 px placeholder for zero layout shift.</p></div>
+    <div class="grid g2">
+      <figure><picture><source type="image/avif" srcset="hero/terrace-day-1280.avif"><img src="hero/terrace-day-1280.webp" width="1280" height="852" loading="lazy" alt="Terrace at noon"></picture><figcaption><b>terrace-day</b><span>noon · hero, day theme</span></figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="hero/terrace-dusk-1280.avif"><img src="hero/terrace-dusk-1280.webp" width="1280" height="852" loading="lazy" alt="Terrace at dusk"></picture><figcaption><b>terrace-dusk</b><span>dusk · hero, night theme</span></figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="hero/alley-day-1280.avif"><img src="hero/alley-day-1280.webp" width="1280" height="852" loading="lazy" alt="A long stone street in hard noon light, laundry overhead"></picture><figcaption><b>alley-day</b><span>noon · about / blog cover</span></figcaption></figure>
+      <figure><div class="tile wide" style="padding:0"><img src="identity/og-1200x630.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image"></div><figcaption><b>og-1200x630</b><span>Open Graph card</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 3. IDENTITY ---------------------------------------------------------- -->
+  <section id="s-identity">
+    <div class="sec-head"><div class="eyebrow">02 · Identity</div><h2>An arch, a horizon, <em>a sun</em></h2>
+      <p>The mark is an arched opening with thick didone verticals and a hairline crown. Read it twice and it is an A.</p></div>
+    <div class="grid g4">
+      <figure><div class="tile"><img src="identity/mark.svg" width="160" height="160" alt="Mark"></div><figcaption><b>mark.svg</b><span>day</span></figcaption></figure>
+      <figure><div class="tile" style="background:#221d2a"><img src="identity/mark-night.svg" width="160" height="160" alt="Mark, night"></div><figcaption><b>mark-night.svg</b><span>night</span></figcaption></figure>
+      <figure><div class="tile"><img src="identity/favicon.svg" width="96" height="96" alt="Favicon"> </div><figcaption><b>favicon.svg</b><span>+ 180 / 32 png</span></figcaption></figure>
+      <figure><div class="tile"><img src="identity/favicon-180.png" width="90" height="90" alt="Touch icon"></div><figcaption><b>favicon-180.png</b><span>apple-touch</span></figcaption></figure>
+    </div>
+    <div class="grid" style="margin-top:24px">
+      <figure><div class="tile wide" style="aspect-ratio:auto;padding:56px 24px"><span id="wordmark-slot" style="width:min(640px,100%);color:var(--ink)"></span></div><figcaption><b>wordmark.svg</b><span>outlined Bodoni Moda, currentColor</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 4. PALETTE ----------------------------------------------------------- -->
+  <section id="s-palette">
+    <div class="sec-head"><div class="eyebrow">03 · Palette</div><h2>LA dusk, <em>Mediterranean noon</em></h2></div>
+    <div class="swatches" id="swatches"></div>
+  </section>
+
+  <!-- 5. TYPE -------------------------------------------------------------- -->
+  <section id="s-type">
+    <div class="sec-head"><div class="eyebrow">04 · Type</div><h2>Bodoni Moda &amp; <em>Jost</em></h2>
+      <p>A Parisian didone with optical sizes for display and italic accents; Jost, a geometric sans in the Futura tradition, for labels and body. Both OFL.</p></div>
+    <div class="spec">
+      <div class="big">Albretsen <em>AS</em></div>
+      <div class="row"><span class="t-label">Display 44</span><span class="t-h2">One MCP URL that gives an agent <em style="font-style:italic">every tool.</em></span></div>
+      <div class="row"><span class="t-label">Italic 28</span><span class="t-h3">Email for AI agents.</span></div>
+      <div class="row"><span class="t-label">Figure 64</span><span class="t-figure">113,000+ <span class="t-label" style="vertical-align:middle">installs</span></span></div>
+      <div class="row"><span class="t-label">Body 17 · Jost</span><span class="t-body">A small technology company in Norway that builds whatever is profitable: apps, SaaS and infrastructure for AI agents. Published on Google Play since 2016. Takes one outside engagement at a time.</span></div>
+      <div class="row"><span class="t-label">Label 11</span><span class="t-label">Live · since 2026 · open source (AGPL)</span></div>
+    </div>
+  </section>
+
+  <!-- 6. PRODUCTS ---------------------------------------------------------- -->
+  <section id="s-products">
+    <div class="sec-head"><div class="eyebrow">05 · Products</div><h2>Real logos, <em>in the street</em></h2>
+      <p>Each live product's real logo, unaltered, mounted on a painted façade: an enamel door plate, a gilt shop fascia, a square plaque, a dark sign.</p></div>
+    <div class="grid g4" id="plates"></div>
+    <div class="whip-demo">
+      <div class="eyebrow" style="margin-bottom:14px">Motion · Whip pan</div>
+      <div class="m-whip"><div class="m-whip-track" id="whip"></div></div>
+      <div class="ctrl" id="whip-ctrl"></div>
+    </div>
+    <div style="margin-top:72px">
+      <div class="eyebrow" style="text-align:center;margin-bottom:24px">Retired · stand-ins in the house style</div>
+      <div class="retired">
+        <img src="products/retired/luma.svg" width="200" height="260" loading="lazy" alt="Luma">
+        <img src="products/retired/polyglot-pilot.svg" width="200" height="260" loading="lazy" alt="Polyglot Pilot">
+        <img src="products/retired/pinpoint.svg" width="200" height="260" loading="lazy" alt="PinPoint">
+        <img src="products/retired/webvakt.svg" width="200" height="260" loading="lazy" alt="WebVakt">
+        <img src="products/retired/joke-central.svg" width="200" height="260" loading="lazy" alt="Joke Central">
+        <img src="products/retired/tryggere-hyring.svg" width="200" height="260" loading="lazy" alt="Tryggere Hyring">
+        <img src="products/retired/early-apps.svg" width="200" height="260" loading="lazy" alt="Early apps">
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. EXTRAS ------------------------------------------------------------ -->
+  <section id="s-extras">
+    <div class="sec-head"><div class="eyebrow">06 · Extras</div><h2>Paper, pigment, <em>post</em></h2></div>
+    <div class="grid g3">
+      <figure><div class="washes">
+        <img src="extras/wash-peach.webp" width="900" height="600" loading="lazy" alt="" style="left:2%;top:4%">
+        <img src="extras/wash-mauve.webp" width="900" height="600" loading="lazy" alt="" style="right:2%;top:10%">
+        <img src="extras/wash-smog.webp" width="900" height="600" loading="lazy" alt="" style="left:8%;bottom:0">
+        <img src="extras/wash-ochre.webp" width="900" height="600" loading="lazy" alt="" style="right:6%;bottom:4%">
+      </div><figcaption><b>wash-*.webp</b><span>pigment washes, alpha</span></figcaption></figure>
+      <figure><div class="paper-swatch"></div><figcaption><b>paper-512.webp</b><span>seamless cold-press paper</span></figcaption></figure>
+      <figure><div class="grain-swatch"></div><figcaption><b>grain-512.webp</b><span>seamless grain, multiply</span></figcaption></figure>
+      <figure><div class="tile" style="aspect-ratio:auto;padding:20px"><img src="extras/stamp-coast-day.webp" width="600" height="760" loading="lazy" alt="Postage stamp: the coast from orbit at noon"></div><figcaption><b>stamp-coast-day</b><span>NASA ISS, public domain</span></figcaption></figure>
+      <figure><div class="tile" style="aspect-ratio:auto;padding:20px;background:#221d2a"><img src="extras/stamp-coast-night.webp" width="600" height="760" loading="lazy" alt="Postage stamp: city lights along the coast at night"></div><figcaption><b>stamp-coast-night</b><span>NASA ISS, public domain</span></figcaption></figure>
+      <figure><div class="tile postmark" id="postmark-slot"></div><figcaption><b>postmark.svg</b><span>currentColor</span></figcaption></figure>
+      <figure><div class="tile"><img src="extras/olive-sprig.svg" width="120" height="210" loading="lazy" alt="Olive sprig"></div><figcaption><b>olive-sprig.svg</b><span>section break</span></figcaption></figure>
+      <figure><div class="tile" style="padding:28px 56px"><div class="arch-demo" style="width:100%"></div></div><figcaption><b>arch-mask.svg</b><span>CSS mask for any image</span></figcaption></figure>
+      <figure><div class="tile shutter-svg" id="shutter-svg" style="padding:28px 64px;cursor:pointer" title="Click to open"></div><figcaption><b>shutters.svg</b><span>leaves animate (click)</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 8. INTERACTIVE ------------------------------------------------------- -->
+  <section id="s-interactive">
+    <div class="sec-head"><div class="eyebrow">07 · Interactive</div><h2>Rooftops, <em>live</em></h2>
+      <p>three.js, loaded only when this frame scrolls into view. A strictly symmetrical row of zinc mansards with a gouache post-process. It follows the page theme: the sun sinks, the moon lowers into the same place, windows light up.</p></div>
+    <div class="roofs" id="roofs"><canvas id="roofs-canvas" aria-label="Animated painting of Paris-style rooftops"></canvas></div>
+    <p class="note">Move the pointer for a level dolly. Poster stills ship for no-WebGL and first paint. <a href="interactive/rooftops-demo.html">Standalone demo</a></p>
+  </section>
+
+  <!-- 9. MOTION ------------------------------------------------------------ -->
+  <section id="s-motion">
+    <div class="sec-head"><div class="eyebrow">08 · Motion</div><h2>Precise, symmetrical, <em>deadpan</em></h2>
+      <p>Five named movements in motion.css / motion.js. The sunset switch is in the masthead, the arch opening is the hero, the caption card sits below it, the whip pan is in Products. Shutters:</p></div>
+    <div class="grid g2" style="align-items:center">
+      <div class="swap-frame" id="swap">
+        <img id="swap-img" src="hero/alley-day-1280.webp" width="1280" height="852" alt="Plate in the shutter demo">
+        <div class="m-shutters" id="shutters"></div>
+      </div>
+      <div style="text-align:center">
+        <h3 style="font-size:32px">Shutters</h3>
+        <p style="color:var(--ink-2);max-width:380px;margin:10px auto 20px">Leaves close from the edges and meet on the seam, hold one beat (240 ms), open on the next plate. 560 ms each way, cubic-bezier(.65, 0, .35, 1).</p>
+        <button class="btn" id="swap-btn" type="button">Next plate</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div id="mark-slot"></div>
+    <div>Albretsen AS · design 68 · see ASSETS.md for sources and licences</div>
+  </footer>
+</div>
+
+<script type="module">
+  import { content } from '../../_shared/content.js'
+  import { shutterSwap, sunsetSwitch, archOpen, captionCard, whipTo } from './motion.js'
+
+  // ?solo=s-products shows one section only (for review screenshots)
+  const solo = new URLSearchParams(location.search).get('solo')
+  if (solo) document.querySelectorAll('section').forEach((s) => { if (s.id !== solo) s.style.display = 'none' })
+
+  // inline the currentColor SVGs so they follow the theme
+  const inline = async (url, slot) => {
+    const t = await (await fetch(url)).text()
+    const el = document.getElementById(slot)
+    el.innerHTML = t
+    const s = el.querySelector('svg'); s.style.width = '100%'; s.style.height = 'auto'; s.style.display = 'block'
+    return s
+  }
+  inline('identity/lockup.svg', 'lockup-slot')
+  inline('identity/wordmark.svg', 'wordmark-slot')
+  inline('extras/postmark.svg', 'postmark-slot')
+  inline('extras/shutters.svg', 'shutter-svg')
+  inline('identity/mark-mono.svg', 'mark-slot').then((s) => { s.style.width = '44px'; s.style.margin = '0 auto 14px' })
+  document.getElementById('shutter-svg').addEventListener('click', (e) => e.currentTarget.classList.toggle('open'))
+
+  // palette
+  const P = [
+    ['Paper', '#F6EDE1', 'oklch(95.0% 0.019 75.3)', 'day ground'],
+    ['Palm black', '#211C24', 'oklch(23.6% 0.017 312.8)', 'ink, never pure black'],
+    ['Peach', '#EF9F7C', 'oklch(77.4% 0.107 44.4)', 'the sun, accents'],
+    ['Mauve', '#A0809E', 'oklch(64.0% 0.058 328.3)', 'shadow tint, dusk'],
+    ['Smog blue', '#7D93AD', 'oklch(65.5% 0.046 252.8)', 'sky, links at night'],
+    ['Dusk', '#221D2A', 'oklch(24.2% 0.025 302.1)', 'night ground'],
+    ['Moon', '#F4E7D6', 'oklch(93.4% 0.027 74.8)', 'night ink'],
+    ['Noon ochre', '#E2B25E', 'oklch(79.0% 0.116 79.8)', 'stone in sun, gilt'],
+    ['Shutter green', '#2F5A46', 'oklch(43.0% 0.059 162.4)', 'shutters, transitions'],
+    ['Terracotta', '#C9694B', 'oklch(62.6% 0.130 38.1)', 'roof tile, italic accent'],
+  ]
+  document.getElementById('swatches').innerHTML = P.map(([n, h, o, u]) =>
+    `<div class="sw"><i style="background:${h}"></i><b>${n}</b><span>${h} · ${u}</span><span>${o}</span></div>`).join('')
+
+  // products (facts from the shared content file)
+  const live = ['mcp-emails', 'fun-libs', 'toolrails', 'harbor']
+  const byId = Object.fromEntries(content.products.map((p) => [p.id, p]))
+  const pic = (id, w, lazy = true) => `<picture><source type="image/avif" srcset="products/${id}-600.avif 600w, products/${id}-1200.avif 1200w" sizes="(min-width: 900px) 25vw, 50vw"><source type="image/webp" srcset="products/${id}-600.webp 600w, products/${id}-1200.webp 1200w" sizes="(min-width: 900px) 25vw, 50vw"><img src="products/${id}-600.jpg" width="1200" height="1500" ${lazy ? 'loading="lazy"' : ''} alt="${byId[id].name}, its real logo on a painted façade"></picture>`
+  document.getElementById('plates').innerHTML = live.map((id) => {
+    const p = byId[id]
+    return `<figure class="plate">${pic(id)}<figcaption><h3>${p.name}</h3><p>${p.line}</p><p><span class="fig">${p.figure.value}</span> ${p.figure.label} · ${p.status}</p></figcaption></figure>`
+  }).join('')
+  const track = document.getElementById('whip')
+  track.innerHTML = live.map((id) => `<div>${pic(id)}</div>`).join('')
+  const ctrl = document.getElementById('whip-ctrl')
+  ctrl.innerHTML = live.map((id, i) => `<button class="btn" type="button" data-i="${i}" aria-current="${i === 0}">${byId[id].name}</button>`).join('')
+  ctrl.addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return
+    ctrl.querySelectorAll('button').forEach((x) => x.setAttribute('aria-current', String(x === b)))
+    whipTo(track, +b.dataset.i)
+  })
+
+  // theme: the sunset switch drives the whole page (and the rooftops)
+  let roofs = null
+  const setTheme = (t) => { document.documentElement.dataset.theme = t; roofs?.setTheme(t) }
+  sunsetSwitch(document.getElementById('sunset'), setTheme, { horizon: 0.42 })
+  if (new URLSearchParams(location.search).get('theme') === 'night') {
+    document.documentElement.dataset.theme = 'night'
+    document.getElementById('sunset').setAttribute('aria-pressed', 'true')
+  }
+
+  archOpen(document.getElementById('arch'))
+  const replay = captionCard(document.getElementById('caption'))
+  document.getElementById('replay').onclick = replay
+
+  // shutters demo
+  const plates = ['hero/alley-day-1280.webp', 'products/mcp-emails-1200.webp', 'hero/terrace-day-1280.webp', 'products/fun-libs-1200.webp']
+  let k = 0
+  document.getElementById('swap-btn').onclick = () => shutterSwap(document.getElementById('shutters'), () => {
+    k = (k + 1) % plates.length
+    const img = document.getElementById('swap-img'); img.src = plates[k]
+    return img.decode().catch(() => {})
+  })
+
+  // lazy three.js
+  const canvas = document.getElementById('roofs-canvas')
+  const io = new IntersectionObserver(async ([e]) => {
+    if (!e.isIntersecting) return
+    io.disconnect()
+    if (new URLSearchParams(location.search).has('poster')) return // stills only (for screenshots)
+    try {
+      const { mountRooftops } = await import('./interactive/rooftops.js')
+      roofs = await mountRooftops(canvas, { theme: document.documentElement.dataset.theme })
+    } catch (err) { canvas.remove() }
+  }, { rootMargin: '200px' })
+  io.observe(canvas)
+</script>
+</body>
+</html>

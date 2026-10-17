@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OG source</title>
+<style>
+  @font-face { font-family: 'Albert Sans'; src: url('../fonts/albert-sans-var.woff2') format('woff2'); font-weight: 100 900; }
+  @font-face { font-family: 'DM Mono'; src: url('../fonts/dm-mono-300.woff2') format('woff2'); font-weight: 300; }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  .og { position: relative; width: 1200px; height: 630px; background: #2A2D4F url('../hero/cliffs-1600.jpg') center 38% / cover; }
+  .og::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(42,45,79,.0) 40%, rgba(42,45,79,.0)), linear-gradient(180deg, rgba(42,45,79,0) 55%, rgba(42,45,79,.38)); }
+  .wm { position: absolute; left: 64px; top: 56px; width: 360px; z-index: 1; }
+  .line { position: absolute; left: 64px; bottom: 64px; z-index: 1; font: 250 54px/1.06 'Albert Sans', sans-serif; letter-spacing: -.01em; color: #FBF8F4; max-width: 640px; }
+  .meta { position: absolute; right: 64px; bottom: 70px; z-index: 1; font: 300 15px 'DM Mono', monospace; letter-spacing: .12em; color: #FFE3C4; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="og">
+  <img class="wm" src="wordmark-light.svg" alt="Albretsen AS">
+  <div class="line">I build software that pays for itself.</div>
+  <div class="meta">albretsen.no</div>
+</div>
+</body>
+</html>

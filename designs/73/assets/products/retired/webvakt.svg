@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 84" width="120" height="84" role="img" aria-label="WebVakt (retired)">
+  <title>WebVakt</title>
+  <rect x="1.5" y="1.5" width="117" height="81" rx="16" fill="#9e3b2e"/>
+  <rect x="6" y="6" width="108" height="72" rx="12" fill="none" stroke="#fbf5ec" stroke-width="1.6" opacity=".9"/>
+  <circle cx="14" cy="42" r="2" fill="#fbf5ec" opacity=".8"/><circle cx="106" cy="42" r="2" fill="#fbf5ec" opacity=".8"/>
+  <rect x="36" y="24" width="48" height="34" rx="5" fill="none" stroke="#fbf5ec" stroke-width="3.2"/><path d="M36 32h48" stroke="#fbf5ec" stroke-width="3.2"/><path d="M46 46c4-5 9-7.5 14-7.5s10 2.5 14 7.5c-4 5-9 7.5-14 7.5s-10-2.5-14-7.5z" fill="#fbf5ec"/><circle cx="60" cy="46" r="3.2" fill="#9e3b2e"/>
+</svg>

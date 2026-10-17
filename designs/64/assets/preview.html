@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heure Bleue Kit</title>
+<meta name="description" content="Asset kit for Albretsen AS, design 64: Heure Bleue.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="stylesheet" href="motion.css">
+<script>try { const t = new URLSearchParams(location.search).get('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+  @font-face { font-family: 'Federo'; src: url(fonts/federo-latin.woff2) format('woff2'); font-display: swap; }
+  @font-face { font-family: 'Poiret One'; src: url(fonts/poiret-one-latin.woff2) format('woff2'); font-display: swap; }
+  @font-face { font-family: 'Instrument Sans'; src: url(fonts/instrument-sans-latin.woff2) format('woff2'); font-weight: 400 700; font-display: swap; }
+  @font-face { font-family: 'Instrument Sans'; font-style: italic; src: url(fonts/instrument-sans-italic-latin.woff2) format('woff2'); font-weight: 400 700; font-display: swap; }
+  :root {
+    --ink: #232c57; --dusk: #7a78b2; --powder: #a9c6e0; --pink: #f2b5b8; --bougainvillea: #d23f7c;
+    --mustard: #d9a42b; --lamplight: #ffd27a; --burgundy: #6e1f33; --terracotta: #c9735a;
+    --plaster: #f4eadb; --zinc: #8d9bb4; --cypress: #3c5a50;
+    --bg: var(--plaster); --fg: var(--ink); --muted: #5a5f80; --rule: #d9cbb6; --card: #fbf6ee;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #1b2148; --fg: #f4eadb; --muted: #b9bcd6; --rule: #3a4275; --card: #232c57; } }
+  :root[data-theme="dark"] { --bg: #1b2148; --fg: #f4eadb; --muted: #b9bcd6; --rule: #3a4275; --card: #232c57; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg) url(extras/paper-grain.webp); background-blend-mode: multiply; color: var(--fg);
+         font: 16px/1.6 'Instrument Sans', system-ui, sans-serif; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body { background-blend-mode: normal; background-image: none; } }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+  header.top { padding: 40px 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--rule); }
+  header.top img { height: 46px; width: auto; max-width: 100%; }
+  header.top p { margin: 0; color: var(--muted); font-size: 14px; }
+  h2 { font: 400 13px/1 'Federo', serif; letter-spacing: .28em; text-transform: uppercase; margin: 72px 0 8px; color: var(--burgundy); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) h2 { color: var(--pink); } }
+  :root[data-theme="dark"] h2 { color: var(--pink); }
+  h2 + p.lede { margin: 0 0 24px; color: var(--muted); max-width: 66ch; }
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .g7 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  figure { margin: 0; }
+  figure img, figure picture, figure canvas { display: block; width: 100%; height: auto; }
+  figcaption { font-size: 13px; color: var(--muted); padding-top: 8px; line-height: 1.45; }
+  figcaption code { font-size: 12px; }
+  code { font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
+  .card { background: var(--card); border: 1px solid var(--rule); padding: 16px; }
+  .chk { background: repeating-conic-gradient(#e7dccb 0 25%, #f6efe4 0 50%) 0 0 / 20px 20px; }
+  /* hero */
+  .hero { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--ink); }
+  .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero .wm { position: absolute; left: 0; right: 0; top: 12%; text-align: center; font: 400 clamp(32px, 9vw, 120px)/1 'Federo'; letter-spacing: .16em; padding-left: .16em; color: #fbf3e6; mix-blend-mode: soft-light; }
+  /* palette */
+  .sw { border: 1px solid var(--rule); background: var(--card); }
+  .sw div { height: 92px; }
+  .sw p { margin: 0; padding: 10px 12px 12px; font-size: 12.5px; line-height: 1.45; }
+  .sw b { font: 400 14px 'Federo'; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+  /* type */
+  .type .disp { font: 400 clamp(40px, 8vw, 96px)/1.02 'Federo'; letter-spacing: .14em; margin: 0; }
+  .type .fig { font: 400 clamp(56px, 11vw, 140px)/1 'Poiret One'; margin: 0; letter-spacing: .02em; }
+  .type .h { font: 400 clamp(26px, 4vw, 40px)/1.15 'Federo'; letter-spacing: .06em; margin: 0; }
+  .type .body { max-width: 62ch; font-size: 17px; }
+  .type .label { font: 400 12px/1 'Federo'; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+  .type .row { display: grid; grid-template-columns: 160px 1fr; gap: 16px; padding: 22px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+  @media (max-width: 640px) { .type .row { grid-template-columns: 1fr; gap: 6px; } }
+  /* 3d */
+  .live { position: relative; aspect-ratio: 16 / 9; background: var(--ink) center / cover; overflow: hidden; }
+  .live canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .live .hint { position: absolute; transform: translate(-50%, calc(-100% - 26px)); color: #fbf3e6; font: 11px/1 'Federo'; letter-spacing: .24em; pointer-events: none; white-space: nowrap; }
+  .live .hint::after { content: ''; display: block; width: 1px; height: 14px; margin: 7px auto 0; background: currentColor; }
+  .live .btn { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .btn { font: 400 12px/1 'Federo'; letter-spacing: .24em; text-transform: uppercase; background: var(--plaster); color: var(--ink); border: 0; padding: 14px 20px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--fg); border: 1px solid currentColor; }
+  /* motion demos */
+  .demo { position: relative; min-height: 260px; overflow: hidden; display: grid; place-items: center; }
+  .windows { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; width: min(100%, 360px); padding: 22px; background: #e8dccb; }
+  .windows .hb-window { aspect-ratio: 3 / 5; border-radius: 60px 60px 2px 2px / 40px 40px 2px 2px; }
+  .hazeband { width: 100%; aspect-ratio: 1920 / 300; background: url(hero/hero-blue-hour-1920.webp) 50% 47% / 100% auto; }
+  .dusk-box { height: 260px; display: grid; place-items: center; color: #fbf3e6; font: 400 28px 'Federo'; letter-spacing: .2em; }
+  .row-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; border-top: 1px solid var(--rule); padding: 8px 8px 8px 0; vertical-align: top; }
+  .tablewrap { overflow-x: auto; }
+  footer { margin: 80px 0 40px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; }
+  a { color: inherit; }
+  .lk-dark { display: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .lk-dark { display: inline; } :root:not([data-theme="light"]) .lk-light { display: none; } }
+  :root[data-theme="dark"] .lk-dark { display: inline; } :root[data-theme="dark"] .lk-light { display: none; }
+  .icons img { width: auto !important; }
+  .paper { background: #f4eadb !important; color: #232c57; }
+  .paper figcaption { color: #5a5f80; }
+  img.stamp { filter: drop-shadow(0 2px 3px rgb(35 44 87 / .2)); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span><img class="lk-light" src="identity/lockup.svg" width="917" height="82" alt="Albretsen AS"><img class="lk-dark" src="identity/lockup-plaster.svg" width="917" height="82" alt="Albretsen AS"></span>
+    <p>Design 64 · <b>Heure Bleue</b> · asset kit</p>
+  </header>
+
+  <h2>Hero</h2>
+  <p class="lede">A terrace above a shelf of zinc mansard roofs; whitewashed houses step down to a bay; the sun has just touched the water. Built from three.js primitives with one family of poster shaders, baked to stills and kept live. Blue hour is the resting state.</p>
+  <div class="hero">
+    <picture>
+      <source type="image/avif" srcset="hero/hero-blue-hour-1280.avif 1280w, hero/hero-blue-hour-1920.avif 1920w, hero/hero-blue-hour-2560.avif 2560w" sizes="(min-width: 1240px) 1208px, 100vw">
+      <source type="image/webp" srcset="hero/hero-blue-hour-1280.webp 1280w, hero/hero-blue-hour-1920.webp 1920w, hero/hero-blue-hour-2560.webp 2560w" sizes="(min-width: 1240px) 1208px, 100vw">
+      <img src="hero/hero-blue-hour-1920.jpg" width="1920" height="1080" alt="Blue hour over rooftops, white houses and a bay, the sun on the horizon" fetchpriority="high">
+    </picture>
+    <div class="wm">ALBRETSEN</div>
+  </div>
+  <figcaption>hero/hero-blue-hour-{768,1280,1920,2560}.{avif,webp,jpg} · sun −1.6° · 2560 AVIF 80 KB</figcaption>
+
+  <div class="grid g2" style="margin-top:16px">
+    <figure>
+      <picture>
+        <source type="image/avif" srcset="hero/hero-golden-1280.avif 1280w, hero/hero-golden-1920.avif 1920w" sizes="(min-width: 1000px) 600px, 100vw">
+        <img src="hero/hero-golden-1280.webp" width="1280" height="720" alt="The same view in golden hour, sun high over the bay" loading="lazy">
+      </picture>
+      <figcaption>hero-golden · sun +6.6° · the state after someone drags the sun up</figcaption>
+    </figure>
+    <figure>
+      <picture>
+        <source type="image/avif" srcset="hero/hero-lamplight-1280.avif 1280w, hero/hero-lamplight-1920.avif 1920w" sizes="(min-width: 1000px) 600px, 100vw">
+        <img src="hero/hero-lamplight-1280.webp" width="1280" height="720" alt="Late blue hour, nearly every window in the town lit" loading="lazy">
+      </picture>
+      <figcaption>hero-lamplight · sun −6.6° · every window on; for the footer or a "late" section</figcaption>
+    </figure>
+  </div>
+  <div class="grid g4" style="margin-top:16px">
+    <figure>
+      <picture>
+        <source type="image/avif" srcset="hero/hero-blue-hour-tall-720.avif 720w, hero/hero-blue-hour-tall-1080.avif 1080w" sizes="300px">
+        <img src="hero/hero-blue-hour-tall-720.webp" width="720" height="1280" alt="Portrait framing of the blue hour view for phones" loading="lazy">
+      </picture>
+      <figcaption>hero-blue-hour-tall · own camera for phones, not a crop</figcaption>
+    </figure>
+    <figure>
+      <picture>
+        <source type="image/avif" srcset="photo/dome-golden-960.avif 960w, photo/dome-golden-1600.avif 1600w" sizes="300px">
+        <img src="photo/dome-golden-960.webp" width="960" height="794" alt="A slate dome with a gilded figure, graded in burgundy and gold" loading="lazy">
+      </picture>
+      <figcaption>photo/dome-golden · Wikimedia Commons, public domain, graded</figcaption>
+    </figure>
+    <figure>
+      <picture>
+        <source type="image/avif" srcset="photo/whitewashed-street-blue-960.avif 960w, photo/whitewashed-street-blue-1600.avif 1600w" sizes="300px">
+        <img src="photo/whitewashed-street-blue-960.webp" width="960" height="1280" alt="A whitewashed street with bougainvillea, graded into blue-hour lavender" loading="lazy">
+      </picture>
+      <figcaption>photo/whitewashed-street-blue · Wikimedia Commons, CC0, graded</figcaption>
+    </figure>
+    <figure class="card" style="display:grid;place-items:center">
+      <img src="extras/bougainvillea-sprig.svg" width="320" height="480" alt="Bougainvillea cut-out" class="hb-sway" style="width:70%;--hb-sway-amp:2deg" loading="lazy">
+      <figcaption>extras/bougainvillea-sprig.svg · swaying with <code>.hb-sway</code></figcaption>
+    </figure>
+  </div>
+
+  <h2>Live scene: drag the sun</h2>
+  <p class="lede"><code>3d/heure-bleue.js</code> exports <code>createHeureBleue(canvas, { time })</code>. Grab the sun and pull it up or down: the sky bands, sea glitter, light on the walls and the town's windows all follow; it drifts back to blue hour six seconds after you let go. Loads only on click here; on a site, load it after first paint over the still.</p>
+  <div class="live" id="live" style="background-image:url(hero/hero-blue-hour-1280.webp)">
+    <button class="btn" id="liveBtn">Load the live scene</button>
+    <div class="hint" id="liveHint" hidden>DRAG THE SUN</div>
+  </div>
+  <figcaption>three.js r170 (vendored, MIT) · pauses when off-screen · <a href="3d/demo.html">full-screen demo</a></figcaption>
+
+  <h2>Products in the world</h2>
+  <p class="lede">Each product's real logo, unchanged, set into the town: an enamel plaque on a letterbox, a tent card on a terrace table, the centre tile of a painted panel, a sign in a lit dormer. SVG with the logo embedded, plus 600/1200 px WebP and AVIF.</p>
+  <div class="grid g4">
+    <figure><img src="products/mcp-emails-600.webp" srcset="products/mcp-emails-600.webp 600w, products/mcp-emails-1200.webp 1200w" sizes="300px" width="600" height="750" alt="MCP Emails plaque on a burgundy letterbox" loading="lazy"><figcaption>products/mcp-emails · letterbox under a lantern</figcaption></figure>
+    <figure><img src="products/fun-libs-600.webp" srcset="products/fun-libs-600.webp 600w, products/fun-libs-1200.webp 1200w" sizes="300px" width="600" height="750" alt="Fun Libs icon on a tent card on a terrace table" loading="lazy"><figcaption>products/fun-libs · terrace table, golden hour</figcaption></figure>
+    <figure><img src="products/toolrails-600.webp" srcset="products/toolrails-600.webp 600w, products/toolrails-1200.webp 1200w" sizes="300px" width="600" height="750" alt="Toolrails icon as the centre tile of a painted panel" loading="lazy"><figcaption>products/toolrails · tile panel, raking light</figcaption></figure>
+    <figure><img src="products/harbor-600.webp" srcset="products/harbor-600.webp 600w, products/harbor-1200.webp 1200w" sizes="300px" width="600" height="750" alt="Harbor mark in a lit dormer window on a zinc roof" loading="lazy"><figcaption>products/harbor · lit dormer, night</figcaption></figure>
+  </div>
+  <h2>Retired products: stamps</h2>
+  <p class="lede">Small stand-ins for products without surviving brand assets (Luma uses its real wordmark). Perforated, 240 × 300.</p>
+  <div class="grid g7">
+    <figure><img class="stamp" src="products/stamps/luma.svg" width="240" height="300" alt="Luma stamp" loading="lazy"></figure>
+    <figure><img class="stamp" src="products/stamps/polyglot-pilot.svg" width="240" height="300" alt="Polyglot Pilot stamp" loading="lazy"></figure>
+    <figure><img class="stamp" src="products/stamps/pinpoint.svg" width="240" height="300" alt="PinPoint stamp" loading="lazy"></figure>
+    <figure><img class="stamp" src="products/stamps/webvakt.svg" width="240" height="300" alt="WebVakt stamp" loading="lazy"></figure>
+    <figure><img class="stamp" src="products/stamps/joke-central.svg" width="240" height="300" alt="Joke Central stamp" loading="lazy"></figure>
+    <figure><img class="stamp" src="products/stamps/tryggere-hyring.svg" width="240" height="300" alt="Tryggere Hyring stamp" loading="lazy"></figure>
+    <figure><img class="stamp" src="products/stamps/early-apps.svg" width="240" height="300" alt="Early apps stamp" loading="lazy"></figure>
+  </div>
+
+  <h2>Identity</h2>
+  <p class="lede">The mark is an arched window at blue hour: night above, a lavender and a pink band, the sun on the line, its reflection in three bars. It works from a 16 px tab to a terrace sign.</p>
+  <div class="grid g4">
+    <figure class="card" style="display:grid;place-items:center"><img src="identity/mark.svg" width="64" height="64" alt="Mark" style="width:160px"><figcaption>identity/mark.svg</figcaption></figure>
+    <figure class="card" style="display:grid;place-items:center;color:var(--fg)"><div id="mono" style="width:160px;height:160px;color:var(--burgundy)" role="img" aria-label="Mono mark"></div><figcaption>identity/mark-mono.svg (currentColor when inlined)</figcaption></figure>
+    <figure class="card" style="display:grid;place-items:center;gap:12px">
+      <div class="icons" style="display:flex;gap:18px;align-items:end"><img src="identity/favicon.svg" width="16" height="18" alt="Favicon 16"><img src="identity/favicon.svg" width="32" height="36" alt="Favicon 32"><img src="identity/apple-touch-icon-180.png" width="90" height="90" alt="Apple touch icon"></div>
+      <figcaption>favicon.svg · favicon-32.png · apple-touch-icon-180.png</figcaption></figure>
+    <figure class="card" style="display:grid;place-items:center;background:var(--ink)"><img src="identity/wordmark-plaster.svg" width="670" height="78" alt="Wordmark, light" style="width:90%"><figcaption style="color:#c8cbe0">identity/wordmark(-plaster).svg · Federo, outlined</figcaption></figure>
+  </div>
+  <figure style="margin-top:16px"><img src="identity/og-image.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy"><figcaption>identity/og-image.jpg · 1200 × 630 · regenerate from og-source.html</figcaption></figure>
+
+  <h2>Palette</h2>
+  <p class="lede">Anderson pastels lit at blue hour. Ink and plaster carry the page; pink, powder and mustard are the light; burgundy is the accent and the hand-painted sign colour.</p>
+  <div class="grid g4" id="palette"></div>
+
+  <h2>Type</h2>
+  <div class="type">
+    <div class="row"><span class="label">Display · Federo</span><p class="disp">ALBRETSEN</p></div>
+    <div class="row"><span class="label">Heading · Federo</span><p class="h">Quiet software that pays for itself</p></div>
+    <div class="row"><span class="label">Figures · Poiret One</span><p class="fig">113,000+</p></div>
+    <div class="row"><span class="label">Text · Instrument Sans</span><p class="body">MCP Emails gives AI agents their own email: 17 tools, about 100 email providers, open source under the AGPL. Fun Libs is a fill-in-the-blanks word game, built at 17, with more than 113,000 installs and no marketing. <i>Takes one outside engagement at a time.</i></p></div>
+    <div class="row"><span class="label">Label · Federo caps</span><p class="label" style="margin:0">Live · since 2026 · $782 MRR</p></div>
+  </div>
+
+  <h2>Extras</h2>
+  <div class="grid g3">
+    <figure class="card paper"><img src="extras/postmark.svg" width="500" height="300" alt="Postmark" loading="lazy"><figcaption>extras/postmark.svg · for the footer or a dated post</figcaption></figure>
+    <figure class="card paper"><img src="extras/ticket-mcp.svg" width="588" height="188" alt="Ticket stub with MCP command" loading="lazy"><figcaption>extras/ticket-mcp.svg · the MCP command as a ticket stub</figcaption></figure>
+    <figure class="card paper" style="display:grid;align-content:center"><img src="extras/divider-sunset.svg" width="600" height="64" alt="Sunset divider" loading="lazy"><figcaption>extras/divider-sunset.svg · section divider</figcaption></figure>
+    <figure class="card"><div style="height:62px;background:url(extras/awning.svg) repeat-x 0 0 / 80px 62px" class="hb-sway" role="img" aria-label="Awning"></div><figcaption>extras/awning.svg · repeat-x; sways</figcaption></figure>
+    <figure class="card"><div style="height:120px;background:url(extras/terrace-tile.svg) 0 0 / 48px 48px" role="img" aria-label="Terrace tiles"></div><figcaption>extras/terrace-tile.svg · repeat</figcaption></figure>
+    <figure class="card"><div style="height:120px;background:#f4eadb url(extras/paper-grain.webp);background-blend-mode:multiply" role="img" aria-label="Paper grain"></div><figcaption>extras/paper-grain.webp · 512 px tile, multiply</figcaption></figure>
+  </div>
+
+  <h2>Motion study</h2>
+  <p class="lede"><code>motion.css</code> + <code>motion.js</code>. Six named signatures, all slow and small, all off under reduced motion.</p>
+  <div class="grid g2">
+    <figure class="card">
+      <div class="demo" style="min-height:0"><div class="hazeband hb-haze" role="img" aria-label="Horizon with heat haze"></div></div>
+      <figcaption><b>hb-haze · Heat haze.</b> Fractal noise, stretched sideways, displaces the horizon by a few pixels while its frequency drifts. Reference: the heat-haze mode of Framer's svgmelt distort component; MDN feTurbulence / feDisplacementMap.</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="demo"><div style="display:flex;gap:28px;align-items:flex-start">
+        <img class="hb-sway" style="--i:0;width:90px" src="extras/bougainvillea-sprig.svg" width="320" height="480" alt="">
+        <img class="hb-sway" style="--i:1;width:70px;--hb-sway-amp:1.8deg" src="extras/bougainvillea-sprig.svg" width="320" height="480" alt="">
+        <img class="hb-sway" style="--i:2;width:110px;--hb-sway-amp:.8deg" src="extras/bougainvillea-sprig.svg" width="320" height="480" alt="">
+      </div></div>
+      <figcaption><b>hb-sway · Sea breeze.</b> A degree of lean pivoting from the top, out of phase per item. Reference: the slow ambient loops on kinfolk.com and Cursor's painted wallpaper scenes, which move just enough to feel alive.</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="hb-shutters" id="shut" style="--hb-shutter-col:#f4eadb"><img src="products/toolrails-600.webp" width="600" height="750" alt="" style="display:block;width:100%;height:auto;max-height:320px;object-fit:cover"></div>
+      <div class="row-btns"><button class="btn ghost" id="shutBtn">Replay</button></div>
+      <figcaption><b>hb-shutters · Louvre reveal.</b> Plaster slats thin to nothing (an animated <code>@property</code> length in a repeating gradient, no JS per frame). Reference: Codrops' blinds-style image reveals.</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="demo" style="min-height:200px"><p class="hb-settle" id="settle" style="font:400 clamp(30px,5vw,54px)/1 Federo;margin:0;--hb-track-to:.16">ALBRETSEN</p></div>
+      <div class="row-btns"><button class="btn ghost" id="settleBtn">Replay</button></div>
+      <figcaption><b>hb-settle · Tracking settle.</b> Deco caps arrive wide and tighten to their set spacing over 1.6 s. Reference: the restrained display-type entrances on kinfolk.com.</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="demo" data-lights id="lights"><div class="windows">
+        <i class="hb-window" style="--i:3"></i><i class="hb-window" style="--i:7"></i><i class="hb-window" style="--i:1"></i><i class="hb-window" style="--i:10"></i><i class="hb-window" style="--i:5"></i><i class="hb-window" style="--i:0"></i>
+        <i class="hb-window" style="--i:8"></i><i class="hb-window" style="--i:2"></i><i class="hb-window" style="--i:11"></i><i class="hb-window" style="--i:4"></i><i class="hb-window" style="--i:9"></i><i class="hb-window" style="--i:6"></i>
+      </div></div>
+      <div class="row-btns"><button class="btn ghost" id="lightsBtn">Toggle hour</button></div>
+      <figcaption><b>hb-lights · Lights on.</b> When a section reaches blue hour the windows warm up in a scattered order, like a town at dusk (the same idea drives the 3D windows). Reference: demosthenes.info's CSS/SVG day-night cycle.</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="dusk-box hb-dusk">DUSK</div>
+      <figcaption><b>hb-dusk · Dusk scroll.</b> A section's sky walks from golden to blue hour as it scrolls through (CSS scroll-driven animation; static gradient where unsupported).</figcaption>
+    </figure>
+  </div>
+
+  <h2>Files</h2>
+  <p class="lede">Full inventory, sources and licences in <a href="ASSETS.md">ASSETS.md</a>.</p>
+
+  <footer>Albretsen AS · design 64 · Heure Bleue · <a href="3d/demo.html">drag the sun</a></footer>
+</div>
+
+<script type="module">
+  import { initMotion } from './motion.js';
+  initMotion();
+  const pal = [
+    ['Ink', '#232c57', 'oklch(30.9% 0.078 272.2)', 'Text, night sky'],
+    ['Dusk', '#7a78b2', 'oklch(59.8% 0.088 285.0)', 'Blue-hour mid sky'],
+    ['Powder', '#a9c6e0', 'oklch(81.4% 0.048 245.5)', 'Sea, shutters'],
+    ['Pink', '#f2b5b8', 'oklch(83.0% 0.071 15.4)', 'Afterglow, awnings'],
+    ['Bougainvillea', '#d23f7c', 'oklch(59.7% 0.190 359.3)', 'Flowers only, sparingly'],
+    ['Mustard', '#d9a42b', 'oklch(74.9% 0.142 82.9)', 'Sun, frames, brass'],
+    ['Lamplight', '#ffd27a', 'oklch(88.5% 0.118 82.9)', 'Lit windows, focus'],
+    ['Burgundy', '#6e1f33', 'oklch(37.1% 0.112 9.3)', 'Accent, sign-paint'],
+    ['Terracotta', '#c9735a', 'oklch(64.5% 0.115 37.0)', 'Roof tiles, pots'],
+    ['Plaster', '#f4eadb', 'oklch(94.1% 0.023 78.2)', 'Page background'],
+    ['Zinc', '#8d9bb4', 'oklch(68.7% 0.040 262.1)', 'Mansard roofs, rules'],
+    ['Cypress', '#3c5a50', 'oklch(44.1% 0.039 171.6)', 'Trees, success'],
+  ];
+  document.getElementById('palette').innerHTML = pal.map(([n, h, o, u]) =>
+    `<div class="sw"><div style="background:${h}"></div><p><b>${n}</b>${h}<br>${o}<br><span style="opacity:.75">${u}</span></p></div>`).join('');
+
+  fetch('identity/mark-mono.svg').then((r) => r.text()).then((t) => { const m = document.getElementById('mono'); m.innerHTML = t; const s = m.querySelector('svg'); s.setAttribute('width', '160'); s.setAttribute('height', '160'); });
+  const shut = document.getElementById('shut');
+  document.getElementById('shutBtn').onclick = () => { shut.classList.remove('is-open'); void shut.offsetWidth; requestAnimationFrame(() => shut.classList.add('is-open')); };
+  const settle = document.getElementById('settle');
+  document.getElementById('settleBtn').onclick = () => { settle.classList.remove('is-in'); void settle.offsetWidth; requestAnimationFrame(() => settle.classList.add('is-in')); };
+  const lights = document.getElementById('lights');
+  document.getElementById('lightsBtn').onclick = () => { lights.dataset.hour = lights.dataset.hour === 'blue' ? 'day' : 'blue'; };
+
+  const live = document.getElementById('live'), btn = document.getElementById('liveBtn'), hint = document.getElementById('liveHint');
+  const boot = async () => {
+    btn.remove();
+    const { createHeureBleue } = await import('./3d/heure-bleue.js');
+    const c = document.createElement('canvas'); live.prepend(c);
+    const REST = 0.245; let back;
+    const s = createHeureBleue(c, { time: REST });
+    hint.hidden = false;
+    s.onTime = () => { clearTimeout(back); back = setTimeout(() => s.setTime(REST), 6000); hint.style.opacity = 0; };
+    s.onFrame = () => { const p = s.sunScreen(); hint.style.left = p.x + 'px'; hint.style.top = p.y + 'px'; };
+  };
+  btn.onclick = boot;
+  if (new URLSearchParams(location.search).has('live')) boot();
+</script>
+</body>
+</html>

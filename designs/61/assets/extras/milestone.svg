@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150" width="120" height="150" role="img" aria-label="Road milestone 2016">
+  <title>Roadside milestone (timeline marker). Edit the year text; the cap colour can be swapped per product.</title>
+  <ellipse cx="60" cy="143" rx="48" ry="5" fill="#6E2233" opacity=".14"/>
+  <path d="M18 142 V58 A42 42 0 0 1 102 58 V142 Z" fill="#FBF3E6" stroke="#6E2233" stroke-width="2"/>
+  <path d="M18 58 A42 42 0 0 1 102 58 V64 H18 Z" fill="#E8959A" stroke="#6E2233" stroke-width="2"/>
+  <path d="M26 64 V134 H94 V64" fill="none" stroke="#6E2233" stroke-width=".8"/>
+  <text x="60" y="48" text-anchor="middle" font-family="Jost, Futura, sans-serif" font-size="9" letter-spacing="2.6" fill="#6E2233">KM</text>
+  <text x="60" y="104" text-anchor="middle" font-family="'EB Garamond', Georgia, serif" font-size="30" font-weight="500" fill="#6E2233">2016</text>
+  <text x="60" y="124" text-anchor="middle" font-family="'EB Garamond', Georgia, serif" font-style="italic" font-size="12" fill="#6E2233">first app</text>
+</svg>

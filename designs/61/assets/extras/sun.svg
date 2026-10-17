@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Sun">
+  <title>Sun disc with halo rings (for the day cycle; animate translate along an arc)</title>
+  <circle cx="100" cy="100" r="98" fill="#FFE7C2" opacity=".35"/>
+  <circle cx="100" cy="100" r="78" fill="#FFDDA6" opacity=".45"/>
+  <circle cx="100" cy="100" r="58" fill="#F6C35E" opacity=".55"/>
+  <circle cx="100" cy="100" r="40" fill="#E9A93A"/>
+  <circle cx="100" cy="100" r="40" fill="none" stroke="#6E2233" stroke-width="1.2" opacity=".5"/>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 84" width="120" height="84" role="img" aria-label="Polyglot Pilot (retired)">
+  <title>Polyglot Pilot</title>
+  <rect x="1.5" y="1.5" width="117" height="81" rx="16" fill="#7e8fb0"/>
+  <rect x="6" y="6" width="108" height="72" rx="12" fill="none" stroke="#fbf5ec" stroke-width="1.6" opacity=".9"/>
+  <circle cx="14" cy="42" r="2" fill="#fbf5ec" opacity=".8"/><circle cx="106" cy="42" r="2" fill="#fbf5ec" opacity=".8"/>
+  <path d="M36 26h22a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6h-9l-7 6v-6h-6a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6z" fill="none" stroke="#fbf5ec" stroke-width="3.2" stroke-linejoin="round"/><path d="M62 34h22a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6h-6v6l-7-6h-9a6 6 0 0 1-6-6V40a6 6 0 0 1 6-6z" fill="#fbf5ec"/>
+</svg>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>The Room</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+@font-face{font-family:"Bodoni Moda";src:url(../fonts/bodoni-moda-italic.woff2) format("woff2");font-weight:400 900;font-style:italic}
+@font-face{font-family:"Instrument Sans";src:url(../fonts/instrument-sans.woff2) format("woff2");font-weight:400 700}
+:root{--ink:#1d2226;--snow:#f1efe9}
+html,body{margin:0;height:100%;background:#dfe2df;color:var(--ink);font-family:"Instrument Sans",system-ui,sans-serif;overflow:hidden}
+.poster{position:absolute;inset:0;background:url(../img/hero-evening-1280.jpg) center/cover;transition:opacity 1.2s}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ui{position:absolute;left:16px;right:16px;bottom:16px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:center;
+  padding:12px 18px;border-radius:999px;background:rgba(241,239,233,.78);backdrop-filter:blur(10px);width:max-content;max-width:calc(100% - 32px);margin:0 auto;box-sizing:border-box}
+label{display:flex;gap:10px;align-items:center;font:600 11px/1 "Instrument Sans";letter-spacing:.18em;text-transform:uppercase}
+input[type=range]{width:min(200px,36vw);accent-color:#5c6266}
+.clock{font:italic 400 20px "Bodoni Moda";min-width:3.2em;text-align:right}
+.hint{position:absolute;top:14px;left:0;right:0;text-align:center;font:italic 400 17px "Bodoni Moda";color:var(--snow);text-shadow:0 1px 8px rgba(0,0,0,.35)}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+</head><body>
+<div class="poster" id="poster"></div>
+<canvas id="c" aria-label="A sunlit room with an arched window open onto a fjord"></canvas>
+<p class="hint">Drag the day. Walk to the window.</p>
+<div class="ui">
+  <label>Day <input id="time" type="range" min="0" max="1" step="0.001" value="0.88"></label>
+  <span class="clock" id="clock">19:10</span>
+  <label>Walk <input id="walk" type="range" min="0" max="1" step="0.001" value="0"></label>
+</div>
+<script type="module">
+// Live version of the room. The baked hero stays visible until the first frame renders.
+import { createRoom } from './room.js'
+const $ = (id) => document.getElementById(id)
+const room = await createRoom($('c'), { quality: 'live' })
+const fit = () => { room.resize($('c').clientWidth, $('c').clientHeight); shown = { time: -1, walk: -1 } }
+addEventListener('resize', fit); fit()
+const q = new URLSearchParams(location.search)
+var shown = { time: -1, walk: -1 }; let time = +(q.get('time') ?? $('time').value), walk = +(q.get('walk') ?? 0)
+$('time').value = time; $('walk').value = walk
+$('time').oninput = (e) => { time = +e.target.value }
+$('walk').oninput = (e) => { walk = +e.target.value }
+const clock = (t) => { const m = Math.round((6.5 + t * 13) * 60); return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}` }
+let ct = time, cw = walk
+function loop() {
+  ct += (time - ct) * 0.08; cw += (walk - cw) * 0.05 // the move is always eased, never a cut
+  if (Math.abs(ct - shown.time) > 1e-4 || Math.abs(cw - shown.walk) > 1e-4) {
+    room.set({ time: ct, progress: cw }); room.render(); shown = { time: ct, walk: cw }
+    $('clock').textContent = clock(ct)
+    $('poster').style.opacity = 0
+  }
+  requestAnimationFrame(loop)
+}
+loop()
+</script></body></html>

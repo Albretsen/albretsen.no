@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds quiet software that pays for itself: apps, SaaS and agent infrastructure, from Norway.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F6EDE1">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Quiet software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-1200x630.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/identity/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" href="assets/fonts/BodoniModa.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/BodoniModa-Italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Jost.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  // Set the theme before first paint: ?theme= wins, then the visitor's last choice.
+  (function () {
+    var t = new URLSearchParams(location.search).get('theme')
+    if (t !== 'day' && t !== 'night') { try { t = localStorage.getItem('a68-theme') } catch (e) {} }
+    if (t === 'day' || t === 'night') document.documentElement.dataset.theme = t
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('rm')
+    // review aid: ?solo=products shows the page without the hero (for still screenshots)
+    if (new URLSearchParams(location.search).get('solo') === 'products') document.documentElement.classList.add('solo')
+  })()
+</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="gouache" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7"/>
+    <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<!-- ============ HERO: the opening spread ============ -->
+<section class="spread" id="top" aria-label="Albretsen AS">
+  <div class="stage">
+    <header class="masthead">
+      <span class="run run-l">Asgeir Albretsen</span>
+      <a class="lockup" href="#top" aria-label="Albretsen AS, home">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><path class="mk-sun" d="M24 42.4A8 8 0 0 1 40 42.4Z"/><path class="mk-sun" d="M26.5 46.2H37.5V47H26.5ZM28.5 49.4H35.5V50.1H28.5ZM30.3 52.5H33.7V53.1H30.3Z"/><path d="M17 42.4H47V43.4H17Z"/><path d="M12 58V28A20 20 0 0 1 52 28V58H47V28A15 18.5 0 0 0 17 28V58Z"/></svg>
+        <span class="wordmark" aria-hidden="true"></span>
+      </a>
+      <span class="run run-r">
+        <button class="m-sunset" id="switch" type="button" aria-pressed="false" aria-label="Night"><i class="sun"></i><i class="moon"></i><i class="sea"></i></button>
+      </span>
+    </header>
+
+    <!-- the two pages of the spread, either side of the arch -->
+    <div class="page page-l">
+      <p class="kicker">Albretsen AS</p>
+      <h1 class="hl"><span class="hl-a">Quiet</span> <span class="hl-b"><em>software.</em></span></h1>
+      <p class="dek">Apps, SaaS and agent infrastructure, built by Asgeir Albretsen in Norway. On Google Play since&nbsp;2016.</p>
+    </div>
+    <div class="page page-r" aria-hidden="true">
+      <p class="kicker">Fig. 1</p>
+      <p class="hl hl-mirror"><em>software.</em></p>
+      <p class="dek"><span class="hint-day">Painted at noon. Drag the sun down to the sea and the whole site goes to dusk.</span><span class="hint-night">Painted at dusk. Raise the sun from the sea and the whole site returns to noon.</span></p>
+    </div>
+
+    <!-- the painting, clipped to the arch; it opens to full bleed as you scroll -->
+    <figure class="plate-wrap" id="plate">
+      <div class="plate">
+        <picture class="pic pic-day">
+          <source type="image/avif" srcset="assets/hero/terrace-day-640.avif 640w, assets/hero/terrace-day-1280.avif 1280w, assets/hero/terrace-day-1920.avif 1920w" sizes="(max-aspect-ratio: 3/2) 150vh, 100vw">
+          <source type="image/webp" srcset="assets/hero/terrace-day-640.webp 640w, assets/hero/terrace-day-1280.webp 1280w, assets/hero/terrace-day-1920.webp 1920w" sizes="(max-aspect-ratio: 3/2) 150vh, 100vw">
+          <img src="assets/hero/terrace-day-1280.jpg" srcset="assets/hero/terrace-day-640.jpg 640w, assets/hero/terrace-day-1280.jpg 1280w, assets/hero/terrace-day-1920.jpg 1920w" sizes="(max-aspect-ratio: 3/2) 150vh, 100vw" width="1280" height="852" alt="A gouache painting of a stone terrace between two ochre houses, opening onto the sea in hard noon light." fetchpriority="high">
+        </picture>
+        <div class="warm" aria-hidden="true"></div>
+        <picture class="pic pic-dusk">
+          <source type="image/avif" srcset="assets/hero/terrace-dusk-640.avif 640w, assets/hero/terrace-dusk-1280.avif 1280w, assets/hero/terrace-dusk-1920.avif 1920w" sizes="(max-aspect-ratio: 3/2) 150vh, 100vw">
+          <source type="image/webp" srcset="assets/hero/terrace-dusk-640.webp 640w, assets/hero/terrace-dusk-1280.webp 1280w, assets/hero/terrace-dusk-1920.webp 1920w" sizes="(max-aspect-ratio: 3/2) 150vh, 100vw">
+          <img src="assets/hero/terrace-dusk-1280.jpg" srcset="assets/hero/terrace-dusk-640.jpg 640w, assets/hero/terrace-dusk-1280.jpg 1280w, assets/hero/terrace-dusk-1920.jpg 1920w" sizes="(max-aspect-ratio: 3/2) 150vh, 100vw" width="1280" height="852" alt="The same terrace at dusk: a peach sun sits on the horizon, dead centre, above a path of glitter on the sea.">
+        </picture>
+        <div class="sky">
+          <div class="disc" id="sun" role="slider" tabindex="0" aria-label="The sun" aria-orientation="vertical"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Noon"></div>
+        </div>
+      </div>
+      <figcaption class="card" id="card">
+        <p class="m-caption" id="caption"><span>I build software</span><span><em>that pays for itself.</em></span></p>
+        <p class="live" aria-live="polite"><span class="live-dot" aria-hidden="true"></span><span id="live">Live from the products</span></p>
+      </figcaption>
+    </figure>
+    <p class="hint" id="hint" aria-hidden="true"><span class="hint-day">Drag the sun</span><span class="hint-night">Raise the sun</span></p>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<main>
+<section class="products" id="products" aria-labelledby="p-title">
+  <header class="sec-head">
+    <p class="kicker">No. 1 · Products</p>
+    <h2 id="p-title">Four doors, <em>one address.</em></h2>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Products" id="tabs"></div>
+
+  <div class="door">
+    <div class="door-plate m-whip" id="whip">
+      <div class="m-whip-track" id="track"></div>
+      <div class="m-shutters" aria-hidden="true"></div>
+    </div>
+    <div class="door-text" id="panel" role="tabpanel" tabindex="0"></div>
+  </div>
+
+  <div class="earlier">
+    <h3 class="kicker">Earlier, now closed</h3>
+    <ul class="plaques" id="plaques"></ul>
+    <p class="plaque-caption" id="plaque-caption" aria-live="polite">&nbsp;</p>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER: rooftops + the back of a postcard ============ -->
+<footer class="foot">
+  <figure class="window">
+    <div class="roofs" id="roofs" aria-hidden="true">
+      <canvas id="roofs-canvas" width="720" height="560"></canvas>
+    </div>
+    <figcaption class="kicker">Fig. 2 · The roofs, rendered live. They keep the same hours as the sun above.</figcaption>
+  </figure>
+  <div class="postcard">
+    <div class="pc-msg">
+      <p class="kicker">Correspondence</p>
+      <p class="avail"><em>Takes one outside engagement at a time.</em></p>
+      <p><a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+      <div class="mcp">
+        <code id="mcp-cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button type="button" class="copy" id="copy"><span class="copy-a">Copy</span><span class="copy-b">Copied</span></button>
+        <span class="sr" aria-live="polite" id="copy-status"></span>
+      </div>
+    </div>
+    <div class="pc-addr">
+      <div class="stamp">
+        <picture>
+          <img class="stamp-day" src="assets/extras/stamp-coast-day.webp" width="600" height="760" alt="Postage stamp: a painted coast seen from orbit at noon (NASA photograph)." loading="lazy">
+        </picture>
+        <img class="stamp-night" src="assets/extras/stamp-coast-night.webp" width="600" height="760" alt="Postage stamp: coastal city lights seen from orbit at night (NASA photograph)." loading="lazy">
+        <span class="postmark" aria-hidden="true"></span>
+      </div>
+      <address>
+        <span>Asgeir Albretsen</span>
+        <span>Albretsen AS</span>
+        <span>Norway</span>
+      </address>
+    </div>
+  </div>
+  <p class="colophon"><span class="wordmark" aria-hidden="true"></span><span class="sr">Albretsen AS</span><span>Painted from CC0 photographs · Set in Bodoni Moda &amp; Jost</span></p>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>

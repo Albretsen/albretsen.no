@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 84" width="120" height="84" role="img" aria-label="Tryggere Hyring (retired)">
+  <title>Tryggere Hyring</title>
+  <rect x="1.5" y="1.5" width="117" height="81" rx="16" fill="#5f7d6e"/>
+  <rect x="6" y="6" width="108" height="72" rx="12" fill="none" stroke="#fbf5ec" stroke-width="1.6" opacity=".9"/>
+  <circle cx="14" cy="42" r="2" fill="#fbf5ec" opacity=".8"/><circle cx="106" cy="42" r="2" fill="#fbf5ec" opacity=".8"/>
+  <path d="M60 20l18 6v13c0 12-8 20-18 24-10-4-18-12-18-24V26z" fill="#fbf5ec"/><path d="M51 41l6 6 12-13" fill="none" stroke="#5f7d6e" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

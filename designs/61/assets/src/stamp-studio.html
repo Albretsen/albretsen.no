@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stamp studio</title>
+<!-- Source page used to bake the product stamps (assets/products/stamp-*.png|webp).
+     Render one stamp with ?id=<id>; screenshot with a transparent background at DPR 2. -->
+<style>
+@font-face{font-family:"EB Garamond";src:url(../fonts/EBGaramond-latin.woff2) format("woff2");font-weight:400 800;font-style:normal}
+@font-face{font-family:"EB Garamond";src:url(../fonts/EBGaramond-Italic-latin.woff2) format("woff2");font-weight:400 800;font-style:italic}
+@font-face{font-family:"Jost";src:url(../fonts/Jost-latin.woff2) format("woff2");font-weight:400 600}
+:root{--ink:#6E2233;--paper:#FBF3E6;--pink:#F4C3C2;--mustard:#EBC46B;--blue:#A8CFE6;--mint:#BFDCCB;--lilac:#D9CBE6}
+html,body{margin:0;background:transparent}
+body{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+body.single{gap:0}
+.stamp{--r:6px;--c:var(--pink);position:relative;width:300px;height:400px;box-sizing:border-box;padding:16px;
+  background:var(--paper);
+  -webkit-mask:radial-gradient(var(--r) at 50% 50%,#0000 97%,#000) round calc(-1.5*var(--r)) calc(-1.5*var(--r))/calc(3*var(--r)) calc(3*var(--r)),linear-gradient(#000 0 0) center/calc(100% - 3*var(--r)) calc(100% - 3*var(--r)) no-repeat;
+          mask:radial-gradient(var(--r) at 50% 50%,#0000 97%,#000) round calc(-1.5*var(--r)) calc(-1.5*var(--r))/calc(3*var(--r)) calc(3*var(--r)),linear-gradient(#000 0 0) center/calc(100% - 3*var(--r)) calc(100% - 3*var(--r)) no-repeat;
+  font-family:"EB Garamond",Georgia,serif;color:var(--ink)}
+.face{position:absolute;inset:16px;background:var(--c);display:flex;flex-direction:column;align-items:center;padding:12px 14px 10px;box-sizing:border-box}
+.face::after{content:"";position:absolute;inset:5px;border:1px solid var(--ink);pointer-events:none;opacity:.85}
+.top{width:100%;display:flex;justify-content:space-between;font:500 8.5px/1 Jost,sans-serif;letter-spacing:.22em;text-transform:uppercase;margin:3px 0 8px}
+.win{position:relative;width:100%;flex:1;border-radius:120px 120px 4px 4px;overflow:hidden;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.win img.v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.win::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 5px var(--paper),inset 0 0 0 6.5px var(--ink)}
+.med{position:absolute;left:50%;bottom:-2px;transform:translate(-50%,0);width:84px;height:84px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 1.5px var(--ink),0 0 0 5px var(--paper),0 0 0 6.5px var(--ink);display:grid;place-items:center;z-index:2}
+.wrap-win{position:relative;width:100%;flex:1;display:flex;flex-direction:column;padding-bottom:32px;box-sizing:border-box}
+.wrap-win .med{bottom:-10px}
+.med img{width:56px;height:56px;object-fit:contain}
+.med img.round{border-radius:13px}
+.name{font-weight:500;font-size:25px;letter-spacing:.01em;margin-top:22px;line-height:1}
+.val{font-style:italic;font-size:14px;margin-top:5px;line-height:1}
+.val b{font-style:normal;font-weight:600;font-variant-numeric:lining-nums}
+.foot{margin-top:7px;font:500 7.5px/1 Jost,sans-serif;letter-spacing:.26em;text-transform:uppercase;opacity:.9}
+/* retired: smaller, cancelled */
+.stamp.small{--r:5px;width:210px;height:262px;padding:13px}
+.small .face{inset:13px;padding:9px 10px 8px}
+.small .face::after{inset:4px}
+.small .top{font-size:7px;margin:2px 0 6px}
+.small .win{border-radius:4px}
+.small .win::after{box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px var(--ink)}
+.small .win img.v{filter:saturate(.75)}
+.small .med{width:58px;height:58px}
+.small .wrap-win{padding-bottom:22px}
+.small .wrap-win .med{bottom:-6px}
+.small .med svg{width:34px;height:34px}
+.small .med img{width:44px;height:auto}
+.small .name{font-size:16px;margin-top:14px}
+.small .foot{font-size:6.5px;margin-top:5px}
+.cancel{position:absolute;right:-26px;top:22px;width:170px;height:110px;pointer-events:none;z-index:5;mix-blend-mode:multiply;opacity:.78}
+.glyph{font-family:"EB Garamond";font-size:30px;font-weight:500;color:var(--ink);line-height:1}
+</style>
+</head>
+<body>
+<template id="cancel">
+<svg class="cancel" viewBox="0 0 170 110" fill="none" stroke="#6E2233" stroke-width="1.6">
+  <circle cx="52" cy="55" r="36"/><circle cx="52" cy="55" r="29"/>
+  <path id="arc" d="M24 55 a28 28 0 0 1 56 0" stroke="none"/>
+  <text font-family="Jost" font-size="7.4" letter-spacing="2.2" fill="#6E2233" stroke="none"><textPath href="#arc" startOffset="50%" text-anchor="middle">ALBRETSEN AS</textPath></text>
+  <text x="52" y="60" font-family="EB Garamond" font-style="italic" font-size="12" text-anchor="middle" fill="#6E2233" stroke="none">retired</text>
+  <text x="52" y="73" font-family="Jost" font-size="7" letter-spacing="1.6" text-anchor="middle" fill="#6E2233" stroke="none">NORWAY</text>
+  <path d="M92 36 q9 -6 18 0 t18 0 t18 0 t18 0 M92 48 q9 -6 18 0 t18 0 t18 0 t18 0 M92 60 q9 -6 18 0 t18 0 t18 0 t18 0 M92 72 q9 -6 18 0 t18 0 t18 0 t18 0"/>
+</svg>
+</template>
+<script>
+const L='../products/logos/', V='../products/vignettes/';
+const live=[
+ {id:'mcp-emails',c:'var(--pink)',vig:'vig-mcp',logo:L+'mcp-emails-icon.png',round:1,name:'MCP Emails',val:'<b>$782</b> MRR',foot:'Live · since 2026',yr:'2026'},
+ {id:'fun-libs',c:'var(--mustard)',vig:'vig-funlibs',logo:L+'fun-libs-icon.png',round:1,name:'Fun Libs',val:'<b>113,000+</b> installs',foot:'Live · since 2019',yr:'2019'},
+ {id:'toolrails',c:'var(--blue)',vig:'vig-toolrails',logo:L+'toolrails-icon.svg',round:0,name:'Toolrails',val:'<b>4</b> connectors',foot:'Building · 2026',yr:'2026'},
+ {id:'harbor',c:'var(--mint)',vig:'vig-harbor',logo:L+'harbor-mark.svg',round:0,harbor:1,name:'Harbor',val:'<b>549</b> commits',foot:'Paused · 2026',yr:'2026'},
+];
+const ico={
+ pin:'<svg viewBox="0 0 32 32" fill="none" stroke="#6E2233" stroke-width="2"><path d="M16 29s-9-9.2-9-15.5a9 9 0 0 1 18 0C25 19.8 16 29 16 29z"/><circle cx="16" cy="13.5" r="3.4"/></svg>',
+ eye:'<svg viewBox="0 0 32 32" fill="none" stroke="#6E2233" stroke-width="2"><path d="M3 16s5-8.5 13-8.5S29 16 29 16s-5 8.5-13 8.5S3 16 3 16z"/><circle cx="16" cy="16" r="4.2"/><circle cx="16" cy="16" r="1.2" fill="#6E2233"/></svg>',
+ shield:'<svg viewBox="0 0 32 32" fill="none" stroke="#6E2233" stroke-width="2"><path d="M16 3.5l10 3.6v8c0 6.5-4.4 11-10 13.4C10.4 26.1 6 21.6 6 15.1v-8z"/><path d="M11.2 16l3.4 3.4 6.4-7"/></svg>',
+};
+const retired=[
+ {id:'luma',c:'var(--lilac)',vig:'vig-r1',logo:L+'luma-logo.png',name:'Luma',foot:'2026'},
+ {id:'polyglot-pilot',c:'var(--blue)',vig:'vig-r6',glyph:'A<span style="font-style:italic">å</span>',name:'Polyglot Pilot',foot:'2025'},
+ {id:'pinpoint',c:'var(--pink)',vig:'vig-r3',svg:ico.pin,name:'PinPoint',foot:'2025'},
+ {id:'webvakt',c:'var(--mint)',vig:'vig-r4',svg:ico.eye,name:'WebVakt',foot:'2024'},
+ {id:'joke-central',c:'var(--mustard)',vig:'vig-r2',glyph:'<i>Ha!</i>',name:'Joke Central',foot:'2024'},
+ {id:'tryggere-hyring',c:'var(--lilac)',vig:'vig-r7',svg:ico.shield,name:'Tryggere Hyring',foot:'2023'},
+ {id:'early-apps',c:'var(--pink)',vig:'vig-r5',glyph:'%',name:'Early apps',foot:'2021'},
+];
+const q=new URLSearchParams(location.search).get('id');
+function liveStamp(p){return `<div class="stamp" style="--c:${p.c}" id="s-${p.id}"><div class="face">
+ <div class="top"><span>Albretsen AS</span><span>${p.yr}</span></div>
+ <div class="wrap-win"><div class="win"><img class="v" src="${V+p.vig}.webp" alt=""></div>
+ <div class="med"><img class="${p.round?'round':''}" src="${p.logo}" alt="${p.name} logo" ${p.harbor?'style="color:#141413;width:60px;height:60px"':''}></div></div>
+ <div class="name">${p.name}</div><div class="val">${p.val}</div><div class="foot">${p.foot}</div></div></div>`}
+function retStamp(p){const m=p.logo?`<img src="${p.logo}" alt="${p.name} logo">`:p.svg?p.svg:`<span class="glyph">${p.glyph}</span>`;
+ return `<div class="stamp small" style="--c:${p.c}" id="s-${p.id}"><div class="face">
+ <div class="top"><span>Albretsen AS</span><span>${p.foot}</span></div>
+ <div class="wrap-win"><div class="win"><img class="v" src="${V+p.vig}.webp" alt=""></div><div class="med">${m}</div></div>
+ <div class="name">${p.name}</div><div class="foot">Retired</div></div>${document.getElementById('cancel').innerHTML}</div>`}
+let html='';
+for(const p of live) if(!q||q===p.id) html+=liveStamp(p);
+for(const p of retired) if(!q||q===p.id) html+=retStamp(p);
+document.body.insertAdjacentHTML('beforeend',html);
+if(q) document.body.classList.add('single');
+</script>
+</body>
+</html>

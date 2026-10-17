@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 200" width="420" height="200" role="img" aria-label="Postmark">
+  <title>Postmark with wavy cancellation lines</title>
+  <defs>
+    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="3" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.3" numOctaves="1" seed="5" result="s"/>
+      <feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.6" result="sa"/>
+      <feComposite in="d" in2="sa" operator="in"/>
+    </filter>
+    <path id="arc" d="M21 100 A79 79 0 1 1 179 100"/>
+  </defs>
+  <g filter="url(#ink)" fill="none" stroke="#3a3256" stroke-width="3" opacity=".85">
+    <circle cx="100" cy="100" r="92"/><circle cx="100" cy="100" r="66"/>
+    <text font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="20" letter-spacing="6" fill="#3a3256" stroke="none"><textPath href="#arc" startOffset="50%" text-anchor="middle">ALBRETSEN AS</textPath></text>
+    <text x="100" y="96" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="30" fill="#3a3256" stroke="none">2026</text>
+    <text x="100" y="124" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="600" font-size="14" letter-spacing="4" fill="#3a3256" stroke="none">NORWAY</text>
+    <path d="M200 60 q25 -12 50 0 t50 0 t50 0 t50 0 M200 90 q25 -12 50 0 t50 0 t50 0 t50 0 M200 120 q25 -12 50 0 t50 0 t50 0 t50 0 M200 150 q25 -12 50 0 t50 0 t50 0 t50 0"/>
+  </g>
+</svg>

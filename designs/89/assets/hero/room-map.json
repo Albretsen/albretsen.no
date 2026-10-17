@@ -1,0 +1,19 @@
+{
+  "about": "Placement map for room-*.jpg (2560x1761 master). Objects: base-centre x/y and width, all in % of the image. Matches diorama-*.jpg exactly, so the HTML drag layer can sit on the plain room photo and look identical to the baked key art.",
+  "ratio": "2560/1761",
+  "objects": [
+    { "id": "mcp-emails", "src": "../products/sprite-mcp-emails.png", "x": 88.36, "y": 62.35, "w": 11.25, "rest": "round table, in the sunbeam" },
+    { "id": "toolrails",  "src": "../products/sprite-toolrails.png",  "x": 28.13, "y": 58.60, "w": 10.53, "rest": "on the drum seat" },
+    { "id": "fun-libs",   "src": "../products/sprite-fun-libs.png",   "x": 21.29, "y": 50.09, "w": 5.58,  "rest": "window sill" },
+    { "id": "harbor",     "src": "../products/sprite-harbor.png",     "x": 64.06, "y": 70.30, "w": 8.07,  "rest": "floor, leaning by the mirror" },
+    { "id": "plant",      "src": "../sprites/plant.png",              "x": 71.48, "y": 70.98, "w": 3.94,  "rest": "floor" }
+  ],
+  "bulbPanel": {
+    "about": "The 5x4 bulb matrix on the stand is a real 20-pixel display. Centres in %; radius in % of image width. Light them in candy colours (status, scroll progress, a commit heatmap).",
+    "cols": [31.02, 34.53, 38.13, 41.64, 45.08],
+    "rows": [15.10, 20.44, 25.67, 30.66],
+    "r": 1.33
+  },
+  "sunbeam": { "about": "Brightest wall patch (good for a headline or a product in the light)", "x": [77, 98], "y": [15, 45] },
+  "copySafeArea": { "about": "Darkest calm wall area for overlay text", "x": [48, 74], "y": [4, 40] }
+}

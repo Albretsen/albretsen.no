@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" role="img" aria-label="Albretsen AS">
+<title>Albretsen AS</title><rect width="64" height="64" rx="14" fill="#19081a"/>
+<defs><radialGradient id="g" cx="44" cy="20" r="14" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fdf8fd" stop-opacity=".95"/><stop offset=".35" stop-color="#e1a5e6" stop-opacity=".55"/><stop offset="1" stop-color="#e1a5e6" stop-opacity="0"/></radialGradient></defs>
+<circle cx="44" cy="20" r="14" fill="url(#g)"/>
+<path d="M39.6 9.9A23 23 0 1 0 54.1 24.4" fill="none" stroke="#e1a5e6" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="30.5" cy="33.5" r="18" fill="#0d040e"/>
+<circle cx="47.3" cy="16.7" r="3.1" fill="#fdf8fd"/>
+</svg>

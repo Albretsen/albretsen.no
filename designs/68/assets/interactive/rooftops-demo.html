@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rooftops demo</title>
+<style>
+  @font-face { font-family: 'Bodoni Moda'; src: url(../fonts/BodoniModa.woff2) format('woff2'); font-weight: 400 900; font-display: swap; }
+  @font-face { font-family: 'Bodoni Moda'; font-style: italic; src: url(../fonts/BodoniModa-Italic.woff2) format('woff2'); font-weight: 400 900; font-display: swap; }
+  @font-face { font-family: 'Jost'; src: url(../fonts/Jost.woff2) format('woff2'); font-weight: 300 700; font-display: swap; }
+  :root { --paper: #f6ede1; --ink: #211c24; --peach: #ef9f7c; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: Jost, sans-serif; transition: background-color 1.4s cubic-bezier(.65,0,.35,1), color 1.4s cubic-bezier(.65,0,.35,1); }
+  body.night { --paper: #221d2a; --ink: #f4e7d6; }
+  main { max-width: 1100px; margin: 0 auto; padding: 40px 16px; text-align: center; }
+  h1 { font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: clamp(32px, 5vw, 56px); margin: 0 0 8px; }
+  h1 i { font-weight: 400; }
+  p { margin: 0 0 24px; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; }
+  canvas { display: block; width: 100%; aspect-ratio: 16 / 9; background: #e9dccb; }
+  button { margin-top: 24px; font: 500 12px/1 Jost, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: inherit; background: none; border: 1px solid currentColor; padding: 14px 28px; border-radius: 999px; cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Rooftops, <i>live</i></h1>
+  <p>three.js · gouache post-process · day / night</p>
+  <canvas id="c" width="1100" height="619"></canvas>
+  <button id="t" type="button" aria-pressed="false">Night</button>
+</main>
+<script type="module">
+  import { mountRooftops } from './rooftops.js'
+  const q = new URLSearchParams(location.search)
+  const roofs = await mountRooftops(document.getElementById('c'), { theme: q.get('theme') || 'day' })
+  if (q.get('theme') === 'night') document.body.classList.add('night')
+  const b = document.getElementById('t')
+  b.textContent = roofs.theme === 'night' ? 'Day' : 'Night'
+  b.onclick = () => {
+    const next = roofs.theme === 'night' ? 'day' : 'night'
+    roofs.setTheme(next)
+    document.body.classList.toggle('night', next === 'night')
+    b.textContent = next === 'night' ? 'Day' : 'Night'
+    b.setAttribute('aria-pressed', String(next === 'night'))
+  }
+</script>
+</body>
+</html>

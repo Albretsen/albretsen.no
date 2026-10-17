@@ -1,0 +1,10 @@
+[
+  { "at": 0.04, "year": 2016, "title": "First app on Google Play", "note": "Published on Google Play since 2016." },
+  { "at": 0.20, "year": 2019, "title": "Fun Libs", "note": "Built at 17, no marketing. 113,000+ installs." },
+  { "at": 0.34, "year": 2021, "title": "Consulting, early apps", "note": "Consulting since 2021. IAGO HMS, Rentekalkulator, Prosentkalkulator." },
+  { "at": 0.46, "year": 2023, "title": "Tryggere Hyring", "note": "Background checks for hiring." },
+  { "at": 0.58, "year": 2024, "title": "WebVakt, Joke Central", "note": "Website change monitoring. Joke apps for iOS and Android." },
+  { "at": 0.70, "year": 2025, "title": "Polyglot Pilot, PinPoint", "note": "Agents that localised entire codebases. GeoGuessr with your own photos." },
+  { "at": 0.84, "year": 2026, "title": "Albretsen AS", "note": "MCP Emails ($782 MRR), Toolrails, Harbor, Luma." },
+  { "at": 0.97, "year": null, "title": "The road continues", "note": "Takes one outside engagement at a time." }
+]

@@ -1,0 +1,105 @@
+/* Peach Hour motion study.
+   Four signature animations. Every one degrades to a still state under
+   prefers-reduced-motion, and none of them moves layout (transform/opacity/
+   font-variation only, so layout shift stays 0).
+
+   1. Haze Drift     slow multi-layer parallax: sky, ridges, model drift at different depths
+   2. Sun Drag       drag the sun; one --t custom property re-lights the whole page
+   3. Shutter Open   images arrive behind pale-blue shutters that swing open
+   4. Warm Up        headlines gain weight (300 -> 800) like stone warming in the sun
+   (+) Turntable     the live diorama idles at 0.035 rad/s; see diorama.js autoTurn
+*/
+
+:root {
+  --ph-ease: cubic-bezier(.22, .61, .25, 1);      /* long, soft settle */
+  --ph-ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ph-slow: 1600ms;
+  --t: 0.12;                                       /* sun position 0 dawn .5 noon 1 dusk */
+}
+
+/* ---------- 1. Haze Drift ------------------------------------------------
+   Layers stack in one sticky stage; each moves by depth * travel as the stage
+   scrolls through the viewport. Uses CSS scroll-driven animations where
+   supported (view timeline), with motion.js as the fallback driver. */
+.ph-haze { position: relative; overflow: clip; }
+.ph-haze > .ph-layer {
+  position: absolute; inset: -8% 0 -8% 0; width: 100%; height: 116%;
+  object-fit: cover; will-change: transform;
+  transform: translate3d(0, calc(var(--ph-progress, .5) * var(--depth, 0) * -120px + var(--depth, 0) * 60px), 0)
+             scale(calc(1 + var(--depth, 0) * .04));
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ph-haze > .ph-layer {
+      animation: ph-haze-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+@keyframes ph-haze-drift {
+  from { transform: translate3d(0, calc(var(--depth, 0) * 60px), 0) scale(calc(1 + var(--depth, 0) * .04)); }
+  to   { transform: translate3d(0, calc(var(--depth, 0) * -60px), 0) scale(calc(1 + var(--depth, 0) * .04)); }
+}
+
+/* ---------- 2. Sun Drag --------------------------------------------------
+   motion.js writes --t (0..1). Sky tokens are mixed from three keyframes so
+   any element can use var(--sky-top) / var(--sky-bottom) / var(--sun-glow). */
+.ph-sky {
+  --dawn-top: #8FBDE6; --dawn-bot: #FFD2AD;
+  --noon-top: #7FBCF0; --noon-bot: #F8ECDC;
+  --dusk-top: #8C8CC4; --dusk-bot: #F7B39A;
+  --w-dawn: clamp(0, calc(1 - var(--t) * 2), 1);
+  --w-dusk: clamp(0, calc(var(--t) * 2 - 1), 1);
+  --sky-top: color-mix(in oklch, color-mix(in oklch, var(--dawn-top), var(--noon-top) calc((1 - var(--w-dawn)) * 100%)), var(--dusk-top) calc(var(--w-dusk) * 100%));
+  --sky-bottom: color-mix(in oklch, color-mix(in oklch, var(--dawn-bot), var(--noon-bot) calc((1 - var(--w-dawn)) * 100%)), var(--dusk-bot) calc(var(--w-dusk) * 100%));
+  background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+  transition: background 400ms var(--ph-ease);
+}
+.ph-sun-track { position: relative; touch-action: none; user-select: none; }
+.ph-sun {
+  position: absolute; width: 88px; height: 88px; margin: -44px 0 0 -44px; cursor: grab;
+  border: 0; padding: 0; background-color: transparent; appearance: none;
+  left: calc(8% + var(--t) * 84%);
+  top: calc(78% - sin(calc(var(--t) * 180deg)) * 62%);
+  background: url(extras/sun-handle.svg) center / contain no-repeat;
+  filter: drop-shadow(0 0 18px rgb(255 200 120 / .55));
+  transition: filter 300ms var(--ph-ease);
+}
+.ph-sun:active { cursor: grabbing; filter: drop-shadow(0 0 30px rgb(255 200 120 / .85)); }
+.ph-sun:focus-visible { outline: 2px solid #4E3A57; outline-offset: 6px; border-radius: 50%; }
+
+/* ---------- 3. Shutter Open ----------------------------------------------
+   Wrap any image in .ph-shutters; motion.js adds .is-open when it enters. */
+.ph-shutters { position: relative; perspective: 900px; }
+.ph-shutters::before, .ph-shutters::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 50.5%; z-index: 2;
+  background:
+    repeating-linear-gradient(to bottom, #BFDAEE 0 9px, #8FB7D2 9px 11px, #BFDAEE 11px 13px) padding-box,
+    #9CC4DC;
+  border: 6px solid #9CC4DC; border-radius: 4px;
+  transition: transform var(--ph-slow) var(--ph-ease-out), opacity var(--ph-slow) var(--ph-ease);
+  backface-visibility: hidden;
+}
+.ph-shutters::before { left: 0; transform-origin: left center; }
+.ph-shutters::after  { right: 0; transform-origin: right center; }
+.ph-shutters.is-open::before { transform: rotateY(-104deg); opacity: 0; }
+.ph-shutters.is-open::after  { transform: rotateY(104deg); opacity: 0; transition-delay: 90ms; }
+
+/* ---------- 4. Warm Up ---------------------------------------------------
+   Letters are split into spans by motion.js; each warms from 300 to 800. */
+@font-face { font-family: "Nunito"; src: url(fonts/nunito-latin-var.woff2) format("woff2"); font-weight: 200 1000; font-display: swap; }
+.ph-warm { font-family: Nunito, ui-rounded, system-ui, sans-serif; }
+.ph-warm .ch {
+  display: inline-block; font-variation-settings: "wght" 300; color: #A48AD6;
+  transition: font-variation-settings 1400ms var(--ph-ease), color 1400ms var(--ph-ease);
+  transition-delay: calc(var(--i) * 38ms);
+}
+.ph-warm.is-warm .ch { font-variation-settings: "wght" 820; color: #4E3A57; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ph-haze > .ph-layer { transform: none !important; animation: none !important; }
+  .ph-shutters::before, .ph-shutters::after { display: none; }
+  .ph-warm .ch { transition: none; font-variation-settings: "wght" 820; color: #4E3A57; }
+  .ph-sky, .ph-sun { transition: none; }
+}

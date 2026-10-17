@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Labelled Sky · Kit 88</title>
+<meta name="description" content="Asset kit 88 for Albretsen AS: a star catalogue of products, labelled with neo-brutalist stickers.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon.png">
+<link rel="preload" href="fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: "Archivo"; src: url(fonts/archivo-var.woff2) format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+  @font-face { font-family: "Martian Mono"; src: url(fonts/martian-mono-var.woff2) format("woff2"); font-weight: 100 800; font-stretch: 75% 112.5%; font-display: swap; }
+  @font-face { font-family: "Instrument Serif"; font-style: italic; src: url(fonts/instrument-serif-italic.woff2) format("woff2"); font-display: swap; }
+  * { box-sizing: border-box; }
+  html { background: var(--cream); color: var(--forest); }
+  body { margin: 0; font: 15px/1.6 "Martian Mono", ui-monospace, monospace; background: var(--cream) url(extras/paper-cream-512.webp); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 40px; } }
+  h1, h2, h3 { font-family: "Archivo", sans-serif; font-stretch: 125%; font-weight: 850; letter-spacing: -.01em; line-height: 1; margin: 0; }
+  h2 { font-size: clamp(28px, 4vw, 44px); }
+  .kicker { font: 700 11px/1 "Martian Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--brass); }
+  .serif { font-family: "Instrument Serif", serif; font-style: italic; font-size: 1.3em; }
+  section { padding: 72px 0; }
+  .sec-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  .sec-head p { margin: 8px 0 0; max-width: 62ch; font-size: 13px; color: var(--ink); }
+  img { display: block; max-width: 100%; height: auto; }
+  figure { margin: 0; }
+  figcaption { font-size: 11px; letter-spacing: .04em; margin-top: 10px; color: var(--ink); }
+  figcaption b { color: var(--forest); }
+  .grid { display: grid; gap: 28px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  .frame { border: 3px solid var(--forest); border-radius: 14px; overflow: hidden; box-shadow: 6px 6px 0 var(--forest); background: var(--night); }
+  .divider { display: block; width: 100%; height: 40px; }
+
+  /* HERO */
+  .hero { position: relative; background: var(--night); color: var(--cream); overflow: hidden; }
+  .hero picture img { width: 100%; height: min(92vh, 860px); object-fit: cover; }
+  .hero-copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px 32px; }
+  @media (min-width: 720px) { .hero-copy { padding: 36px 40px 48px; } }
+  .hero-copy h1 { font-size: clamp(40px, 7.4vw, 112px); max-width: 11ch; line-height: .96; }
+  .hero-copy h1 span { color: var(--brass-l); }
+  .hero-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .hero-top img { height: 48px; width: auto; }
+  .hero .st-chip { color: var(--forest); }
+  .hero-foot { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; justify-content: space-between; }
+  .hero-foot small { font-size: 10px; letter-spacing: .1em; opacity: .7; text-transform: uppercase; }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 18px; }
+  .sw { border: 3px solid var(--forest); border-radius: 12px; overflow: hidden; background: var(--cream); box-shadow: 4px 4px 0 var(--forest); }
+  .sw i { display: block; height: 96px; border-bottom: 3px solid var(--forest); }
+  .sw div { padding: 10px 12px; font-size: 10.5px; line-height: 1.5; }
+  .sw b { font: 800 14px/1.2 "Archivo"; font-stretch: 112%; display: block; }
+
+  /* type */
+  .spec { border-top: 3px solid var(--forest); padding: 22px 0; display: grid; gap: 8px 28px; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .spec { grid-template-columns: 260px 1fr; } }
+  .spec .big { font-size: clamp(36px, 6vw, 84px); line-height: 1; overflow-wrap: anywhere; }
+
+  /* identity */
+  .tile { background: var(--cream); border: 3px solid var(--forest); border-radius: 14px; padding: 28px; display: grid; place-items: center; min-height: 190px; box-shadow: 4px 4px 0 var(--forest); }
+  .tile.dark { background: var(--night); }
+
+  /* products */
+  .prod { display: block; border-radius: 16px; overflow: hidden; border: 3px solid var(--forest); box-shadow: 4px 4px 0 var(--forest); background: var(--night); }
+  .prod img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+  .retired { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 32px; }
+  .retired img { width: 128px; height: 128px; transition: transform .4s var(--ease-snap), filter .4s; filter: saturate(.6); }
+  .retired img:hover { transform: rotate(-8deg) scale(1.08); filter: none; }
+
+  /* loupe demo */
+  .loupe-card { aspect-ratio: 4/5; border-radius: 16px; border: 3px solid var(--forest); box-shadow: 4px 4px 0 var(--forest); cursor: none; }
+  .loupe-card > img, .loupe-card .st-loupe-hidden img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* interactive */
+  .sky { position: relative; height: min(76vh, 680px); border-radius: 18px; overflow: hidden; border: 3px solid var(--forest); box-shadow: 6px 6px 0 var(--brass); background: var(--night) url(extras/plate-night-512.webp); }
+  .sky canvas { width: 100%; height: 100%; display: block; }
+  .sky nav { position: absolute; left: 12px; right: 12px; bottom: 14px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .btn { font: 700 11px/1 "Martian Mono", monospace; letter-spacing: .08em; text-transform: uppercase; padding: 10px 13px; background: var(--cream); color: var(--forest);
+    border: 2px solid var(--forest); border-radius: 999px; box-shadow: 3px 3px 0 var(--brass); cursor: pointer; transition: transform .15s, box-shadow .15s; }
+  .btn:hover { transform: translate(-1px,-2px); box-shadow: 5px 5px 0 var(--brass); }
+  .btn[aria-pressed="true"] { background: var(--brass-l); }
+
+  /* motion */
+  .mstage { position: relative; min-height: 250px; display: grid; place-items: center; background: var(--paper); border: 3px solid var(--forest); border-radius: 14px; padding: 26px; overflow: hidden; }
+  .mstage.dark { background: var(--night) url(extras/plate-night-512.webp); }
+  .mcard { padding: 18px 20px; width: min(100%, 260px); }
+  .mcard .kicker { display: block; margin-bottom: 8px; }
+  .mcard strong { font: 850 26px/1 "Archivo"; font-stretch: 118%; }
+  .mstage .btn { position: absolute; right: 12px; top: 12px; }
+  .mtitle { display: flex; justify-content: space-between; gap: 10px; margin: 14px 0 4px; }
+  .mtitle h3 { font-size: 20px; }
+  .mdesc { font-size: 12px; color: var(--ink); margin: 0; }
+  .assets-list { columns: 2 280px; font-size: 12px; }
+  footer { padding: 60px 0 80px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<!-- HERO: graded 1885 plate, served responsively -->
+<header class="hero">
+  <picture>
+    <source media="(max-width: 700px)" type="image/avif" srcset="hero/cygnus-plate-tall-750.avif 750w, hero/cygnus-plate-tall-1200.avif 1200w" sizes="100vw">
+    <source media="(max-width: 700px)" type="image/webp" srcset="hero/cygnus-plate-tall-750.webp 750w, hero/cygnus-plate-tall-1200.webp 1200w" sizes="100vw">
+    <source type="image/avif" srcset="hero/cygnus-plate-wide-960.avif 960w, hero/cygnus-plate-wide-1600.avif 1600w, hero/cygnus-plate-wide-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="hero/cygnus-plate-wide-960.webp 960w, hero/cygnus-plate-wide-1600.webp 1600w, hero/cygnus-plate-wide-2400.webp 2400w" sizes="100vw">
+    <img src="hero/cygnus-plate-wide-960.jpg" width="2400" height="1350" alt="A glass-plate photograph of the stars of Cygnus from 1885, graded forest green with brass stars" fetchpriority="high">
+  </picture>
+  <div class="hero-copy">
+    <div class="hero-top">
+      <img src="identity/wordmark-night.svg" width="479" height="72" alt="Albretsen AS">
+      <span class="st-chip" style="--dot: var(--signal)">Kit 88 · Labelled Sky</span>
+    </div>
+    <h1>Software, <span>catalogued</span> like stars.</h1>
+    <div class="hero-foot">
+      <span class="st-chip" style="--dot: var(--brass)">4 products · 2016 → 2026</span>
+      <small>Plate: Cygnus, 13 Aug 1885 · The Met, CC0 · graded in code</small>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <div class="sec-head"><div><span class="kicker">00 · Direction</span><h2>Labelled Sky</h2>
+  <p>Real night skies (an 1885 glass plate, a Dürer woodcut, a moon daguerreotype) catalogued with blunt neo-brutalist stickers. Each product is a constellation traced from its real logo. The idea in one line: <span class="serif">precise work, placed on the chart where you can find it.</span> Spark words: fracture, tension, flow.</p></div></div>
+</section>
+
+<section id="palette">
+  <div class="sec-head"><div><span class="kicker">01 · Palette</span><h2>Cream, forest, brass</h2><p>Seed hue 0° survives as Signal: one dot meaning “live”. Never a fill.</p></div></div>
+  <div class="swatches">
+    <div class="sw"><i style="background:#F9F2E2"></i><div><b>Cream</b>oklch(0.962 0.022 88)<br>#F9F2E2 · page</div></div>
+    <div class="sw"><i style="background:#EDE2CC"></i><div><b>Paper</b>oklch(0.915 0.032 84)<br>#EDE2CC · sticker back</div></div>
+    <div class="sw"><i style="background:#1A4A32"></i><div><b>Forest</b>oklch(0.37 0.068 158)<br>#1A4A32 · ink, borders</div></div>
+    <div class="sw"><i style="background:#05170F"></i><div><b>Night</b>oklch(0.185 0.03 162)<br>#05170F · plates</div></div>
+    <div class="sw"><i style="background:#C2964D"></i><div><b>Brass</b>oklch(0.70 0.105 78)<br>#C2964D · lines, shadow</div></div>
+    <div class="sw"><i style="background:#E8CB84"></i><div><b>Brass light</b>oklch(0.85 0.095 88)<br>#E8CB84 · on night</div></div>
+    <div class="sw"><i style="background:#D4407C"></i><div><b>Signal</b>oklch(0.60 0.19 0)<br>#D4407C · live dot only</div></div>
+    <div class="sw"><i style="background:#6C9173"></i><div><b>Moss</b>oklch(0.62 0.06 150)<br>#6C9173 · paused, retired</div></div>
+  </div>
+</section>
+
+<section id="type">
+  <div class="sec-head"><div><span class="kicker">02 · Type</span><h2>Three voices</h2></div></div>
+  <div class="spec"><div><span class="kicker">Display</span><br>Archivo · wdth 125 · wght 850<br><small>OFL · variable, 93 KB subset</small></div>
+    <div class="big" style="font-family:Archivo;font-stretch:125%;font-weight:850">Quiet software that pays for itself.</div></div>
+  <div class="spec"><div><span class="kicker">Labels &amp; body</span><br>Martian Mono · 500/700<br><small>OFL · 38 KB subset</small></div>
+    <div style="font-size:clamp(14px,1.6vw,20px);line-height:1.7">ALB-01 · MCP EMAILS · LIVE · $782 MRR<br>17 tools · about 100 email providers · open source (AGPL)</div></div>
+  <div class="spec"><div><span class="kicker">Aside</span><br>Instrument Serif Italic<br><small>OFL · 22 KB subset</small></div>
+    <div class="big serif" style="font-weight:400">built at seventeen, still shipping.</div></div>
+</section>
+
+<section id="identity">
+  <div class="sec-head"><div><span class="kicker">03 · Identity</span><h2>The A-constellation</h2><p>Five stars, three tension lines, one brass spark at the apex. Lines stop short of each star, as on an engraved chart. The tile is a sticker: chunky border, hard brass shadow.</p></div></div>
+  <div class="grid g3">
+    <figure><div class="tile"><img src="identity/mark.svg" width="144" height="144" alt="Albretsen AS mark"></div><figcaption><b>identity/mark.svg</b> · on cream</figcaption></figure>
+    <figure><div class="tile dark"><img src="identity/mark-night.svg" width="144" height="144" alt="Albretsen AS mark, night"></div><figcaption><b>identity/mark-night.svg</b></figcaption></figure>
+    <figure><div class="tile"><img src="identity/favicon.svg" width="64" height="64" alt="favicon" style="margin-right:12px"><img src="identity/apple-touch-icon.png" width="90" height="90" alt="apple touch icon" style="border-radius:20px"></div><figcaption><b>favicon.svg · apple-touch-icon.png (180)</b></figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:28px">
+    <figure><div class="tile"><img src="identity/wordmark.svg" width="479" height="72" alt="Albretsen AS wordmark"></div><figcaption><b>identity/wordmark.svg</b> · text outlined, no font needed</figcaption></figure>
+    <figure><div class="tile dark"><img src="identity/wordmark-night.svg" width="479" height="72" alt="Albretsen AS wordmark, night"></div><figcaption><b>identity/wordmark-night.svg</b></figcaption></figure>
+  </div>
+  <figure style="margin-top:28px"><div class="frame"><img src="identity/og-1200x630.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy"></div><figcaption><b>identity/og-1200x630.jpg</b> · Open Graph</figcaption></figure>
+</section>
+
+<img class="divider" src="extras/fracture-divider.svg" width="1600" height="80" alt="" style="height:40px">
+
+<section id="hero">
+  <div class="sec-head"><div><span class="kicker">04 · Hero imagery</span><h2>Four plates</h2><p>Every image is a real public-domain object or generated in code, then graded into the palette. Sizes in <code>hero/sizes.json</code>.</p></div></div>
+  <figure><div class="frame"><picture>
+    <source type="image/avif" srcset="hero/chart-of-works-960.avif 960w, hero/chart-of-works-1600.avif 1600w, hero/chart-of-works-2400.avif 2400w" sizes="(min-width:1280px) 1200px, 100vw">
+    <source type="image/webp" srcset="hero/chart-of-works-960.webp 960w, hero/chart-of-works-1600.webp 1600w, hero/chart-of-works-2400.webp 2400w" sizes="(min-width:1280px) 1200px, 100vw">
+    <img src="hero/chart-of-works-960.jpg" width="2400" height="1350" alt="An engraved star chart on cream paper, split into three shards, with four products drawn as brass constellations" loading="lazy"></picture></div>
+    <figcaption><b>Plate III · Chart of Works</b> · generated (Python → SVG → rsvg). The sheet fractures in three; tension threads cross the cracks. Left third is calm for a headline.</figcaption></figure>
+  <div class="grid g3" style="margin-top:28px">
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/durer-forest-800.avif 800w, hero/durer-forest-1400.avif 1400w" sizes="(min-width:900px) 400px, 100vw"><source type="image/webp" srcset="hero/durer-forest-800.webp 800w, hero/durer-forest-1400.webp 1400w" sizes="(min-width:900px) 400px, 100vw"><img src="hero/durer-forest-800.jpg" width="1400" height="1540" alt="Dürer's 1515 woodcut of the northern sky printed in forest green on cream" loading="lazy"></picture></div><figcaption><b>Plate II · Northern sky, 1515</b> · Dürer woodcut, The Met 358366 (CC0), re-inked forest on cream</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/moon-run-plate-640.avif 640w, hero/moon-run-plate-1100.avif 1100w" sizes="(min-width:900px) 400px, 100vw"><source type="image/webp" srcset="hero/moon-run-plate-640.webp 640w, hero/moon-run-plate-1100.webp 1100w" sizes="(min-width:900px) 400px, 100vw"><img src="hero/moon-run-plate-640.jpg" width="1100" height="1381" alt="A daguerreotype with many exposures of the moon in columns, in a brass mat" loading="lazy"></picture></div><figcaption><b>Plate IV · The run</b> · multiple-exposure moon daguerreotype, 1846–52, The Met 821156 (CC0). Iteration, made visible.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/cygnus-plate-tall-750.avif 750w, hero/cygnus-plate-tall-1200.avif 1200w" sizes="(min-width:900px) 400px, 100vw"><source type="image/webp" srcset="hero/cygnus-plate-tall-750.webp 750w, hero/cygnus-plate-tall-1200.webp 1200w" sizes="(min-width:900px) 400px, 100vw"><img src="hero/cygnus-plate-tall-750.jpg" width="1200" height="1500" alt="Graded 1885 Cygnus plate, portrait crop" loading="lazy"></picture></div><figcaption><b>Plate I · Cygnus, 1885</b> · portrait crop for phones. The Met 283255 (CC0)</figcaption></figure>
+  </div>
+  <figure style="margin-top:28px"><div class="frame"><picture><source type="image/avif" srcset="hero/moon-run-wide-960.avif 960w, hero/moon-run-wide-1600.avif 1600w" sizes="100vw"><source type="image/webp" srcset="hero/moon-run-wide-960.webp 960w, hero/moon-run-wide-1600.webp 1600w" sizes="100vw"><img src="hero/moon-run-wide-960.jpg" width="1600" height="1000" alt="Wide crop of the moon daguerreotype" loading="lazy"></picture></div><figcaption><b>moon-run-wide</b> · section background (a “shipping log” or writing index)</figcaption></figure>
+</section>
+
+<section id="products">
+  <div class="sec-head"><div><span class="kicker">05 · Products</span><h2>Stickers on the plate</h2><p>Real logos, unchanged, on die-cut stickers pressed onto the 1885 sky. Above each: its constellation, traced from the logo's own vertices. Hover: peel &amp; lift.</p></div></div>
+  <div class="grid g4">
+    <a class="prod st-sticker st-peel" style="--rot:-1deg" href="#products"><picture><source type="image/avif" srcset="products/mcp-emails-600.avif 600w, products/mcp-emails-1000.avif 1000w" sizes="(min-width:1100px) 300px, 50vw"><source type="image/webp" srcset="products/mcp-emails-600.webp 600w, products/mcp-emails-1000.webp 1000w" sizes="(min-width:1100px) 300px, 50vw"><img src="products/mcp-emails-600.jpg" width="1000" height="1250" alt="MCP Emails sticker: Email for AI agents, $782 MRR" loading="lazy"></picture></a>
+    <a class="prod st-sticker st-peel" style="--rot:1.2deg" href="#products"><picture><source type="image/avif" srcset="products/fun-libs-600.avif 600w, products/fun-libs-1000.avif 1000w" sizes="(min-width:1100px) 300px, 50vw"><source type="image/webp" srcset="products/fun-libs-600.webp 600w, products/fun-libs-1000.webp 1000w" sizes="(min-width:1100px) 300px, 50vw"><img src="products/fun-libs-600.jpg" width="1000" height="1250" alt="Fun Libs sticker: 113,000+ installs" loading="lazy"></picture></a>
+    <a class="prod st-sticker st-peel" style="--rot:-.6deg" href="#products"><picture><source type="image/avif" srcset="products/toolrails-600.avif 600w, products/toolrails-1000.avif 1000w" sizes="(min-width:1100px) 300px, 50vw"><source type="image/webp" srcset="products/toolrails-600.webp 600w, products/toolrails-1000.webp 1000w" sizes="(min-width:1100px) 300px, 50vw"><img src="products/toolrails-600.jpg" width="1000" height="1250" alt="Toolrails sticker: building, 4 connectors" loading="lazy"></picture></a>
+    <a class="prod st-sticker st-peel" style="--rot:1.6deg" href="#products"><picture><source type="image/avif" srcset="products/harbor-600.avif 600w, products/harbor-1000.avif 1000w" sizes="(min-width:1100px) 300px, 50vw"><source type="image/webp" srcset="products/harbor-600.webp 600w, products/harbor-1000.webp 1000w" sizes="(min-width:1100px) 300px, 50vw"><img src="products/harbor-600.jpg" width="1000" height="1250" alt="Harbor sticker: paused, 549 commits" loading="lazy"></picture></a>
+  </div>
+  <div class="retired" aria-label="Retired products">
+    <img src="products/retired/luma.svg" width="240" height="240" alt="Luma, retired" loading="lazy">
+    <img src="products/retired/polyglot-pilot.svg" width="240" height="240" alt="Polyglot Pilot, retired" loading="lazy">
+    <img src="products/retired/pinpoint.svg" width="240" height="240" alt="PinPoint, retired" loading="lazy">
+    <img src="products/retired/webvakt.svg" width="240" height="240" alt="WebVakt, retired" loading="lazy">
+    <img src="products/retired/joke-central.svg" width="240" height="240" alt="Joke Central, retired" loading="lazy">
+    <img src="products/retired/tryggere-hyring.svg" width="240" height="240" alt="Tryggere Hyring, retired" loading="lazy">
+    <img src="products/retired/early-apps.svg" width="240" height="240" alt="Early apps, retired" loading="lazy">
+  </div>
+</section>
+
+<section id="extras">
+  <div class="sec-head"><div><span class="kicker">06 · Extras</span><h2>Texture, labels, hidden detail</h2><p>Hover the plate below: a brass loupe reveals the Dürer engraving hiding under the photograph. Five detail crops ship in <code>extras/details/</code>.</p></div></div>
+  <div class="grid g3">
+    <figure><div class="st-loupe loupe-card" id="loupe">
+      <img src="hero/cygnus-plate-tall-750.webp" width="750" height="938" alt="Cygnus plate" loading="lazy">
+      <div class="st-loupe-hidden"><img src="extras/details/durer-cygnus-bird.webp" width="480" height="480" alt="" loading="lazy"></div>
+      <div class="st-loupe-ring"></div>
+    </div><figcaption><b>Motion 4 · Brass loupe</b> · photograph over engraving</figcaption></figure>
+    <figure><div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+      <img src="extras/details/durer-ursa-major.webp" width="480" height="480" alt="Dürer detail: Ursa Major" loading="lazy" style="border:3px solid var(--forest);border-radius:50%">
+      <img src="extras/details/durer-astronomer-nw.webp" width="480" height="480" alt="Dürer detail: astronomer" loading="lazy" style="border:3px solid var(--forest);border-radius:50%">
+      <img src="extras/details/durer-astronomer-se.webp" width="480" height="480" alt="Dürer detail: astronomer with globe" loading="lazy" style="border:3px solid var(--forest);border-radius:50%">
+      <img src="extras/details/durer-corona.webp" width="480" height="480" alt="Dürer detail: Hercules and Corona" loading="lazy" style="border:3px solid var(--forest);border-radius:50%">
+    </div><figcaption><b>extras/details/durer-*.webp</b> · loupe and hover reveals</figcaption></figure>
+    <figure><div class="tile" style="gap:14px;align-content:center">
+      <svg width="200" height="70" role="img" aria-label="Catalogue label"><use href="extras/stickers.svg#label-catalogue"/></svg>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+        <svg width="94" height="36"><use href="extras/stickers.svg#chip-live"/></svg>
+        <svg width="128" height="36"><use href="extras/stickers.svg#chip-building"/></svg>
+        <svg width="110" height="36"><use href="extras/stickers.svg#chip-paused"/></svg>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;color:var(--forest)">
+        <svg width="140" height="38"><use href="extras/stickers.svg#tape"/></svg>
+        <svg width="48" height="48"><use href="extras/stickers.svg#arrow"/></svg>
+        <svg width="26" height="26"><use href="extras/stickers.svg#mag-1"/></svg><svg width="22" height="22"><use href="extras/stickers.svg#mag-2"/></svg><svg width="18" height="18"><use href="extras/stickers.svg#mag-4"/></svg>
+      </div>
+    </div><figcaption><b>extras/stickers.svg</b> · chips, labels, tape, arrow, magnitude glyphs (symbols)</figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:28px">
+    <figure><div class="tile" style="background:url(extras/paper-cream-512.webp);min-height:160px"></div><figcaption><b>extras/paper-cream-512.webp</b> · tileable stock</figcaption></figure>
+    <figure><div class="tile dark" style="background:url(extras/plate-night-512.webp);min-height:160px"></div><figcaption><b>extras/plate-night-512.webp</b> · tileable plate grain with brass dust</figcaption></figure>
+  </div>
+  <figure style="margin-top:28px"><div style="background:var(--night);border-radius:12px;overflow:hidden"><img src="extras/fracture-divider.svg" width="1600" height="80" alt="" style="width:100%;height:60px"></div><figcaption><b>extras/fracture-divider.svg</b> · section break: a crack with a tension thread</figcaption></figure>
+</section>
+
+<section id="interactive">
+  <div class="sec-head"><div><span class="kicker">07 · Interactive</span><h2>Star Catalogue</h2><p>2,188 particles, each a real star measured from the 1885 plate. They drift on a flow field; choose a product and the nearest stars are pulled out on springs into its constellation. Threads thin as they stretch. Hover a star for its catalogue entry. <code>interactive/star-catalogue.js</code> · <a href="interactive/demo.html">full-screen demo</a></p></div></div>
+  <div class="sky"><canvas id="sky" aria-label="Interactive star field"></canvas>
+    <nav>
+      <button class="btn" data-id="mcp-emails">MCP Emails</button><button class="btn" data-id="fun-libs">Fun Libs</button>
+      <button class="btn" data-id="toolrails">Toolrails</button><button class="btn" data-id="harbor">Harbor</button>
+      <button class="btn" data-id="albretsen">Albretsen AS</button><button class="btn" data-act="fracture">Fracture</button>
+    </nav>
+  </div>
+</section>
+
+<section id="motion">
+  <div class="sec-head"><div><span class="kicker">08 · Motion</span><h2>Five signatures</h2><p>All Web Animations API, springs baked into <code>linear()</code>. <code>motion.js</code> + <code>motion.css</code>. Everything resolves to its end state under reduced motion.</p></div></div>
+  <div class="grid g3">
+    <div><div class="mstage"><div class="mcard st-sticker" id="m-press"><span class="kicker">ALB-02</span><strong>Fun Libs</strong></div><button class="btn" data-replay="press">Replay</button></div>
+      <div class="mtitle"><h3>1 · Press-on</h3></div><p class="mdesc">Sticker drops from 1.3× with a tilt, overshoots on a spring, then the hard shadow arrives as if pressed down.</p></div>
+    <div><div class="mstage"><div class="mcard st-sticker st-peel" id="m-peel" tabindex="0"><span class="kicker">Hover me</span><strong>Toolrails</strong></div></div>
+      <div class="mtitle"><h3>2 · Peel &amp; lift</h3></div><p class="mdesc">Shadow grows 4→10px, the sticker leans toward you and a corner folds back to the paper side.</p></div>
+    <div><div class="mstage dark"><svg id="m-trace" viewBox="0 0 240 160" width="240" height="160" aria-label="Constellation drawing">
+        <g stroke="#E8CB84" stroke-width="2" fill="none"><line data-line x1="30" y1="40" x2="190" y2="40"/><line data-line x1="190" y1="40" x2="190" y2="130"/><line data-line x1="190" y1="130" x2="30" y2="130"/><line data-line x1="30" y1="130" x2="30" y2="40"/><line data-line x1="30" y1="40" x2="110" y2="95"/><line data-line x1="110" y1="95" x2="190" y2="40"/></g>
+        <g fill="#F9F2E2"><circle data-star cx="30" cy="40" r="5"/><circle data-star cx="190" cy="40" r="5"/><circle data-star cx="190" cy="130" r="5"/><circle data-star cx="30" cy="130" r="5"/><circle data-star cx="110" cy="95" r="5"/><path data-star d="M182 2 L185 12 L195 15 L185 18 L182 28 L179 18 L169 15 L179 12Z"/></g>
+      </svg><button class="btn" data-replay="trace">Replay</button></div>
+      <div class="mtitle"><h3>3 · Tension line</h3></div><p class="mdesc">Lines draw star to star in engraving order; each star springs in as its line arrives.</p></div>
+    <div><div class="mstage" style="padding:0;min-height:250px"><div class="st-loupe" id="m-loupe" style="width:100%;height:250px;cursor:none">
+        <img src="hero/moon-run-wide-960.webp" width="960" height="600" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        <div class="st-loupe-hidden"><img src="extras/details/durer-astronomer-se.webp" width="480" height="480" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="st-loupe-ring"></div></div></div>
+      <div class="mtitle"><h3>4 · Brass loupe</h3></div><p class="mdesc">Hover opens a sprung circular window onto a hidden layer that follows the pointer.</p></div>
+    <div><div class="mstage"><div class="mcard st-sticker" id="m-frac" style="--rot:0deg"><span class="kicker">ALB-01</span><strong>MCP Emails</strong></div><button class="btn" data-replay="frac">Fracture</button></div>
+      <div class="mtitle"><h3>5 · Fracture snap</h3></div><p class="mdesc">Three clip-path shards slide apart and snap back (composite: add). Once per page, for emphasis.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span class="kicker">Inventory</span>
+  <p>Full inventory, licences and sources: <a href="ASSETS.md">ASSETS.md</a>. Generators: <code>src/*.py</code>.</p>
+</footer>
+</main>
+
+<script>/*DEBUGFROM*/{const f=new URLSearchParams(location.search).get('from');if(f){document.querySelector('.hero').style.display='none';for(const el of document.querySelectorAll('main > *')){if(el.id===f)break;el.style.display='none'}}}</script>
+<script type="module">
+  import { pressOn, peel, trace, loupe, fracture } from './motion.js'
+  document.querySelectorAll('.prod').forEach(el => peel(el, { rot: parseFloat(el.style.getPropertyValue('--rot')) || 0 }))
+  const press = document.getElementById('m-press'); pressOn(press, { delay: 300 })
+  peel(document.getElementById('m-peel'))
+  const tr = document.getElementById('m-trace'); trace(tr)
+  loupe(document.getElementById('m-loupe'), { radius: 80 }); loupe(document.getElementById('loupe'), { radius: 110 })
+  document.querySelectorAll('[data-replay]').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.replay
+    if (k === 'press') pressOn(press)
+    if (k === 'trace') trace(tr)
+    if (k === 'frac') fracture(document.getElementById('m-frac'))
+  }))
+  // Interactive star field: loaded only when its section approaches the viewport
+  const host = document.getElementById('sky')
+  const Q = new URLSearchParams(location.search)
+  if (!Q.has('nosky'))
+  new IntersectionObserver(async ([e], io) => {
+    if (!e.isIntersecting) return; io.disconnect()
+    const { mountStarCatalogue } = await import('./interactive/star-catalogue.js')
+    const sky = await mountStarCatalogue(host, { centerY: 0.44 })
+    const btns = [...document.querySelectorAll('.sky [data-id]')]
+    btns.forEach(b => b.addEventListener('click', () => { const id = sky.current === b.dataset.id ? null : b.dataset.id; sky.show(id); btns.forEach(x => x.setAttribute('aria-pressed', x.dataset.id === id)) }))
+    document.querySelector('.sky [data-act=fracture]').addEventListener('click', () => sky.fracture())
+    sky.show('harbor'); btns[3].setAttribute('aria-pressed', 'true')
+  }, { rootMargin: '400px' }).observe(host)
+</script>
+</body>
+</html>

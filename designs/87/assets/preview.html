@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Totality — asset kit 87</title>
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="preload" href="fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: "Instrument Serif"; src: url(fonts/instrument-serif.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "Instrument Serif"; font-style: italic; src: url(fonts/instrument-serif-italic.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-var.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Geist Mono"; src: url(fonts/geist-mono-var.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+
+  :root {
+    --void: #0d040e;      /* oklch(.13 .03 324) */
+    --umbra: #19081a;     /* oklch(.17 .045 324) */
+    --dusk: #2d142f;      /* oklch(.24 .06 324) */
+    --plum: #542a57;      /* oklch(.36 .09 324) */
+    --magenta: #914599;   /* oklch(.52 .15 324) */
+    --glow: #ca6fd3;      /* oklch(.68 .17 324) */
+    --halo: #e1a5e6;      /* oklch(.80 .11 324) */
+    --blush: #efd3f1;     /* oklch(.90 .05 324) */
+    --corona: #f8ebf9;    /* oklch(.955 .022 324) */
+    --paper: #fdf8fd;     /* oklch(.985 .008 324) */
+    --muted: #908091;     /* oklch(.62 .03 324) */
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+    --gutter: clamp(20px, 5vw, 72px);
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--void); }
+  body { margin: 0; color: var(--corona); font: 400 16px/1.6 var(--sans); background: var(--void); }
+  img, svg, canvas, picture { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  .mono { font: 500 11px/1.5 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+
+  /* ---- hero */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--void); }
+  .hero picture, .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero picture img { width: 100%; height: 100%; object-fit: cover; }
+  .hero canvas { opacity: 0; transition: opacity .6s; }
+  .hero canvas.on { opacity: 1; }
+  .hero .ring { position: absolute; left: 50%; top: 49.4%; width: 34vh; height: 34vh; transform: translate(-50%, -50%); pointer-events: none; }
+  .hero .ring circle { opacity: 0; }
+  .hero-copy { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(28px, 7vh, 72px); display: grid; gap: 14px; }
+  .hero h1 { margin: 0; font: 400 clamp(56px, 10.5vw, 168px)/.86 var(--serif); letter-spacing: -.02em; color: var(--paper); }
+  .hero h1 .as { display: inline-block; font: 500 .13em/1 var(--mono); letter-spacing: .2em; color: var(--halo); transform: translateY(-4.4em); margin-left: .3em; }
+  .hero .line { margin: 0; font: italic 400 clamp(20px, 2.2vw, 30px)/1.2 var(--serif); color: var(--blush); }
+  .hero-top { position: absolute; top: 22px; left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; align-items: center; }
+  .hero-top img { width: 34px; height: 34px; }
+  .replay { all: unset; cursor: pointer; border-bottom: 1px solid var(--muted); font: 500 11px/1.5 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--blush); }
+
+  /* ---- sheet */
+  .sheet { padding: clamp(64px, 10vw, 140px) var(--gutter); }
+  .sheet.paper { background: var(--corona) url(texture/paper-corona-1024.webp) 0 0 / 512px; color: var(--umbra); }
+  .sheet.paper .mono { color: #6f5f70; }
+  .sheet-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px; margin-bottom: clamp(32px, 5vw, 64px); border-bottom: 1px solid currentColor; padding-bottom: 14px; }
+  .sheet h2 { margin: 0; font: 400 clamp(36px, 5vw, 72px)/1 var(--serif); letter-spacing: -.01em; }
+  .sheet h2 em { color: var(--glow); }
+  .paper h2 em { color: var(--magenta); }
+  .lede { max-width: 62ch; margin: 0 0 40px; color: inherit; opacity: .85; }
+  .grid { display: grid; gap: clamp(16px, 2.4vw, 32px); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; display: flex; justify-content: space-between; gap: 12px; }
+  .frame { position: relative; overflow: hidden; background: var(--umbra); }
+  .tile { padding: 28px; display: grid; place-items: center; min-height: 220px; }
+  .tile.dark { background: var(--umbra); }
+  .tile.paperish { background: var(--paper); border: 1px solid #e6d5e8; }
+
+  /* palette */
+  .ramp { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 0; border: 1px solid var(--umbra); }
+  .sw { aspect-ratio: 1 / 1.25; padding: 14px; display: flex; flex-direction: column; justify-content: flex-end; font: 500 10.5px/1.5 var(--mono); letter-spacing: .08em; }
+  .sw b { font: 400 22px/1 var(--serif); letter-spacing: 0; margin-bottom: 8px; }
+
+  /* type */
+  .spec-display { font: 400 clamp(64px, 12vw, 200px)/.85 var(--serif); letter-spacing: -.025em; margin: 0; }
+  .spec-italic { font: italic 400 clamp(28px, 3.6vw, 52px)/1.1 var(--serif); margin: 18px 0 0; color: var(--magenta); }
+  .spec-body { font: 400 18px/1.65 var(--sans); max-width: 60ch; }
+  .spec-row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; border-top: 1px solid #d9c3db; padding: 22px 0; align-items: baseline; }
+  @media (max-width: 640px) { .spec-row { grid-template-columns: 1fr; gap: 8px; } }
+
+  /* motion */
+  .stage { position: relative; aspect-ratio: 16 / 10; background: var(--umbra); overflow: hidden; display: grid; place-items: center; }
+  .stage img { width: 100%; height: 100%; object-fit: cover; }
+  .stage .fx-title { font: 400 clamp(36px, 5vw, 64px)/1 var(--serif); color: var(--paper); }
+  .stage .iris-layer { position: absolute; inset: 0; }
+  .play { all: unset; cursor: pointer; font: 500 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--halo); border-bottom: 1px solid currentColor; }
+  .motion-card p { margin: 8px 0 0; font-size: 14px; opacity: .8; }
+  .motion-card h3 { margin: 18px 0 0; font: 400 28px/1.1 var(--serif); }
+
+  .roundels { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 28px; }
+  .roundels figure { text-align: center; }
+  .roundels img { width: 96px; height: 96px; margin: 0 auto; }
+  .roundels figcaption { justify-content: center; }
+  footer { padding: 48px var(--gutter); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ HERO / INTRO -->
+<section class="hero" id="hero">
+  <picture>
+    <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="hero/totality-portrait-750.avif 750w, hero/totality-portrait-1200.avif 1200w" sizes="100vw">
+    <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="hero/totality-portrait-750.webp 750w, hero/totality-portrait-1200.webp 1200w" sizes="100vw">
+    <source type="image/avif" srcset="hero/totality-960.avif 960w, hero/totality-1600.avif 1600w, hero/totality-2560.avif 2560w" sizes="100vw">
+    <source type="image/webp" srcset="hero/totality-960.webp 960w, hero/totality-1600.webp 1600w, hero/totality-2560.webp 2560w" sizes="100vw">
+    <img src="hero/totality-1600.jpg" width="1600" height="900" alt="Trouvelot's 1878 drawing of a total solar eclipse, graded in plum and corona pink" fetchpriority="high">
+  </picture>
+  <canvas id="corona" aria-hidden="true"></canvas>
+  <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><circle id="ring" cx="50" cy="50" r="49" fill="none" stroke="#efd3f1" stroke-width=".35" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
+  <div class="hero-top" data-chrome>
+    <img src="identity/mark-on-dark.svg" width="34" height="34" alt="Albretsen AS">
+    <span class="mono">Asset kit 87 · Totality</span>
+    <button class="replay mono" id="replay" data-cursor="Replay">Replay intro</button>
+  </div>
+  <div class="hero-copy">
+    <h1><span id="title">Albretsen</span><span class="as" data-chrome>AS</span></h1>
+    <p class="line" data-chrome>I build software that pays for itself.</p>
+    <span class="mono" data-chrome>Plate 0 &nbsp;·&nbsp; Total eclipse, after É. L. Trouvelot, 1878 &nbsp;·&nbsp; scroll</span>
+  </div>
+</section>
+
+<!-- ============================================================ DIRECTION -->
+<section id="direction" class="sheet paper">
+  <div class="sheet-head"><h2>Totality, <em>an archive of light</em></h2><span class="mono">Direction</span></div>
+  <p class="lede">The company is presented like a set of astronomical plates in a museum drawer: each product is an observation, mounted on corona-pink paper, captioned in quiet caps. The imagery is É. L. Trouvelot's 1870s chromolithographs (public domain), re-inked as a duotone on hue 324: umbra ink and corona light. One idea per screen, a lot of dark space, and one moment of glow. The page opens on an eclipse and the moon is the aperture everything is seen through.</p>
+  <div class="grid g3">
+    <figure class="tile paperish"><img src="ephemera/accession-label.svg" width="360" height="180" alt="Accession label"></figure>
+    <figure class="tile paperish"><img src="ephemera/registration.svg" width="200" height="140" alt="Registration marks"></figure>
+    <figure class="tile dark"><img src="ephemera/iris.svg" width="160" height="160" alt="Seven-blade iris"></figure>
+  </div>
+</section>
+
+<!-- ============================================================ PALETTE -->
+<section id="palette" class="sheet paper" style="padding-top:0">
+  <div class="sheet-head"><h2>Duotone, <em>hue 324</em></h2><span class="mono">Palette · OKLCH</span></div>
+  <div class="ramp">
+    <div class="sw" style="background:#0d040e;color:#efd3f1"><b>Void</b>oklch(.13 .03 324)<br>#0d040e</div>
+    <div class="sw" style="background:#19081a;color:#efd3f1"><b>Umbra</b>oklch(.17 .045 324)<br>#19081a · ink</div>
+    <div class="sw" style="background:#2d142f;color:#efd3f1"><b>Dusk</b>oklch(.24 .06 324)<br>#2d142f</div>
+    <div class="sw" style="background:#542a57;color:#efd3f1"><b>Plum</b>oklch(.36 .09 324)<br>#542a57</div>
+    <div class="sw" style="background:#914599;color:#fdf8fd"><b>Magenta</b>oklch(.52 .15 324)<br>#914599 · text accent</div>
+    <div class="sw" style="background:#ca6fd3;color:#19081a"><b>Glow</b>oklch(.68 .17 324)<br>#ca6fd3 · the bead</div>
+    <div class="sw" style="background:#e1a5e6;color:#19081a"><b>Halo</b>oklch(.80 .11 324)<br>#e1a5e6</div>
+    <div class="sw" style="background:#efd3f1;color:#19081a"><b>Blush</b>oklch(.90 .05 324)<br>#efd3f1</div>
+    <div class="sw" style="background:#f8ebf9;color:#19081a"><b>Corona</b>oklch(.955 .022 324)<br>#f8ebf9 · paper</div>
+    <div class="sw" style="background:#fdf8fd;color:#19081a"><b>Paper</b>oklch(.985 .008 324)<br>#fdf8fd</div>
+  </div>
+</section>
+
+<!-- ============================================================ TYPE -->
+<section id="type" class="sheet paper" style="padding-top:0">
+  <div class="sheet-head"><h2>Type <em>specimen</em></h2><span class="mono">Instrument Serif · Geist · Geist Mono (OFL)</span></div>
+  <p class="spec-display">Albretsen</p>
+  <p class="spec-italic">Quiet software that pays for itself.</p>
+  <div style="margin-top:48px">
+    <div class="spec-row"><span class="mono">Display · Instrument Serif 400</span><span style="font:400 44px/1.1 var(--serif)">MCP Emails, 17 tools, about 100 providers</span></div>
+    <div class="spec-row"><span class="mono">Accent · Instrument Serif Italic</span><span style="font:italic 400 30px/1.2 var(--serif)">Built at 17. No marketing. 113,000+ installs.</span></div>
+    <div class="spec-row"><span class="mono">Body · Geist 400 / 18</span><span class="spec-body">Albretsen AS builds whatever is profitable: apps, SaaS and infrastructure for AI agents. Published on Google Play since 2016. Takes one outside engagement at a time.</span></div>
+    <div class="spec-row"><span class="mono">Caption · Geist Mono 500</span><span class="mono" style="color:#19081a">Plate III. &nbsp;Toolrails &nbsp;·&nbsp; in construction, 2026 &nbsp;·&nbsp; 4 connectors</span></div>
+    <div class="spec-row"><span class="mono">Code · Geist Mono 400</span><code style="font:400 15px/1.5 var(--mono)">claude mcp add albretsen https://albretsen.no/mcp</code></div>
+  </div>
+</section>
+
+<!-- ============================================================ IDENTITY -->
+<section id="identity" class="sheet">
+  <div class="sheet-head"><h2>Identity, <em>the diamond ring</em></h2><span class="mono">Mark · wordmark · favicon · OG</span></div>
+  <p class="lede">The mark is the moment just before totality: the moon almost covers the sun, the corona ring is broken by an aperture gap, and a single bead of light sits in it. It reads at 16 px as a dot in a ring.</p>
+  <div class="grid g3">
+    <figure><div class="tile paperish"><img src="identity/mark.svg" width="140" height="140" alt="Mark on light"></div><figcaption class="mono"><span>mark.svg</span><span>on light</span></figcaption></figure>
+    <figure><div class="tile dark"><img src="identity/mark-on-dark.svg" width="140" height="140" alt="Mark on dark"></div><figcaption class="mono"><span>mark-on-dark.svg</span><span>on dark</span></figcaption></figure>
+    <figure><div class="tile dark" style="gap:18px;grid-auto-flow:column"><img src="identity/favicon.svg" width="32" height="32" alt="Favicon 32"><img src="identity/favicon.svg" width="16" height="16" alt="Favicon 16"><img src="identity/apple-touch-icon-180.png" width="90" height="90" alt="Apple touch icon"></div><figcaption class="mono"><span>favicon.svg · 180 png</span><span>32 / 16 / 180</span></figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:32px">
+    <figure><div class="tile paperish"><img src="identity/wordmark.svg" width="520" height="112" alt="Wordmark" style="width:100%;height:auto"></div><figcaption class="mono"><span>wordmark.svg</span><span>outlined, no font needed</span></figcaption></figure>
+    <figure><div class="tile dark"><img src="identity/wordmark-on-dark.svg" width="520" height="112" alt="Wordmark on dark" style="width:100%;height:auto"></div><figcaption class="mono"><span>wordmark-on-dark.svg</span><span>also: wordmark-type-only.svg</span></figcaption></figure>
+  </div>
+  <figure style="margin-top:32px"><img src="identity/og-1200x630.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy"><figcaption class="mono"><span>og-1200x630.jpg</span><span>Open Graph</span></figcaption></figure>
+</section>
+
+<!-- ============================================================ HERO IMAGERY -->
+<section id="heroes" class="sheet">
+  <div class="sheet-head"><h2>Hero <em>plates</em></h2><span class="mono">AVIF · WebP · JPEG, 960 / 1600 / 2560 + portrait crops</span></div>
+  <figure><div class="frame"><picture>
+    <source type="image/avif" srcset="hero/aurora-960.avif 960w, hero/aurora-1600.avif 1600w, hero/aurora-2560.avif 2560w" sizes="(min-width: 1200px) 1200px, 100vw">
+    <source type="image/webp" srcset="hero/aurora-960.webp 960w, hero/aurora-1600.webp 1600w, hero/aurora-2560.webp 2560w" sizes="(min-width: 1200px) 1200px, 100vw">
+    <img data-develop src="hero/aurora-1600.jpg" width="1600" height="900" alt="Aurora borealis plate, re-inked in duotone" loading="lazy">
+  </picture></div><figcaption class="mono"><span>hero/aurora-*</span><span>Plate · Aurora borealis, after Trouvelot 1872 · second-scene hero</span></figcaption></figure>
+  <div class="grid g3" style="margin-top:32px">
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/comet-800.avif 800w, hero/comet-1400.avif 1400w" sizes="(min-width: 900px) 33vw, 100vw"><img data-develop src="hero/comet-800.jpg" width="800" height="1067" alt="The Great Comet of 1881 over an observatory" loading="lazy"></picture></div><figcaption class="mono"><span>hero/comet-*</span><span>3:4 · about / story</span></figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/totality-portrait-750.avif 750w, hero/totality-portrait-1200.avif 1200w" sizes="(min-width: 900px) 33vw, 100vw"><img data-develop src="hero/totality-portrait-750.jpg" width="750" height="937" alt="Total eclipse, portrait crop" loading="lazy"></picture></div><figcaption class="mono"><span>hero/totality-portrait-*</span><span>4:5 · phone hero</span></figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/aurora-portrait-750.avif 750w, hero/aurora-portrait-1200.avif 1200w" sizes="(min-width: 900px) 33vw, 100vw"><img data-develop src="hero/aurora-portrait-750.jpg" width="750" height="937" alt="Aurora, portrait crop" loading="lazy"></picture></div><figcaption class="mono"><span>hero/aurora-portrait-*</span><span>4:5 · phone</span></figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:32px">
+    <figure><div class="frame"><picture><source type="image/avif" srcset="plates/saturn-800.avif 800w, plates/saturn-1600.avif 1600w" sizes="(min-width: 900px) 50vw, 100vw"><img data-develop src="plates/saturn-800.jpg" width="800" height="500" alt="Saturn plate" loading="lazy"></picture></div><figcaption class="mono"><span>plates/saturn-*</span><span>16:10 · blog cover</span></figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="plates/protuberances-800.avif 800w, plates/protuberances-1600.avif 1600w" sizes="(min-width: 900px) 50vw, 100vw"><img data-develop src="plates/protuberances-800.jpg" width="800" height="1067" alt="Solar protuberances plate" loading="lazy" style="aspect-ratio:16/10;object-fit:cover;width:100%"></picture></div><figcaption class="mono"><span>plates/protuberances-*</span><span>3:4 · section art</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ============================================================ PRODUCTS -->
+<section id="products" class="sheet paper">
+  <div class="sheet-head"><h2>Products, <em>as observations</em></h2><span class="mono">Real logos, unchanged · 1200 / 600 · WebP + JPEG</span></div>
+  <p class="lede">Each live or building product is a mounted plate. MCP Emails is the head of the Great Comet. Fun Libs rises where the aurora's rays begin. Toolrails eclipses the sun. Harbor, paused, is a veiled spot on the solar surface. Hover a plate: light rakes across it.</p>
+  <div class="grid g4">
+    <figure class="plate"><picture><source type="image/webp" srcset="products/mcp-emails-600.webp 600w, products/mcp-emails-1200.webp 1200w" sizes="(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw"><img src="products/mcp-emails-600.jpg" width="600" height="750" alt="MCP Emails plate" loading="lazy"></picture></figure>
+    <figure class="plate"><picture><source type="image/webp" srcset="products/fun-libs-600.webp 600w, products/fun-libs-1200.webp 1200w" sizes="(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw"><img src="products/fun-libs-600.jpg" width="600" height="750" alt="Fun Libs plate" loading="lazy"></picture></figure>
+    <figure class="plate"><picture><source type="image/webp" srcset="products/toolrails-600.webp 600w, products/toolrails-1200.webp 1200w" sizes="(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw"><img src="products/toolrails-600.jpg" width="600" height="750" alt="Toolrails plate" loading="lazy"></picture></figure>
+    <figure class="plate"><picture><source type="image/webp" srcset="products/harbor-600.webp 600w, products/harbor-1200.webp 1200w" sizes="(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw"><img src="products/harbor-600.jpg" width="600" height="750" alt="Harbor plate" loading="lazy"></picture></figure>
+  </div>
+  <div class="sheet-head" style="margin-top:96px"><h2 style="font-size:clamp(28px,3.4vw,44px)">Retired, <em>waning</em></h2><span class="mono">retired/*.svg · moon phase = how long ago it set</span></div>
+  <div class="roundels">
+    <figure><img src="retired/luma.svg" width="96" height="96" alt=""><figcaption class="mono">Luma</figcaption></figure>
+    <figure><img src="retired/polyglot-pilot.svg" width="96" height="96" alt=""><figcaption class="mono">Polyglot Pilot</figcaption></figure>
+    <figure><img src="retired/pinpoint.svg" width="96" height="96" alt=""><figcaption class="mono">PinPoint</figcaption></figure>
+    <figure><img src="retired/webvakt.svg" width="96" height="96" alt=""><figcaption class="mono">WebVakt</figcaption></figure>
+    <figure><img src="retired/joke-central.svg" width="96" height="96" alt=""><figcaption class="mono">Joke Central</figcaption></figure>
+    <figure><img src="retired/tryggere-hyring.svg" width="96" height="96" alt=""><figcaption class="mono">Tryggere Hyring</figcaption></figure>
+    <figure><img src="retired/early-apps.svg" width="96" height="96" alt=""><figcaption class="mono">Early apps</figcaption></figure>
+  </div>
+  <figure style="margin-top:40px;max-width:480px"><img src="retired/luma-card.png" width="480" height="200" alt="Luma roundel with the real Luma logo" loading="lazy"><figcaption class="mono"><span>retired/luma-card.png</span><span>real logo + roundel</span></figcaption></figure>
+</section>
+
+<!-- ============================================================ EXTRAS -->
+<section id="extras" class="sheet">
+  <div class="sheet-head"><h2>Extras, <em>texture and ephemera</em></h2><span class="mono">Hand-authored SVG · CC0 paper</span></div>
+  <div class="grid g3">
+    <figure><div class="frame" style="aspect-ratio:1"><img src="texture/paper-corona-1024.webp" width="1024" height="1024" alt="Corona paper texture" loading="lazy"></div><figcaption class="mono"><span>texture/paper-corona-1024</span><span>tile · light sections</span></figcaption></figure>
+    <figure><div class="frame" style="aspect-ratio:1"><img src="texture/paper-umbra-1024.webp" width="1024" height="1024" alt="Umbra paper texture" loading="lazy"></div><figcaption class="mono"><span>texture/paper-umbra-1024</span><span>tile · dark sections</span></figcaption></figure>
+    <figure><div class="frame" style="aspect-ratio:1;background:#542a57 url(texture/grain-128.png) 0 0/128px"></div><figcaption class="mono"><span>texture/grain-128.png</span><span>overlay, 9% alpha</span></figcaption></figure>
+  </div>
+  <figure style="margin-top:32px"><img src="ephemera/star-chart.svg" width="800" height="500" alt="Star chart" loading="lazy" style="width:100%"><figcaption class="mono"><span>ephemera/star-chart.svg</span><span>background for the "now" section</span></figcaption></figure>
+  <figure style="margin-top:32px"><img src="ephemera/fracture.svg" width="800" height="240" alt="Light fracture" loading="lazy" style="width:100%"><figcaption class="mono"><span>ephemera/fracture.svg</span><span>one beam, split into the duotone ramp</span></figcaption></figure>
+  <figure style="margin-top:32px;background:var(--corona);padding:24px"><img src="ephemera/aperture-scale.svg" width="1200" height="64" alt="Aperture scale" loading="lazy" style="width:100%"><figcaption class="mono" style="color:#6f5f70"><span>ephemera/aperture-scale.svg</span><span>section divider · the bead marks the current section</span></figcaption></figure>
+</section>
+
+<!-- ============================================================ MOTION -->
+<section id="motion" class="sheet">
+  <div class="sheet-head"><h2>Motion, <em>slow exposure</em></h2><span class="mono">motion.js · motion.css · Web Animations API</span></div>
+  <p class="lede">Everything moves like light, not like objects: it develops, settles and opens. Nothing bounces. The intro at the top is signature 1 (press Replay). The aperture cursor is live on this whole page.</p>
+  <div class="grid g2">
+    <div class="motion-card"><div class="stage"><img id="m-develop" src="hero/aurora-960.jpg" width="960" height="540" alt=""></div>
+      <h3>2 · Develop</h3><p>Highlights first, shadows last, like a print in the tray. 1.6 s, exposure ease.</p><button class="play" data-play="develop">Play</button></div>
+    <div class="motion-card"><div class="stage"><span class="fx-title" id="m-fracture">Quiet software</span></div>
+      <h3>3 · Fracture</h3><p>Letters arrive split into glow and paper and converge to one ink, centre-out.</p><button class="play" data-play="fracture">Play</button></div>
+    <div class="motion-card"><div class="stage"><img src="hero/comet-800.jpg" width="800" height="1067" alt="" style="position:absolute;inset:0"><div class="iris-layer" id="m-iris"><img src="hero/totality-960.jpg" width="960" height="540" alt=""></div></div>
+      <h3>4 · Iris</h3><p>Scene change through the aperture: the clip opens from the click point (here, the disc).</p><button class="play" data-play="iris">Play</button></div>
+    <div class="motion-card"><div class="stage" id="m-rake" style="background:var(--corona)"><img src="products/toolrails-600.jpg" width="600" height="750" alt="" style="width:auto;height:100%;object-fit:contain"></div>
+      <h3>5 · Raking light</h3><p>Hover the plate: a sheen of corona light passes across it from the side you entered.</p><button class="play" data-play="rake">Play</button></div>
+    <div class="motion-card"><div class="stage"><img class="breath" src="identity/mark-on-dark.svg" width="120" height="120" alt="" style="width:120px;height:120px"></div>
+      <h3>6 · Corona breath</h3><p>CSS-only idle glow for the bead (5.2 s). Use on the nav mark only.</p></div>
+    <div class="motion-card"><div class="stage"><svg viewBox="0 0 200 120" width="360" height="216"><path id="m-trace" class="trace" pathLength="1" d="M10 100 C 60 100, 70 20, 100 20 S 140 100, 190 100" fill="none" stroke="#e1a5e6" stroke-width="1"/><circle cx="100" cy="20" r="3" fill="#ca6fd3" class="breath"/></svg></div>
+      <h3>7 · Hairline trace</h3><p>Rules, rings and orbit paths draw themselves (pathLength = 1).</p><button class="play" data-play="trace">Play</button></div>
+  </div>
+  <div class="motion-card" style="margin-top:40px">
+    <div class="stage" style="aspect-ratio:21/9"><iframe src="interactive/corona-demo.html" title="Corona shader demo" loading="lazy" style="border:0;width:100%;height:100%"></iframe></div>
+    <h3>Interactive · corona.js</h3><p>Raw WebGL, ~5 KB. Develop slider, fracture on fast pointer moves, moon parallax. <a href="interactive/corona-demo.html">Open full screen</a>.</p>
+  </div>
+</section>
+
+<footer class="mono"><span>Albretsen AS · asset kit 87 · Totality</span><span>Plates: É. L. Trouvelot, 1872–1881, public domain (NYPL, U-M Library)</span></footer>
+
+<script>
+  // ?only=<section id> shows a single section (used for review screenshots)
+  (function () { var o = new URLSearchParams(location.search).get('only');
+    if (o) document.write('<style>body > section:not(#' + o + '), footer { display: none !important }</style>'); })();
+</script>
+<script type="module">
+  import { totality, develop, fracture, iris, rakingLight, developOnView } from './motion.js';
+  import { mountCursor } from './interactive/cursor.js';
+  mountCursor();
+  developOnView();
+  document.querySelectorAll('.plate').forEach(rakingLight);
+  rakingLight(document.getElementById('m-rake'));
+
+  const hero = document.getElementById('hero');
+  const canvas = document.getElementById('corona');
+  const chrome = [...hero.querySelectorAll('[data-chrome]')];
+  let corona = null;
+  const q = new URLSearchParams(location.search);
+  // the shader is an enhancement after first paint; the <picture> is the LCP
+  const boot = async () => {
+    try {
+      const { mountCorona } = await import('./interactive/corona.js');
+      corona = await mountCorona(canvas, { plate: 'hero/totality-1600.webp', intro: q.has('still') ? 1 : 0 });
+      canvas.classList.add('on');
+    } catch (e) { console.warn('corona fallback', e); }
+    if (!q.has('still')) run();
+  };
+  const run = () => totality({ root: hero, ring: document.getElementById('ring'), bead: null, title: document.getElementById('title'), chrome, corona,
+    plate: hero.querySelector('picture img') });
+  (window.requestIdleCallback || setTimeout)(boot);
+  document.getElementById('replay').onclick = run;
+
+  const plays = {
+    develop: () => develop(document.getElementById('m-develop')),
+    fracture: () => { const el = document.getElementById('m-fracture'); fracture(el); },
+    iris: () => iris(document.getElementById('m-iris'), { x: '50%', y: '49%' }),
+    rake: () => document.getElementById('m-rake').dispatchEvent(new PointerEvent('pointerenter', { clientX: 0 })),
+    trace: () => { const p = document.getElementById('m-trace'); p.getAnimations().forEach((a) => { a.cancel(); a.play(); }); },
+  };
+  document.querySelectorAll('[data-play]').forEach((b) => (b.onclick = () => plays[b.dataset.play]()));
+</script>
+</body>
+</html>

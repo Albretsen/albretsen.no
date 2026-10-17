@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" role="img" aria-label="A pair of louvred shutters">
+  <title>Louvred shutters (each leaf is a group: #leaf-l, #leaf-r; animate rotateY around the outer hinge)</title>
+  <defs>
+    <pattern id="louvre" width="160" height="22" patternUnits="userSpaceOnUse">
+      <rect width="160" height="22" fill="var(--shutter, #2f5a46)"/>
+      <path d="M0 4H160V14H0Z" fill="#000" opacity=".16"/>
+      <path d="M0 14H160V16H0Z" fill="#fff" opacity=".10"/>
+    </pattern>
+  </defs>
+  <!-- stone surround -->
+  <path d="M8 512V140A192 132 0 0 1 392 140V512Z" fill="var(--stone, #e9d9c0)"/>
+  <path d="M30 512V146A170 112 0 0 1 370 146V512Z" fill="var(--void, #2a2433)"/>
+  <g id="leaf-l" style="transform-origin:30px 300px">
+    <path d="M30 512V146A170 112 0 0 1 200 34V512Z" fill="var(--shutter, #2f5a46)"/>
+    <rect x="44" y="196" width="142" height="138" fill="url(#louvre)"/>
+    <rect x="44" y="352" width="142" height="138" fill="url(#louvre)"/>
+    <path d="M44 196H186V334H44ZM44 352H186V490H44Z" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="2"/>
+    <circle cx="178" cy="345" r="4" fill="#c49a52"/>
+  </g>
+  <g id="leaf-r" style="transform-origin:370px 300px">
+    <path d="M370 512V146A170 112 0 0 0 200 34V512Z" fill="var(--shutter, #2f5a46)"/>
+    <rect x="214" y="196" width="142" height="138" fill="url(#louvre)"/>
+    <rect x="214" y="352" width="142" height="138" fill="url(#louvre)"/>
+    <path d="M214 196H356V334H214ZM214 352H356V490H214Z" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="2"/>
+    <circle cx="222" cy="345" r="4" fill="#c49a52"/>
+  </g>
+  <path d="M200 34V512" stroke="#000" stroke-opacity=".35" stroke-width="2"/>
+</svg>

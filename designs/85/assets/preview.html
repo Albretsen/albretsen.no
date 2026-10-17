@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silica Atlas · asset kit 85</title>
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body { margin: 0; color: var(--ink); background: var(--paper) url("extras/paper-tile.webp"); font: 16px/1.55 "Bricolage Grotesque", system-ui, sans-serif; font-variation-settings: "wdth" 92; }
+  .mono, small, .lab { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+  .wrap { width: min(1320px, 100% - 32px); margin: 0 auto; }
+  header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; border-bottom: 1px solid rgb(9 23 16 / .18); gap: 16px; flex-wrap: wrap; }
+  header.top img { height: 34px; width: auto; }
+  h1 { font-weight: 640; font-variation-settings: "wdth" 84, "opsz" 96; font-size: clamp(48px, 9vw, 148px); line-height: .88; letter-spacing: -.022em; margin: 56px 0 12px; }
+  h1 em { font-family: "Instrument Serif", serif; font-weight: 400; font-style: italic; letter-spacing: -.01em; color: var(--spot-deep); }
+  .lede { max-width: 62ch; font-size: 19px; color: #26332b; margin: 0 0 36px; }
+  section { padding: 56px 0; border-top: 1px solid rgb(9 23 16 / .14); }
+  section > .lab { display: flex; justify-content: space-between; margin-bottom: 22px; }
+  h2 { font-weight: 700; font-variation-settings: "wdth" 85; font-size: clamp(28px, 4vw, 44px); letter-spacing: -.02em; line-height: 1; margin: 0 0 8px; }
+  p.note { max-width: 70ch; color: #34413a; margin: 0 0 22px; }
+  figure { margin: 0; }
+  figcaption { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .08em; color: var(--ink-2); margin-top: 8px; }
+  img { display: block; max-width: 100%; height: auto; }
+  .grid { display: grid; gap: 18px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  .g6 { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .card { background: var(--paper); border: 1px solid rgb(9 23 16 / .14); border-radius: 6px; padding: 16px; }
+  /* hero seam */
+  .seam { aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; cursor: ew-resize; }
+  .seam img { width: 100%; height: 100%; object-fit: cover; }
+  .seam .tag { position: absolute; top: 14px; padding: 6px 10px; background: rgb(247 245 234 / .9); border-radius: 999px; }
+  .seam .tag.l { left: 14px; } .seam .tag.r { right: 14px; }
+  .chorus-img { position: relative; border-radius: 6px; overflow: hidden; aspect-ratio: 16/9; cursor: none; }
+  .chorus-img img { width: 100%; height: 100%; object-fit: cover; }
+  /* palette */
+  .sw { border-radius: 6px; overflow: hidden; border: 1px solid rgb(9 23 16 / .14); background: var(--paper); }
+  .sw i { display: block; height: 96px; }
+  .sw div { padding: 10px 12px; font: 11px/1.5 "JetBrains Mono", monospace; }
+  /* type */
+  .spec-d { font-weight: 640; font-variation-settings: "wdth" 84, "opsz" 96; font-size: clamp(56px, 10vw, 160px); line-height: .88; letter-spacing: -.022em; }
+  .spec-s { font-family: "Instrument Serif", serif; font-style: italic; font-size: clamp(34px, 5vw, 64px); line-height: 1; color: var(--spot-deep); }
+  .spec-b { font-size: 18px; max-width: 58ch; }
+  .spec-m { font-family: "JetBrains Mono", monospace; font-size: 13px; }
+  .brand-tiles { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); align-items: stretch; }
+  .brand-tiles .card { display: grid; place-items: center; min-height: 200px; }
+  .dark { background: var(--ink); }
+  .caust { position: relative; height: 260px; border-radius: 6px; overflow: hidden; background: radial-gradient(120% 90% at 70% 20%, #005e26, #00301a 60%, #091710); }
+  .caust .caustic { position: absolute; inset: 0; }
+  .stage { position: relative; height: min(78vh, 720px); border-radius: 6px; overflow: hidden; border: 1px solid rgb(9 23 16 / .14); }
+  .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; }
+  .stage .ui { position: absolute; left: 14px; bottom: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+  button { font: 500 11px/1 "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; background: var(--paper); color: var(--ink); border: 1px solid var(--ink); border-radius: 999px; padding: 10px 14px; cursor: pointer; }
+  button:hover { background: var(--ink); color: var(--paper); }
+  .stagger { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; }
+  .stagger img { aspect-ratio: 1; object-fit: contain; width: 100%; }
+  .motion-card { display: flex; flex-direction: column; gap: 12px; }
+  .glint-demo { border-radius: 50%; overflow: hidden; width: 200px; aspect-ratio: 1; }
+  .glint-demo img { width: 100%; height: 100%; object-fit: cover; }
+  .ret { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 14px; }
+  .ret figure { text-align: center; } .ret img { width: 96px; height: 96px; margin: 0 auto; }
+  footer { padding: 40px 0 80px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="brand/lockup.svg" alt="Albretsen AS" width="214" height="56">
+    <span class="mono">Asset kit 85 · Silica Atlas · open brief</span>
+  </header>
+
+  <h1>Ink, then <em>glass.</em></h1>
+  <p class="lede">The first app was an engraving: careful, monochrome, hand-made. The work today is the same drawing grown into polished glass. Haeckel's 1904 plates of diatoms and radiolarians (living things that build their shells out of silica) are the subject. Their glass is the metaphor: precise structure, real depth, light passing through.</p>
+
+  <!-- HERO 1 -->
+  <section>
+    <div class="lab"><span>Hero I · The seam</span><span>hero/split-*.avif|webp|jpg</span></div>
+    <h2>Then / now, one plate</h2>
+    <p class="note">Two aligned renders (ink print, glass) share one seam. Move the pointer across; it springs. Below it is the baked composite, a portrait cut for phones, and the separate halves for building the live seam.</p>
+    <div class="seam" id="seam">
+      <picture><source type="image/webp" srcset="hero/split-paper-1600.webp"><img src="hero/split-960.jpg" alt="Diatoms engraved in ink on paper" width="1600" height="900"></picture>
+      <div class="seam-now"><img src="hero/split-glass-1600.webp" alt="The same diatoms as glass objects on paper" width="1600" height="900"></div>
+      <div class="seam-blade"></div>
+      <span class="tag l mono">2016 · ink</span><span class="tag r mono">2026 · glass</span>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <figure><picture>
+        <source type="image/avif" srcset="hero/split-960.avif 960w, hero/split-1600.avif 1600w, hero/split-2400.avif 2400w" sizes="(min-width: 1320px) 650px, 100vw">
+        <source type="image/webp" srcset="hero/split-960.webp 960w, hero/split-1600.webp 1600w" sizes="(min-width: 1320px) 650px, 100vw">
+        <img src="hero/split-960.jpg" alt="Composite: ink half, glass blade, glass half" width="960" height="540" loading="lazy"></picture>
+        <figcaption>split-{960,1600,2400}.avif · {960,1600}.webp · {960,1600}.jpg · 16:9</figcaption></figure>
+      <figure style="max-width:380px"><picture>
+        <source type="image/avif" srcset="hero/split-portrait-640.avif 640w, hero/split-portrait-1000.avif 1000w" sizes="380px">
+        <source type="image/webp" srcset="hero/split-portrait-640.webp 640w, hero/split-portrait-1000.webp 1000w" sizes="380px">
+        <img src="hero/split-portrait-640.jpg" alt="Portrait composite for phones" width="640" height="960" loading="lazy"></picture>
+        <figcaption>split-portrait-{640,1000} · 2:3, for phones</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- HERO 2 -->
+  <section>
+    <div class="lab"><span>Hero II · Chorus</span><span>hero/chorus-*.avif|webp|jpg</span></div>
+    <h2>A chorus of lenses</h2>
+    <p class="note">Ray-traced ball lenses (two refractions, IOR 1.512 to 1.526 for a hair of dispersion) hovering over a radiolarian plate. Each one holds the plate upside down, the way real glass does. Their focused light lands as a green caustic in the shadow. Hover it: the loupe is motion study 4.</p>
+    <div class="chorus-img" id="chorusImg">
+      <picture>
+        <source type="image/avif" srcset="hero/chorus-960.avif 960w, hero/chorus-1600.avif 1600w, hero/chorus-2400.avif 2400w" sizes="(min-width: 1320px) 1320px, 100vw">
+        <source type="image/webp" srcset="hero/chorus-960.webp 960w, hero/chorus-1600.webp 1600w" sizes="(min-width: 1320px) 1320px, 100vw">
+        <img src="hero/chorus-1600.jpg" alt="Glass spheres over an engraved radiolarian plate, each showing the plate inverted" width="1600" height="900" loading="lazy">
+      </picture>
+    </div>
+    <div class="grid g3" style="margin-top:18px">
+      <figure style="max-width:380px"><picture><source type="image/avif" srcset="hero/chorus-portrait-640.avif"><img src="hero/chorus-portrait-640.jpg" alt="Portrait chorus for phones" width="640" height="960" loading="lazy"></picture><figcaption>chorus-portrait-{640,1000}</figcaption></figure>
+      <figure><img src="extras/plate-spumellaria.webp" alt="Ink plate, Spumellaria" width="1600" height="1200" loading="lazy"><figcaption>extras/plate-spumellaria.webp · clean ink plate (physics backdrop)</figcaption></figure>
+      <figure><img src="extras/plate-cyrtoidea.webp" alt="Ink plate, Cyrtoidea" width="1200" height="1600" loading="lazy"><figcaption>extras/plate-cyrtoidea.webp · portrait plate (blog, about)</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- IDENTITY -->
+  <section>
+    <div class="lab"><span>Identity</span><span>brand/</span></div>
+    <h2>One lens, two halves</h2>
+    <p class="note">The mark is the hero in miniature: an engraved half and a glass half meeting at a seam. The wordmark is Bricolage Grotesque 600 at 85 width, outlined.</p>
+    <div class="brand-tiles">
+      <div class="card"><img src="brand/mark.svg" alt="Mark" width="140" height="140"></div>
+      <div class="card"><img src="brand/wordmark.svg" alt="Wordmark" width="260" height="58"></div>
+      <div class="card"><img src="brand/lockup.svg" alt="Lockup" width="280" height="73"></div>
+      <div class="card dark"><img src="brand/favicon.svg" alt="Favicon" width="64" height="64"><img src="brand/favicon-180.png" alt="Touch icon 180" width="90" height="90" style="margin-top:12px"></div>
+    </div>
+    <figure style="margin-top:18px"><img src="brand/og.jpg" alt="Open Graph image" width="1200" height="630" loading="lazy"><figcaption>brand/og.jpg · 1200×630</figcaption></figure>
+  </section>
+
+  <!-- PALETTE -->
+  <section>
+    <div class="lab"><span>Palette</span><span>paper, ink, one spot (seed hue 144°)</span></div>
+    <div class="grid g6">
+      <div class="sw"><i style="background:#f7f5ea"></i><div>Paper<br>oklch(.968 .014 95)<br>#f7f5ea</div></div>
+      <div class="sw"><i style="background:#eae6d8"></i><div>Paper 2<br>oklch(.925 .020 95)<br>#eae6d8</div></div>
+      <div class="sw"><i style="background:#091710"></i><div>Ink<br>oklch(.190 .025 160)<br>#091710</div></div>
+      <div class="sw"><i style="background:#5a675f"></i><div>Ink 2<br>oklch(.500 .020 160)<br>#5a675f</div></div>
+      <div class="sw"><i style="background:#389e3d"></i><div>Spot<br>oklch(.620 .165 144)<br>#389e3d</div></div>
+      <div class="sw"><i style="background:#005e26"></i><div>Spot deep<br>oklch(.420 .120 150)<br>#005e26</div></div>
+      <div class="sw"><i style="background:#d1f2d7"></i><div>Glass<br>oklch(.930 .050 150)<br>#d1f2d7</div></div>
+      <div class="sw"><i style="background:#a0f08f"></i><div>Caustic<br>oklch(.880 .150 140)<br>#a0f08f · light only</div></div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section>
+    <div class="lab"><span>Type</span><span>Google Fonts · OFL</span></div>
+    <div class="spec-d">Built at 17.<br>Still shipping.</div>
+    <div class="spec-s" style="margin:18px 0">113,000 installs, no marketing.</div>
+    <p class="spec-b">Bricolage Grotesque does the shouting at large sizes (opsz 96, width 75 to 85, weight 560 to 680) and the reading at 16 to 19 px. Instrument Serif italic is the one human voice, used for a single phrase per screen. JetBrains Mono labels everything like an atlas plate.</p>
+    <p class="spec-m">claude mcp add albretsen https://albretsen.no/mcp</p>
+    <p class="lab">Plate II · Fig. 04 · 17 tools · about 100 email providers</p>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="lab"><span>Products</span><span>products/</span></div>
+    <h2>Paperweights</h2>
+    <p class="note">Each live product is printed on the atlas sheet and kept under a ray-traced glass dome. The logos are the real files from _shared/products, untouched; the dome only magnifies them evenly. Harbor's mark uses currentColor, so it is printed in ink.</p>
+    <div class="grid g4">
+      <figure><picture><source type="image/avif" srcset="products/mcp-emails-600.avif 600w, products/mcp-emails-1200.avif 1200w" sizes="300px"><img src="products/mcp-emails-600.jpg" alt="MCP Emails under a glass dome" width="600" height="600" loading="lazy"></picture><figcaption>mcp-emails · live</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="products/fun-libs-600.avif 600w, products/fun-libs-1200.avif 1200w" sizes="300px"><img src="products/fun-libs-600.jpg" alt="Fun Libs under a glass dome" width="600" height="600" loading="lazy"></picture><figcaption>fun-libs · live</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="products/toolrails-600.avif 600w, products/toolrails-1200.avif 1200w" sizes="300px"><img src="products/toolrails-600.jpg" alt="Toolrails under a glass dome" width="600" height="600" loading="lazy"></picture><figcaption>toolrails · building</figcaption></figure>
+      <figure><picture><source type="image/avif" srcset="products/harbor-600.avif 600w, products/harbor-1200.avif 1200w" sizes="300px"><img src="products/harbor-600.jpg" alt="Harbor under a glass dome" width="600" height="600" loading="lazy"></picture><figcaption>harbor · paused</figcaption></figure>
+    </div>
+    <p class="lab" style="margin-top:28px">Retired · small lenses</p>
+    <div class="ret">
+      <figure><picture><source type="image/avif" srcset="products/luma-600.avif"><img src="products/luma-600.jpg" alt="Luma" width="96" height="96" style="border-radius:50%;object-fit:cover;object-position:50% 50%;transform:scale(1.25)" loading="lazy"></picture><figcaption>Luma (real logo)</figcaption></figure>
+      <figure><img src="products/retired/polyglot-pilot.svg" alt="" width="96" height="96"><figcaption>Polyglot Pilot</figcaption></figure>
+      <figure><img src="products/retired/pinpoint.svg" alt="" width="96" height="96"><figcaption>PinPoint</figcaption></figure>
+      <figure><img src="products/retired/webvakt.svg" alt="" width="96" height="96"><figcaption>WebVakt</figcaption></figure>
+      <figure><img src="products/retired/joke-central.svg" alt="" width="96" height="96"><figcaption>Joke Central</figcaption></figure>
+      <figure><img src="products/retired/tryggere-hyring.svg" alt="" width="96" height="96"><figcaption>Tryggere Hyring</figcaption></figure>
+      <figure><img src="products/retired/early-apps.svg" alt="" width="96" height="96"><figcaption>Early apps</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- SPECIMENS + EXTRAS -->
+  <section>
+    <div class="lab"><span>Specimens</span><span>specimens/*-glass.webp · *-ink.webp · *.json (sizes, radii)</span></div>
+    <h2>Cut-outs, in glass and in ink</h2>
+    <div class="stagger" id="stagger">
+      <img src="specimens/diatom-02-glass.webp" alt="" width="568" height="565" loading="lazy"><img src="specimens/diatom-02-ink.webp" alt="" width="568" height="565" loading="lazy">
+      <img src="specimens/diatom-03-glass.webp" alt="" width="291" height="568" loading="lazy"><img src="specimens/diatom-03-ink.webp" alt="" width="291" height="568" loading="lazy">
+      <img src="specimens/diatom-04-glass.webp" alt="" width="566" height="568" loading="lazy"><img src="specimens/diatom-04-ink.webp" alt="" width="566" height="568" loading="lazy">
+      <img src="specimens/diatom-05-glass.webp" alt="" width="487" height="568" loading="lazy"><img src="specimens/diatom-05-ink.webp" alt="" width="487" height="568" loading="lazy">
+      <img src="specimens/diatom-06-glass.webp" alt="" width="568" height="554" loading="lazy"><img src="specimens/diatom-06-ink.webp" alt="" width="568" height="554" loading="lazy">
+      <img src="specimens/radiolar-01-glass.webp" alt="" width="560" height="568" loading="lazy"><img src="specimens/radiolar-01-ink.webp" alt="" width="560" height="568" loading="lazy">
+      <img src="specimens/radiolar-02-glass.webp" alt="" width="568" height="563" loading="lazy"><img src="specimens/radiolar-02-ink.webp" alt="" width="568" height="563" loading="lazy">
+    </div>
+    <p style="margin-top:14px"><button id="replayStagger">Replay chorus stagger</button></p>
+  </section>
+
+  <section>
+    <div class="lab"><span>Extras</span><span>extras/</span></div>
+    <div class="grid g3">
+      <figure><div class="caust"><div class="caustic"></div><div class="caustic two"></div></div><figcaption>caustic-tile.webp · tileable, drifts (motion.css .caustic)</figcaption></figure>
+      <figure class="card" style="background:url(extras/paper-tile.webp);height:260px"><figcaption>paper-tile.webp · 512 px seamless (+ grid.svg below)</figcaption><div style="height:180px;background:url(extras/grid.svg)"></div></figure>
+      <figure class="card" style="display:grid;place-items:center;gap:14px"><img src="extras/scale-bar.svg" alt="Scale bar 2016 to 2026" width="640" height="72"><img src="extras/plate-label.svg" alt="Plate label" width="300" height="100"><img src="extras/registration.svg" alt="" width="48" height="48"></figure>
+      <figure class="card" style="display:grid;place-items:center"><img src="extras/lens-ring.svg" alt="Scale ring" width="240" height="240"><figcaption>lens-ring.svg · sits around any lens</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE -->
+  <section id="interactive">
+    <div class="lab"><span>Interactive · 2D physics</span><span>interactive/chorus.js (+ chorus.html)</span></div>
+    <h2>Silica Chorus</h2>
+    <p class="note">matter.js, loaded lazily. Products drop first, then specimens and lenses. Lenses refract the plate live, upside down. Drag anything; click bare paper to drop a lens. It pauses off screen and paints one still frame under reduced motion.</p>
+    <div class="stage"><canvas id="chorus" aria-label="Physics field of glass objects. Drag them; click to drop a lens."></canvas>
+      <div class="ui"><button data-k="lens">+ lens</button><button data-k="specimen">+ specimen</button><button data-k="product">+ product</button></div></div>
+  </section>
+
+  <!-- MOTION -->
+  <section>
+    <div class="lab"><span>Motion study</span><span>motion.js · motion.css · Motion 11.18.2</span></div>
+    <div class="grid g3">
+      <div class="card motion-card"><h2 style="font-size:26px">1 · Vitrify</h2><p class="note">The loading moment. Ink engraves the mark while the years count 2016 to 2026; the right half turns to glass on a spring; the sheet lifts off like a print from a press.</p><button id="replayVitrify">Play loader</button></div>
+      <div class="card motion-card"><h2 style="font-size:26px">2 · Seam</h2><p class="note">The hero blade follows the pointer on a spring (170/24) and drifts toward "today" as you scroll past. It sweeps once on first view so people find it.</p><button onclick="window.__seam?.to(22); setTimeout(()=>window.__seam?.to(50),700)">Sweep seam</button></div>
+      <div class="card motion-card"><h2 style="font-size:26px">3 · Chorus</h2><p class="note">Staggered arrival: springs with one small overshoot, de-blur, fanning out from the origin. Used for product grids and specimen strips.</p><button onclick="document.getElementById('replayStagger').click()">Replay</button></div>
+      <div class="card motion-card"><h2 style="font-size:26px">4 · Loupe</h2><p class="note">A heavy lens under the cursor (spring 260/26). Try it on Hero II.</p></div>
+      <div class="card motion-card"><h2 style="font-size:26px">CSS · Glint, Ink draw</h2>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          <div class="glint-demo glint is-lit" id="glint"><img src="products/mcp-emails-600.webp" alt="" width="600" height="600"></div>
+          <svg class="ink-draw" id="inkdraw" viewBox="0 0 64 64" width="120" height="120" fill="none" stroke="#091710" stroke-width="2.4"><circle pathLength="1" cx="32" cy="32" r="26" style="--i:0"/><path pathLength="1" d="M32 6v52" style="--i:2"/><path pathLength="1" d="M8 20h24M6 28h26M6 36h26M8 44h24" style="--i:4"/></svg>
+        </div>
+        <button id="replayCss">Replay</button></div>
+    </div>
+  </section>
+
+  <footer class="mono">Plates: Ernst Haeckel, Kunstformen der Natur (1904), public domain, via Wikimedia Commons / Biodiversity Heritage Library. Everything else generated for this kit. See ASSETS.md.</footer>
+</div>
+
+<script type="module">
+  import { vitrify, seam, chorusIn, loupe } from './motion.js'
+  const still = new URLSearchParams(location.search).has('still')
+  const hero = document.querySelector('#seam img')
+  if (!still) vitrify({ ready: hero.decode().catch(() => {}) })
+  window.__seam = seam(document.getElementById('seam'))
+  loupe(document.getElementById('chorusImg'), 'hero/chorus-1600.webp', { size: 200, zoom: 2.2 })
+  const staggerEls = document.querySelectorAll('#stagger img')
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { chorusIn(staggerEls); io.disconnect() } })
+  io.observe(document.getElementById('stagger'))
+  document.getElementById('replayStagger').onclick = () => chorusIn(staggerEls, { from: 'first' })
+  document.getElementById('replayVitrify').onclick = () => vitrify()
+  document.getElementById('replayCss').onclick = () => {
+    for (const el of [document.getElementById('glint'), document.getElementById('inkdraw')]) {
+      el.classList.remove('is-lit', 'ink-draw'); void el.offsetWidth
+    }
+    document.getElementById('glint').classList.add('is-lit'); document.getElementById('inkdraw').classList.add('ink-draw')
+  }
+  // physics after first paint, only when near the viewport
+  const stage = document.getElementById('chorus')
+  const io2 = new IntersectionObserver(async ([e]) => {
+    if (!e.isIntersecting) return
+    io2.disconnect()
+    const { mountChorus } = await import('./interactive/chorus.js')
+    const settle = +new URLSearchParams(location.search).get('settle') || 0
+    const c = await mountChorus(stage, { base: '.', settle })
+    document.querySelectorAll('.stage button[data-k]').forEach(b => b.onclick = () => c.drop(b.dataset.k))
+  }, { rootMargin: '400px' })
+  io2.observe(stage)
+</script>
+</body>
+</html>

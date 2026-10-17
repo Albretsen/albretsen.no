@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amber Hour — asset kit 67</title>
+<meta name="color-scheme" content="light">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/favicon-180.png">
+<link rel="preload" href="fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="interactive/postcard.css">
+<style>
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni-moda.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Bodoni Moda";font-style:italic;src:url(fonts/bodoni-moda-italic.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url(fonts/schibsted-grotesk.woff2) format("woff2");font-weight:400 900;font-display:swap}
+:root{
+  --cream:#FFF6E6;--linen:#F8DFB6;--apricot:#EDBF84;--amber:#D18E4A;--ochre:#A65E27;--sienna:#6E3816;--umber:#3B1D0E;--night:#1E0F08;
+  --peach:#F2B68A;--rose:#C98478;--mauve:#5E4A6E;--sun:#B8642A;
+  --serif:"Bodoni Moda",ui-serif,Georgia,serif;--sans:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --gut:clamp(16px,5vw,72px);
+}
+*{box-sizing:border-box;margin:0}
+html{background:var(--cream);color:var(--umber)}
+body{font:400 16px/1.6 var(--sans);background:var(--cream) url(extras/paper.webp);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{padding:0 var(--gut);max-width:1440px;margin:0 auto}
+.eyebrow{font:600 11.5px/1.4 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--ochre)}
+.cap{font:500 12.5px/1.5 var(--sans);letter-spacing:.04em;color:var(--sienna);margin-top:10px}
+.cap b{font-weight:650;color:var(--umber)}
+h2.sec{font:italic 500 clamp(34px,5vw,64px)/1 var(--serif);letter-spacing:-.01em;margin:10px 0 28px}
+section.block{padding:clamp(64px,10vw,140px) 0;border-top:1px solid rgba(59,29,14,.14)}
+.grid{display:grid;gap:clamp(16px,2.4vw,32px)}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.frame{background:var(--cream);padding:10px;box-shadow:0 1px 2px rgba(59,29,14,.18),0 18px 40px -22px rgba(59,29,14,.45)}
+.frame img,.frame picture{width:100%;height:auto}
+
+/* masthead: the hero plate, full bleed */
+.mast{position:relative;min-height:100svh;display:grid;align-items:start;justify-items:center;text-align:center;color:var(--cream);overflow:hidden;background:#C98478}
+.mast picture,.mast picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%}
+.mast .lock{position:absolute;top:clamp(20px,4vw,44px);left:var(--gut);width:clamp(180px,22vw,300px);height:auto}
+.mast .txt{position:relative;padding:clamp(120px,19vh,220px) var(--gut) 0}
+.mast h1{font:italic 500 clamp(52px,9vw,140px)/.95 var(--serif);letter-spacing:-.02em;margin-top:14px;text-shadow:0 2px 30px rgba(30,15,8,.25)}
+.mast p{margin-top:22px;font:600 12px/1.6 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--linen)}
+.mast .kit{position:absolute;right:var(--gut);top:clamp(26px,4.4vw,52px);text-align:right;font:500 13px/1.6 var(--sans);color:var(--linen);max-width:300px}
+@media (max-width:760px){.mast .kit{display:none}}
+
+/* palette */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.sw{border-radius:2px;overflow:hidden;background:var(--cream);box-shadow:0 1px 2px rgba(59,29,14,.2)}
+.sw i{display:block;height:96px}
+.sw div{padding:10px 12px;font:500 12px/1.5 var(--sans)}
+.sw b{display:block;font:600 13px/1.4 var(--sans)}
+.sw code{font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--sienna)}
+.ramp{display:flex;height:56px;margin-top:22px;border-radius:2px;overflow:hidden}
+.ramp i{flex:1}
+
+/* type */
+.spec .d1{font:italic 500 clamp(56px,11vw,168px)/.9 var(--serif);letter-spacing:-.025em}
+.spec .d2{font:500 clamp(36px,5.5vw,76px)/1.02 var(--serif);letter-spacing:-.015em;margin-top:28px;max-width:16ch}
+.spec .d3{font:600 13px/1.5 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--ochre);margin-top:30px}
+.spec .body{font:400 18px/1.62 var(--sans);max-width:58ch;margin-top:18px}
+.spec .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:44px;padding-top:24px;border-top:1px solid rgba(59,29,14,.18);font-size:14px}
+.glyphs{font:400 clamp(26px,3.6vw,44px)/1.25 var(--serif);word-break:break-all;color:var(--sienna);margin-top:22px}
+
+/* interactive */
+.stage{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,4vw,64px);align-items:center}
+@media (max-width:900px){.stage{grid-template-columns:1fr}}
+.skybox{position:relative;aspect-ratio:16/10;border-radius:2px;overflow:hidden;box-shadow:0 18px 40px -22px rgba(59,29,14,.5)}
+.skybox canvas{position:absolute;inset:0;width:100%;height:100%}
+.skybox .roof{position:absolute;left:0;right:0;bottom:0;height:auto;width:100%}
+.ctrl{display:flex;align-items:center;gap:14px;margin-top:16px;font:600 11.5px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--ochre)}
+.ctrl input{flex:1;accent-color:var(--sun)}
+.pcwrap{display:grid;justify-items:center}
+
+/* motion demos */
+.ah-longtake .over{position:absolute;left:var(--gut);bottom:10vh;color:var(--cream);max-width:520px}
+.ah-longtake .over h3{font:italic 500 clamp(32px,5vw,64px)/1 var(--serif)}
+.ah-longtake .over p{font:500 14px/1.6 var(--sans);margin-top:12px;color:var(--linen)}
+.demo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:28px;align-items:start}
+.replay{all:unset;cursor:pointer;font:600 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--sun);margin-top:12px;display:inline-block}
+.turncard{width:100%;aspect-ratio:3/4;background:var(--cream);padding:10px}
+.turncard img{width:100%;height:100%;object-fit:cover}
+
+/* products */
+.stamps{display:flex;flex-wrap:wrap;gap:22px;justify-content:flex-start}
+.stamps img{width:120px;height:150px;filter:drop-shadow(0 6px 8px rgba(59,29,14,.25))}
+.ident{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:24px}
+.tile{display:grid;place-items:center;min-height:220px;padding:28px;background:var(--cream);box-shadow:0 1px 2px rgba(59,29,14,.15)}
+.tile.dark{background:var(--umber)}
+.tile.sky{background:linear-gradient(#5E4A6E,#C98478 50%,#F2B68A)}
+.foot{padding:60px var(--gut) 80px;font-size:13px;color:var(--sienna);border-top:1px solid rgba(59,29,14,.14)}
+/* ?sheet: fixed heights so a single tall screenshot shows the whole kit */
+.sheet .mast{min-height:900px}
+.p2 .mast,.p2 main:first-of-type,.p2 .ah-longtake,.p2 #motion-demos,.p2 #products{display:none}.sheet .ah-longtake,.sheet .ah-longtake__stage{height:900px}
+.chk{background:repeating-conic-gradient(#efe3cf 0 25%,#f9f0e1 0 50%) 0 0/20px 20px}
+</style>
+</head>
+<body>
+
+<!-- 0. MASTHEAD -->
+<header class="mast">
+  <picture>
+    <source media="(max-width:700px)" type="image/avif" srcset="hero/spires-tall-640.avif 640w, hero/spires-tall-1080.avif 1080w" sizes="100vw">
+    <source media="(max-width:700px)" type="image/webp" srcset="hero/spires-tall-640.webp 640w, hero/spires-tall-1080.webp 1080w" sizes="100vw">
+    <source type="image/avif" srcset="hero/spires-wide-640.avif 640w, hero/spires-wide-1024.avif 1024w, hero/spires-wide-1600.avif 1600w, hero/spires-wide-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="hero/spires-wide-640.webp 640w, hero/spires-wide-1024.webp 1024w, hero/spires-wide-1600.webp 1600w, hero/spires-wide-2400.webp 2400w" sizes="100vw">
+    <img src="hero/spires-wide-1600.jpg" width="1600" height="900" alt="Two stepped towers with fin-shaped spires against a mauve-to-peach dusk, a low sun between them." fetchpriority="high">
+  </picture>
+  <img class="lock" src="identity/wordmark-reverse.svg" width="535" height="104" alt="Albretsen AS">
+  <div class="txt">
+    <div class="eyebrow" style="color:var(--linen)">Design 67 · Asset kit</div>
+    <h1>Amber Hour</h1>
+    <p>Software with a long view</p>
+  </div>
+  <div class="kit">Stucco, zinc and arches, re-graded into one warm family and lit by an LA dusk. Every photograph is public domain or CC0; every sky is generated.</div>
+</header>
+
+<main class="wrap">
+
+<!-- 1. HERO IMAGERY -->
+<section class="block" style="border-top:0">
+  <div class="eyebrow">01 · Hero imagery</div>
+  <h2 class="sec">Plates</h2>
+  <div class="grid g3">
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/facade-card-600.avif 600w, hero/facade-card-1000.avif 1000w, hero/facade-card-1400.avif 1400w" sizes="(max-width:700px) 100vw, 30vw"><source type="image/webp" srcset="hero/facade-card-600.webp 600w, hero/facade-card-1000.webp 1000w, hero/facade-card-1400.webp 1400w" sizes="(max-width:700px) 100vw, 30vw"><img class="ah-expose" src="hero/facade-card-1000.jpg" width="1000" height="1334" loading="lazy" alt="A symmetrical stone facade with louvred shutters, wrought-iron balconies and an arcade, under a sun sitting between two chimneys."></picture></div>
+      <figcaption class="cap"><b>facade-card</b> · 3:4 · the postcard front. Shop signs painted out.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/spires-tall-640.avif 640w, hero/spires-tall-1080.avif 1080w" sizes="(max-width:700px) 100vw, 30vw"><source type="image/webp" srcset="hero/spires-tall-640.webp 640w, hero/spires-tall-1080.webp 1080w" sizes="(max-width:700px) 100vw, 30vw"><img class="ah-expose" src="hero/spires-tall-1080.jpg" width="1080" height="1920" loading="lazy" alt="A stepped white tower with two fin spires, windows in rhythm, a sun low on the right."></picture></div>
+      <figcaption class="cap"><b>spires-tall</b> · 9:16 · mobile hero. Hotel signage removed.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/arcade-640.avif 640w, hero/arcade-1080.avif 1080w, hero/arcade-1600.avif 1600w" sizes="(max-width:700px) 100vw, 30vw"><source type="image/webp" srcset="hero/arcade-640.webp 640w, hero/arcade-1080.webp 1080w, hero/arcade-1600.webp 1600w" sizes="(max-width:700px) 100vw, 30vw"><img class="ah-expose" src="hero/arcade-1080.jpg" width="1080" height="1432" loading="lazy" alt="A long stone colonnade receding to a bright vanishing point, lanterns hanging in a line."></picture></div>
+      <figcaption class="cap"><b>arcade</b> · 3:4 · the plate for the long take. Vanishing point at 53% / 60%.</figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:32px">
+    <figure><div class="frame"><picture><source type="image/avif" srcset="hero/facade-wide-1024.avif 1024w, hero/facade-wide-1600.avif 1600w, hero/facade-wide-2400.avif 2400w" sizes="(max-width:900px) 100vw, 50vw"><source type="image/webp" srcset="hero/facade-wide-1024.webp 1024w, hero/facade-wide-1600.webp 1600w, hero/facade-wide-2400.webp 2400w" sizes="(max-width:900px) 100vw, 50vw"><img class="ah-expose" src="hero/facade-wide-1600.jpg" width="1600" height="900" loading="lazy" alt="Mansard roofline with dormers and chimneys, the sun setting into it."></picture></div>
+      <figcaption class="cap"><b>facade-wide</b> · 16:9 · section opener / about.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="extras/horizon-1024.avif 1024w, extras/horizon-1600.avif 1600w" sizes="(max-width:900px) 100vw, 50vw"><source type="image/webp" srcset="extras/horizon-1024.webp 1024w, extras/horizon-1600.webp 1600w" sizes="(max-width:900px) 100vw, 50vw"><img class="ah-expose" src="extras/horizon-1600.jpg" width="1600" height="900" loading="lazy" alt="A wide empty beach at sunrise, a far row of towers on the horizon."></picture></div>
+      <figcaption class="cap"><b>horizon</b> · 16:9 · footer band; sunrise reading of the same palette.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="extras/roofs-800.avif 800w, extras/roofs-1280.avif 1280w" sizes="(max-width:900px) 100vw, 50vw"><source type="image/webp" srcset="extras/roofs-800.webp 800w, extras/roofs-1280.webp 1280w" sizes="(max-width:900px) 100vw, 50vw"><img class="ah-expose" src="extras/roofs-800.jpg" width="800" height="600" loading="lazy" alt="Zinc rooftops seen from above, a maze of chimneys and dormers in warm haze."></picture></div>
+      <figcaption class="cap"><b>roofs</b> · 4:3 · blog cover / writing index.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="extras/poster-arch-600.avif 600w, extras/poster-arch-1000.avif 1000w" sizes="(max-width:900px) 100vw, 50vw"><source type="image/webp" srcset="extras/poster-arch-600.webp 600w, extras/poster-arch-1000.webp 1000w" sizes="(max-width:900px) 100vw, 50vw"><img class="ah-expose" src="extras/poster-arch-1000.jpg" width="1000" height="1019" loading="lazy" alt="Screen-printed 1930s poster of a vast natural stone arch with two riders below."></picture></div>
+      <figcaption class="cap"><b>poster-arch</b> · WPA silkscreen, c. 1938, lettering cropped. Ephemera for the about page — an arch, made of light.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 2. INTERACTIVE -->
+<section class="block">
+  <div class="eyebrow">02 · Interactive</div>
+  <h2 class="sec">The sky, and the postcard</h2>
+  <div class="stage">
+    <div>
+      <div class="skybox">
+        <canvas id="sky" aria-label="Animated dusk sky"></canvas>
+        <picture><source type="image/avif" srcset="extras/spires-cutout-1024.avif 1024w, extras/spires-cutout-1600.avif 1600w" sizes="(max-width:900px) 100vw, 55vw"><img class="roof" src="extras/spires-cutout-1024.webp" srcset="extras/spires-cutout-1024.webp 1024w, extras/spires-cutout-1600.webp 1600w" sizes="(max-width:900px) 100vw, 55vw" width="1024" height="415" alt="" loading="lazy"></picture>
+      </div>
+      <label class="ctrl">Blue hour <input id="hour" type="range" min="0" max="1" step="0.001" value="0.62"> Amber</label>
+      <p class="cap"><b>interactive/amber-sky.js</b> + <b>extras/spires-cutout</b> · the hero, live: a dependency-free WebGL sky (gradient, sun, drifting haze strata, dithered grain) behind the graded towers as a transparent cut-out. Scrub the hour; drag in the sky to move the sun. Pauses offscreen; still frame under reduced motion.</p>
+    </div>
+    <div class="pcwrap">
+      <figure class="ah-postcard" tabindex="0" aria-label="Postcard from Albretsen AS. Press to turn over.">
+        <div class="ah-postcard__inner">
+          <div class="ah-postcard__face ah-postcard__front">
+            <picture><source type="image/avif" srcset="hero/facade-card-600.avif 600w, hero/facade-card-1000.avif 1000w" sizes="520px"><source type="image/webp" srcset="hero/facade-card-600.webp 600w, hero/facade-card-1000.webp 1000w" sizes="520px"><img src="hero/facade-card-1000.jpg" width="1000" height="1334" alt="Stone facade at the amber hour" loading="lazy"></picture>
+            <span class="ah-postcard__hint">Turn over ↻</span>
+          </div>
+          <div class="ah-postcard__face ah-postcard__back">
+            <div class="ah-postcard__top">
+              <div class="ah-postcard__label">Albretsen AS<br>Since 2016</div>
+              <div class="ah-postcard__stampwrap">
+                <div class="ah-postcard__secret" aria-hidden="true"><div><code>claude mcp add albretsen https://albretsen.no/mcp</code><button type="button">Copy</button></div></div>
+                <img class="ah-postcard__stamp" src="extras/stamp-albretsen.svg" width="240" height="300" alt="" draggable="false">
+                <img class="ah-postcard__postmark" src="extras/postmark.svg" width="520" height="220" alt="">
+              </div>
+            </div>
+            <div class="ah-postcard__msg">
+              <p>Greetings from the long view.</p>
+              <p>Ten years of software that pays its own way: an inbox for AI agents, a word game past 113,000 installs, one URL for every tool. More is in the post.</p>
+              <p class="ah-postcard__sign">— A.</p>
+            </div>
+            <div class="ah-postcard__addr"><span>Asgeir Albretsen</span><span>asgeir@albretsen.no</span><span>Norway</span></div>
+          </div>
+        </div>
+      </figure>
+      <p class="cap" style="max-width:520px"><b>interactive/postcard.{css,js}</b> · click, Enter or Space to turn; tilts to the pointer. <b>Easter egg:</b> on the back, drag the stamp off (or focus it and press Delete). Under it, in microtype: the MCP install line, with a copy button.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. MOTION -->
+<section class="block">
+  <div class="eyebrow">03 · Motion study · motion.css + motion.js</div>
+  <h2 class="sec">One camera, no cuts</h2>
+  <p class="cap" style="max-width:62ch;font-size:15px">Scroll through the next section: <b>The Long Take</b>. A pinned plate, one slow dolly down the arcade toward the light, the warmth rising as you go. CSS scroll timeline where supported, rAF with ~1 s smoothing elsewhere.</p>
+</section>
+</main>
+
+<section class="ah-longtake" aria-label="Long take demo">
+  <div class="ah-longtake__stage">
+    <picture><source type="image/avif" srcset="hero/arcade-1080.avif 1080w, hero/arcade-1600.avif 1600w" sizes="100vw"><source type="image/webp" srcset="hero/arcade-1080.webp 1080w, hero/arcade-1600.webp 1600w" sizes="100vw"><img class="ah-longtake__plate" src="hero/arcade-1080.jpg" width="1080" height="1432" alt="" loading="lazy"></picture>
+    <div class="ah-longtake__light"></div>
+    <div class="over"><div class="eyebrow" style="color:var(--linen)">1 · The Long Take</div><h3>Ten years, one direction.</h3><p>scale 1 → 1.42 toward the vanishing point · warmth .15 → .75 · linear on scroll</p></div>
+  </div>
+</section>
+
+<main class="wrap">
+<section class="block" id="motion-demos" style="border-top:0">
+  <div class="demo-row">
+    <figure>
+      <div class="turncard ah-turn" id="turn"><img src="hero/spires-tall-640.webp" width="640" height="1138" alt="" loading="lazy"></div>
+      <figcaption class="cap"><b>2 · Postcard Turn</b> — arrives face-down, lifts (translateZ 90px), turns, settles at −2°. 1.15 s ease-out.</figcaption>
+      <button class="replay" data-replay="#turn">Replay</button>
+    </figure>
+    <figure>
+      <div class="frame"><img class="ah-expose" id="expo" src="extras/roofs-800.webp" width="800" height="600" alt="" loading="lazy"></div>
+      <figcaption class="cap"><b>3 · Exposure</b> — photographs develop: blown-out and soft, settling to the grade over 1.6 s. Waits for decode, so nothing pops.</figcaption>
+      <button class="replay" data-replay="#expo">Replay</button>
+    </figure>
+    <figure>
+      <div class="frame"><div class="ah-shutters" id="shut"><img src="hero/facade-wide-1024.webp" width="1024" height="576" alt="" loading="lazy"></div></div>
+      <figcaption class="cap"><b>4 · Persiennes</b> — twelve louvres turn open top to bottom, 45 ms apart, catching the light.</figcaption>
+      <button class="replay" data-replay="#shut">Replay</button>
+    </figure>
+  </div>
+  <p style="margin-top:40px;font:italic 500 28px/1.3 var(--serif)">5 · Horizon link: hover <a class="ah-link" href="#top">this line</a> and a sun rises out of it.</p>
+</section>
+
+<!-- 4. PRODUCTS -->
+<section class="block" id="products">
+  <div class="eyebrow">04 · Product visuals</div>
+  <h2 class="sec">Each product, a place in the light</h2>
+  <div class="grid g4">
+    <figure><div class="frame"><picture><source type="image/avif" srcset="products/mcp-800.avif 800w, products/mcp-1200.avif 1200w" sizes="(max-width:700px) 100vw, 25vw"><source type="image/webp" srcset="products/mcp-800.webp 800w, products/mcp-1200.webp 1200w" sizes="(max-width:700px) 100vw, 25vw"><img src="products/mcp-800.jpg" width="800" height="1000" loading="lazy" alt="MCP Emails as a postage stamp, its real app icon printed in the corner, franked over a postcard."></picture></div>
+      <figcaption class="cap"><b>MCP Emails</b> · the stamp. Email, sent by agent.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="products/funlibs-800.avif 800w, products/funlibs-1200.avif 1200w" sizes="(max-width:700px) 100vw, 25vw"><source type="image/webp" srcset="products/funlibs-800.webp 800w, products/funlibs-1200.webp 1200w" sizes="(max-width:700px) 100vw, 25vw"><img src="products/funlibs-800.jpg" width="800" height="1000" loading="lazy" alt="Fun Libs as a vertical enamel blade sign on a stepped white tower, its yellow icon at the top."></picture></div>
+      <figcaption class="cap"><b>Fun Libs</b> · the blade sign on the tower.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="products/toolrails-800.avif 800w, products/toolrails-1200.avif 1200w" sizes="(max-width:700px) 100vw, 25vw"><source type="image/webp" srcset="products/toolrails-800.webp 800w, products/toolrails-1200.webp 1200w" sizes="(max-width:700px) 100vw, 25vw"><img src="products/toolrails-800.jpg" width="800" height="1000" loading="lazy" alt="Toolrails on a brass-framed enamel plaque fixed to a stone facade."></picture></div>
+      <figcaption class="cap"><b>Toolrails</b> · the brass plaque by the door.</figcaption></figure>
+    <figure><div class="frame"><picture><source type="image/avif" srcset="products/harbor-800.avif 800w, products/harbor-1200.avif 1200w" sizes="(max-width:700px) 100vw, 25vw"><source type="image/webp" srcset="products/harbor-800.webp 800w, products/harbor-1200.webp 1200w" sizes="(max-width:700px) 100vw, 25vw"><img src="products/harbor-800.jpg" width="800" height="1000" loading="lazy" alt="Harbor's mark and name in a lit arched window at dusk, a small Paused tag hanging below."></picture></div>
+      <figcaption class="cap"><b>Harbor</b> · the lit window, paused.</figcaption></figure>
+  </div>
+  <figure style="margin-top:40px"><div class="frame"><picture><source type="image/avif" srcset="products/retired-1000.avif 1000w, products/retired-1600.avif 1600w" sizes="100vw"><source type="image/webp" srcset="products/retired-1000.webp 1000w, products/retired-1600.webp 1600w" sizes="100vw"><img src="products/retired-1000.jpg" width="1000" height="625" loading="lazy" alt="An album page of seven cancelled stamps, one per retired product."></picture></div>
+    <figcaption class="cap"><b>Retired</b> · cancelled stamps on an album page. Individual SVGs below (products/retired/*.svg).</figcaption></figure>
+  <div class="stamps" style="margin-top:28px">
+    <img src="products/retired/luma.svg" width="120" height="150" alt="Luma, 2026">
+    <img src="products/retired/polyglot-pilot.svg" width="120" height="150" alt="Polyglot Pilot, 2025">
+    <img src="products/retired/pinpoint.svg" width="120" height="150" alt="PinPoint, 2025">
+    <img src="products/retired/webvakt.svg" width="120" height="150" alt="WebVakt, 2024">
+    <img src="products/retired/joke-central.svg" width="120" height="150" alt="Joke Central, 2024">
+    <img src="products/retired/tryggere-hyring.svg" width="120" height="150" alt="Tryggere Hyring, 2023">
+    <img src="products/retired/early-apps.svg" width="120" height="150" alt="Early apps, 2021">
+  </div>
+</section>
+
+<!-- 5. IDENTITY -->
+<section class="block">
+  <div class="eyebrow">05 · Identity</div>
+  <h2 class="sec">An arch, a horizon, a sun</h2>
+  <p class="cap" style="max-width:64ch;font-size:15px">The mark is an arch drawn with Didone contrast — hairline on the left, heavy on the right, the stress of a Bodoni <i>A</i>. Its crossbar is a horizon and a sun sits on it. Arches, light, and the initial.</p>
+  <div class="ident" style="margin-top:28px">
+    <div class="tile"><img src="identity/mark.svg" width="160" height="160" alt="Mark"></div>
+    <div class="tile dark"><img src="identity/mark-reverse.svg" width="160" height="160" alt="Mark, reversed"></div>
+    <div class="tile sky"><img src="identity/favicon.svg" width="96" height="96" alt="Favicon"><img src="identity/favicon-180.png" width="60" height="60" alt="Apple touch icon" style="margin-top:14px"></div>
+    <div class="tile" style="grid-column:1/-1"><img src="identity/lockup.svg" width="647" height="112" alt="Lockup" style="width:min(100%,640px)"></div>
+    <div class="tile dark" style="grid-column:1/-1"><img src="identity/wordmark-reverse.svg" width="535" height="104" alt="Wordmark, reversed" style="width:min(100%,520px)"></div>
+  </div>
+  <figure style="margin-top:28px"><div class="frame"><img src="identity/og.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image"></div><figcaption class="cap"><b>identity/og.jpg</b> · 1200×630 · source: identity/og.html</figcaption></figure>
+</section>
+
+<!-- 6. PALETTE -->
+<section class="block">
+  <div class="eyebrow">06 · Palette</div>
+  <h2 class="sec">One amber family, one dusk</h2>
+  <div class="swatches" id="sw"></div>
+  <div class="ramp" aria-hidden="true"><i style="background:#1E0F08"></i><i style="background:#3B1D0E"></i><i style="background:#6E3816"></i><i style="background:#A65E27"></i><i style="background:#D18E4A"></i><i style="background:#EDBF84"></i><i style="background:#F8DFB6"></i><i style="background:#FFF6E6"></i></div>
+  <div class="ramp" aria-hidden="true" style="height:40px;margin-top:8px;background:linear-gradient(90deg,#5E4A6E,#C98478 45%,#F2B68A 78%,#FFE2B8)"></div>
+  <p class="cap">Top: the gradient map every photograph passes through (night → cream). Bottom: the sky — the only place mauve and rose appear.</p>
+</section>
+
+<!-- 7. TYPE -->
+<section class="block spec">
+  <div class="eyebrow">07 · Typography</div>
+  <div class="d1">Long view.</div>
+  <div class="d2">Quiet software that earns its keep.</div>
+  <div class="d3">Albretsen AS · Products · Writing · Since 2016</div>
+  <p class="body">Schibsted Grotesk sets the working text: product facts, captions, navigation. It comes from a Norwegian newsroom and it stays out of the way, so Bodoni Moda can carry the display lines with hairlines that only hold up at size.</p>
+  <div class="glyphs">Aa Bb Ææ Øø Åå 0123456789 &amp; % → “ ”</div>
+  <div class="meta">
+    <div><b>Bodoni Moda</b> (OFL) · variable opsz 6–96, wght 400–900, italic. Display: italic 500 at opsz auto, −0.02em. Never below 20 px.</div>
+    <div><b>Schibsted Grotesk</b> (OFL) · variable wght 400–900. Text 400/18 px/1.6. Labels 600, 11–13 px, +0.28em, uppercase.</div>
+    <div><b>Pairing rule</b> · one serif line per screen. Everything else is grotesk.</div>
+  </div>
+</section>
+
+<!-- 8. EXTRAS -->
+<section class="block">
+  <div class="eyebrow">08 · Extras</div>
+  <h2 class="sec">Paper, plaster, ink</h2>
+  <div class="grid g4">
+    <figure><div class="tile" style="background:url(extras/paper.webp)"></div><figcaption class="cap"><b>paper.webp</b> · seamless 512 card stock</figcaption></figure>
+    <figure><div class="tile" style="background:url(extras/stucco.webp)"></div><figcaption class="cap"><b>stucco.webp</b> · seamless 512 lime plaster</figcaption></figure>
+    <figure><div class="tile" style="background:#D18E4A url(extras/grain.png);background-blend-mode:overlay"></div><figcaption class="cap"><b>grain.png</b> · 256 tile, overlay at ~30%</figcaption></figure>
+    <figure><div class="tile"><img src="extras/stamp-albretsen.svg" width="120" height="150" alt=""></div><figcaption class="cap"><b>stamp-albretsen.svg</b> · the brand stamp</figcaption></figure>
+    <figure><div class="tile"><img src="extras/postmark.svg" width="260" height="110" alt=""></div><figcaption class="cap"><b>postmark.svg</b> · violet franking ink</figcaption></figure>
+    <figure><div class="tile"><img src="extras/sunburst-divider.svg" width="300" height="32" alt=""></div><figcaption class="cap"><b>sunburst-divider.svg</b> · section rule</figcaption></figure>
+    <figure><div class="tile"><img src="extras/shutter.svg" width="60" height="140" alt=""></div><figcaption class="cap"><b>shutter.svg</b> · louvred persienne</figcaption></figure>
+    <figure><div class="tile"><img src="extras/arch-frame.svg" width="120" height="160" alt=""></div><figcaption class="cap"><b>arch-frame.svg</b> + <b>arch-mask.svg</b> · window for any image</figcaption></figure>
+  </div>
+</section>
+</main>
+<footer class="foot">Design 67 · Amber Hour · all inventory, sources and licences in <a href="ASSETS.md">ASSETS.md</a>.</footer>
+
+<script type="module">
+import { mountSky } from './interactive/amber-sky.js';
+import { enhancePostcard } from './interactive/postcard.js';
+import { initMotion } from './motion.js';
+
+const PAL = [
+  ['Cream','#FFF6E6','oklch(97.6% 0.023 82.1)','page, paper'],['Linen','#F8DFB6','oklch(91.4% 0.060 80.0)','highlights, quiet fills'],
+  ['Apricot','#EDBF84','oklch(83.2% 0.092 72.9)','sunlit stone'],['Amber','#D18E4A','oklch(70.1% 0.117 64.2)','the sun, accents'],
+  ['Ochre','#A65E27','oklch(55.5% 0.116 54.5)','labels, eyebrows'],['Sun ink','#B8642A','oklch(59.1% 0.129 51.8)','links, mark sun (AA on cream at 18px+)'],
+  ['Sienna','#6E3816','oklch(40.4% 0.089 49.8)','secondary text'],['Umber','#3B1D0E','oklch(26.9% 0.053 46.1)','text, the mark'],
+  ['Night umber','#1E0F08','oklch(18.8% 0.029 45.9)','deepest shadow'],['Peach haze','#F2B68A','oklch(82.1% 0.091 57.3)','sky, low'],
+  ['Rose haze','#C98478','oklch(68.1% 0.088 30.3)','sky, mid'],['Mauve zenith','#5E4A6E','oklch(44.4% 0.062 309.4)','sky top, postmark ink'],
+];
+document.getElementById('sw').innerHTML = PAL.map(([n,h,o,u]) => `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b><code>${h}</code><br><code>${o}</code><br>${u}</div></div>`).join('');
+
+const canvas = document.getElementById('sky');
+const sky = mountSky(canvas, { hour: .62, sun: [.47, .78] });
+document.getElementById('hour').addEventListener('input', e => sky.setHour(+e.target.value));
+canvas.addEventListener('pointermove', e => { if (!e.buttons) return; const r = canvas.getBoundingClientRect(); sky.setSun((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); });
+
+enhancePostcard(document.querySelector('.ah-postcard'));
+initMotion();
+document.querySelectorAll('[data-replay]').forEach(b => b.addEventListener('click', () => {
+  const el = document.querySelector(b.dataset.replay); el.classList.remove('is-in'); void el.offsetWidth; setTimeout(() => el.classList.add('is-in'), 350);
+}));
+// preview-only: ?flip shows the postcard back for screenshots
+if (location.search.includes('p2')) document.documentElement.classList.add('p2');
+if (location.search.includes('sheet')) document.documentElement.classList.add('sheet');
+if (location.search.includes('flip')) document.querySelector('.ah-postcard').classList.add('is-flipped');
+</script>
+</body>
+</html>

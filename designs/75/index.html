@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS · Front Light</title>
+<meta name="description" content="Albretsen AS builds quiet software that pays for itself: apps, SaaS and the infrastructure AI agents run on.">
+<meta name="theme-color" content="#3D2013">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Quiet software that pays for itself.">
+<meta property="og:image" content="assets/identity/og.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/jost-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" href="assets/hero/fjord-1600.avif"
+      imagesrcset="assets/hero/fjord-960.avif 960w, assets/hero/fjord-1600.avif 1600w, assets/hero/fjord-2400.avif 2400w" imagesizes="100vw"
+      media="(min-aspect-ratio: 4/5)">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#desk">Skip to the work</a>
+
+<!-- ───────────── HERO: the last minute of the day, held still ───────────── -->
+<header class="hero" id="top">
+  <picture class="hero-sky fl-warm">
+    <source type="image/avif" srcset="assets/hero/fjord-portrait-640.avif 640w, assets/hero/fjord-portrait-1080.avif 1080w" sizes="100vw" media="(max-aspect-ratio: 4/5)">
+    <source type="image/webp" srcset="assets/hero/fjord-portrait-640.webp 640w, assets/hero/fjord-portrait-1080.webp 1080w" sizes="100vw" media="(max-aspect-ratio: 4/5)">
+    <source type="image/avif" srcset="assets/hero/fjord-960.avif 960w, assets/hero/fjord-1600.avif 1600w, assets/hero/fjord-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="assets/hero/fjord-960.webp 960w, assets/hero/fjord-1600.webp 1600w, assets/hero/fjord-2400.webp 2400w" sizes="100vw">
+    <img src="assets/hero/fjord-1600.jpg" width="1600" height="1116" fetchpriority="high" decoding="async"
+         alt="A deep fjord at golden hour; the low sun sits in the gap between two sheer cliffs and draws a path on the water">
+  </picture>
+  <canvas class="hero-haze" id="haze" aria-hidden="true"></canvas>
+
+  <h1 class="hero-name fl-first-light"><span>Albretsen</span></h1>
+
+  <picture class="hero-front" aria-hidden="true">
+    <source srcset="assets/hero/fjord-front-right-portrait-640.webp 640w, assets/hero/fjord-front-right-portrait-1080.webp 1080w" sizes="100vw" media="(max-aspect-ratio: 4/5)">
+    <img src="assets/hero/fjord-front-right-1600.webp" width="1600" height="1116" alt="" decoding="async"
+         srcset="assets/hero/fjord-front-right-960.webp 960w, assets/hero/fjord-front-right-1600.webp 1600w, assets/hero/fjord-front-right-2400.webp 2400w" sizes="100vw">
+  </picture>
+  <div class="hero-grain" aria-hidden="true"></div>
+
+  <nav class="bar" aria-label="Primary">
+    <a class="bar-home" href="#top" aria-label="Albretsen AS, home">
+      <img src="assets/identity/mark-linen.svg" width="30" height="30" alt="">
+      <span class="sign">Albretsen <b>AS</b></span>
+    </a>
+    <ul>
+      <li><a href="#desk">Work</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#close">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-foot">
+    <p class="hero-line">Quiet software that pays for itself.</p>
+    <p class="hero-sub label"><span>Apps · SaaS · agent infrastructure</span><span class="hs-sep" aria-hidden="true"> &nbsp;/&nbsp; </span><span>On Google Play since 2016</span></p>
+  </div>
+
+  <div class="feed" aria-live="polite" aria-atomic="true">
+    <span class="feed-dot" aria-hidden="true"></span>
+    <span class="feed-txt" id="feed"><span class="feed-p">Live</span> waiting for the next event</span>
+  </div>
+  <a class="scroll-cue" href="#desk" aria-label="Down to the work"><span></span></a>
+</header>
+
+<main>
+<!-- ───────────── THE DESK: four keys, one postcard each ───────────── -->
+<section class="desk" id="desk" aria-labelledby="desk-h">
+  <div class="desk-head">
+    <p class="label kicker">Nº 01 – 04 · Current work</p>
+    <h2 id="desk-h" class="voice">Four keys on the board. Each one opens something that runs.</h2>
+    <p class="desk-hint">Choose a key, then turn the card over to read the back.</p>
+  </div>
+
+  <div class="desk-grid">
+    <div class="desk-rack" id="rack"><noscript><p class="label">MCP Emails · Fun Libs · Toolrails · Harbor</p></noscript></div>
+
+    <figure class="stage" id="stage" aria-live="polite">
+      <div class="card" id="card" tabindex="0" aria-describedby="card-cap">
+        <div class="card-in">
+          <div class="card-face card-front">
+            <picture>
+              <source type="image/webp" srcset="assets/products/postcard-mcp-emails-800.webp 800w, assets/products/postcard-mcp-emails-1500.webp 1500w" sizes="(min-width: 1100px) 760px, 92vw">
+              <img src="assets/products/postcard-mcp-emails-800.jpg" width="1500" height="1000" loading="lazy" decoding="async"
+                   alt="Postcard for MCP Emails: the fjord at sunset, a stamp with the MCP Emails logo, postmarked $782 MRR">
+            </picture>
+          </div>
+          <div class="card-face card-back" aria-hidden="true">
+            <div class="cb-note">
+              <p class="cb-msg"></p>
+              <ul class="cb-facts"></ul>
+              <p class="cb-sign">— A.</p>
+            </div>
+            <div class="cb-addr">
+              <div class="cb-stamp"><img alt="" width="64" height="64"></div>
+              <img class="cb-pm" src="assets/extras/postmark-2026.svg" width="240" height="240" alt="">
+              <p class="cb-to sign"></p>
+              <p class="cb-url"><a href="#"></a></p>
+              <p class="cb-meta label"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption class="cap" id="card-cap">
+        <span class="cap-no label"><i aria-hidden="true"></i><span>Live · since 2026</span></span>
+        <a class="cap-name" href="https://mcpemails.com" rel="noopener" target="_blank">mcpemails.com <span aria-hidden="true">↗</span></a>
+        <span class="cap-fig"><b>$782</b> MRR</span>
+        <button class="turn" type="button" aria-pressed="false"><span aria-hidden="true">↻</span> Turn over</button>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ───────────── THE TURN: the same sun, from higher up ───────────── -->
+<section class="orbit" aria-labelledby="orbit-h">
+  <picture class="orbit-img">
+    <source type="image/avif" srcset="assets/hero/orbit-960.avif 960w, assets/hero/orbit-1600.avif 1600w, assets/hero/orbit-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="assets/hero/orbit-960.webp 960w, assets/hero/orbit-1600.webp 1600w, assets/hero/orbit-2400.webp 2400w" sizes="100vw">
+    <img src="assets/hero/orbit-1600.jpg" width="1600" height="915" loading="lazy" decoding="async"
+         alt="The sun over the curve of the Earth, photographed from the International Space Station">
+  </picture>
+  <div class="orbit-copy">
+    <p class="label">The same sun, from 400 km</p>
+    <h2 id="orbit-h" class="voice">Small company. Long view.</h2>
+    <p class="orbit-body">Albretsen AS builds whatever earns its keep: mobile apps, SaaS and the plumbing AI agents run on. The first app shipped on Google Play in 2016. The company followed in 2026.</p>
+  </div>
+</section>
+
+<!-- ───────────── EARLIER WORK: cancelled stamps ───────────── -->
+<section class="archive" aria-labelledby="arch-h">
+  <div class="archive-head">
+    <p class="label kicker">Cancelled</p>
+    <h2 id="arch-h" class="voice">Earlier work, retired with thanks.</h2>
+  </div>
+  <ol class="stamps" id="stamps"></ol>
+</section>
+
+<!-- ───────────── WRITING ───────────── -->
+<section class="writing" id="writing" aria-labelledby="w-h">
+  <p class="label kicker">Notes</p>
+  <h2 id="w-h" class="voice">Written down.</h2>
+  <ul class="posts" id="posts"></ul>
+</section>
+</main>
+
+<!-- ───────────── CLOSE: a ticket and a label ───────────── -->
+<footer class="close" id="close">
+  <div class="close-grid">
+    <div class="ticket" id="ticket">
+      <div class="tk-main">
+        <p class="sign tk-title">Admit one agent</p>
+        <p class="label tk-sub">Albretsen AS · MCP</p>
+        <code class="tk-cmd" id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <p class="label tk-valid">Valid any hour</p>
+      </div>
+      <button class="tk-stub" type="button" id="copy" aria-describedby="cmd">
+        <span class="tk-no label">Nº</span>
+        <span class="tk-num">0001</span>
+        <span class="tk-act label" aria-live="polite">Copy</span>
+      </button>
+    </div>
+
+    <a class="tag" href="mailto:asgeir@albretsen.no">
+      <span class="tag-eye" aria-hidden="true"></span>
+      <span class="tag-band label">From the desk of</span>
+      <span class="tag-name sign">Asgeir Albretsen</span>
+      <span class="tag-mail">asgeir@albretsen.no</span>
+      <span class="tag-avail">Takes one outside engagement at a time.</span>
+      <span class="tag-loc label">Norway</span>
+    </a>
+  </div>
+  <div class="colophon">
+    <img src="assets/identity/mark.svg" width="28" height="28" alt="">
+    <p class="label">© <span id="yr">2026</span> Albretsen AS · Norway</p>
+    <p class="label colo-r">Photographs: Library of Congress photochroms, c. 1895 · NASA ISS040-E-080833</p>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "Afterglow",
+  "tagline": "One evening in three real photographs; the products glazed tiles in the last light.",
+  "summary": "The homepage is a single evening: cliffs just after sunset with the name set on the horizon and reflected in the sea, then a town of pastel deco towers, then the sun touching the water. A WebGL dissolve lets the highlights linger while the darks leave first, the way a sky keeps burning after the sun has gone. The products live in that light as real logos on glazed tiles, and the whole thing reads as calm, exact and quietly ambitious.",
+  "palette": ["#FBF8F4", "#2A2D4F", "#EE8AA0", "#8FD3BF", "#9EC3E6", "#FFC9A0", "#7D88C8"],
+  "type": ["Albert Sans 200", "Albert Sans 300", "DM Mono 300"],
+  "voice": "Unhurried, exact and plain, never selling. Example: \"Software that pays for itself, built carefully and left running.\"",
+  "motion": "Slow light, not slides: photographs dissolve highlights-last, lines rise from behind their own horizon, and the page sky turns from afternoon blue to afterglow as you scroll.",
+  "sound": "Silent by design; any future sound is a single opt-in sea hush tied to the shore frame.",
+  "mark": "An A whose legs are two cliffs and whose crossbar is the horizon, with a flamingo sun setting inside and a mint reflection below.",
+  "inspiration": [
+    "https://www.cosmos.so",
+    "https://www.godly.website",
+    "https://www.slimaarons.com",
+    "https://www.hoteldelavillevenice.com",
+    "https://developer.mozilla.org/docs/Web/CSS/animation-timeline/view",
+    "https://joshwcomeau.com/animation/scroll-driven-animations",
+    "https://www.hko.gov.hk/en/education/earth-science/optical-phenomena/00743-Green-Flash.html"
+  ]
+}

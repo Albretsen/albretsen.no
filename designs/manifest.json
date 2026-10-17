@@ -187,5 +187,1127 @@
   "path": "48/",
   "round": 2,
   "assets": "48/assets/preview.html"
+ },
+ {
+  "name": "Sun Road",
+  "tagline": "One sunlit coast road, one day long: software made in good light.",
+  "summary": "The homepage is a single day on a coast road. A real Neo-Impressionist cove, graded into Miami-morning pastels and re-lit live by a WebGL shader, moves from first light to dusk as you scroll, while the products travel as postage stamps whose denominations are real figures. Wes Anderson rigour (centred title cards, double rules, deadpan ephemera) keeps the sun-drunk optimism calm and exact, which is how Albretsen AS wants to read: effective, reasonable and quietly ambitious.",
+  "palette": [
+   "#FBF3E6",
+   "#F4C3C2",
+   "#EBC46B",
+   "#A8CFE6",
+   "#BFDCCB",
+   "#E0A93B",
+   "#6E2233",
+   "#45161F",
+   "#4A3A78"
+  ],
+  "type": [
+   "EB Garamond 500 (display, wordmark)",
+   "EB Garamond 400 and italic (text)",
+   "Jost 500 tracked caps (labels)",
+   "system ui-monospace (the one command)"
+  ],
+  "voice": "Deadpan, sunny and exact: short declarative sentences, real figures, no adjectives doing a number's job. Example: \"Four stamps, each worth its face value.\"",
+  "motion": "Scroll is the clock: everything moves at the pace of a day passing, lands centred and finishes still (Day Pass, Centre dolly, Postmark, Tear-off, Sun glint).",
+  "sound": "Opt-in only: a soundscape synthesised in the browser (sea swell, wind, a bell in a distant square) that rebalances as the hour changes.",
+  "mark": "A road in one-point perspective forms the letter A, with the sun on the vanishing point and the horizon as the crossbar; the wordmark is EB Garamond capitals tracked wide.",
+  "inspiration": [
+   "https://www.nga.gov/collection/art-object-page.61248.html",
+   "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Cliff_Walk_at_Pourville_-_Google_Art_Project.jpg",
+   "https://dev.to/_artclick/build-a-scroll-driven-day-to-night-animation-using-pure-css-1o3p",
+   "https://css-tip.com/postage-stamp/",
+   "https://stripesessions.com/",
+   "https://www.slimaarons.com"
+  ],
+  "id": "61",
+  "path": "61/",
+  "round": 3,
+  "assets": "61/assets/preview.html"
+ },
+ {
+  "name": "Morning Elevation",
+  "tagline": "The company is one symmetrical house at seven in the morning; only the sun moves.",
+  "summary": "Albretsen AS is drawn as a single peach-painted wooden house in a quiet square, framed like an architect's front elevation, with each live product lit in a ground-floor window and retired ones behind closed shutters. The hero is a matte painting made from CC0 photographs and a three.js house, and the visitor can take hold of the sun and move the day. It reads as calm, precise and well kept: an effective person who has no need to shout.",
+  "palette": [
+   "#f7f1e6",
+   "#f2b98f",
+   "#f6c56b",
+   "#e48e5c",
+   "#b9cfe3",
+   "#9fbad0",
+   "#dfe3e6",
+   "#8e3326",
+   "#2b2d3a"
+  ],
+  "type": [
+   "Italiana (Art Deco Didone, capitals, tracked 0.3em)",
+   "Jost (geometric text, 400/500)",
+   "ui-monospace (the one command line)"
+  ],
+  "voice": "Short, declarative, unhurried, with the building left unspoken. Example: \"Asgeir Albretsen builds software that earns its keep.\"",
+  "motion": "One variable, the time of day, drives everything: the sun travels its arc, shadows rake and lengthen, lamps warm at dusk, and nothing else moves.",
+  "sound": "Opt-in Web Audio ambience with no audio files (wind, a far sea, birds at first light and a rare distant bell) that follows the sun.",
+  "mark": "The pediment A: a capital A drawn as a classical gable, with its crossbar as the horizon and a half sun rising under the apex.",
+  "inspiration": [
+   "https://www.loc.gov/pictures/collection/travel/",
+   "https://www.chateaumarmont.com",
+   "https://www.rauno.me",
+   "https://rauno.me/craft/interaction-design",
+   "https://www.airbnb.com/luxury",
+   "https://emilkowal.ski/ui/great-animations",
+   "https://developer.mozilla.org/en-US/docs/Web/CSS/view-timeline"
+  ],
+  "id": "62",
+  "path": "62/",
+  "round": 3,
+  "assets": "62/assets/preview.html"
+ },
+ {
+  "name": "The Long Evening",
+  "tagline": "Coastal evening light in a small-town Norwegian palette; the homepage is a postcard you turn over.",
+  "summary": "The hero is postcard No. 00: a fog-filled coastal valley at sunset with the name set into the fog, behind the ridge. Turn it over and the back introduces the company in a calm, handwritten-letter register, with the MCP line as the return address. Products are postcards with their real logos as stamps, so the company reads as a small, well-kept series of things that pay for themselves.",
+  "palette": [
+   "#F5EFE4",
+   "#F1E8DA",
+   "#23252D",
+   "#3E4651",
+   "#8A2E22",
+   "#C9973A",
+   "#E9C7B2",
+   "#BFD0D6"
+  ],
+  "type": [
+   "Bodoni Moda (display, opsz 96)",
+   "Schibsted Grotesk (text and UI)",
+   "ui-monospace (the MCP line only)"
+  ],
+  "voice": "Quiet, exact, a little dry; it states what exists and stops. Example: \"A small technology company that builds what earns its keep.\"",
+  "motion": "Deadpan and symmetric: every move is centred or lateral on one easeInOut curve, and nothing overshoots.",
+  "sound": "Off until asked; then a single soft card-stock flick, a band-passed noise burst, when a card turns.",
+  "mark": "A Bodoni A whose crossbar is the horizon, with an ochre sun setting on it, on falu red.",
+  "inspiration": [
+   "https://linear.app",
+   "https://www.kinfolk.com",
+   "https://www.cosmos.so",
+   "https://www.are.na/explore",
+   "https://developer.mozilla.org/en-US/docs/Web/CSS/backface-visibility"
+  ],
+  "id": "63",
+  "path": "63/",
+  "round": 3,
+  "assets": "63/assets/preview.html"
+ },
+ {
+  "name": "Heure Bleue",
+  "tagline": "A terrace at blue hour where the visitor drags the sun, and the whole town answers.",
+  "summary": "The view from a terrace in the minutes after sunset: zinc rooftops, white houses stepping down to a bay, windows coming on one by one. The scene is a live three.js town built from primitives, painted like a 1930s travel poster in an Anderson pastel palette. The visitor can drag the sun and every window, wall and wave responds. Light and calm carry the atmosphere, and precise engineering underneath shows the skill, so the subject stays a technology company and its products.",
+  "palette": [
+   "#232c57",
+   "#f4eadb",
+   "#7a78b2",
+   "#f2b5b8",
+   "#d9a42b",
+   "#6e1f33",
+   "#a9c6e0",
+   "#ffd27a"
+  ],
+  "type": [
+   "Federo",
+   "Instrument Sans",
+   "Poiret One (large figures only)"
+  ],
+  "voice": "Calm and exact, with a little wit and no superlatives. It says what is running and what it earns, then stops. Example: \"Small software, run properly.\"",
+  "motion": "Slow and small like heat haze and sea breeze: shutters open, letters settle, windows light one by one, and the sun drifts home to blue hour six seconds after you let go.",
+  "sound": "Silent by default. Once switched on, a low sea-air hush plays, and a single glass chime sounds when the sun crosses the horizon or a ticket is postmarked.",
+  "mark": "An arched terrace window at blue hour, with the sun on the sea and three reflection bars, beside ALBRETSEN in outlined Federo capitals.",
+  "inspiration": [
+   "https://www.kinfolk.com",
+   "https://www.cursor.com",
+   "https://en.wikipedia.org/wiki/Roger_Broders",
+   "https://www.w3.org/WAI/ARIA/apg/patterns/slider/",
+   "https://demosthenes.info/blog/883/Animated-Day-Night-Cycle-With-CSS-and-SVG",
+   "https://unsplash.com/t/travel"
+  ],
+  "id": "64",
+  "path": "64/",
+  "round": 3,
+  "assets": "64/assets/preview.html"
+ },
+ {
+  "name": "Clear Noon",
+  "tagline": "A Norwegian valley under a hard Mediterranean noon: granite, glacier blue, snow, and one red road.",
+  "summary": "Real orbital photographs of fjords, regraded to granite and glacier blue, cross-dissolve behind the name, and the company timeline is a road traced along a real valley floor from elevation data. Products are painted wooden houses on one quiet street that light up when you look at them. It reads as technical skill and taste held in restraint, which is how Albretsen AS works: real data, real rendering, nothing loud.",
+  "palette": [
+   "#1b232b",
+   "#39434b",
+   "#3f6274",
+   "#9fbdcc",
+   "#f4f1ea",
+   "#e9e6df",
+   "#5f6b46",
+   "#8e2a1e",
+   "#c48a2c",
+   "#c9a24a"
+  ],
+  "type": [
+   "Antonio",
+   "Alegreya Sans",
+   "ui-monospace"
+  ],
+  "voice": "Calm, exact and unhurried; states what is true and stops. Example: \"Quiet software, built to pay for itself.\"",
+  "motion": "One long settling curve, cubic-bezier(.2,.7,.2,1): photographs cross-dissolve over 2.4 s, letters rise once, the road draws as you scroll, and lights come on when you look.",
+  "sound": "Silent by default; if ever enabled, a single soft wind-over-snow bed and a dry wooden latch click when a house door opens.",
+  "mark": "A condensed peak A with a falu-red road crossing its counter, paired with ALBRETSEN outlined from Antonio and tracked wide.",
+  "inspiration": [
+   "https://science.nasa.gov/earth/earth-observatory/fjords-of-norway-4605",
+   "https://www.loc.gov/pictures/collection/pgz/",
+   "https://www.metmuseum.org/art/collection",
+   "https://www.cerealmag.com",
+   "https://www.hoteldelavillevenice.com",
+   "https://www.framer.com/marketplace/components/cinefade/",
+   "https://tympanus.net/codrops/?p=54377"
+  ],
+  "id": "65",
+  "path": "65/",
+  "round": 3,
+  "assets": "65/assets/preview.html"
+ },
+ {
+  "name": "Blue Hour Terrace",
+  "tagline": "A paper-cut café terrace at blue hour, with the products laid out on one marble table.",
+  "summary": "The homepage is a symmetric paper diorama in the minutes after sunset. A red awning frames a domed building, his name hangs in the sky behind the spire, and the four live products sit on the table as real buttons. The Wes Anderson precision stands for the person (effective, reasonable, exact) and the windows lighting up stand for the optimism. It is atmosphere for a software company, never a postcard.",
+  "palette": [
+   "#16213D",
+   "#4A5F92",
+   "#C9A3B6",
+   "#F0BC9E",
+   "#7F8DA0",
+   "#F5EDDF",
+   "#FBF6EC",
+   "#B5373A",
+   "#B8924A",
+   "#FFD58C",
+   "#2F4A4E"
+  ],
+  "type": [
+   "Nunito 900 (variable, rounded)",
+   "Nunito 500",
+   "DM Mono"
+  ],
+  "voice": "Optimistic builder, deadpan and exact: short sentences, real numbers, no adjectives doing the work. \"Four shopfronts, one owner.\"",
+  "motion": "Precise, symmetric and deadpan: everything moves on a 140 ms beat, in stepped increments, arriving on the centre line in mirrored pairs and never bouncing twice.",
+  "sound": "None by default. An opt-in, very quiet sound of a spoon on a saucer could play when the lamps come on, and it stays off until the visitor asks for it.",
+  "mark": "A shopfront drawn on a symmetric 64-unit grid, with a scalloped café awning, an arched lit window and an evening star, next to a rounded Nunito wordmark.",
+  "inspiration": [
+   "https://accidentallywesanderson.com",
+   "https://www.studiobinder.com/blog/wes-anderson-style/",
+   "https://dev.to/accudio/making-a-parallax-svg-landscape-new-site-part-1-2cd7",
+   "https://motion.dev/magazine/introducing-magnetic-cursors-in-motion-cursor",
+   "https://haussmann.galerieslafayette.com/en/haussmannian-architecture/",
+   "https://www.siteinspire.com"
+  ],
+  "id": "66",
+  "path": "66/",
+  "round": 3,
+  "assets": "66/assets/preview.html"
+ },
+ {
+  "name": "Amber Hour",
+  "tagline": "Software with a long view.",
+  "summary": "Sun-bleached deco towers and golden Haussmann stone, all graded through one amber gradient under a generated dusk sky. The hero is a full-screen evening that, in one unbroken camera move, pulls back into a postcard on the table and turns over to show a handwritten note. The work is calm, exact and built with care, and the light makes that visible without a single place name.",
+  "palette": [
+   "#FFF6E6",
+   "#F8DFB6",
+   "#EDBF84",
+   "#D18E4A",
+   "#B8642A",
+   "#6E3816",
+   "#3B1D0E",
+   "#1E0F08",
+   "#F2B68A",
+   "#C98478",
+   "#5E4A6E"
+  ],
+  "type": [
+   "Bodoni Moda (italic, display)",
+   "Schibsted Grotesk (text)",
+   "ui-monospace (the install line)"
+  ],
+  "voice": "Unhurried, exact, written by hand to one reader. Example: \"I build software that pays for itself: apps, SaaS, and the quiet infrastructure AI agents run on.\"",
+  "motion": "One continuous camera per page, slow and smoothed like a crane on a rig, and never a cut.",
+  "sound": "Silent by default. The opt-in idea is one soft paper turn when the card flips over, and nothing else.",
+  "mark": "An arch drawn with Bodoni stroke contrast whose crossbar is a horizon with the sun sitting on it, set beside a Bodoni wordmark with a small grotesk AS.",
+  "inspiration": [
+   "https://www.loc.gov/pictures/collection/travel/",
+   "https://commons.wikimedia.org/wiki/Category:Carol_M._Highsmith",
+   "https://www.snohetta.com",
+   "https://www.visitnorway.com",
+   "https://scroll-driven-animations.style",
+   "https://www.apple.com/apple-card/",
+   "https://press.stripe.com",
+   "https://gsap.com/docs/v3/Plugins/ScrollTrigger/"
+  ],
+  "id": "67",
+  "path": "67/",
+  "round": 3,
+  "assets": "67/assets/preview.html"
+ },
+ {
+  "name": "Noon & Dusk",
+  "tagline": "A painted terrace that opens onto the sea, and a sun you can set yourself.",
+  "summary": "The homepage is a magazine opening spread laid out around one arched doorway: 'Quiet' on the left page, 'software.' on the right, and a gouache terrace in hard noon light between them, which widens to full bleed as you scroll. Drag the sun into the sea and the whole site goes to an LA dusk. Calm, symmetrical and exact, it presents a company that builds things that work and has the taste to let them stand in good light.",
+  "palette": [
+   "#F6EDE1",
+   "#211C24",
+   "#EF9F7C",
+   "#A0809E",
+   "#7D93AD",
+   "#221D2A",
+   "#C9694B",
+   "#2F5A46",
+   "#E2B25E"
+  ],
+  "type": [
+   "Bodoni Moda (display, with one italic phrase per headline)",
+   "Jost (text and small caps)",
+   "ui-monospace (the MCP line only)"
+  ],
+  "voice": "Dry, exact and unhurried. It says what a thing is, gives the one number that matters, and stops. Example: \"Quiet software, that pays for itself.\"",
+  "motion": "One curve (cubic-bezier(.65,0,.35,1)) and one 240 ms beat. Everything moves on the vertical axis or mirrors across it: the arch opens, the sun sets, products whip-pan and stop dead.",
+  "sound": "Silent by default; nothing plays unless the visitor asks, and the brand would rather be quiet than add a soundtrack.",
+  "mark": "An arched opening with thick didone verticals, a horizon line and a half sun. Read twice, it is an A, and the hero image is the same composition at full size.",
+  "inspiration": [
+   "https://polyhaven.com/a/vignaioli",
+   "https://polyhaven.com/a/venetian_crossroads",
+   "https://linear.app",
+   "https://blog.maximeheckel.com/posts/on-crafting-painterly-shaders",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://www.w3.org/WAI/ARIA/apg/patterns/slider/",
+   "https://nofilmschool.com/how-to-do-a-whip-pan",
+   "https://images.nasa.gov/details/iss056e032555"
+  ],
+  "id": "68",
+  "path": "68/",
+  "round": 3,
+  "assets": "68/assets/preview.html"
+ },
+ {
+  "name": "Afterglow",
+  "tagline": "One evening in three real photographs; the products glazed tiles in the last light.",
+  "summary": "The homepage is a single evening: cliffs just after sunset with the name set on the horizon and reflected in the sea, then a town of pastel deco towers, then the sun touching the water. A WebGL dissolve lets the highlights linger while the darks leave first, the way a sky keeps burning after the sun has gone. The products live in that light as real logos on glazed tiles, and the whole thing reads as calm, exact and quietly ambitious.",
+  "palette": [
+   "#FBF8F4",
+   "#2A2D4F",
+   "#EE8AA0",
+   "#8FD3BF",
+   "#9EC3E6",
+   "#FFC9A0",
+   "#7D88C8"
+  ],
+  "type": [
+   "Albert Sans 200",
+   "Albert Sans 300",
+   "DM Mono 300"
+  ],
+  "voice": "Unhurried, exact and plain, never selling. Example: \"Software that pays for itself, built carefully and left running.\"",
+  "motion": "Slow light, not slides: photographs dissolve highlights-last, lines rise from behind their own horizon, and the page sky turns from afternoon blue to afterglow as you scroll.",
+  "sound": "Silent by design; any future sound is a single opt-in sea hush tied to the shore frame.",
+  "mark": "An A whose legs are two cliffs and whose crossbar is the horizon, with a flamingo sun setting inside and a mint reflection below.",
+  "inspiration": [
+   "https://www.cosmos.so",
+   "https://www.godly.website",
+   "https://www.slimaarons.com",
+   "https://www.hoteldelavillevenice.com",
+   "https://developer.mozilla.org/docs/Web/CSS/animation-timeline/view",
+   "https://joshwcomeau.com/animation/scroll-driven-animations",
+   "https://www.hko.gov.hk/en/education/earth-science/optical-phenomena/00743-Green-Flash.html"
+  ],
+  "id": "69",
+  "path": "69/",
+  "round": 3,
+  "assets": "69/assets/preview.html"
+ },
+ {
+  "name": "Stucco Hour",
+  "tagline": "A whitewashed room lit by the real sun over Norway; drag the sun and the light follows.",
+  "summary": "The homepage is one path-traced room: a deep arch to the sea, lime plaster, a terracotta floor, and the name painted above the arch. The room is shown at the real hour in Norway (day, golden, blue or night), and a thin horizon below it carries a live, physically based sky and today's arc of the sun, which the visitor can drag. Calm, sunlit and exact, it shows taste through restraint and technical skill through the light itself, while the products sit in the wall as glazed plaques, each at its own hour.",
+  "palette": [
+   "#F6F1E8",
+   "#E9DCC6",
+   "#CDB48E",
+   "#E4572E",
+   "#B5603A",
+   "#8E9D80",
+   "#5F6F58",
+   "#A9C7DB",
+   "#2A2420",
+   "#1C2433"
+  ],
+  "type": [
+   "EB Garamond 430–470 (display)",
+   "EB Garamond 400 + italic (text)",
+   "System monospace (commands only)"
+  ],
+  "voice": "Unhurried, literal and sure of itself; it states what exists and lets the numbers sit like words. \"Quiet software that pays for itself.\"",
+  "motion": "The sun moves; everything else is still. Light changes by exposure, angle and colour, and no element ever slides, scales or tilts.",
+  "sound": "Silent by default. If sound is ever added it is opt-in: one soft, low terracotta-tile tap when a command is copied, and nothing ambient.",
+  "mark": "A round-headed arch that is also an A, with the horizon as its crossbar and a poppy sun resting on it, set beside an outlined EB Garamond wordmark.",
+  "inspiration": [
+   "https://www.awwwards.com/websites/sites_of_the_day/",
+   "https://www.awwwards.com/inspiration/time-of-day-adjustment-3d-webgpu-archiviz",
+   "https://www.jacquemus.com",
+   "https://www.airbnb.com/luxury",
+   "https://www.metmuseum.org/art/collection/search/393670",
+   "https://design-milk.com/dora-tokai-designs-the-white-arcade-dubai-villa/"
+  ],
+  "id": "70",
+  "path": "70/",
+  "round": 3,
+  "assets": "70/assets/preview.html"
+ },
+ {
+  "name": "Winter Pavilion",
+  "tagline": "A pink deco pavilion alone in a photographed snowfield, and a sun you can drag down into night.",
+  "summary": "A matte painting built from real CC0 photographs and a rendered pavilion: one building, one sun, a great deal of sky. Dragging the sun relights the scene through low winter sun, pink hour and blue night, and that sunset is also the site's day-to-night switch. The products are small pastel buildings in the same snow, each carrying its real sign, so a growing company simply adds houses to the street.",
+  "palette": [
+   "#EE8FA6",
+   "#A6DCC6",
+   "#9CC8EA",
+   "#FBF7F2",
+   "#FFE3B0",
+   "#22304F",
+   "#18223F"
+  ],
+  "type": [
+   "Jost (spaced signage capitals)",
+   "Instrument Serif Italic",
+   "IBM Plex Mono"
+  ],
+  "voice": "Deadpan, exact and understated, like a well-made sign: 'Software that keeps its own lights on.'",
+  "motion": "Slow and frontal: a camera that dollies sideways past the facades, layers that drift by depth, and an iris that opens night from the switch.",
+  "sound": "Off until asked; then a soft two-note sine chime, rising when the day comes back and falling when the sign switches on.",
+  "mark": "An arched window with the sun sitting on its horizon over three snow lines, next to ALBRETSEN in Jost capitals spaced like a rooftop sign.",
+  "inspiration": [
+   "https://polyhaven.com/a/kiara_8_sunset",
+   "https://polyhaven.com/a/stierberg_sunrise",
+   "https://polyhaven.com/a/rolling_hills",
+   "https://www.metmuseum.org/art/collection",
+   "https://www.visitnorway.com",
+   "https://en.wikipedia.org/wiki/Cliff_May",
+   "https://keithclark.co.uk/articles/pure-css-parallax-websites/demo3/",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://en.wikipedia.org/wiki/Solar_zenith_angle"
+  ],
+  "id": "71",
+  "path": "71/",
+  "round": 3,
+  "assets": "71/assets/preview.html"
+ },
+ {
+  "name": "Low Sun Terrace",
+  "tagline": "An opening spread whose gutter is the centre line of a sunlit miniature house; one slow camera move walks you through its lit door into the work.",
+  "summary": "A symmetrical 3D miniature (whitewashed loggia, falu-red clapboard wings, snow on a ranch roof, golden hills, low winter sun) set as a magazine's opening spread. Scrolling dollies down the gutter to the doorway, and an arch of warm light, the shape of the mark, becomes the page where each product stands as its own small building. It reads as an optimistic builder with taste: calm, sunlit, exact, and about the software.",
+  "palette": [
+   "#F6F1E7",
+   "#8F2B20",
+   "#323A44",
+   "#C8902F",
+   "#4B5663",
+   "#C9D3E3",
+   "#F7C49B"
+  ],
+  "type": [
+   "Albert Sans 200",
+   "Albert Sans 300",
+   "DM Mono 400"
+  ],
+  "voice": "Plain, warm and exact; facts set like captions, never a pitch. Example: \"One building per product. A lit window means it ships today.\"",
+  "motion": "One slow, unbroken camera move driven by scroll; everything else answers the pointer with long-deceleration light.",
+  "sound": "Silent by default; an opt-in single soft latch click when the door light fills the page is the only sound the system allows.",
+  "mark": "A falu-red arch with a low ochre sun on its sill: the loggia, the doorway and the light that becomes the page.",
+  "inspiration": [
+   "https://www.apartamentomagazine.com",
+   "https://www.chateaumarmont.com",
+   "https://www.nasjonalmuseet.no/en/collection/",
+   "https://unsplash.com/t/travel",
+   "https://css-tip.com/reveal-hover-mask/",
+   "https://en.wikipedia.org/wiki/Miniature_faking"
+  ],
+  "id": "72",
+  "path": "72/",
+  "round": 3,
+  "assets": "72/assets/preview.html"
+ },
+ {
+  "name": "Long Evening",
+  "tagline": "One street, one horizon, and the real sky over Norway right now.",
+  "summary": "A small main street of falu red wooden houses and sun-bleached pastel deco fronts, printed like a 1930s silkscreen poster. The page opens on the light outside Asgeir's window right now, and the scroll walks through the rest of the day while his name sits in the sky behind the ridges. Every live product is a shopfront with its real logo as the sign. The site says ambitious and effective by staying calm, specific and full of light.",
+  "palette": [
+   "#f6b48f",
+   "#b391a8",
+   "#7e8fb0",
+   "#1d1f24",
+   "#fbf5ec",
+   "#9e3b2e",
+   "#d39a45",
+   "#a9dcc6",
+   "#f2a7b4",
+   "#f4dc8e",
+   "#2f3a60",
+   "#c4b877"
+  ],
+  "type": [
+   "Nunito 900 (display)",
+   "Nunito 500-800 (text)",
+   "ui-monospace (commands only)"
+  ],
+  "voice": "Sunny, plain and quietly sure of itself. Short sentences and real numbers, with no pitch. Example: \"Every sign on the street is a product.\"",
+  "motion": "The Long Dissolve: slow, eased cross-fades between baked stills as you scroll, plus ink that settles into slight misregistration. Nothing bounces, and all of it stops under reduced motion.",
+  "sound": "Silent by default. A future opt-in could add a faint evening ambience (birdsong, a distant bicycle bell) that follows the real time of day.",
+  "mark": "The sun-A: a rounded A whose crossbar is a horizon with a peach sun half risen inside it. It stands in for the first letter of Albretsen.",
+  "inspiration": [
+   "https://commons.wikimedia.org/wiki/File:See_America_LCCN98518589.jpg",
+   "https://commons.wikimedia.org/wiki/File:The_national_parks_preserve_wild_life_LCCN98518597.jpg",
+   "https://www.chateaumarmont.com",
+   "https://stripesessions.com",
+   "https://www.cosmos.so",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations"
+  ],
+  "id": "73",
+  "path": "73/",
+  "round": 3,
+  "assets": "73/assets/preview.html"
+ },
+ {
+  "name": "Afterglow Diorama",
+  "tagline": "A cut-paper coast that pulls back into a miniature you can turn, under the real sky over Norway.",
+  "summary": "The homepage opens on a full-bleed paper landscape at afterglow, with the name set behind the mountain. As you scroll, the whole coast pulls back into an arched shadow box on a sunlit desk. It was a miniature all along, made at a small scale on purpose, and its sky is the sky over Norway right now. The products follow as one day: each keeps its own hour, and the page passes from morning to night as you read. The direction pairs playful precision with calm, warm light, which suits a small company that builds exact things that pay for themselves.",
+  "palette": [
+   "#F5EBDC",
+   "#2E2240",
+   "#C2603E",
+   "#D9A441",
+   "#2F6E9E",
+   "#A99BD1",
+   "#E7A39A",
+   "#FFC979"
+  ],
+  "type": [
+   "Josefin Sans (spaced signage capitals)",
+   "Instrument Serif (italic headlines, roman text)",
+   "DM Mono (figures, command, sky readout)"
+  ],
+  "voice": "Plain, exact, a little playful. The sentences are short, with no adjectives about itself. Example: \"Small, exact software that pays for itself.\"",
+  "motion": "Light does the moving: the coast pulls back into the box, a day passes as you scroll, and capitals and lamps switch on in turn, all on one paper-soft ease.",
+  "sound": "Off by default; when switched on, a glass tink as lamps or the copy button light, and a soft card settle when the diorama is let go.",
+  "mark": "An arch holding a sun behind an A-shaped peak, where the horizon cut forms the A's crossbar, next to an outlined, widely spaced ALBRETSEN wordmark.",
+  "inspiration": [
+   "https://www.apartamentomagazine.com",
+   "https://www.cosmos.so",
+   "https://news.fontstand.com/fonts-in-use/fonts-in-use-sleeping-over/",
+   "https://library.superhi.com/posts/the-parallax-effect",
+   "https://special.library.unlv.edu/node/268768",
+   "https://github.com/mourner/suncalc",
+   "https://polyhaven.com/a/belfast_sunset_puresky"
+  ],
+  "id": "74",
+  "path": "74/",
+  "round": 3,
+  "assets": "74/assets/preview.html"
+ },
+ {
+  "name": "Front Light",
+  "tagline": "The last minute of the day, held still: a real fjord at sunset, and a precise pastel desk with one key per product.",
+  "summary": "An 1890s photochrom of a Norwegian fjord, graded into one amber family, with the sun setting into the gap between the cliffs and the name sinking behind the sunlit mountain. Below it the company is a quiet front desk: four keys, and each key deals the postcard of a product, with its real logo on the stamp and one honest number on the postmark. It reads as calm, exact and warm: a small technology company with a long view, never a travel brochure.",
+  "palette": [
+   "#FBF3E4",
+   "#F4DDB4",
+   "#F2CDA8",
+   "#EDBB7C",
+   "#DC9447",
+   "#B8662F",
+   "#7A3D1F",
+   "#3D2013",
+   "#1C0E07"
+  ],
+  "type": [
+   "Jost (spaced signage capitals)",
+   "Instrument Serif Italic (the voice, one line per screen)",
+   "IBM Plex Mono (facts, commands, numbers)"
+  ],
+  "voice": "Few words, all of them specific; numbers in mono and never rounded up. Example: \"Four keys on the board. Each one opens something that runs.\"",
+  "motion": "Slow, warm and never bouncy: air shimmers above the horizon, keys swing on a damped pendulum, postcards are dealt and turned over, and shadows lengthen as the page scrolls toward sunset.",
+  "sound": "Silent by default; an opt-in layer would be one soft brass tick when a key is taken and a paper flip when a card turns, nothing ambient.",
+  "mark": "An A drawn as a peak whose crossbar is the horizon, with a half sun resting on it; the wordmark is spaced Jost capitals with AS in copper.",
+  "inspiration": [
+   "https://accidentallywesanderson.com",
+   "https://www.chateaumarmont.com",
+   "https://www.jacquemus.com",
+   "https://www.loc.gov/item/2001699469/",
+   "https://images.nasa.gov/details/iss040e080833",
+   "https://tympanus.net/codrops/2016/05/03/animated-heat-distortion-effects-webgl/",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://fontsinuse.com/tags/16035/grand-budapest-hotel"
+  ],
+  "id": "75",
+  "path": "75/",
+  "round": 3,
+  "assets": "75/assets/preview.html"
+ },
+ {
+  "name": "Zinc & Granite",
+  "tagline": "A Paris room with one window open onto a Norwegian fjord; scrolling is one slow walk to it.",
+  "summary": "An arch cut in the paper opens onto a sunlit Haussmann room, and the room's own arched window opens onto granite cliffs. The page is a single unbroken camera move from the back of the room to the balcony, where the MCP command waits on the sill. It reads as a calm, exacting technologist: the 3D room is real, it is lit for the visitor's own hour, and nothing on the page shouts.",
+  "palette": [
+   "#f1efe9",
+   "#e3e6e3",
+   "#a8b0b3",
+   "#9dbccb",
+   "#5c6266",
+   "#1d2226",
+   "#68774c",
+   "#d9c7a4",
+   "#f0b98e"
+  ],
+  "type": [
+   "Bodoni Moda (display, opsz 96, italic accents)",
+   "Bodoni Moda (text, low opsz)",
+   "Instrument Sans (labels) + system mono for commands"
+  ],
+  "voice": "First person, short, plain and warm; numbers stated, never sold. \"Quiet software that pays for itself.\"",
+  "motion": "One slow, unbroken, scroll-linked camera move per page on a single exhale curve; light is the only other thing that moves.",
+  "sound": "Silent by default; if ever added, an opt-in room tone (wind through an open window) that never plays on its own.",
+  "mark": "A round-headed French window opening onto a mountain ridge, beside a Bodoni wordmark with an italic AS, all outlined so it needs no font.",
+  "inspiration": [
+   "https://www.snohetta.com",
+   "https://accidentallywesanderson.com",
+   "https://www.kinfolk.com",
+   "https://www.rauno.me",
+   "https://tympanus.net/codrops/2025/11/19/how-to-build-cinematic-3d-scroll-experiences-with-gsap/",
+   "https://motion.dev/blog/introducing-magnetic-cursors-in-motion-cursor"
+  ],
+  "id": "76",
+  "path": "76/",
+  "round": 3,
+  "assets": "76/assets/preview.html"
+ },
+ {
+  "name": "Shutterlight",
+  "tagline": "A window in a sunlit room, and the view passes through a day.",
+  "summary": "The homepage is one slow camera move. You start at a centred, symmetrical window set (limewash, lavender shutters, hand-painted tile) and scroll through a day: Dahl's cold-blue dawn, Fearnley's cliffs, Cézanne's terracotta noon and Claude Lorrain's golden hour, rendered live in WebGL. The camera dollies until you stand at the glass. The products are objects in the house: MCP Emails is a postcard you turn over, Fun Libs a glazed tile panel, Toolrails a painted sign that swings, Harbor a lit window. It reads as patient, exact and ambitious, which is how Albretsen AS builds software.",
+  "palette": [
+   "#F4E9D4",
+   "#E8BF86",
+   "#E2A93B",
+   "#B9532F",
+   "#2F6C9E",
+   "#A59CBF",
+   "#6E6496",
+   "#2A2233"
+  ],
+  "type": [
+   "Cormorant Garamond (italic 500, spaced caps 600)",
+   "EB Garamond",
+   "ui-monospace (only for the agent command)"
+  ],
+  "voice": "Deadpan, exact and unhurried: short declaratives, facts set like captions. Example: \"Small, exact software that pays for itself.\"",
+  "motion": "Cinematic and slow: scroll is the clock and the camera; things settle like heavy props (crane, dolly, a hinged shutter, a damped pendulum), and nothing bounces.",
+  "sound": "Silent by design; the room is quiet, and no sound ships unless a visitor asks for it.",
+  "mark": "The mark is the window: an arch whose fanlight bars are the rays of a rising sun, the same window you look through in the hero.",
+  "inspiration": [
+   "https://www.cursor.com",
+   "https://stripe.com/sessions",
+   "https://www.airbnb.com/luxury",
+   "https://www.siteinspire.com",
+   "https://firewatchgame.com",
+   "https://scroll-driven-animations.style",
+   "https://tympanus.net/codrops/",
+   "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access"
+  ],
+  "id": "77",
+  "path": "77/",
+  "round": 3,
+  "assets": "77/assets/preview.html"
+ },
+ {
+  "name": "Peach Hour",
+  "tagline": "A small sunlit village you can turn, and a sun you can move.",
+  "summary": "The company is shown as a miniature hill village on a stone turntable, built from three.js primitives and graded like false-colour infrared film. Each product is one house, carrying its real logo. Precision and patience are shown, not claimed: the visitor turns the model, drags the sun from sunrise to dusk, and the name in the sky is lit from wherever the sun stands.",
+  "palette": [
+   "#FFF8EF",
+   "#F9C9A4",
+   "#F2C46D",
+   "#D9805C",
+   "#A9CDEB",
+   "#C58FA6",
+   "#4E3A57"
+  ],
+  "type": [
+   "Nunito 820 (variable, self-hosted)",
+   "Nunito 450",
+   "ui-monospace"
+  ],
+  "voice": "Warm, short, sure of itself, and it never sells. Example: \"Small, exact software that pays for itself.\"",
+  "motion": "Slow and sunlit: letters warm from weight 300 to 820, layers drift at different depths, and shutters swing open on each product, all settling on long expo-out curves.",
+  "sound": "Silent. Nothing plays unless a visitor turns it on, and the homepage offers nothing to turn on.",
+  "mark": "A round-arched window with the sun rising on its sill, beside a lowercase \"albretsen\" and a terracotta \"AS\" outlined from Nunito 820.",
+  "inspiration": [
+   "https://www.loewe.com",
+   "https://www.awwwards.com/websites/sites_of_the_day/",
+   "https://www.loc.gov/pictures/collection/travel/",
+   "https://www.sezane.com",
+   "https://www.amcharts.com/demos/day-and-night-world-map/",
+   "https://12daysofweb.dev/2023/css-scroll-driven-animations/",
+   "https://kolarivision.com/the-irchrome-infrared-photography-filter-our-digital-version-of-kodak-aerochrome/"
+  ],
+  "id": "78",
+  "path": "78/",
+  "round": 3,
+  "assets": "78/assets/preview.html"
+ },
+ {
+  "name": "Long Light",
+  "tagline": "One real fjord at first light: the name rises behind the far shore, and the moon in the photograph turns the lights on.",
+  "summary": "The site is a single day. A real CC0 photograph of a fjord before sunrise is relit live in WebGL, so the sun climbs out of the sea as you scroll, the name sits behind the land and is mirrored in the water, and the crescent moon is the night switch. The products follow as glazed plaques on sunlit stucco walls, each at its own hour, and the day ends in long light under palms. Calm, warm and precise: the taste lives in the light, while the subject stays software.",
+  "palette": [
+   "#F4EBDD",
+   "#E8622A",
+   "#F3B252",
+   "#8FA382",
+   "#9CC3E2",
+   "#2F5D8A",
+   "#1C1A17",
+   "#0C1A2B",
+   "#F5B860"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Schibsted Grotesk",
+   "ui-monospace"
+  ],
+  "voice": "Warm, plain and unhurried; it states what exists and lets the light do the selling. Example: \"Some things ship, some pause, some retire. These four are in daylight now.\"",
+  "motion": "Everything moves like daylight: slow ease-out arrivals, a sun that rises with the scroll, and a circle of night that spreads from the moon you tapped.",
+  "sound": "Silent by default; if sound is ever added, it is one opt-in low tone when the sun clears the horizon, and nothing else.",
+  "mark": "A serif A inside a sun whose crossbar continues as the horizon, gold above and fjord blue below; at night the sun becomes moonlight.",
+  "inspiration": [
+   "https://www.raycast.com",
+   "https://www.aesop.com",
+   "https://www.soho-house.com",
+   "https://www.jacquemus.com",
+   "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+   "https://commons.wikimedia.org/wiki/File:Lofoten,_Norway_(Unsplash_R5uIfpzGkRI).jpg"
+  ],
+  "id": "79",
+  "path": "79/",
+  "round": 3,
+  "assets": "79/assets/preview.html"
+ },
+ {
+  "name": "Pavilion Light",
+  "tagline": "One horizon, one building, one day: a pastel miniature that turns from morning to sunset as you scroll.",
+  "summary": "The company is a symmetrical cream pavilion on a golden bluff, built in three.js from primitives, and the products are small kiosks on its terrace, each open at its own hour. California light, Miami deco and Paris materials become atmosphere, never a postcard. The tone is Nordic understatement: one idea per screen, a lot of air, and craft that shows in the details.",
+  "palette": [
+   "#F3EBDD",
+   "#EADBC4",
+   "#8E959B",
+   "#565C63",
+   "#2A2A2E",
+   "#B5352B",
+   "#B8924A",
+   "#EFA6AE",
+   "#BFE3D3",
+   "#CFE3EE",
+   "#D9B36C",
+   "#4E4F86"
+  ],
+  "type": [
+   "Antonio (condensed poster caps)",
+   "Source Sans 3 (humanist text)",
+   "ui-monospace (the one command line)"
+  ],
+  "voice": "Short, plain and unhurried. It states what exists and stops. Example: \"Quiet software that pays for itself.\"",
+  "motion": "Everything drifts like warm air: scroll moves the sun across one horizon, headlines rise over a brass hairline, and awnings unroll on hover. Nothing bounces.",
+  "sound": "Silent by default; any future sound is opt-in and limited to soft room tone that follows the time of day.",
+  "mark": "A café-red sun with the stepped tower cut out of it and three sea lines below. It is the noon moment, when the sun sits on the finial, drawn flat.",
+  "inspiration": [
+   "https://www.apple.com/macbook-air/",
+   "https://stripesessions.com",
+   "https://www.jacquemus.com",
+   "https://www.loewe.com",
+   "https://en.wikipedia.org/wiki/Miniature_faking",
+   "https://commons.wikimedia.org/wiki/File:Lassen_Volcanic_Natl_Park_poster_1938.jpg"
+  ],
+  "id": "80",
+  "path": "80/",
+  "round": 3,
+  "assets": "80/assets/preview.html"
+ },
+ {
+  "name": "Ground Glass",
+  "tagline": "A software company seen through a viewfinder at night: one thing sharp, everything else allowed to blur.",
+  "summary": "A paper-cut nocturne built from public-domain museum photographs, regraded into one violet hue and staged on real depth planes in three.js. The headline lives on its own plane, so turning the focus ring (or tapping the scene, like a phone camera) blurs his name as the moon comes sharp. The products are always the one thing in focus: a technologist with taste, precise, calm and in control of every variable.",
+  "palette": [
+   "#070514",
+   "#110c28",
+   "#1f1642",
+   "#322566",
+   "#4d3898",
+   "#6d58ca",
+   "#958ae4",
+   "#bbb6ef",
+   "#d9d7f8",
+   "#ededfd",
+   "#f9f9ff"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Few words, exact, unhurried; camera vocabulary as interface language, never as decoration. Example: \"Four products, sharp. Everything else is allowed to blur.\"",
+  "motion": "Everything moves on one hand-rolled spring integrator (semi-implicit Euler at 240 Hz): focus pulls are weighty and never bounce, the iris settles with one soft overshoot.",
+  "sound": "Off until the visitor presses S; then a synthesised two-tone focus-confirm beep and a short band-passed shutter click, nothing else.",
+  "mark": "A moon held behind an asymmetric paper peak, cut once along the horizon so the slit becomes the crossbar of the A, beside an outlined Instrument Serif wordmark and a Geist Mono AS.",
+  "inspiration": [
+   "https://commons.wikimedia.org",
+   "https://www.metmuseum.org/art/collection",
+   "https://motion.dev/examples",
+   "https://paco.me",
+   "https://www.framer.com/gallery",
+   "https://blog.maximeheckel.com/posts/the-physics-behind-spring-animations/"
+  ],
+  "id": "81",
+  "path": "81/",
+  "round": 3,
+  "assets": "81/assets/preview.html"
+ },
+ {
+  "name": "Q.E.D.",
+  "tagline": "A product-drop page where the product is the company, written as a proof in shapes.",
+  "summary": "Albretsen AS is presented as Drop 00: four products that add up to one company. The idea comes from Oliver Byrne's 1847 Euclid, which proves things with coloured shapes instead of words. Every product, fact and control is a glyph of ink strokes and one amber sun, and the glyphs morph into one another as you read. It suits a calm, effective technologist: black, white and one dawn, very little said, everything demonstrated.",
+  "palette": [
+   "#0a0907",
+   "#f9f6f2",
+   "#fea91e",
+   "#b97500",
+   "#777471",
+   "#dad7d3"
+  ],
+  "type": [
+   "Geist",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Declarative, short and exact, like the last line of a proof: state it, show it, stop. Example: \"Software that pays for itself.\"",
+  "motion": "Proof Morph: one glyph redraws itself into the next, stroke by stroke. Mid-flight it shears along a fracture, and its sun settles with a single soft overshoot.",
+  "sound": "Off by default. Once turned on, each step of the proof plays a soft sine fifth that climbs a pentatonic scale, like a sunrise in five notes.",
+  "mark": "An apex A whose crossbar is a horizon with the amber sun on it, with one leg broken and sheared. The monoline ΛLBRETSEN ΛS wordmark is drawn from the same strokes.",
+  "inspiration": [
+   "https://www.oldbookillustrations.com/illustrations/circle-square/",
+   "https://www.igloo.inc",
+   "https://activetheory.net",
+   "https://www.radix-ui.com/primitives/docs/guides/animation",
+   "https://motion.dev/tutorials/js-svg-path-morphing",
+   "https://community.spline.design"
+  ],
+  "id": "82",
+  "path": "82/",
+  "round": 3,
+  "assets": "82/assets/preview.html"
+ },
+ {
+  "name": "Warm Boot",
+  "tagline": "The site powers on, and the signal develops into a painting.",
+  "summary": "On a first visit a POST log of the company decodes to OK, collapses into one phosphor line, and a generative raster landscape rises out of it. The raster then thins scanline by scanline until only an airbrushed dawn painting is left, and the signal stays underneath for a lens to find. It presents Albretsen AS as a machine that checks itself and then gets out of the way: calm, exact and lit from below the horizon. Products are suns at their own hour, retired ones are filed as specimens.",
+  "palette": [
+   "#041419",
+   "#063645",
+   "#bc6449",
+   "#e8a95c",
+   "#eedbbd",
+   "#f8f3e8",
+   "#221812",
+   "#7defda"
+  ],
+  "type": [
+   "Newsreader (display, opsz 72, weight 330)",
+   "Newsreader (text, opsz 16)",
+   "Martian Mono (labels, wdth 112.5, uppercase)"
+  ],
+  "voice": "Editorial and plain, like a caption on a plate: facts first, one italic phrase of warmth per line. \"Builds quiet software that pays for itself.\"",
+  "motion": "Everything moves on a 120 ms beat: text decodes left to right, rasters open from a single line, and pictures develop as scanlines thin to nothing.",
+  "sound": "Off until asked for; then a low CRT hum swells on power-on and each check lands as a soft pentatonic tick.",
+  "mark": "A banded sun above a terminal-cursor bar that blinks: dawn and a prompt in one glyph, set beside the name in wide Martian Mono.",
+  "inspiration": [
+   "https://www.abramsbooks.com/product/worlds-beyond-time_9781647000707/",
+   "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+   "https://gsap.com/docs/v3/Plugins/ScrambleTextPlugin/",
+   "https://codepen.io/lbebber/pen/XJRdrV",
+   "https://www.tylerxhobbs.com/words/flow-fields",
+   "https://polyhaven.com/a/rock_09",
+   "https://commons.wikimedia.org/wiki/File:Kunstformen_der_Natur_(Tafel_31)_BHL47388125.jpg"
+  ],
+  "id": "83",
+  "path": "83/",
+  "round": 3,
+  "assets": "83/assets/preview.html"
+ },
+ {
+  "name": "Orbit Issue",
+  "tagline": "Albretsen AS published as a loud magazine whose cover follows the sun over Norway.",
+  "summary": "The homepage is a magazine cover you can physically open: a grainy infrared painting of a fjord, the masthead tucked behind the peaks, and an edition (Nocturne, Dawn, Orbit, Dusk) chosen by the sun's real altitude over Oslo. Drag the cover open on a spring and the inside page is a live three.js orbit whose satellites are the products. It is loud in type and colour but holds one idea per screen, which suits a technologist who ships quietly and lets the work be the headline.",
+  "palette": [
+   "#0f0428",
+   "#4c1b82",
+   "#e72395",
+   "#fd7933",
+   "#ffc282",
+   "#fdf0dc",
+   "#008cab",
+   "#000418"
+  ],
+  "type": [
+   "Bricolage Grotesque (800, width 75)",
+   "Instrument Sans, with Instrument Serif italic for cover lines",
+   "JetBrains Mono"
+  ],
+  "voice": "Editorial and plain-spoken, with the confidence of a cover line and the facts of a fact sheet. Example: \"Four products in orbit.\"",
+  "motion": "Physical and sprung: the cover hinges on its spine, cards are thrown and flipped like card stock, and view transitions handle the page-level changes (edition wipe from the sun, feature swaps).",
+  "sound": "Silent by default; the only planned sound is an opt-in paper page-turn when the cover opens.",
+  "mark": "A badge with a grainy sky, a sun with an orbit ring and asymmetric peaks, beside a condensed ALBRETSEN wordmark with an italic serif AS.",
+  "inspiration": [
+   "https://animations.dev",
+   "https://godly.website",
+   "https://community.spline.design",
+   "https://www.shadertoy.com",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://frontendmasters.com/blog/grainy-gradients/",
+   "https://polyhaven.com/a/belfast_sunset_puresky",
+   "https://ambientcg.com/view?id=Paper005"
+  ],
+  "id": "84",
+  "path": "84/",
+  "round": 3,
+  "assets": "84/assets/preview.html"
+ },
+ {
+  "name": "Silica Atlas",
+  "tagline": "Ink, then glass: one Haeckel plate, printed in 2016 and polished into glass today.",
+  "summary": "The hero is a single 1904 plate of diatoms, which are organisms that build their shells from silica, the raw material of glass. The left half is an ink print and the right half is ray-traced green glass, split by a seam you can drag through ten years, with each year labelled by what shipped then. The products sit on the same atlas sheet as paperweights, so the whole site tells one story: careful work in the same hand, made in a better material every year.",
+  "palette": [
+   "#f7f5ea",
+   "#091710",
+   "#389e3d",
+   "#005e26",
+   "#d1f2d7",
+   "#a0f08f",
+   "#5a675f"
+  ],
+  "type": [
+   "Bricolage Grotesque",
+   "Instrument Serif Italic",
+   "JetBrains Mono"
+  ],
+  "voice": "Plain, exact and a little dry, like a plate caption. Facts carry the weight and one phrase per screen gets the serif. Example: \"I build software that pays for itself. The first app was ink on paper. Today it is glass.\"",
+  "motion": "Glass settles and ink draws: springs that overshoot once, strokes drawn at an even pressure, and nothing that loops for attention.",
+  "sound": "Off until toggled in the footer. Then the seam ticks like a glass ratchet at every year it crosses, pitched up toward 2026, and dropped lenses land with a softer tick.",
+  "mark": "One lens split down its axis, with an engraved hatched half and a polished green glass half, beside an outlined Bricolage Grotesque wordmark.",
+  "inspiration": [
+   "https://commons.wikimedia.org/wiki/File:Haeckel_Diatomea.jpg",
+   "https://www.biodiversitylibrary.org/",
+   "https://motion.dev/examples",
+   "https://vercel.com/home",
+   "https://www.shadertoy.com",
+   "https://rive.app/community/files/1497-2922-geometric-loading-animation",
+   "https://brm.io/matter-js/"
+  ],
+  "id": "85",
+  "path": "85/",
+  "round": 3,
+  "assets": "85/assets/preview.html"
+ },
+ {
+  "name": "Airglow",
+  "tagline": "The view from low orbit: the name set behind the curve of the Earth, the products standing on a quiet ring above first light.",
+  "summary": "Real public-domain NASA photographs of the Earth's night limb, graded to one disciplined palette, carry a calm technologist's site. The products are the cast of a serene character-select: four glass tiles on a lattice ring that turns as you scroll (pre-rendered frames, with the live three.js scene one click away). Each product owns one real emission line of the night sky, so colour carries meaning and nothing else shouts.",
+  "palette": [
+   "#070d15",
+   "#101822",
+   "#2a343e",
+   "#acac9e",
+   "#f4f5e7",
+   "#e9e558",
+   "#f7ac4d",
+   "#7988ed",
+   "#e86154",
+   "#52afe7"
+  ],
+  "type": [
+   "Geist Light (250-300, -0.045em)",
+   "Geist Regular",
+   "Geist Mono"
+  ],
+  "voice": "Plain, third person, short; facts carry the weight and adjectives stay home. Example: \"Asgeir Albretsen builds software that pays for itself.\"",
+  "motion": "Everything moves the way things move from orbit: slow, continuous, long expo ease-outs, no bounce; the only fast thing is the visitor's own scroll.",
+  "sound": "Silent. The page makes no sound; any future tone (a soft sine at the selected product's wavelength mapped to pitch) must be opt-in.",
+  "mark": "An 'A' whose crossbar is the curved limb of the planet with first light at the apex; the full name is set huge behind the Earth's edge, clipped by the planet itself.",
+  "inspiration": [
+   "https://images.nasa.gov/details/iss072e030246",
+   "https://images.nasa.gov/details/iss066e008713",
+   "https://lusion.co",
+   "https://stripe.com",
+   "https://www.cosmos.so",
+   "https://www.are.na/explore",
+   "https://cuberto.com/blog/cursor-magnetic-js-component/"
+  ],
+  "id": "86",
+  "path": "86/",
+  "round": 3,
+  "assets": "86/assets/preview.html"
+ },
+ {
+  "name": "Totality",
+  "tagline": "An archive of light: Trouvelot's 1878 eclipse, re-inked in one hue, opening the page.",
+  "summary": "The site opens on a total eclipse. A hairline ring is traced, the diamond-ring bead ignites, and a raw WebGL shader develops the 1878 plate brightest light first, until the name settles out of a two-ink fracture and the last frame becomes the page. Below, the four products hang as mounted plates on corona paper, with museum labels and a loupe that reads each plate at 2.4x. The tone is scientific calm: one image, one hue, perfectly set type, and the restraint of someone who measures before he builds.",
+  "palette": [
+   "#0d040e",
+   "#19081a",
+   "#542a57",
+   "#914599",
+   "#ca6fd3",
+   "#e1a5e6",
+   "#f8ebf9",
+   "#fdf8fd"
+  ],
+  "type": [
+   "Instrument Serif",
+   "Geist",
+   "Geist Mono"
+  ],
+  "voice": "Precise, unhurried and plain, like an observation note; facts carry the weight. Example: \"Four products, in the open. Each one exists because it can carry its own weight.\"",
+  "motion": "Light arrives before shape: things develop highlights-first, settle on a long exposure curve (cubic-bezier(.16,1,.3,1)) and never bounce.",
+  "sound": "Silent by default; if a visitor opts in, a single soft shutter tick on press and a low sine swell as the corona develops, nothing else.",
+  "mark": "A diamond-ring eclipse: the moon disc, a corona ring broken by an aperture gap and one bead of light, beside 'Albretsen' outlined from Instrument Serif with a Geist Mono 'AS'.",
+  "inspiration": [
+   "https://www.apple.com/macbook-pro/",
+   "https://godly.website",
+   "https://www.cssdesignawards.com",
+   "https://www.are.na/explore",
+   "https://publicdomainreview.org/collection/the-trouvelot-astronomical-drawings-1882",
+   "https://www.awwwards.com/inspiration/webgl-intro-section-pura-pharma"
+  ],
+  "id": "87",
+  "path": "87/",
+  "round": 3,
+  "assets": "87/assets/preview.html"
+ },
+ {
+  "name": "Labelled Sky",
+  "tagline": "A real 1885 night sky whose stars lift off the photograph to draw each product.",
+  "summary": "The hero is a glass-plate photograph of Cygnus from 1885 (The Met, CC0). After first paint, 2,188 particles measured from that same plate take over each star's exact position, then lift off to trace the company's A or a product's logo. Neo-brutalist stickers, seals and catalogue codes give precise work a playful label. The whole page reads as a calm catalogue of things that were built and shipped.",
+  "palette": [
+   "#F9F2E2",
+   "#1A4A32",
+   "#C2964D",
+   "#05170F",
+   "#E8CB84",
+   "#D4407C"
+  ],
+  "type": [
+   "Archivo 125/850",
+   "Martian Mono",
+   "Instrument Serif Italic"
+  ],
+  "voice": "Plain, exact and quietly amused, like an observatory label: 'Four on the chart. Each one placed where it can earn its keep.'",
+  "motion": "Stickers press on and peel on baked linear() springs (Web Animations API), and real stars move under spring tension, never on timelines for show.",
+  "sound": "Off by default. Once enabled, each constellation that locks into place rings one soft pentatonic bell note, a different pitch per product.",
+  "mark": "An A drawn as a five-star constellation with a brass apex spark, on a forest sticker tile with a hard brass shadow.",
+  "inspiration": [
+   "https://www.metmuseum.org/art/collection/search/283255",
+   "https://www.metmuseum.org/art/collection/search/358366",
+   "https://ui.aceternity.com",
+   "https://linear.app",
+   "https://www.cosmos.so",
+   "https://www.awwwards.com/websites/sites_of_the_day/"
+  ],
+  "id": "88",
+  "path": "88/",
+  "round": 3,
+  "assets": "88/assets/preview.html"
+ },
+ {
+  "name": "Prism Room",
+  "tagline": "One sunlit room, rendered like a converging image; the products are pixel objects you can pick up, and their real logos are the only sharp things in it.",
+  "summary": "The homepage is a real CC0 photograph of a loft in late sun, graded into candy prism light. It first paints as a 13-colour ordered dither and resolves to the photo as you scroll, the way a render converges. MCP Emails, Toolrails, Fun Libs and Harbor sit in the room as pixel objects with their real logos crisp on them; visitors can drag and rearrange them, and the bulb panel in the photo shows the live event feed. The impression is quiet technical confidence: the craft is in how it renders, and the light does the talking.",
+  "palette": [
+   "#160c21",
+   "#2a1935",
+   "#572953",
+   "#fff5ea",
+   "#e8d8e6",
+   "#ff9a7d",
+   "#ff99c2",
+   "#bea6eb",
+   "#86cbf3",
+   "#8deaca"
+  ],
+  "type": [
+   "Geist 600 (display, -0.04em)",
+   "Geist 400 (text)",
+   "Geist Mono 400 + Silkscreen (labels only)"
+  ],
+  "voice": "Dry, exact and unhurried, like a good commit message: it states what is true and stops. Example: \"Everything in this room is pixels, except the work.\"",
+  "motion": "Things converge rather than arrive: dither resolves to photo on scroll, objects lift and tilt with your hand's velocity and drop on a spring onto a 320-pixel grid, and every animation goes quiet under reduced motion.",
+  "sound": "Off by default; when switched on, short square-wave blips on pick-up and drop, pitched by how deep in the room the object lands, and a faint tick per live event.",
+  "mark": "A pixel 'A' on a 16-grid whose crossbar splits light into the five-colour spectrum (peach, bubblegum, lilac, sky, mint), next to a custom 5x7 pixel wordmark.",
+  "inspiration": [
+   "https://linear.app",
+   "https://emilkowal.ski",
+   "https://activetheory.net",
+   "https://ambientcg.com",
+   "https://polyhaven.com/a/photo_studio_loft_hall",
+   "https://kenney.nl/assets/furniture-kit"
+  ],
+  "id": "89",
+  "path": "89/",
+  "round": 3,
+  "assets": "89/assets/preview.html"
+ },
+ {
+  "name": "Six Faces",
+  "tagline": "An ultramarine nocturne built around a die that only lands on true numbers.",
+  "summary": "Graded CC0 and NASA photographs turn the whole site into one saturated ultramarine, with a single sodium-amber light for what matters. The hero is the Honest Die, a CSS 3D cube you grab and throw: whichever real number lands face up, the photograph behind it develops into that number's scene. It presents Albretsen AS as effective and plain-spoken: live, building, paused and retired are all printed as clearly as the revenue.",
+  "palette": [
+   "#0159d4",
+   "#00226c",
+   "#000a2a",
+   "#52a9fe",
+   "#d3e7fe",
+   "#f1f8ff",
+   "#ffb250"
+  ],
+  "type": [
+   "Archivo (wdth 125, wght 800)",
+   "Archivo (wdth 100-112, wght 600-700)",
+   "IBM Plex Mono 400/500"
+  ],
+  "voice": "Brutal honesty, said calmly: numbers first, no rounding, no adjectives. \"Toolrails has 4 connectors. It is not finished, and says so.\"",
+  "motion": "Physical and then exact: things fly with inertia, then land square on a spring; photographs develop behind a sodium scan line; the theme turns the whole page like a cube face.",
+  "sound": "Off by default; when turned on, one soft wooden knock each time the die lands.",
+  "mark": "An isometric die seen from its corner, paper top and ultramarine sides, with one sodium pip for the one number that matters, beside an outlined Archivo wordmark.",
+  "inspiration": [
+   "https://ui.aceternity.com/components",
+   "https://motion.dev/docs/animate",
+   "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+   "https://commons.wikimedia.org/wiki/File:Lofoten,_Norway_(Unsplash).jpg",
+   "https://commons.wikimedia.org/wiki/File:ISS-43_Northern_Europe.jpg",
+   "https://commons.wikimedia.org/wiki/File:BlackMarble20161km.jpg"
+  ],
+  "id": "90",
+  "path": "90/",
+  "round": 3,
+  "assets": "90/assets/preview.html"
  }
 ]

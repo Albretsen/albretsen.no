@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Postcard source</title>
+<!-- Source for assets/extras/postcard-cliff.webp. Bake transparent, 760x520 at DPR 2. -->
+<style>
+@font-face{font-family:"EB Garamond";src:url(../fonts/EBGaramond-latin.woff2) format("woff2");font-weight:400 800}
+@font-face{font-family:"EB Garamond";src:url(../fonts/EBGaramond-Italic-latin.woff2) format("woff2");font-weight:400 800;font-style:italic}
+@font-face{font-family:"Jost";src:url(../fonts/Jost-latin.woff2) format("woff2");font-weight:400 600}
+html,body{margin:0;background:transparent}
+.pc{position:relative;width:720px;height:480px;margin:20px;background:#FBF3E6;padding:18px 18px 66px;box-sizing:border-box;
+  /* deckle edge: tiny irregular scallops */
+  -webkit-mask:radial-gradient(3px at 50% 50%,#000 96%,#0000) 0 0/6px 6px round, linear-gradient(#000 0 0) center/calc(100% - 6px) calc(100% - 6px) no-repeat;
+          mask:radial-gradient(3px at 50% 50%,#000 96%,#0000) 0 0/6px 6px round, linear-gradient(#000 0 0) center/calc(100% - 6px) calc(100% - 6px) no-repeat}
+.pc img.photo{display:block;width:100%;height:100%;object-fit:cover;object-position:60% 40%}
+.cap{position:absolute;left:0;right:0;bottom:17px;text-align:center;color:#6E2233;font:italic 400 22px/1 "EB Garamond",serif}
+.cap small{font:500 9px Jost,sans-serif;letter-spacing:.32em;text-transform:uppercase;display:block;margin-top:6px;font-style:normal}
+.stamp{position:absolute;right:30px;top:28px;width:96px;transform:rotate(4deg);filter:drop-shadow(0 3px 4px rgba(110,34,51,.25))}
+.pm{position:absolute;right:76px;top:70px;width:200px;color:#6E2233;mix-blend-mode:multiply;opacity:.75;transform:rotate(-9deg)}
+</style>
+</head>
+<body>
+<div class="pc">
+  <img class="photo" src="../hero/cliff-golden-1600.jpg" alt="">
+  <div class="cap">Written in daylight, shipped by dusk.<small>Albretsen AS</small></div>
+  <img class="stamp" src="../products/stamp-mcp-emails.webp" alt="">
+  <img class="pm" src="../extras/postmark.svg" alt="">
+</div>
+</body>
+</html>

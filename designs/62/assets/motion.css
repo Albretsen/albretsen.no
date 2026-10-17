@@ -1,0 +1,108 @@
+/* Morning Elevation: motion study.
+   Rule of the house: the sun moves, everything else is still.
+   Every animation here is driven by one number, --me-t (0 = first light,
+   1 = evening), set by motion.js from scroll progress or a slider. Nothing
+   loops on its own except the slow breathing of light.
+
+   1. SUN ARC       the sun disc travels an elliptical arc as you scroll.
+                    Ref: scroll-driven day-to-night pattern (dev.to/_artclick,
+                    MDN "CSS scroll-driven animations"); here it is mapped
+                    onto an architectural arc, like the dashed path on the
+                    elevation drawing.
+   2. LIGHT RAKE    shadows under cornices, cards and window crowns swing
+                    and lengthen with the sun's angle (low sun = long shadow).
+                    Ref: the raking light studies in 3D product renders; on
+                    the web, rauno.me's "devouring details" attention to
+                    light and depth in small UI.
+   3. SHUTTER OPEN  two louvred leaves fold back (rotateY, 900 ms, ease-out
+                    quint) to reveal a product when its window enters view.
+                    Ref: hotel-and-house sites that reveal through framed
+                    openings (chateaumarmont.com's quiet framed imagery,
+                    airbnb.com/luxury's gallery cards), but done as
+                    architecture, not as a slider.
+   4. DECO SETTLE   the wordmark arrives with wide tracking (0.9em) and
+                    settles to its set width (0.34em) once, like a marquee
+                    being hung. 1.6 s, no bounce.
+   5. LAMPLIGHT     window interiors warm up as the sun sets (--me-t > .6):
+                    the only "glow" in the system.
+   All motion is removed under prefers-reduced-motion; the static state is
+   the morning (t = .16), which is also the hero image. */
+
+@property --me-t { syntax: '<number>'; inherits: true; initial-value: 0.16; }
+
+:root {
+  --me-ease: cubic-bezier(.22, 1, .36, 1);          /* ease-out quint */
+  --me-ease-soft: cubic-bezier(.45, .05, .25, 1);
+  /* derived sun geometry: angle 200deg (east, low) -> 340deg (west, low) */
+  --me-sun-angle: calc(200deg + var(--me-t) * 140deg);
+  --me-sun-height: calc(sin(var(--me-t) * 180deg));   /* 0 at horizon, 1 at noon */
+  --me-shadow-x: calc(cos(var(--me-sun-angle)) * -18px);
+  --me-shadow-len: calc(6px + (1 - var(--me-sun-height)) * 22px);
+}
+
+/* 1 ---------------------------------------------------------------- SUN ARC */
+.me-sky {
+  position: relative; overflow: hidden; isolation: isolate;
+  background:
+    radial-gradient(60% 50% at calc(50% + cos(var(--me-sun-angle)) * 42%) calc(100% + sin(var(--me-sun-angle)) * 80%),
+      color-mix(in oklch, #ffd59a calc(70% - var(--me-sun-height) * 40%), transparent), transparent 70%),
+    linear-gradient(to bottom,
+      color-mix(in oklch, #a9c3dc, #8fa9c9 calc(var(--me-sun-height) * 100%)) 0%,
+      color-mix(in oklch, #f6d8c2, #e3e8ee calc(var(--me-sun-height) * 100%)) 70%,
+      color-mix(in oklch, #fbd6b4, #f2ece4 calc(var(--me-sun-height) * 100%)) 100%);
+}
+.me-sun {
+  --size: clamp(48px, 8vw, 120px);
+  position: absolute; width: var(--size); aspect-ratio: 1;
+  left: calc(50% + cos(var(--me-sun-angle)) * 42% - var(--size) / 2);
+  top: calc(100% + sin(var(--me-sun-angle)) * 80% - var(--size) / 2);
+  background: url(extras/sun.svg) center / contain no-repeat;
+  pointer-events: none; z-index: -1;
+  will-change: left, top;
+}
+
+/* 2 -------------------------------------------------------------- LIGHT RAKE */
+.me-rake {
+  box-shadow:
+    var(--me-shadow-x) var(--me-shadow-len) calc(var(--me-shadow-len) * 1.2) -6px rgb(74 46 40 / .22),
+    0 1px 0 rgb(255 255 255 / .6) inset;
+}
+.me-rake-text { text-shadow: calc(var(--me-shadow-x) * .12) calc(var(--me-shadow-len) * .12) 0 rgb(74 46 40 / .18); }
+
+/* 3 ------------------------------------------------------------ SHUTTER OPEN */
+.me-shutter { position: relative; perspective: 900px; }
+.me-shutter::before, .me-shutter::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 50%; z-index: 2;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 9px, rgb(95 127 153 / .55) 9px 11px),
+    #a8c1d4;
+  transition: transform 900ms var(--me-ease);
+  backface-visibility: hidden;
+}
+.me-shutter::before { left: 0; transform-origin: left center; border-right: 1px solid #5f7f99; }
+.me-shutter::after  { right: 0; transform-origin: right center; }
+.me-shutter.is-open::before { transform: rotateY(-104deg); }
+.me-shutter.is-open::after  { transform: rotateY(104deg); transition-delay: 70ms; }
+
+/* 4 ------------------------------------------------------------ DECO SETTLE */
+@keyframes me-deco-settle {
+  from { letter-spacing: .9em; opacity: 0; filter: blur(3px); }
+  60%  { opacity: 1; filter: blur(0); }
+  to   { letter-spacing: var(--me-tracking, .34em); opacity: 1; }
+}
+.me-deco { animation: me-deco-settle 1.6s var(--me-ease) both; letter-spacing: var(--me-tracking, .34em); }
+
+/* 5 --------------------------------------------------------------- LAMPLIGHT */
+.me-lamp { position: relative; }
+.me-lamp::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(70% 60% at 50% 35%, rgb(255 206 140 / .55), transparent 70%);
+  opacity: clamp(0, (var(--me-t) - .6) * 3, .9);
+  transition: opacity 600ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --me-t: .16 !important; }
+  .me-deco { animation: none; }
+  .me-shutter::before, .me-shutter::after { transition: none; }
+}

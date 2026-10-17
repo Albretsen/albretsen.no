@@ -1,0 +1,12 @@
+{
+  "name": "The Long Evening",
+  "tagline": "Coastal evening light in a small-town Norwegian palette; the homepage is a postcard you turn over.",
+  "summary": "The hero is postcard No. 00: a fog-filled coastal valley at sunset with the name set into the fog, behind the ridge. Turn it over and the back introduces the company in a calm, handwritten-letter register, with the MCP line as the return address. Products are postcards with their real logos as stamps, so the company reads as a small, well-kept series of things that pay for themselves.",
+  "palette": ["#F5EFE4", "#F1E8DA", "#23252D", "#3E4651", "#8A2E22", "#C9973A", "#E9C7B2", "#BFD0D6"],
+  "type": ["Bodoni Moda (display, opsz 96)", "Schibsted Grotesk (text and UI)", "ui-monospace (the MCP line only)"],
+  "voice": "Quiet, exact, a little dry; it states what exists and stops. Example: \"A small technology company that builds what earns its keep.\"",
+  "motion": "Deadpan and symmetric: every move is centred or lateral on one easeInOut curve, and nothing overshoots.",
+  "sound": "Off until asked; then a single soft card-stock flick, a band-passed noise burst, when a card turns.",
+  "mark": "A Bodoni A whose crossbar is the horizon, with an ochre sun setting on it, on falu red.",
+  "inspiration": ["https://linear.app", "https://www.kinfolk.com", "https://www.cosmos.so", "https://www.are.na/explore", "https://developer.mozilla.org/en-US/docs/Web/CSS/backface-visibility"]
+}

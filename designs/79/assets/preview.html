@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Long Light: asset kit</title>
+<meta name="description" content="Asset kit for Albretsen AS, design 79: Long Light.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon.png">
+<link rel="preload" href="fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/schibsted-grotesk-vf.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: 'Instrument Serif'; src: url(fonts/instrument-serif-regular.woff2) format('woff2'); font-display: swap; }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; src: url(fonts/instrument-serif-italic.woff2) format('woff2'); font-display: swap; }
+  @font-face { font-family: 'Schibsted Grotesk'; src: url(fonts/schibsted-grotesk-vf.woff2) format('woff2'); font-weight: 400 900; font-display: swap; }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); color: var(--fg); transition: background-color .8s var(--ease-tide), color .8s var(--ease-tide); }
+  body { margin: 0; font: 400 16px/1.55 'Schibsted Grotesk', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; height: auto; display: block; }
+  .wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+  header.top { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(14px); background: color-mix(in oklab, var(--bg) 78%, transparent); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  header.top .lock { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+  header.top .lock img { width: 30px; height: 30px; }
+  header.top .lock span { font: 400 26px/1 'Instrument Serif', serif; }
+  header.top .lock small { font-size: 11px; letter-spacing: .2em; margin-left: 6px; }
+  header.top nav { display: flex; gap: 20px; font-size: 13px; letter-spacing: .04em; }
+  header.top nav a { color: var(--muted); text-decoration: none; }
+  @media (max-width: 760px) { header.top nav { display: none; } }
+
+  .eyebrow { font: 500 12px/1 'Schibsted Grotesk', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+  .eyebrow svg { width: 32px; height: 26px; color: var(--accent); }
+  h2.sec { font: 400 clamp(40px, 6vw, 76px)/1 'Instrument Serif', serif; letter-spacing: -.01em; margin: 14px 0 12px; }
+  h2.sec em { font-style: italic; }
+  p.lede { max-width: 62ch; color: var(--muted); margin: 0 0 36px; }
+  section.block { padding: clamp(72px, 10vw, 128px) 0; }
+  .rule { color: var(--fg); width: min(480px, 100%); height: auto; margin: 0 auto; display: block; }
+
+  /* hero */
+  .hero { position: relative; height: min(92svh, 900px); min-height: 520px; overflow: hidden; background: #0C1A2B; color: #F4EBDD; }
+  .hero picture img, .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+  @media (orientation: portrait) { .hero picture img { object-position: 12% 62%; } }  /* keep the moon in frame on phones */
+  .hero canvas { opacity: 0; transition: opacity 1s ease; }
+  .hero canvas.ready { opacity: 1; }
+  .hero .title { position: absolute; left: 16px; right: 16px; top: 16%; text-align: center; z-index: 2; pointer-events: none; }
+  .hero h1 { margin: 0; font: 400 clamp(64px, 13vw, 200px)/.88 'Instrument Serif', serif; letter-spacing: -.015em; }
+  .hero h1 em { font-style: italic; }
+  .hero .sub { margin-top: clamp(28px, 4vw, 52px); font: 400 clamp(18px, 2vw, 24px)/1.3 'Instrument Serif', serif; font-style: italic; opacity: .9; }
+  .hero .hit { position: absolute; z-index: 3; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; border: 0; background: transparent; cursor: pointer; }
+  .hero .hit::before { content: ''; position: absolute; inset: 14px; border-radius: 50%; border: 1px solid rgba(244,235,221,.0); transition: border-color .4s, inset .4s; }
+  .hero .hit:hover::before, .hero .hit:focus-visible::before { border-color: rgba(244,235,221,.6); inset: 8px; }
+  .hero .hint { position: absolute; z-index: 2; left: 16px; right: 16px; bottom: 22px; display: flex; justify-content: space-between; gap: 12px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; opacity: .8; flex-wrap: wrap; }
+  .hero .hint input { accent-color: #F3B252; width: min(260px, 40vw); vertical-align: middle; }
+
+  /* grids */
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+  .grid.wide { grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); }
+  figure { margin: 0; }
+  figure .frame { border-radius: 14px; overflow: hidden; background: var(--dune); }
+  :root[data-theme="night"] figure .frame { background: var(--night-2); }
+  figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 10px; }
+  figcaption b { font-weight: 500; color: var(--fg); }
+
+  /* palette */
+  .swatches { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .sw { border-radius: 14px; overflow: hidden; border: 1px solid color-mix(in oklab, var(--fg) 12%, transparent); }
+  .sw i { display: block; height: 96px; }
+  .sw div { padding: 10px 12px; font-size: 12px; line-height: 1.45; }
+  .sw b { display: block; font: 400 20px/1.1 'Instrument Serif', serif; }
+  .sky-strip { margin-top: 28px; border-radius: 14px; overflow: hidden; }
+  .sky-strip img, figure .frame img { width: 100%; }
+
+  /* type */
+  .spec { display: grid; gap: 28px; grid-template-columns: 1.4fr 1fr; align-items: end; }
+  @media (max-width: 860px) { .spec { grid-template-columns: 1fr; } }
+  .spec .big { font: 400 clamp(72px, 12vw, 168px)/.9 'Instrument Serif', serif; letter-spacing: -.015em; }
+  .spec .big em { font-style: italic; color: var(--accent); }
+  .spec .grot { font-weight: 450; }
+  .spec .grot p { margin: 0 0 12px; }
+  .spec .scale div { display: flex; align-items: baseline; gap: 16px; border-top: 1px solid color-mix(in oklab, var(--fg) 14%, transparent); padding: 10px 0; }
+  .spec .scale span:first-child { width: 110px; flex: none; font-size: 12px; color: var(--muted); }
+  .spec .scale span:last-child { flex: 1; min-width: 0; }
+
+  /* identity */
+  .id-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+  .tile { border-radius: 14px; padding: 28px; display: grid; place-items: center; min-height: 220px; background: var(--dune); }
+  .tile.dark { background: var(--night); color: var(--moon); }
+  .tile.paper { background: #FBF6EC; }
+  .tile img { max-height: 120px; width: auto; }
+  .tile .wm { width: 100%; height: auto; max-height: none; }
+
+  /* products */
+  .retired { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 34px; align-items: center; }
+  .retired figure { width: 92px; text-align: center; }
+  .retired img { width: 80px; height: 80px; margin: 0 auto; }
+  .retired figcaption { display: block; font-size: 11px; line-height: 1.3; }
+  .luma { height: 80px; padding: 0 18px; display: grid; place-items: center; border-radius: 18px; background: #F4EFE6; }
+  .luma img { width: auto; height: 30px; }
+
+  /* extras */
+  .wall-demo { position: relative; height: 420px; border-radius: 14px; overflow: hidden; background: #E9D2B4; }
+  .wall-demo .lightpatch { position: absolute; inset: 0; background: radial-gradient(80% 90% at 40% 30%, #FFE6C4, transparent 70%); }
+  .wall-demo .long-shadow { width: 62%; left: 12%; top: -12%; }
+  .wall-demo .stamp { position: absolute; left: 22px; bottom: 18px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #4a3626; }
+  .palm-tile { background: linear-gradient(#F3A55E, #F6C27A 70%, #F3E3C7); display: grid; place-items: end center; height: 420px; border-radius: 14px; overflow: hidden; }
+  .palm-tile img { height: 92%; width: auto; }
+  .grain-tile { height: 200px; border-radius: 14px; background: url(extras/grain.png), linear-gradient(135deg, #F2A35E, #6F93BF); }
+  .arcs { display: flex; flex-wrap: wrap; gap: 18px 24px; padding: 26px; border-radius: 14px; background: var(--dune); color: var(--ink); }
+  .arcs figure { text-align: center; font-size: 11px; }
+  .arcs svg { width: 48px; height: 39px; }
+
+  /* motion */
+  .motion { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); }
+  .card { border-radius: 14px; padding: 26px; border: 1px solid color-mix(in oklab, var(--fg) 14%, transparent); min-height: 260px; display: flex; flex-direction: column; gap: 14px; }
+  .card h3 { margin: 0; font: 400 32px/1 'Instrument Serif', serif; }
+  .card p { margin: 0; font-size: 14px; color: var(--muted); }
+  .card .demo { flex: 1; display: grid; place-items: center; border-radius: 10px; min-height: 160px; position: relative; overflow: hidden; }
+  .daylong-demo { width: 100%; height: 100%; min-height: 160px; }
+  .rise-demo { font: 400 46px/1 'Instrument Serif', serif; text-align: center; }
+  .card button.again { align-self: flex-start; font: inherit; font-size: 13px; color: inherit; background: none; border: 1px solid color-mix(in oklab, var(--fg) 25%, transparent); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+  .glint-demo { font: 400 56px/1 'Instrument Serif', serif; -webkit-background-clip: text; background-clip: text; color: transparent; background-color: var(--fg); }
+  .glint-demo.glint { background-image: linear-gradient(100deg, var(--fg) 30%, #F3B252 48%, var(--fg) 66%); background-size: 250% 100%; }
+  footer { padding: 60px 0 80px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="daylong-ribbon" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <a class="lock" href="#top"><img src="identity/mark.svg" width="30" height="30" alt=""><span>Albretsen<small>AS</small></span></a>
+    <nav aria-label="Sections"><a href="#hero">Hero</a><a href="#stills">Imagery</a><a href="#palette">Palette</a><a href="#type">Type</a><a href="#identity">Identity</a><a href="#products">Products</a><a href="#extras">Extras</a><a href="#motion">Motion</a></nav>
+    <button class="sunset-switch" id="switch" type="button"></button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- 1. Interactive hero: one photograph, one surprising detail -->
+  <section class="hero" id="hero" aria-label="Interactive hero: Sunline">
+    <picture>
+      <source type="image/avif" srcset="hero/first-light-640.avif 640w, hero/first-light-1280.avif 1280w, hero/first-light-1920.avif 1920w, hero/first-light-2560.avif 2560w" sizes="100vw">
+      <source type="image/webp" srcset="hero/first-light-640.webp 640w, hero/first-light-1280.webp 1280w, hero/first-light-1920.webp 1920w" sizes="100vw">
+      <img src="hero/first-light-1280.jpg" width="1280" height="853" fetchpriority="high" alt="A fjord just before sunrise: deep blue sky, a crescent moon, a thin gold line along the horizon">
+    </picture>
+    <canvas id="sunline" aria-hidden="true"></canvas>
+    <div class="title"><h1>Long <em>light</em></h1><div class="sub">Asset kit 79 for Albretsen AS</div></div>
+    <button class="hit" id="moonHit" aria-label="The moon: switch to night"></button>
+    <button class="hit" id="sunHit" aria-label="The sun: switch to day" hidden></button>
+    <div class="hint"><span>Move across the photo: the glitter follows you. Tap the moon.</span><label>Sun <input id="sunRange" type="range" min="0" max="1" step="0.001" value="0.3" aria-label="Sun height"></label></div>
+  </section>
+
+  <!-- 2. Stills -->
+  <section class="block" id="stills">
+    <div class="wrap">
+      <div class="eyebrow"><svg><use href="extras/sun-arcs.svg#arc-0610"/></svg>Hero imagery</div>
+      <h2 class="sec">One sky, <em>all day</em></h2>
+      <p class="lede">Real photographs (CC0), graded to one palette. The fjord is the interactive hero; its sunrise, morning and night states are baked from the same shader for no-JS and for social cards. The boulevard, the marine layer and the palms carry the warm half of the day.</p>
+      <div class="grid wide">
+        <figure><div class="frame"><picture><source type="image/avif" srcset="hero/first-light-sunrise-1280.avif"><img src="hero/first-light-sunrise-1280.jpg" width="1280" height="853" loading="lazy" alt="The fjord at sunrise with a glitter path on the water"></picture></div><figcaption><b>first-light-sunrise</b><span>baked, sun 0.30</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="hero/first-light-morning-1280.avif"><img src="hero/first-light-morning-1280.jpg" width="1280" height="853" loading="lazy" alt="The fjord in clear morning light"></picture></div><figcaption><b>first-light-morning</b><span>baked, sun 0.85</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="hero/first-light-night-1280.avif"><img src="hero/first-light-night-1280.jpg" width="1280" height="853" loading="lazy" alt="The fjord at night with the moon, stars and village lights on the far shore"></picture></div><figcaption><b>first-light-night</b><span>baked, night theme</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="hero/first-light-1280.avif"><img src="hero/first-light-1280.jpg" width="1280" height="853" loading="lazy" alt="The fjord before sunrise"></picture></div><figcaption><b>first-light</b><span>graded base</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="hero/long-light-1280.avif"><img src="hero/long-light-1280.jpg" width="1280" height="853" loading="lazy" alt="Palms over a curving coastal road, the low sun behind them"></picture></div><figcaption><b>long-light</b><span>late sun</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="hero/marine-layer-1280.avif"><img src="hero/marine-layer-1280.jpg" width="1280" height="815" loading="lazy" alt="Fog pouring over sunlit grass hills and pines"></picture></div><figcaption><b>marine-layer</b><span>sage, quiet</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="hero/after-hours-1280.avif"><img src="hero/after-hours-1280.jpg" width="1280" height="851" loading="lazy" alt="Tall palm silhouettes against a violet to gold dusk"></picture></div><figcaption><b>after-hours</b><span>dusk, night theme</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="hero/blue-ridge-1280.avif"><img src="hero/blue-ridge-1280.jpg" width="1280" height="853" loading="lazy" alt="Violet dawn over dark mountain ridges"></picture></div><figcaption><b>blue-ridge</b><span>blue hour backdrop</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><img class="rule" src="extras/horizon-rule.svg" width="480" height="40" alt=""></div>
+
+  <!-- 3. Palette -->
+  <section class="block" id="palette">
+    <div class="wrap">
+      <div class="eyebrow"><svg><use href="extras/sun-arcs.svg#arc-0930"/></svg>Palette</div>
+      <h2 class="sec">Sand, poppy, sage, <em>sky</em></h2>
+      <p class="lede">A California day palette, with a Norwegian night underneath it. The theme switch swaps sand for night and poppy for lamp-light.</p>
+      <div class="swatches" id="swatches"></div>
+      <div class="sky-strip"><img src="extras/sky-hours.svg" width="1200" height="360" loading="lazy" alt="Ten sky gradients through one day, from before light to lamps on"></div>
+    </div>
+  </section>
+
+  <!-- 4. Type -->
+  <section class="block" id="type">
+    <div class="wrap">
+      <div class="eyebrow"><svg><use href="extras/sun-arcs.svg#arc-1200"/></svg>Typography</div>
+      <div class="spec">
+        <div class="big">Quiet <em>software</em></div>
+        <div class="grot">
+          <p><b>Instrument Serif</b>: a condensed, high-contrast display serif; regular and italic. Headlines, product names, numbers that matter.</p>
+          <p><b>Schibsted Grotesk</b>: a clean grotesk drawn for a Norwegian newsroom; variable 400 to 900. Body, labels, UI.</p>
+          <div class="scale">
+            <div><span>Display 168</span><span style="font:400 40px/1 'Instrument Serif',serif">Albretsen</span></div>
+            <div><span>Title 48 italic</span><span style="font:italic 400 32px/1 'Instrument Serif',serif">I build software that pays for itself.</span></div>
+            <div><span>Body 16/1.55</span><span>Takes one outside engagement at a time.</span></div>
+            <div><span>Label 12 +.22em</span><span style="font-size:12px;letter-spacing:.22em;text-transform:uppercase">MCP Emails · $782 MRR</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Identity -->
+  <section class="block" id="identity">
+    <div class="wrap">
+      <div class="eyebrow"><svg><use href="extras/sun-arcs.svg#arc-1530"/></svg>Identity</div>
+      <h2 class="sec">An A on the <em>horizon</em></h2>
+      <p class="lede">The serif A stands in a sun; its crossbar continues as the horizon, gold above and fjord-blue below: cold blue turning gold, in one glyph.</p>
+      <div class="id-grid">
+        <div class="tile"><img src="identity/mark.svg" width="120" height="120" alt="Mark"></div>
+        <div class="tile dark"><img src="identity/mark-night.svg" width="120" height="120" alt="Mark, night"></div>
+        <div class="tile paper" style="color:#1C1A17"><img src="identity/mark-mono.svg" width="120" height="120" alt="Mark, one colour"></div>
+        <div class="tile paper"><img class="wm" src="identity/lockup.svg" width="480" height="112" alt="Lockup"></div>
+        <div class="tile paper" style="color:#1C1A17"><img class="wm" src="identity/wordmark.svg" width="380" height="108" alt="Wordmark"></div>
+        <div class="tile"><div style="display:flex;gap:22px;align-items:end"><img src="identity/apple-touch-icon.png" width="90" height="90" style="border-radius:20px" alt="Touch icon"><img src="identity/favicon.svg" width="32" height="32" alt="Favicon"><img src="identity/favicon-32.png" width="16" height="16" alt="Favicon 16"></div></div>
+      </div>
+      <figure style="margin-top:20px"><div class="frame"><img src="identity/og.jpg" width="1200" height="630" loading="lazy" alt="Open Graph card: Albretsen over the fjord at sunrise"></div><figcaption><b>og.jpg</b><span>1200 × 630</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 6. Products -->
+  <section class="block" id="products">
+    <div class="wrap">
+      <div class="eyebrow"><svg><use href="extras/sun-arcs.svg#arc-1820"/></svg>Products</div>
+      <h2 class="sec">Four walls, <em>four hours</em></h2>
+      <p class="lede">Each live product's real icon is set as a glazed plaque on a stucco wall, at its own hour: the light, the plaster relief and the palm shadow all agree on where the sun is. Retired products are sun-faded tiles.</p>
+      <div class="grid wide">
+        <figure><div class="frame"><picture><source type="image/avif" srcset="products/mcp-emails-600.avif 600w, products/mcp-emails-1200.avif 1200w" sizes="(min-width: 1100px) 600px, 100vw"><img src="products/mcp-emails-800.jpg" width="800" height="600" loading="lazy" alt="MCP Emails icon as a plaque on a terracotta wall in early sun"></picture></div><figcaption><b>MCP Emails</b><span>07:40, terracotta</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="products/fun-libs-600.avif 600w, products/fun-libs-1200.avif 1200w" sizes="(min-width: 1100px) 600px, 100vw"><img src="products/fun-libs-800.jpg" width="800" height="600" loading="lazy" alt="Fun Libs icon as a plaque on a sky-blue wall at noon"></picture></div><figcaption><b>Fun Libs</b><span>11:15, sky</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="products/toolrails-600.avif 600w, products/toolrails-1200.avif 1200w" sizes="(min-width: 1100px) 600px, 100vw"><img src="products/toolrails-800.jpg" width="800" height="600" loading="lazy" alt="Toolrails icon as a plaque on a sage wall in afternoon light"></picture></div><figcaption><b>Toolrails</b><span>15:30, sage</span></figcaption></figure>
+        <figure><div class="frame"><picture><source type="image/avif" srcset="products/harbor-600.avif 600w, products/harbor-1200.avif 1200w" sizes="(min-width: 1100px) 600px, 100vw"><img src="products/harbor-800.jpg" width="800" height="600" loading="lazy" alt="Harbor mark as a plaque on a rose wall at dusk"></picture></div><figcaption><b>Harbor</b><span>18:50, dusk rose</span></figcaption></figure>
+      </div>
+      <div class="retired">
+        <figure style="width:auto"><div class="luma"><img src="../../_shared/products/luma/logo.png" width="782" height="217" alt="Luma (real logo)"></div><figcaption>Luma (real logo)</figcaption></figure>
+        <figure><img src="products/retired/polyglot-pilot.svg" width="80" height="80" alt=""><figcaption>Polyglot Pilot</figcaption></figure>
+        <figure><img src="products/retired/pinpoint.svg" width="80" height="80" alt=""><figcaption>PinPoint</figcaption></figure>
+        <figure><img src="products/retired/webvakt.svg" width="80" height="80" alt=""><figcaption>WebVakt</figcaption></figure>
+        <figure><img src="products/retired/joke-central.svg" width="80" height="80" alt=""><figcaption>Joke Central</figcaption></figure>
+        <figure><img src="products/retired/tryggere-hyring.svg" width="80" height="80" alt=""><figcaption>Tryggere Hyring</figcaption></figure>
+        <figure><img src="products/retired/early-apps.svg" width="80" height="80" alt=""><figcaption>Early apps</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Extras -->
+  <section class="block" id="extras">
+    <div class="wrap">
+      <div class="eyebrow"><svg><use href="extras/sun-arcs.svg#arc-1940"/></svg>Extras</div>
+      <h2 class="sec">Texture and <em>shade</em></h2>
+      <div class="grid">
+        <figure><div class="wall-demo"><div class="lightpatch"></div><img class="long-shadow always" src="extras/palm-shadow.png" width="391" height="700" alt=""><div class="stamp">Long shadow · scroll me</div></div><figcaption><b>palm-shadow</b><span>real palm, blurred</span></figcaption></figure>
+        <figure><div class="palm-tile"><img src="extras/palm-cutout.webp" width="783" height="1400" loading="lazy" alt="Cut-out silhouette of four tall palms"></div><figcaption><b>palm-cutout</b><span>from a CC0 photo</span></figcaption></figure>
+        <figure><div class="grain-tile"></div><figcaption><b>grain.png</b><span>256px tile</span></figcaption></figure>
+        <figure><div class="arcs" id="arcs"></div><figcaption><b>sun-arcs.svg</b><span>section hour glyphs</span></figcaption></figure>
+        <figure><div class="tile paper" style="min-height:120px;color:#1C1A17"><img src="extras/horizon-rule.svg" width="480" height="40" style="width:100%" alt=""></div><figcaption><b>horizon-rule.svg</b><span>divider</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Motion -->
+  <section class="block" id="motion">
+    <div class="wrap">
+      <div class="eyebrow"><svg><use href="extras/sun-arcs.svg#arc-2100"/></svg>Motion study</div>
+      <h2 class="sec">A day passes as <em>you scroll</em></h2>
+      <p class="lede">The ribbon at the very top of this page is Daylong: scroll and the whole day runs through it.</p>
+      <div class="motion">
+        <div class="card"><h3>Daylong</h3><p>Registered colour properties on a scroll() timeline: the sky runs from first light to blue hour as the page scrolls.</p><div class="demo"><div class="daylong daylong-demo"></div></div></div>
+        <div class="card"><h3>Horizon rise</h3><p>Lines rise from behind a hairline horizon, staggered, with an ease-out-expo.</p><div class="demo"><h4 class="horizon-rise rise-demo" id="riseDemo" data-lines="Quiet software|that pays for itself"></h4></div><button class="again" id="riseAgain" type="button">Play again</button></div>
+        <div class="card"><h3>Sunset switch</h3><p>The sun sinks under the horizon, the moon rises; the new theme spreads from the button in a circle.</p><div class="demo"><button class="sunset-switch" id="switch2" type="button" style="--s:96px"></button></div></div>
+        <div class="card"><h3>Glint</h3><p>A slow band of sun crosses a word once every few seconds; for one number per page, at most.</p><div class="demo"><div class="glint-demo glint">113,000+</div></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Albretsen AS · asset kit 79, Long Light. Photography CC0 via Wikimedia Commons (Unsplash uploads); fonts SIL OFL. See ASSETS.md.</div></footer>
+
+<script type="module">
+  import { horizonRise, sunsetSwitch, daylong } from './motion.js';
+  // ?solo=products shows one section (handy for screenshots)
+  const solo = new URLSearchParams(location.search).get('solo');
+  if (solo) document.querySelectorAll('main > section, main > div').forEach(s => { if (s.id !== solo) s.style.display = 'none'; });
+  // palette
+  const P = [['Sand','#F4EBDD','oklch(94.3% 0.021 79.1)'],['Dune','#E3D2B6','oklch(87.0% 0.042 80.3)'],['Poppy','#E8622A','oklch(65.7% 0.179 40.9)'],['Gold','#F3B252','oklch(80.7% 0.135 74.3)'],
+    ['Sage','#8FA382','oklch(69.1% 0.052 133.2)'],['Sage deep','#4F6248','oklch(47.3% 0.047 137.4)'],['Sky','#9CC3E2','oklch(80.0% 0.061 242.5)'],['Fjord','#2F5D8A','oklch(46.7% 0.089 249.8)'],
+    ['Ink','#1C1A17','oklch(21.9% 0.007 78.2)'],['Night','#0C1A2B','oklch(21.5% 0.039 254.2)'],['Night 2','#13263C','oklch(26.4% 0.048 253.2)'],['Moon','#E9E4D6','oklch(91.9% 0.019 90.5)'],['Lamp','#F5B860','oklch(82.2% 0.126 74.4)']];
+  document.getElementById('swatches').innerHTML = P.map(([n,h,o]) => `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b>${h}<br>${o}</div></div>`).join('');
+  const hours = ['0500','0610','0700','0930','1200','1530','1820','1940','2100','2330'];
+  document.getElementById('arcs').innerHTML = hours.map(h => `<figure><svg viewBox="0 0 32 26"><use href="extras/sun-arcs.svg#arc-${h}"/></svg><figcaption style="display:block;margin:4px 0 0;color:inherit">${h.slice(0,2)}:${h.slice(2)}</figcaption></figure>`).join('');
+
+  horizonRise();
+  document.getElementById('riseAgain').onclick = () => { const e = document.getElementById('riseDemo'); e.classList.remove('is-up'); requestAnimationFrame(() => requestAnimationFrame(() => e.classList.add('is-up'))); };
+
+  // Sunline hero, loaded after first paint and only when on screen
+  let sl = null;
+  const portrait = matchMedia('(orientation: portrait)').matches;
+  const canvas = document.getElementById('sunline'), moonHit = document.getElementById('moonHit'), sunHit = document.getElementById('sunHit'), range = document.getElementById('sunRange');
+  function place() { if (!sl) return; const m = sl.moonPoint(), s = sl.sunPoint();
+    moonHit.style.left = m.x + 'px'; moonHit.style.top = m.y + 'px'; sunHit.style.left = s.x + 'px'; sunHit.style.top = Math.min(s.y, canvas.clientHeight - 40) + 'px';
+    moonHit.hidden = sl.state.night > .5; sunHit.hidden = sl.state.night < .5; }
+  const toNight = async () => { if (!sl) return; await sl.tween({ sun: 0 }, 800); await sl.tween({ night: 1 }, 1400); place(); };
+  const toDay = async () => { if (!sl) return; await sl.tween({ night: 0 }, 1100); await sl.tween({ sun: +range.value || .3 }, 1600); place(); };
+  const io = new IntersectionObserver(async ([e]) => {
+    if (!e.isIntersecting || sl) return; io.disconnect();
+    try {
+      const { mountSunline } = await import('./interactive/sunline.js');
+      sl = await mountSunline(canvas, { src: 'interactive/first-light-tex.jpg', mask: 'interactive/first-light-mask.png', sun: 0.3, sunX: portrait ? 0.37 : 0.56, focus: portrait ? [0.12, 0.62] : [0.5, 0.62],
+        night: document.documentElement.dataset.theme === 'night' ? 1 : 0 });
+      canvas.classList.add('ready'); place();
+      let target = sl.state.sunX;
+      document.getElementById('hero').addEventListener('pointermove', ev => { const r = canvas.getBoundingClientRect(); const f = (ev.clientX - r.left) / r.width; target = portrait ? 0.3 + 0.12 * f : 0.3 + 0.45 * f; });
+      (function follow() { if (Math.abs(target - sl.state.sunX) > 0.0005) { sl.state.sunX += (target - sl.state.sunX) * 0.05; sl.set({}); place(); } requestAnimationFrame(follow); })();
+      range.addEventListener('input', () => { if (sl.state.night < .5) sl.set({ sun: +range.value }); place(); });
+      addEventListener('resize', place);
+    } catch (err) { console.warn('Sunline unavailable, keeping the still', err); }
+  });
+  requestAnimationFrame(() => io.observe(canvas));
+
+  const onTheme = (t, { instant } = {}) => { if (!sl) return; instant ? sl.set({ night: t === 'night' ? 1 : 0 }) : (t === 'night' ? toNight() : toDay()); };
+  sunsetSwitch(document.getElementById('switch'), { onChange: onTheme });
+  const s2 = document.getElementById('switch2'); s2.innerHTML = document.getElementById('switch').innerHTML;
+  s2.addEventListener('click', () => document.getElementById('switch').click());
+  moonHit.onclick = () => document.documentElement.dataset.theme !== 'night' && document.getElementById('switch').click();
+  sunHit.onclick = () => document.documentElement.dataset.theme === 'night' && document.getElementById('switch').click();
+  daylong();
+</script>
+</body>
+</html>

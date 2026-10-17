@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen AS" fill="currentColor">
+  <defs><mask id="gap" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+    <rect width="64" height="64" fill="#fff"/>
+    <path d="M2 50 L8 41 L12 43.5 L20 30 L25 36 L29.5 25.5 L35 34 L39 31.5 L49 42 L53 39.5 L62 50 Z" fill="#000" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+    <ellipse cx="34" cy="30" rx="28" ry="6.4" transform="rotate(-14 34 30)" fill="none" stroke="#000" stroke-width="6"/>
+  </mask></defs>
+  <circle cx="36" cy="30" r="15" mask="url(#gap)"/>
+  <path d="M2 50 L8 41 L12 43.5 L20 30 L25 36 L29.5 25.5 L35 34 L39 31.5 L49 42 L53 39.5 L62 50 Z" stroke="currentColor" stroke-width="0" />
+  <ellipse cx="34" cy="30" rx="28" ry="6.4" transform="rotate(-14 34 30)" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <circle cx="7.6" cy="37.6" r="2.9"/>
+  <rect x="2" y="53" width="60" height="2.6" rx="1.3"/>
+  <rect x="18" y="58.5" width="28" height="2.2" rx="1.1"/>
+</svg>

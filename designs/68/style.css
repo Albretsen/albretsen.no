@@ -1,0 +1,349 @@
+/* Albretsen AS / design 68 "Noon & Dusk"
+   One curve, one beat, one axis. Everything is centred or mirrored across it. */
+
+
+@font-face { font-family: "Bodoni Moda"; src: url(assets/fonts/BodoniModa.woff2) format("woff2"); font-weight: 400 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url(assets/fonts/BodoniModa-Italic.woff2) format("woff2"); font-weight: 400 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Jost"; src: url(assets/fonts/Jost.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+
+:root {
+  --paper: #f6ede1;
+  --card: #fbf5ec;
+  --ink: #211c24;
+  --ink-2: rgb(33 28 36 / .64);
+  --rule: rgb(33 28 36 / .2);
+  --accent: #c9694b;
+  --sun: #ef9f7c;
+  --moon: #f4e7d6;
+  --shutter: #2f5a46;
+  --ochre: #e2b25e;
+  --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --sans: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --gutter: clamp(20px, 4vw, 64px);
+  --w0: clamp(280px, 30vw, 560px);   /* the arch at rest */
+  --open: 0;
+  --w: 0;
+  --p: 0;                             /* 0 = noon, 1 = dusk (the sun's position) */
+  color-scheme: light;
+}
+:root[data-theme="night"] {
+  --paper: #221d2a;
+  --card: #2b2534;
+  --ink: #f4e7d6;
+  --ink-2: rgb(244 231 214 / .66);
+  --rule: rgb(244 231 214 / .2);
+  --accent: #ef9f7c;
+  --sun: #f6c08f;
+  --p: 1;
+  --w: 1;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper) url(assets/extras/grain-512.webp) repeat;
+  background-size: 512px 512px;
+  background-blend-mode: multiply;
+  color: var(--ink);
+  font: 400 17px/1.6 var(--sans);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 900ms var(--ease-deadpan), color 900ms var(--ease-deadpan);
+  overflow-x: clip;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+em { font-style: italic; }
+:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 4px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 50%; top: 8px; translate: -50% -200%; z-index: 50; background: var(--card); padding: 10px 18px; font: 500 11px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; text-decoration: none; transition: translate 240ms var(--ease-deadpan); }
+.skip:focus { translate: -50% 0; }
+
+.kicker { margin: 0; font: 500 11px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--ink-2); }
+
+/* ---------------------------------------------------------------- spread */
+.spread { position: relative; height: 240svh; }
+.rm .spread { height: 100svh; }
+.stage {
+  position: sticky; top: 0; height: 100svh; min-height: 520px; overflow: hidden;
+}
+
+.masthead {
+  position: absolute; z-index: 6; inset: 0 0 auto 0;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 22px var(--gutter);
+}
+.run { font: 500 11px/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; }
+.run-l { justify-self: start; opacity: calc(1 - var(--open) * 2.5); }
+.solo .spread { display: none; }
+.run-r { justify-self: end; display: flex; align-items: center; gap: 14px; }
+.lockup { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.lockup .mark { width: 30px; height: 30px; fill: currentColor; }
+.lockup .mk-sun { fill: var(--sun); transition: fill 900ms var(--ease-deadpan); }
+.wordmark {
+  display: block; width: 170px; aspect-ratio: 619.2 / 82; background: currentColor;
+  -webkit-mask: url(assets/identity/wordmark.svg) center / contain no-repeat;
+  mask: url(assets/identity/wordmark.svg) center / contain no-repeat;
+}
+.m-sunset { color: var(--ink); }
+.m-sunset:focus-visible { outline-offset: 2px; }
+
+/* the two pages either side of the arch */
+.page {
+  position: absolute; z-index: 3; top: 39%;
+  width: calc(50% - var(--w0) / 2 - var(--gutter) - clamp(24px, 3vw, 56px));
+  transform: translate(calc(var(--dir) * var(--open) * 14vw), 0);
+  opacity: calc(1 - var(--open) * 2.2);
+}
+.page-l { --dir: -1; left: var(--gutter); text-align: right; }
+.page-r { --dir: 1; right: var(--gutter); text-align: left; }
+.hl {
+  margin: 14px 0 .34em; font: 400 min(7vw, 15svh)/.92 var(--serif);
+  letter-spacing: -.01em; font-variation-settings: "opsz" 96;
+}
+.hl em { color: var(--accent); transition: color 900ms var(--ease-deadpan); }
+.page-l .hl-b { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.dek { margin: 0; max-width: 30ch; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.page-l .dek { margin-left: auto; }
+
+/* the painting */
+.plate-wrap { margin: 0; position: absolute; inset: 0; z-index: 2; }
+.plate {
+  position: absolute; left: 50%; top: 0;
+  width: max(100%, 100svh * 1.50235); aspect-ratio: 1280 / 852;
+  translate: -50% var(--plate-y, 0px);
+  clip-path: var(--clip, inset(17svh calc(50% - var(--w0) / 2) 0 calc(50% - var(--w0) / 2) round calc(var(--w0) / 2) calc(var(--w0) / 2) 0 0));
+}
+.pic, .pic img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pic img { object-fit: cover; transform: scale(calc(1.06 - .06 * var(--open))); transform-origin: 50% 41%; }
+.pic-day { background: url(assets/hero/terrace-day-lqip.webp) center / cover; }
+/* the sun sinks first (the afternoon warms); once it covers the painted sun, dusk opens from the horizon outward */
+.warm {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply;
+  background: linear-gradient(180deg, #a0809e 0%, #ef9f7c 41%, #a0809e 60%, #7d93ad 100%);
+  opacity: calc(min(1, var(--p) / .6) * .42);
+}
+.pic-dusk {
+  --t: calc(41.43% * (1 - var(--w)));
+  --b: calc(41.43% + 58.57% * var(--w));
+  --e: calc(5% * min(1, var(--w) * 4));
+  -webkit-mask: linear-gradient(180deg, transparent calc(var(--t) - var(--e)), #000 var(--t), #000 var(--b), transparent calc(var(--b) + var(--e)));
+  mask: linear-gradient(180deg, transparent calc(var(--t) - var(--e)), #000 var(--t), #000 var(--b), transparent calc(var(--b) + var(--e)));
+  opacity: min(1, calc(var(--w) * 60));
+}
+.pic-dusk img { background: url(assets/hero/terrace-dusk-lqip.webp) center / cover; }
+
+/* the sun lives in the sky; the sky ends at the horizon, so the sun can set */
+.sky { position: absolute; left: 0; right: 0; top: 0; height: 41.43%; overflow: hidden; pointer-events: none; transform: scale(calc(1.06 - .06 * var(--open))); transform-origin: 50% 100%; }
+.disc {
+  --f: calc(.27 + (.4143 - .27) * var(--p));   /* centre, as a fraction of the plate's height */
+  position: absolute; left: 50%; top: calc(var(--f) / .4143 * 100%);
+  width: 7.8%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
+  pointer-events: auto; cursor: grab; touch-action: none;
+  background: radial-gradient(circle at 50% 50%,
+    color-mix(in oklab, #fffbf2, #e6dac8 calc(var(--p) * 100%)) 0 58%,
+    color-mix(in oklab, #fff3dc, #ecd2bc calc(var(--p) * 100%)) 70.5%, transparent 71%);
+  box-shadow: 0 0 calc(var(--sun-r, 40px) * 1.6) calc(var(--sun-r, 40px) * .5)
+    color-mix(in oklab, rgb(255 252 240 / .7), rgb(239 159 124 / .5) calc(var(--p) * 100%));
+  filter: url(#gouache);
+  opacity: calc(1 - max(0, var(--p) - .82) * 5.5);
+}
+.disc:active { cursor: grabbing; }
+.disc:focus-visible { outline: 1.5px solid #fffaf0; outline-offset: 10px; }
+.is-dragging .disc, .is-dragging .pic-dusk { transition: none; }
+
+.hint {
+  position: absolute; z-index: 4; left: 50%; top: var(--hint-y, 30svh); translate: -50% 0; margin: 0;
+  font: 500 10px/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: #fffaf0;
+  text-shadow: 0 1px 8px rgb(33 28 36 / .35); pointer-events: none;
+  opacity: calc(var(--open) * 1.6 - .6); transition: opacity 240ms var(--ease-deadpan);
+}
+.hint-night { display: none; }
+[data-theme="night"] .hint-day { display: none; }
+[data-theme="night"] .hint-night { display: inline; }
+.hint.is-done { opacity: 0 !important; }
+
+/* the caption card: a paper card standing in the doorway */
+.card {
+  position: absolute; z-index: 5; left: 50%; bottom: 4svh; translate: -50% 0;
+  width: min(380px, calc(var(--w0) - 48px));
+  padding: 22px 22px 16px; text-align: center;
+  background: var(--card) url(assets/extras/paper-512.webp) center / 512px;
+  background-blend-mode: multiply;
+  box-shadow: 0 1px 0 rgb(33 28 36 / .08), 0 18px 40px -24px rgb(33 28 36 / .45);
+  transition: background-color 900ms var(--ease-deadpan);
+}
+[data-theme="night"] .card { background: var(--card) url(assets/extras/grain-512.webp) center / 512px; background-blend-mode: multiply; }
+.card .m-caption { margin: 0 0 14px; font: 400 clamp(20px, 1.7vw, 26px)/1.18 var(--serif); }
+.card .m-caption em { color: var(--accent); }
+.rm .card .m-caption > span, .rm .card .m-caption em { opacity: 1; animation: none; }
+.live {
+  margin: 0; padding-top: 12px; border-top: 1px solid var(--rule);
+  font: 500 10px/1.5 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2);
+  display: flex; justify-content: center; align-items: baseline; gap: 10px; min-height: 2.6em;
+}
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); translate: 0 -1px; flex: none; }
+#live { transition: opacity 240ms var(--ease-deadpan); }
+#live.is-out { opacity: 0; }
+
+/* ---------------------------------------------------------------- products */
+main { position: relative; z-index: 1; }
+.products { padding: clamp(96px, 14vw, 200px) var(--gutter) clamp(72px, 9vw, 140px); }
+.sec-head { text-align: center; margin-bottom: clamp(36px, 5vw, 64px); }
+.sprig { width: 96px; height: auto; margin: 0 auto 28px; aspect-ratio: 120 / 40; }
+.sec-head h2 { margin: 14px 0 0; font: 400 clamp(38px, 5.2vw, 76px)/1.02 var(--serif); letter-spacing: -.01em; }
+.sec-head h2 em, .door-text em { color: var(--accent); }
+
+.tabs { display: flex; justify-content: center; gap: clamp(14px, 3.4vw, 48px); margin: 0 auto clamp(36px, 5vw, 64px); flex-wrap: wrap; }
+.tab {
+  position: relative; background: none; border: 0; padding: 10px 0; cursor: pointer; color: var(--ink-2);
+  font: 500 11px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase;
+  transition: color 240ms var(--ease-deadpan);
+}
+.tab b { font: italic 400 15px/1 var(--serif); letter-spacing: 0; margin-right: 8px; text-transform: none; }
+.tab::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transition: transform 240ms var(--ease-deadpan); }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); }
+.tab[aria-selected="true"]::after { transform: scaleX(1); }
+
+.door {
+  display: grid; align-items: center; justify-content: center;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 400px) minmax(0, 1fr);
+  grid-template-areas: "l plate r"; column-gap: clamp(28px, 4.4vw, 80px);
+  max-width: 1320px; margin: 0 auto;
+}
+.door-plate {
+  grid-area: plate; position: relative; aspect-ratio: 4 / 5; width: 100%;
+  -webkit-mask: url(assets/extras/arch-mask.svg) center / 100% 100% no-repeat;
+  mask: url(assets/extras/arch-mask.svg) center / 100% 100% no-repeat;
+  background: var(--card); touch-action: pan-y;
+}
+/* at dusk the shop fronts take the evening light (a wash over the whole plate, never a recolour of a logo alone) */
+.door-plate::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: 0;
+  background: linear-gradient(180deg, #7d93ad, #a0809e 55%, #ef9f7c);
+  transition: opacity 900ms var(--ease-deadpan);
+}
+[data-theme="night"] .door-plate::after { opacity: .42; }
+.door-plate picture, .door-plate img { width: 100%; height: 100%; object-fit: cover; }
+.door-plate picture { display: block; aspect-ratio: 4 / 5; }
+.door-text { display: contents; }
+.door-text:focus-visible { outline: none; }
+.dt { transition: opacity 240ms var(--ease-deadpan); }
+.dt.is-out { opacity: 0; }
+.dt-l { grid-area: l; text-align: right; }
+.dt-r { grid-area: r; text-align: left; }
+.dt h3 { margin: 12px 0 10px; font: 400 clamp(36px, 4.2vw, 64px)/1 var(--serif); letter-spacing: -.01em; }
+.dt .line { margin: 0 0 0 auto; max-width: 24ch; font: italic 400 clamp(18px, 1.5vw, 22px)/1.35 var(--serif); color: var(--ink-2); }
+.fig { margin: 0; font: 400 clamp(56px, 6.6vw, 104px)/.9 var(--serif); font-variant-numeric: lining-nums; letter-spacing: -.02em; }
+.fig-label { display: block; margin: 12px 0 22px; }
+.facts { list-style: none; margin: 0 0 22px; padding: 0; font-size: 15px; color: var(--ink-2); }
+.facts li { padding: 7px 0; border-top: 1px solid var(--rule); max-width: 26ch; }
+.facts li:last-child { border-bottom: 1px solid var(--rule); }
+.visit { font: 500 11px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; text-decoration: none; display: inline-flex; gap: 10px; align-items: center; padding: 6px 0; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 240ms var(--ease-deadpan); }
+.visit:hover, .visit:focus-visible { background-size: 100% 1px; }
+.visit span { transition: translate 240ms var(--ease-deadpan); }
+.visit:hover span { translate: 3px -3px; }
+
+.earlier { text-align: center; margin-top: clamp(80px, 10vw, 150px); }
+.plaques { list-style: none; padding: 0; margin: 28px auto 0; display: flex; justify-content: center; gap: clamp(10px, 1.6vw, 24px); flex-wrap: wrap; max-width: 1100px; }
+.plaques button { background: none; border: 0; padding: 0; cursor: default; display: block; color: inherit; }
+.plaques img { width: clamp(78px, 8vw, 116px); height: auto; aspect-ratio: 200 / 260; transition: translate 240ms var(--ease-deadpan), opacity 240ms var(--ease-deadpan); }
+[data-theme="night"] .plaques img { opacity: .9; }
+.plaques button:hover img, .plaques button:focus-visible img { translate: 0 -6px; }
+.plaques:has(button:hover) img { opacity: .55; }
+.plaques:has(button:hover) button:hover img { opacity: 1; }
+.plaque-caption { margin: 22px auto 0; min-height: 1.5em; font: italic 400 18px/1.5 var(--serif); color: var(--ink-2); max-width: 60ch; }
+
+/* ---------------------------------------------------------------- footer */
+.foot { position: relative; }
+.window { margin: 0 auto; padding: 0 var(--gutter); text-align: center; }
+.window .kicker { margin-top: 20px; }
+.roofs {
+  width: min(560px, 100%); aspect-ratio: 9 / 7; margin: 0 auto;
+  background: url(assets/interactive/rooftops-poster-day.webp) center 70% / cover;
+  -webkit-mask: url(assets/extras/arch-mask.svg) center / 100% 100% no-repeat;
+  mask: url(assets/extras/arch-mask.svg) center / 100% 100% no-repeat;
+}
+[data-theme="night"] .roofs { background-image: url(assets/interactive/rooftops-poster-night.webp); }
+.roofs canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 900ms var(--ease-deadpan); }
+.roofs.is-live canvas { opacity: 1; }
+
+.postcard {
+  display: grid; grid-template-columns: 1fr 1fr; max-width: 1100px; margin: 0 auto;
+  padding: clamp(56px, 7vw, 110px) var(--gutter) clamp(40px, 5vw, 72px);
+}
+.pc-msg { padding-right: clamp(24px, 5vw, 72px); border-right: 1px solid var(--rule); text-align: right; }
+.pc-addr { padding-left: clamp(24px, 5vw, 72px); display: grid; grid-template-columns: auto; justify-items: start; gap: 28px; }
+.avail { margin: 18px 0 22px auto; max-width: 14em; text-wrap: balance; font: 400 clamp(28px, 3.2vw, 46px)/1.08 var(--serif); }
+.avail em { color: var(--ink); }
+.mail { font: 400 clamp(18px, 1.6vw, 22px)/1.4 var(--serif); text-decoration-thickness: 1px; text-underline-offset: 6px; text-decoration-color: var(--rule); transition: text-decoration-color 240ms var(--ease-deadpan); }
+.mail:hover { text-decoration-color: currentColor; }
+.mcp { margin-top: 26px; display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.mcp code { font: 400 12.5px/1.5 ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink-2); overflow-wrap: anywhere; }
+.copy { position: relative; display: inline-grid; background: none; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 14px; cursor: pointer; color: inherit; font: 500 10px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; transition: border-color 240ms var(--ease-deadpan); }
+.copy:hover { border-color: currentColor; }
+.copy > span { grid-area: 1 / 1; transition: opacity 240ms var(--ease-deadpan); }
+.copy-b { opacity: 0; }
+.copy.is-done .copy-a { opacity: 0; }
+.copy.is-done .copy-b { opacity: 1; }
+
+.stamp { position: relative; width: clamp(120px, 13vw, 170px); aspect-ratio: 600 / 760; }
+.stamp img { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 6px 10px rgb(33 28 36 / .18)); transition: opacity 900ms var(--ease-deadpan); }
+.stamp-night { opacity: 0; }
+[data-theme="night"] .stamp-night { opacity: 1; }
+[data-theme="night"] .stamp-day { opacity: 0; }
+.postmark {
+  position: absolute; width: 190%; aspect-ratio: 360 / 200; left: -48%; bottom: 8%;
+  background: var(--ink); opacity: .72; mix-blend-mode: multiply;
+  -webkit-mask: url(assets/extras/postmark.svg) center / contain no-repeat;
+  mask: url(assets/extras/postmark.svg) center / contain no-repeat;
+  pointer-events: none;
+}
+[data-theme="night"] .postmark { mix-blend-mode: normal; opacity: .6; }
+address { font-style: normal; display: grid; gap: 0; width: min(260px, 100%); }
+address span { padding: 8px 0; border-bottom: 1px solid var(--rule); font: 400 17px/1.3 var(--serif); }
+.colophon { display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 0; padding: 28px var(--gutter) 40px; font: 500 10px/1.6 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); text-align: center; }
+.colophon .wordmark { width: 128px; color: var(--ink); }
+
+/* ---------------------------------------------------------------- narrow */
+@media (max-width: 819px) {
+  :root { --w0: calc(100vw - 2 * var(--gutter)); }
+  .run-l { display: none; }
+  .masthead { grid-template-columns: 1fr auto; padding: 16px var(--gutter); }
+  .lockup { justify-self: start; }
+  .wordmark { width: 140px; }
+  .page {
+    top: auto; bottom: 0; left: 0; right: 0; width: auto; text-align: center;
+    height: 34svh; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--gutter) 2svh;
+    transform: translateY(calc(var(--open) * 6svh)); opacity: calc(1 - var(--open) * 2.4);
+  }
+  .page-r { display: none; }
+  .page-l .hl-b { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+  .hl { font-size: clamp(36px, 11.5vw, 64px); margin: 10px 0 12px; }
+  .page-l .dek { margin: 0 auto; font-size: 14px; }
+  .plate { clip-path: var(--clip, inset(12svh var(--gutter) 34svh var(--gutter) round 50vw 50vw 0 0)); }
+  .card { width: min(360px, calc(100vw - 2 * var(--gutter) - 24px)); opacity: calc(var(--open) * 2 - 1); }
+  .card.is-hidden { visibility: hidden; }
+
+  .door { grid-template-columns: 1fr; grid-template-areas: "plate" "l" "r"; row-gap: 28px; }
+  .door-plate { width: min(360px, 82vw); margin: 0 auto; }
+  .dt-l, .dt-r { text-align: center; }
+  .dt .line { margin: 0 auto; }
+  .facts li { margin: 0 auto; }
+  .tabs { gap: 6px 18px; }
+
+  .postcard { grid-template-columns: 1fr; row-gap: 48px; }
+  .pc-msg { border-right: 0; padding-right: 0; text-align: center; }
+  .avail { margin-inline: auto; }
+  .mcp { justify-content: center; }
+  .pc-addr { padding-left: 0; justify-items: center; border-top: 1px solid var(--rule); padding-top: 48px; }
+  address { text-align: center; }
+}
+@media (max-width: 819px) and (max-height: 640px) { .page .dek { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  body, .lockup .mk-sun, .hl em, .stamp img, .roofs canvas { transition: none; }
+}

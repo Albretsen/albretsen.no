@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" width="72" height="72" role="img" aria-label="Albretsen AS">
+  <title>Albretsen AS</title>
+  <rect x="7" y="7" width="62" height="62" rx="14" fill="#C2964D"/>
+  <rect x="2.5" y="2.5" width="62" height="62" rx="14" fill="#05170F" stroke="#F9F2E2" stroke-width="3"/>
+  <line x1="33.50" y1="14.60" x2="16.50" y2="52.60" stroke="#F9F2E2" stroke-width="2.60" stroke-linecap="butt"/>
+  <line x1="33.50" y1="14.60" x2="50.50" y2="52.60" stroke="#F9F2E2" stroke-width="2.60" stroke-linecap="butt"/>
+  <line x1="23.90" y1="36.60" x2="43.10" y2="36.60" stroke="#F9F2E2" stroke-width="2.60" stroke-linecap="butt"/>
+  <circle cx="33.50" cy="14.60" r="8.60" fill="#05170F"/>
+  <path d="M33.50,5.20 L35.36,12.74 L42.90,14.60 L35.36,16.46 L33.50,24.00 L31.64,16.46 L24.10,14.60 L31.64,12.74Z" fill="#E8CB84"/>
+  <circle cx="16.50" cy="52.60" r="6.60" fill="#05170F"/>
+  <circle cx="16.50" cy="52.60" r="4.20" fill="#F9F2E2"/>
+  <circle cx="50.50" cy="52.60" r="6.60" fill="#05170F"/>
+  <circle cx="50.50" cy="52.60" r="4.20" fill="#F9F2E2"/>
+  <circle cx="23.90" cy="36.60" r="5.80" fill="#05170F"/>
+  <circle cx="23.90" cy="36.60" r="3.40" fill="#F9F2E2"/>
+  <circle cx="43.10" cy="36.60" r="5.80" fill="#05170F"/>
+  <circle cx="43.10" cy="36.60" r="3.40" fill="#F9F2E2"/>
+</svg>

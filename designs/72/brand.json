@@ -1,0 +1,19 @@
+{
+  "name": "Low Sun Terrace",
+  "tagline": "An opening spread whose gutter is the centre line of a sunlit miniature house; one slow camera move walks you through its lit door into the work.",
+  "summary": "A symmetrical 3D miniature (whitewashed loggia, falu-red clapboard wings, snow on a ranch roof, golden hills, low winter sun) set as a magazine's opening spread. Scrolling dollies down the gutter to the doorway, and an arch of warm light, the shape of the mark, becomes the page where each product stands as its own small building. It reads as an optimistic builder with taste: calm, sunlit, exact, and about the software.",
+  "palette": ["#F6F1E7", "#8F2B20", "#323A44", "#C8902F", "#4B5663", "#C9D3E3", "#F7C49B"],
+  "type": ["Albert Sans 200", "Albert Sans 300", "DM Mono 400"],
+  "voice": "Plain, warm and exact; facts set like captions, never a pitch. Example: \"One building per product. A lit window means it ships today.\"",
+  "motion": "One slow, unbroken camera move driven by scroll; everything else answers the pointer with long-deceleration light.",
+  "sound": "Silent by default; an opt-in single soft latch click when the door light fills the page is the only sound the system allows.",
+  "mark": "A falu-red arch with a low ochre sun on its sill: the loggia, the doorway and the light that becomes the page.",
+  "inspiration": [
+    "https://www.apartamentomagazine.com",
+    "https://www.chateaumarmont.com",
+    "https://www.nasjonalmuseet.no/en/collection/",
+    "https://unsplash.com/t/travel",
+    "https://css-tip.com/reveal-hover-mask/",
+    "https://en.wikipedia.org/wiki/Miniature_faking"
+  ]
+}

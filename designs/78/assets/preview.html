@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peach Hour asset kit</title>
+<meta name="description" content="Asset kit for design 78, Peach Hour: a miniature hill village on a turntable, graded like false-colour film, with a sun you can drag.">
+<link rel="icon" href="identity/favicon.svg">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon-180.png">
+<link rel="preload" href="fonts/nunito-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<style>
+  @font-face { font-family: Nunito; src: url(fonts/nunito-latin-var.woff2) format("woff2"); font-weight: 200 1000; font-display: swap; }
+  @font-face { font-family: Nunito; src: url(fonts/nunito-latin-var-italic.woff2) format("woff2"); font-weight: 200 1000; font-style: italic; font-display: swap; }
+  :root {
+    --paper: #FFF8EF; --peach-100: #FDEBDD; --peach-300: #F9C9A4; --gold: #F2C46D; --sun: #F8BE55; --terra: #D9805C;
+    --sky: #A9CDEB; --shutter: #7FA9C6; --rose: #EC8FAE; --cypress: #B83A63; --lav: #A48AD6; --mauve: #C58FA6; --ink: #4E3A57;
+    --ink-soft: color-mix(in oklch, var(--ink), var(--paper) 30%);
+    --r: 22px;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body { margin: 0; font-family: Nunito, ui-rounded, system-ui, sans-serif; color: var(--ink); font-size: 17px; line-height: 1.55; font-weight: 450; }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: url(extras/paper-grain.webp); opacity: .35; mix-blend-mode: multiply; z-index: 50; }
+  img { max-width: 100%; height: auto; display: block; }
+  .wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+  header.top { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; gap: 16px; }
+  header.top img { width: 220px; }
+  .eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--terra); margin: 0 0 10px; }
+  h1, h2, h3 { font-weight: 820; letter-spacing: -.03em; line-height: 1.04; margin: 0; }
+  h2 { font-size: clamp(30px, 4vw, 48px); }
+  h3 { font-size: 20px; letter-spacing: -.01em; }
+  p.lede { font-size: clamp(18px, 2vw, 22px); max-width: 60ch; color: var(--ink-soft); }
+  section { padding: clamp(56px, 9vw, 120px) 0; }
+  .sec-head { display: grid; gap: 8px; margin-bottom: 36px; max-width: 760px; }
+  .grid { display: grid; gap: 20px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  figure { margin: 0; }
+  figcaption { font-size: 13px; color: var(--ink-soft); padding-top: 10px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  figcaption code { font-size: 12px; }
+  .frame { border-radius: var(--r); overflow: hidden; background: var(--peach-100); }
+  code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .86em; background: rgb(78 58 87 / .06); padding: 1px 6px; border-radius: 6px; }
+
+  /* hero */
+  .hero { position: relative; aspect-ratio: 16 / 9; border-radius: 28px; overflow: hidden; }
+  .hero picture, .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero .copy { position: absolute; left: clamp(20px, 5vw, 64px); top: clamp(20px, 7vw, 96px); max-width: 520px; }
+  .hero h1 { font-size: clamp(34px, 5.6vw, 76px); }
+  .hero .copy p { font-size: clamp(15px, 1.6vw, 20px); color: var(--ink-soft); margin: 14px 0 0; max-width: 34ch; }
+  @media (max-width: 700px) { .hero { aspect-ratio: 2 / 3; } .hero .copy { top: 28px; right: 20px; } }
+
+  /* live diorama */
+  .live { position: relative; aspect-ratio: 16 / 9; border-radius: 28px; overflow: hidden; background: var(--peach-100); }
+  .live img, .live canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .live canvas { opacity: 0; transition: opacity 900ms var(--ph-ease); }
+  .live canvas.ready { opacity: 1; }
+  .live .bar { position: absolute; left: 16px; right: 16px; bottom: 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .pill { background: rgb(255 248 239 / .82); backdrop-filter: blur(10px); border-radius: 999px; padding: 9px 16px; display: inline-flex; gap: 10px; align-items: center; font-weight: 700; font-size: 14px; border: 0; color: var(--ink); font-family: inherit; cursor: pointer; }
+  .live input[type=range] { accent-color: var(--terra); width: min(260px, 40vw); }
+  @media (max-width: 700px) { .live { aspect-ratio: 3 / 4; } }
+
+  /* parallax */
+  .ph-haze { aspect-ratio: 16 / 9; border-radius: 28px; }
+  .ph-haze .cap { position: absolute; left: 24px; bottom: 20px; z-index: 3; }
+
+  /* products */
+  .product .frame { aspect-ratio: 4 / 3; }
+  .product .frame img { width: 100%; height: 100%; object-fit: cover; }
+  .product .meta { display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px; gap: 12px; }
+  .product .meta span { font-size: 13px; color: var(--ink-soft); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 16px; margin-top: 32px; }
+  .tiles figure img { width: 100%; aspect-ratio: 1; filter: drop-shadow(0 6px 10px rgb(110 70 90 / .14)); }
+  .tiles figcaption { justify-content: center; text-align: center; }
+
+  /* identity */
+  .id-card { border-radius: var(--r); padding: 36px; display: grid; place-items: center; min-height: 220px; background: var(--peach-100); }
+  .id-card.dark { background: var(--ink); }
+  .id-card img { max-height: 120px; width: auto; }
+
+  /* palette */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .sw { border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 1px 0 rgb(78 58 87 / .08); }
+  .sw i { display: block; height: 92px; }
+  .sw div { padding: 10px 12px 12px; font-size: 12px; line-height: 1.4; }
+  .sw b { display: block; font-size: 14px; }
+
+  /* type */
+  .spec { display: grid; gap: 28px; }
+  .spec .big { font-size: clamp(44px, 8vw, 112px); font-weight: 820; letter-spacing: -.045em; line-height: .95; }
+  .spec .light { font-size: clamp(36px, 6vw, 80px); font-weight: 250; letter-spacing: -.03em; line-height: 1; }
+  .spec .row { display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: baseline; border-top: 1px solid rgb(78 58 87 / .12); padding-top: 14px; }
+  @media (max-width: 640px) { .spec .row { grid-template-columns: 1fr; } }
+  .weights { display: flex; gap: 18px; flex-wrap: wrap; font-size: 30px; }
+
+  /* motion */
+  .motion-card { border-radius: var(--r); background: var(--peach-100); padding: 28px; display: grid; gap: 14px; align-content: start; }
+  .sky-demo { height: 300px; border-radius: 18px; position: relative; overflow: hidden; }
+  .sky-demo .ridge { position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: url(extras/horizon-ridges.svg) bottom / 100% 100% no-repeat; }
+  .seq { aspect-ratio: 16 / 9; border-radius: 18px; background: url(img/sun-sequence-strip.webp) 0 0 / 700% 100%; }
+  .warm { font-size: clamp(34px, 5vw, 60px); line-height: 1.05; letter-spacing: -.03em; margin: 0; }
+  .shut-demo { aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; }
+  .shut-demo img { width: 100%; height: 100%; object-fit: cover; }
+  .extras .frame { aspect-ratio: 1; display: grid; place-items: center; padding: 22px; }
+  .extras .frame img { max-height: 100%; width: auto; }
+  .extras .frame.tex { background: url(extras/paper-grain.webp), var(--peach-300); }
+  .extras .frame.tile { background: url(extras/roof-tile-edge.svg) center / 56px 34px repeat-x, var(--peach-100); }
+  footer { padding: 48px 0 80px; font-size: 13px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="identity/wordmark.svg" width="636" height="86" alt="Albretsen AS">
+    <span class="eyebrow" style="margin:0">Design 78 &middot; Peach Hour &middot; asset kit</span>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <picture>
+      <source media="(max-width: 700px)" type="image/avif" srcset="img/hero-dawn-portrait-720.avif 720w, img/hero-dawn-portrait-1080.avif 1080w">
+      <source media="(max-width: 700px)" type="image/webp" srcset="img/hero-dawn-portrait-720.webp 720w, img/hero-dawn-portrait-1080.webp 1080w">
+      <source type="image/avif" srcset="img/hero-dawn-960.avif 960w, img/hero-dawn-1600.avif 1600w, img/hero-dawn-2560.avif 2560w" sizes="(max-width: 1240px) 100vw, 1240px">
+      <source type="image/webp" srcset="img/hero-dawn-960.webp 960w, img/hero-dawn-1600.webp 1600w, img/hero-dawn-2560.webp 2560w" sizes="(max-width: 1240px) 100vw, 1240px">
+      <img src="img/hero-dawn-1600.jpg" width="2560" height="1440" alt="A miniature hill village of stone houses and terracotta roofs on a round plinth, floating in peach morning haze; the sun rises over distant ridges." fetchpriority="high">
+    </picture>
+    <div class="copy">
+      <p class="eyebrow">Albretsen AS</p>
+      <h1>Quiet software that pays for itself.</h1>
+      <p>Apps, SaaS and agent infrastructure, built in Norway since 2016.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Direction</p>
+      <h2>A whole small world, held in the hand.</h2>
+      <p class="lede">A hill village built from primitives in three.js: stone walls, canal-tile roofs, shutters, olive terraces, a pool. It sits on a travertine turntable in warm haze, graded like false-colour infrared film, so the olives glow rose and the shadows turn mauve. Each product is one building. Drag to turn it; drag the sun to move the day.</p>
+    </div>
+    <div class="grid g2">
+      <figure>
+        <div class="frame"><picture>
+          <source type="image/avif" srcset="img/hero-dusk-960.avif 960w, img/hero-dusk-1600.avif 1600w, img/hero-dusk-2560.avif 2560w" sizes="(max-width: 900px) 100vw, 610px">
+          <img src="img/hero-dusk-960.jpg" srcset="img/hero-dusk-960.jpg 960w, img/hero-dusk-1600.jpg 1600w" sizes="(max-width: 900px) 100vw, 610px" width="2560" height="1440" loading="lazy" alt="The same village turned around at dusk, windows lit, mauve sky.">
+        </picture></div>
+        <figcaption><span>Hero 2, dusk (turned 130&deg;)</span><code>img/hero-dusk-*.avif|webp|jpg</code></figcaption>
+      </figure>
+      <figure>
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 12px">
+          <div class="frame"><img src="img/hero-dawn-portrait-720.webp" width="1080" height="1620" loading="lazy" alt="Portrait crop, dawn"></div>
+          <div class="frame"><img src="img/hero-dusk-portrait-720.webp" width="1080" height="1620" loading="lazy" alt="Portrait crop, dusk"></div>
+        </div>
+        <figcaption><span>Portrait heroes for phones</span><code>img/hero-*-portrait-*</code></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- LIVE -->
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Interactive asset &middot; diorama.js</p>
+      <h2>Turn it. Drag the sun.</h2>
+      <p class="lede">The live scene loads after first paint, over the baked still, then fades in. Drag the model to turn the turntable; drag the sun disc (or the slider) from sunrise to dusk. Lit windows come on as the light falls. Full-screen demo: <a href="diorama.html">diorama.html</a>.</p>
+    </div>
+    <div class="live" id="live">
+      <img src="img/hero-dawn-1600.webp" width="2560" height="1440" loading="lazy" alt="">
+      <canvas id="live-c" aria-label="Live diorama. Drag to turn, drag the sun to change the time of day." tabindex="0"></canvas>
+      <div class="bar">
+        <label class="pill">Sunrise <input id="live-t" type="range" min="0" max="1" step="0.001" value="0.12"> Dusk</label>
+        <button class="pill" data-scene="village">Village</button>
+        <button class="pill" data-scene="vignette:mcp-emails">MCP Emails</button>
+        <button class="pill" data-scene="vignette:fun-libs">Fun Libs</button>
+        <button class="pill" data-scene="vignette:toolrails">Toolrails</button>
+        <button class="pill" data-scene="vignette:harbor">Harbor</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX LAYERS -->
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Motion 1 &middot; Haze Drift</p>
+      <h2>Three layers, three depths.</h2>
+      <p class="lede">The dawn hero baked as separate layers (sky, ridges with alpha, the model with alpha). Scroll this block: the sky barely moves, the ridges drift, the model floats forward. CSS scroll-driven animation with a JS fallback.</p>
+    </div>
+    <div class="ph-haze" id="haze">
+      <img class="ph-layer" style="--depth:.15" src="layers/layer-1-sky-1920.webp" width="1920" height="1080" loading="lazy" alt="">
+      <img class="ph-layer" style="--depth:.5" src="layers/layer-2-ridges-1920.webp" width="1920" height="1080" loading="lazy" alt="">
+      <img class="ph-layer" style="--depth:1.1" src="layers/layer-3-diorama-1920.webp" width="1920" height="1080" loading="lazy" alt="The village model, floating">
+      <p class="cap pill">layers/layer-1-sky &middot; layer-2-ridges &middot; layer-3-diorama</p>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Product visuals</p>
+      <h2>Every product is a house in the village.</h2>
+      <p class="lede">Each live or building product gets its own little building on a slice of the plinth, with the real logo on a sign: an enamel blade sign, a glazed tile over the door, a tile on the gate pillar, a plaque over an awning. Same world, different hour.</p>
+    </div>
+    <div class="grid g2">
+      <figure class="product"><div class="frame ph-shutters"><picture><source type="image/avif" srcset="products/mcp-emails-800.avif 800w, products/mcp-emails-1600.avif 1600w" sizes="(max-width: 900px) 100vw, 610px"><img src="products/mcp-emails-800.jpg" width="1600" height="1200" loading="lazy" alt="A plastered house with an enamel blade sign showing the MCP Emails logo, at dusk."></picture></div>
+        <div class="meta"><h3>MCP Emails</h3><span>Email for AI agents &middot; $782 MRR</span></div></figure>
+      <figure class="product"><div class="frame ph-shutters"><picture><source type="image/avif" srcset="products/fun-libs-800.avif 800w, products/fun-libs-1600.avif 1600w" sizes="(max-width: 900px) 100vw, 610px"><img src="products/fun-libs-800.jpg" width="1600" height="1200" loading="lazy" alt="A tall house with the yellow Fun Libs icon as a glazed tile above the door, morning light."></picture></div>
+        <div class="meta"><h3>Fun Libs</h3><span>Word game &middot; 113,000+ installs</span></div></figure>
+      <figure class="product"><div class="frame ph-shutters"><picture><source type="image/avif" srcset="products/toolrails-800.avif 800w, products/toolrails-1600.avif 1600w" sizes="(max-width: 900px) 100vw, 610px"><img src="products/toolrails-800.jpg" width="1600" height="1200" loading="lazy" alt="A house with stone gate pillars; the Toolrails icon is set as a tile on the pillar, gate half open."></picture></div>
+        <div class="meta"><h3>Toolrails</h3><span>One MCP URL, every tool &middot; building</span></div></figure>
+      <figure class="product"><div class="frame ph-shutters"><picture><source type="image/avif" srcset="products/harbor-800.avif 800w, products/harbor-1600.avif 1600w" sizes="(max-width: 900px) 100vw, 610px"><img src="products/harbor-800.jpg" width="1600" height="1200" loading="lazy" alt="A house with a canvas awning and the Harbor mark on a plaque, at sunset."></picture></div>
+        <div class="meta"><h3>Harbor</h3><span>Shared knowledge base &middot; paused</span></div></figure>
+    </div>
+    <div class="tiles">
+      <figure><img src="products/retired/luma.svg" width="160" height="160" loading="lazy" alt="Luma"><figcaption>Luma</figcaption></figure>
+      <figure><img src="products/retired/polyglot-pilot.svg" width="160" height="160" loading="lazy" alt="Polyglot Pilot"><figcaption>Polyglot Pilot</figcaption></figure>
+      <figure><img src="products/retired/pinpoint.svg" width="160" height="160" loading="lazy" alt="PinPoint"><figcaption>PinPoint</figcaption></figure>
+      <figure><img src="products/retired/webvakt.svg" width="160" height="160" loading="lazy" alt="WebVakt"><figcaption>WebVakt</figcaption></figure>
+      <figure><img src="products/retired/joke-central.svg" width="160" height="160" loading="lazy" alt="Joke Central"><figcaption>Joke Central</figcaption></figure>
+      <figure><img src="products/retired/tryggere-hyring.svg" width="160" height="160" loading="lazy" alt="Tryggere Hyring"><figcaption>Tryggere Hyring</figcaption></figure>
+      <figure><img src="products/retired/early-apps.svg" width="160" height="160" loading="lazy" alt="Early apps"><figcaption>Early apps</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- IDENTITY -->
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Identity</p>
+      <h2>An arch, a sill, a sun coming up.</h2>
+      <p class="lede">The mark is a round-arched window with the sun rising on its sill: the view from the village, and the first light on a working day. The wordmark is outlined Nunito at weight 820.</p>
+    </div>
+    <div class="grid g3">
+      <figure><div class="id-card"><img src="identity/mark.svg" width="120" height="120" alt="Mark"></div><figcaption><span>Mark</span><code>identity/mark.svg</code></figcaption></figure>
+      <figure><div class="id-card"><img src="identity/wordmark.svg" width="636" height="86" alt="Wordmark" style="width:100%;height:auto"></div><figcaption><span>Wordmark</span><code>identity/wordmark.svg</code></figcaption></figure>
+      <figure><div class="id-card dark"><img src="identity/wordmark-on-dark.svg" width="636" height="86" alt="Wordmark on dark" style="width:100%;height:auto"></div><figcaption><span>On dark</span><code>identity/wordmark-on-dark.svg</code></figcaption></figure>
+      <figure><div class="id-card"><div style="display:flex;gap:24px;align-items:end"><img src="identity/favicon.svg" width="64" height="64" alt="Favicon"><img src="identity/apple-touch-icon-180.png" width="120" height="120" alt="Touch icon"></div></div><figcaption><span>Favicon + 180px icon</span><code>identity/favicon.svg</code></figcaption></figure>
+      <figure style="grid-column: span 2"><div class="frame"><img src="identity/og-image.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image"></div><figcaption><span>Open Graph 1200&times;630</span><code>identity/og-image.jpg</code></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- PALETTE -->
+  <section>
+    <div class="sec-head"><p class="eyebrow">Palette</p><h2>Sunrise: peach, gold, pale blue.</h2>
+      <p class="lede">Warm paper and peach carry the page; ink is a deep mauve, never black. Rose and cypress come from the infrared grade and stay inside imagery.</p></div>
+    <div class="swatches" id="sw"></div>
+  </section>
+
+  <!-- TYPE -->
+  <section>
+    <div class="sec-head"><p class="eyebrow">Typography</p><h2>Nunito, one variable family.</h2>
+      <p class="lede">A rounded sans with soft terminals: sunny without being childish when set heavy and tight for display, and light for big figures. Self-hosted variable woff2 (39 KB roman, 42 KB italic), weights 200 to 1000.</p></div>
+    <div class="spec">
+      <div class="big">Software that<br>pays for itself.</div>
+      <div class="light">113,000+ installs &middot; $782 MRR</div>
+      <div class="row"><b>Display</b><span style="font-size:34px;font-weight:820;letter-spacing:-.03em">Email for AI agents.</span></div>
+      <div class="row"><b>Body 17/1.55</b><span>A fill-in-the-blanks word game for Android and iOS, built at 17 and grown with no marketing. Version 5 shipped in 2026.</span></div>
+      <div class="row"><b>Label</b><span class="eyebrow" style="margin:0">Live &middot; since 2019</span></div>
+      <div class="row"><b>Italic</b><span style="font-style:italic;font-size:22px">Takes one outside engagement at a time.</span></div>
+      <div class="row"><b>Weights</b><span class="weights"><span style="font-weight:250">Aa</span><span style="font-weight:400">Aa</span><span style="font-weight:600">Aa</span><span style="font-weight:820">Aa</span><span style="font-weight:1000">Aa</span></span></div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section>
+    <div class="sec-head"><p class="eyebrow">Motion study &middot; motion.css + motion.js</p><h2>Slow, warm, never in a hurry.</h2></div>
+    <div class="grid g2">
+      <div class="motion-card">
+        <h3>2 &middot; Sun Drag</h3>
+        <p style="margin:0">Drag the sun. One custom property, <code>--t</code>, re-mixes the sky in OKLCH and picks a baked frame below.</p>
+        <div class="sky-demo ph-sky" id="sky"><div class="ridge"></div></div>
+        <div class="seq" id="seq" role="img" aria-label="Baked frames of the village from sunrise to dusk"></div>
+      </div>
+      <div class="motion-card">
+        <h3>3 &middot; Shutter Open</h3>
+        <p style="margin:0">Images arrive behind pale-blue louvered shutters that swing open as they enter. <button class="pill" id="reshut" style="padding:4px 12px">Replay</button></p>
+        <div class="shut-demo ph-shutters" id="shut"><img src="products/fun-libs-800.webp" width="1600" height="1200" loading="lazy" alt=""></div>
+      </div>
+      <div class="motion-card">
+        <h3>4 &middot; Warm Up</h3>
+        <p style="margin:0">Headlines warm from weight 300 to 820, letter by letter, like stone in morning sun. <button class="pill" id="rewarm" style="padding:4px 12px">Replay</button></p>
+        <p class="warm" id="warm">Quiet software that pays for itself.</p>
+      </div>
+      <div class="motion-card">
+        <h3>1 &middot; Haze Drift &middot; + Turntable</h3>
+        <p style="margin:0">See the layered block above. The live diorama also idles on its turntable at 0.035 rad/s (one turn every three minutes) and stops for reduced motion.</p>
+        <img src="extras/horizon-ridges.svg" width="1600" height="200" alt="" loading="lazy" style="border-radius:14px">
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTRAS -->
+  <section class="extras">
+    <div class="sec-head"><p class="eyebrow">Extras</p><h2>Texture and small things.</h2></div>
+    <div class="grid g4">
+      <figure><div class="frame"><img src="extras/shutters.svg" width="200" height="220" loading="lazy" alt="Shutters"></div><figcaption><span>Shutters</span><code>extras/shutters.svg</code></figcaption></figure>
+      <figure><div class="frame"><img src="extras/olive-sprig.svg" width="400" height="240" loading="lazy" alt="Olive sprig" style="width:100%;height:auto"></div><figcaption><span>Olive sprig, IR</span><code>extras/olive-sprig.svg</code></figcaption></figure>
+      <figure><div class="frame"><img src="extras/lavender-bundle.svg" width="200" height="240" loading="lazy" alt="Lavender"></div><figcaption><span>Lavender bundle</span><code>extras/lavender-bundle.svg</code></figcaption></figure>
+      <figure><div class="frame" style="background:linear-gradient(#A9CDEB,#FDEBDD)"><img src="extras/sun-handle.svg" width="160" height="160" loading="lazy" alt="Sun handle"></div><figcaption><span>Sun handle</span><code>extras/sun-handle.svg</code></figcaption></figure>
+      <figure><div class="frame"><img src="extras/arch-frame.svg" width="400" height="560" loading="lazy" alt="Arch frame"></div><figcaption><span>Arch frame + mask</span><code>extras/arch-*.svg</code></figcaption></figure>
+      <figure><div class="frame tile"></div><figcaption><span>Canal tile edge (repeat-x)</span><code>extras/roof-tile-edge.svg</code></figcaption></figure>
+      <figure><div class="frame tex"></div><figcaption><span>Paper grain (tileable)</span><code>extras/paper-grain.webp</code></figcaption></figure>
+      <figure><div class="frame" style="padding:0"><img src="img/sun-sequence-strip.webp" width="4480" height="360" loading="lazy" alt="Sun sequence strip" style="width:auto;height:100%;max-height:none;object-fit:cover;object-position:left"></div><figcaption><span>Sun sequence, 7 frames</span><code>img/sun-sequence-strip</code></figcaption></figure>
+    </div>
+  </section>
+
+  <footer>Peach Hour &middot; design 78 asset kit for Albretsen AS. Everything here is generated in code (three.js renders, canvas and SVG) except the product logos, which are the real ones from <code>designs/_shared/products</code>, and Nunito (SIL OFL). See <a href="ASSETS.md">ASSETS.md</a>.</footer>
+</div>
+
+<script type="module">
+  import { hazeDrift, sunDrag, shutters, warmUp, sequenceFrame } from './motion.js'
+  // palette
+  const P = [['Paper','#FFF8EF','98.2% 0.014 74.4'],['Peach 100','#FDEBDD','95.1% 0.027 60.4'],['Peach 300','#F9C9A4','86.9% 0.073 59.2'],['Gold','#F2C46D','84.3% 0.118 81.9'],['Sun','#F8BE55','83.5% 0.137 79.6'],['Terracotta','#D9805C','68.8% 0.121 42.5'],['Pale blue','#A9CDEB','83.2% 0.057 243.6'],['Shutter blue','#7FA9C6','71.5% 0.062 238.9'],['IR rose','#EC8FAE','75.5% 0.118 358.9'],['Cypress','#B83A63','54.2% 0.164 4.6'],['Lavender','#A48AD6','68.6% 0.113 299.2'],['Haze mauve','#C58FA6','70.9% 0.072 351.8'],['Ink','#4E3A57','38.2% 0.054 315.1']]
+  document.getElementById('sw').innerHTML = P.map(([n,h,o]) => `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b>${h}<br>oklch(${o})</div></div>`).join('')
+  // motion
+  hazeDrift(document.getElementById('haze'))
+  shutters()
+  const warm = document.getElementById('warm'); warmUp(warm)
+  document.getElementById('rewarm').onclick = () => { warm.classList.remove('is-warm'); setTimeout(() => warm.classList.add('is-warm'), 400) }
+  const sh = document.getElementById('shut')
+  document.getElementById('reshut').onclick = () => { sh.classList.remove('is-open'); setTimeout(() => sh.classList.add('is-open'), 700) }
+  const seq = document.getElementById('seq'), sky = document.getElementById('sky')
+  sunDrag(sky, { root: sky, t: 0.15, onChange: (t) => sequenceFrame(seq, t) })
+  // slow demo loop on the strip until the user drags
+  // live diorama, booted when the section approaches the viewport
+  const live = document.getElementById('live'), slider = document.getElementById('live-t')
+  let d = null, booting = false
+  async function boot(scene = 'village') {
+    booting = true
+    const { createDiorama } = await import('./diorama.js')
+    let c = document.getElementById('live-c')
+    if (d) { d.dispose(); const n = c.cloneNode(); c.replaceWith(n); c = n }
+    const id = scene.startsWith('vignette:') ? scene.slice(9) : null
+    const r = live.getBoundingClientRect()
+    d = await createDiorama({ canvas: c, width: r.width, height: r.height, scene, view: id ? 'v:' + id : (r.width < r.height ? 'portrait' : 'hero'),
+      time: +slider.value, autoTurn: 0.035, onTime: (t) => { slider.value = t } })
+    requestAnimationFrame(() => c.classList.add('ready'))
+  }
+  new IntersectionObserver(([e], io) => { if (e.isIntersecting && !booting) { boot(); io.disconnect() } }, { rootMargin: '300px' }).observe(live)
+  slider.addEventListener('input', () => d && d.setTime(+slider.value))
+  live.querySelectorAll('[data-scene]').forEach((b) => b.addEventListener('click', () => boot(b.dataset.scene)))
+  addEventListener('resize', () => { if (d) { const r = live.getBoundingClientRect(); d.resize(r.width, r.height) } })
+</script>
+</body></html>

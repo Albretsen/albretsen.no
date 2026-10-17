@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <title>Hand-painted tile, repeats seamlessly (quarter circles meet across edges)</title>
+  <defs>
+    <filter id="b" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="11" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" fill="#f1e2c2"/>
+  <g filter="url(#b)">
+    <circle cx="0" cy="0" r="26" fill="#c7643d"/><circle cx="100" cy="0" r="26" fill="#c7643d"/><circle cx="0" cy="100" r="26" fill="#c7643d"/><circle cx="100" cy="100" r="26" fill="#c7643d"/>
+    <circle cx="0" cy="0" r="17" fill="#e7b552"/><circle cx="100" cy="0" r="17" fill="#e7b552"/><circle cx="0" cy="100" r="17" fill="#e7b552"/><circle cx="100" cy="100" r="17" fill="#e7b552"/>
+    <path d="M50 18 C60 34 66 40 82 50 C66 60 60 66 50 82 C40 66 34 60 18 50 C34 40 40 34 50 18Z" fill="#2f6c9e"/>
+    <path d="M50 32 C55 42 58 45 68 50 C58 55 55 58 50 68 C45 58 42 55 32 50 C42 45 45 42 50 32Z" fill="#f1e2c2"/>
+    <circle cx="50" cy="50" r="6.5" fill="#a796cc"/>
+    <circle cx="50" cy="6" r="3" fill="#a796cc"/><circle cx="50" cy="94" r="3" fill="#a796cc"/><circle cx="6" cy="50" r="3" fill="#a796cc"/><circle cx="94" cy="50" r="3" fill="#a796cc"/>
+  </g>
+  <rect width="100" height="100" fill="url(#g)"/>
+  <rect x=".5" y=".5" width="99" height="99" fill="none" stroke="#8a6a48" stroke-opacity=".3"/>
+</svg>

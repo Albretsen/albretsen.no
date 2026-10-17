@@ -1,0 +1,102 @@
+/* Q.E.D. tokens + motion study (design 82).
+   Black, white and one primary (dawn amber, OKLCH hue 72). Hex fallbacks first, OKLCH where supported. */
+:root {
+  --qed-ink: #0a0907;        --qed-ink: oklch(0.14 0.004 72);
+  --qed-ink-2: #1a1816;      --qed-ink-2: oklch(0.21 0.005 72);
+  --qed-ink-3: #353230;      --qed-ink-3: oklch(0.32 0.006 72);
+  --qed-mid: #777471;        --qed-mid: oklch(0.56 0.006 72);
+  --qed-line: #dad7d3;       --qed-line: oklch(0.88 0.006 72);
+  --qed-paper: #f9f6f2;      --qed-paper: oklch(0.975 0.006 72);
+  --qed-white: #fefdfc;      --qed-white: oklch(0.995 0.002 72);
+  --qed-dawn: #fea91e;       --qed-dawn: oklch(0.80 0.165 72);
+  --qed-dawn-hi: #ffd08a;    --qed-dawn-hi: oklch(0.89 0.10 72);
+  --qed-dawn-deep: #b97500;  --qed-dawn-deep: oklch(0.62 0.14 72);
+
+  --qed-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --qed-mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
+
+  --qed-ease-out: cubic-bezier(.16, 1, .3, 1);
+  --qed-ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  /* "gravity settle": spring with one soft overshoot, as a CSS linear() curve */
+  --qed-settle: linear(0, 0.18 4%, 0.55 11%, 0.86 19%, 1.03 27%, 1.07 33%, 1.05 40%, 1.0 52%, 0.99 62%, 1);
+  --qed-dur-1: 160ms; --qed-dur-2: 320ms; --qed-dur-3: 640ms;
+}
+
+/* ------------------------------------------------------------ 1. Proof Morph */
+.qed-glyph { display: block; overflow: visible; }
+.qed-glyph g { transition: stroke var(--qed-dur-2); }
+
+/* ------------------------------------------------------------ 2. Fracture Reveal */
+[data-fracture] { position: relative; isolation: isolate; }
+[data-fracture] > .fr-half { position: absolute; inset: 0; }
+[data-fracture]:not(.is-revealed) > .fr-half--l { clip-path: var(--seam-l); transform: translateX(calc(var(--fracture-gap) * -1)); opacity: 0; }
+[data-fracture]:not(.is-revealed) > .fr-half--r { clip-path: var(--seam-r); transform: translateX(var(--fracture-gap)); opacity: 0; }
+[data-fracture] > .fr-half { transition: transform var(--fracture-dur, 1.1s) var(--qed-ease-out), opacity calc(var(--fracture-dur, 1.1s) * .6) linear, clip-path 0s var(--fracture-dur, 1.1s); }
+[data-fracture].is-revealed > .fr-half--l { clip-path: var(--seam-l); }
+[data-fracture].is-revealed > .fr-half--r { clip-path: var(--seam-r); }
+[data-fracture] > .fr-seam { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; opacity: 0; }
+[data-fracture].is-revealed > .fr-seam { animation: qed-seam calc(var(--fracture-dur, 1.1s) * 1.3) var(--qed-ease-out) both; }
+@keyframes qed-seam { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ------------------------------------------------------------ 3. Dawn Rise */
+[data-dawn] .qed-glyph > path:first-child,
+[data-dawn] .sun { transform-box: fill-box; transform-origin: 50% 100%; transform: translateY(70%) scale(.6); opacity: 0; }
+[data-dawn].is-dawn .qed-glyph > path:first-child,
+[data-dawn].is-dawn .sun { animation: qed-dawn 1.6s var(--qed-ease-out) .25s both; }
+@keyframes qed-dawn { from { transform: translateY(70%) scale(.6); opacity: 0; } 40% { opacity: 1; } to { transform: none; opacity: 1; } }
+.qed-first-light { animation: qed-first-light 2.4s var(--qed-ease-in-out) both; }
+@keyframes qed-first-light { from { filter: brightness(.12) saturate(.4); } to { filter: none; } }
+
+/* ------------------------------------------------------------ 4. Gravity Settle */
+.qed-settle { transition: transform var(--qed-dur-3) var(--qed-settle), box-shadow var(--qed-dur-3) var(--qed-ease-out); }
+.qed-settle:hover { transform: translateY(3px); box-shadow: 0 1px 0 var(--qed-line), 0 18px 32px -24px rgb(0 0 0 / .35); }
+
+/* ------------------------------------------------------------ 5. Radix-style primitives */
+/* Accordion: height from --qed-content-height (same idea as --radix-accordion-content-height) */
+[data-acc-content] { overflow: hidden; }
+[data-acc-content][data-state=open] { animation: qed-acc-down var(--qed-dur-3) var(--qed-settle); }
+[data-acc-content][data-state=closed] { animation: qed-acc-up var(--qed-dur-2) var(--qed-ease-in-out); }
+@keyframes qed-acc-down { from { height: 0; opacity: 0; } to { height: var(--qed-content-height); opacity: 1; } }
+@keyframes qed-acc-up { from { height: var(--qed-content-height); opacity: 1; } to { height: 0; opacity: 0; } }
+[data-acc-trigger] .acc-sun { transition: transform var(--qed-dur-3) var(--qed-settle); transform-origin: 50% 100%; transform-box: fill-box; }
+[data-acc-trigger][data-state=closed] .acc-sun { transform: scaleY(0); }
+[data-acc-trigger] .acc-bar { transition: transform var(--qed-dur-2) var(--qed-ease-out); transform-origin: center; transform-box: fill-box; }
+[data-acc-trigger][data-state=open] .acc-bar { transform: rotate(90deg) scaleX(0); }
+
+/* Dialog: opens like a fracture — a hairline slit of light that widens into the panel */
+dialog[data-qed-dialog] { border: 0; padding: 0; background: transparent; max-width: min(640px, calc(100vw - 32px)); width: 100%; overflow: visible; }
+dialog[data-qed-dialog]::backdrop { background: rgb(10 9 7 / .62); backdrop-filter: blur(6px); }
+dialog[data-qed-dialog][data-state=open]::backdrop { animation: qed-fade var(--qed-dur-2) linear; }
+dialog[data-qed-dialog][data-state=closed]::backdrop { animation: qed-fade var(--qed-dur-1) linear reverse forwards; }
+dialog[data-qed-dialog] > .dlg { position: relative; }
+dialog[data-qed-dialog][data-state=open] > .dlg { animation: qed-slit-open 720ms var(--qed-ease-out) both; }
+dialog[data-qed-dialog][data-state=closed] > .dlg { animation: qed-slit-close 260ms var(--qed-ease-in-out) both; }
+dialog[data-qed-dialog][data-state=open] > .dlg::before { content: ''; position: absolute; left: 50%; top: -12%; bottom: -12%; width: 2px; margin-left: -1px; background: var(--qed-dawn); box-shadow: 0 0 24px 4px var(--qed-dawn); animation: qed-slit-light 720ms var(--qed-ease-out) both; z-index: 2; pointer-events: none; }
+@keyframes qed-slit-open { 0% { clip-path: inset(0 50% 0 50%); transform: translateY(6px); } 35% { clip-path: inset(0 49.6% 0 49.6%); } 100% { clip-path: inset(0 0 0 0); transform: none; } }
+@keyframes qed-slit-close { from { clip-path: inset(0 0 0 0); opacity: 1; } to { clip-path: inset(0 50% 0 50%); opacity: .4; } }
+@keyframes qed-slit-light { 0% { opacity: 0; transform: scaleY(.2); } 30% { opacity: 1; transform: scaleY(1); } 100% { opacity: 0; transform: scaleY(1) scaleX(40); } }
+@keyframes qed-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Tooltip + hover card: positioned by motion.js, origin-aware slide */
+.qed-float { position: absolute; z-index: 50; }
+.qed-float[data-state=open][data-side=top] { animation: qed-float-up 220ms var(--qed-ease-out); }
+.qed-float[data-state=open][data-side=bottom] { animation: qed-float-down 520ms var(--qed-settle); }
+.qed-float[data-state=closed] { animation: qed-fade 140ms linear reverse forwards; }
+@keyframes qed-float-up { from { opacity: 0; transform: translateY(4px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes qed-float-down { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+
+/* Tabs: indicator is a hairline with the sun riding on it, moved by a spring in motion.js */
+[role=tablist] { position: relative; }
+.qed-tab-indicator { position: absolute; left: 0; bottom: -1px; height: 2px; background: currentColor; pointer-events: none; }
+.qed-tab-indicator::after { content: ''; position: absolute; left: 50%; bottom: 1px; width: 10px; height: 5px; margin-left: -5px; border-radius: 10px 10px 0 0; background: var(--qed-dawn); }
+[role=tabpanel][data-state=active] { animation: qed-float-up 360ms var(--qed-ease-out); }
+
+/* Easter egg banner */
+.qed-egg-banner { position: fixed; inset: 0; display: grid; place-content: center; text-align: center; pointer-events: none; z-index: 100; color: var(--qed-dawn); animation: qed-fade 600ms linear both; }
+.qed-egg-banner span { font: 600 clamp(48px, 12vw, 160px)/1 var(--qed-sans); letter-spacing: -0.04em; }
+.qed-egg-banner small { font: 400 13px/1.4 var(--qed-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--qed-mid); margin-top: 12px; }
+.qed-egg-banner.is-out { animation: qed-fade 900ms linear reverse forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+}

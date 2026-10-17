@@ -1,0 +1,20 @@
+{
+  "name": "Peach Hour",
+  "tagline": "A small sunlit village you can turn, and a sun you can move.",
+  "summary": "The company is shown as a miniature hill village on a stone turntable, built from three.js primitives and graded like false-colour infrared film. Each product is one house, carrying its real logo. Precision and patience are shown, not claimed: the visitor turns the model, drags the sun from sunrise to dusk, and the name in the sky is lit from wherever the sun stands.",
+  "palette": ["#FFF8EF", "#F9C9A4", "#F2C46D", "#D9805C", "#A9CDEB", "#C58FA6", "#4E3A57"],
+  "type": ["Nunito 820 (variable, self-hosted)", "Nunito 450", "ui-monospace"],
+  "voice": "Warm, short, sure of itself, and it never sells. Example: \"Small, exact software that pays for itself.\"",
+  "motion": "Slow and sunlit: letters warm from weight 300 to 820, layers drift at different depths, and shutters swing open on each product, all settling on long expo-out curves.",
+  "sound": "Silent. Nothing plays unless a visitor turns it on, and the homepage offers nothing to turn on.",
+  "mark": "A round-arched window with the sun rising on its sill, beside a lowercase \"albretsen\" and a terracotta \"AS\" outlined from Nunito 820.",
+  "inspiration": [
+    "https://www.loewe.com",
+    "https://www.awwwards.com/websites/sites_of_the_day/",
+    "https://www.loc.gov/pictures/collection/travel/",
+    "https://www.sezane.com",
+    "https://www.amcharts.com/demos/day-and-night-world-map/",
+    "https://12daysofweb.dev/2023/css-scroll-driven-animations/",
+    "https://kolarivision.com/the-irchrome-infrared-photography-filter-our-digital-version-of-kodak-aerochrome/"
+  ]
+}

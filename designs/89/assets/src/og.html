@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OG Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#160c21}
+  .card{position:relative;width:1200px;height:630px;background:url(../hero/diorama-1600.jpg) 62% 58%/1500px auto no-repeat}
+  .card::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,12,33,.92) 0%,rgba(22,12,33,.72) 34%,rgba(22,12,33,0) 62%)}
+  .txt{position:absolute;left:64px;top:64px;bottom:60px;display:flex;flex-direction:column;justify-content:space-between;color:#fff5ea}
+  .word{width:400px;image-rendering:pixelated}
+  h1{font:600 58px/1.02 Geist,system-ui,sans-serif;letter-spacing:-.035em;margin:0;max-width:520px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,#ff9a7d,#ff99c2,#bea6eb,#86cbf3,#8deaca);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .meta{font:500 18px/1 "Geist Mono",ui-monospace,monospace;color:#e8d8e6;display:flex;gap:18px;align-items:center}
+  .meta img{width:28px;height:28px;image-rendering:pixelated}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="txt">
+    <img class="word" src="../identity/wordmark-paper.svg" alt="Albretsen AS">
+    <h1>I build software that <em>pays for itself.</em></h1>
+    <div class="meta"><img src="../identity/mark-paper.svg" alt="">albretsen.no</div>
+  </div>
+</div>
+</body>
+</html>

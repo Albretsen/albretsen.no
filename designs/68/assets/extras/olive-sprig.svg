@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 420" role="img" aria-label="Olive sprig">
+  <title>Olive sprig (symmetrical, for section breaks; leaves can be animated with stroke/scale)</title>
+  <g fill="none" stroke="var(--stem, #4a4236)" stroke-width="2.4" stroke-linecap="round">
+    <path d="M120 410C120 300 120 160 120 18"/>
+  </g>
+  <g fill="var(--leaf, #8d9a74)">
+    <path id="leaf" d="M120 360C92 352 70 330 62 300C92 308 112 330 120 360Z"/>
+    <use href="#leaf" transform="matrix(-1 0 0 1 240 0)"/>
+    <use href="#leaf" transform="translate(0 -72)"/>
+    <use href="#leaf" transform="matrix(-1 0 0 1 240 -72)"/>
+    <use href="#leaf" transform="translate(0 -144)"/>
+    <use href="#leaf" transform="matrix(-1 0 0 1 240 -144)"/>
+    <use href="#leaf" transform="translate(0 -216) scale(1) "/>
+    <use href="#leaf" transform="matrix(-1 0 0 1 240 -216)"/>
+    <path d="M120 18C110 36 110 60 120 84C130 60 130 36 120 18Z"/>
+  </g>
+  <g fill="var(--leaf-light, #b9c0a0)" opacity=".55">
+    <path d="M120 360C100 350 84 334 76 312C98 320 112 336 120 360Z"/>
+    <path d="M120 288C140 278 156 262 164 240C142 248 128 264 120 288Z"/>
+    <path d="M120 216C100 206 84 190 76 168C98 176 112 192 120 216Z"/>
+  </g>
+  <g fill="var(--olive, #3e3a4f)">
+    <ellipse cx="96" cy="250" rx="9" ry="12" transform="rotate(-20 96 250)"/>
+    <ellipse cx="144" cy="178" rx="9" ry="12" transform="rotate(20 144 178)"/>
+  </g>
+</svg>

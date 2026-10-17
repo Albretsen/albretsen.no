@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300" width="220" height="300" role="img" aria-label="Street lamp and birch cut-out">
+  <title>Street lamp and birch (cut-out)</title>
+  <!-- Paper cut-out silhouettes for margins and footers. Palm black + late-summer leaf. -->
+  <g fill="#1d1f24">
+    <rect x="58" y="70" width="6" height="222" rx="2"/>
+    <rect x="48" y="286" width="26" height="10" rx="3"/>
+    <path d="M61 72 H96 a4 4 0 0 1 4 4 V80 H92 V78 H61 Z"/>
+  </g>
+  <circle cx="96" cy="92" r="12" fill="#fbe9cf"/>
+  <circle cx="96" cy="92" r="20" fill="#ffcf8a" opacity=".25"/>
+  <g>
+    <path d="M160 296 L163 120 L167 120 L171 296 Z" fill="#ece6da"/>
+    <path d="M162 150 h6 M161 182 h4 M163 220 h7 M162 256 h5" stroke="#1d1f24" stroke-width="3" stroke-linecap="round"/>
+    <g fill="#c3a54d">
+      <circle cx="165" cy="96" r="34"/>
+      <circle cx="140" cy="124" r="24"/>
+      <circle cx="192" cy="126" r="26"/>
+      <circle cx="168" cy="60" r="24"/>
+    </g>
+    <g fill="#a98d38" opacity=".55">
+      <circle cx="182" cy="112" r="18"/>
+      <circle cx="150" cy="100" r="14"/>
+    </g>
+  </g>
+</svg>

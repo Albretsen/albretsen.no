@@ -1,0 +1,292 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:CG;src:url(../fonts/cormorant-garamond.woff2) format('woff2');font-weight:300 700}
+html,body{margin:0;padding:0;overflow:hidden}
+body{width:2400px;height:1500px}
+svg{display:block}
+</style></head>
+<body>
+<svg id="s" width="2400" height="1500" viewBox="0 0 2400 1500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+  <filter id="plaster" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0035 0.005" numOctaves="5" seed="7" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.22  0 0 0 0 0.10  0 0 0 -1.6 1.05" result="dark"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0 0.1  0 0 0 -0.9 0.55" result="grain"/>
+    <feMerge result="m"><feMergeNode in="dark"/><feMergeNode in="grain"/></feMerge><feComposite in="m" in2="SourceGraphic" operator="in"/>
+  </filter>
+  <filter id="brush" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="11" result="t"/>
+    <feDisplacementMap in="SourceGraphic" in2="t" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="paintgrain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.45" numOctaves="3" seed="5" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.2  0 0 0 0 0.15  0 0 0 0 0.3  0 0 0 -1.2 0.75"/>
+    <feComposite in2="SourceGraphic" operator="in"/>
+  </filter>
+  <mask id="notView" maskUnits="userSpaceOnUse" x="-400" y="-300" width="3200" height="1900"><rect x="-400" y="-300" width="3200" height="1900" fill="#fff"/><path transform="translate(1200 1290) scale(1.22) translate(-1200 -1190)" d="M900 1190 V600 A300 300 0 0 1 1500 600 V1190 Z" fill="#000"/></mask>
+  <mask id="notViewT" maskUnits="userSpaceOnUse" x="-400" y="-300" width="3200" height="1900"><rect x="-400" y="-300" width="3200" height="1900" fill="#fff"/><path transform="translate(1200 1290) scale(1.22) translate(-1200 -1190)" d="M900 1190 V600 A300 300 0 0 1 1500 600 V1190 Z" fill="#000"/></mask>
+  <filter id="ao" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+  <filter id="limeRose" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0016 0.0024" numOctaves="4" seed="21" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.86  0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 -2.2 1.12" result="c"/><feComposite in="c" in2="SourceGraphic" operator="in"/>
+  </filter>
+  <filter id="limePale" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="4" seed="4" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.98  0 0 0 0 0.88  0 0 0 0 0.70  0 0 0 1.6 -0.78" result="c"/><feComposite in="c" in2="SourceGraphic" operator="in"/>
+  </filter>
+  <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+  <filter id="soft2"><feGaussianBlur stdDeviation="40"/></filter>
+  <filter id="soft3"><feGaussianBlur stdDeviation="5"/></filter>
+
+  <!-- geometry: centre 1200, spring line 600 -->
+  <clipPath id="aperture"><path d="M900 1190 V600 A300 300 0 0 1 1500 600 V1190 Z"/></clipPath>
+  <clipPath id="fan"><path d="M900 600 A300 300 0 0 1 1500 600 Z"/></clipPath>
+
+  <linearGradient id="revealX" x1="840" x2="1560" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#f6dcaa"/><stop offset=".18" stop-color="#ecc58c"/><stop offset=".5" stop-color="#c99766"/><stop offset=".82" stop-color="#9a7152"/><stop offset="1" stop-color="#8b654b"/>
+  </linearGradient>
+  <linearGradient id="revealY" x1="0" x2="0" y1="240" y2="1190" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#b9a6a0"/><stop offset=".35" stop-color="#fff"/><stop offset="1" stop-color="#fff"/>
+  </linearGradient>
+  <linearGradient id="revealL" x1="0" x2="1">
+    <stop offset="0" stop-color="#b98d5e"/><stop offset="1" stop-color="#f3d8a6"/>
+  </linearGradient>
+  <linearGradient id="revealR" x1="0" x2="1">
+    <stop offset="0" stop-color="#8f6a4e"/><stop offset="1" stop-color="#a77d57"/>
+  </linearGradient>
+  <linearGradient id="sillTop" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#d98a5f"/><stop offset="1" stop-color="#b8603d"/>
+  </linearGradient>
+  <linearGradient id="sillFace" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#a9543a"/><stop offset="1" stop-color="#8a412d"/>
+  </linearGradient>
+  <linearGradient id="glaze" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+    <stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/>
+  </linearGradient>
+  <linearGradient id="pot" x1="0" x2="1">
+    <stop offset="0" stop-color="#9c4a30"/><stop offset=".35" stop-color="#d27a52"/><stop offset=".7" stop-color="#bb623f"/><stop offset="1" stop-color="#7f3a26"/>
+  </linearGradient>
+  <radialGradient id="bloom" cx="1200" cy="820" r="1000" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#ffd59a" stop-opacity=".75"/><stop offset=".45" stop-color="#ffc27a" stop-opacity=".25"/><stop offset="1" stop-color="#ffc27a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="vign" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset=".2" stop-color="#000" stop-opacity="0"/>
+    <stop offset=".85" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/>
+  </linearGradient>
+  <radialGradient id="vignR" cx="1200" cy="750" r="1500" gradientUnits="userSpaceOnUse">
+    <stop offset=".4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/>
+  </radialGradient>
+
+  <symbol id="tile" viewBox="0 0 100 100">
+    <rect x="1" y="1" width="98" height="98" rx="3" fill="#f1e2c2"/>
+    <g filter="url(#brush)">
+      <circle cx="0" cy="0" r="26" fill="#c7643d"/><circle cx="100" cy="0" r="26" fill="#c7643d"/>
+      <circle cx="0" cy="100" r="26" fill="#c7643d"/><circle cx="100" cy="100" r="26" fill="#c7643d"/>
+      <circle cx="0" cy="0" r="17" fill="#e7b552"/><circle cx="100" cy="0" r="17" fill="#e7b552"/>
+      <circle cx="0" cy="100" r="17" fill="#e7b552"/><circle cx="100" cy="100" r="17" fill="#e7b552"/>
+      <path d="M50 18 C60 34 66 40 82 50 C66 60 60 66 50 82 C40 66 34 60 18 50 C34 40 40 34 50 18Z" fill="#2f6c9e"/>
+      <path d="M50 32 C55 42 58 45 68 50 C58 55 55 58 50 68 C45 58 42 55 32 50 C42 45 45 42 50 32Z" fill="#f1e2c2"/>
+      <circle cx="50" cy="50" r="6.5" fill="#a796cc"/>
+      <circle cx="50" cy="6" r="3" fill="#a796cc"/><circle cx="50" cy="94" r="3" fill="#a796cc"/>
+      <circle cx="6" cy="50" r="3" fill="#a796cc"/><circle cx="94" cy="50" r="3" fill="#a796cc"/>
+    </g>
+    <rect x="1" y="1" width="98" height="98" rx="3" fill="url(#glaze)"/>
+    <rect x="1" y="1" width="98" height="98" rx="3" fill="none" stroke="#8a6a48" stroke-opacity=".35" stroke-width="1.2"/>
+  </symbol>
+  <symbol id="marktile" viewBox="0 0 100 100">
+    <rect x="1" y="1" width="98" height="98" rx="3" fill="#f1e2c2"/>
+    <g filter="url(#brush)" fill="none" stroke="#2f6c9e" stroke-width="4.2" stroke-linecap="round">
+      <path d="M30 84 V48 A20 20 0 0 1 70 48 V84 Z" stroke-linejoin="round"/>
+      <path d="M30 56 H70"/>
+      <path d="M50 56 L50 31 M50 56 L36.5 36 M50 56 L63.5 36 M50 56 L31.5 47 M50 56 L68.5 47" stroke-width="2.6"/>
+      <path d="M43 56 A7 7 0 0 1 57 56" fill="#e7b552" stroke-width="2.6"/>
+    </g>
+    <circle cx="50" cy="93" r="2.4" fill="#c7643d"/><circle cx="50" cy="7" r="2.4" fill="#c7643d"/>
+    <rect x="1" y="1" width="98" height="98" rx="3" fill="url(#glaze)"/>
+    <rect x="1" y="1" width="98" height="98" rx="3" fill="none" stroke="#8a6a48" stroke-opacity=".35" stroke-width="1.2"/>
+  </symbol>
+</defs>
+
+<g id="cam" transform="translate(1200 1290) scale(1.22) translate(-1200 -1190)">
+<!-- 1. VIEW (the painting behind the window) -->
+<g id="viewLayer" clip-path="url(#aperture)">
+  <rect x="880" y="280" width="640" height="930" fill="#9fb4cf"/>
+  <image id="viewImg" href="view-dawn.jpg" x="700" y="280" width="1000" height="930" preserveAspectRatio="xMidYMid slice"/>
+</g>
+
+<!-- 2. WALL with aperture cut out -->
+<g id="wallLayer">
+  <path id="wallShape" fill-rule="evenodd" fill="#e8bf86" d="M-400 -300 H2800 V1500 H-400 Z M840 1190 V600 A360 360 0 0 1 1560 600 V1190 Z"/>
+  <path fill-rule="evenodd" filter="url(#limeRose)" d="M-400 -300 H2800 V1500 H-400 Z M840 1190 V600 A360 360 0 0 1 1560 600 V1190 Z"/>
+  <path fill-rule="evenodd" filter="url(#limePale)" d="M-400 -300 H2800 V1500 H-400 Z M840 1190 V600 A360 360 0 0 1 1560 600 V1190 Z"/>
+  <path fill-rule="evenodd" filter="url(#plaster)" d="M-400 -300 H2800 V1500 H-400 Z M840 1190 V600 A360 360 0 0 1 1560 600 V1190 Z" opacity=".35"/>
+
+  <g fill="#3a2414" opacity=".28" filter="url(#ao)">
+    <path d="M478 1200 V310 Q620 262 778 310 V1200 Z"/><path d="M1622 1200 V310 Q1780 262 1938 310 V1200 Z"/>
+    <path d="M800 1200 V600 A400 400 0 0 1 1600 600 V1200 H1560 V600 A360 360 0 0 0 840 600 V1200 Z"/>
+  </g>
+  <!-- stone surround -->
+  <path fill="#efe1c6" d="M794 1190 V600 A406 406 0 0 1 1606 600 V1190 H1560 V600 A360 360 0 0 0 840 600 V1190 Z"/>
+  <path fill="#000" opacity=".07" d="M794 1190 V600 A406 406 0 0 1 1606 600 V1190 H1600 V600 A400 400 0 0 0 800 600 V1190 Z"/>
+  <g stroke="#b9a07c" stroke-width="2" opacity=".55">
+    <path d="M794 760 H840 M794 920 H840 M794 1080 H840 M1560 760 H1606 M1560 920 H1606 M1560 1080 H1606"/>
+    <path d="M840 600 L794 600 M1560 600 L1606 600"/>
+    <path d="M1200 600 m-360 0 M942 345 L910 312 M1458 345 L1490 312 M1076 262 L1060 220 M1324 262 L1340 220"/>
+  </g>
+  <!-- keystone -->
+  <path d="M1168 236 L1232 236 L1246 186 L1154 186 Z" fill="#f5ead4" stroke="#b9a07c" stroke-width="2"/>
+
+  <!-- reveal (depth of the wall) -->
+  <path fill="url(#revealX)" fill-rule="evenodd" d="M840 1190 V600 A360 360 0 0 1 1560 600 V1190 Z M900 1190 V600 A300 300 0 0 1 1500 600 V1190 Z"/>
+  <path fill="url(#revealY)" fill-rule="evenodd" d="M840 1190 V600 A360 360 0 0 1 1560 600 V1190 Z M900 1190 V600 A300 300 0 0 1 1500 600 V1190 Z" style="mix-blend-mode:multiply"/>
+  <path fill="none" stroke="#000" stroke-opacity=".18" stroke-width="10" filter="url(#soft3)" d="M846 1190 V600 A354 354 0 0 1 1554 600 V1190"/>
+  <path fill="#000" opacity=".12" d="M840 600 A360 360 0 0 1 1560 600 L1500 600 A300 300 0 0 0 900 600 Z"/>
+
+  <!-- casement frame and fanlight -->
+  <g fill="none" stroke="#2f6c9e" stroke-linecap="butt">
+    <path d="M907 1190 V600 A293 293 0 0 1 1493 600 V1190" stroke-width="16"/>
+    <path d="M900 600 H1500" stroke-width="20"/>
+    <g stroke-width="9">
+      <path d="M1200 600 L1200 300"/>
+      <path d="M1200 600 L987.9 387.9"/><path d="M1200 600 L1412.1 387.9"/>
+      <path d="M1200 600 L922.8 485.2"/><path d="M1200 600 L1477.2 485.2"/>
+      <path d="M1200 600 L1085.2 322.8"/><path d="M1200 600 L1314.8 322.8"/>
+    </g>
+    <path d="M1130 600 A70 70 0 0 1 1270 600" stroke-width="10" fill="#e7b552"/>
+    <path d="M1004 600 A196 196 0 0 1 1396 600" stroke-width="6"/>
+  </g>
+  <path clip-path="url(#fan)" d="M900 300 H1500 V600 H900Z" fill="#dfe9f3" opacity=".10"/>
+  <!-- thin open casements seen edge-on -->
+  <rect x="915" y="608" width="10" height="582" fill="#255a86"/>
+  <rect x="1475" y="608" width="10" height="582" fill="#255a86"/>
+
+  <!-- shutters -->
+  <g id="shutters">
+    <g id="shutL">
+      <path d="M470 1190 V300 Q620 250 770 300 V1190 Z" fill="#a59cbf"/>
+      <path d="M470 1190 V300 Q620 250 770 300 V1190 Z" fill="#000" filter="url(#paintgrain)"/>
+      <path filter="url(#brush)" d="M498 1160 V318 Q620 280 742 318 V1160 Z M498 735 H742 M498 755 H742" fill="none" stroke="#8a7fae" stroke-width="5"/>
+      <g id="louvL"></g>
+      <path filter="url(#brush)" d="M470 1190 V300 Q620 250 770 300 V1190 Z" fill="none" stroke="#776b9b" stroke-width="3"/>
+      <circle cx="760" cy="760" r="7" fill="#3b3352"/>
+    </g>
+    <use href="#shutL" transform="translate(2400 0) scale(-1 1)"/>
+  </g>
+  <!-- shutter shadows on wall -->
+  <path d="M770 300 V1190 H784 V320Z" fill="#000" opacity=".10"/>
+  <path d="M1630 300 V1190 H1616 V320Z" fill="#000" opacity=".10"/>
+</g>
+
+<!-- 3. FRONT: sill, tiles, pots -->
+<g id="frontLayer">
+  <rect x="790" y="1236" width="820" height="16" fill="#000" opacity=".16" filter="url(#soft3)"/>
+  <path d="M766 1186 H1634 L1646 1204 H754 Z" fill="url(#sillTop)"/>
+  <g stroke="#8a412d" stroke-width="1.6" opacity=".5"><path d="M874 1186 L870 1204 M982 1186 L980 1204 M1090 1186 L1090 1204 M1200 1186 L1200 1204 M1310 1186 L1310 1204 M1418 1186 L1420 1204 M1526 1186 L1530 1204"/></g>
+  <rect x="754" y="1204" width="892" height="30" fill="url(#sillFace)"/>
+  <rect x="754" y="1204" width="892" height="3" fill="#f0a77d" opacity=".6"/>
+
+  <!-- pots -->
+  <g id="potL">
+    <ellipse cx="850" cy="1190" rx="58" ry="8" fill="#000" opacity=".22" filter="url(#soft3)"/>
+    <path d="M800 1100 H900 L888 1188 Q850 1194 812 1188 Z" fill="url(#pot)"/>
+    <rect x="792" y="1088" width="116" height="22" rx="3" fill="url(#pot)"/>
+    <rect x="792" y="1088" width="116" height="4" fill="#f0a77d" opacity=".5"/>
+    <g id="lavL"></g>
+  </g>
+  <g id="potR"></g>
+</g>
+
+<!-- sill light pool -->
+  <ellipse id="pool" cx="1200" cy="1192" rx="330" ry="16" fill="#ffd9a0" opacity=".55" filter="url(#soft)" style="mix-blend-mode:screen"/>
+</g>
+<!-- 3b. TILE WAINSCOT (full width) -->
+<g id="wainscot">
+  <rect x="0" y="1338" width="2400" height="24" fill="url(#sillTop)"/>
+  <rect x="0" y="1362" width="2400" height="8" fill="#7f3a26"/>
+  <rect x="0" y="1370" width="2400" height="16" fill="#000" opacity=".25" filter="url(#soft3)"/>
+  <g id="tiles"></g>
+</g>
+<!-- 4. LIGHT -->
+<g id="lightLayer">
+  <path id="todTint" fill-rule="evenodd" d="M-400 -300 H2800 V1600 H-400Z M834 1290 V570.2 A366 366 0 0 1 1566 570.2 V1290 Z" fill="#7f93c0" style="mix-blend-mode:multiply" opacity=".45"/>
+  <g id="beams" style="mix-blend-mode:screen" filter="url(#soft2)" mask="url(#notView)">
+    <path d="M1050 420 L1180 420 L1060 1500 L760 1500 Z" fill="#ffd6a0" opacity=".16"/>
+    <path d="M1230 380 L1330 380 L1520 1500 L1320 1500 Z" fill="#ffd6a0" opacity=".12"/>
+    <path d="M1120 300 L1200 300 L1210 1500 L1020 1500 Z" fill="#ffe4bb" opacity=".10"/>
+  </g>
+  <path fill-rule="evenodd" d="M-400 -300 H2800 V1600 H-400Z M834 1290 V570.2 A366 366 0 0 1 1566 570.2 V1290 Z" fill="url(#bloom)" style="mix-blend-mode:screen" id="bloomR"/>
+  <rect x="0" y="0" width="2400" height="1500" fill="url(#vignR)"/>
+</g>
+</svg>
+<script>
+const P=new URLSearchParams(location.search);
+const view=P.get('view')||'dawn', mode=P.get('mode')||'full', tod=P.get('tod')||view, bg=P.get('bg');
+document.getElementById('viewImg').setAttribute('href','view-'+view+'.jpg');
+// seeded random
+let seed=77; const R=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+// louvres
+const lv=document.getElementById('louvL');
+for(let y=336;y<1156;y+=16){ if(y>724&&y<766)continue;
+  el('rect',{x:500,y:y,width:240,height:9,fill:'#bdb4d4'},lv);
+  el('rect',{x:500,y:y+9,width:240,height:4,fill:'#8c80b0'},lv);
+  el('rect',{x:500,y:y+13,width:240,height:3,fill:'#6f6494',opacity:.55},lv);}
+// tiles row
+const tg=document.getElementById('tiles');
+const n=20,s=120,x0=0,y0=1380;
+for(let i=0;i<n;i++){
+  const isMark=false;
+  el('use',{href:'#tile',x:x0+i*s+1,y:y0,width:s-2,height:s-2},tg);
+}
+
+// replace two centre tiles of the top row with mark tiles
+el('use',{href:'#marktile',x:x0+9*s+1,y:y0,width:s-2,height:s-2},tg);
+el('use',{href:'#marktile',x:x0+10*s+1,y:y0,width:s-2,height:s-2},tg);
+// lavender
+function lavender(g,cx,base){
+  const cols=['#8a7bb8','#9d8fca','#74649f','#ad9fd6','#5f5190','#b9addd','#6b5b97'];
+  for(let i=0;i<64;i++){
+    const ang=(R()-.5)*1.05, len=110+R()*110;
+    const x1=cx+(R()-.5)*60, y1=base;
+    const x2=x1+Math.sin(ang)*len, y2=y1-Math.cos(ang)*len;
+    const mx=(x1+x2)/2+(R()-.5)*14, my=(y1+y2)/2;
+    el('path',{d:`M${x1} ${y1} Q${mx} ${my} ${x2} ${y2}`,stroke:R()<.5?'#6f8a5a':'#88a06c','stroke-width':1.6+R(),fill:'none'},g);
+    const spike=40+R()*34;
+    for(let k=0;k<18;k++){
+      const t=k/17, w=(1-t*.55), px=x2-Math.sin(ang)*spike*t+(R()-.5)*2, py=y2+Math.cos(ang)*spike*t;
+      const side=(k%2?1:-1);
+      el('ellipse',{cx:px+side*1.9*w,cy:py,rx:(1.9+R()*.9)*w+.6,ry:(3.0+R()*1.0)*w+.8,fill:cols[(R()*cols.length)|0],transform:`rotate(${ang*57+side*24} ${px} ${py})`},g);
+      if(R()<.35) el('ellipse',{cx:px+side*1.9*w+(cx<1200?1.2:-1.2),cy:py-1,rx:1.0,ry:1.6,fill:'#ffd9a8',opacity:.8},g);
+    }
+  }
+  // foliage tuft
+  for(let i=0;i<40;i++){const a=(R()-.5)*2.2,l=30+R()*40;const x=cx+(R()-.5)*80;el('path',{d:`M${x} ${base} q${Math.sin(a)*l*.5} ${-l*.5} ${Math.sin(a)*l} ${-Math.cos(a)*l}`,stroke:R()<.5?'#8aa37a':'#a7b98f','stroke-width':2.2,fill:'none'},g)}
+}
+lavender(document.getElementById('lavL'),850,1092);
+const potR=document.getElementById('potR');
+potR.innerHTML=document.getElementById('potL').innerHTML.replace('id="lavL"','');
+potR.setAttribute('transform','translate(2400 0) scale(-1 1)');
+
+// time of day
+const BEAM={dawn:1,fjord:.4,noon:0,gold:1.3};
+const TOD={
+  dawn:{tint:"#6a7fb6",to:.74,bloom:1,beam:.0},
+  fjord:{tint:'#a9b6cf',to:.32,bloom:.5,beam:0},
+  noon:{tint:'#ffffff',to:0,bloom:.25,beam:0},
+  gold:{tint:'#e9a970',to:.38,bloom:1,beam:.0},
+}[tod];
+const tint=document.getElementById('todTint');tint.setAttribute('fill',TOD.tint);tint.setAttribute('opacity',TOD.to);
+document.getElementById('bloomR').setAttribute('opacity',TOD.bloom);document.getElementById('beams').setAttribute('opacity',BEAM[tod]);
+if(mode!=='full'){
+  // layered export: hide light layer's bloom/vignette tint; keep it neutral so the site grades live
+  document.getElementById('lightLayer').style.display='none';
+  if(mode==='wall'){document.getElementById('viewLayer').style.display='none';document.getElementById('frontLayer').style.display='none'}
+  if(mode==='front'){document.getElementById('wainscot').style.display='none';document.getElementById('viewLayer').style.display='none';document.getElementById('wallLayer').style.display='none'}
+  document.body.style.background=bg||'#000';
+}
+</script>
+</body></html>

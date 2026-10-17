@@ -1,0 +1,19 @@
+{
+  "name": "Ground Glass",
+  "tagline": "A software company seen through a viewfinder at night: one thing sharp, everything else allowed to blur.",
+  "summary": "A paper-cut nocturne built from public-domain museum photographs, regraded into one violet hue and staged on real depth planes in three.js. The headline lives on its own plane, so turning the focus ring (or tapping the scene, like a phone camera) blurs his name as the moon comes sharp. The products are always the one thing in focus: a technologist with taste, precise, calm and in control of every variable.",
+  "palette": ["#070514", "#110c28", "#1f1642", "#322566", "#4d3898", "#6d58ca", "#958ae4", "#bbb6ef", "#d9d7f8", "#ededfd", "#f9f9ff"],
+  "type": ["Instrument Serif", "Geist", "Geist Mono"],
+  "voice": "Few words, exact, unhurried; camera vocabulary as interface language, never as decoration. Example: \"Four products, sharp. Everything else is allowed to blur.\"",
+  "motion": "Everything moves on one hand-rolled spring integrator (semi-implicit Euler at 240 Hz): focus pulls are weighty and never bounce, the iris settles with one soft overshoot.",
+  "sound": "Off until the visitor presses S; then a synthesised two-tone focus-confirm beep and a short band-passed shutter click, nothing else.",
+  "mark": "A moon held behind an asymmetric paper peak, cut once along the horizon so the slit becomes the crossbar of the A, beside an outlined Instrument Serif wordmark and a Geist Mono AS.",
+  "inspiration": [
+    "https://commons.wikimedia.org",
+    "https://www.metmuseum.org/art/collection",
+    "https://motion.dev/examples",
+    "https://paco.me",
+    "https://www.framer.com/gallery",
+    "https://blog.maximeheckel.com/posts/the-physics-behind-spring-animations/"
+  ]
+}

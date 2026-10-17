@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live Hero Demo</title>
+<!-- Tiny demo: the hero as a live composite. WebGL sky (amber-sky.js) behind the
+     transparent tower cut-out. Drag anywhere to move the sun; scroll/arrow keys change the hour.
+     Below it, the flip-over postcard with the stamp easter egg. -->
+<link rel="stylesheet" href="postcard.css">
+<style>
+@font-face{font-family:"Bodoni Moda";src:url(../fonts/bodoni-moda.woff2) format("woff2");font-weight:400 900}
+@font-face{font-family:"Bodoni Moda";font-style:italic;src:url(../fonts/bodoni-moda-italic.woff2) format("woff2");font-weight:400 900}
+@font-face{font-family:"Schibsted Grotesk";src:url(../fonts/schibsted-grotesk.woff2) format("woff2");font-weight:400 900}
+:root{--cream:#FFF6E6;--umber:#3B1D0E}
+*{margin:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--umber);font:400 16px/1.6 "Schibsted Grotesk",system-ui,sans-serif}
+.hero{position:relative;height:100svh;overflow:hidden;touch-action:none;background:#C98478}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero picture img{position:absolute;left:0;bottom:0;width:100%;height:auto;min-width:900px;pointer-events:none}
+.hero h1{position:absolute;left:0;right:0;top:18vh;text-align:center;color:var(--cream);font:italic 500 clamp(48px,8vw,120px)/1 "Bodoni Moda",serif;letter-spacing:-.02em;pointer-events:none}
+.hero p{position:absolute;left:0;right:0;top:calc(18vh + clamp(70px,10vw,150px));text-align:center;color:#F8DFB6;font:600 12px/1 "Schibsted Grotesk";letter-spacing:.3em;text-transform:uppercase;pointer-events:none}
+.pc{display:grid;place-items:center;padding:12vh 16px}
+</style>
+</head>
+<body>
+<section class="hero" aria-label="Live hero">
+  <canvas id="sky"></canvas>
+  <picture><source type="image/avif" srcset="../extras/spires-cutout-1024.avif 1024w, ../extras/spires-cutout-1600.avif 1600w, ../extras/spires-cutout-2400.avif 2400w" sizes="max(100vw, 900px)"><img src="../extras/spires-cutout-1600.webp" srcset="../extras/spires-cutout-1024.webp 1024w, ../extras/spires-cutout-1600.webp 1600w, ../extras/spires-cutout-2400.webp 2400w" sizes="max(100vw, 900px)" width="1600" height="648" alt=""></picture>
+  <h1>Amber Hour</h1>
+  <p>Drag the sun · scroll the hour</p>
+</section>
+<div class="pc">
+  <figure class="ah-postcard" tabindex="0" aria-label="Postcard. Press to turn over.">
+    <div class="ah-postcard__inner">
+      <div class="ah-postcard__face ah-postcard__front"><img src="../hero/facade-card-1000.webp" width="1000" height="1334" alt="Stone facade at the amber hour"><span class="ah-postcard__hint">Turn over ↻</span></div>
+      <div class="ah-postcard__face ah-postcard__back">
+        <div class="ah-postcard__top">
+          <div class="ah-postcard__label">Albretsen AS<br>Since 2016</div>
+          <div class="ah-postcard__stampwrap">
+            <div class="ah-postcard__secret" aria-hidden="true"><div><code>claude mcp add albretsen https://albretsen.no/mcp</code><button type="button">Copy</button></div></div>
+            <img class="ah-postcard__stamp" src="../extras/stamp-albretsen.svg" width="240" height="300" alt="" draggable="false">
+            <img class="ah-postcard__postmark" src="../extras/postmark.svg" width="520" height="220" alt="">
+          </div>
+        </div>
+        <div class="ah-postcard__msg"><p>Greetings from the long view.</p><p>More is in the post.</p><p class="ah-postcard__sign">— A.</p></div>
+        <div class="ah-postcard__addr"><span>Asgeir Albretsen</span><span>asgeir@albretsen.no</span><span>Norway</span></div>
+      </div>
+    </div>
+  </figure>
+</div>
+<script type="module">
+import { mountSky } from './amber-sky.js';
+import { enhancePostcard } from './postcard.js';
+const hero = document.querySelector('.hero');
+const sky = mountSky(document.getElementById('sky'), { hour: .62, sun: [.47, .74] });
+let hour = .62;
+hero.addEventListener('pointermove', e => { if (!e.buttons) return; const r = hero.getBoundingClientRect(); sky.setSun((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); });
+hero.addEventListener('wheel', e => { e.preventDefault(); hour = Math.max(0, Math.min(1, hour - e.deltaY / 1500)); sky.setHour(hour); }, { passive: false });
+addEventListener('keydown', e => { if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { hour = Math.max(0, Math.min(1, hour + (e.key === 'ArrowUp' ? .05 : -.05))); sky.setHour(hour); } });
+enhancePostcard(document.querySelector('.ah-postcard'));
+</script>
+</body>
+</html>

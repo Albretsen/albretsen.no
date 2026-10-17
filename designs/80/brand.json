@@ -1,0 +1,12 @@
+{
+  "name": "Pavilion Light",
+  "tagline": "One horizon, one building, one day: a pastel miniature that turns from morning to sunset as you scroll.",
+  "summary": "The company is a symmetrical cream pavilion on a golden bluff, built in three.js from primitives, and the products are small kiosks on its terrace, each open at its own hour. California light, Miami deco and Paris materials become atmosphere, never a postcard. The tone is Nordic understatement: one idea per screen, a lot of air, and craft that shows in the details.",
+  "palette": ["#F3EBDD", "#EADBC4", "#8E959B", "#565C63", "#2A2A2E", "#B5352B", "#B8924A", "#EFA6AE", "#BFE3D3", "#CFE3EE", "#D9B36C", "#4E4F86"],
+  "type": ["Antonio (condensed poster caps)", "Source Sans 3 (humanist text)", "ui-monospace (the one command line)"],
+  "voice": "Short, plain and unhurried. It states what exists and stops. Example: \"Quiet software that pays for itself.\"",
+  "motion": "Everything drifts like warm air: scroll moves the sun across one horizon, headlines rise over a brass hairline, and awnings unroll on hover. Nothing bounces.",
+  "sound": "Silent by default; any future sound is opt-in and limited to soft room tone that follows the time of day.",
+  "mark": "A café-red sun with the stepped tower cut out of it and three sea lines below. It is the noon moment, when the sun sits on the finial, drawn flat.",
+  "inspiration": ["https://www.apple.com/macbook-air/", "https://stripesessions.com", "https://www.jacquemus.com", "https://www.loewe.com", "https://en.wikipedia.org/wiki/Miniature_faking", "https://commons.wikimedia.org/wiki/File:Lassen_Volcanic_Natl_Park_poster_1938.jpg"]
+}

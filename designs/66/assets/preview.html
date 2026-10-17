@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blue Hour Terrace</title>
+<meta name="description" content="Asset kit 66 for Albretsen AS: a paper-cut terrace at blue hour.">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/favicon-180.png">
+<link rel="preload" href="fonts/Nunito-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="cursor/cursor.css">
+<style>
+  @font-face { font-family: 'Nunito'; src: url('fonts/Nunito-var-latin.woff2') format('woff2'); font-weight: 200 1000; font-display: swap; }
+  @font-face { font-family: 'Nunito'; src: url('fonts/Nunito-italic-var-latin.woff2') format('woff2'); font-weight: 200 1000; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'DM Mono'; src: url('fonts/DMMono-400-latin.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'DM Mono'; src: url('fonts/DMMono-500-latin.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+  :root {
+    --night: #16213D; --ink: #1F2B4A; --blue: #4A5F92; --lilac: #8C8DB8; --rose: #C9A3B6; --peach: #F0BC9E;
+    --zinc: #7F8DA0; --zinc-d: #5E6B80; --cream: #F5EDDF; --paper: #FBF6EC; --red: #B5373A; --red-d: #8E2A2F;
+    --brass: #B8924A; --lamp: #FFD58C; --teal: #2F4A4E;
+    --gutter: clamp(16px, 4vw, 56px);
+    --sans: Nunito, ui-rounded, 'SF Pro Rounded', system-ui, sans-serif; --mono: 'DM Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body { margin: 0; color: var(--ink); font: 500 17px/1.6 var(--sans);
+    background: var(--paper) url('extras/paper-tile.webp') repeat; background-size: 512px; overflow-x: hidden; }
+  img, svg, canvas { display: block; max-width: 100%; height: auto; }
+  a { color: var(--red); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); }
+  .valance { height: 54px; background: url('extras/awning-border.svg') repeat-x left top / 96px 54px; }
+  header.top { background: var(--red-d); }
+  header.top .wrap { display: flex; justify-content: center; align-items: center; height: 64px; }
+  header.top img { height: 34px; width: auto; filter: brightness(0) invert(94%) sepia(10%) saturate(300%); }
+  .kicker { font: 800 12px/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--brass); }
+  h1, h2, h3 { font-family: var(--sans); color: var(--ink); text-align: center; margin: 0; }
+  h1 { font-weight: 900; font-size: clamp(40px, 7vw, 92px); letter-spacing: -0.02em; line-height: 1; }
+  h2 { font-weight: 900; font-size: clamp(28px, 4vw, 46px); letter-spacing: -0.01em; margin-top: 10px; }
+  .lede { max-width: 720px; margin: 18px auto 0; text-align: center; font-size: 19px; color: #3B4664; }
+  section.wrap { padding-top: clamp(64px, 8vw, 120px); }
+  .sec-head { text-align: center; margin-bottom: 36px; }
+  .sec-head p { max-width: 680px; margin: 12px auto 0; color: #4A5470; }
+  figure { margin: 0; }
+  figcaption { font: 500 13px/1.45 var(--mono); color: #5A6480; margin-top: 10px; text-align: center; }
+  figcaption b { font-family: var(--sans); font-weight: 800; color: var(--ink); letter-spacing: .02em; }
+  .frame { border-radius: 6px; overflow: hidden; box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -18px rgba(22,33,61,.45), 0 2px 6px rgba(22,33,61,.12); background: var(--night); }
+  .grid { display: grid; gap: clamp(16px, 2.4vw, 32px); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .g7 { grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); }
+  .hero-intro { padding-top: 56px; text-align: center; }
+  /* palette */
+  .sw { border-radius: 6px; overflow: hidden; background: var(--paper); box-shadow: 0 10px 24px -16px rgba(22,33,61,.5); }
+  .sw i { display: block; aspect-ratio: 4 / 3; }
+  .sw div { padding: 10px 12px 12px; font: 500 12px/1.5 var(--mono); }
+  .sw b { font: 800 14px/1.3 var(--sans); display: block; }
+  /* type */
+  .type { background: var(--night); color: var(--cream); border-radius: 8px; padding: clamp(24px, 5vw, 64px); text-align: center; }
+  .type .display { font: 900 clamp(48px, 9vw, 128px)/0.95 var(--sans); letter-spacing: -0.025em; }
+  .type .display em { font-style: italic; font-weight: 300; color: var(--peach); }
+  .type .sub { font: 700 clamp(18px, 2.4vw, 26px)/1.35 var(--sans); color: var(--lamp); margin-top: 18px; }
+  .type .label { font: 800 12px/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--brass); margin-top: 28px; }
+  .type .body { max-width: 640px; margin: 18px auto 0; font: 500 18px/1.65 var(--sans); color: #D7D2E0; }
+  .type code { display: inline-block; margin-top: 22px; font: 500 15px/1.4 var(--mono); background: rgba(245,237,223,.08); border: 1px solid rgba(184,146,74,.5); padding: 10px 16px; border-radius: 999px; color: var(--cream); max-width: 100%; overflow-wrap: anywhere; }
+  .weights { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-top: 28px; font-size: 22px; }
+  /* tiles on paper */
+  .tile { background: var(--cream); border-radius: 6px; padding: 22px; display: grid; place-items: center; min-height: 180px; box-shadow: 0 10px 24px -18px rgba(22,33,61,.5); }
+  .tile.dark { background: var(--night); }
+  .tile.texture { background-size: 256px; min-height: 180px; }
+  /* 3D */
+  .stage { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden;
+    background: var(--night) url('hero/terrace-diorama-1280.webp') center / cover no-repeat; }
+  .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 840ms steps(6, end); }
+  .stage.ready canvas { opacity: 1; }
+  .dial { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 12px; align-items: center; padding: 8px 16px;
+    border-radius: 999px; background: rgba(22,33,61,.74); color: var(--cream); font: 800 11px/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; }
+  .dial input { accent-color: var(--brass); width: min(240px, 40vw); }
+  /* motion demos */
+  .demo { background: var(--night); border-radius: 8px; padding: 26px 18px 18px; color: var(--cream); display: flex; flex-direction: column; gap: 16px; min-height: 300px; }
+  .demo h3 { color: var(--cream); font-size: 20px; font-weight: 900; }
+  .demo p { margin: 0; font-size: 14px; color: #C9C6D9; text-align: center; }
+  .demo .area { flex: 1; display: grid; place-items: center; min-height: 150px; overflow: hidden; border-radius: 4px; }
+  .demo button { align-self: center; font: 800 11px/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--night); background: var(--lamp); border: 0; border-radius: 999px; padding: 10px 18px; }
+  .unfurl-card { width: 220px; height: 130px; background: var(--red); position: relative; display: grid; place-items: center; color: var(--cream); font: 900 13px/1 var(--sans); letter-spacing: .3em; }
+  .unfurl-card .m-valance { position: absolute; left: 0; right: 0; bottom: -26px; height: 27px; background: url('extras/awning-solid.svg') repeat-x left -28px / 96px 54px; }
+  .dolly-row { display: flex; gap: 10px; align-items: flex-end; }
+  .dolly-row img { width: 46px; height: auto; }
+  .windows { display: grid; grid-template-columns: repeat(7, 22px); gap: 12px 14px; padding: 16px; background: #CDBFAE; border-radius: 2px; }
+  .windows span { width: 22px; height: 38px; display: block; border: 3px solid #F2E8D8; }
+  .popup { position: relative; width: 240px; height: 150px; }
+  .popup > * { position: absolute; left: 0; right: 0; bottom: 0; margin: auto; }
+  .stamps img { filter: drop-shadow(0 8px 12px rgba(22,33,61,.25)); }
+  .tag { display: inline-block; font: 800 10px/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--red); border: 1.5px solid currentColor; border-radius: 999px; padding: 5px 9px; }
+  footer { margin-top: 96px; background: var(--night); color: var(--cream); padding: 56px 0 72px; text-align: center; }
+  footer img.plaque { width: min(400px, 100%); margin: 0 auto; }
+  @media (max-width: 640px) { body { font-size: 16px; } .dial { font-size: 9px; gap: 8px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><img src="brand/wordmark.svg" width="348" height="84" alt="Albretsen AS"></div></header>
+<div class="valance" aria-hidden="true"></div>
+
+<main>
+  <div class="wrap hero-intro">
+    <div class="kicker">Asset kit 66 · Blue Hour Terrace</div>
+    <h1 style="margin-top:14px">A table set for the evening.</h1>
+    <p class="lede">The products are laid out on one marble table, under one red awning, in the minutes after sunset. Everything is paper cut, perfectly centred and in no hurry. The light makes it warm, not the copy.</p>
+  </div>
+
+  <!-- HERO IMAGERY -->
+  <section class="wrap">
+    <div class="sec-head"><div class="kicker">01 · Hero imagery</div><h2>The terrace, in four lights</h2>
+      <p>Two procedural paper-cut dioramas, plus two real photographs regraded into blue hour. Each ships as AVIF, WebP and a JPEG fallback, with fixed aspect ratios so nothing shifts while it loads.</p></div>
+    <figure>
+      <div class="frame"><picture>
+        <source type="image/avif" srcset="hero/terrace-diorama-640.avif 640w, hero/terrace-diorama-1280.avif 1280w, hero/terrace-diorama-1920.avif 1920w, hero/terrace-diorama-2560.avif 2560w" sizes="(max-width: 1280px) 100vw, 1200px">
+        <source type="image/webp" srcset="hero/terrace-diorama-640.webp 640w, hero/terrace-diorama-1280.webp 1280w, hero/terrace-diorama-1920.webp 1920w, hero/terrace-diorama-2560.webp 2560w" sizes="(max-width: 1280px) 100vw, 1200px">
+        <img src="hero/terrace-diorama-1280.jpg" width="2560" height="1440" alt="Paper-cut diorama at blue hour: a symmetric domed facade with lit windows, seen from under a red café awning, with a marble terrace table holding the product logos" fetchpriority="high">
+      </picture></div>
+      <figcaption><b>terrace-diorama</b> · 16:9 · 640–2560 · procedural paper-cut, 8 layers, cast shadows</figcaption>
+    </figure>
+    <div class="grid g2" style="margin-top:32px">
+      <figure>
+        <div class="frame"><picture>
+          <source type="image/avif" srcset="hero/rooftop-terrace-640.avif 640w, hero/rooftop-terrace-1280.avif 1280w, hero/rooftop-terrace-1920.avif 1920w, hero/rooftop-terrace-2400.avif 2400w" sizes="(max-width: 900px) 100vw, 600px">
+          <source type="image/webp" srcset="hero/rooftop-terrace-640.webp 640w, hero/rooftop-terrace-1280.webp 1280w, hero/rooftop-terrace-1920.webp 1920w, hero/rooftop-terrace-2400.webp 2400w" sizes="(max-width: 900px) 100vw, 600px">
+          <img src="hero/rooftop-terrace-1280.jpg" width="2400" height="1350" alt="A real photograph of zinc rooftops at blue hour with a paper-cut terrace in the foreground: red awning, balustrade, table and two bistro chairs" loading="lazy">
+        </picture></div>
+        <figcaption><b>rooftop-terrace</b> · real photo (Unsplash, Timelab) regraded + paper foreground</figcaption>
+      </figure>
+      <figure>
+        <div class="frame"><picture>
+          <source type="image/avif" srcset="hero/facade-wide-960.avif 960w, hero/facade-wide-1920.avif 1920w" sizes="(max-width: 900px) 100vw, 600px">
+          <source type="image/webp" srcset="hero/facade-wide-960.webp 960w, hero/facade-wide-1920.webp 1920w" sizes="(max-width: 900px) 100vw, 600px">
+          <img src="hero/facade-wide-960.jpg" width="1920" height="1080" alt="Haussmann facades with a small dome, regraded to a blue-hour sky" loading="lazy">
+        </picture></div>
+        <figcaption><b>facade-wide</b> · real photo (Unsplash, Ismael Galaviz) · sky replaced, blue-hour grade</figcaption>
+      </figure>
+    </div>
+    <div class="grid g4" style="margin-top:32px">
+      <figure><div class="frame"><picture>
+        <source type="image/avif" srcset="hero/terrace-diorama-portrait-600.avif 600w, hero/terrace-diorama-portrait-1200.avif 1200w" sizes="300px">
+        <source type="image/webp" srcset="hero/terrace-diorama-portrait-600.webp 600w, hero/terrace-diorama-portrait-1200.webp 1200w" sizes="300px">
+        <img src="hero/terrace-diorama-portrait-600.jpg" width="1200" height="1800" alt="Portrait version of the paper-cut terrace diorama for phones" loading="lazy"></picture></div>
+        <figcaption><b>terrace-diorama-portrait</b> · 2:3 · phone hero</figcaption></figure>
+      <figure><div class="frame"><picture>
+        <source type="image/avif" srcset="hero/rooftop-terrace-portrait-500.avif 500w, hero/rooftop-terrace-portrait-1000.avif 1000w" sizes="300px">
+        <source type="image/webp" srcset="hero/rooftop-terrace-portrait-500.webp 500w, hero/rooftop-terrace-portrait-1000.webp 1000w" sizes="300px">
+        <img src="hero/rooftop-terrace-portrait-500.jpg" width="1000" height="1400" alt="Portrait version of the rooftop terrace photograph" loading="lazy"></picture></div>
+        <figcaption><b>rooftop-terrace-portrait</b> · 5:7</figcaption></figure>
+      <figure><div class="frame"><picture>
+        <source type="image/avif" srcset="hero/facade-blue-hour-600.avif 600w, hero/facade-blue-hour-1200.avif 1200w" sizes="300px">
+        <source type="image/webp" srcset="hero/facade-blue-hour-600.webp 600w, hero/facade-blue-hour-1200.webp 1200w" sizes="300px">
+        <img src="hero/facade-blue-hour-600.jpg" width="1200" height="1420" alt="A domed corner building, centred, under a blue-hour sky" loading="lazy"></picture></div>
+        <figcaption><b>facade-blue-hour</b> · centred portrait crop</figcaption></figure>
+      <figure><div class="frame"><picture>
+        <source type="image/avif" srcset="hero/rooftops-graded-960.avif 960w, hero/rooftops-graded-1920.avif 1920w" sizes="300px">
+        <source type="image/webp" srcset="hero/rooftops-graded-960.webp 960w, hero/rooftops-graded-1920.webp 1920w" sizes="300px">
+        <img src="hero/rooftops-graded-960.jpg" width="1920" height="1080" alt="Zinc rooftops at blue hour, no foreground" loading="lazy"></picture></div>
+        <figcaption><b>rooftops-graded</b> · clean plate for blog covers</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 3D -->
+  <section class="wrap">
+    <div class="sec-head"><div class="kicker">02 · Interactive</div><h2>The diorama, standing up</h2>
+      <p>The same nine paper layers on real planes in three.js, lit by one warm key light that casts soft shadows from each sheet onto the one behind it. Move the pointer to dolly the camera a few centimetres. Drag the dial and the Lamplighter turns on the windows, street first and rooftops last.</p></div>
+    <div class="stage" id="stage">
+      <label class="dial" data-cursor>Sunset <input id="dusk" type="range" min="0" max="1" step="0.01" value="0.65" aria-label="Dusk"> Night</label>
+    </div>
+    <figcaption><b>interactive/diorama3d.js</b> · three@0.169.0 loaded lazily · layers/*.webp (≈400 KB) · demo: <a href="interactive/demo.html">interactive/demo.html</a></figcaption>
+  </section>
+
+  <!-- PALETTE -->
+  <section class="wrap">
+    <div class="sec-head"><div class="kicker">03 · Palette</div><h2>Zinc, cream, café red, brass, and the sky</h2>
+      <p>The sky runs from Night to Peach horizon, which is the only gradient in the system. Café red is reserved for the awning and one accent per screen. Brass is for rules, rims and the cursor. Lamplight is the only glow.</p></div>
+    <div class="grid g7" id="palette"></div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="wrap">
+    <div class="sec-head"><div class="kicker">04 · Type</div><h2>Nunito, sunny and soft. DM Mono for facts.</h2>
+      <p>A rounded Californian sans (Nunito, variable 200–1000, OFL), set centred with deadpan tracking on labels. Display at 900, body at 500, labels at 800 with +0.32em tracking. DM Mono (OFL) is for commands and figures.</p></div>
+    <div class="type">
+      <div class="label">Albretsen AS · Norway</div>
+      <div class="display" style="margin-top:16px">Quiet software<br><em>that pays for itself.</em></div>
+      <div class="sub">Four products on the table. One outside engagement at a time.</div>
+      <p class="body">Fun Libs has passed 113,000 installs without any marketing. MCP Emails gives AI agents an inbox: 17 tools and about 100 email providers, at $782 MRR. Toolrails is being built and Harbor is paused.</p>
+      <code>claude mcp add albretsen https://albretsen.no/mcp</code>
+      <div class="weights"><span style="font-weight:300">Light 300</span><span style="font-weight:500">Regular 500</span><span style="font-weight:800">Bold 800</span><span style="font-weight:1000">Black 1000</span><span style="font-family:var(--mono)">Mono 0123456789</span></div>
+      <div class="weights" style="font-size:18px;color:#D7D2E0">Æ Ø Å æ ø å · Albretsen · €$£ · “quotes” · 113,000+</div>
+    </div>
+  </section>
+
+  <!-- IDENTITY -->
+  <section class="wrap">
+    <div class="sec-head"><div class="kicker">05 · Identity</div><h2>A shopfront with the lamp on</h2>
+      <p>The mark is a single storefront drawn on a 64-unit grid, symmetric about its centre line: an awning, an arched window and the evening star. It reads at 16 px.</p></div>
+    <div class="grid g4">
+      <figure><div class="tile"><img src="brand/mark.svg" width="128" height="128" alt="Albretsen AS mark"></div><figcaption><b>mark.svg</b></figcaption></figure>
+      <figure><div class="tile dark"><img src="brand/mark-reversed.svg" width="128" height="128" alt="Mark, reversed"></div><figcaption><b>mark-reversed.svg</b></figcaption></figure>
+      <figure><div class="tile"><div style="display:flex;gap:18px;align-items:end"><img src="brand/favicon.svg" width="96" height="96" alt="Favicon"><img src="brand/favicon-180.png" width="48" height="48" alt="Favicon PNG"><img src="brand/favicon.svg" width="16" height="16" alt="Favicon 16px"></div></div><figcaption><b>favicon.svg · favicon-180.png · 512</b></figcaption></figure>
+      <figure><div class="tile" style="color:var(--ink)"><img src="brand/lockup.svg" width="444" height="84" alt="Albretsen AS lockup"></div><figcaption><b>lockup.svg · wordmark.svg</b> (outlined Nunito, currentColor)</figcaption></figure>
+    </div>
+    <figure style="margin-top:32px"><div class="frame" style="max-width:720px;margin:0 auto"><img src="brand/og.jpg" width="1200" height="630" alt="Open Graph image" loading="lazy"></div><figcaption><b>og.jpg</b> · 1200×630</figcaption></figure>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="wrap">
+    <div class="sec-head"><div class="kicker">06 · Products</div><h2>Every product gets a shopfront</h2>
+      <p>Four symmetric storefronts on the same street. Each displays the real product logo, unchanged, in its lit window. Toolrails is still building, so its awning is only half wound out. Harbor is paused, so its shutter is down and only its mark stays lit.</p></div>
+    <div class="grid g4">
+      <figure><div class="frame"><picture><source type="image/avif" srcset="products/shop-mcp-emails-500.avif 500w, products/shop-mcp-emails-1000.avif 1000w" sizes="300px"><img src="products/shop-mcp-emails-500.jpg" width="1000" height="1250" alt="MCP Emails storefront with the real MCP Emails icon in the lit window" loading="lazy"></picture></div><figcaption><b>MCP Emails</b> · live</figcaption></figure>
+      <figure><div class="frame"><picture><source type="image/avif" srcset="products/shop-fun-libs-500.avif 500w, products/shop-fun-libs-1000.avif 1000w" sizes="300px"><img src="products/shop-fun-libs-500.jpg" width="1000" height="1250" alt="Fun Libs storefront with the real Fun Libs icon on display" loading="lazy"></picture></div><figcaption><b>Fun Libs</b> · live</figcaption></figure>
+      <figure><div class="frame"><picture><source type="image/avif" srcset="products/shop-toolrails-500.avif 500w, products/shop-toolrails-1000.avif 1000w" sizes="300px"><img src="products/shop-toolrails-500.jpg" width="1000" height="1250" alt="Toolrails storefront, awning half rolled out, with the real Toolrails icon" loading="lazy"></picture></div><figcaption><b>Toolrails</b> · building</figcaption></figure>
+      <figure><div class="frame"><picture><source type="image/avif" srcset="products/shop-harbor-500.avif 500w, products/shop-harbor-1000.avif 1000w" sizes="300px"><img src="products/shop-harbor-500.jpg" width="1000" height="1250" alt="Harbor storefront with the shutter down and the real Harbor mark lit above it" loading="lazy"></picture></div><figcaption><b>Harbor</b> · paused</figcaption></figure>
+    </div>
+    <div class="sec-head" style="margin-top:56px"><h3 style="font-size:24px;font-weight:900">Retired, with postage paid</h3><p>The retired products become stamps with a straight, deadpan cancellation mark. Luma keeps its real monogram.</p></div>
+    <div class="grid g7 stamps">
+      <img src="retired/stamp-luma.svg" width="160" height="200" alt="Luma stamp">
+      <img src="retired/stamp-polyglot-pilot.svg" width="160" height="200" alt="Polyglot Pilot stamp">
+      <img src="retired/stamp-pinpoint.svg" width="160" height="200" alt="PinPoint stamp">
+      <img src="retired/stamp-webvakt.svg" width="160" height="200" alt="WebVakt stamp">
+      <img src="retired/stamp-joke-central.svg" width="160" height="200" alt="Joke Central stamp">
+      <img src="retired/stamp-tryggere-hyring.svg" width="160" height="200" alt="Tryggere Hyring stamp">
+      <img src="retired/stamp-early-apps.svg" width="160" height="200" alt="Early apps stamp">
+    </div>
+  </section>
+
+  <!-- EXTRAS -->
+  <section class="wrap">
+    <div class="sec-head"><div class="kicker">07 · Texture &amp; ephemera</div><h2>The things on the table</h2></div>
+    <div class="grid g4">
+      <figure><div class="tile texture" style="background-image:url('extras/paper-tile.webp')"></div><figcaption><b>paper-tile.webp</b> · seamless 512</figcaption></figure>
+      <figure><div class="tile texture" style="background:var(--blue) url('extras/paper-fibre-overlay.webp') 0 0/256px"></div><figcaption><b>paper-fibre-overlay.webp</b> · lays fibre over any colour</figcaption></figure>
+      <figure><div class="tile texture" style="background:var(--night) url('extras/grain.webp') 0 0/256px"></div><figcaption><b>grain.webp</b> · film grain tile</figcaption></figure>
+      <figure><div class="tile texture" style="background:url('extras/zinc-roof-tile.svg') 0 0/120px 80px"></div><figcaption><b>zinc-roof-tile.svg</b> · fish-scale zinc</figcaption></figure>
+      <figure><div class="tile" style="padding:0;align-content:start;overflow:hidden"><div style="width:100%;height:54px;background:url('extras/awning-border.svg') repeat-x 0 0/96px 54px"></div><div style="width:100%;height:54px;margin-top:24px;background:url('extras/awning-solid.svg') repeat-x 0 0/96px 54px"></div></div><figcaption><b>awning-border.svg · awning-solid.svg</b> · section valances</figcaption></figure>
+      <figure><div class="tile texture" style="background:var(--cream) url('extras/balcony-lace.svg') repeat-x 0 70px/48px 40px"></div><figcaption><b>balcony-lace.svg</b> · wrought-iron rule</figcaption></figure>
+      <figure><div class="tile dark"><div style="display:flex;gap:10px;align-items:end"><img src="extras/cutout-topiary.svg" width="46" height="100" alt="Topiary"><img src="extras/cutout-bistro-chair.svg" width="54" height="90" alt="Bistro chair"><img src="extras/cutout-terrace-table.svg" width="110" height="76" alt="Terrace table"><img src="extras/cutout-espresso.svg" width="40" height="37" alt="Espresso"></div></div><figcaption><b>cutout-*.svg</b> · topiary, chair, table, espresso</figcaption></figure>
+      <figure><div class="tile dark"><img src="extras/lit-window.svg" width="80" height="120" alt="Lit window"></div><figcaption><b>lit-window.svg</b> · bullet / loading state</figcaption></figure>
+    </div>
+    <div class="grid g2" style="margin-top:32px;align-items:center">
+      <figure><div class="tile dark" style="min-height:420px"><img src="extras/receipt-table-66.svg" width="280" height="362" alt="A terrace receipt listing the real product figures" style="transform:rotate(0deg)"></div><figcaption><b>receipt-table-66.svg</b> · only real figures from content.js</figcaption></figure>
+      <figure><div class="tile dark" style="min-height:420px"><img src="extras/brass-plaque.svg" width="400" height="150" alt="Brass name plaque"></div><figcaption><b>brass-plaque.svg</b> · footer / about</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section class="wrap">
+    <div class="sec-head"><div class="kicker">08 · Motion study</div><h2>Precise, symmetrical, deadpan</h2>
+      <p>Four signature moves from <code style="font-family:var(--mono)">motion.css</code> and <code style="font-family:var(--mono)">motion.js</code>, plus the Brass Ring cursor, which is active on this whole page. Hover the buttons.</p></div>
+    <div class="grid g4">
+      <div class="demo"><h3>Awning Unfurl</h3><p>Reveals in 8 cranked steps, then the valance settles once.</p>
+        <div class="area"><div class="unfurl-card m-unfurl" id="d-unfurl">ALBRETSEN AS<div class="m-valance"></div></div></div>
+        <button data-replay="d-unfurl" data-cursor-label="Replay">Replay</button></div>
+      <div class="demo"><h3>Dolly Pan</h3><p>Mirrored pairs arrive on the centre line on the same frame.</p>
+        <div class="area"><div class="dolly-row m-dolly" id="d-dolly">
+          <img class="m-from-left" src="extras/cutout-bistro-chair.svg" width="60" height="100" alt="">
+          <img class="m-from-centre" src="extras/cutout-terrace-table.svg" width="100" height="69" alt="" style="width:100px">
+          <img class="m-from-right" src="extras/cutout-bistro-chair.svg" width="60" height="100" alt="" style="transform-origin:center"></div></div>
+        <button data-replay="d-dolly" data-cursor-label="Replay">Replay</button></div>
+      <div class="demo"><h3>Lamplighter</h3><p>Windows light in mirrored pairs from the centre, one beat apart.</p>
+        <div class="area"><div class="windows m-lamplighter" id="d-lamp"></div></div>
+        <button data-replay="d-lamp" data-cursor-label="Replay">Replay</button></div>
+      <div class="demo"><h3>Pop-up Lift</h3><p>Paper layers stand up from the page, back to front.</p>
+        <div class="area"><div class="popup m-popup" id="d-pop">
+          <img src="extras/cutout-topiary.svg" width="46" height="100" alt="" style="left:-170px">
+          <img src="extras/cutout-topiary.svg" width="46" height="100" alt="" style="right:-170px">
+          <img src="extras/cutout-terrace-table.svg" width="170" height="117" alt="">
+          <img src="extras/cutout-espresso.svg" width="44" height="40" alt="" style="bottom:96px"></div></div>
+        <button data-replay="d-pop" data-cursor-label="Replay">Replay</button></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img class="plaque" src="extras/brass-plaque.svg" width="400" height="150" alt="Albretsen AS brass plaque" loading="lazy">
+    <p style="margin-top:28px;font:500 13px/1.6 var(--mono);color:#B9B5CC">Kit 66 · Blue Hour Terrace · all imagery generated in code or from Unsplash-licensed photographs · see ASSETS.md</p>
+  </div>
+</footer>
+
+<script type="module">
+  import { initMotion, replay } from './motion.js'
+  import { mountCursor } from './cursor/cursor.js'
+
+  // palette
+  const P = [['Night','#16213D','oklch(25.4% 0.055 266.3)'],['Ink','#1F2B4A','oklch(29.5% 0.059 266.8)'],['Blue hour','#4A5F92','oklch(49.2% 0.086 266.3)'],
+    ['Lilac haze','#8C8DB8','oklch(65.8% 0.064 283.5)'],['Afterglow rose','#C9A3B6','oklch(75.5% 0.051 346.8)'],['Peach horizon','#F0BC9E','oklch(83.4% 0.073 51.4)'],
+    ['Zinc','#7F8DA0','oklch(63.9% 0.033 256.1)'],['Zinc deep','#5E6B80','oklch(52.5% 0.037 260.0)'],['Cream stone','#F5EDDF','oklch(94.9% 0.020 81.8)'],
+    ['Paper','#FBF6EC','oklch(97.4% 0.014 84.6)'],['Café red','#B5373A','oklch(52.4% 0.162 23.5)'],['Awning shade','#8E2A2F','oklch(44.0% 0.135 21.9)'],
+    ['Brass','#B8924A','oklch(68.1% 0.101 81.6)'],['Lamplight','#FFD58C','oklch(89.3% 0.102 80.7)'],['Topiary','#2F4A4E','oklch(38.9% 0.033 207.6)']]
+  document.getElementById('palette').innerHTML = P.map(([n,h,o]) => `<div class="sw"><i style="background:${h}"></i><div><b>${n}</b>${h}<br>${o}</div></div>`).join('')
+
+  // lamplighter windows: 4 rows x 7
+  const w = document.getElementById('d-lamp')
+  w.innerHTML = Array.from({ length: 28 }, (_, i) => `<span data-lamp="${Math.floor(i / 7)}"></span>`).join('')
+
+  // ?from=N shows the sheet from section N (handy for screenshots of the lower half)
+  const from = +new URLSearchParams(location.search).get("from") || 0
+  if (from) { document.querySelectorAll("main > section, main > .hero-intro").forEach((s, i) => { if (i < from) s.remove() }) }
+  initMotion()
+  mountCursor()
+  document.querySelectorAll('[data-replay]').forEach((b) => b.addEventListener('click', () => replay(document.getElementById(b.dataset.replay))))
+
+  // 3D after first paint and only when near the viewport
+  const stage = document.getElementById('stage')
+  const io = new IntersectionObserver(async ([en]) => {
+    if (!en.isIntersecting) return
+    io.disconnect()
+    try {
+      const { mountDiorama } = await import('./interactive/diorama3d.js')
+      const d = await mountDiorama(stage, { base: './layers/', dusk: 0.65 })
+      stage.insertBefore(stage.querySelector('canvas'), stage.firstChild)
+      requestAnimationFrame(() => stage.classList.add('ready'))
+      document.getElementById('dusk').addEventListener('input', (e) => d.setDusk(+e.target.value))
+    } catch (e) { console.warn('3D unavailable, still image stays', e) }
+  }, { rootMargin: '400px' })
+  io.observe(stage)
+</script>
+</body>
+</html>

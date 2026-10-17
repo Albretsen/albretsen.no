@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heure Bleue: drag the sun</title>
+<link rel="icon" href="../identity/favicon.svg" type="image/svg+xml">
+<style>
+  @font-face { font-family: 'Federo'; src: url(../fonts/federo-latin.woff2) format('woff2'); font-display: swap; }
+  @font-face { font-family: 'Instrument Sans'; src: url(../fonts/instrument-sans-latin.woff2) format('woff2'); font-weight: 400 600; font-display: swap; }
+  :root { --ink: #232c57; --plaster: #f4eadb; --mustard: #d9a42b; --pink: #f2b5b8; }
+  html, body { margin: 0; height: 100%; background: var(--ink); color: var(--plaster); font: 15px/1.5 'Instrument Sans', system-ui, sans-serif; }
+  .stage { position: relative; height: 100svh; min-height: 560px; overflow: hidden; }
+  .stage picture, .stage img, .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stage canvas { opacity: 0; transition: opacity 1.2s cubic-bezier(.22,.61,.36,1); }
+  .stage.live canvas { opacity: 1; }
+  h1 { position: absolute; left: 0; right: 0; top: 13%; margin: 0; text-align: center; font: 400 clamp(44px, 11vw, 168px)/1 'Federo', serif;
+       letter-spacing: .16em; padding-left: .16em; color: var(--plaster); mix-blend-mode: soft-light; pointer-events: none; }
+  h1 + p { position: absolute; left: 0; right: 0; top: calc(13% + clamp(56px, 13vw, 190px)); margin: 0; text-align: center; letter-spacing: .02em; opacity: .92; pointer-events: none; }
+  .hint { position: absolute; transform: translate(-50%, calc(-100% - 34px)); font: 12px/1 'Federo', serif; letter-spacing: .24em; text-transform: uppercase;
+          color: var(--plaster); pointer-events: none; white-space: nowrap; opacity: 0; transition: opacity .8s; }
+  .hint::after { content: ''; display: block; width: 1px; height: 18px; margin: 8px auto 0; background: currentColor; }
+  .live .hint { opacity: .9; }
+  .readout { position: absolute; left: 16px; bottom: 16px; font: 12px/1.3 'Instrument Sans', sans-serif; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+  .readout b { font: 400 22px/1 'Federo', serif; letter-spacing: .06em; display: block; margin-top: 4px; }
+</style>
+</head>
+<body>
+<section class="stage" id="stage">
+  <picture>
+    <source type="image/avif" media="(max-aspect-ratio: 1/1)" srcset="../hero/hero-blue-hour-tall-720.avif 720w, ../hero/hero-blue-hour-tall-1080.avif 1080w">
+    <source type="image/avif" srcset="../hero/hero-blue-hour-1280.avif 1280w, ../hero/hero-blue-hour-1920.avif 1920w, ../hero/hero-blue-hour-2560.avif 2560w">
+    <source type="image/webp" srcset="../hero/hero-blue-hour-1280.webp 1280w, ../hero/hero-blue-hour-1920.webp 1920w, ../hero/hero-blue-hour-2560.webp 2560w">
+    <img src="../hero/hero-blue-hour-1920.jpg" width="1920" height="1080" alt="A terrace above zinc rooftops and white houses running down to the sea, the sun just under the horizon at blue hour" fetchpriority="high">
+  </picture>
+  <canvas id="c" aria-label="Interactive scene: drag the sun up and down the sky"></canvas>
+  <h1>ALBRETSEN</h1>
+  <p>I build software that pays for itself.</p>
+  <div class="hint" id="hint">Drag the sun</div>
+  <div class="readout" aria-live="polite">Sun<b id="deg">-1.6°</b></div>
+</section>
+<script type="module">
+  import { createHeureBleue } from './heure-bleue.js';
+  const stage = document.getElementById('stage'), hint = document.getElementById('hint'), deg = document.getElementById('deg');
+  const start = () => {
+    const REST = 0.245;
+    const s = createHeureBleue(document.getElementById('c'), { time: REST });
+    let back;
+    s.onTime = () => { clearTimeout(back); back = setTimeout(() => s.setTime(REST), 6000); hint.style.opacity = 0; };
+    s.onFrame = () => {
+      const p = s.sunScreen();
+      hint.style.left = p.x + 'px'; hint.style.top = p.y + 'px';
+      deg.textContent = (s.elevation >= 0 ? '+' : '') + s.elevation.toFixed(1) + '°';
+    };
+    requestAnimationFrame(() => stage.classList.add('live'));
+  };
+  // 3D after first paint and idle
+  (window.requestIdleCallback || ((f) => setTimeout(f, 200)))(start);
+</script>
+</body>
+</html>

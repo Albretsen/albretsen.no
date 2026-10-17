@@ -1,0 +1,55 @@
+/* Motion study for design 71 "Winter Pavilion".
+   Five named movements. All of them are slow, centred and calm; none loops for attention.
+   Everything is disabled under prefers-reduced-motion. JS helpers live in motion.js. */
+
+:root {
+  --ease-dolly: cubic-bezier(.22, .61, .18, 1);   /* a camera dolly settling on its mark */
+  --ease-iris: cubic-bezier(.65, 0, .35, 1);
+  --dur-slow: 1400ms;
+}
+
+/* 1. LENS SHIFT: slow cinematic parallax through matte-painting layers.
+   Each layer gets --depth (0 = sky, 1 = foreground). Uses scroll-driven animations where
+   supported; motion.js supplies the same values as a fallback. */
+.ms-lens { position: relative; overflow: clip; }
+.ms-lens > .ms-layer { position: absolute; inset: 0; will-change: transform; transform: translate3d(0, calc(var(--lens, 0) * var(--depth, .5) * 14vh), 0) scale(calc(1.03 + var(--lens, 0) * var(--depth, .5) * .04)); }
+@supports (animation-timeline: view()) {
+  .ms-lens > .ms-layer { animation: ms-lens linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+  @keyframes ms-lens { from { --lens: 0; } to { --lens: 1; } }
+  @property --lens { syntax: '<number>'; inherits: true; initial-value: 0; }
+}
+
+/* 2. SIGN WARM-UP: spaced capitals light one by one, like a rooftop sign at dusk.
+   Markup: <h1 class="ms-sign" data-sign>ALBRETSEN</h1> (motion.js splits the letters). */
+.ms-sign { letter-spacing: .34em; }
+.ms-sign .ch { display: inline-block; opacity: .18; transition: opacity 600ms ease, text-shadow 900ms ease; }
+.ms-sign.is-on .ch { opacity: 1; transition-delay: calc(var(--i) * 90ms + var(--jit, 0ms)); }
+.ms-sign.is-lit .ch { text-shadow: 0 0 .3em rgba(255, 170, 196, .75), 0 0 1.2em rgba(255, 150, 180, .35); }
+
+/* 3. IRIS: the day/night switch opens like a film iris centred on the sun (View Transitions). */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: ms-iris 1100ms var(--ease-iris) both; }
+@keyframes ms-iris { from { clip-path: circle(0 at var(--iris-x, 80%) var(--iris-y, 45%)); } to { clip-path: circle(150vmax at var(--iris-x, 80%) var(--iris-y, 45%)); } }
+
+/* 4. TRACKING SHOT: product postcards glide sideways on one horizontal line while the
+   page scrolls vertically, like a lateral dolly past a row of facades. */
+.ms-track { position: relative; height: calc(100svh + var(--track-len, 120vw)); }
+.ms-track > .ms-rail { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; overflow: clip; }
+.ms-track .ms-row { display: flex; gap: clamp(24px, 4vw, 64px); padding-inline: 8vw; transform: translate3d(calc(var(--track, 0) * -1 * var(--track-len, 120vw)), 0, 0); will-change: transform; }
+
+/* 5. SNOW HUSH: a few slow flakes, only at night, only in the hero (canvas, see motion.js). */
+.ms-snow { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 1600ms ease; }
+:root[data-theme="night"] .ms-snow { opacity: .9; }
+
+/* Shared entrance: content rises 12px and un-fades, once. */
+.ms-rise { opacity: 0; transform: translateY(12px); transition: opacity var(--dur-slow) var(--ease-dolly), transform var(--dur-slow) var(--ease-dolly); }
+.ms-rise.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ms-lens > .ms-layer { animation: none !important; transform: none !important; }
+  .ms-sign .ch { opacity: 1 !important; transition: none !important; }
+  ::view-transition-new(root) { animation: none; }
+  .ms-track { height: auto; } .ms-track > .ms-rail { position: static; height: auto; overflow-x: auto; } .ms-track .ms-row { transform: none !important; }
+  .ms-snow { display: none; }
+  .ms-rise { opacity: 1; transform: none; transition: none; }
+}

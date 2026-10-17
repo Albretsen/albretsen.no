@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 40" width="600" height="40" role="img" aria-label="Film edge">
+  <title>Film rebate strip: sprocket holes and frame numbers, for image captions (no stock brand)</title>
+  <defs>
+    <pattern id="holes" width="20" height="40" patternUnits="userSpaceOnUse">
+      <rect x="6" y="4" width="8" height="6" rx="1.5" fill="#FBF8F4" opacity=".9"/>
+      <rect x="6" y="30" width="8" height="6" rx="1.5" fill="#FBF8F4" opacity=".9"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="40" fill="#E9A07A"/>
+  <rect width="600" height="40" fill="url(#holes)"/>
+  <g font-family="'DM Mono', ui-monospace, monospace" font-size="9" fill="#FFE3C4" letter-spacing="1">
+    <text x="36" y="23.5">▸ 16</text><text x="96" y="23.5">16A</text>
+    <text x="186" y="23.5">▸ 17</text><text x="246" y="23.5">17A</text>
+    <text x="336" y="23.5">▸ 18</text><text x="396" y="23.5">18A</text>
+    <text x="486" y="23.5">▸ 19</text><text x="546" y="23.5">19A</text>
+  </g>
+</svg>

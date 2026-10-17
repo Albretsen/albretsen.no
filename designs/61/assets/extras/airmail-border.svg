@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="12" viewBox="0 0 48 12" role="img" aria-label="Pastel airmail stripe tile">
+  <title>Pastel airmail stripe (tile horizontally; use as border-image or background-repeat:repeat-x)</title>
+  <rect width="48" height="12" fill="#FBF3E6"/>
+  <path d="M0 12 L6 0 H14 L8 12 Z M24 12 L30 0 H38 L32 12 Z" fill="#E8959A"/>
+  <path d="M12 12 L18 0 H26 L20 12 Z M36 12 L42 0 H50 L44 12 Z M-12 12 L-6 0 H2 L-4 12 Z" fill="#8FBBD8"/>
+</svg>

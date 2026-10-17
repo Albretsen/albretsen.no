@@ -1,0 +1,87 @@
+/* Ground Glass — tokens + motion styles (design 81)
+ * Pair with motion.js. One hue (OKLCH 288°), eleven shades.
+ */
+:root {
+  --ink:    oklch(0.13 0.035 288); /* #070514 */
+  --night:  oklch(0.18 0.055 288); /* #110c28 */
+  --umbra:  oklch(0.24 0.08 288);  /* #1f1642 */
+  --dusk:   oklch(0.32 0.11 288);  /* #322566 */
+  --iris:   oklch(0.42 0.15 288);  /* #4d3898 */
+  --violet: oklch(0.54 0.17 288);  /* #6d58ca */
+  --lilac:  oklch(0.68 0.13 288);  /* #958ae4 */
+  --haze:   oklch(0.80 0.08 288);  /* #bbb6ef */
+  --mist:   oklch(0.89 0.045 288); /* #d9d7f8 */
+  --paper:  oklch(0.95 0.022 288); /* #ededfd */
+  --glow:   oklch(0.985 0.012 288);/* #f9f9ff */
+
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-text: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, Menlo, monospace;
+
+  /* paper elevation: cut card lifted off the page */
+  --lift-0: 0 1px 2px rgb(7 5 20 / .35), 0 4px 10px rgb(7 5 20 / .28);
+  --lift-1: 0 3px 5px rgb(7 5 20 / .25), 0 26px 50px rgb(7 5 20 / .46);
+  --cut-edge: inset 0 0 0 1px rgb(187 182 239 / .18);
+}
+
+/* Iris overlay created by irisReveal() */
+.gg-iris {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 2;
+  transition: opacity .25s linear;
+}
+
+/* Shutter flash created by shutter() */
+.gg-flash {
+  position: absolute; inset: 0; pointer-events: none; z-index: 3; opacity: 0;
+  background: radial-gradient(60% 60% at 50% 45%, var(--glow), var(--haze) 60%, transparent);
+  mix-blend-mode: screen;
+}
+
+/* Paper card */
+.gg-card {
+  background: var(--umbra);
+  border-radius: 14px;
+  box-shadow: var(--lift-0), var(--cut-edge);
+  will-change: transform;
+}
+
+/* Keys */
+kbd {
+  font: 500 12px/1 var(--font-mono);
+  display: inline-grid; place-items: center;
+  min-width: 26px; height: 26px; padding: 0 7px;
+  color: var(--mist);
+  background: linear-gradient(var(--dusk), var(--umbra));
+  border-radius: 7px;
+  box-shadow: 0 1px 0 rgb(187 182 239 / .25) inset, 0 2px 0 var(--ink), 0 3px 8px rgb(7 5 20 / .5);
+}
+kbd.is-hit { animation: gg-key .5s cubic-bezier(.2, .9, .3, 1.4); }
+@keyframes gg-key {
+  0%   { transform: translateY(2px); background: var(--violet); color: var(--glow); box-shadow: 0 0 0 var(--ink), 0 0 18px var(--lilac); }
+  100% { transform: none; }
+}
+
+/* Cheat sheet (developSheet) */
+.gg-sheet {
+  position: fixed; right: 16px; bottom: 16px; z-index: 50;
+  width: min(360px, calc(100vw - 32px));
+  padding: 20px 22px 18px;
+  color: var(--mist);
+  background: color-mix(in oklch, var(--night) 92%, transparent);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  box-shadow: var(--lift-1), var(--cut-edge);
+  visibility: hidden;
+}
+.gg-sheet h2 { font: 400 26px/1 var(--font-display); margin: 0 0 14px; color: var(--paper); }
+.gg-sheet [data-row] { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 7px 0; border-top: 1px solid rgb(187 182 239 / .1); font: 13px/1.3 var(--font-text); }
+.gg-sheet [data-row] span:last-child { display: flex; gap: 4px; }
+
+/* Always-visible hint for the sheet */
+.gg-hint { font: 12px var(--font-mono); color: var(--haze); letter-spacing: .04em; }
+
+@media (prefers-reduced-motion: reduce) {
+  kbd.is-hit { animation: none; outline: 2px solid var(--lilac); }
+  .gg-iris { display: none; }
+}

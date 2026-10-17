@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q.E.D. asset kit</title>
+<meta name="description" content="Asset kit for design 82: Q.E.D., a product-drop page for a company. Bespoke icon system, dawn renders, motion study.">
+<link rel="icon" href="identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="identity/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motion.css">
+<style>
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--qed-paper);color:var(--qed-ink);font:400 16px/1.55 var(--qed-sans);-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+  .mono{font-family:var(--qed-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--qed-mid)}
+  h2{font:600 clamp(28px,4vw,44px)/1.02 var(--qed-sans);letter-spacing:-.035em;margin:0 0 8px}
+  h3{font:500 15px/1.3 var(--qed-sans);margin:0 0 4px}
+  p{margin:0 0 12px;max-width:62ch}
+  section{padding:clamp(56px,8vw,112px) 0;border-top:1px solid var(--qed-line)}
+  .sec-head{display:grid;grid-template-columns:120px 1fr;gap:24px;margin-bottom:40px}
+  @media (max-width:720px){.sec-head{grid-template-columns:1fr;gap:8px}}
+  .grid{display:grid;gap:20px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+  .card{background:var(--qed-white);border:1px solid var(--qed-line);border-radius:14px;padding:20px;overflow:hidden}
+  .card.dark{background:var(--qed-ink);color:var(--qed-paper);border-color:var(--qed-ink-2)}
+  .cap{display:flex;justify-content:space-between;gap:12px;margin-top:12px;align-items:baseline}
+  .cap code{font:400 12px/1.4 var(--qed-mono);color:var(--qed-mid);word-break:break-all}
+
+  /* masthead */
+  .mast{background:var(--qed-ink);color:var(--qed-paper);position:relative;overflow:hidden}
+  .mast picture img{width:100%;height:min(92vh,900px);object-fit:cover;object-position:50% 60%}
+  .mast .over{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(20px,4vw,48px);background:linear-gradient(180deg,rgba(10,9,7,.55),rgba(10,9,7,0) 28%,rgba(10,9,7,0) 60%,rgba(10,9,7,.7))}
+  .mast .top{display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .mast .top img{width:min(300px,52vw)}
+  .mast h1{font:600 clamp(40px,7.4vw,112px)/.95 var(--qed-sans);letter-spacing:-.045em;margin:0;max-width:11ch}
+  .mast h1 em{font-style:normal;color:var(--qed-dawn)}
+  .mast .bottom{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+  .mast .mono{color:#b9b3ab}
+
+  /* palette */
+  .sw{border-radius:12px;overflow:hidden;border:1px solid var(--qed-line);background:var(--qed-white)}
+  .sw .chip{height:96px}
+  .sw .meta{padding:10px 12px;font:400 12px/1.5 var(--qed-mono)}
+  .sw .meta b{font:500 13px/1.4 var(--qed-sans);display:block;color:var(--qed-ink)}
+
+  /* type */
+  .spec-big{font:600 clamp(56px,11vw,168px)/.9 var(--qed-sans);letter-spacing:-.05em;margin:0}
+  .spec-row{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--qed-line);align-items:baseline}
+  @media (max-width:600px){.spec-row{grid-template-columns:1fr}}
+
+  /* icons */
+  .icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:0;background:var(--qed-white);border:1px solid var(--qed-line);border-radius:14px;overflow:hidden}
+  .icons button{all:unset;cursor:pointer;background:var(--qed-white);box-shadow:inset -1px -1px 0 var(--qed-line);aspect-ratio:1;display:grid;place-items:center;position:relative;transition:background .2s}
+  .icons button:hover,.icons button:focus-visible{background:var(--qed-paper)}
+  .icons button:focus-visible{outline:2px solid var(--qed-dawn);outline-offset:-2px}
+  .icons svg{width:40px;height:40px}
+  .tip{background:var(--qed-ink);color:var(--qed-paper);font:500 12px/1 var(--qed-mono);letter-spacing:.08em;padding:8px 10px;border-radius:6px;white-space:nowrap;text-transform:uppercase}
+
+  /* morph stage */
+  .stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+  @media (max-width:820px){.stage{grid-template-columns:1fr}}
+  .morph-box{background:var(--qed-white);border:1px solid var(--qed-line);border-radius:14px;aspect-ratio:1;display:grid;place-items:center;background-image:url(extras/graph-paper.svg);background-size:24px 24px}
+  .morph-box.dark{background-color:var(--qed-ink);color:var(--qed-paper);background-image:none}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chips button{all:unset;cursor:pointer;font:500 12px/1 var(--qed-mono);letter-spacing:.08em;text-transform:uppercase;padding:10px 12px;border:1px solid var(--qed-line);border-radius:999px;background:var(--qed-white)}
+  .chips button[aria-pressed=true]{background:var(--qed-ink);color:var(--qed-paper);border-color:var(--qed-ink)}
+
+  /* products */
+  .tile img{border-radius:10px;aspect-ratio:4/3;object-fit:cover;width:100%}
+  .retired{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:16px}
+  .retired figure{margin:0;text-align:center}
+  .retired img{width:100%;aspect-ratio:1;border-radius:22px}
+  .retired figcaption{font:400 12px/1.4 var(--qed-mono);margin-top:8px;color:var(--qed-mid)}
+
+  /* motion demos */
+  .fr-demo{aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:var(--qed-ink)}
+  .fr-demo .fr-half{width:100%;height:100%;object-fit:cover}
+  .settle-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+  .settle-cards .qed-settle{background:var(--qed-white);border:1px solid var(--qed-line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:18px}
+  .settle-cards svg{width:32px;height:32px}
+  .big-num{font:600 clamp(40px,6vw,72px)/1 var(--qed-sans);letter-spacing:-.04em}
+  .btn{all:unset;cursor:pointer;display:inline-flex;gap:10px;align-items:center;font:500 14px/1 var(--qed-sans);padding:12px 16px;border-radius:999px;background:var(--qed-ink);color:var(--qed-paper)}
+  .btn svg{width:18px;height:18px}
+  .btn.ghost{background:transparent;color:var(--qed-ink);border:1px solid var(--qed-line)}
+  .btn:focus-visible{outline:2px solid var(--qed-dawn);outline-offset:2px}
+
+  .acc{border-top:1px solid var(--qed-line)}
+  .acc [data-acc-item]{border-bottom:1px solid var(--qed-line)}
+  .acc [data-acc-trigger]{all:unset;cursor:pointer;display:flex;width:100%;justify-content:space-between;align-items:center;padding:18px 0;font:500 17px/1.3 var(--qed-sans)}
+  .acc [data-acc-trigger]:focus-visible{outline:2px solid var(--qed-dawn)}
+  .acc [data-acc-content] > div{padding:0 0 18px;color:var(--qed-ink-3)}
+  .acc svg{width:22px;height:22px;flex:none}
+
+  .dlg{background:var(--qed-white);border-radius:16px;overflow:hidden}
+  .dlg img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .dlg .body{padding:20px 24px 24px}
+
+  .hc{width:300px;background:var(--qed-white);border:1px solid var(--qed-line);border-radius:14px;padding:16px;box-shadow:0 24px 48px -28px rgb(10 9 7 / .45)}
+  .hc img{border-radius:8px;margin-bottom:12px}
+
+  .tabs [role=tablist]{display:flex;gap:24px;border-bottom:1px solid var(--qed-line);overflow-x:auto}
+  .tabs [role=tab]{all:unset;cursor:pointer;padding:12px 0;font:500 14px/1 var(--qed-sans);color:var(--qed-mid);white-space:nowrap}
+  .tabs [role=tab][data-state=active]{color:var(--qed-ink)}
+  .tabs [role=tab]:focus-visible{outline:2px solid var(--qed-dawn)}
+  .tabs [role=tabpanel]{padding-top:20px}
+
+  .gg{width:100%;aspect-ratio:16/9;border-radius:14px;display:block;cursor:crosshair;touch-action:pan-y}
+  footer{padding:48px 0 64px;border-top:1px solid var(--qed-line)}
+</style>
+</head>
+<body>
+
+<!-- ============ MASTHEAD: hero A used as intended ============ -->
+<header class="mast">
+  <picture>
+    <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="hero/fracture-portrait-760.avif 760w, hero/fracture-portrait-1200.avif 1200w" sizes="100vw">
+    <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="hero/fracture-portrait-760.webp 760w, hero/fracture-portrait-1200.webp 1200w" sizes="100vw">
+    <source type="image/avif" srcset="hero/fracture-960.avif 960w, hero/fracture-1600.avif 1600w, hero/fracture-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="hero/fracture-960.webp 960w, hero/fracture-1600.webp 1600w, hero/fracture-2400.webp 2400w" sizes="100vw">
+    <img src="hero/fracture-1600.jpg" srcset="hero/fracture-960.jpg 960w, hero/fracture-1600.jpg 1600w, hero/fracture-2400.jpg 2400w" sizes="100vw" width="1600" height="900" alt="A black monolith split by a fracture, dawn light pouring through onto a polished floor" fetchpriority="high" class="qed-first-light">
+  </picture>
+  <div class="over">
+    <div class="top"><img src="identity/wordmark-reverse.svg" width="300" height="17" alt="Albretsen AS" data-qed-mark><span class="mono">Drop 00 · asset kit 82</span></div>
+    <div class="bottom">
+      <h1>The company is the <em>release.</em></h1>
+      <p class="mono" style="max-width:36ch">Q.E.D. — a product-drop page for a company, not a product. Black, white and one dawn.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ DIRECTION ============ -->
+<section style="border-top:0">
+  <div class="sec-head"><span class="mono">00 / Idea</span>
+    <div>
+      <h2>Proofs, written in shapes.</h2>
+      <p>In 1847 Oliver Byrne printed Euclid with the words replaced by coloured shapes. This kit does the same for a software company: every product, fact and button is a glyph built from strokes and one sun, and the glyphs morph into one another the way one proposition leads to the next. The site is staged as a launch page whose product is the company itself (“Drop 00”). Three spark words run through everything: <b>fracture</b> (one break in a stroke, the crack in the monolith), <b>dawn</b> (the single amber primary, always a sector of a circle) and <b>gravity</b> (springs that settle, a mass that bends the grid, an easter egg where everything falls).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HERO IMAGERY ============ -->
+<section>
+  <div class="sec-head"><span class="mono">01 / Hero</span><div><h2>Two renders, one light.</h2><p>Ray-marched in GLSL (src/render.html), baked in headless Chrome at 3×3 supersampling, graded with film grain. Each ships at 960/1600/2400 wide plus a portrait crop, in AVIF, WebP and JPEG.</p></div></div>
+  <div class="grid g2">
+    <figure class="card dark" style="margin:0;padding:0">
+      <picture>
+        <source type="image/avif" srcset="hero/fracture-960.avif 960w, hero/fracture-1600.avif 1600w" sizes="(min-width:1100px) 620px, 100vw">
+        <source type="image/webp" srcset="hero/fracture-960.webp 960w, hero/fracture-1600.webp 1600w" sizes="(min-width:1100px) 620px, 100vw">
+        <img src="hero/fracture-960.jpg" width="960" height="540" loading="lazy" alt="Fracture at dawn render">
+      </picture>
+      <figcaption class="cap" style="padding:14px 18px"><h3>A · Fracture</h3><code>hero/fracture-{960,1600,2400}.{avif,webp,jpg}</code></figcaption>
+    </figure>
+    <figure class="card" style="margin:0;padding:0">
+      <picture>
+        <source type="image/avif" srcset="hero/gravity-960.avif 960w, hero/gravity-1600.avif 1600w" sizes="(min-width:1100px) 620px, 100vw">
+        <source type="image/webp" srcset="hero/gravity-960.webp 960w, hero/gravity-1600.webp 1600w" sizes="(min-width:1100px) 620px, 100vw">
+        <img src="hero/gravity-960.jpg" width="960" height="540" loading="lazy" alt="Black sphere bending a sheet of graph paper with amber bodies on orbits">
+      </picture>
+      <figcaption class="cap" style="padding:14px 18px"><h3>B · Gravity</h3><code>hero/gravity-{960,1600,2400}.{avif,webp,jpg}</code></figcaption>
+    </figure>
+  </div>
+  <div class="grid g4" style="margin-top:20px">
+    <figure style="margin:0"><img src="hero/fracture-portrait-760.webp" width="760" height="1140" loading="lazy" alt="Fracture, portrait crop" style="border-radius:12px"><div class="cap"><span class="mono">A · portrait</span></div></figure>
+    <figure style="margin:0"><img src="hero/gravity-portrait-760.webp" width="760" height="1140" loading="lazy" alt="Gravity, portrait crop" style="border-radius:12px"><div class="cap"><span class="mono">B · portrait</span></div></figure>
+    <figure style="margin:0;grid-column:span 2"><img src="identity/og.jpg" width="1200" height="630" loading="lazy" alt="Open Graph image" style="border-radius:12px"><div class="cap"><span class="mono">Open Graph 1200×630</span><code>identity/og.jpg</code></div></figure>
+  </div>
+</section>
+
+<!-- ============ PALETTE ============ -->
+<section>
+  <div class="sec-head"><span class="mono">02 / Palette</span><div><h2>Black, white, one dawn.</h2><p>Seed hue 72° in OKLCH. Neutrals carry a whisper of the same hue so the amber never looks pasted on. Amber is for the sun only: one sector per glyph, one accent per screen.</p></div></div>
+  <div class="grid g4" id="palette"></div>
+</section>
+
+<!-- ============ TYPE ============ -->
+<section>
+  <div class="sec-head"><span class="mono">03 / Type</span><div><h2>Geist, set tight. Geist Mono, set wide.</h2><p>Both on Google Fonts (SIL OFL). The wordmark is not a font: it is drawn from the icon grammar (monoline, mitred, Λ for A).</p></div></div>
+  <p class="spec-big">Drop 00</p>
+  <div style="margin-top:24px">
+    <div class="spec-row"><span class="mono">Display 600</span><span style="font:600 clamp(28px,4vw,48px)/1.05 var(--qed-sans);letter-spacing:-.035em">Quiet software that pays for itself.</span></div>
+    <div class="spec-row"><span class="mono">Body 400</span><span>MCP Emails gives AI agents an inbox: 17 tools, about 100 email providers, open source under AGPL. It earns $782 a month.</span></div>
+    <div class="spec-row"><span class="mono">Mono 400</span><span style="font:400 14px/1.6 var(--qed-mono)">claude mcp add albretsen https://albretsen.no/mcp</span></div>
+    <div class="spec-row"><span class="mono">Label</span><span class="mono" style="color:var(--qed-ink)">Live · Building · Paused · Retired</span></div>
+    <div class="spec-row"><span class="mono">Wordmark</span><span><img src="identity/wordmark.svg" width="480" height="27" alt="Albretsen AS wordmark" style="width:min(480px,100%)"></span></div>
+  </div>
+</section>
+
+<!-- ============ IDENTITY ============ -->
+<section>
+  <div class="sec-head"><span class="mono">04 / Identity</span><div><h2>A, fractured, with the sun inside.</h2><p>The mark is the first glyph of the system: an apex, a horizon for a crossbar, the sun rising on it, and one leg broken and sheared. Triple-click it anywhere for a surprise.</p></div></div>
+  <div class="grid g4">
+    <div class="card" style="display:grid;place-items:center;aspect-ratio:1"><img src="identity/mark.svg" width="160" height="160" alt="Mark" data-qed-mark></div>
+    <div class="card dark" style="display:grid;place-items:center;aspect-ratio:1"><img src="identity/mark-reverse.svg" width="160" height="160" alt="Mark, reverse"></div>
+    <div class="card" style="display:grid;place-items:center;aspect-ratio:1;color:var(--qed-ink-3)"><img src="identity/favicon.svg" width="96" height="96" alt="Favicon"><span class="mono">favicon.svg · 180 png</span></div>
+    <div class="card" style="display:grid;place-items:center;aspect-ratio:1"><img src="identity/apple-touch-icon.png" width="90" height="90" alt="Apple touch icon" style="border-radius:20px"></div>
+  </div>
+  <div class="card" style="margin-top:20px;padding:clamp(24px,5vw,56px)"><img src="identity/lockup.svg" width="760" height="40" alt="Lockup" style="width:min(760px,100%)"></div>
+  <div class="card dark" style="margin-top:20px;padding:clamp(24px,5vw,56px)"><img src="identity/wordmark-reverse.svg" width="560" height="31" alt="Wordmark, reverse" style="width:min(560px,100%)"></div>
+</section>
+
+<!-- ============ ICONS ============ -->
+<section>
+  <div class="sec-head"><span class="mono">05 / Glyphs</span><div><h2>Thirty glyphs, one grammar.</h2><p>24 grid · 1.5 stroke · butt caps · mitre joins · at most one sun (a filled circle sector) · at most one fracture. Hover for the name (tooltip primitive), click to send it to the morph stage below.</p></div></div>
+  <div class="icons" id="icons"></div>
+</section>
+
+<!-- ============ MORPH ============ -->
+<section>
+  <div class="sec-head"><span class="mono">06 / Centrepiece</span><div><h2>Proof Morph.</h2><p>Any glyph becomes any other. Strokes are resampled to 64 points, paired by nearest centroid, and staggered so the glyph is “re-proved” stroke by stroke; mid-flight each stroke shears apart along its own fracture. The sun is never interpolated as a path: its centre, radius and angles tween, with a gravity overshoot on the radius.</p></div></div>
+  <div class="stage">
+    <div><div class="morph-box" id="morphA"></div><div class="chips" id="chips"></div></div>
+    <div><div class="morph-box dark" id="morphB"></div><p class="mono" style="margin-top:16px">Auto-cycle: mark → MCP Emails → Fun Libs → Toolrails → Harbor → Q.E.D.</p></div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section>
+  <div class="sec-head"><span class="mono">07 / Products</span><div><h2>Each product, a weight on the sheet.</h2><p>The real logos, unchanged, on black-glass tiles floating over their own gravity well. The four plates are the same scene at four moments of one sunrise (05:10, 05:40, 06:20, 07:00), so a row of them reads as time passing.</p></div></div>
+  <div class="grid g2" id="tiles"></div>
+  <h3 style="margin:48px 0 16px">Retired: stand-ins in the glyph system (Luma keeps its real monogram)</h3>
+  <div class="retired" id="retired"></div>
+</section>
+
+<!-- ============ EXTRAS ============ -->
+<section>
+  <div class="sec-head"><span class="mono">08 / Extras</span><div><h2>Texture and ephemera.</h2><p>Byrne’s plates regraded into the palette; the company as an orbit diagram; a release label; dividers, paper and grain.</p></div></div>
+  <div class="grid g3">
+    <figure class="card" style="margin:0"><img src="extras/byrne-iv-6.webp" width="1000" height="1274" loading="lazy" alt="Byrne Euclid Book IV Prop VI, regraded"><div class="cap"><h3>Byrne IV.6</h3><code>extras/byrne-iv-6.{webp,jpg}</code></div></figure>
+    <figure class="card dark" style="margin:0"><img src="extras/byrne-iv-6-night.webp" width="1000" height="1274" loading="lazy" alt="Byrne Euclid Book IV Prop VI, night grade"><div class="cap"><h3>Byrne IV.6 · night</h3><code>extras/byrne-iv-6-night.*</code></div></figure>
+    <figure class="card" style="margin:0"><img src="extras/byrne-ii-6.webp" width="1000" height="1274" loading="lazy" alt="Byrne Euclid Book II Prop VI, regraded"><div class="cap"><h3>Byrne II.6</h3><code>extras/byrne-ii-6.{webp,jpg}</code></div></figure>
+  </div>
+  <div class="grid g2" style="margin-top:20px;align-items:start">
+    <figure class="card" style="margin:0"><img src="extras/proposition.svg" width="960" height="960" loading="lazy" alt="Orbit diagram of all products"><div class="cap"><h3>Proposition I</h3><code>extras/proposition.svg</code></div></figure>
+    <div class="grid" style="align-content:start">
+      <figure class="card" style="margin:0"><img src="extras/drop-tag.svg" width="420" height="300" loading="lazy" alt="Drop 00 release label" style="width:100%"><div class="cap"><h3>Drop tag</h3><code>extras/drop-tag.svg</code></div></figure>
+      <figure class="card" style="margin:0"><img src="extras/sun-shapes.svg" width="600" height="150" loading="lazy" alt="Sun shapes" style="width:100%"><div class="cap"><h3>The five suns</h3><code>extras/sun-shapes.svg</code></div></figure>
+      <figure class="card" style="margin:0"><img src="extras/fracture-divider.svg" width="1440" height="40" loading="lazy" alt="" style="width:100%;height:40px"><div class="cap"><h3>Fracture divider</h3><code>extras/fracture-divider.svg</code></div></figure>
+      <div class="grid g2" style="gap:20px">
+        <figure class="card" style="margin:0;height:140px;background:url(extras/graph-paper.svg) var(--qed-white);background-size:24px"><div class="cap" style="margin:0"><h3>Graph paper</h3></div></figure>
+        <figure class="card dark" style="margin:0;height:140px;background:url(extras/grain.png) var(--qed-ink-2)"><div class="cap" style="margin:0"><h3>Grain tile</h3></div></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOTION ============ -->
+<section>
+  <div class="sec-head"><span class="mono">09 / Motion</span><div><h2>Four signatures, five primitives.</h2><p>motion.css + motion.js, no dependencies. Primitives use Radix’s data-state contract, so a React build can swap in @radix-ui with the same CSS.</p></div></div>
+
+  <h3>Fracture Reveal</h3><p class="mono">Scroll into view, or <button class="btn ghost" id="replayFr" style="padding:6px 10px;font-size:12px">replay</button></p>
+  <div class="fr-demo" data-fracture id="frDemo" style="position:relative">
+    <img class="fr-half fr-half--l" src="hero/gravity-1600.webp" width="1600" height="900" alt="">
+    <img class="fr-half fr-half--r" src="hero/gravity-1600.webp" width="1600" height="900" alt="">
+  </div>
+
+  <div class="grid g2" style="margin-top:48px">
+    <div>
+      <h3>Dawn Rise</h3><p>The sun of every [data-dawn] glyph rises from its horizon; [data-count] numbers count up after first light.</p>
+      <div class="card" data-dawn id="dawnDemo" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+        <div id="dawnGlyph"></div>
+        <div><div class="big-num" data-count="113,000+">113,000+</div><span class="mono">Fun Libs installs</span></div>
+        <div><div class="big-num" data-count="$782">$782</div><span class="mono">MCP Emails MRR</span></div>
+      </div>
+      <p style="margin-top:12px"><button class="btn ghost" id="replayDawn">Replay dawn</button></p>
+    </div>
+    <div>
+      <h3>Gravity Settle</h3><p>Hover a card: it is pulled down 3 px and settles with one soft overshoot (CSS linear() spring).</p>
+      <div class="settle-cards" id="settle"></div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:56px">Primitives</h3>
+  <div class="grid g2" style="margin-top:16px;align-items:start">
+    <div class="card">
+      <span class="mono">Accordion</span>
+      <div class="acc" data-acc data-single style="margin-top:12px">
+        <div data-acc-item data-open><button data-acc-trigger>What is Drop 00?<svg viewBox="0 0 24 24" fill="none"><path class="acc-sun" d="M7 16 A5 5 0 0 1 17 16 Z" fill="var(--qed-dawn)"/><g stroke="currentColor" stroke-width="1.5"><path d="M3 16 H21"/><path class="acc-bar" d="M12 4 V10"/></g></svg></button>
+          <div data-acc-content><div>The launch of a company rather than a product: Albretsen AS, on Google Play since 2016, now building apps, SaaS and AI-agent infrastructure.</div></div></div>
+        <div data-acc-item><button data-acc-trigger>What is live?<svg viewBox="0 0 24 24" fill="none"><path class="acc-sun" d="M7 16 A5 5 0 0 1 17 16 Z" fill="var(--qed-dawn)"/><g stroke="currentColor" stroke-width="1.5"><path d="M3 16 H21"/><path class="acc-bar" d="M12 4 V10"/></g></svg></button>
+          <div data-acc-content><div>MCP Emails (email for AI agents) and Fun Libs (a fill-in-the-blanks word game). Toolrails is being built; Harbor is paused.</div></div></div>
+        <div data-acc-item><button data-acc-trigger>Outside work?<svg viewBox="0 0 24 24" fill="none"><path class="acc-sun" d="M7 16 A5 5 0 0 1 17 16 Z" fill="var(--qed-dawn)"/><g stroke="currentColor" stroke-width="1.5"><path d="M3 16 H21"/><path class="acc-bar" d="M12 4 V10"/></g></svg></button>
+          <div data-acc-content><div>Takes one outside engagement at a time.</div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <span class="mono">Tabs</span>
+      <div class="tabs" id="tabs" style="margin-top:12px">
+        <div role="tablist" aria-label="Products">
+          <button role="tab" aria-selected="true" aria-controls="tp1" id="t1">MCP Emails</button>
+          <button role="tab" aria-selected="false" aria-controls="tp2" id="t2">Fun Libs</button>
+          <button role="tab" aria-selected="false" aria-controls="tp3" id="t3">Toolrails</button>
+          <button role="tab" aria-selected="false" aria-controls="tp4" id="t4">Harbor</button>
+        </div>
+        <div role="tabpanel" id="tp1" aria-labelledby="t1">Email for AI agents. 17 tools, about 100 email providers, open source (AGPL).</div>
+        <div role="tabpanel" id="tp2" aria-labelledby="t2" hidden>A fill-in-the-blanks word game for Android and iOS. 113,000+ installs, built at 17, no marketing.</div>
+        <div role="tabpanel" id="tp3" aria-labelledby="t3" hidden>One MCP URL that gives an agent every tool. Tool search and an injection guard.</div>
+        <div role="tabpanel" id="tp4" aria-labelledby="t4" hidden>A private knowledge base shared by people and AI. Self-hostable; AI edits held for approval.</div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;align-items:center">
+        <span class="mono">Dialog · Tooltip · Hover card</span>
+        <button class="btn" id="openDlg"><span>Open MCP Emails</span></button>
+        <button class="btn ghost" id="tipBtn" aria-label="Copy the MCP command"><span id="tipIcon"></span>Copy</button>
+        <span class="tip qed-float" id="tipC">Copied as one line</span>
+        <a href="#tiles" id="hcTrig" style="font-weight:500">Fun Libs</a>
+        <div class="hc qed-float" id="hcC"><img src="products/fun-libs-800.webp" width="800" height="600" alt="Fun Libs tile"><b>Fun Libs</b><br><span class="mono">113,000+ installs · since 2019</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<dialog data-qed-dialog id="dlg" aria-labelledby="dlgT">
+  <div class="dlg">
+    <img src="products/mcp-emails-800.webp" width="800" height="600" alt="MCP Emails logo on a floating tile">
+    <div class="body">
+      <h2 id="dlgT" style="font-size:28px">MCP Emails</h2>
+      <p>Email for AI agents. 17 tools, about 100 email providers, open source (AGPL). $782 MRR.</p>
+      <button class="btn" data-dialog-close>Close</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- ============ INTERACTIVE ============ -->
+<section>
+  <div class="sec-head"><span class="mono">10 / Interactive</span><div><h2>Gravity Grid.</h2><p>The live version of hero B: move the pointer and the mass follows, bending the sheet; amber bodies keep their orbits. Canvas 2D, 5 KB, pauses offscreen. Light and dark themes.</p></div></div>
+  <div class="grid g2">
+    <canvas class="gg" id="gg1" width="800" height="450" aria-label="Interactive gravity grid, light"></canvas>
+    <canvas class="gg" id="gg2" width="800" height="450" aria-label="Interactive gravity grid, dark"></canvas>
+  </div>
+</section>
+
+</main>
+<footer class="wrap"><div style="display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center"><img src="identity/lockup.svg" width="380" height="20" alt="Albretsen AS" style="width:min(380px,100%)" data-qed-mark><span class="mono">There is one hidden proof. It ends the way every proof ends.</span></div></footer>
+
+<script type="module">
+  import { icons, iconSVG } from './icons/icons.js';
+  import { glyph, cycle, fractureReveal, dawnRise, accordion, dialog, tooltip, hoverCard, tabs, easterEgg } from './motion.js';
+  import { gravityGrid } from './interactive/gravity-grid.js';
+
+  // ?from=N shows the sheet from section N (handy for screenshots and for linking a reviewer straight to a section)
+  const from = +new URLSearchParams(location.search).get('from');
+  if (from) { document.querySelector('.mast').hidden = true; [...document.querySelectorAll('main > section')].forEach((s, i) => { if (i < from) s.hidden = true; }); }
+
+  // palette
+  const P = [
+    ['Ink', 'oklch(0.14 0.004 72)', '#0a0907'], ['Ink 2', 'oklch(0.21 0.005 72)', '#1a1816'], ['Ink 3', 'oklch(0.32 0.006 72)', '#353230'],
+    ['Mid', 'oklch(0.56 0.006 72)', '#777471'], ['Line', 'oklch(0.88 0.006 72)', '#dad7d3'], ['Paper', 'oklch(0.975 0.006 72)', '#f9f6f2'],
+    ['White', 'oklch(0.995 0.002 72)', '#fefdfc'], ['Dawn', 'oklch(0.80 0.165 72)', '#fea91e'], ['Dawn hi', 'oklch(0.89 0.10 72)', '#ffd08a'], ['Dawn deep', 'oklch(0.62 0.14 72)', '#b97500']];
+  document.getElementById('palette').innerHTML = P.map(([n, o, h]) => `<div class="sw"><div class="chip" style="background:${h};background:${o}"></div><div class="meta"><b>${n}</b>${o}<br>${h}</div></div>`).join('');
+
+  // icons + tooltip
+  const morphA = glyph(document.getElementById('morphA'), 'mark', { size: 280 });
+  const box = document.getElementById('icons');
+  for (const id of Object.keys(icons)) {
+    const b = document.createElement('button'); b.innerHTML = iconSVG(id, { size: 40, title: false }); b.setAttribute('aria-label', icons[id].name); b.dataset.glyph = '';
+    const tip = document.createElement('span'); tip.className = 'tip qed-float'; tip.textContent = icons[id].name; document.body.appendChild(tip);
+    tooltip(b, tip);
+    b.addEventListener('click', () => { morphA.to(id); setChip(id); document.getElementById('morphA').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
+    box.appendChild(b);
+  }
+  const chipsIds = ['mark', 'signal', 'app', 'agent', 'knowledge', 'launch', 'gravity', 'fracture', 'qed'];
+  const chips = document.getElementById('chips');
+  const setChip = (id) => chips.querySelectorAll('button').forEach((c) => c.setAttribute('aria-pressed', c.dataset.id === id));
+  chips.innerHTML = chipsIds.map((id) => `<button data-id="${id}" aria-pressed="${id === 'mark'}">${icons[id].name}</button>`).join('');
+  chips.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { morphA.to(b.dataset.id); setChip(b.dataset.id); } });
+  cycle(document.getElementById('morphB'), ['mark', 'signal', 'app', 'agent', 'knowledge', 'qed'], { size: 280, ink: '#f9f6f2', hold: 1300 });
+
+  // products
+  const prods = [['mcp-emails', 'MCP Emails', '05:10 · live · $782 MRR'], ['fun-libs', 'Fun Libs', '05:40 · live · 113,000+ installs'], ['toolrails', 'Toolrails', '06:20 · building · 4 connectors'], ['harbor', 'Harbor', '07:00 · paused · 549 commits']];
+  document.getElementById('tiles').innerHTML = prods.map(([id, n, m]) => `<figure class="card tile" style="margin:0;padding:12px"><picture><source type="image/avif" srcset="products/${id}-800.avif 800w, products/${id}-1600.avif 1600w" sizes="(min-width:1100px) 620px, 100vw"><source type="image/webp" srcset="products/${id}-800.webp 800w, products/${id}-1600.webp 1600w" sizes="(min-width:1100px) 620px, 100vw"><img src="products/${id}-800.jpg" width="800" height="600" loading="lazy" alt="${n} logo on a floating tile"></picture><div class="cap"><h3>${n}</h3><span class="mono">${m}</span></div></figure>`).join('');
+  const ret = [['polyglot-pilot', 'Polyglot Pilot'], ['pinpoint', 'PinPoint'], ['webvakt', 'WebVakt'], ['joke-central', 'Joke Central'], ['tryggere-hyring', 'Tryggere Hyring'], ['early-apps', 'Early apps']];
+  document.getElementById('retired').innerHTML = `<figure><img src="../../_shared/products/luma/logo.png" width="782" height="217" alt="Luma logo (real)" style="background:#F4EFE6;object-fit:contain;padding:18px"><figcaption>Luma · real logo</figcaption></figure>` +
+    ret.map(([id, n]) => `<figure><img src="products/retired/${id}.svg" width="160" height="160" loading="lazy" alt="${n} stand-in"><figcaption>${n}</figcaption></figure>`).join('');
+
+  // motion demos
+  const fr = document.getElementById('frDemo'); fractureReveal(fr);
+  document.getElementById('replayFr').addEventListener('click', () => { fr.classList.remove('is-revealed'); void fr.offsetWidth; setTimeout(() => fr.classList.add('is-revealed'), 60); });
+  glyph(document.getElementById('dawnGlyph'), 'dawn', { size: 96 });
+  const dawnBox = document.getElementById('dawnDemo');
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { dawnRise(dawnBox.parentElement); o.disconnect(); } }, { threshold: .5 }).observe(dawnBox);
+  document.getElementById('replayDawn').addEventListener('click', () => { dawnBox.classList.remove('is-dawn'); void dawnBox.offsetWidth; dawnRise(dawnBox.parentElement); });
+  document.getElementById('settle').innerHTML = [['launch', 'Ships'], ['orbit', 'Since 2016'], ['consult', 'One engagement'], ['north', 'Norway']].map(([id, t]) => `<div class="qed-settle">${iconSVG(id, { size: 32, title: false }).replace('<svg', '<svg data-glyph')}<b>${t}</b></div>`).join('');
+  document.querySelectorAll('[data-acc]').forEach(accordion);
+  dialog(document.getElementById('openDlg'), document.getElementById('dlg'));
+  document.getElementById('tipIcon').innerHTML = iconSVG('copy', { size: 18, title: false });
+  tooltip(document.getElementById('tipBtn'), document.getElementById('tipC'));
+  hoverCard(document.getElementById('hcTrig'), document.getElementById('hcC'));
+  tabs(document.getElementById('tabs'));
+
+  // interactive (after first paint)
+  setTimeout(() => { gravityGrid(document.getElementById('gg1'), { theme: 'light' }); gravityGrid(document.getElementById('gg2'), { theme: 'dark', bodies: 4 }); }, 50);
+  easterEgg();
+</script>
+</body>
+</html>

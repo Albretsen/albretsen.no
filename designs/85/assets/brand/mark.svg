@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Albretsen AS">
+  <title>Albretsen AS</title>
+  <!-- One lens, two halves: engraved ink (the first app) and polished glass (today). -->
+  <defs>
+    <clipPath id="a85-l"><path d="M32 6a26 26 0 0 0 0 52z"/></clipPath>
+    <radialGradient id="a85-g" cx=".66" cy=".34" r=".8">
+      <stop offset="0" stop-color="#a0f08f"/>
+      <stop offset=".45" stop-color="#389e3d"/>
+      <stop offset="1" stop-color="#005e26"/>
+    </radialGradient>
+  </defs>
+  <path d="M32 6a26 26 0 0 1 0 52z" fill="url(#a85-g)"/>
+  <g clip-path="url(#a85-l)" stroke="#091710" stroke-width="3.2">
+    <path d="M4 12.5h28M4 20.5h28M4 28.5h28M4 36.5h28M4 44.5h28M4 52.5h28"/>
+  </g>
+  <path d="M41.5 13.5a20 20 0 0 1 9 12" fill="none" stroke="#f7f5ea" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#091710" stroke-width="3.4"/>
+  <path d="M32 5v54" stroke="#091710" stroke-width="2.2"/>
+</svg>

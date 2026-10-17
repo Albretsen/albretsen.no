@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds software that has to pay for itself. Albretsen AS: apps, SaaS and AI-agent infrastructure from Norway, published on Google Play since 2016.">
+<meta name="theme-color" content="#00226c">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that has to pay for itself. The numbers are on the die.">
+<meta property="og:image" content="assets/og-image.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" imagesrcset="assets/hero/aurora-night-640.avif 640w, assets/hero/aurora-night-1280.avif 1280w, assets/hero/aurora-night-1920.avif 1920w, assets/hero/aurora-night-2560.avif 2560w" imagesizes="100vw" fetchpriority="high">
+<script>try{if(localStorage.getItem('a90-theme')==='day')document.documentElement.dataset.theme='day'}catch(e){}</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/"}}</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="assets/interactive/throw-cube.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#work">Skip to products</a>
+
+<header class="bar">
+  <a class="brand" href="#top" aria-label="Albretsen AS, top of page">
+    <img class="brand-mark" src="assets/logo-mark-reverse.svg" width="30" height="30" alt="">
+    <span>Albretsen AS</span>
+  </a>
+  <nav class="bar-nav" aria-label="Page">
+    <a href="#work">Products</a>
+    <a href="#mcp">MCP</a>
+    <a href="mailto:asgeir@albretsen.no">Email</a>
+  </nav>
+  <div class="bar-tools">
+    <button class="pill sound" type="button" aria-pressed="false" title="Sound is off until you turn it on"><span class="sound-dot" aria-hidden="true"></span><span class="sound-label">Sound off</span></button>
+    <button class="turn-switch" type="button" id="turn" data-turn-switch aria-pressed="false" aria-label="Switch theme: turn the page to day or nocturne">
+      <span class="ts-cube" aria-hidden="true"><i></i><i></i><i></i></span><span class="ts-label">Nocturne</span>
+    </button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="top" aria-labelledby="name">
+  <div class="scenes" aria-hidden="true">
+    <picture class="scene is-on" data-scene="aurora">
+      <source type="image/avif" srcset="assets/hero/aurora-night-640.avif 640w, assets/hero/aurora-night-1280.avif 1280w, assets/hero/aurora-night-1920.avif 1920w, assets/hero/aurora-night-2560.avif 2560w" sizes="100vw">
+      <source type="image/webp" srcset="assets/hero/aurora-night-640.webp 640w, assets/hero/aurora-night-1280.webp 1280w, assets/hero/aurora-night-1920.webp 1920w" sizes="100vw">
+      <img src="assets/hero/aurora-night-1280.jpg" width="1280" height="854" alt="" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="stage-wrap">
+    <div class="stage" id="die"></div>
+    <p class="hint" id="hint"><span class="pip" aria-hidden="true"></span>Grab it, throw it. It only lands on true numbers.</p>
+  </div>
+
+  <div class="hero-copy">
+    <h1 class="name" id="name"><span class="sr">Asgeir </span>Albretsen</h1>
+    <div class="hero-foot">
+      <p class="lede">Asgeir Albretsen builds software that has to pay for itself. Some of it does. The die says which.</p>
+      <p class="readout" id="readout">
+        <span class="ro-k">Face 1/6 · MCP Emails · live</span>
+        <span class="ro-v"><b>$782</b> MRR</span>
+        <span class="ro-n">MCP Emails earns $782 a month. Not rounded, because it is not round.</span>
+      </p>
+    </div>
+  </div>
+  <p class="credit" id="credit">Photograph: CC0, graded in one OKLab ramp</p>
+</section>
+
+<section class="work" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="kicker">01 · Products</p>
+      <h2 id="work-h">Four in play.<br>Seven retired.<br>All of them listed.</h2>
+      <p class="sec-sub">Each product is one die: the real logo on the label, its one number on top, the facts on the side. Status is printed as plainly as the number.</p>
+      <p class="feed" aria-live="off"><span class="feed-dot" aria-hidden="true"></span><span class="feed-label">Last event</span> <span id="feed-text">waiting for the next one</span></p>
+    </header>
+
+    <ol class="dice">
+      <li class="die-card" data-product="mcp-emails" data-status="live">
+        <figure class="die-media">
+          <picture>
+            <source type="image/avif" srcset="assets/products/die-mcp-emails-700.avif 700w, assets/products/die-mcp-emails-1400.avif 1400w" sizes="(min-width: 1100px) 25vw, (min-width: 640px) 46vw, 92vw">
+            <source type="image/webp" srcset="assets/products/die-mcp-emails-700.webp 700w">
+            <img src="assets/products/die-mcp-emails-700.jpg" width="700" height="700" alt="MCP Emails as a die: the real envelope logo on a paper label, its facts printed on the side." loading="lazy" decoding="async">
+          </picture>
+          <button class="live-btn" type="button" data-live="mcp-emails" aria-label="Turn the MCP Emails die in live 3D"><span class="live-cube" aria-hidden="true"></span>Turn it</button>
+        </figure>
+        <div class="die-body">
+          <p class="status"><span class="st st-live">Live</span> since 2026</p>
+          <h3><a href="https://mcpemails.com" rel="noopener">MCP Emails</a></h3>
+          <p class="fig"><span class="count" data-count="$782">$782</span> <span class="fig-l">MRR</span></p>
+          <p class="line">Email for AI agents.</p>
+          <ul class="facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+        </div>
+      </li>
+      <li class="die-card" data-product="fun-libs" data-status="live">
+        <figure class="die-media">
+          <picture>
+            <source type="image/avif" srcset="assets/products/die-fun-libs-700.avif 700w, assets/products/die-fun-libs-1400.avif 1400w" sizes="(min-width: 1100px) 25vw, (min-width: 640px) 46vw, 92vw">
+            <source type="image/webp" srcset="assets/products/die-fun-libs-700.webp 700w">
+            <img src="assets/products/die-fun-libs-700.jpg" width="700" height="700" alt="Fun Libs as a die: the real app icon on a paper label, its facts printed on the side." loading="lazy" decoding="async">
+          </picture>
+          <button class="live-btn" type="button" data-live="fun-libs" aria-label="Turn the Fun Libs die in live 3D"><span class="live-cube" aria-hidden="true"></span>Turn it</button>
+        </figure>
+        <div class="die-body">
+          <p class="status"><span class="st st-live">Live</span> since 2019</p>
+          <h3><a href="https://funlibs.app" rel="noopener">Fun Libs</a></h3>
+          <p class="fig"><span class="count" data-count="113,000+">113,000+</span> <span class="fig-l">installs</span></p>
+          <p class="line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <ul class="facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+        </div>
+      </li>
+      <li class="die-card" data-product="toolrails" data-status="building">
+        <figure class="die-media">
+          <picture>
+            <source type="image/avif" srcset="assets/products/die-toolrails-700.avif 700w, assets/products/die-toolrails-1400.avif 1400w" sizes="(min-width: 1100px) 25vw, (min-width: 640px) 46vw, 92vw">
+            <source type="image/webp" srcset="assets/products/die-toolrails-700.webp 700w">
+            <img src="assets/products/die-toolrails-700.jpg" width="700" height="700" alt="Toolrails as a die: the real icon on a paper label, its facts printed on the side." loading="lazy" decoding="async">
+          </picture>
+          <button class="live-btn" type="button" data-live="toolrails" aria-label="Turn the Toolrails die in live 3D"><span class="live-cube" aria-hidden="true"></span>Turn it</button>
+        </figure>
+        <div class="die-body">
+          <p class="status"><span class="st st-building">Building</span> since 2026</p>
+          <h3><a href="https://toolrails.com" rel="noopener">Toolrails</a></h3>
+          <p class="fig"><span class="count" data-count="4">4</span> <span class="fig-l">connectors</span></p>
+          <p class="line">One MCP URL that gives an agent every tool.</p>
+          <ul class="facts"><li>tool search</li><li>injection guard</li></ul>
+        </div>
+      </li>
+      <li class="die-card" data-product="harbor" data-status="paused">
+        <figure class="die-media">
+          <picture>
+            <source type="image/avif" srcset="assets/products/die-harbor-700.avif 700w, assets/products/die-harbor-1400.avif 1400w" sizes="(min-width: 1100px) 25vw, (min-width: 640px) 46vw, 92vw">
+            <source type="image/webp" srcset="assets/products/die-harbor-700.webp 700w">
+            <img src="assets/products/die-harbor-700.jpg" width="700" height="700" alt="Harbor as a die: the real mark on a paper label, its facts printed on the side." loading="lazy" decoding="async">
+          </picture>
+          <button class="live-btn" type="button" data-live="harbor" aria-label="Turn the Harbor die in live 3D"><span class="live-cube" aria-hidden="true"></span>Turn it</button>
+        </figure>
+        <div class="die-body">
+          <p class="status"><span class="st st-paused">Paused</span> since 2026</p>
+          <h3><a href="https://harborknowledge.com" rel="noopener">Harbor</a></h3>
+          <p class="fig"><span class="count" data-count="549">549</span> <span class="fig-l">commits</span></p>
+          <p class="line">A private knowledge base shared by people and AI.</p>
+          <ul class="facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+        </div>
+      </li>
+    </ol>
+
+    <div class="retired" aria-labelledby="ret-h">
+      <img class="tape" src="assets/extras/retired-tape.svg" width="600" height="36" alt="" loading="lazy">
+      <div class="ret-head">
+        <h3 id="ret-h">Retired. Still on the record.</h3>
+        <p>Seven products that stopped. Nothing here was deleted to make the rest look better.</p>
+      </div>
+      <ul class="ret-list">
+        <li><span class="ret-face ret-luma"><img src="../_shared/products/luma/logo.png" width="782" height="217" alt="Luma logo" loading="lazy"></span><span class="ret-txt"><span class="ret-name"><span class="redact">Luma</span></span><span class="ret-meta">2026 · 378 commits</span><span class="ret-line">Norwegian budgeting app with open banking.</span></span></li>
+        <li><span class="ret-face"><img src="assets/products/retired/polyglot-pilot.svg" width="64" height="64" alt="" loading="lazy"></span><span class="ret-txt"><span class="ret-name"><span class="redact">Polyglot Pilot</span></span><span class="ret-meta">2025</span><span class="ret-line">Agents that localised entire codebases, with a dashboard for human reviewers.</span></span></li>
+        <li><span class="ret-face"><img src="assets/products/retired/pinpoint.svg" width="64" height="64" alt="" loading="lazy"></span><span class="ret-txt"><span class="ret-name"><span class="redact">PinPoint</span></span><span class="ret-meta">2025 · 16 commits</span><span class="ret-line">GeoGuessr with your own photos: friends guess where your pictures were taken.</span></span></li>
+        <li><span class="ret-face"><img src="assets/products/retired/webvakt.svg" width="64" height="64" alt="" loading="lazy"></span><span class="ret-txt"><span class="ret-name"><span class="redact">WebVakt</span></span><span class="ret-meta">2024</span><span class="ret-line">Website change monitoring.</span></span></li>
+        <li><span class="ret-face"><img src="assets/products/retired/joke-central.svg" width="64" height="64" alt="" loading="lazy"></span><span class="ret-txt"><span class="ret-name"><span class="redact">Daily Jokes / Joke Central</span></span><span class="ret-meta">2024</span><span class="ret-line">Joke apps for iOS and Android.</span></span></li>
+        <li><span class="ret-face"><img src="assets/products/retired/tryggere-hyring.svg" width="64" height="64" alt="" loading="lazy"></span><span class="ret-txt"><span class="ret-name"><span class="redact">Tryggere Hyring</span></span><span class="ret-meta">2023</span><span class="ret-line">Background checks for hiring.</span></span></li>
+        <li><span class="ret-face"><img src="assets/products/retired/early-apps.svg" width="64" height="64" alt="" loading="lazy"></span><span class="ret-txt"><span class="ret-name"><span class="redact">IAGO HMS, Rentekalkulator, Prosentkalkulator</span></span><span class="ret-meta">2021</span><span class="ret-line">Early apps.</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="mcp" id="mcp" aria-labelledby="mcp-h">
+  <div class="develop mcp-photo" aria-hidden="true">
+    <picture>
+      <source type="image/avif" srcset="assets/hero/summit-night-640.avif 640w, assets/hero/summit-night-1280.avif 1280w, assets/hero/summit-night-1920.avif 1920w, assets/hero/summit-night-2560.avif 2560w" sizes="100vw">
+      <source type="image/webp" srcset="assets/hero/summit-night-640.webp 640w, assets/hero/summit-night-1280.webp 1280w, assets/hero/summit-night-1920.webp 1920w" sizes="100vw">
+      <img src="assets/hero/summit-night-1280.jpg" width="1280" height="850" alt="" loading="lazy" decoding="async">
+    </picture>
+  </div>
+  <div class="mcp-copy">
+    <p class="kicker">02 · For agents</p>
+    <h2 id="mcp-h">This site also answers agents.</h2>
+    <div class="cmd">
+      <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button class="pill copy" type="button" data-copy="#cmd"><span class="copy-label">Copy</span></button>
+    </div>
+    <p class="mcp-note">One line. Your agent can then ask what is live, what is paused and what it costs. Same answers as this page.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p class="foot-brand"><img src="assets/logo-mark-reverse.svg" width="44" height="44" alt="" loading="lazy"><span>Albretsen AS</span></p>
+    <p class="avail"><span class="pip" aria-hidden="true"></span>Takes one outside engagement at a time.</p>
+    <p class="mail"><a href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+    <p class="small">Albretsen AS · Norway · on Google Play since 2016 · Photographs CC0 and public domain (NASA), graded.</p>
+  </div>
+</footer>
+
+<script type="module" src="site.js"></script>
+</body>
+</html>

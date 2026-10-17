@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roster, live</title>
+<style>
+@font-face { font-family: Geist; src: url(../fonts/Geist-Variable.woff2) format('woff2'); font-weight: 100 900; }
+@font-face { font-family: GeistMono; src: url(../fonts/GeistMono-Variable.woff2) format('woff2'); font-weight: 100 900; }
+html, body { margin: 0; height: 100%; background: #070d15; color: #f4f5e7; font-family: Geist, system-ui, sans-serif; }
+.stage { position: relative; height: 100%; min-height: 520px; }
+canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; }
+nav { position: absolute; left: 0; right: 0; bottom: 8vh; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 0 16px; }
+button { font: 500 13px/1 GeistMono, monospace; letter-spacing: .04em; color: #acac9e; background: rgba(16,24,34,.6); border: 1px solid rgba(244,245,231,.14); border-radius: 999px; padding: 10px 16px; cursor: pointer; backdrop-filter: blur(8px); }
+button[aria-pressed="true"] { color: #070d15; background: var(--c); border-color: var(--c); }
+.name { position: absolute; top: 12vh; left: 0; right: 0; text-align: center; font-weight: 300; font-size: clamp(36px, 6vw, 84px); letter-spacing: -.03em; margin: 0; }
+.nm { position: absolute; top: calc(12vh + clamp(48px, 7.5vw, 104px)); left: 0; right: 0; text-align: center; font: 400 13px GeistMono, monospace; color: #acac9e; letter-spacing: .06em; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <canvas id="c" aria-label="Product roster in orbit"></canvas>
+  <h1 class="name" id="name">MCP Emails</h1>
+  <div class="nm" id="nm">557.7 nm</div>
+  <nav id="nav"></nav>
+</div>
+<script type="module">
+import { createRoster, PRODUCTS } from './roster.js';
+const c = document.getElementById('c');
+const r = await createRoster(c);
+const nav = document.getElementById('nav');
+function show(k) {
+  document.getElementById('name').textContent = PRODUCTS[k].name;
+  document.getElementById('nm').textContent = PRODUCTS[k].nm.toFixed(1) + ' nm';
+  [...nav.children].forEach((b, i) => b.setAttribute('aria-pressed', i === k));
+}
+PRODUCTS.forEach((p, k) => {
+  const b = document.createElement('button'); b.textContent = p.name; b.style.setProperty('--c', p.color);
+  b.onclick = () => { r.select(k); show(k); }; nav.appendChild(b);
+});
+c.addEventListener('roster:select', e => show(e.detail.index));
+addEventListener('keydown', e => {
+  const cur = [...nav.children].findIndex(b => b.getAttribute('aria-pressed') === 'true');
+  if (e.key === 'ArrowRight') { const k = (cur + 1) % 4; r.select(k); show(k); }
+  if (e.key === 'ArrowLeft') { const k = (cur + 3) % 4; r.select(k); show(k); }
+});
+show(0); r.start();
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS</title>
+<meta name="description" content="Albretsen AS builds software that pays for itself: apps, SaaS and infrastructure for AI agents. Publishing on Google Play since 2016.">
+<meta name="theme-color" content="#0d040e">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-1200x630.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/apple-touch-icon-180.png">
+<link rel="preload" href="assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif"
+  imagesrcset="assets/hero/totality-960.avif 960w, assets/hero/totality-1600.avif 1600w, assets/hero/totality-2560.avif 2560w"
+  imagesizes="100vw" media="(orientation: landscape)">
+<script>
+  /* Decide before first paint whether the intro plays: once per session, never under reduced motion. */
+  (function () {
+    var d = document.documentElement, seen = false;
+    d.classList.add('js');
+    try { seen = sessionStorage.getItem('totality') === '1' || /[?&]nointro/.test(location.search); } catch (e) {}
+    if (!seen && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('pre-intro');
+  })();
+</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#plates">Skip to products</a>
+
+<header class="nav" data-chrome>
+  <a class="nav-mark" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/identity/mark-on-dark.svg" width="28" height="28" alt="" class="breath">
+    <span>Albretsen&nbsp;AS</span>
+  </a>
+  <nav aria-label="Primary">
+    <a href="#plates">Products</a>
+    <a href="#log">Log</a>
+    <a href="mailto:asgeir@albretsen.no" data-cursor="Write">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="top" aria-labelledby="name">
+    <div class="stage" aria-hidden="true">
+      <picture>
+        <source media="(orientation: portrait)" type="image/avif"
+          srcset="assets/hero/totality-portrait-750.avif 750w, assets/hero/totality-portrait-1200.avif 1200w" sizes="100vw">
+        <source media="(orientation: portrait)" type="image/webp"
+          srcset="assets/hero/totality-portrait-750.webp 750w, assets/hero/totality-portrait-1200.webp 1200w" sizes="100vw">
+        <source media="(orientation: portrait)" srcset="assets/hero/totality-portrait-750.jpg">
+        <source type="image/avif"
+          srcset="assets/hero/totality-960.avif 960w, assets/hero/totality-1600.avif 1600w, assets/hero/totality-2560.avif 2560w" sizes="100vw">
+        <source type="image/webp"
+          srcset="assets/hero/totality-960.webp 960w, assets/hero/totality-1600.webp 1600w, assets/hero/totality-2560.webp 2560w" sizes="100vw">
+        <img class="plate" src="assets/hero/totality-1600.jpg" width="1600" height="900"
+          alt="" fetchpriority="high" decoding="async">
+      </picture>
+      <canvas class="corona" width="16" height="9"></canvas>
+      <svg class="ring" viewBox="-100 -100 200 200" preserveAspectRatio="xMidYMid meet">
+        <circle class="ring-path" r="70" pathLength="1" fill="none"/>
+        <circle class="ring-ticks" r="74" pathLength="1" fill="none"/>
+      </svg>
+      <i class="bead"></i>
+    </div>
+
+    <button class="moon" type="button" data-cursor="Replay totality" aria-label="Replay the opening sequence"></button>
+
+    <p class="caption caption-top" data-chrome>
+      <span>Plate 0 · Totality</span>
+      <span>Trouvelot, 1878 · re-inked 2026</span>
+    </p>
+
+    <div class="hero-copy">
+      <h1 id="name" class="name">Albretsen</h1>
+      <div class="hero-foot">
+        <p class="line" data-chrome>
+          A small technology company in Norway. Apps, SaaS and infrastructure for AI agents,
+          each built to <em>pay for itself</em>.
+        </p>
+        <div class="instruments" data-chrome>
+          <div class="cmd">
+            <span class="k">Connect an agent</span>
+            <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+            <button type="button" class="copy" data-cursor="Copy" aria-describedby="cmd">Copy</button>
+          </div>
+          <p class="log" id="log" aria-label="Live observation log">
+            <span class="k"><i class="dot breath" aria-hidden="true"></i>Observing</span>
+            <span class="log-line"><span class="log-time">—</span> <span class="log-text">Waiting for the first event</span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <button class="skip-intro" type="button" hidden>Skip intro</button>
+  </section>
+
+  <section class="plates" id="plates" aria-labelledby="plates-h">
+    <div class="plates-head">
+      <p class="eyebrow">Plates I–IV · current observations</p>
+      <h2 id="plates-h">Four products, <em>in the open.</em></h2>
+      <p class="lede">Each one exists because it can carry its own weight. Two are live, one is under construction, one is resting.</p>
+    </div>
+    <img class="fstop" src="assets/ephemera/aperture-scale.svg" width="1200" height="64" alt="" loading="lazy">
+
+    <ol class="grid">
+      <li class="plate-card">
+        <a class="frame" href="https://mcpemails.com" data-cursor="mcpemails.com" data-hi="assets/products/mcp-emails-1200.webp">
+          <img data-develop src="assets/products/mcp-emails-600.webp" width="600" height="750" loading="lazy" decoding="async"
+            alt="Plate I: the MCP Emails icon as the head of the Great Comet of 1881, mounted on paper.">
+          <span class="loupe" aria-hidden="true"><span class="loupe-read"></span></span>
+        </a>
+        <div class="label">
+          <p class="acc"><span>Plate I</span><span>Since 2026</span><span class="st live">Live</span></p>
+          <h3>MCP Emails</h3>
+          <p class="desc">Email for AI agents.</p>
+          <p class="fig"><span class="v">$782</span> <span class="u">MRR</span></p>
+          <ul class="facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+        </div>
+      </li>
+      <li class="plate-card">
+        <a class="frame" href="https://funlibs.app" data-cursor="funlibs.app" data-hi="assets/products/fun-libs-1200.webp">
+          <img data-develop src="assets/products/fun-libs-600.webp" width="600" height="750" loading="lazy" decoding="async"
+            alt="Plate II: the Fun Libs icon rising where the rays of an aurora begin.">
+          <span class="loupe" aria-hidden="true"><span class="loupe-read"></span></span>
+        </a>
+        <div class="label">
+          <p class="acc"><span>Plate II</span><span>Since 2019</span><span class="st live">Live</span></p>
+          <h3>Fun Libs</h3>
+          <p class="desc">A fill-in-the-blanks word game for Android and iOS.</p>
+          <p class="fig"><span class="v">113,000+</span> <span class="u">installs</span></p>
+          <ul class="facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+        </div>
+      </li>
+      <li class="plate-card">
+        <a class="frame" href="https://toolrails.com" data-cursor="toolrails.com" data-hi="assets/products/toolrails-1200.webp">
+          <img data-develop src="assets/products/toolrails-600.webp" width="600" height="750" loading="lazy" decoding="async"
+            alt="Plate III: the Toolrails tile eclipsing the sun.">
+          <span class="loupe" aria-hidden="true"><span class="loupe-read"></span></span>
+        </a>
+        <div class="label">
+          <p class="acc"><span>Plate III</span><span>Since 2026</span><span class="st building">Building</span></p>
+          <h3>Toolrails</h3>
+          <p class="desc">One MCP URL that gives an agent every tool.</p>
+          <p class="fig"><span class="v">4</span> <span class="u">connectors</span></p>
+          <ul class="facts"><li>tool search</li><li>injection guard</li></ul>
+        </div>
+      </li>
+      <li class="plate-card">
+        <a class="frame" href="https://harborknowledge.com" data-cursor="harborknowledge.com" data-hi="assets/products/harbor-1200.webp">
+          <img data-develop src="assets/products/harbor-600.webp" width="600" height="750" loading="lazy" decoding="async"
+            alt="Plate IV: the Harbor mark as a veiled spot on the solar surface.">
+          <span class="loupe" aria-hidden="true"><span class="loupe-read"></span></span>
+        </a>
+        <div class="label">
+          <p class="acc"><span>Plate IV</span><span>Since 2026</span><span class="st paused">Paused</span></p>
+          <h3>Harbor</h3>
+          <p class="desc">A private knowledge base shared by people and AI.</p>
+          <p class="fig"><span class="v">549</span> <span class="u">commits</span></p>
+          <ul class="facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+        </div>
+      </li>
+    </ol>
+
+    <div class="retired" aria-labelledby="retired-h">
+      <h3 id="retired-h" class="eyebrow">Set, and kept in the archive</h3>
+      <ul>
+        <li><img src="assets/retired/luma.svg" width="40" height="40" alt="" loading="lazy"><span>Luma</span><small>2026</small></li>
+        <li><img src="assets/retired/polyglot-pilot.svg" width="40" height="40" alt="" loading="lazy"><span>Polyglot Pilot</span><small>2025</small></li>
+        <li><img src="assets/retired/pinpoint.svg" width="40" height="40" alt="" loading="lazy"><span>PinPoint</span><small>2025</small></li>
+        <li><img src="assets/retired/webvakt.svg" width="40" height="40" alt="" loading="lazy"><span>WebVakt</span><small>2024</small></li>
+        <li><img src="assets/retired/joke-central.svg" width="40" height="40" alt="" loading="lazy"><span>Joke Central</span><small>2024</small></li>
+        <li><img src="assets/retired/tryggere-hyring.svg" width="40" height="40" alt="" loading="lazy"><span>Tryggere Hyring</span><small>2023</small></li>
+        <li><img src="assets/retired/early-apps.svg" width="40" height="40" alt="" loading="lazy"><span>Early apps</span><small>2021</small></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <img class="foot-word" src="assets/identity/wordmark-on-dark.svg" width="441" height="112" alt="Albretsen AS" loading="lazy">
+    <div class="foot-meta">
+      <p class="avail">Takes one outside engagement at a time.</p>
+      <a class="mail" href="mailto:asgeir@albretsen.no" data-cursor="Write">asgeir@albretsen.no</a>
+    </div>
+    <p class="foot-small"><span>Albretsen AS · Norway</span><span>Plates after É. L. Trouvelot, public domain</span></p>
+  </div>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>

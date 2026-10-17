@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ground Glass — live scene</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" } }</script>
+<style>
+  html, body { margin: 0; height: 100%; background: #070514; color: #d9d7f8; font: 13px/1.4 "Geist Mono", ui-monospace, monospace; overflow: hidden; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  .hud { position: fixed; left: 50%; top: 10px; transform: translateX(-50%); white-space: nowrap; font-size: 12px; z-index: 2; display: flex; gap: 18px; letter-spacing: .04em; opacity: .85; }
+  .hud kbd { border: 1px solid #4d3898; border-radius: 4px; padding: 0 5px; color: #bbb6ef; }
+  body.still .hud, body.still .vf { display: none; }
+  .vf { position: fixed; inset: 0; pointer-events: none; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="A paper-cut nocturne seen through a viewfinder: fjord mountains, a cliff, a spruce ridge and the moon."></canvas>
+<img class="vf" src="../viewfinder.svg" alt="" width="1600" height="900">
+<div class="hud" aria-live="polite">
+  <span><kbd>F</kbd> focus <b id="f"></b></span>
+  <span><kbd>[</kbd><kbd>]</kbd> exposure <b id="e"></b></span>
+  <span><kbd>A</kbd> aperture <b id="a"></b></span>
+</div>
+<script type="module">
+  import { mountScene } from './scene.js';
+  import { bindKeys } from '../motion.js';
+  const q = new URLSearchParams(location.search);
+  const still = q.has('still');
+  if (still) document.body.classList.add('still');
+  const cam = await mountScene(document.getElementById('c'), {
+    still,
+    focus: q.has('focus') ? +q.get('focus') : 0.78,
+    exposure: q.has('exposure') ? +q.get('exposure') : 0,
+    aperture: q.has('aperture') ? +q.get('aperture') : 0.55,
+    maxDpr: still ? 1 : 2,
+  });
+  const stops = ['near', 'mid', 'water', 'far', 'moon']; let si = 3;
+  const fNum = ['f/1.4', 'f/2', 'f/2.8', 'f/4', 'f/5.6', 'f/8', 'f/11']; let ai = 2;
+  const show = () => {
+    document.getElementById('f').textContent = stops[si];
+    document.getElementById('e').textContent = (cam.exposure >= 0 ? '+' : '') + cam.exposure.toFixed(1) + ' EV';
+    document.getElementById('a').textContent = fNum[ai];
+  };
+  bindKeys({
+    f: () => { si = (si + 1) % stops.length; cam.focusOn(stops[si]); show(); },
+    '[': () => { cam.setExposure(cam.exposure - 0.3); show(); },
+    ']': () => { cam.setExposure(cam.exposure + 0.3); show(); },
+    a: () => { ai = (ai + 1) % fNum.length; cam.setAperture(1 - ai / (fNum.length - 1)); show(); },
+  });
+  show();
+  document.documentElement.dataset.ready = '1';
+</script>
+</body>
+</html>

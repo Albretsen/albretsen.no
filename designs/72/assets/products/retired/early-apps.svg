@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100" width="160" height="200" role="img" aria-label="Early apps, retired 2021">
+<rect x="2" y="2" width="76" height="96" rx="38" fill="#F6F1E7" stroke="#C8B9A4" stroke-width="1.5"/>
+<rect x="7" y="7" width="66" height="86" rx="33" fill="none" stroke="#323A44" stroke-opacity=".35" stroke-width="1"/>
+<g opacity=".86"><path d="M30 46L50 24" stroke="#323A44" stroke-width="2.4" stroke-linecap="round"/><circle cx="32" cy="28" r="4" fill="none" stroke="#8F2B20" stroke-width="2.4"/><circle cx="48" cy="42" r="4" fill="none" stroke="#8F2B20" stroke-width="2.4"/></g>
+<text x="40" y="67" text-anchor="middle" font-family="Albert Sans, system-ui, sans-serif" font-size="7.2" letter-spacing=".6" fill="#323A44">EARLY APPS</text>
+<text x="40" y="78" text-anchor="middle" font-family="DM Mono, ui-monospace, monospace" font-size="6" fill="#8F2B20">2021</text>
+<circle cx="40" cy="89" r="1.6" fill="#C8B9A4"/></svg>

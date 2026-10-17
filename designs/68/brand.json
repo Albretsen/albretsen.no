@@ -1,0 +1,21 @@
+{
+  "name": "Noon & Dusk",
+  "tagline": "A painted terrace that opens onto the sea, and a sun you can set yourself.",
+  "summary": "The homepage is a magazine opening spread laid out around one arched doorway: 'Quiet' on the left page, 'software.' on the right, and a gouache terrace in hard noon light between them, which widens to full bleed as you scroll. Drag the sun into the sea and the whole site goes to an LA dusk. Calm, symmetrical and exact, it presents a company that builds things that work and has the taste to let them stand in good light.",
+  "palette": ["#F6EDE1", "#211C24", "#EF9F7C", "#A0809E", "#7D93AD", "#221D2A", "#C9694B", "#2F5A46", "#E2B25E"],
+  "type": ["Bodoni Moda (display, with one italic phrase per headline)", "Jost (text and small caps)", "ui-monospace (the MCP line only)"],
+  "voice": "Dry, exact and unhurried. It says what a thing is, gives the one number that matters, and stops. Example: \"Quiet software, that pays for itself.\"",
+  "motion": "One curve (cubic-bezier(.65,0,.35,1)) and one 240 ms beat. Everything moves on the vertical axis or mirrors across it: the arch opens, the sun sets, products whip-pan and stop dead.",
+  "sound": "Silent by default; nothing plays unless the visitor asks, and the brand would rather be quiet than add a soundtrack.",
+  "mark": "An arched opening with thick didone verticals, a horizon line and a half sun. Read twice, it is an A, and the hero image is the same composition at full size.",
+  "inspiration": [
+    "https://polyhaven.com/a/vignaioli",
+    "https://polyhaven.com/a/venetian_crossroads",
+    "https://linear.app",
+    "https://blog.maximeheckel.com/posts/on-crafting-painterly-shaders",
+    "https://developer.chrome.com/docs/css-ui/scroll-driven-animations",
+    "https://www.w3.org/WAI/ARIA/apg/patterns/slider/",
+    "https://nofilmschool.com/how-to-do-a-whip-pan",
+    "https://images.nasa.gov/details/iss056e032555"
+  ]
+}

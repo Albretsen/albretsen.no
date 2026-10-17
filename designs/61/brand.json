@@ -1,0 +1,19 @@
+{
+  "name": "Sun Road",
+  "tagline": "One sunlit coast road, one day long: software made in good light.",
+  "summary": "The homepage is a single day on a coast road. A real Neo-Impressionist cove, graded into Miami-morning pastels and re-lit live by a WebGL shader, moves from first light to dusk as you scroll, while the products travel as postage stamps whose denominations are real figures. Wes Anderson rigour (centred title cards, double rules, deadpan ephemera) keeps the sun-drunk optimism calm and exact, which is how Albretsen AS wants to read: effective, reasonable and quietly ambitious.",
+  "palette": ["#FBF3E6", "#F4C3C2", "#EBC46B", "#A8CFE6", "#BFDCCB", "#E0A93B", "#6E2233", "#45161F", "#4A3A78"],
+  "type": ["EB Garamond 500 (display, wordmark)", "EB Garamond 400 and italic (text)", "Jost 500 tracked caps (labels)", "system ui-monospace (the one command)"],
+  "voice": "Deadpan, sunny and exact: short declarative sentences, real figures, no adjectives doing a number's job. Example: \"Four stamps, each worth its face value.\"",
+  "motion": "Scroll is the clock: everything moves at the pace of a day passing, lands centred and finishes still (Day Pass, Centre dolly, Postmark, Tear-off, Sun glint).",
+  "sound": "Opt-in only: a soundscape synthesised in the browser (sea swell, wind, a bell in a distant square) that rebalances as the hour changes.",
+  "mark": "A road in one-point perspective forms the letter A, with the sun on the vanishing point and the horizon as the crossbar; the wordmark is EB Garamond capitals tracked wide.",
+  "inspiration": [
+    "https://www.nga.gov/collection/art-object-page.61248.html",
+    "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Cliff_Walk_at_Pourville_-_Google_Art_Project.jpg",
+    "https://dev.to/_artclick/build-a-scroll-driven-day-to-night-animation-using-pure-css-1o3p",
+    "https://css-tip.com/postage-stamp/",
+    "https://stripesessions.com/",
+    "https://www.slimaarons.com"
+  ]
+}

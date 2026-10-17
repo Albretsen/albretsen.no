@@ -1,0 +1,21 @@
+{
+  "name": "Orbit Issue",
+  "tagline": "Albretsen AS published as a loud magazine whose cover follows the sun over Norway.",
+  "summary": "The homepage is a magazine cover you can physically open: a grainy infrared painting of a fjord, the masthead tucked behind the peaks, and an edition (Nocturne, Dawn, Orbit, Dusk) chosen by the sun's real altitude over Oslo. Drag the cover open on a spring and the inside page is a live three.js orbit whose satellites are the products. It is loud in type and colour but holds one idea per screen, which suits a technologist who ships quietly and lets the work be the headline.",
+  "palette": ["#0f0428", "#4c1b82", "#e72395", "#fd7933", "#ffc282", "#fdf0dc", "#008cab", "#000418"],
+  "type": ["Bricolage Grotesque (800, width 75)", "Instrument Sans, with Instrument Serif italic for cover lines", "JetBrains Mono"],
+  "voice": "Editorial and plain-spoken, with the confidence of a cover line and the facts of a fact sheet. Example: \"Four products in orbit.\"",
+  "motion": "Physical and sprung: the cover hinges on its spine, cards are thrown and flipped like card stock, and view transitions handle the page-level changes (edition wipe from the sun, feature swaps).",
+  "sound": "Silent by default; the only planned sound is an opt-in paper page-turn when the cover opens.",
+  "mark": "A badge with a grainy sky, a sun with an orbit ring and asymmetric peaks, beside a condensed ALBRETSEN wordmark with an italic serif AS.",
+  "inspiration": [
+    "https://animations.dev",
+    "https://godly.website",
+    "https://community.spline.design",
+    "https://www.shadertoy.com",
+    "https://developer.chrome.com/docs/web-platform/view-transitions/same-document",
+    "https://frontendmasters.com/blog/grainy-gradients/",
+    "https://polyhaven.com/a/belfast_sunset_puresky",
+    "https://ambientcg.com/view?id=Paper005"
+  ]
+}

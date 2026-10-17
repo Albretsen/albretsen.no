@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen AS">
+  <title>Albretsen AS</title>
+  <line x1="32.00" y1="13.00" x2="15.00" y2="51.00" stroke="currentColor" stroke-width="2.60" stroke-linecap="butt"/>
+  <line x1="32.00" y1="13.00" x2="49.00" y2="51.00" stroke="currentColor" stroke-width="2.60" stroke-linecap="butt"/>
+  <line x1="22.40" y1="35.00" x2="41.60" y2="35.00" stroke="currentColor" stroke-width="2.60" stroke-linecap="butt"/>
+  <circle cx="32.00" cy="13.00" r="8.60" fill="transparent"/>
+  <path d="M32.00,3.60 L33.86,11.14 L41.40,13.00 L33.86,14.86 L32.00,22.40 L30.14,14.86 L22.60,13.00 L30.14,11.14Z" fill="#C2964D"/>
+  <circle cx="15.00" cy="51.00" r="6.60" fill="transparent"/>
+  <circle cx="15.00" cy="51.00" r="4.20" fill="currentColor"/>
+  <circle cx="49.00" cy="51.00" r="6.60" fill="transparent"/>
+  <circle cx="49.00" cy="51.00" r="4.20" fill="currentColor"/>
+  <circle cx="22.40" cy="35.00" r="5.80" fill="transparent"/>
+  <circle cx="22.40" cy="35.00" r="3.40" fill="currentColor"/>
+  <circle cx="41.60" cy="35.00" r="5.80" fill="transparent"/>
+  <circle cx="41.60" cy="35.00" r="3.40" fill="currentColor"/>
+</svg>

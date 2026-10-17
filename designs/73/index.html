@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen AS · Long Evening</title>
+<meta name="description" content="Asgeir Albretsen builds software that pays for itself: apps, SaaS and infrastructure for AI agents.">
+<meta name="theme-color" content="#f6b48f">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that pays for itself.">
+<meta property="og:image" content="assets/identity/og-1200x630.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" href="assets/fonts/Nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js"}}</script>
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<a class="skip" href="#street">Skip to products</a>
+
+<!-- ============ HERO: the long day ============ -->
+<header class="day" id="day" aria-label="Albretsen AS">
+  <div class="stage">
+    <div class="frame">
+      <!-- four baked stills of one street; the inline script below picks the one that matches Norway now
+           and orders the rest as "the day ahead". Scroll dissolves through them. -->
+      <picture class="still" data-scene="sunrise">
+        <source media="(max-aspect-ratio: 1/1)" type="image/avif" data-srcset="assets/hero/street-sunrise-portrait-640.avif 640w, assets/hero/street-sunrise-portrait-1080.avif 1080w">
+        <source media="(max-aspect-ratio: 1/1)" type="image/webp" data-srcset="assets/hero/street-sunrise-portrait-640.webp 640w">
+        <source media="(max-aspect-ratio: 1/1)" data-srcset="assets/hero/street-sunrise-portrait-720.jpg">
+        <source type="image/avif" data-srcset="assets/hero/street-sunrise-800.avif 800w, assets/hero/street-sunrise-1440.avif 1440w, assets/hero/street-sunrise-2400.avif 2400w">
+        <source type="image/webp" data-srcset="assets/hero/street-sunrise-800.webp 800w, assets/hero/street-sunrise-1440.webp 1440w">
+        <img data-src="assets/hero/street-sunrise-1440.jpg" width="1440" height="810" alt="" decoding="async">
+      </picture>
+      <picture class="still" data-scene="noon">
+        <source media="(max-aspect-ratio: 1/1)" type="image/avif" data-srcset="assets/hero/street-noon-portrait-640.avif 640w, assets/hero/street-noon-portrait-1080.avif 1080w">
+        <source media="(max-aspect-ratio: 1/1)" type="image/webp" data-srcset="assets/hero/street-noon-portrait-640.webp 640w">
+        <source media="(max-aspect-ratio: 1/1)" data-srcset="assets/hero/street-noon-portrait-720.jpg">
+        <source type="image/avif" data-srcset="assets/hero/street-noon-800.avif 800w, assets/hero/street-noon-1440.avif 1440w, assets/hero/street-noon-2400.avif 2400w">
+        <source type="image/webp" data-srcset="assets/hero/street-noon-800.webp 800w, assets/hero/street-noon-1440.webp 1440w">
+        <img data-src="assets/hero/street-noon-1440.jpg" width="1440" height="810" alt="" decoding="async">
+      </picture>
+      <picture class="still" data-scene="sunset">
+        <source media="(max-aspect-ratio: 1/1)" type="image/avif" data-srcset="assets/hero/street-sunset-portrait-640.avif 640w, assets/hero/street-sunset-portrait-1080.avif 1080w">
+        <source media="(max-aspect-ratio: 1/1)" type="image/webp" data-srcset="assets/hero/street-sunset-portrait-640.webp 640w">
+        <source media="(max-aspect-ratio: 1/1)" data-srcset="assets/hero/street-sunset-portrait-720.jpg">
+        <source type="image/avif" data-srcset="assets/hero/street-sunset-800.avif 800w, assets/hero/street-sunset-1440.avif 1440w, assets/hero/street-sunset-2400.avif 2400w">
+        <source type="image/webp" data-srcset="assets/hero/street-sunset-800.webp 800w, assets/hero/street-sunset-1440.webp 1440w">
+        <img data-src="assets/hero/street-sunset-1440.jpg" width="1440" height="810" alt="" decoding="async">
+      </picture>
+      <picture class="still" data-scene="night">
+        <source media="(max-aspect-ratio: 1/1)" type="image/avif" data-srcset="assets/hero/street-night-portrait-640.avif 640w, assets/hero/street-night-portrait-1080.avif 1080w">
+        <source media="(max-aspect-ratio: 1/1)" type="image/webp" data-srcset="assets/hero/street-night-portrait-640.webp 640w">
+        <source media="(max-aspect-ratio: 1/1)" data-srcset="assets/hero/street-night-portrait-720.jpg">
+        <source type="image/avif" data-srcset="assets/hero/street-night-800.avif 800w, assets/hero/street-night-1440.avif 1440w, assets/hero/street-night-2400.avif 2400w">
+        <source type="image/webp" data-srcset="assets/hero/street-night-800.webp 800w, assets/hero/street-night-1440.webp 1440w">
+        <img data-src="assets/hero/street-night-1440.jpg" width="1440" height="810" alt="" decoding="async">
+      </picture>
+      <noscript><img class="still still--static" src="assets/hero/street-sunset-1440.jpg" width="1440" height="810" alt=""></noscript>
+
+      <!-- the name sits in the sky, behind the plateau and the peak (SVG sky mask traced from the stills) -->
+      <p class="given" aria-hidden="true">Asgeir</p>
+      <h1 class="name-wrap"><span class="vh">Asgeir Albretsen, Albretsen AS</span><span class="name ink-settle" aria-hidden="true">Albretsen</span></h1>
+    </div>
+
+    <script>
+    /* Runs before first paint: work out where the sun is over Norway now, hydrate that still,
+       and order the other three as the rest of the day. Same maths as assets/interactive/sun.js. */
+    (function () {
+      var r = Math.PI / 180, d = Date.now() / 864e5 + 2440587.5 - 2451545
+      var L = (280.46 + .9856474 * d) % 360, g = ((357.528 + .9856003 * d) % 360) * r
+      var lam = (L + 1.915 * Math.sin(g) + .02 * Math.sin(2 * g)) * r, eps = (23.439 - 4e-7 * d) * r
+      var ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam)), dec = Math.asin(Math.sin(eps) * Math.sin(lam))
+      var lst = (((18.697374558 + 24.06570982441908 * d) % 24 * 15 + 9.6) % 360 + 360) % 360 * r, H = lst - ra, phi = 60.4 * r
+      var el = Math.asin(Math.sin(phi) * Math.sin(dec) + Math.cos(phi) * Math.cos(dec) * Math.cos(H)) / r
+      var az = (Math.atan2(-Math.sin(H), Math.tan(dec) * Math.cos(phi) - Math.sin(phi) * Math.cos(H)) / r + 360) % 360
+      var scene = el < -2 ? 'night' : el < 14 ? (az < 180 ? 'sunrise' : 'sunset') : 'noon'
+      var order = ['sunrise', 'noon', 'sunset', 'night'], k0 = order.indexOf(scene)
+      document.documentElement.dataset.now = scene
+      var stills = document.querySelectorAll('.still[data-scene]')
+      for (var i = 0; i < stills.length; i++) {
+        var p = stills[i], j = (order.indexOf(p.dataset.scene) - k0 + 4) % 4
+        p.style.setProperty('--i', j); p.dataset.order = j
+        if (j === 0) {
+          var s = p.querySelectorAll('[data-srcset]'); for (var k = 0; k < s.length; k++) { s[k].sizes = s[k].media ? 'max(100vw, 80vh)' : 'max(100vw, 178vh)'; s[k].srcset = s[k].dataset.srcset }
+          var im = p.querySelector('img'); im.setAttribute('fetchpriority', 'high'); im.src = im.dataset.src; p.dataset.ready = ''
+        }
+      }
+    })()
+    </script>
+
+    <nav class="top" aria-label="Site">
+      <a class="brand" href="./" aria-label="Albretsen AS, home">
+        <img class="brand__ink" src="assets/identity/lockup.svg" width="180" height="28" alt="">
+        <img class="brand__light" src="assets/identity/lockup-light.svg" width="180" height="28" alt="">
+      </a>
+      <button class="skychip" type="button" id="skychip" aria-describedby="skychip-tip">
+        <i class="skychip__sun" aria-hidden="true"></i>
+        <span><b id="clock">--:--</b> <span class="skychip__where">in Norway</span></span>
+      </button>
+      <p class="skychip__tip" id="skychip-tip" role="tooltip">This sky is the real one. The page opens on the light outside his window right now.</p>
+    </nav>
+
+    <div class="meadow">
+      <div class="lede">
+                <p class="line">I build software that pays for itself.</p>
+        <p class="sub">Apps, SaaS and infrastructure for AI agents. On Google Play since 2016.</p>
+      </div>
+      <div class="daytrack" aria-hidden="true">
+        <svg viewBox="0 0 240 70" class="daytrack__arc">
+          <path d="M8 62 Q120 -22 232 62" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="1.5 5" stroke-linecap="round" opacity=".7"/>
+          <path d="M0 62 H240" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle class="daytrack__sun" r="7" cx="8" cy="62"/>
+        </svg>
+        <p class="daytrack__label"><b id="trackTime">now</b> <span id="trackName"></span></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ PRODUCTS: the main street ============ -->
+<section class="street" id="street" aria-labelledby="street-h">
+  <div class="wrap">
+    <div class="street__head">
+      <p class="eyebrow">The main street</p>
+      <h2 id="street-h">Every sign on the street is a product.</h2>
+      <p class="street__sub">Each one keeps its own hours. All of them are open while you read this.</p>
+      <p class="feed" aria-live="polite"><svg class="feed__win lights-on" data-on="view" viewBox="15 19 50 74" width="12" height="18" aria-hidden="true"><rect x="15" y="19" width="50" height="74" fill="#fbf5ec"/><rect data-glass x="15" y="19" width="50" height="74" fill="#f6b48f"/><rect x="38" y="19" width="4" height="74" fill="#fbf5ec"/><rect x="15" y="46" width="50" height="4" fill="#fbf5ec"/></svg>
+        <span class="feed__text" id="feed">A light is on somewhere on the street.</span></p>
+    </div>
+
+    <ol class="shops" id="shops"><!-- filled from content.js; static fallback below keeps layout stable -->
+    </ol>
+
+    <figure class="live" id="live">
+      <div class="live__frame">
+        <picture>
+          <source type="image/avif" srcset="assets/hero/street-sunset-800.avif 800w, assets/hero/street-sunset-1440.avif 1440w" sizes="(min-width: 1240px) 1160px, 92vw">
+          <img id="liveStill" src="assets/hero/street-sunset-800.webp" width="1440" height="810" alt="The whole main street, with all four shopfronts side by side" loading="lazy" decoding="async">
+        </picture>
+        <canvas id="liveCanvas" aria-hidden="true"></canvas>
+        <button class="live__go" id="liveGo" type="button"><span class="live__dot" aria-hidden="true"></span>Walk the street live</button>
+      </div>
+      <figcaption class="live__bar">
+        <label class="live__time"><span class="vh">Time of day in Norway</span>
+          <b id="liveClock">--:--</b>
+          <input id="liveRange" type="range" min="0" max="24" step="0.05" value="20" disabled aria-label="Time of day in Norway">
+        </label>
+        <button class="live__now" id="liveNow" type="button" aria-pressed="true" disabled>Now</button>
+        <sky-clock compact class="live__clock"></sky-clock>
+      </figcaption>
+    </figure>
+
+    <div class="closed">
+      <h3 class="eyebrow">Earlier shops on the street</h3>
+      <ul class="plaques" id="plaques"></ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <svg class="foot__rule" viewBox="0 0 960 48" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+      <defs><clipPath id="hd-above"><rect x="0" y="0" width="960" height="32"/></clipPath></defs>
+      <path d="M0 32 H404 M556 32 H960" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M120 38 H404 M556 38 H840" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+      <path d="M260 43.5 H404 M556 43.5 H700" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".3"/>
+      <circle cx="480" cy="32" r="22" fill="var(--sky-sun, #f6b48f)" clip-path="url(#hd-above)"/>
+      <path d="M424 32 H536" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M440 38 H520 M456 43.5 H504" stroke="#f6b48f" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div class="foot__grid">
+      <div>
+        <p class="foot__avail">Takes one outside engagement at a time.</p>
+        <a class="foot__mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+      </div>
+      <div class="foot__mcp">
+        <p class="eyebrow">Ask your agent instead</p>
+        <div class="cmd"><code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code><button type="button" class="cmd__copy" id="copy" aria-label="Copy command">Copy</button></div>
+        <p class="vh" id="copied" aria-live="polite"></p>
+      </div>
+      <div class="foot__sky">
+        <sky-clock></sky-clock>
+      </div>
+    </div>
+    <p class="foot__small"><img src="assets/identity/mark-mono.svg" width="20" height="20" alt="" class="foot__mark"> Albretsen AS · Norway</p>
+  </div>
+</footer>
+</body>
+</html>

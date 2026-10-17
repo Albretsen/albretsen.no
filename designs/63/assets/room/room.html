@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Room, demo</title>
+<style>
+  @font-face { font-family: "Schibsted Grotesk"; src: url(../fonts/schibsted-grotesk.woff2) format("woff2"); font-weight: 400 900; font-display: swap; }
+  @font-face { font-family: "Bodoni Moda"; src: url(../fonts/bodoni-moda-display-italic.woff2) format("woff2"); font-style: italic; font-display: swap; }
+  :root { --ink:#23252D; --paper:#F5EFE4; --falu:#8A2E22; }
+  html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink); font: 14px/1.4 "Schibsted Grotesk", system-ui, sans-serif; }
+  .stage { position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 100vh; background: #e9dfcf; }
+  canvas { position: absolute; inset: 0; }
+  .ui { display: flex; gap: 16px; align-items: center; justify-content: center; padding: 18px 16px 24px; }
+  .ui em { font-family: "Bodoni Moda", serif; font-size: 20px; }
+  input[type=range] { width: min(420px, 60vw); accent-color: var(--falu); }
+  .clock { font-variant-numeric: tabular-nums; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; min-width: 6ch; }
+</style>
+</head>
+<body>
+  <div class="stage"><canvas id="c" aria-label="A sunlit room; the sun moves through the window as the evening goes on"></canvas></div>
+  <div class="ui">
+    <em>A day passes</em>
+    <input id="t" type="range" min="0" max="1" step="0.001" value="0.35" aria-label="Time of day">
+    <span class="clock" id="clock">17:00</span>
+  </div>
+<script type="module">
+  import { mountRoom } from './room.js'
+  const q = new URLSearchParams(location.search)
+  const t0 = q.has('t') ? +q.get('t') : 0.35
+  const room = await mountRoom(document.getElementById('c'), { base: '../', time: t0, preserve: true })
+  const input = document.getElementById('t'), clock = document.getElementById('clock')
+  const label = v => { const m = Math.round(16 * 60 + v * (6.5 * 60)); return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}` }
+  input.value = t0; clock.textContent = label(t0)
+  input.addEventListener('input', () => { room.setTime(+input.value); clock.textContent = label(+input.value) })
+  if (q.has('play')) { let s = performance.now(); const loop = n => { const v = ((n - s) / 12000) % 1; input.value = v; room.setTime(v); clock.textContent = label(v); requestAnimationFrame(loop) }; requestAnimationFrame(loop) }
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+/* ==========================================================================
+   Albretsen AS / design 68 "Noon & Dusk" — motion study
+   Precise, symmetrical, deadpan. Nothing bounces, nothing overshoots,
+   everything moves along the vertical axis of symmetry or mirrors across it.
+   All animations collapse to instant state changes under reduced motion.
+   ========================================================================== */
+
+:root {
+  /* one curve for almost everything: slow start, slow stop, no overshoot */
+  --ease-deadpan: cubic-bezier(.65, 0, .35, 1);
+  /* the whip: almost all the travel happens in the middle third */
+  --ease-whip: cubic-bezier(.9, 0, .1, 1);
+  --t-beat: 240ms;      /* the deadpan beat: a held pause between actions */
+  --t-shutter: 560ms;
+  --t-sunset: 900ms;
+  --t-horizon: 700ms;
+  --t-whip: 520ms;
+}
+
+/* --------------------------------------------------------------------------
+   1. SHUTTERS — section / page transition
+   Two leaves close from the edges and meet exactly on the centre seam,
+   hold for one beat, then open on the new content. Mirror-perfect.
+   Ref: Wes Anderson's centre-framed doorways; clip-path inset technique
+   (MDN clip-path, web.dev/css-clipping).
+   Usage: <div class="m-shutters"></div> inside a position:relative frame;
+          add .is-closing then .is-opening (motion.js: shutterSwap()).
+   -------------------------------------------------------------------------- */
+.m-shutters { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+.m-shutters::before,
+.m-shutters::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 50%;
+  background:
+    repeating-linear-gradient(180deg, rgb(0 0 0 / .14) 0 6px, transparent 6px 22px),
+    var(--shutter, #2f5a46);
+  transform: scaleX(0);
+  transition: transform var(--t-shutter) var(--ease-deadpan);
+}
+.m-shutters::before { left: 0;  transform-origin: 0 50%; box-shadow: inset -1px 0 0 rgb(0 0 0 / .35); }
+.m-shutters::after  { right: 0; transform-origin: 100% 50%; box-shadow: inset 1px 0 0 rgb(0 0 0 / .35); }
+.m-shutters.is-closing::before,
+.m-shutters.is-closing::after { transform: scaleX(1); }
+
+/* --------------------------------------------------------------------------
+   2. SUNSET SWITCH — the day/night theme switch (signature delight)
+   The sun disc sinks straight down, on the axis, into the horizon rule.
+   One beat later the new theme opens from the horizon line outward,
+   top and bottom at once (View Transitions API, with a plain fallback).
+   Ref: View Transitions theme reveals (circular clip-path pattern) —
+   here replaced by a symmetric horizon wipe.
+   Markup: <button class="m-sunset" aria-pressed="false"><i class="sun"></i><i class="sea"></i></button>
+   -------------------------------------------------------------------------- */
+.m-sunset {
+  --d: 22px;
+  position: relative; width: 56px; height: 30px; padding: 0; border: 0; background: none; cursor: pointer;
+  color: inherit; overflow: hidden;
+}
+.m-sunset .sun {
+  position: absolute; left: 50%; top: 4px; width: var(--d); height: var(--d); margin-left: calc(var(--d) / -2);
+  border-radius: 50%; background: var(--sun, #ef9f7c);
+  transition: transform var(--t-sunset) var(--ease-deadpan), background-color var(--t-sunset) var(--ease-deadpan);
+}
+.m-sunset .sea {
+  position: absolute; left: 4px; right: 4px; top: 28.5px; height: 0;
+  border-top: 1.5px solid currentColor;
+}
+.m-sunset[aria-pressed="true"] .sun { transform: translateY(28px); }
+/* at night, the moon: same disc, lowered from the top into the same place */
+.m-sunset .moon {
+  position: absolute; left: 50%; top: 4px; width: var(--d); height: var(--d); margin-left: calc(var(--d) / -2);
+  border-radius: 50%; background: var(--moon, #f4e7d6); box-shadow: inset -6px -2px 0 0 rgb(0 0 0 / .12);
+  transform: translateY(-34px); transition: transform var(--t-sunset) var(--ease-deadpan);
+}
+.m-sunset[aria-pressed="true"] .moon { transform: translateY(0); transition-delay: calc(var(--t-sunset) * .6); }
+
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html.is-horizon::view-transition-new(root) {
+  animation: m-horizon var(--t-horizon) var(--ease-deadpan) both;
+}
+@keyframes m-horizon {
+  from { clip-path: inset(var(--horizon, 50%) 0 calc(100% - var(--horizon, 50%)) 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* --------------------------------------------------------------------------
+   3. ARCH OPENING — the hero ("opening spread")
+   The painting starts framed by the brand's arched opening and, as you
+   scroll, the arch widens to full bleed while the picture settles from
+   1.06 to 1. Linear in scroll: the camera is on a dolly, not a spring.
+   Ref: magazine opening spreads; scroll-driven animations (animation-timeline: view()).
+   Usage: <figure class="m-arch"><img ...></figure>
+   -------------------------------------------------------------------------- */
+.m-arch {
+  --open: 0; /* 0 = arched, 1 = full bleed; set by CSS scroll timeline or motion.js */
+  margin: 0; overflow: hidden;
+  border-radius: calc((1 - var(--open)) * 50vw) calc((1 - var(--open)) * 50vw) 0 0 / calc((1 - var(--open)) * 32vw) calc((1 - var(--open)) * 32vw) 0 0;
+  width: calc(56% + 44% * var(--open)); margin-inline: auto;
+}
+.m-arch img { display: block; width: 100%; height: auto; transform: scale(calc(1.06 - .06 * var(--open))); transform-origin: 50% 60%; }
+@property --open { syntax: "<number>"; inherits: true; initial-value: 0; }
+@supports (animation-timeline: view()) {
+  .m-arch { animation: m-arch-open linear both; animation-timeline: view(); animation-range: cover 0% cover 55%; }
+  @keyframes m-arch-open { to { --open: 1; } }
+}
+
+/* --------------------------------------------------------------------------
+   4. CAPTION CARD — intertitles
+   Centred lines appear one at a time on a fixed beat, with no movement at all:
+   a hard, polite fade. The italic word lands one beat after its line.
+   Ref: chapter cards in symmetrical cinema; deadpan comedic timing.
+   Usage: <p class="m-caption"><span>Quiet software</span><span><em>that pays for itself.</em></span></p>
+   -------------------------------------------------------------------------- */
+.m-caption > span { display: block; opacity: 0; }
+.m-caption.is-in > span { animation: m-fade-soft 320ms linear forwards; }
+.m-caption.is-in > span:nth-child(1) { animation-delay: 0ms; }
+.m-caption.is-in > span:nth-child(2) { animation-delay: calc(var(--t-beat) * 2); }
+.m-caption.is-in > span:nth-child(3) { animation-delay: calc(var(--t-beat) * 4); }
+.m-caption.is-in em { opacity: 0; animation: m-fade-soft 320ms linear forwards; animation-delay: calc(var(--t-beat) * 3); }
+@keyframes m-fade-soft { from { opacity: 0; } to { opacity: 1; } }
+
+/* --------------------------------------------------------------------------
+   5. WHIP PAN — moving between products
+   The row of product plates whips sideways: nearly all the travel in the
+   middle third, a motion-blur smear only while moving, dead stop on arrival.
+   Ref: the whip pan (nofilmschool.com "How to do a whip pan").
+   Usage: .m-whip-track inside .m-whip; motion.js whipTo(track, index)
+   -------------------------------------------------------------------------- */
+.m-whip { overflow: hidden; }
+.m-whip-track { display: flex; transition: transform var(--t-whip) var(--ease-whip), filter var(--t-whip) var(--ease-whip); }
+.m-whip-track > * { flex: 0 0 100%; }
+.m-whip-track.is-moving { filter: blur(6px); }
+
+/* reduced motion: every state change is immediate */
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-shutter: 1ms; --t-sunset: 1ms; --t-horizon: 1ms; --t-whip: 1ms; --t-beat: 1ms; }
+  .m-whip-track.is-moving { filter: none; }
+  .m-arch { animation: none; --open: 1; }
+}

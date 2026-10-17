@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drift Stone demo</title>
+<style>
+  :root { --night:#041419; --bone:#f8f3e8; --phosphor:#7defda; }
+  html,body { margin:0; height:100%; background:var(--night); color:var(--bone); font:14px/1.4 ui-monospace, monospace; }
+  body.bg-black { background:#000 } body.bg-white { background:#fff }
+  body.bg-hero { background:#041419 url(../hero/first-light-1920.jpg) center/cover }
+  canvas { position:fixed; inset:0; width:100%; height:100%; display:block }
+  .ui { position:fixed; left:16px; bottom:16px; display:flex; gap:12px; align-items:center; background:#041419cc; padding:10px 14px; border-radius:10px }
+  .ui label { display:flex; gap:6px; align-items:center }
+  body.bake .ui { display:none }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<pre id="err" style="position:fixed;top:0;left:0;color:#f88;z-index:9;margin:8px"></pre>
+<canvas id="c" aria-label="A floating stone, shaded like an airbrush painting"></canvas>
+<div class="ui">
+  <button id="replay">Boot again</button>
+  <label>dusk <input id="dusk" type="range" min="0" max="1" step="0.01" value="0"></label>
+</div>
+<script>addEventListener("error",e=>err.textContent+=e.message+"\n");addEventListener("unhandledrejection",e=>err.textContent+=(e.reason&&e.reason.stack||e.reason)+"\n")</script>
+<script type="module">
+  import { mountDriftStone } from './drift-stone.js'
+  if (location.search.includes('debug')) err.textContent += 'module\n'
+  const q = new URLSearchParams(location.search)
+  if (q.get('bg')) document.body.classList.add('bg-' + q.get('bg'))
+  if (q.has('bake')) document.body.classList.add('bake')
+  const still = q.has('still')
+  const stone = await mountDriftStone(document.getElementById('c'), {
+    still, preserve: still, boot: still ? +(q.get('boot') ?? 1) : 0, dusk: +(q.get('dusk') ?? 0),
+    rotY: +(q.get('rot') ?? 0.6), normal: +(q.get('normal') ?? 0.6), distance: +(q.get('dist') ?? 3), fov: +(q.get('fov') ?? 28), interactive: !still,
+  })
+  const run = () => {
+    let s = performance.now()
+    const tick = (n) => { const v = Math.min((n - s) / 2200, 1); stone.boot(v); if (v < 1) requestAnimationFrame(tick) }
+    requestAnimationFrame(tick)
+  }
+  if (q.has('debug')) err.textContent += 'mounted ' + innerWidth + '\n'
+  if (!still) run()
+  document.getElementById('replay').onclick = run
+  document.getElementById('dusk').oninput = (e) => stone.setDusk(+e.target.value)
+</script>
+</body>
+</html>

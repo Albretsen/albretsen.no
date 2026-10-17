@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Albretsen AS · Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen builds software that earns its keep: MCP Emails, Fun Libs, Toolrails and Harbor.">
+<meta name="theme-color" content="#f7f1e6">
+<meta property="og:title" content="Albretsen AS">
+<meta property="og:description" content="Software that earns its keep.">
+<meta property="og:image" content="assets/identity/og-1200x630.jpg">
+<link rel="icon" href="assets/identity/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/identity/favicon-180.png">
+<link rel="preload" href="assets/fonts/italiana.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)"
+  imagesrcset="assets/img/hero-facade-dawn-1024.avif 1024w, assets/img/hero-facade-dawn-1600.avif 1600w, assets/img/hero-facade-dawn-2400.avif 2400w" imagesizes="100vw" fetchpriority="high">
+<link rel="stylesheet" href="css/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<header class="top" aria-label="Site">
+  <a class="top__brand" href="./" aria-label="Albretsen AS, home">
+    <img src="assets/identity/mark.svg" width="28" height="28" alt="">
+    <span>Albretsen&nbsp;AS</span>
+  </a>
+  <nav class="top__nav" aria-label="Primary">
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+    <button class="sound" type="button" aria-pressed="false" id="sound">
+      <svg viewBox="0 0 20 14" width="20" height="14" aria-hidden="true"><path d="M1 7h2M5 4v6M9 1v12M13 4v6M17 6v2" /></svg>
+      <span class="sound__label">Sound</span>
+    </button>
+  </nav>
+</header>
+
+<main>
+<!-- HERO: one framed plate. A matte painting of the house at seven; the 3D scene replaces it at idle and only the sun moves. -->
+<section class="plate" id="plate" aria-labelledby="hero-title">
+  <div class="plate__stage">
+    <picture class="plate__still">
+      <source media="(max-aspect-ratio: 1/1)" type="image/avif" srcset="assets/img/hero-facade-dawn-tall-800.avif 800w, assets/img/hero-facade-dawn-tall-1200.avif 1200w" sizes="100vw">
+      <source media="(max-aspect-ratio: 1/1)" type="image/webp" srcset="assets/img/hero-facade-dawn-tall-800.webp 800w, assets/img/hero-facade-dawn-tall-1200.webp 1200w" sizes="100vw">
+      <source media="(max-aspect-ratio: 1/1)" srcset="assets/img/hero-facade-dawn-tall-800.jpg 800w, assets/img/hero-facade-dawn-tall-1200.jpg 1200w" sizes="100vw">
+      <source type="image/avif" srcset="assets/img/hero-facade-dawn-1024.avif 1024w, assets/img/hero-facade-dawn-1600.avif 1600w, assets/img/hero-facade-dawn-2400.avif 2400w" sizes="100vw">
+      <source type="image/webp" srcset="assets/img/hero-facade-dawn-1024.webp 1024w, assets/img/hero-facade-dawn-1600.webp 1600w, assets/img/hero-facade-dawn-2400.webp 2400w" sizes="100vw">
+      <img src="assets/img/hero-facade-dawn-1600.jpg" width="1600" height="900" fetchpriority="high" decoding="async"
+        alt="A perfectly symmetrical peach-painted wooden house in a quiet square at first light. Four lit ground-floor windows each show a product logo. Mountains rise in the haze behind.">
+    </picture>
+    <img class="plate__dusk" alt="" aria-hidden="true" width="1280" height="720" decoding="async">
+    <canvas class="plate__live" id="live" aria-hidden="true"></canvas>
+    <div class="plate__tint plate__tint--dawn" aria-hidden="true"></div>
+    <div class="plate__tint plate__tint--dusk" aria-hidden="true"></div>
+    <div class="plate__grain" aria-hidden="true"></div>
+
+    <!-- the sun: the one moving thing, and the one thing you can move -->
+    <svg class="plate__arc" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path id="arc" d="" /></svg>
+    <div class="sun" id="sun" role="slider" tabindex="0" aria-label="Time of day. Move the sun." aria-valuemin="0" aria-valuemax="100" aria-valuenow="16" aria-valuetext="07:13">
+      <span class="sun__disc" aria-hidden="true"></span>
+      <span class="sun__hint" aria-hidden="true">Drag the sun</span>
+    </div>
+
+    <div class="plate__title">
+      <h1 id="hero-title"><span class="name me-deco">Albretsen</span><span class="visually-hidden"> AS, the company of Asgeir Albretsen</span></h1>
+      <p class="plate__line">Asgeir Albretsen builds software that earns its keep.</p>
+    </div>
+
+    <!-- the four lit windows, as links to their products -->
+    <ul class="panes" aria-label="Products in the windows">
+      <li style="--i:0"><a href="#p-mcp-emails"><span class="pane__tag"><b>MCP Emails</b> Email for AI agents.</span><span class="visually-hidden">MCP Emails</span></a></li>
+      <li style="--i:1"><a href="#p-fun-libs"><span class="pane__tag"><b>Fun Libs</b> A fill-in-the-blanks word game.</span><span class="visually-hidden">Fun Libs</span></a></li>
+      <li style="--i:2"><a href="#p-toolrails"><span class="pane__tag"><b>Toolrails</b> One MCP URL, every tool.</span><span class="visually-hidden">Toolrails</span></a></li>
+      <li style="--i:3"><a href="#p-harbor"><span class="pane__tag"><b>Harbor</b> A shared private knowledge base.</span><span class="visually-hidden">Harbor</span></a></li>
+    </ul>
+
+    <p class="plate__feed" aria-live="polite"><span class="lamp" aria-hidden="true"></span><span id="feed-text">Lights on in four windows.</span></p>
+    <p class="plate__clock" aria-hidden="true"><span id="clock">07:13</span></p>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products" aria-labelledby="products-title">
+  <div class="products__leaves" aria-hidden="true"></div>
+  <header class="section-head">
+    <img class="fan" src="assets/extras/fanlight-divider.svg" width="240" height="48" alt="">
+    <p class="eyebrow">Products</p>
+    <h2 id="products-title" class="deco">Current work</h2>
+    <p class="lede">Four products in use today. Seven earlier ones, closed and kept on record.</p>
+  </header>
+
+  <ol class="windows">
+    <li class="window" id="p-mcp-emails" data-product="mcp-emails">
+      <a class="window__frame me-shutter" href="https://mcpemails.com" aria-label="MCP Emails, mcpemails.com">
+        <picture>
+          <source type="image/avif" srcset="assets/products/window-mcp-emails-640.avif 640w, assets/products/window-mcp-emails-1200.avif 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 90vw">
+          <source type="image/webp" srcset="assets/products/window-mcp-emails-640.webp 640w, assets/products/window-mcp-emails-1200.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 90vw">
+          <img src="assets/products/window-mcp-emails-640.jpg" width="640" height="800" loading="lazy" decoding="async" alt="The MCP Emails logo on a card behind a lit shop window">
+        </picture>
+      </a>
+      <div class="window__text">
+        <p class="status">Live · since 2026</p>
+        <h3 class="deco">MCP Emails</h3>
+        <p class="line">Email for AI agents.</p>
+        <p class="figure"><span class="figure__v">$782</span><span class="figure__l">MRR</span></p>
+        <p class="facts">17 tools · about 100 email providers · open source (AGPL)</p>
+        <p class="pulse" data-pulse="mcp-emails"><span class="lamp" aria-hidden="true"></span><span class="pulse__t">Quiet just now</span></p>
+        <a class="go" href="https://mcpemails.com">mcpemails.com</a>
+      </div>
+    </li>
+    <li class="window" id="p-fun-libs" data-product="fun-libs">
+      <a class="window__frame me-shutter" href="https://funlibs.app" aria-label="Fun Libs, funlibs.app">
+        <picture>
+          <source type="image/avif" srcset="assets/products/window-fun-libs-640.avif 640w, assets/products/window-fun-libs-1200.avif 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 90vw">
+          <source type="image/webp" srcset="assets/products/window-fun-libs-640.webp 640w, assets/products/window-fun-libs-1200.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 90vw">
+          <img src="assets/products/window-fun-libs-640.jpg" width="640" height="800" loading="lazy" decoding="async" alt="The Fun Libs app icon on a card behind a lit shop window">
+        </picture>
+      </a>
+      <div class="window__text">
+        <p class="status">Live · since 2019</p>
+        <h3 class="deco">Fun Libs</h3>
+        <p class="line">A fill-in-the-blanks word game for Android and iOS.</p>
+        <p class="figure"><span class="figure__v">113,000+</span><span class="figure__l">installs</span></p>
+        <p class="facts">built at 17 · no marketing · v5 shipped 2026</p>
+        <p class="pulse" data-pulse="fun-libs"><span class="lamp" aria-hidden="true"></span><span class="pulse__t">Quiet just now</span></p>
+        <a class="go" href="https://funlibs.app">funlibs.app</a>
+      </div>
+    </li>
+    <li class="window" id="p-toolrails" data-product="toolrails">
+      <a class="window__frame me-shutter" href="https://toolrails.com" aria-label="Toolrails, toolrails.com">
+        <picture>
+          <source type="image/avif" srcset="assets/products/window-toolrails-640.avif 640w, assets/products/window-toolrails-1200.avif 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 90vw">
+          <source type="image/webp" srcset="assets/products/window-toolrails-640.webp 640w, assets/products/window-toolrails-1200.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 90vw">
+          <img src="assets/products/window-toolrails-640.jpg" width="640" height="800" loading="lazy" decoding="async" alt="The Toolrails icon on a card behind a lit shop window">
+        </picture>
+      </a>
+      <div class="window__text">
+        <p class="status">Building · 2026</p>
+        <h3 class="deco">Toolrails</h3>
+        <p class="line">One MCP URL that gives an agent every tool.</p>
+        <p class="figure"><span class="figure__v">4</span><span class="figure__l">connectors</span></p>
+        <p class="facts">tool search · injection guard</p>
+        <p class="pulse" data-pulse="toolrails"><span class="lamp" aria-hidden="true"></span><span class="pulse__t">Quiet just now</span></p>
+        <a class="go" href="https://toolrails.com">toolrails.com</a>
+      </div>
+    </li>
+    <li class="window" id="p-harbor" data-product="harbor">
+      <a class="window__frame me-shutter" href="https://harborknowledge.com" aria-label="Harbor, harborknowledge.com">
+        <picture>
+          <source type="image/avif" srcset="assets/products/window-harbor-640.avif 640w, assets/products/window-harbor-1200.avif 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 90vw">
+          <source type="image/webp" srcset="assets/products/window-harbor-640.webp 640w, assets/products/window-harbor-1200.webp 1200w" sizes="(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 90vw">
+          <img src="assets/products/window-harbor-640.jpg" width="640" height="800" loading="lazy" decoding="async" alt="The Harbor mark on a card behind a lit shop window">
+        </picture>
+      </a>
+      <div class="window__text">
+        <p class="status">Paused · 2026</p>
+        <h3 class="deco">Harbor</h3>
+        <p class="line">A private knowledge base shared by people and AI.</p>
+        <p class="figure"><span class="figure__v">549</span><span class="figure__l">commits</span></p>
+        <p class="facts">self-hostable · AI edits held for approval</p>
+        <p class="pulse is-still"><span class="lamp" aria-hidden="true"></span><span class="pulse__t">Resting</span></p>
+        <a class="go" href="https://harborknowledge.com">harborknowledge.com</a>
+      </div>
+    </li>
+  </ol>
+
+  <section class="earlier" aria-labelledby="earlier-title">
+    <h3 id="earlier-title" class="eyebrow">Earlier work · 2021 to 2026</h3>
+    <ul class="shutters" id="shutters">
+      <li><button type="button" data-line="Norwegian budgeting app with open banking. 378 commits."><img src="assets/products/retired/shutters-luma.svg" width="160" height="270" loading="lazy" alt=""><span class="shutters__n">Luma</span><span class="shutters__y">2026</span></button></li>
+      <li><button type="button" data-line="Agents that localised entire codebases, with a dashboard for human reviewers."><img src="assets/products/retired/shutters-polyglot-pilot.svg" width="160" height="270" loading="lazy" alt=""><span class="shutters__n">Polyglot Pilot</span><span class="shutters__y">2025</span></button></li>
+      <li><button type="button" data-line="GeoGuessr with your own photos: friends guess where your pictures were taken."><img src="assets/products/retired/shutters-pinpoint.svg" width="160" height="270" loading="lazy" alt=""><span class="shutters__n">PinPoint</span><span class="shutters__y">2025</span></button></li>
+      <li><button type="button" data-line="Website change monitoring."><img src="assets/products/retired/shutters-webvakt.svg" width="160" height="270" loading="lazy" alt=""><span class="shutters__n">WebVakt</span><span class="shutters__y">2024</span></button></li>
+      <li><button type="button" data-line="Joke apps for iOS and Android."><img src="assets/products/retired/shutters-joke-central.svg" width="160" height="270" loading="lazy" alt=""><span class="shutters__n">Joke Central</span><span class="shutters__y">2024</span></button></li>
+      <li><button type="button" data-line="Background checks for hiring."><img src="assets/products/retired/shutters-tryggere-hyring.svg" width="160" height="270" loading="lazy" alt=""><span class="shutters__n">Tryggere Hyring</span><span class="shutters__y">2023</span></button></li>
+      <li><button type="button" data-line="IAGO HMS, Rentekalkulator and Prosentkalkulator."><img src="assets/products/retired/shutters-early-apps.svg" width="160" height="270" loading="lazy" alt=""><span class="shutters__n">Early apps</span><span class="shutters__y">2021</span></button></li>
+    </ul>
+    <p class="caption" id="caption" aria-live="polite">Closed, each for a reason. Select one to read it.</p>
+  </section>
+</section>
+</main>
+
+<!-- FOOTER: the same square, later. The lamps are on. -->
+<footer class="evening" id="contact" aria-label="Contact">
+  <div class="evening__plate">
+    <picture>
+      <source type="image/avif" srcset="assets/img/hero-facade-dusk-1280.avif 1280w, assets/img/hero-facade-dusk-2400.avif 2400w" sizes="100vw">
+      <source type="image/webp" srcset="assets/img/hero-facade-dusk-1280.webp 1280w, assets/img/hero-facade-dusk-2400.webp 2400w" sizes="100vw">
+      <img src="assets/img/hero-facade-dusk-1280.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="The same house in late golden light, its windows warm.">
+    </picture>
+    <div class="evening__words">
+      <p class="avail deco">Takes one outside engagement at a time.</p>
+      <a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    </div>
+  </div>
+  <div class="evening__base">
+    <div class="agent">
+      <p class="eyebrow">For your agent</p>
+      <div class="cmd">
+        <code id="cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+        <button type="button" class="copy" id="copy" aria-describedby="cmd"><span class="copy__a">Copy</span><span class="copy__b" aria-hidden="true">Copied</span></button>
+      </div>
+      <p class="copy-status visually-hidden" id="copy-status" aria-live="polite"></p>
+    </div>
+    <img class="plaque" src="assets/extras/plaque-since-2016.svg" width="220" height="160" loading="lazy" alt="Published on Google Play since 2016">
+    <p class="sig"><img src="assets/identity/mark-light.svg" width="22" height="22" alt=""> Albretsen AS</p>
+  </div>
+</footer>
+
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

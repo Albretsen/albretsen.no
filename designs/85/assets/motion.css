@@ -1,0 +1,72 @@
+/* Silica Atlas: motion tokens and CSS-only pieces of the motion study.
+   JS-driven pieces (Vitrify, Seam, Chorus stagger, Loupe) live in motion.js. */
+
+:root {
+  --paper: #f7f5ea;           /* oklch(0.968 0.014 95) */
+  --paper-2: #eae6d8;         /* oklch(0.925 0.020 95) */
+  --ink: #091710;             /* oklch(0.190 0.025 160) */
+  --ink-2: #5a675f;           /* oklch(0.500 0.020 160) */
+  --spot: #389e3d;            /* oklch(0.620 0.165 144)  the one spot colour */
+  --spot-deep: #005e26;       /* oklch(0.420 0.120 150) */
+  --glass: #d1f2d7;           /* oklch(0.930 0.050 150) */
+  --glow: #a0f08f;            /* oklch(0.880 0.150 140) caustic light only */
+
+  /* Motion: glass settles, ink draws. Nothing bounces more than once. */
+  --ease-glass: cubic-bezier(.2, .9, .1, 1);      /* fast refraction, long settle */
+  --ease-ink: cubic-bezier(.65, 0, .35, 1);       /* even pen pressure */
+  --dur-glint: 1400ms;
+  --dur-draw: 900ms;
+}
+
+/* 1. GLINT: a softbox reflection sweeping across any glass surface (images, buttons, cards).
+   Put .glint on a positioned element; trigger with .is-lit (or hover). */
+.glint { position: relative; overflow: hidden; isolation: isolate; }
+.glint::after {
+  content: ""; position: absolute; inset: -20%;
+  background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / .55) 47%, rgb(209 242 215 / .35) 50%, transparent 58%);
+  transform: translateX(-70%); pointer-events: none; mix-blend-mode: screen;
+}
+.glint.is-lit::after, .glint:hover::after { animation: glint var(--dur-glint) var(--ease-glass) both; }
+@keyframes glint { to { transform: translateX(70%); } }
+
+/* 2. INK DRAW: SVG strokes draw in like an engraver's pass. Set pathLength="1" on paths. */
+.ink-draw path, .ink-draw circle, .ink-draw line {
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: ink-draw var(--dur-draw) var(--ease-ink) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes ink-draw { to { stroke-dashoffset: 0; } }
+
+/* 3. CAUSTIC DRIFT: slow light crawling under glass. Tile = extras/caustic-tile.webp */
+.caustic {
+  background-image: url("extras/caustic-tile.webp");
+  background-size: 640px 640px; mix-blend-mode: screen; opacity: .55;
+  animation: caustic-drift 38s linear infinite;
+}
+.caustic.two { background-size: 900px 900px; animation-duration: 61s; animation-direction: reverse; opacity: .35; }
+@keyframes caustic-drift { to { background-position: 640px 320px; } }
+
+/* 4. SEAM (CSS half): the then/now split is a clip-path driven by --seam (0..100). motion.js springs it. */
+.seam { position: relative; --seam: 50; }
+.seam > .seam-now { position: absolute; inset: 0; clip-path: inset(0 0 0 calc(var(--seam) * 1%)); }
+.seam > .seam-blade {
+  position: absolute; top: 0; bottom: 0; left: calc(var(--seam) * 1%); width: 2px; translate: -1px 0;
+  background: linear-gradient(var(--paper), #fff 30%, var(--glass) 70%, var(--paper));
+  box-shadow: 0 0 0 1px rgb(9 23 16 / .12), 6px 0 18px rgb(9 23 16 / .18);
+}
+
+/* Loader shell (Vitrify) */
+.vitrify {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+  background: var(--paper) url("extras/paper-tile.webp"); color: var(--ink);
+}
+.vitrify svg { width: min(28vmin, 180px); height: auto; overflow: visible; }
+.vitrify .year {
+  margin-top: 18px; font: 500 12px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .24em;
+  font-variant-numeric: tabular-nums; text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glint::after, .caustic { animation: none !important; }
+  .ink-draw path, .ink-draw circle, .ink-draw line { animation: none; stroke-dashoffset: 0; }
+}

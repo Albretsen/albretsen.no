@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Facade bake</title>
+<style>
+@font-face{font-family:Italiana;src:url(../fonts/italiana.woff2) format('woff2')}
+@font-face{font-family:Jost;src:url(../fonts/jost-var.woff2) format('woff2');font-weight:100 900}
+html,body{margin:0;background:#c9d3df}
+canvas{display:block;width:100vw;height:auto}
+body.sky{background:url(../img/sky-dawn-2400.jpg) center/cover}
+</style></head>
+<body>
+<canvas id="c"></canvas>
+<pre id="out" style="display:none"></pre>
+<script type="module">
+// Offline bake: ?sun=0.12&w=2400&h=1350&alpha=1&dump=1
+// Run with headless Chrome --dump-dom to extract the PNG as a data URL.
+import { createFacade } from './facade.js'
+const q = new URLSearchParams(location.search)
+const w = +q.get('w') || 1600, h = +q.get('h') || 900
+const alpha = q.get('alpha') !== '0'
+if (!q.get('dump')) document.body.classList.add('sky')
+await document.fonts.load('80px Italiana'); await document.fonts.load('500 26px Jost')
+const f = await createFacade({ canvas: document.getElementById('c'), base: '../', sun: +(q.get('sun') ?? 0.12),
+  width: w, height: h, pixelRatio: 1, alpha, skyUrl: '../3d/tex/sky-env.jpg' })
+if (q.get('win') !== null) f.frameWindow(+q.get('win'))
+f.render()
+if (q.get('dump')) document.getElementById('out').textContent = document.getElementById('c').toDataURL('image/png')
+document.title = 'baked'
+</script>
+</body></html>

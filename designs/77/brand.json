@@ -1,0 +1,21 @@
+{
+  "name": "Shutterlight",
+  "tagline": "A window in a sunlit room, and the view passes through a day.",
+  "summary": "The homepage is one slow camera move. You start at a centred, symmetrical window set (limewash, lavender shutters, hand-painted tile) and scroll through a day: Dahl's cold-blue dawn, Fearnley's cliffs, Cézanne's terracotta noon and Claude Lorrain's golden hour, rendered live in WebGL. The camera dollies until you stand at the glass. The products are objects in the house: MCP Emails is a postcard you turn over, Fun Libs a glazed tile panel, Toolrails a painted sign that swings, Harbor a lit window. It reads as patient, exact and ambitious, which is how Albretsen AS builds software.",
+  "palette": ["#F4E9D4", "#E8BF86", "#E2A93B", "#B9532F", "#2F6C9E", "#A59CBF", "#6E6496", "#2A2233"],
+  "type": ["Cormorant Garamond (italic 500, spaced caps 600)", "EB Garamond", "ui-monospace (only for the agent command)"],
+  "voice": "Deadpan, exact and unhurried: short declaratives, facts set like captions. Example: \"Small, exact software that pays for itself.\"",
+  "motion": "Cinematic and slow: scroll is the clock and the camera; things settle like heavy props (crane, dolly, a hinged shutter, a damped pendulum), and nothing bounces.",
+  "sound": "Silent by design; the room is quiet, and no sound ships unless a visitor asks for it.",
+  "mark": "The mark is the window: an arch whose fanlight bars are the rays of a rising sun, the same window you look through in the hero.",
+  "inspiration": [
+    "https://www.cursor.com",
+    "https://stripe.com/sessions",
+    "https://www.airbnb.com/luxury",
+    "https://www.siteinspire.com",
+    "https://firewatchgame.com",
+    "https://scroll-driven-animations.style",
+    "https://tympanus.net/codrops/",
+    "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access"
+  ]
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>og</title>
+<style>
+@font-face{font-family:'Albert Sans';src:url(../fonts/albert-sans-latin-var.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:'DM Mono';src:url(../fonts/dm-mono-400-latin.woff2) format('woff2');font-weight:400}
+html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#F6F1E7}
+.spread{display:grid;grid-template-columns:470px 730px;height:630px;position:relative}
+.left{padding:54px 54px 48px 60px;display:flex;flex-direction:column;justify-content:space-between;background:#F6F1E7 url(../extras/whitewash-grain.png);background-blend-mode:multiply}
+.left img{width:300px;height:auto}
+h1{font:200 47px/1.06 'Albert Sans';letter-spacing:-.02em;color:#323A44;margin:0}
+h1 em{font-style:normal;color:#8F2B20}
+.f{font:400 12px 'DM Mono';letter-spacing:.14em;color:#4B5663;text-transform:uppercase;display:flex;justify-content:space-between}
+.right{background:url(../hero/terrace-wide-1600.jpg) 52% 40%/auto 118%;position:relative}
+.right::before{content:"";position:absolute;inset:0 auto 0 0;width:70px;background:linear-gradient(90deg,rgba(50,58,68,.28),rgba(50,58,68,0))}
+.spread::after{content:"";position:absolute;left:440px;top:0;bottom:0;width:30px;background:linear-gradient(90deg,rgba(50,58,68,0),rgba(50,58,68,.10))}
+</style></head><body>
+<div class="spread">
+  <div class="left">
+    <img src="../brand/wordmark.svg" alt="Albretsen AS" width="300" height="56">
+    <h1>I build<br>software that<br><em>pays for itself.</em></h1>
+    <div class="f"><span>albretsen.no</span><span>No. 01</span></div>
+  </div>
+  <div class="right"></div>
+</div>
+</body></html>

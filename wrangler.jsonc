@@ -1,0 +1,18 @@
+{
+  // albretsen.no on Cloudflare Workers. Deploy: npx wrangler deploy (after node scripts/build.ts)
+  "name": "albretsen-no",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash",
+    // The Worker runs first only where it adds something; everything else is served straight from the edge.
+    "run_worker_first": ["/mcp", "/api/events", "/api/events/*"]
+  },
+  "durable_objects": { "bindings": [{ "name": "FEED", "class_name": "Feed" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Feed"] }],
+  "routes": [{ "pattern": "albretsen.no", "custom_domain": true }]
+  // Secret: npx wrangler secret put FEED_KEY   (products send it as "Authorization: Bearer <key>")
+}

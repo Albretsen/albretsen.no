@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Albretsen AS">
+<title>Albretsen AS</title>
+<defs><filter id="s" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="1.2" stdDeviation="1.1" flood-color="#1e1028" flood-opacity=".35"/></filter><clipPath id="arch"><path d="M8 62V30a24 24 0 0 1 48 0v32z"/></clipPath></defs>
+<path d="M8 62V30a24 24 0 0 1 48 0v32z" fill="#A99BD1"/>
+<g clip-path="url(#arch)">
+<circle cx="32" cy="31" r="12" fill="#F2C66D" filter="url(#s)"/>
+<path d="M2 62L20 41 26 46 34 34 62 62z" fill="#C2603E" filter="url(#s)"/>
+<path d="M12 62L32 22 52 62z" fill="#2F6E9E" filter="url(#s)"/>
+<path d="M20.5 45h23l1.5 3H19z" fill="#F5EBDC"/>
+</g>
+<path d="M8 62V30a24 24 0 0 1 48 0v32" fill="none" stroke="#2E2240" stroke-width="3" stroke-linejoin="round"/>
+</svg>

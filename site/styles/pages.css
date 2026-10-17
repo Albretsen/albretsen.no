@@ -1,0 +1,76 @@
+/* Inner pages: products, writing, articles, stack. */
+.page { background: var(--paper); }
+.page main { min-height: 60vh; }
+
+/* product ledger (/build) */
+.ledger { list-style: none; margin: clamp(50px, 7vw, 90px) 0 0; padding: 0; border-top: 1.5px solid var(--plum); }
+.ledger > li { display: grid; grid-template-columns: 64px minmax(0, 1.3fr) minmax(0, 2fr) 11ch; gap: 8px 28px; align-items: center; padding: 22px 0; border-bottom: 1px solid rgba(46, 34, 64, .18); }
+.ledger .icon { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; background: var(--paper-2); }
+.ledger .icon.empty { display: grid; place-items: center; font: 500 22px/1 var(--mono); color: var(--lav-deep); border: 1.5px dashed rgba(46, 34, 64, .25); background: none; }
+.ledger h2 { margin: 0; font: 600 clamp(15px, 1.2vw, 17px)/1.3 var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+.ledger h2 a { text-decoration: none; border-bottom: 1.5px solid transparent; transition: border-color .3s var(--ease); }
+.ledger h2 a:hover, .ledger h2 a:focus-visible { border-color: currentColor; }
+.ledger .m { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px 14px; font: 600 10px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.ledger .m time { font: 400 12px/1.4 var(--mono); letter-spacing: 0; }
+.ledger .l { font: italic 400 clamp(19px, 1.5vw, 23px)/1.3 var(--serif); }
+.ledger .f { text-align: right; font: 400 clamp(18px, 1.5vw, 22px)/1.1 var(--mono); }
+.ledger .f small { display: block; margin-top: 6px; font: 600 9.5px/1 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+.ledger .retired { opacity: .78; }
+@media (max-width: 760px) {
+  .ledger > li { grid-template-columns: 52px minmax(0, 1fr) auto; }
+  .ledger .icon { width: 52px; height: 52px; border-radius: 12px; }
+  .ledger .l { grid-column: 2 / -1; }
+  .ledger .f { grid-column: 3; grid-row: 1; }
+}
+.section-h { margin: clamp(80px, 10vw, 130px) 0 0; font: italic 400 clamp(32px, 3.6vw, 52px)/1.05 var(--serif); }
+.daylist { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 12px; max-width: 40rem; }
+.daylist li { display: flex; gap: 16px; }
+.daylist li::before { content: ""; flex: none; width: 18px; height: 1.5px; margin-top: .8em; background: var(--terra); }
+
+/* writing index */
+.postlist { list-style: none; margin: clamp(50px, 7vw, 90px) 0 0; padding: 0; border-top: 1.5px solid var(--plum); }
+.postlist li { border-bottom: 1px solid rgba(46, 34, 64, .18); }
+.postlist a { display: grid; grid-template-columns: 11ch minmax(0, 1fr); gap: 6px 28px; padding: 28px 0; text-decoration: none; }
+.postlist time { font: 400 12px/2.2 var(--mono); color: var(--muted); }
+.postlist .t { font: italic 400 clamp(28px, 3vw, 42px)/1.1 var(--serif); transition: color .3s var(--ease); }
+.postlist a:hover .t, .postlist a:focus-visible .t { color: var(--terra); }
+.postlist .x { grid-column: 2; color: var(--muted); max-width: 40em; }
+.postlist .tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px 16px; font: 600 10px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--lav-deep); }
+@media (max-width: 640px) { .postlist a { grid-template-columns: 1fr; } .postlist .x, .postlist .tags { grid-column: 1; } }
+
+/* article */
+.post-head { max-width: 42rem; margin: 0 auto; }
+.post-meta { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; font: 600 10.5px/1.4 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+.post-meta time { font: 400 12px/1.4 var(--mono); letter-spacing: 0; }
+.lang { display: inline-flex; gap: 4px; }
+.lang a { text-decoration: none; padding: 5px 9px 4px; border-radius: 999px; border: 1.5px solid transparent; }
+.lang a[aria-current="true"] { border-color: currentColor; color: var(--plum); }
+.prose { max-width: 42rem; margin: clamp(40px, 6vw, 70px) auto 0; font-size: clamp(19px, .6vw + 15px, 22px); line-height: 1.62; }
+.prose > * + * { margin-top: 1.05em; }
+.prose h2 { margin-top: 2.2em; font: italic 400 clamp(30px, 2.8vw, 40px)/1.1 var(--serif); }
+.prose h3 { margin-top: 1.8em; font: 600 14px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; }
+.prose a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.prose a:hover { color: var(--terra); }
+.prose blockquote { margin: 1.8em 0; padding: 0 0 0 1.1em; border-left: 2px solid var(--terra); font: italic 400 clamp(24px, 2vw, 30px)/1.3 var(--serif); }
+.prose blockquote p { margin: 0; }
+.prose ul, .prose ol { padding-left: 1.2em; }
+.prose li + li { margin-top: .4em; }
+.prose code { font: 400 .82em/1 var(--mono); background: var(--paper-2); padding: .15em .35em; border-radius: 4px; }
+.prose hr { border: 0; height: 1px; background: rgba(46, 34, 64, .2); margin: 2.4em 0; }
+.prose .figure-wide { max-width: min(1100px, calc(100vw - 2 * var(--gutter))); margin-left: 50%; transform: translateX(-50%); width: max-content; }
+.post-end { max-width: 42rem; margin: clamp(60px, 8vw, 100px) auto 0; padding-top: 28px; border-top: 1px solid rgba(46, 34, 64, .2); display: flex; justify-content: space-between; gap: 20px; font: 600 11px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; }
+.post-end a { text-decoration: none; }
+
+/* stack */
+.specs { margin: clamp(40px, 6vw, 70px) 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 0 48px; }
+.spec { padding: 22px 0; border-top: 1px solid rgba(46, 34, 64, .2); }
+.spec dt { font: 600 11px/1.4 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--terra-deep); }
+.spec dd { margin: 8px 0 0; }
+.spec code, .endpoints code { font: 400 .85em/1.4 var(--mono); }
+.endpoints { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 10px; }
+.endpoints li { display: grid; grid-template-columns: minmax(0, 16ch) minmax(0, 1fr); gap: 4px 24px; padding: 12px 0; border-bottom: 1px solid rgba(46, 34, 64, .14); }
+.endpoints a { font: 400 15px/1.4 var(--mono); }
+@media (max-width: 640px) { .endpoints li { grid-template-columns: 1fr; } }
+.ledger .logo-harbor { background: #1d1a24; padding: 10px; color: #f2ead9; }
+.ledger .logo-luma { object-fit: contain; padding: 14px 8px; background: #fff; }
+.ledger .logo-toolrails { background: #111; }

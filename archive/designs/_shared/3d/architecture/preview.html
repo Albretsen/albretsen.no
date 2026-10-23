@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heure Bleue: architecture kit</title>
+<style>
+  :root { --ink: #232c57; --plaster: #f4eadb; --mustard: #d9a42b; }
+  html, body { margin: 0; height: 100%; background: #1b2450; color: var(--plaster); font: 13px/1.4 ui-sans-serif, system-ui, -apple-system, sans-serif; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  .hud { position: fixed; left: 16px; top: 14px; right: 16px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; pointer-events: none; }
+  .hud > * { pointer-events: auto; }
+  h1 { font-size: 14px; font-weight: 600; letter-spacing: .04em; margin: 0; text-transform: uppercase; }
+  .pill { background: rgba(35,44,87,.55); backdrop-filter: blur(6px); border-radius: 999px; padding: 6px 12px; display: flex; gap: 10px; align-items: center; }
+  button { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; opacity: .65; padding: 0; }
+  button[aria-pressed="true"] { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+  input[type=range] { width: min(260px, 40vw); accent-color: var(--mustard); }
+  .labels { position: fixed; inset: 0; pointer-events: none; }
+  .labels span { position: absolute; transform: translate(-50%, 0); white-space: nowrap; font-size: 10px; letter-spacing: .02em; padding: 2px 5px; border-radius: 4px; background: rgba(35,44,87,.6); }
+  .stats { position: fixed; right: 16px; bottom: 12px; opacity: .7; font-size: 11px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="labels" id="labels"></div>
+<div class="hud">
+  <h1>Heure Bleue · architecture</h1>
+  <div class="pill"><button data-view="sheet">Contact sheet</button><button data-view="town">Town</button></div>
+  <div class="pill"><span>Night</span><input id="t" type="range" min="0" max="1" step="0.001" value="0.25"><span>Day</span></div>
+  <div class="pill"><button id="reseed">New seed</button><span id="seed"></span></div>
+</div>
+<div class="stats" id="stats"></div>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { loadKit, createTown, place, KIT, ALL } from './town.js';
+
+const Q = new URLSearchParams(location.search);
+let view = Q.get('view') || 'sheet';
+let seed = +(Q.get('seed') || 7);
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.NoToneMapping;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(32, 1, 0.5, 4000);
+
+// ---------------------------------------------------------------- blue-hour stage
+// Sky ramps borrowed from design 64, keyed by sun elevation in degrees.
+const KEYS = [-7, -2.5, 0.5, 4, 9, 15];
+const C = (a) => a.map((h) => new THREE.Color(h));
+const RAMP = {
+  zenith:  C(['#1b2450', '#2c3b74', '#566fae', '#86a8d4', '#9fc0e2', '#a8c8e6']),
+  mid:     C(['#36447f', '#7a78b2', '#c995b4', '#eeb0b4', '#efc2b6', '#c6d8e8']),
+  horizon: C(['#7d6a9c', '#df98a3', '#f0ad62', '#f4bf68', '#f4cf8c', '#f3dfb8']),
+  key:     C(['#20284f', '#4a4270', '#c77b5e', '#eaa877', '#f4d3ac', '#fff0d8']),
+  amb:     C(['#3d4782', '#6a6aa3', '#9a8bb6', '#aab0cf', '#b9c7dc', '#c6d5e5']),
+  water:   C(['#1b2652', '#2f3b76', '#43568f', '#5677aa', '#6893c2', '#76a5cf']),
+};
+function rampAt(name, e) {
+  const r = RAMP[name];
+  if (e <= KEYS[0]) return r[0].clone();
+  for (let i = 0; i < KEYS.length - 1; i++) if (e <= KEYS[i + 1]) {
+    const f = (e - KEYS[i]) / (KEYS[i + 1] - KEYS[i]); return r[i].clone().lerp(r[i + 1], f * f * (3 - 2 * f));
+  }
+  return r[r.length - 1].clone();
+}
+const skyU = { uZ: { value: new THREE.Color() }, uM: { value: new THREE.Color() }, uH: { value: new THREE.Color() }, uSun: { value: new THREE.Vector3() } };
+const sky = new THREE.Mesh(new THREE.SphereGeometry(3000, 32, 16), new THREE.ShaderMaterial({
+  uniforms: skyU, side: THREE.BackSide, depthWrite: false,
+  vertexShader: 'varying vec3 d; void main(){ d = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); gl_Position.z = gl_Position.w; }',
+  fragmentShader: `uniform vec3 uZ, uM, uH, uSun; varying vec3 d;
+    void main(){ float h = clamp(d.y, 0., 1.); float t = pow(h, .5);
+      vec3 c = mix(uH, uM, smoothstep(0., .4, t)); c = mix(c, uZ, smoothstep(.35, 1., t));
+      float s = max(dot(normalize(d), normalize(uSun)), 0.); c += uH * pow(s, 24.) * .35;
+      gl_FragColor = vec4(c, 1.); }`,
+}));
+scene.add(sky);
+scene.fog = new THREE.Fog(0xffffff, 120, 900);
+const hemi = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 2);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.04;
+scene.add(sun, sun.target);
+const sea = new THREE.Mesh(new THREE.CircleGeometry(3000, 64), new THREE.MeshStandardMaterial({ color: 0x43568f, roughness: 0.35, metalness: 0.0 }));
+sea.rotation.x = -Math.PI / 2; sea.position.y = -0.6; sea.receiveShadow = true;
+scene.add(sea);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshStandardMaterial({ color: 0xe6d8c6, roughness: 1 }));
+ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02; ground.receiveShadow = true;
+scene.add(ground);
+
+let lightTargets = []; // materials or handles to switch
+let tNow = +(Q.get('t') ?? 0.25);
+document.getElementById('t').value = tNow;
+function applyTime(t) {
+  const e = -7 + t * 22;
+  const er = THREE.MathUtils.degToRad(e);
+  const az = +(Q.get('az') ?? 2.45);
+  const dir = new THREE.Vector3(Math.sin(az) * Math.cos(er), Math.sin(Math.max(er, 0.05)), -Math.cos(az) * Math.cos(er)).normalize();
+  skyU.uZ.value.copy(rampAt('zenith', e)); skyU.uM.value.copy(rampAt('mid', e)); skyU.uH.value.copy(rampAt('horizon', e));
+  skyU.uSun.value.copy(new THREE.Vector3(Math.sin(az), Math.sin(er), -Math.cos(az)));
+  scene.fog.color.copy(rampAt('horizon', e)).lerp(rampAt('mid', e), 0.35);
+  const key = rampAt('key', e), amb = rampAt('amb', e);
+  sun.color.copy(key); sun.intensity = 0.4 + 2.4 * THREE.MathUtils.smoothstep(e, -3, 8);
+  hemi.color.copy(amb).lerp(rampAt('zenith', e), 0.3); hemi.groundColor.copy(rampAt('horizon', e)).multiplyScalar(0.6);
+  hemi.intensity = 1.25 + 0.6 * THREE.MathUtils.smoothstep(e, -7, 8);
+  sea.material.color.copy(rampAt('water', e));
+  sun.position.copy(dir).multiplyScalar(300).add(sun.target.position);
+  const night = THREE.MathUtils.smoothstep(-e, -2, 6.5);
+  if (town) town.setNight(night);
+  for (const m of lightTargets) m.emissiveIntensity = THREE.MathUtils.smoothstep(night, 0.05, 0.5) * 1.15;
+}
+
+// ---------------------------------------------------------------- orbit (drag + wheel)
+const orbit = { target: new THREE.Vector3(), yaw: 0.0, pitch: 0.32, dist: 120 };
+function placeCam() {
+  const { target: t, yaw, pitch, dist } = orbit;
+  camera.position.set(t.x + Math.sin(yaw) * Math.cos(pitch) * dist, t.y + Math.sin(pitch) * dist, t.z + Math.cos(yaw) * Math.cos(pitch) * dist);
+  camera.lookAt(t);
+}
+let drag = null;
+canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY, yaw: orbit.yaw, pitch: orbit.pitch }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', (e) => { if (!drag) return; orbit.yaw = drag.yaw - (e.clientX - drag.x) * 0.005; orbit.pitch = THREE.MathUtils.clamp(drag.pitch + (e.clientY - drag.y) * 0.004, 0.02, 1.4); });
+canvas.addEventListener('pointerup', () => { drag = null; });
+canvas.addEventListener('wheel', (e) => { orbit.dist = THREE.MathUtils.clamp(orbit.dist * Math.exp(e.deltaY * 0.001), 8, 900); e.preventDefault(); }, { passive: false });
+
+// ---------------------------------------------------------------- content
+const kit = await loadKit({ THREE, GLTFLoader, MeshoptDecoder, base: './' });
+const manifest = await (await fetch('./manifest.json')).json();
+const byName = Object.fromEntries(manifest.map((m) => [m.name, m]));
+let content = null, town = null, labels = [];
+
+function clear() {
+  if (content) scene.remove(content);
+  if (town) town.dispose();
+  content = null; town = null; labels = []; lightTargets = [];
+  document.getElementById('labels').innerHTML = '';
+}
+
+function label(text, pos) {
+  const el = document.createElement('span'); el.textContent = text;
+  document.getElementById('labels').appendChild(el);
+  labels.push({ el, pos });
+}
+
+function buildSheet() {
+  clear();
+  content = new THREE.Group(); scene.add(content);
+  const rowsDef = [
+    ['paris_haussmann', 'paris_narrow', 'paris_pink', 'paris_powder', 'paris_rotunda'],
+    ['med_cube_small', 'med_cube_stack', 'med_villa_tiled', 'med_house_gable', 'med_house_gable_mustard', 'med_tower_house'],
+    ['church', 'cafe', 'hotel', 'fountain', 'belvedere', 'town_gate'],
+    ['wall_retaining', 'wall_retaining_flowers', 'wall_low', 'stairs', 'stairs_wide', 'terrace_block'],
+    ['road_straight', 'road_curve', 'road_slope', 'road_coast', 'road_coast_curve', 'road_t', 'terrain_slope', 'rocks_coast'],
+    ['headland', 'hill_backdrop'],
+  ];
+  const only = Q.get('only');
+  let z = 0;
+  const pad = 9;
+  for (const row of rowsDef) {
+    const items = row.filter((n) => !only || only.split(',').includes(n));
+    if (!items.length) continue;
+    const big = row[0] === 'headland';
+    const sc = big ? 0.3 : 1;
+    const widths = items.map((n) => (byName[n]?.footprint?.[0] ?? 10) * sc);
+    const depth = Math.max(...items.map((n) => (byName[n]?.footprint?.[1] ?? 10) * sc));
+    const total = widths.reduce((a, b) => a + b, 0) + pad * (items.length - 1);
+    let x = -total / 2;
+    items.forEach((n, i) => {
+      const { object, emissive } = place(kit, n, { ownLights: false });
+      const cx = x + widths[i] / 2;
+      object.position.set(cx, 0, z - depth / 2); object.scale.setScalar(sc);
+      content.add(object);
+      const m = byName[n];
+      label(`${n.replace(/_/g, ' ')}${big ? ' ×0.3' : ''} · ${m ? (m.tris / 1000).toFixed(1) + 'k' : ''}`, new THREE.Vector3(cx, -0.5, z + 2.5 + (i % 2) * 2.2));
+      x += widths[i] + pad;
+    });
+    z -= depth + 14;
+  }
+  content.traverse((o) => { if (o.isMesh) (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => m.name.startsWith('emissive_') && !lightTargets.includes(m) && lightTargets.push(m)); });
+  ground.scale.set(400, 300, 1); ground.position.set(0, -0.02, z / 2); ground.visible = true;
+  sea.position.z = -900;
+  const box = new THREE.Box3().setFromObject(content);
+  const c = box.getCenter(new THREE.Vector3());
+  orbit.target.copy(c).setY(4); orbit.yaw = 0.0; orbit.pitch = 0.5; orbit.dist = only ? 40 : 230;
+  sun.target.position.copy(c);
+  const sc = sun.shadow.camera; sc.left = -150; sc.right = 150; sc.top = 150; sc.bottom = -150; sc.far = 800; sc.updateProjectionMatrix();
+}
+
+function buildTown() {
+  clear();
+  town = createTown({ THREE, kit, seed });
+  scene.add(town.group);
+  ground.visible = false; sea.position.z = 0;
+  orbit.target.set(0, 10, -30); orbit.yaw = 0.18; orbit.pitch = 0.2; orbit.dist = 170;
+  sun.target.position.set(0, 0, -30);
+  const sc = sun.shadow.camera; sc.left = -120; sc.right = 120; sc.top = 120; sc.bottom = -120; sc.far = 900; sc.updateProjectionMatrix();
+  document.getElementById('seed').textContent = 'seed ' + seed + ' · ' + town.buildings.length + ' buildings';
+}
+
+function setView(v) {
+  view = v;
+  document.querySelectorAll('[data-view]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === v)));
+  v === 'town' ? buildTown() : buildSheet();
+  if (Q.get('cam')) { const [x, y, z, p, d] = Q.get('cam').split(',').map(Number); orbit.target.set(x, y, z); orbit.pitch = p; orbit.dist = d; }
+  if (Q.get('yaw')) orbit.yaw = +Q.get('yaw');
+  applyTime(tNow);
+}
+document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
+document.getElementById('reseed').addEventListener('click', () => { seed = (seed * 7 + 3) % 997; if (view === 'town') buildTown(); applyTime(tNow); });
+document.getElementById('t').addEventListener('input', (e) => { tNow = +e.target.value; applyTime(tNow); });
+setView(view);
+
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+const v = new THREE.Vector3();
+function frame() {
+  placeCam();
+  renderer.render(scene, camera);
+  for (const l of labels) {
+    v.copy(l.pos).project(camera);
+    const vis = v.z < 1 && Math.abs(v.x) < 1.1 && Math.abs(v.y) < 1.1;
+    l.el.style.display = vis ? '' : 'none';
+    if (vis) { l.el.style.left = ((v.x + 1) / 2 * innerWidth) + 'px'; l.el.style.top = ((1 - v.y) / 2 * innerHeight) + 'px'; }
+  }
+  document.getElementById('stats').textContent = renderer.info.render.triangles.toLocaleString() + ' tris · ' + renderer.info.render.calls + ' draws';
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

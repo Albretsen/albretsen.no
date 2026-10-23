@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heure Bleue props</title>
+<style>
+  :root { --ink: #232c57; --plaster: #f4eadb; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #2c3b74; font: 13px/1.3 "Avenir Next", Avenir, system-ui, sans-serif; color: var(--plaster); }
+  canvas { display: block; }
+  #ui { position: fixed; left: 16px; right: 16px; bottom: 14px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+        background: rgba(20, 26, 58, .55); backdrop-filter: blur(8px); padding: 10px 14px; border-radius: 12px; }
+  #ui input[type=range] { flex: 1; min-width: 160px; accent-color: #f0ad62; }
+  #ui select, #ui button { font: inherit; background: rgba(255,255,255,.1); color: inherit; border: 1px solid rgba(255,255,255,.25); border-radius: 8px; padding: 4px 8px; }
+  #title { position: fixed; left: 18px; top: 14px; letter-spacing: .02em; }
+  #title b { font-size: 15px; } #title span { opacity: .7; }
+  .lbl { position: fixed; transform: translate(-50%, 0); white-space: nowrap; font-size: 11px; color: #fff8ec; text-shadow: 0 1px 3px rgba(0,0,0,.6); pointer-events: none; }
+  .lbl.lm { font-size: 13px; font-weight: 600; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "../../../64/assets/vendor/three.module.min.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="title"><b>Heure Bleue · props</b> <span>street furniture, trees and the four product landmarks</span></div>
+<div id="labels"></div>
+<div id="ui">
+  <label>time</label><input id="t" type="range" min="0" max="1" step="0.001" value="0.15">
+  <span id="tv">0.15</span>
+  <select id="cam"></select>
+  <button id="play">play day</button>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+
+const Q = new URLSearchParams(location.search);
+const manifest = await (await fetch('manifest.json')).json();
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, .1, 600);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.maxPolarAngle = Math.PI * .49;
+
+// ------------------------------------------------------------- sky + light ramps (from design 64)
+const KEYS = [-7, -2.5, 0.5, 4, 9, 15];
+const C = a => a.map(h => new THREE.Color(h));
+const RAMP = {
+  zenith:  C(['#1b2450', '#2c3b74', '#566fae', '#86a8d4', '#9fc0e2', '#a8c8e6']),
+  horizon: C(['#7d6a9c', '#df98a3', '#f0ad62', '#f4bf68', '#f4cf8c', '#f3dfb8']),
+  key:     C(['#000000', '#140c10', '#c77b5e', '#eaa877', '#f4d3ac', '#fff0d8']),
+  amb:     C(['#3d4782', '#6a6aa3', '#9a8bb6', '#aab0cf', '#b9c7dc', '#c6d5e5']),
+};
+function rampAt(name, e) {
+  const r = RAMP[name];
+  if (e <= KEYS[0]) return r[0].clone();
+  for (let i = 0; i < KEYS.length - 1; i++) if (e <= KEYS[i + 1]) {
+    const f = (e - KEYS[i]) / (KEYS[i + 1] - KEYS[i]); return r[i].clone().lerp(r[i + 1], f * f * (3 - 2 * f));
+  }
+  return r[r.length - 1].clone();
+}
+const skyGeo = new THREE.SphereGeometry(400, 32, 16);
+const skyMat = new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, uniforms: { uZ: { value: new THREE.Color() }, uH: { value: new THREE.Color() } },
+  vertexShader: 'varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+  fragmentShader: 'uniform vec3 uZ; uniform vec3 uH; varying vec3 vP; void main(){ float h = normalize(vP).y; vec3 c = mix(uH, uZ, smoothstep(-.02, .45, h)); gl_FragColor = vec4(c, 1.);\n#include <colorspace_fragment>\n}' });
+scene.add(new THREE.Mesh(skyGeo, skyMat));
+scene.fog = new THREE.Fog(0x2c3b74, 60, 220);
+const hemi = new THREE.HemisphereLight(0xffffff, 0x7a6a8a, 1.2); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 2); sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -45, right: 45, top: 45, bottom: -45, near: 1, far: 200 });
+sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
+scene.add(sun, sun.target);
+const ground = new THREE.Mesh(new THREE.CircleGeometry(160, 64), new THREE.MeshStandardMaterial({ color: 0xe6d3b4, roughness: 1 }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+const road = new THREE.Mesh(new THREE.PlaneGeometry(140, 7), new THREE.MeshStandardMaterial({ color: 0x8d8a95, roughness: 1 }));
+road.rotation.x = -Math.PI / 2; road.position.set(0, .01, 4); road.receiveShadow = true; scene.add(road);
+
+// ------------------------------------------------------------- load
+const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+const emissive = [];   // { mat, seed }
+const screens = [];
+const items = [];
+const seedOf = s => { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return ((h >>> 0) % 1000) / 1000; };
+
+function screenTexture(product, i) {
+  const cv = document.createElement('canvas'); cv.width = 512; cv.height = 288;
+  const tex = new THREE.CanvasTexture(cv); tex.flipY = false; tex.colorSpace = THREE.SRGBColorSpace;
+  return { cv, tex, product, i };
+}
+function drawScreen(s, tsec) {
+  const g = s.cv.getContext('2d'); const W = s.cv.width, H = s.cv.height;
+  g.fillStyle = '#141a3a'; g.fillRect(0, 0, W, H);
+  g.fillStyle = '#f0ad62'; g.font = '600 26px Avenir Next, sans-serif'; g.fillText(s.product.toUpperCase(), 24, 44);
+  const label = ['MRR', 'installs', 'MRR', 'documents'][s.i % 4];
+  const val = Math.round(1200 + 300 * Math.sin(tsec * .3 + s.i) + tsec * 3);
+  g.fillStyle = '#f4eadb'; g.font = '700 84px Avenir Next, sans-serif'; g.fillText((label === 'MRR' ? '$' : '') + val.toLocaleString('en'), 24, 140);
+  g.fillStyle = '#a9c6e0'; g.font = '24px Avenir Next, sans-serif'; g.fillText(label + ' · live', 24, 178);
+  g.strokeStyle = '#c8336e'; g.lineWidth = 5; g.beginPath();
+  for (let x = 0; x <= 40; x++) { const y = 250 - 40 * (.5 + .5 * Math.sin(x * .35 + tsec * .8 + s.i)) - x * .6; x ? g.lineTo(24 + x * 11.6, y) : g.moveTo(24, y); }
+  g.stroke(); s.tex.needsUpdate = true;
+}
+
+const PRODUCT = { lm_mcpemails: 'MCP Emails', lm_funlibs: 'Fun Libs', lm_toolrails: 'Toolrails', lm_harbor: 'Harbor' };
+await Promise.all(manifest.map(async (m, idx) => {
+  const g = await loader.loadAsync(m.file);
+  const root = g.scene; root.name = m.name;
+  root.traverse(o => {
+    if (!o.isMesh) return;
+    o.castShadow = true; o.receiveShadow = true;
+    const mats = Array.isArray(o.material) ? o.material : [o.material];
+    mats.forEach(mat => {
+      if (mat.name.startsWith('emissive_')) {
+        mat.userData.glow = mat.emissive.clone();
+        mat.emissiveIntensity = 0;          // the contract: lights start off
+        emissive.push({ mat, seed: seedOf(m.name + mat.name) });
+      }
+    });
+    if (o.name === 'screen' || o.parent?.name === 'screen') {
+      const s = screenTexture(PRODUCT[m.name] || m.name, screens.length);
+      o.material = new THREE.MeshBasicMaterial({ map: s.tex, toneMapped: false });
+      screens.push(s);
+    }
+  });
+  items[idx] = { m, root };
+}));
+
+// ------------------------------------------------------------- layout
+const box = new THREE.Box3(), size = new THREE.Vector3();
+const lms = items.filter(it => it.m.name.startsWith('lm_'));
+const rest = items.filter(it => !it.m.name.startsWith('lm_'));
+let x = 0; const gap = 3;
+const lmW = lms.map(it => (box.setFromObject(it.root).getSize(size), size.x));
+const lmTotal = lmW.reduce((a, b) => a + b, 0) + gap * 2 * (lms.length - 1);
+x = -lmTotal / 2;
+lms.forEach((it, i) => { it.root.position.set(x + lmW[i] / 2, 0, -8); x += lmW[i] + gap * 2; scene.add(it.root); });
+const rows = [[], [], []];
+rest.forEach((it, i) => { rows[Math.min(2, Math.floor(i / Math.ceil(rest.length / 3)))].push(it); });
+rows.forEach((row, r) => {
+  const ws = row.map(it => (box.setFromObject(it.root).getSize(size), Math.max(1.2, size.x)));
+  const tot = ws.reduce((a, b) => a + b, 0) + 1.6 * (row.length - 1); let xx = -tot / 2;
+  row.forEach((it, i) => { it.root.position.set(xx + ws[i] / 2, it.m.name === 'string_lights_span' ? 3.2 : 0, 10 + r * 6.5); xx += ws[i] + 1.6; scene.add(it.root); });
+});
+
+// labels
+const L = document.getElementById('labels');
+items.forEach(it => { const d = document.createElement('div'); d.className = 'lbl' + (it.m.name.startsWith('lm_') ? ' lm' : ''); d.textContent = it.m.name; L.appendChild(d); it.lbl = d; });
+
+// cameras
+const camSel = document.getElementById('cam');
+const views = { overview: [[0, 30, 62], [0, 2, 6]], landmarks: [[0, 14, 32], [0, 4, -8]], props: [[0, 14, 40], [0, 1.5, 15]] };
+items.forEach(it => {
+  box.setFromObject(it.root); const c = box.getCenter(new THREE.Vector3()); const s = box.getSize(new THREE.Vector3()).length();
+  views[it.m.name] = [[c.x + s * .55, c.y + s * .35, c.z + s * 1.25], [c.x, c.y, c.z]];
+});
+Object.keys(views).forEach(k => { const o = document.createElement('option'); o.value = o.textContent = k; camSel.appendChild(o); });
+function setView(k) { const v = views[k] || views.overview; camera.position.set(...v[0]); controls.target.set(...v[1]); controls.update(); camSel.value = k; }
+camSel.onchange = () => setView(camSel.value);
+setView(Q.get('cam') || 'overview');
+
+// ------------------------------------------------------------- time of day
+const tIn = document.getElementById('t'), tv = document.getElementById('tv');
+let T = parseFloat(Q.get('t') ?? '0.15'); tIn.value = T;
+function applyTime(t) {
+  const e = -7 + t * 22;   // sun elevation in degrees, as in design 64
+  const z = rampAt('zenith', e), h = rampAt('horizon', e);
+  skyMat.uniforms.uZ.value.copy(z); skyMat.uniforms.uH.value.copy(h);
+  scene.fog.color.copy(h).lerp(z, .45);
+  hemi.color.copy(rampAt('amb', e)); hemi.groundColor.copy(h).multiplyScalar(.5); hemi.intensity = 1.9 - .5 * t;
+  const k = rampAt('key', e); sun.color.copy(k); sun.intensity = 3.2 * Math.max(0, Math.min(1, (e + 1.5) / 6));
+  const el = THREE.MathUtils.degToRad(Math.max(e, 1.5)), az = THREE.MathUtils.degToRad(-125);
+  sun.position.set(Math.cos(el) * Math.cos(az) * 80, Math.sin(el) * 80 + 4, Math.cos(el) * Math.sin(az) * -80);
+  renderer.toneMappingExposure = .95 + .2 * t;
+  const night = 1 - THREE.MathUtils.smoothstep(t, .12, .5);
+  for (const { mat, seed } of emissive) {
+    const on = THREE.MathUtils.smoothstep(night, seed * .7 + .05, seed * .7 + .15);
+    mat.emissive.copy(mat.userData.glow); mat.emissiveIntensity = on * (mat.name.startsWith('emissive_sign') ? .8 : 1.25);
+  }
+  tv.textContent = t.toFixed(2);
+}
+tIn.oninput = () => { T = +tIn.value; applyTime(T); };
+let playing = false; document.getElementById('play').onclick = () => playing = !playing;
+applyTime(T);
+
+const clock = new THREE.Clock(); const v = new THREE.Vector3();
+function frame() {
+  const dt = clock.getDelta(), ts = clock.elapsedTime;
+  if (playing) { T = (T + dt * .03) % 1; tIn.value = T; applyTime(T); }
+  screens.forEach(s => drawScreen(s, ts));
+  controls.update(); renderer.render(scene, camera);
+  items.forEach(it => {
+    box.setFromObject(it.root); v.set((box.min.x + box.max.x) / 2, box.max.y + .3, (box.min.z + box.max.z) / 2).project(camera);
+    const vis = v.z < 1 && Math.abs(v.x) < 1.1 && Math.abs(v.y) < 1.1;
+    it.lbl.style.display = vis ? '' : 'none';
+    if (vis) { it.lbl.style.left = ((v.x + 1) / 2 * innerWidth) + 'px'; it.lbl.style.top = ((1 - v.y) / 2 * innerHeight - 16) + 'px'; }
+  });
+  requestAnimationFrame(frame);
+}
+frame();
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+</script>
+</body>
+</html>

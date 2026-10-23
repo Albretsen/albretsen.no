@@ -1,0 +1,99 @@
+[
+  {
+    "file": "hero_car.glb",
+    "name": "Hero spider (powder blue)",
+    "tris": 9838,
+    "kb": 133.5,
+    "animations": [],
+    "emissive": [
+      "emissive_headlight",
+      "emissive_taillight",
+      "emissive_dash"
+    ],
+    "source": "Own Blender work (procedural scripts in src/, Blender 5.2), Albretsen AS",
+    "license": "Original work for Albretsen AS; free to use commercially",
+    "notes": "1960s Italian-French two-seat spider, LHD. Faces +Z, left = +X. Nodes: body, interior, windshield, windshield_frame, steering_wheel (spin about local Z), door_l / door_r (hinge origin; rotation.y -1.15 opens left, +1.15 right), wheel_fl/fr/rl/rr (r 0.30), anchors seat_driver (first-person eye), seat_passenger, exit_l, light_head_l/r, light_tail_l/r. About 7.4k exterior + 2.4k cockpit tris. Recolour via the 'paint' material."
+  },
+  {
+    "file": "hero_car_mustard.glb",
+    "name": "Hero spider (mustard)",
+    "tris": 9838,
+    "kb": 133.5,
+    "animations": [],
+    "emissive": [
+      "emissive_headlight",
+      "emissive_taillight",
+      "emissive_dash"
+    ],
+    "source": "Own Blender work (procedural scripts in src/, Blender 5.2), Albretsen AS",
+    "license": "Original work for Albretsen AS; free to use commercially",
+    "notes": "Same model, paint #d9a42b."
+  },
+  {
+    "file": "city_car.glb",
+    "name": "City car (pink runabout)",
+    "tris": 6316,
+    "kb": 80.8,
+    "animations": [],
+    "emissive": [
+      "emissive_headlight",
+      "emissive_taillight"
+    ],
+    "source": "Own Blender work (procedural scripts in src/, Blender 5.2), Albretsen AS",
+    "license": "Original work for Albretsen AS; free to use commercially",
+    "notes": "Round little 1960s Italian runabout with canvas sunroof. Nodes: body, wheel_fl/fr/rl/rr, anchors light_head_l/r, light_tail_l/r. Wheel r 0.26."
+  },
+  {
+    "file": "van.glb",
+    "name": "Corrugated delivery van (mustard)",
+    "tris": 6868,
+    "kb": 89.5,
+    "animations": [],
+    "emissive": [
+      "emissive_headlight",
+      "emissive_taillight"
+    ],
+    "source": "Own Blender work (procedural scripts in src/, Blender 5.2), Albretsen AS",
+    "license": "Original work for Albretsen AS; free to use commercially",
+    "notes": "1950s-60s French corrugated van, unbadged, plaster sign panels ('paint_accent'). Nodes: body, wheel_fl/fr/rl/rr, anchors light_head_l/r, light_tail_l/r. Wheel r 0.36."
+  },
+  {
+    "file": "scooter.glb",
+    "name": "Scooter (cream)",
+    "tris": 3592,
+    "kb": 54.0,
+    "animations": [],
+    "emissive": [
+      "emissive_headlight",
+      "emissive_taillight"
+    ],
+    "source": "Own Blender work (procedural scripts in src/, Blender 5.2), Albretsen AS",
+    "license": "Original work for Albretsen AS; free to use commercially",
+    "notes": "1960s step-through scooter, unbadged. Nodes: body, handlebar (pivot at headset, rotation.y steers), wheel_f, wheel_r (r 0.20), anchors seat_rider, seat_pillion, light_head, light_tail."
+  },
+  {
+    "file": "bicycle.glb",
+    "name": "Town bicycle (burgundy)",
+    "tris": 3148,
+    "kb": 64.4,
+    "animations": [],
+    "emissive": [
+      "emissive_headlight",
+      "emissive_taillight"
+    ],
+    "source": "Own Blender work (procedural scripts in src/, Blender 5.2), Albretsen AS",
+    "license": "Original work for Albretsen AS; free to use commercially",
+    "notes": "Step-through town bike with wicker basket, baguette and bougainvillea. Nodes: frame, handlebar (fork, basket, lamp; rotation.y steers), crank (rotation.x pedals), wheel_f, wheel_r (r 0.34), anchors seat_rider, light_head, light_tail."
+  },
+  {
+    "file": "vehicles.js",
+    "name": "Vehicle loader + arcade car controller",
+    "tris": 0,
+    "kb": 16.2,
+    "animations": [],
+    "emissive": [],
+    "source": "Albretsen AS",
+    "license": "Original work for Albretsen AS; free to use commercially",
+    "notes": "loadVehicle, prepareVehicle, ArcadeCar, PathFollower, CarInput (keyboard + touch joystick), ChaseCamera (chase / cockpit). three.js r170 + meshopt decoder."
+  }
+]

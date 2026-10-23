@@ -1,0 +1,367 @@
+[
+ {
+  "file": "lamp_paris.glb",
+  "name": "lamp_paris",
+  "tris": 562,
+  "kb": 15.6,
+  "animations": [],
+  "emissive": [
+   "emissive_lamp"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Parisian cast-iron candelabra, 4.3 m. Lantern glass is node \"lamp\"."
+ },
+ {
+  "file": "lamp_riviera.glb",
+  "name": "lamp_riviera",
+  "tris": 406,
+  "kb": 13.1,
+  "animations": [],
+  "emissive": [
+   "emissive_lamp"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Swan-neck coast-road lamp with a mustard shade, 3.9 m, arm reaches +X."
+ },
+ {
+  "file": "cafe_table.glb",
+  "name": "cafe_table",
+  "tris": 236,
+  "kb": 10.4,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Round bistro table, marble top, 0.76 m."
+ },
+ {
+  "file": "cafe_chair.glb",
+  "name": "cafe_chair",
+  "tris": 376,
+  "kb": 12.6,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Bistro chair, faces -Z (seat front toward viewer)."
+ },
+ {
+  "file": "cafe_set.glb",
+  "name": "cafe_set",
+  "tris": 988,
+  "kb": 21.7,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Table with two chairs, footprint 1.6 x 0.8 m."
+ },
+ {
+  "file": "parasol.glb",
+  "name": "parasol",
+  "tris": 356,
+  "kb": 12.6,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Open striped caf\u00e9 parasol, 2.6 m tall, 2.6 m across."
+ },
+ {
+  "file": "parasol_mustard.glb",
+  "name": "parasol_mustard",
+  "tris": 356,
+  "kb": 12.7,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Open parasol, mustard and white stripes."
+ },
+ {
+  "file": "parasol_closed.glb",
+  "name": "parasol_closed",
+  "tris": 176,
+  "kb": 9.4,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Furled parasol."
+ },
+ {
+  "file": "bench.glb",
+  "name": "bench",
+  "tris": 396,
+  "kb": 12.7,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Promenade bench, 1.8 m, faces -Z."
+ },
+ {
+  "file": "planter_pot.glb",
+  "name": "planter_pot",
+  "tris": 544,
+  "kb": 19.4,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Terracotta pot with a little lemon tree, 2.0 m."
+ },
+ {
+  "file": "planter_versailles.glb",
+  "name": "planter_versailles",
+  "tris": 472,
+  "kb": 15.2,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Versailles planter box with a clipped ball tree, 2.2 m."
+ },
+ {
+  "file": "planter_box.glb",
+  "name": "planter_box",
+  "tris": 1072,
+  "kb": 30.0,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Long terracotta trough of lavender, 1.3 m."
+ },
+ {
+  "file": "cypress.glb",
+  "name": "cypress",
+  "tris": 434,
+  "kb": 17.6,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Italian cypress, 7 m. Flat-shaded flame with two offset lobes."
+ },
+ {
+  "file": "cypress_small.glb",
+  "name": "cypress_small",
+  "tris": 434,
+  "kb": 17.7,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Italian cypress, 4.6 m. Flat-shaded flame with two offset lobes."
+ },
+ {
+  "file": "palm.glb",
+  "name": "palm",
+  "tris": 998,
+  "kb": 22.0,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Canary/date palm, 6.2 m, trunk leans +X."
+ },
+ {
+  "file": "palm_tall.glb",
+  "name": "palm_tall",
+  "tris": 998,
+  "kb": 21.5,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Canary/date palm, 8 m, trunk leans +X."
+ },
+ {
+  "file": "olive.glb",
+  "name": "olive",
+  "tris": 868,
+  "kb": 28.8,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Olive tree, 3.3 m, silvery canopy over a twisted trunk."
+ },
+ {
+  "file": "bougainvillea_wall.glb",
+  "name": "bougainvillea_wall",
+  "tris": 1376,
+  "kb": 43.4,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Bougainvillea climbing a wall: 2.8 m wide, 2.6 m tall, back at z=0, grows toward +Z."
+ },
+ {
+  "file": "bougainvillea_spill.glb",
+  "name": "bougainvillea_spill",
+  "tris": 1040,
+  "kb": 35.0,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Bougainvillea spilling over a wall top: origin on the wall-top edge, hangs ~1.8 m down the +Z face."
+ },
+ {
+  "file": "bougainvillea_bush.glb",
+  "name": "bougainvillea_bush",
+  "tris": 856,
+  "kb": 30.3,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Free-standing bougainvillea mound, 1.7 m."
+ },
+ {
+  "file": "fountain.glb",
+  "name": "fountain",
+  "tris": 884,
+  "kb": 21.5,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Tiered stone fountain, 3.1 m across, 2.8 m tall. Water is its own node \"water\" for shimmer/animation."
+ },
+ {
+  "file": "kiosk.glb",
+  "name": "kiosk",
+  "tris": 500,
+  "kb": 16.5,
+  "animations": [],
+  "emissive": [
+   "emissive_window_warm"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Parisian newspaper kiosk, 4.1 m. Serving window faces +Z."
+ },
+ {
+  "file": "poster_column.glb",
+  "name": "poster_column",
+  "tris": 506,
+  "kb": 14.5,
+  "animations": [],
+  "emissive": [],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Colonne Morris poster column, 3.8 m."
+ },
+ {
+  "file": "string_lights.glb",
+  "name": "string_lights",
+  "tris": 672,
+  "kb": 16.8,
+  "animations": [],
+  "emissive": [
+   "emissive_string"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Festoon lights strung between two posts, 8 m span, 3.4 m posts."
+ },
+ {
+  "file": "string_lights_span.glb",
+  "name": "string_lights_span",
+  "tris": 564,
+  "kb": 15.2,
+  "animations": [],
+  "emissive": [
+   "emissive_string"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
+  "license": "Own work (Albretsen AS)",
+  "notes": "Festoon span without posts: anchors at x=-4 and x=+4 at y=0 (origin is the anchor height), sags 0.6 m. Scale X to fit other spans."
+ },
+ {
+  "file": "lm_mcpemails.glb",
+  "name": "lm_mcpemails",
+  "tris": 2408,
+  "kb": 54.9,
+  "animations": [],
+  "emissive": [
+   "emissive_window_ground",
+   "emissive_window_upper",
+   "emissive_lamp",
+   "emissive_sign_mcpemails"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README); sign artwork is the real product logo from archive/designs/_shared/products/",
+  "license": "Own work (Albretsen AS); product logos are trademarks of their products, used as-is",
+  "notes": "MCP Emails post office: Paris zinc mansard, French-yellow post box, fascia sign with the real mcpemails wordmark. 7 x 5.6 m, 9.3 m tall. \"screen\" is 1.7 x 0.96 m (16:9) by the door.",
+  "nodes": {
+   "sign": "emissive logo sign(s)",
+   "screen": "flat 16:9 panel, UV 0..1, for a CanvasTexture (set texture.flipY = false)"
+  }
+ },
+ {
+  "file": "lm_funlibs.glb",
+  "name": "lm_funlibs",
+  "tris": 3688,
+  "kb": 72.6,
+  "animations": [],
+  "emissive": [
+   "emissive_window_ground",
+   "emissive_window_upper",
+   "emissive_marquee",
+   "emissive_arcade",
+   "emissive_sign_funlibs"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README); sign artwork is the real product logo from archive/designs/_shared/products/",
+  "license": "Own work (Albretsen AS); product logos are trademarks of their products, used as-is",
+  "notes": "Fun Libs games arcade: pink Art Deco storefront, striped awning, rooftop marquee with the real yellow Fun Libs icon, a pavement arcade cabinet. 7 x 5.6 m, 9 m to the sign. \"screen\" 2.2 x 1.24 m above the awning.",
+  "nodes": {
+   "sign": "emissive logo sign(s)",
+   "screen": "flat 16:9 panel, UV 0..1, for a CanvasTexture (set texture.flipY = false)"
+  }
+ },
+ {
+  "file": "lm_toolrails.glb",
+  "name": "lm_toolrails",
+  "tris": 1996,
+  "kb": 50.5,
+  "animations": [],
+  "emissive": [
+   "emissive_window_ground",
+   "emissive_window_upper",
+   "emissive_skylight",
+   "emissive_sign_toolrails"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README); sign artwork is the real product logo from archive/designs/_shared/products/",
+  "license": "Own work (Albretsen AS); product logos are trademarks of their products, used as-is",
+  "notes": "Toolrails workshop: saw-tooth zinc roof with street-facing glazing, sliding barn door, rails running out of the doorway with a tool trolley, fascia and blade signs with the real Toolrails icon. 7.4 x 6 m, 4.9 m tall. \"screen\" 1.8 x 1.01 m right of the door.",
+  "nodes": {
+   "sign": "emissive logo sign(s)",
+   "screen": "flat 16:9 panel, UV 0..1, for a CanvasTexture (set texture.flipY = false)"
+  }
+ },
+ {
+  "file": "lm_harbor.glb",
+  "name": "lm_harbor",
+  "tris": 3048,
+  "kb": 64.1,
+  "animations": [],
+  "emissive": [
+   "emissive_window_ground",
+   "emissive_window_upper",
+   "emissive_sign_harbor"
+  ],
+  "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README); sign artwork is the real product logo from archive/designs/_shared/products/",
+  "license": "Own work (Albretsen AS); product logos are trademarks of their products, used as-is",
+  "notes": "Harbor library and archive: neoclassical portico, the real Harbor wordmark on the frieze, zinc reading-room dome with a ring of lit oculi. 9 x 7 m (+2.8 m portico and steps), 10.2 m tall. \"screen\" 1.3 x 0.73 m under the portico, right of the door.",
+  "nodes": {
+   "sign": "emissive logo sign(s)",
+   "screen": "flat 16:9 panel, UV 0..1, for a CanvasTexture (set texture.flipY = false)"
+  }
+ }
+]

@@ -1,0 +1,826 @@
+[
+ {
+  "file": "paris_haussmann.glb",
+  "name": "paris_haussmann",
+  "kind": "paris",
+  "tris": 7386,
+  "kb": 87.8,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   14.8,
+   12
+  ],
+  "height": 22.5,
+  "windows": 90,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Paris block: limestone or stucco facade, wrought-iron balconies, zinc mansard with dormers and chimney pots. Above the 6k building budget: 90 windows with stone surrounds and wrought iron; town.js merges static geometry so a whole town stays near 200 draw calls."
+ },
+ {
+  "file": "paris_narrow.glb",
+  "name": "paris_narrow",
+  "kind": "paris",
+  "tris": 4806,
+  "kb": 60.5,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   9.3,
+   11
+  ],
+  "height": 22.5,
+  "windows": 58,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Paris block: limestone or stucco facade, wrought-iron balconies, zinc mansard with dormers and chimney pots."
+ },
+ {
+  "file": "paris_pink.glb",
+  "name": "paris_pink",
+  "kind": "paris",
+  "tris": 5182,
+  "kb": 67.7,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   12,
+   11
+  ],
+  "height": 19.4,
+  "windows": 56,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Paris block: limestone or stucco facade, wrought-iron balconies, zinc mansard with dormers and chimney pots."
+ },
+ {
+  "file": "paris_powder.glb",
+  "name": "paris_powder",
+  "kind": "paris",
+  "tris": 6302,
+  "kb": 74.8,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   12,
+   11.5
+  ],
+  "height": 22.5,
+  "windows": 78,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Paris block: limestone or stucco facade, wrought-iron balconies, zinc mansard with dormers and chimney pots. Above the 6k building budget: 78 windows with stone surrounds and wrought iron; town.js merges static geometry so a whole town stays near 200 draw calls."
+ },
+ {
+  "file": "paris_rotunda.glb",
+  "name": "paris_rotunda",
+  "kind": "paris",
+  "tris": 8562,
+  "kb": 102.3,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   11.3,
+   11.5
+  ],
+  "height": 24.9,
+  "windows": 76,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Paris block: limestone or stucco facade, wrought-iron balconies, zinc mansard with dormers and chimney pots. Above the 6k building budget: 76 windows with stone surrounds and wrought iron; town.js merges static geometry so a whole town stays near 200 draw calls."
+ },
+ {
+  "file": "med_cube_small.glb",
+  "name": "med_cube_small",
+  "kind": "med",
+  "tris": 2786,
+  "kb": 59.6,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   7,
+   7.4
+  ],
+  "height": 6.2,
+  "windows": 6,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Whitewashed Mediterranean house: deep-set windows, painted shutters, bougainvillea."
+ },
+ {
+  "file": "med_cube_stack.glb",
+  "name": "med_cube_stack",
+  "kind": "med",
+  "tris": 5128,
+  "kb": 89.6,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   10,
+   8
+  ],
+  "height": 8.5,
+  "windows": 10,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Whitewashed Mediterranean house: deep-set windows, painted shutters, bougainvillea."
+ },
+ {
+  "file": "med_villa_tiled.glb",
+  "name": "med_villa_tiled",
+  "kind": "med",
+  "tris": 4110,
+  "kb": 73.9,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   11,
+   8.5
+  ],
+  "height": 9.6,
+  "windows": 13,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Whitewashed Mediterranean house: deep-set windows, painted shutters, bougainvillea."
+ },
+ {
+  "file": "med_house_gable.glb",
+  "name": "med_house_gable",
+  "kind": "med",
+  "tris": 2678,
+  "kb": 53.4,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   6.8,
+   9.2
+  ],
+  "height": 9,
+  "windows": 10,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Whitewashed Mediterranean house: deep-set windows, painted shutters, bougainvillea."
+ },
+ {
+  "file": "med_house_gable_mustard.glb",
+  "name": "med_house_gable_mustard",
+  "kind": "med",
+  "tris": 2678,
+  "kb": 53.6,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   6.8,
+   9.2
+  ],
+  "height": 9,
+  "windows": 10,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Whitewashed Mediterranean house: deep-set windows, painted shutters, bougainvillea."
+ },
+ {
+  "file": "med_tower_house.glb",
+  "name": "med_tower_house",
+  "kind": "med",
+  "tris": 3856,
+  "kb": 69.5,
+  "animations": [],
+  "emissive": [
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   8.8,
+   8.4
+  ],
+  "height": 13.2,
+  "windows": 11,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Whitewashed Mediterranean house: deep-set windows, painted shutters, bougainvillea."
+ },
+ {
+  "file": "church.glb",
+  "name": "church",
+  "kind": "civic",
+  "tris": 4238,
+  "kb": 61.6,
+  "animations": [],
+  "emissive": [
+   "emissive_clock",
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   13.7,
+   16.5
+  ],
+  "height": 25.2,
+  "windows": 14,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Landmark building."
+ },
+ {
+  "file": "cafe.glb",
+  "name": "cafe",
+  "kind": "civic",
+  "tris": 7545,
+  "kb": 103.5,
+  "animations": [],
+  "emissive": [
+   "emissive_lamp_string",
+   "emissive_sign",
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   12.6,
+   13
+  ],
+  "height": 9.200000000000001,
+  "windows": 12,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Landmark building. Above the 6k building budget: 12 windows with stone surrounds and wrought iron; town.js merges static geometry so a whole town stays near 200 draw calls."
+ },
+ {
+  "file": "hotel.glb",
+  "name": "hotel",
+  "kind": "civic",
+  "tris": 8216,
+  "kb": 99.6,
+  "animations": [],
+  "emissive": [
+   "emissive_sign",
+   "emissive_window_1",
+   "emissive_window_2",
+   "emissive_window_3"
+  ],
+  "footprint": [
+   17,
+   15.5
+  ],
+  "height": 19.9,
+  "windows": 74,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Landmark building. Above the 6k building budget: 74 windows with stone surrounds and wrought iron; town.js merges static geometry so a whole town stays near 200 draw calls."
+ },
+ {
+  "file": "fountain.glb",
+  "name": "fountain",
+  "kind": "civic",
+  "tris": 764,
+  "kb": 17.4,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   6,
+   6
+  ],
+  "height": 3.6,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Landmark building."
+ },
+ {
+  "file": "belvedere.glb",
+  "name": "belvedere",
+  "kind": "civic",
+  "tris": 5576,
+  "kb": 90.2,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   9.5,
+   7.6
+  ],
+  "height": 3.9,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Landmark building. open side (the view) faces +Z; benches face +Z; steps at the back left"
+ },
+ {
+  "file": "town_gate.glb",
+  "name": "town_gate",
+  "kind": "civic",
+  "tris": 2136,
+  "kb": 31.7,
+  "animations": [],
+  "emissive": [
+   "emissive_lamp_string"
+  ],
+  "footprint": [
+   15,
+   3
+  ],
+  "height": 14.3,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Landmark building. spans a road running along Z (clear opening 9.6 m wide, 6.6 m high); the attic reads ALBRETSEN on both faces"
+ },
+ {
+  "file": "wall_retaining.glb",
+  "name": "wall_retaining",
+  "kind": "wall",
+  "tris": 2864,
+  "kb": 37.7,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   10,
+   2.2
+  ],
+  "height": 3.3,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Wall piece. retaining wall 10 m long, 3 m tall; face toward +Z, top (earth) side toward -Z"
+ },
+ {
+  "file": "wall_retaining_flowers.glb",
+  "name": "wall_retaining_flowers",
+  "kind": "wall",
+  "tris": 5216,
+  "kb": 85,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   10,
+   2.2
+  ],
+  "height": 3.3,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Wall piece. retaining wall 10 m long, 3 m tall; face toward +Z, top (earth) side toward -Z"
+ },
+ {
+  "file": "wall_low.glb",
+  "name": "wall_low",
+  "kind": "wall",
+  "tris": 210,
+  "kb": 7.7,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   4.4,
+   0.5
+  ],
+  "height": 1.3,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Wall piece."
+ },
+ {
+  "file": "stairs.glb",
+  "name": "stairs",
+  "kind": "stairs",
+  "tris": 952,
+  "kb": 13.7,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   3.3,
+   6.4
+  ],
+  "height": 4,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Stair flight. climbs 3.0 m toward -Z over 5.4 m (plus a 1 m landing)"
+ },
+ {
+  "file": "stairs_wide.glb",
+  "name": "stairs_wide",
+  "kind": "stairs",
+  "tris": 1080,
+  "kb": 16.8,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   6.7,
+   6.4
+  ],
+  "height": 4,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Stair flight. climbs 3.0 m toward -Z over 5.4 m (plus a 1 m landing)"
+ },
+ {
+  "file": "road_straight.glb",
+  "name": "road_straight",
+  "kind": "road",
+  "tris": 468,
+  "kb": 7.4,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   9.4,
+   10
+  ],
+  "height": 0.2,
+  "windows": 0,
+  "ports": [
+   {
+    "pos": [
+     0,
+     0,
+     5
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "pos": [
+     0,
+     0,
+     -5
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ]
+   }
+  ],
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Road piece: 6.4 m carriageway, kerbs, 1.3 m sidewalks. Ports are [x,y,z] in glTF space; dir points out of the piece."
+ },
+ {
+  "file": "road_curve.glb",
+  "name": "road_curve",
+  "kind": "road",
+  "tris": 996,
+  "kb": 13.3,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   19,
+   19
+  ],
+  "height": 0.2,
+  "windows": 0,
+  "ports": [
+   {
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "pos": [
+     14,
+     0,
+     -14
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Road piece: 6.4 m carriageway, kerbs, 1.3 m sidewalks. Ports are [x,y,z] in glTF space; dir points out of the piece. 90 degree right turn, centreline radius 14 m; origin at the entry centreline"
+ },
+ {
+  "file": "road_slope.glb",
+  "name": "road_slope",
+  "kind": "road",
+  "tris": 648,
+  "kb": 8.6,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   9.4,
+   14
+  ],
+  "height": 3,
+  "windows": 0,
+  "ports": [
+   {
+    "pos": [
+     0,
+     0,
+     7
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "pos": [
+     0,
+     3,
+     -7
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ]
+   }
+  ],
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Road piece: 6.4 m carriageway, kerbs, 1.3 m sidewalks. Ports are [x,y,z] in glTF space; dir points out of the piece. climbs 3.0 m over 14 m toward -Z"
+ },
+ {
+  "file": "road_coast.glb",
+  "name": "road_coast",
+  "kind": "road",
+  "tris": 852,
+  "kb": 13.5,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   10.6,
+   10
+  ],
+  "height": 1.5,
+  "windows": 0,
+  "ports": [
+   {
+    "pos": [
+     0,
+     0,
+     5
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "pos": [
+     0,
+     0,
+     -5
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ]
+   }
+  ],
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Road piece: 6.4 m carriageway, kerbs, 1.3 m sidewalks. Ports are [x,y,z] in glTF space; dir points out of the piece. sea wall on the +X side"
+ },
+ {
+  "file": "road_coast_curve.glb",
+  "name": "road_coast_curve",
+  "kind": "road",
+  "tris": 1356,
+  "kb": 16.7,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   19,
+   19
+  ],
+  "height": 0.2,
+  "windows": 0,
+  "ports": [
+   {
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "pos": [
+     14,
+     0,
+     -14
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Road piece: 6.4 m carriageway, kerbs, 1.3 m sidewalks. Ports are [x,y,z] in glTF space; dir points out of the piece. 90 degree right turn, centreline radius 14 m; origin at the entry centreline"
+ },
+ {
+  "file": "road_t.glb",
+  "name": "road_t",
+  "kind": "road",
+  "tris": 608,
+  "kb": 8.7,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   9.4,
+   10
+  ],
+  "height": 0.2,
+  "windows": 0,
+  "ports": [
+   {
+    "pos": [
+     0,
+     0,
+     5
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "pos": [
+     0,
+     0,
+     -5
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "pos": [
+     4.720000000000001,
+     0,
+     0
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Road piece: 6.4 m carriageway, kerbs, 1.3 m sidewalks. Ports are [x,y,z] in glTF space; dir points out of the piece."
+ },
+ {
+  "file": "terrace_block.glb",
+  "name": "terrace_block",
+  "kind": "terrain",
+  "tris": 2274,
+  "kb": 32.6,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   10,
+   14
+  ],
+  "height": 3,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Terrain piece. flat top at y=0; retaining face toward +Z drops 3 m; tile in X every 10 m and step rows by 14 m back, 3 m up"
+ },
+ {
+  "file": "terrain_slope.glb",
+  "name": "terrain_slope",
+  "kind": "terrain",
+  "tris": 14,
+  "kb": 3.2,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   10,
+   14
+  ],
+  "height": 3,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Terrain piece."
+ },
+ {
+  "file": "headland.glb",
+  "name": "headland",
+  "kind": "terrain",
+  "tris": 5168,
+  "kb": 58.4,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   170,
+   95
+  ],
+  "height": 50,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Terrain piece. sits in the sea with its base 3 m below y=0; the point faces +X"
+ },
+ {
+  "file": "hill_backdrop.glb",
+  "name": "hill_backdrop",
+  "kind": "terrain",
+  "tris": 4608,
+  "kb": 59.5,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   220,
+   110
+  ],
+  "height": 58,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Terrain piece. front edge (+Z) is low; rises toward -Z"
+ },
+ {
+  "file": "rocks_coast.glb",
+  "name": "rocks_coast",
+  "kind": "terrain",
+  "tris": 180,
+  "kb": 7.2,
+  "animations": [],
+  "emissive": [],
+  "footprint": [
+   18,
+   18
+  ],
+  "height": 3,
+  "windows": 0,
+  "source": "Own Blender work (procedural, src/build_kit.py)",
+  "license": "CC0 (own work for Albretsen AS)",
+  "notes": "Terrain piece. base sits ~1 m below y=0, for the waterline"
+ }
+]

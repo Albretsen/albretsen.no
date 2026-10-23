@@ -1,0 +1,224 @@
+[
+  {
+    "file": "bicycle.glb",
+    "name": "bicycle",
+    "tris": 2076,
+    "kb": 28.6,
+    "animations": [
+      "ride"
+    ],
+    "emissive": [
+      "emissive_headlight",
+      "emissive_taillight"
+    ],
+    "source": "Own Blender work (procedural build scripts in src/)",
+    "license": "Own work",
+    "notes": "Paris step-through bike with basket. Clip 'ride' = 1 crank turn, 2 wheel turns, 1.25 s, rolls 4.15 m (3.3 m/s). Seat a rider with Actor.mount(bike)."
+  },
+  {
+    "file": "child.glb",
+    "name": "child",
+    "tris": 1946,
+    "kb": 26.1,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Child in a Breton striped top and red shorts; rig is scaled to 0.62."
+  },
+  {
+    "file": "cyclist.glb",
+    "name": "cyclist",
+    "tris": 1866,
+    "kb": 23.0,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Cyclist: powder shirt with rolled sleeves, navy shorts, red cap (pairs with bicycle.glb and the cycle clip)."
+  },
+  {
+    "file": "dog.glb",
+    "name": "dog",
+    "tris": 866,
+    "kb": 65.0,
+    "animations": [
+      "idle",
+      "run",
+      "sit",
+      "sniff",
+      "walk"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/)",
+    "license": "Own work",
+    "notes": "Jack Russell terrier on its own 16-bone rig (bones: neck = collar). Pairs with dog_walker and Townsfolk.leash()."
+  },
+  {
+    "file": "dog_walker.glb",
+    "name": "dog_walker",
+    "tris": 1962,
+    "kb": 23.5,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Dog walker: cypress-green jacket, linen trousers, auburn bun, crossbody bag (pairs with dog.glb and the leash helper)."
+  },
+  {
+    "file": "jogger.glb",
+    "name": "jogger",
+    "tris": 1852,
+    "kb": 22.5,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Morning and dusk runner: pink tank top, ink leggings, ponytail, headband."
+  },
+  {
+    "file": "older_man.glb",
+    "name": "older_man",
+    "tris": 1846,
+    "kb": 22.6,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Older gentleman: zinc jacket, sand trousers, flat cap, glasses (pairs with the cane prop and walk_formal)."
+  },
+  {
+    "file": "older_woman.glb",
+    "name": "older_woman",
+    "tris": 2163,
+    "kb": 24.7,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Older lady: powder-blue coat, burgundy beret, white bob, pearls."
+  },
+  {
+    "file": "player.glb",
+    "name": "player",
+    "tris": 1876,
+    "kb": 23.3,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "The visitor you walk around as: mustard field jacket, ink trousers, white trainers, small backpack."
+  },
+  {
+    "file": "props.glb",
+    "name": "props",
+    "tris": 1472,
+    "kb": 30.2,
+    "animations": [],
+    "emissive": [
+      "emissive_lantern",
+      "emissive_phone"
+    ],
+    "source": "Own Blender work (procedural build scripts in src/)",
+    "license": "Own work",
+    "notes": "Hand props, one node each; mount with Actor.attach(name). Phone screen and lantern glass are emissive_."
+  },
+  {
+    "file": "stroller_dress.glb",
+    "name": "stroller_dress",
+    "tris": 1966,
+    "kb": 23.3,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Evening stroller: magenta sundress, straw sun hat, dark bob."
+  },
+  {
+    "file": "stroller_linen.glb",
+    "name": "stroller_linen",
+    "tris": 1814,
+    "kb": 22.2,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Stroller in a linen suit and powder shirt, sunglasses."
+  },
+  {
+    "file": "townsfolk-anims.glb",
+    "name": "townsfolk-anims",
+    "tris": 0,
+    "kb": 562.0,
+    "animations": [
+      "crouch_idle",
+      "crouch_walk",
+      "cycle",
+      "dance",
+      "drink",
+      "drive",
+      "idle",
+      "idle_arms_folded",
+      "interact",
+      "jog",
+      "jump_land",
+      "jump_loop",
+      "jump_start",
+      "lantern",
+      "lean_rail",
+      "no",
+      "phone",
+      "pick_up",
+      "push",
+      "rail_call",
+      "roll",
+      "run",
+      "sit",
+      "sit_down",
+      "sit_talk",
+      "stand_up",
+      "talk",
+      "walk",
+      "walk_carry",
+      "walk_formal",
+      "water_plants",
+      "wave",
+      "yes"
+    ],
+    "emissive": [],
+    "source": "Clips retargeted from Quaternius Universal Animation Library 1+2 (CC0, https://quaternius.com/packs/universalanimationlibrary.html); wave and cycle authored in Blender.",
+    "license": "CC0 (Quaternius) + own work",
+    "notes": "Shared 23-bone townsfolk_rig with every human clip. Load once; clips bind by bone name to any character."
+  },
+  {
+    "file": "waiter.glb",
+    "name": "waiter",
+    "tris": 1814,
+    "kb": 22.4,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Cafe waiter: white shirt, black waistcoat, bow tie, long white apron (pairs with the tray prop and walk_carry)."
+  }
+]

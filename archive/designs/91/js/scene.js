@@ -8,6 +8,7 @@ import { CameraRig, homeView } from './camera.js';
 import { buildTown, FRONT, DANCE } from './town.js';
 import { Life } from './life.js';
 import { TownLights, makeGlowPools } from './lights.js';
+import { bakeStaticShadows } from './shadows.js';
 
 export async function createLivingTown(canvas, { lite = false, reduced = false, adaptive = true, onProgress = () => {} } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance', alpha: false, stencil: false });
@@ -36,6 +37,10 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   const report = () => onProgress(pTown * 0.7 + pPeople * 0.3);
   const world = await buildTown({ lite, onProgress: (p) => { pTown = p; report(); } });
   scene.add(world.root);
+  // everything in the world that never moves casts its shadow through one baked mesh per culling side;
+  // parasols open and fold, so they keep casting on their own
+  const moving = new Set(world.parasols.flatMap((p) => [p.open, p.closed]));
+  if (rig.key.castShadow) bakeStaticShadows(scene, camera, world.root, rig.key, (o) => moving.has(o));
   const life = new Life(scene, world);
   await life.spawn(new Townsfolk(), { onProgress: (p) => { pPeople = p; report(); } });
   const lights = new TownLights(world, life);

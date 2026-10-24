@@ -117,7 +117,8 @@ button { font: inherit; color: inherit; }
 .bubble { transform-origin: 50% 100%; }
 /* lines said on their own (when the camera is close): a slower, quieter fade */
 .bubble.soft { animation: soft .7s ease both; }
-.bubble.soft.out { transition: opacity .6s ease; }
+.bubble.soft.out { animation: softOut .6s ease both; }   /* the fade-in holds opacity, so the fade-out is an animation too */
+@keyframes softOut { from { opacity: 1; } to { opacity: 0; } }
 @keyframes soft { from { opacity: 0; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
 .tag { position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); padding: 3px 9px; border-radius: 999px; background: rgba(18, 23, 54, .72); color: var(--plaster); font-size: 12px; white-space: nowrap; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 .note { position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); color: var(--lamp); font: 400 12px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; text-shadow: 0 0 12px rgba(255, 190, 110, .9), 0 1px 6px rgba(14, 19, 48, .9); animation: note 4.2s ease forwards; }
@@ -208,9 +209,12 @@ button { font: inherit; color: inherit; }
   .clock { grid-column: 1; width: 100%; padding: 10px 10px 10px; border-radius: 16px; }
   .dial { height: 64px; }
   .clock-time b { font-size: 22px; }
-  .chips { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; }
+  /* all five chips fit on a phone; narrower still, the row scrolls. The padding keeps focus rings unclipped */
+  .chips { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; gap: 4px; padding: 3px; margin: 7px -3px -3px; }
   .chips::-webkit-scrollbar { display: none; }
-  .chips button { flex: none; }
+  .chips button { flex: none; padding: 5px 7px; font-size: 12px; letter-spacing: 0; }
+  .chips button:first-child { margin-left: auto; }
+  .chips button:last-child { margin-right: auto; }
   .feed { display: none; }
   .tools { position: absolute; right: var(--gutter); bottom: calc(100% + 10px); grid-column: auto; }
   .tools button { width: 34px; height: 34px; }
@@ -220,6 +224,15 @@ button { font: inherit; color: inherit; }
   .about-grid, .foot-grid { grid-template-columns: 1fr; }
   .about .small { grid-column: auto; }
   .bubble { max-width: 200px; font-size: 13px; }
+}
+@media (max-width: 380px) { .chips button { padding: 5px 5px; } }
+/* tablets and small laptops: the clock keeps the middle, the ticker and the tools sit just above it,
+   instead of being squeezed beside it (the ticker wrapped word by word and the tools ran off the edge) */
+@media (min-width: 761px) and (max-width: 1240px) {
+  .feed { position: absolute; left: var(--gutter); bottom: calc(100% + 12px); max-width: min(340px, 40vw); }
+  .tools { position: absolute; right: var(--gutter); bottom: calc(100% + 10px); }
+  .tools button.sea { white-space: nowrap; }
+  .coach { bottom: 280px; }
 }
 @media (max-height: 640px) and (min-width: 761px) { .chips { display: none; } .title { top: 64px; } }
 @media (prefers-reduced-motion: reduce) {

@@ -38,8 +38,8 @@ export function nightAmount(h) { return smooth(5, -7, elevation(h)); }
 
 export function phase(h) {
   const e = elevation(h), pm = wrap24(h) > 12.5;
-  if (e > 28) return 'Midday';
-  if (e > 9) return pm ? 'Afternoon' : 'Morning';
+  // the sun is high from about nine until five: name the day by the clock, the evening by the sky
+  if (e > 9) { const h24 = wrap24(h); return h24 < 11.5 ? 'Morning' : h24 < 14.5 ? 'Midday' : 'Afternoon'; }
   if (e > 1.5) return pm ? 'Golden hour' : 'Early morning';
   if (e > -2.5) return pm ? 'Sunset' : 'Sunrise';
   if (e > -9) return 'Blue hour';

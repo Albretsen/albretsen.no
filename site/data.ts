@@ -31,7 +31,7 @@ export const site = {
 
 export const products: Product[] = [
   { id: 'mcp-emails', name: 'MCP Emails', since: 2026, status: 'live', url: 'https://mcpemails.com',
-    line: 'Email for AI agents.', figure: { value: '$782', label: 'MRR' },
+    line: 'Email for AI agents.', figure: { value: '1,136 NOK', label: 'MRR' },
     facts: ['17 tools', 'About 100 email providers', 'Open source (AGPL)'],
     alt: 'The MCP Emails logo on a terracotta sign by the sea' },
   { id: 'fun-libs', name: 'Fun Libs', since: 2019, status: 'live', url: 'https://funlibs.app',

@@ -3,6 +3,7 @@
 //   /mcp              read-only MCP server (Streamable HTTP, stateless JSON responses)
 //   /api/events       latest product events (GET) and ingestion (POST, bearer key)
 //   /api/events/socket live events over a hibernating WebSocket
+//   /api/figures      live product figures (GET) and updates (POST, bearer key)
 //   Accept: text/markdown  → the page's Markdown twin
 //   Server-Timing on every response
 
@@ -22,7 +23,7 @@ export default {
     const url = new URL(req.url)
     let res: Response
     if (url.pathname === '/mcp') res = await mcp(req, env)
-    else if (url.pathname.startsWith('/api/events')) res = await feedStub(env).fetch(req)
+    else if (url.pathname.startsWith('/api/events') || url.pathname === '/api/figures') res = await feedStub(env).fetch(req)
     else if (wantsMarkdown(req, url)) res = await markdownTwin(url, env)
     else res = await env.ASSETS.fetch(req)
     const out = new Response(res.body, res)
@@ -91,8 +92,20 @@ export async function mcp(req: Request, env: Env): Promise<Response> {
   return new Response(JSON.stringify(replies), { headers })
 }
 
-async function callTool(name: string, args: any, env: Env, origin: string) {
+// The build-time content, with any live figures laid over it.
+async function liveContent(env: Env, origin: string) {
   const c = await content(env, origin)
+  let figures: Record<string, Json> = {}
+  try {
+    const r = await feedStub(env).fetch(new Request(origin + '/api/figures'))
+    if (r.ok) figures = ((await r.json()) as any).figures ?? {}
+  } catch { /* no store: build-time figures */ }
+  if (!Object.keys(figures).length) return c
+  return { ...c, products: c.products.map((p: any) => figures[p.id] ? { ...p, figure: { value: figureText(figures[p.id]), label: figures[p.id].label } } : p) }
+}
+
+async function callTool(name: string, args: any, env: Env, origin: string) {
+  const c = await liveContent(env, origin)
   const line = (p: any) => `${p.name} (${p.status}, since ${p.since}): ${p.line}${p.figure ? ` ${p.figure.value} ${p.figure.label}.` : ''}${p.url ? ` ${p.url}` : ''}`
   switch (name) {
     case 'list_products': {
@@ -118,7 +131,8 @@ async function callTool(name: string, args: any, env: Env, origin: string) {
 
 /* ---------------------------------------------------------------- the event feed
    One Durable Object keeps the last 50 events and pushes new ones to open
-   WebSockets. It uses the hibernation API, so idle sockets cost nothing. */
+   WebSockets. It uses the hibernation API, so idle sockets cost nothing.
+   The same object keeps the latest figure per product under its own key. */
 interface Ctx {
   storage: { get<T>(k: string): Promise<T | undefined>; put(k: string, v: unknown): Promise<void> }
   acceptWebSocket(ws: WebSocket): void
@@ -139,13 +153,14 @@ export class Feed {
       this.ctx.acceptWebSocket(pair[1])
       return new Response(null, { status: 101, webSocket: pair[0] } as ResponseInit)
     }
+    if (url.pathname === '/api/figures') return this.figures(req)
     if (req.method === 'GET') {
       const limit = Math.min(50, Math.max(1, Number(url.searchParams.get('limit') ?? 12) || 12))
       const events = ((await this.ctx.storage.get<Json[]>('events')) ?? []).slice(0, limit)
       return Response.json({ events }, { headers: { ...cors, 'cache-control': 'no-store' } })
     }
     if (req.method === 'POST') {
-      if (!this.env.FEED_KEY || req.headers.get('authorization') !== `Bearer ${this.env.FEED_KEY}`) return new Response('Unauthorized', { status: 401 })
+      if (!authorized(req, this.env)) return new Response('Unauthorized', { status: 401 })
       let e: any
       try { e = await req.json() } catch { return new Response('Bad JSON', { status: 400 }) }
       const event = clean(e)
@@ -157,6 +172,25 @@ export class Feed {
       return Response.json({ ok: true }, { status: 201 })
     }
     return new Response('Method not allowed', { status: 405 })
+  }
+
+  async figures(req: Request): Promise<Response> {
+    if (req.method === 'GET') {
+      const figures = (await this.ctx.storage.get<Record<string, Json>>('figures')) ?? {}
+      return Response.json({ figures }, { headers: { 'access-control-allow-origin': '*', 'cache-control': 'no-store' } })
+    }
+    if (req.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: { allow: 'GET, POST' } })
+    if (!authorized(req, this.env)) return new Response('Unauthorized', { status: 401 })
+    let f: any
+    try { f = await req.json() } catch { return new Response('Bad JSON', { status: 400 }) }
+    const figure = cleanFigure(f)
+    if (!figure) return new Response('Invalid figure', { status: 422 })
+    const { product, ...rest } = figure
+    const figures = { ...((await this.ctx.storage.get<Record<string, Json>>('figures')) ?? {}), [product as string]: rest }
+    await this.ctx.storage.put('figures', figures)
+    const msg = JSON.stringify({ type: 'figure', ...figure })
+    for (const ws of this.ctx.getWebSockets()) { try { ws.send(msg) } catch { /* closed */ } }
+    return Response.json({ ok: true, figure }, { status: 201 })
   }
 
   webSocketMessage() { /* the feed is one-way */ }
@@ -172,3 +206,20 @@ export function clean(e: any): Json | null {
   if (Number.isFinite(e.ms)) out.ms = Math.round(e.ms)
   return out
 }
+
+const authorized = (req: Request, env: Env) => !!env.FEED_KEY && req.headers.get('authorization') === `Bearer ${env.FEED_KEY}`
+
+// A figure is a product, a short label and a value (a number, or short text such as "113,000+").
+export function cleanFigure(f: any): Json | null {
+  if (!f || !PRODUCTS.has(f.product) || typeof f.label !== 'string' || !f.label.trim()) return null
+  const value = typeof f.value === 'number' ? (Number.isFinite(f.value) ? Math.round(f.value * 100) / 100 : null)
+    : typeof f.value === 'string' && f.value.trim() ? f.value.trim().slice(0, 24) : null
+  if (value === null) return null
+  const out: Json = { product: f.product, label: f.label.trim().slice(0, 24), value }
+  if (typeof f.unit === 'string' && f.unit.trim()) out.unit = f.unit.trim().slice(0, 8)
+  out.updated = new Date().toISOString()
+  return out
+}
+
+// How a figure reads on a page: 1136 + NOK → "1,136 NOK". Same rule as assets/js/figures.js.
+export const figureText = (f: any) => `${typeof f.value === 'number' ? f.value.toLocaleString('en-US') : f.value}${f.unit ? ' ' + f.unit : ''}`

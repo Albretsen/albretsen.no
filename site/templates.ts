@@ -133,7 +133,7 @@ function productRow(p: Product) {
     <div class="row-text">
       <h3 class="pname">${esc(p.name)}</h3>
       <p class="pline">${esc(p.line)}</p>
-      ${p.figure ? `<p class="figure"><b>${esc(p.figure.value)}</b><span>${esc(p.figure.label)}</span></p>` : ''}
+      ${p.figure ? `<p class="figure" data-figure="${p.id}"><b>${esc(p.figure.value)}</b><span>${esc(p.figure.label)}</span></p>` : ''}
       ${p.facts ? `<ul class="facts">${p.facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
       <p class="meta"><span class="status st-${p.status}">${STATUS[p.status]}</span><span aria-hidden="true">·</span><span>Since ${p.since}</span>
         <a class="go" href="${p.url}">${host(p.url!)} <span aria-hidden="true">↗</span></a></p>
@@ -253,7 +253,7 @@ export function buildPage(css: string): string {
     ${icon(p)}
     <div><h2>${p.url ? `<a href="${p.url}">${esc(p.name)}</a>` : esc(p.name)}</h2><p class="m"><span class="status st-${p.status}">${STATUS[p.status]}</span><time>${p.since}</time></p></div>
     <p class="l">${esc(p.line)}</p>
-    <p class="f">${p.figure ? `${esc(p.figure.value)}<small>${esc(p.figure.label)}</small>` : ''}</p>
+    <p class="f"${p.figure ? ` data-figure="${p.id}"` : ''}>${p.figure ? `${esc(p.figure.value)}<small>${esc(p.figure.label)}</small>` : ''}</p>
   </li>`).join('')
   const body = `${pageTop('/build/')}<main id="main"><div class="wrap">
     <p class="kicker">Products</p>
@@ -263,7 +263,7 @@ export function buildPage(css: string): string {
     <h2 class="section-h">Day job</h2>
     <ul class="daylist">${dayJob.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>
   </div></main>`
-  return layout({ title: `Products · ${site.company}`, description: 'Every product Asgeir Albretsen has shipped: live, building, paused and retired.', path: '/build/', css, body, bodyClass: 'page', mdPath: '/build.md' })
+  return layout({ title: `Products · ${site.company}`, description: 'Every product Asgeir Albretsen has shipped: live, building, paused and retired.', path: '/build/', css, body, bodyClass: 'page', mdPath: '/build.md', scripts: '<script type="module" src="/assets/js/figures.js"></script>' })
 }
 
 export function writePage(posts: Post[], css: string): string {

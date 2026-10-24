@@ -16,7 +16,7 @@ export const content = {
   // Retired products will get a one-line reason later (written by Asgeir, not invented).
   products: [
     { id: 'mcp-emails', name: 'MCP Emails', since: 2026, status: 'live', url: 'https://mcpemails.com',
-      line: 'Email for AI agents.', figure: { value: '$782', label: 'MRR' },
+      line: 'Email for AI agents.', figure: { value: '1,136 NOK', label: 'MRR' },
       facts: ['17 tools', 'about 100 email providers', 'open source (AGPL)'] },
     { id: 'fun-libs', name: 'Fun Libs', since: 2019, status: 'live', url: 'https://funlibs.app',
       line: 'A fill-in-the-blanks word game for Android and iOS.', figure: { value: '113,000+', label: 'installs' },

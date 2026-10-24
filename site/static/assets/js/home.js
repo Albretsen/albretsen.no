@@ -4,7 +4,7 @@
 // 2. Pointer parallax on the four paper layers.
 // 3. The sun slider (palette stays in afterglow; only the sun moves).
 // 4. Real product events, product names that ink on, retired tooltips,
-//    MCP client tabs with copy, opt-in sound.
+//    live product figures, MCP client tabs with copy, opt-in sound.
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -124,9 +124,10 @@ idle(async () => {
     const r = await fetch('/api/events?limit=1', { headers: { accept: 'application/json' } });
     if (!r.ok) return; const { events = [] } = await r.json(); if (events[0]) show(events[0]);
     const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/api/events/socket`);
-    ws.onmessage = (m) => { try { show(JSON.parse(m.data)); } catch {} };
+    ws.onmessage = (m) => { try { const d = JSON.parse(m.data); if (d.type === 'figure') import('./figures.js').then((f) => f.apply(d)); else show(d); } catch {} };
   } catch { /* no feed: keep quiet */ }
 });
+idle(() => import('./figures.js')); // build-time figures, refreshed when the Worker has newer ones
 
 /* ------------------------------------------------------------ products and retired */
 $$('.arch button').forEach((b) => b.addEventListener('click', () => {

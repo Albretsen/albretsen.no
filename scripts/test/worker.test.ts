@@ -1,7 +1,7 @@
-// Tests the Worker's MCP handler and event cleaning without Cloudflare: node scripts/test/worker.test.ts
+// Tests the Worker's MCP handler, event cleaning and live figures without Cloudflare: node scripts/test/worker.test.ts
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { mcp, clean } from '../../worker/index.ts'
+import { mcp, clean, cleanFigure, figureText, Feed } from '../../worker/index.ts'
 
 const dist = new URL('../../dist/', import.meta.url)
 const env: any = { ASSETS: { fetch: async (r: Request | string) => { const u = new URL(typeof r === 'string' ? r : r.url); try { return new Response(await readFile(new URL('.' + u.pathname, dist))) } catch { return new Response('nf', { status: 404 }) } } } }
@@ -25,4 +25,32 @@ const get = await mcp(new Request('https://albretsen.no/mcp'), env); assert.equa
 assert.equal(clean({ product: 'mcp-emails', text: 'agent sent a reply', ms: 211.4, email: 'x@y.z' })?.ms, 211)
 assert.equal((clean({ product: 'mcp-emails', text: 'x', email: 'x@y.z' }) as any).email, undefined)
 assert.equal(clean({ product: 'evil', text: 'x' }), null)
+// Live figures: cleaning, formatting, and the Durable Object's store and broadcast.
+assert.equal(cleanFigure({ product: 'mcp-emails', label: 'MRR', value: 1136, unit: 'NOK', email: 'x@y.z' })?.email, undefined)
+assert.equal(cleanFigure({ product: 'mcp-emails', label: 'MRR', value: Infinity }), null)
+assert.equal(cleanFigure({ product: 'mcp-emails', label: '', value: 1 }), null)
+assert.equal(cleanFigure({ product: 'evil', label: 'MRR', value: 1 }), null)
+assert.equal(cleanFigure({ product: 'fun-libs', label: 'installs', value: ' 113,000+ ' })?.value, '113,000+')
+assert.equal(figureText({ value: 1136, unit: 'NOK' }), '1,136 NOK')
+assert.equal(figureText({ value: '113,000+' }), '113,000+')
+
+const store = new Map<string, unknown>(), sent: string[] = []
+const ctx: any = { storage: { get: async (k: string) => store.get(k), put: async (k: string, v: unknown) => { store.set(k, v) } }, acceptWebSocket() {}, getWebSockets: () => [{ send: (m: string) => sent.push(m) }] }
+const feed = new Feed(ctx, { FEED_KEY: 'test-key' } as any)
+const postFigure = (body: unknown, key = 'test-key') => feed.fetch(new Request('https://albretsen.no/api/figures', { method: 'POST', body: JSON.stringify(body), headers: { authorization: `Bearer ${key}`, 'content-type': 'application/json' } }))
+assert.equal((await postFigure({ product: 'mcp-emails', label: 'MRR', value: 1136, unit: 'NOK' }, 'wrong')).status, 401)
+assert.equal((await postFigure({ product: 'nope', label: 'MRR', value: 1 })).status, 422)
+assert.equal((await postFigure({ product: 'mcp-emails', label: 'MRR', value: 1136, unit: 'NOK' })).status, 201)
+const msg = JSON.parse(sent[0]); assert.equal(msg.type, 'figure'); assert.equal(msg.product, 'mcp-emails'); assert.equal(msg.value, 1136)
+const got = await feed.fetch(new Request('https://albretsen.no/api/figures'))
+assert.equal(got.headers.get('cache-control'), 'no-store'); assert.equal(got.headers.get('access-control-allow-origin'), '*')
+const { figures } = await got.json() as any
+assert.deepEqual(Object.keys(figures), ['mcp-emails']); assert.equal(figures['mcp-emails'].label, 'MRR'); assert.equal(figures['mcp-emails'].unit, 'NOK'); assert.ok(figures['mcp-emails'].updated)
+assert.equal(store.get('events'), undefined) // figures never land in the event list
+assert.equal((await feed.fetch(new Request('https://albretsen.no/api/figures', { method: 'DELETE' }))).status, 405)
+
+// The MCP server reports the live figure over the build-time one.
+const liveEnv = { ...env, FEED: { idFromName: () => 'feed', get: () => feed } }
+const lp = await mcp(new Request('https://albretsen.no/mcp', { method: 'POST', body: JSON.stringify({ jsonrpc: '2.0', id: 7, method: 'tools/call', params: { name: 'get_product', arguments: { id: 'mcp-emails' } } }) }), liveEnv)
+assert.match(((await lp.json()) as any).result.content[0].text, /1,136 NOK MRR/)
 console.log('worker tests passed')

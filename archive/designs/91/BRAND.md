@@ -57,7 +57,7 @@ The 3D palette is the shared Heure Bleue palette (STYLE.md). Sky, light and wate
 
 - **Federo** for the name, headings, the clock and names in bubbles.
 - **Instrument Sans** for body text, UI and the feed.
-- **Poiret One** only for large figures ($782, 113,000+), on the cards and on the shop screens.
+- **Poiret One** only for large figures (1,136 NOK, 113,000+), on the cards and on the shop screens.
 
 All three are self-hosted latin subsets under the SIL OFL, copied from design 64.
 

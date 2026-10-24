@@ -100,7 +100,7 @@
   "emissive": [],
   "source": "Procedural Blender 5.2 model by Claude for Albretsen AS (props/build scripts, see README)",
   "license": "Own work (Albretsen AS)",
-  "notes": "Promenade bench, 1.8 m, faces -Z."
+  "notes": "Promenade bench, 1.8 m, faces +Z."
  },
  {
   "file": "planter_pot.glb",

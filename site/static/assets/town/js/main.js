@@ -2,7 +2,7 @@
 // which the build generates from site/data.ts.
 // The page paints a still poster first. The clock works straight away; the town loads
 // after first paint and fades in over the poster.
-import { content } from './content.js';
+import { content, dialogUrl } from './content.js';
 import { elevation, osloHour, fmtHour, phase, wrap24, SUNRISE, SUNSET } from './time.js';
 import { createFigures, openSocket } from './figures.js';
 
@@ -421,6 +421,8 @@ function nearbyOf(T, p, r = 4.5) {
 /** Something for p to say now: the dialog bank first (hour, activity, who is near), their schedule line otherwise. */
 function lineFor(T, p) {
   if (dialog) {
+    dialog.ensure(p.id, dialogUrl);
+    for (const id of nearbyOf(T, p)) dialog.ensure(id, dialogUrl);
     const r = dialog.pick(p.id, { hour: clock.hour, activity: dialog.activityOf(p.act, p.state), nearby: nearbyOf(T, p), recent: recentLines });
     if (r && r.text) return r;
   }

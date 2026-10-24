@@ -123,7 +123,7 @@ export async function buildTown({ seed = 7, lite = false, onProgress = () => {} 
   const put = (n, x, z, ry = 0, s = 1, parent = furn) => {
     const o = props[n].clone(true); o.position.set(x, 0, z); o.rotation.y = ry; o.scale.setScalar(s); parent.add(o); return o;
   };
-  const benches = BENCHES.map(([x, z]) => ({ x, z, obj: put('bench', x, z, Math.PI) }));
+  const benches = BENCHES.map(([x, z]) => ({ x, z, obj: put('bench', x, z, 0) }));
 
   const lamps = LAMPS.map((x, i) => {
     const o = put('lamp_paris', x, RAIL_Z - 0.75);

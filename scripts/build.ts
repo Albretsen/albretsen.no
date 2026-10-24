@@ -63,6 +63,8 @@ function makeImportMap() {
 function townContent() {
   const models: Record<string, string> = {}
   for (const [k, v] of manifest) if (k.startsWith('/assets/town/models/')) models[k.slice('/assets/town/models/'.length)] = v
+  const dialogs: Record<string, string> = {}
+  for (const [k, v] of manifest) if (k.startsWith('/assets/town/dialog/')) dialogs[k.slice('/assets/town/dialog/'.length).replace(/\.json$/, '')] = v
   const content = {
     person: site.person, company: site.company, domain: site.domain, email: site.email, location: site.location,
     line: site.line, availability: site.availability, mcpCommand: mcpClients[0].text,
@@ -74,6 +76,9 @@ export const content = ${JSON.stringify(content, null, 1)};
 const MODELS = ${JSON.stringify(models, null, 1)};
 /** The fingerprinted URL of a model: model('props/bench') or model('people/dog.glb'). */
 export function model(name) { const u = MODELS[name.endsWith('.glb') ? name : name + '.glb']; if (!u) throw new Error('no model ' + name); return u; }
+const DIALOGS = ${JSON.stringify(dialogs)};
+/** The fingerprinted URL of a character's full dialog bank, e.g. dialogUrl('henri'). */
+export const dialogUrl = (bank) => DIALOGS[bank];
 `
 }
 

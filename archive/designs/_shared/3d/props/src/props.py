@@ -174,7 +174,7 @@ def bench():
     for t in (.32, .57, .82):
         y = .15 + .12 * t - .035; z = .48 + .37 * t
         P.append(box('back', (1.8, .03, .09), loc=(0, y, z - .045), rot=(-th, 0, 0), color='wood', bevel=.008))
-    done('bench', {'bench': P}, [], 'Promenade bench, 1.8 m, faces -Z.')
+    done('bench', {'bench': P}, [], 'Promenade bench, 1.8 m, faces +Z.')
 
 # ---------------------------------------------------------------- planters
 def planter_pot():

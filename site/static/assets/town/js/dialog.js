@@ -621,9 +621,34 @@ const X = [
 
 export const EXCHANGES = X.map(([a, b, when, act, line, reply, ref]) => ({ a, b, when, act, line, reply, ref: !!ref }));
 
+// The full banks (about a hundred times the lines above) live in /assets/town/dialog/<bank>.json and
+// load the first time someone from that bank speaks. Until then the hand-written lines above answer.
+// A file is { lines: [[when, act, text]], refs: [...], exchanges: [[replier, when, act, line, reply, ref]] }.
+const loaded = new Map();
+
+/** Add a loaded bank's lines to DIALOG and EXCHANGES. */
+export function extend(bank, data) {
+  const entry = DIALOG[bank];
+  if (!entry || !data) return;
+  entry.lines.push(...(data.lines || []));
+  (entry.refs ||= []).push(...(data.refs || []));
+  for (const [b, when, act, line, reply, ref] of data.exchanges || []) EXCHANGES.push({ a: bank, b: resolveId(b), when, act, line, reply, ref: !!ref });
+}
+
+/** Load the full bank for a character id once. urlOf(bank) gives its URL, or nothing to skip. */
+export function ensure(id, urlOf) {
+  const bank = resolveId(id);
+  if (!DIALOG[bank] || loaded.has(bank)) return loaded.get(bank);
+  const url = urlOf && urlOf(bank);
+  if (!url) return undefined;
+  const p = fetch(url).then((r) => (r.ok ? r.json() : null)).then((d) => extend(bank, d)).catch(() => loaded.delete(bank));
+  loaded.set(bank, p);
+  return p;
+}
+
 export const REF_RATE = 1 / 8;      // share of picks that may be about Asgeir or his products
 export const EXCHANGE_RATE = 0.45;  // when someone suitable is nearby, how often they answer
-const RECENT_MAX = 80;
+const RECENT_MAX = 2500;  // the big banks hold thousands of lines, so nothing repeats in a visit
 
 const has = (list, v) => !list || list.split(' ').includes(v);
 const fits = (when, act, phase, activity) => has(when, phase) && (act ? act.split(' ').includes(activity) : true);

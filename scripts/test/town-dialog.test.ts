@@ -173,3 +173,30 @@ test('a ref is only said where its time and activity fit (no evening library lam
     }
   }
 });
+
+test('the full dialog banks are valid and load into the picker', async () => {
+  const { readdirSync, readFileSync } = await import('node:fs')
+  const dir = new URL('../../site/static/assets/town/dialog/', import.meta.url)
+  const { DIALOG: D, EXCHANGES: X, extend, pick: pk, PHASES: P } = await import('../../site/static/assets/town/js/dialog.js')
+  const files = readdirSync(dir).filter((f) => f.endsWith('.json'))
+  assert.ok(files.length >= 16)
+  for (const f of files) {
+    const bank = f.replace(/\.json$/, '')
+    assert.ok(D[bank], `no bank ${bank}`)
+    const data = JSON.parse(readFileSync(new URL(f, dir), 'utf8'))
+    for (const [when, , text] of [...data.lines, ...data.refs]) {
+      assert.ok(P.includes(when), `${bank}: phase ${when}`)
+      assert.ok(text.length <= 70, `${bank}: too long: ${text}`)
+    }
+    for (const [b, when, , line, reply] of data.exchanges) {
+      assert.ok(D[b] || b === 'dog', `${bank}: replier ${b}`)
+      assert.ok(P.includes(when) && line.length <= 70 && reply.length <= 70, `${bank}: exchange ${line}`)
+    }
+    const before = D[bank].lines.length
+    extend(bank, data)
+    assert.ok(D[bank].lines.length >= before + data.lines.length)
+  }
+  assert.ok(X.length > 1000)
+  const recent = new Set()
+  for (let i = 0; i < 300; i++) assert.ok(pk('henri', { hour: 16.4, activity: 'bench', recent })?.text)
+})

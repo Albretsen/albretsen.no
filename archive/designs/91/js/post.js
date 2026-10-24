@@ -11,7 +11,7 @@ import { FullScreenQuad } from 'three/addons/postprocessing/Pass.js';
 // size every frame), and it works out each pixel's lens blur and linear depth once, so the
 // 30-tap gather below reads one texel per tap instead of decoding the depth buffer twice.
 const PREP_FRAG = /* glsl */`
-precision highp float;
+precision highp float; precision highp int; precision highp sampler2D;   // raw shaders default samplers to lowp
 uniform sampler2D tScene, tBloom, tDepth;
 uniform float uBloom, uNear, uFar, uFocus, uAperture;
 in vec2 vUv;
@@ -29,9 +29,40 @@ const PREP_VERT = /* glsl */`
 in vec3 position; in vec2 uv; out vec2 vUv;
 void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }`;
 
+// How far the gather needs to look. Each 16 x 16 tile keeps the largest lens blur among its pixels,
+// then the largest among the tiles a gather from that tile can reach. Taps run from the centre out,
+// and a tap at distance d weighs smoothstep(d - 1.5, d + .5, blur) with a blur no larger than that
+// bound, so every tap past bound + 1.5 weighs exactly 0: the gather stops there, same image, fewer
+// taps wherever the town is in focus.
+const TILE = 16;
+const TILE_FRAG = /* glsl */`
+precision highp float; precision highp int; precision highp sampler2D;
+uniform sampler2D tCoc; uniform ivec2 uSize;
+out vec4 o;
+void main(){
+  ivec2 t = ivec2(gl_FragCoord.xy) * ${TILE};
+  float m = 0.;
+  for (int y = 0; y < ${TILE}; y++) for (int x = 0; x < ${TILE}; x++) m = max(m, texelFetch(tCoc, min(t + ivec2(x, y), uSize - 1), 0).x);
+  o = vec4(m, 0., 0., 1.);
+}`;
+const DILATE_FRAG = /* glsl */`
+precision highp float; precision highp int; precision highp sampler2D;
+uniform sampler2D tTile; uniform ivec2 uTiles; uniform int uR;
+out vec4 o;
+void main(){
+  ivec2 t = ivec2(gl_FragCoord.xy);
+  float m = 0.;
+  for (int y = -4; y <= 4; y++) for (int x = -4; x <= 4; x++) {
+    if (abs(x) > uR || abs(y) > uR) continue;
+    m = max(m, texelFetch(tTile, clamp(t + ivec2(x, y), ivec2(0), uTiles - 1), 0).x);
+  }
+  o = vec4(m, 0., 0., 1.);
+}`;
+
 const FINAL_FRAG = /* glsl */`
 precision highp float;
 uniform sampler2D tColor, tDepth, tCoc;
+uniform highp sampler2D tReach;
 uniform vec2 uRes;
 uniform float uNear, uFar, uFocus, uAperture, uMaxBlur, uExposure, uTime, uGrain, uVignette, uTilt, uTaps;
 uniform vec3 uLift, uGain; uniform float uDebugNaN;
@@ -58,11 +89,19 @@ void main(){
   float c0 = cocOf(s0, vUv);
   float z0 = s0.y;
   vec3 acc = texture2D(tColor, vUv).rgb; float wsum = 1.;
+#if PREP
+  // the largest blur any tap can meet: the tiles in reach, and the tilt band at the far edge of the disc
+  float ry = max(abs(vUv.y - uMaxBlur * px.y - .46), abs(vUv.y + uMaxBlur * px.y - .46));
+  float reach = min(uMaxBlur, max(texelFetch(tReach, ivec2(gl_FragCoord.xy) / ${TILE}, 0).x, smoothstep(.18, .5, ry) * uTilt * uMaxBlur)) + 1.5 + 1e-3;
+#endif
   if (uDebugNaN > 0.5) { vec3 cc = acc; if (any(isnan(cc)) || any(isinf(cc))) { gl_FragColor = vec4(1.,0.,1.,1.); return; } if (max(cc.r, max(cc.g, cc.b)) > 50.) { gl_FragColor = vec4(0.,1.,0.,1.); return; } }
   if (c0 > .6 || uTilt > 0.) {
     for (int i = 1; i < 40; i++) {
       if (float(i) >= uTaps) break;
       float r = uOff[i].z;
+#if PREP
+      if (r * uMaxBlur > reach) break;   // this tap and every one after it would weigh 0
+#endif
       vec2 o = uOff[i].xy * uMaxBlur;
       vec2 uv = vUv + o * px;
       vec2 ss = cz(uv);
@@ -107,7 +146,7 @@ export class Post {
       'vec4 texel = texture2D( tDiffuse, vUv );\n\t\t\ttexel.rgb = (any(isnan(texel.rgb)) || any(isinf(texel.rgb))) ? vec3(0.) : min(texel.rgb, vec3(256.));');
     hp.needsUpdate = true;
     this.U = {
-      tColor: { value: this.prep ? this.mid.textures[0] : this.rt.texture }, tDepth: { value: this.depth }, tCoc: { value: this.prep ? this.mid.textures[1] : null }, uRes: { value: size.clone() },
+      tColor: { value: this.prep ? this.mid.textures[0] : this.rt.texture }, tDepth: { value: this.depth }, tCoc: { value: this.prep ? this.mid.textures[1] : null }, tReach: { value: this.prep ? this.reach.texture : null }, uRes: { value: size.clone() },
       uNear: { value: 1 }, uFar: { value: 3000 }, uFocus: { value: 60 }, uAperture: { value: 14 }, uMaxBlur: { value: 9 },
       uExposure: { value: 1 }, uTime: { value: 0 }, uGrain: { value: 0.03 }, uVignette: { value: 0.35 }, uTilt: { value: 0 },
       uTaps: { value: taps }, uOff: { value: Array.from({ length: 40 }, () => new THREE.Vector3()) }, uLift: { value: new THREE.Color(0, 0, 0) }, uDebugNaN: { value: new URLSearchParams(location.search).has('nan') ? 1 : 0 }, uGain: { value: new THREE.Color(1, 1, 1) },
@@ -124,6 +163,14 @@ export class Post {
       this.prepQuad = new FullScreenQuad(new THREE.RawShaderMaterial({
         glslVersion: THREE.GLSL3, uniforms: this.PU, depthTest: false, depthWrite: false,
         vertexShader: PREP_VERT, fragmentShader: PREP_FRAG,
+      }));
+      this.TU = { tCoc: { value: this.mid.textures[1] }, uSize: { value: size.clone() } };
+      this.tileQuad = new FullScreenQuad(new THREE.RawShaderMaterial({
+        glslVersion: THREE.GLSL3, uniforms: this.TU, depthTest: false, depthWrite: false, vertexShader: PREP_VERT, fragmentShader: TILE_FRAG,
+      }));
+      this.DU = { tTile: { value: this.tiles.texture }, uTiles: { value: new THREE.Vector2(this.tiles.width, this.tiles.height) }, uR: { value: 2 } };
+      this.dilateQuad = new FullScreenQuad(new THREE.RawShaderMaterial({
+        glslVersion: THREE.GLSL3, uniforms: this.DU, depthTest: false, depthWrite: false, vertexShader: PREP_VERT, fragmentShader: DILATE_FRAG,
       }));
     }
     this.quad.frustumCulled = false;
@@ -145,10 +192,20 @@ export class Post {
       cz.type = THREE.FloatType; cz.format = THREE.RGFormat;
       cz.minFilter = cz.magFilter = THREE.NearestFilter;   // like the depth texture it replaces
       for (const t of this.mid.textures) t.generateMipmaps = false;
+      // tile maxima (float32, exact) and their dilation
+      if (this.tiles) { this.tiles.dispose(); this.reach.dispose(); }
+      const tw = Math.ceil(size.x / TILE), th = Math.ceil(size.y / TILE);
+      const opts = { type: THREE.FloatType, format: THREE.RedFormat, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthBuffer: false, generateMipmaps: false };
+      this.tiles = new THREE.WebGLRenderTarget(tw, th, opts);
+      this.reach = new THREE.WebGLRenderTarget(tw, th, opts);
     }
     if (this.U) {
       this.U.tColor.value = this.prep ? this.mid.textures[0] : this.rt.texture; this.U.tDepth.value = this.depth;
-      if (this.prep) { this.U.tCoc.value = this.mid.textures[1]; this.PU.tScene.value = this.rt.texture; }
+      if (this.prep) {
+        this.U.tCoc.value = this.mid.textures[1]; this.PU.tScene.value = this.rt.texture;
+        this.U.tReach.value = this.reach.texture; this.TU.tCoc.value = this.mid.textures[1]; this.TU.uSize.value.set(size.x, size.y);
+        this.DU.tTile.value = this.tiles.texture; this.DU.uTiles.value.set(this.tiles.width, this.tiles.height);
+      }
     }
   }
 
@@ -183,6 +240,12 @@ export class Post {
       this.PU.uBloom.value = bloomOn ? 1 : 0;
       r.setRenderTarget(this.mid);
       this.prepQuad.render(r);
+      r.setRenderTarget(this.tiles);
+      this.tileQuad.render(r);
+      // a tap lands within maxBlur px of the pixel, on the texel under it: reach that far, plus one
+      this.DU.uR.value = Math.min(4, Math.ceil((this.U.uMaxBlur.value + 2) / TILE));
+      r.setRenderTarget(this.reach);
+      this.dilateQuad.render(r);
     }
     r.setRenderTarget(null);
     r.render(this.qScene, this.qCam);

@@ -202,7 +202,8 @@ def planter_versailles():
     for a in range(4):
         P.append(box('rail', (w - .1, .03, .05), loc=(0, -(w / 2 - .03), h - .08), rot=(0, 0, a * PI / 2), color='ink'))
         P.append(box('rail', (w - .1, .03, .05), loc=(0, -(w / 2 - .03), .08), rot=(0, 0, a * PI / 2), color='ink'))
-    P.append(box('soil', (w - .1, w - .1, .02), loc=(0, 0, h - .06), color='bark'))
+    # the soil stands 8 mm proud of the panel's top (.66): level with it, the two tops z-fought
+    P.append(box('soil', (w - .1, w - .1, .02), loc=(0, 0, h - .052), color='bark'))
     P.append(tube('stem', [(0, 0, h - .05), (0, 0, 1.45)], .035, 5, 'bark'))
     P.append(blob('topiary', .48, (0, 0, 1.75), color='cypress_lt', jitter=.04, subdiv=2, seed=2))
     done('planter_versailles', {'planter_versailles': P}, [], 'Versailles planter box with a clipped ball tree, 2.2 m.')

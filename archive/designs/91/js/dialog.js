@@ -303,7 +303,7 @@ export const DIALOG = {
       ['late', 'home', '(Lucie is asleep. The bike leans by the door, also asleep.)'],
     ],
     refs: [
-      ['night blue', '', 'I posted a card at midnight. The post office never closes!'],
+      ['night blue', '', 'I posted a card at midnight once. The post office never closes!'],
       ['morning', 'cycling kiosk', 'Passed Asgeir on the hill. He was thinking with his whole face.'],
       ['afternoon golden', '', 'The arcade has Fun Libs. I wrote "magnificent baguette".'],
     ],

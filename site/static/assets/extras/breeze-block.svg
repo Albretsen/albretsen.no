@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
-<title>Breeze block tile</title>
-<rect width="96" height="96" fill="#F5EBDC"/>
-<g fill="#E7D6BE"><path d="M8 8h80v80H8z" fill="none" stroke="#E2CFB4" stroke-width="2"/>
-<path fill-rule="evenodd" d="M12 12h72v72H12z M48 16a32 32 0 0 0-32 32 32 32 0 0 0 32 32 32 32 0 0 0 32-32 32 32 0 0 0-32-32z"/>
-<path d="M48 18c6 12 6 18 0 30-6-12-6-18 0-30zM48 78c-6-12-6-18 0-30 6 12 6 18 0 30zM18 48c12-6 18-6 30 0-12 6-18 6-30 0zM78 48c-12 6-18 6-30 0 12-6 18-6 30 0z"/></g>
-<path d="M48 16a32 32 0 0 1 32 32" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.5"/>
-</svg>

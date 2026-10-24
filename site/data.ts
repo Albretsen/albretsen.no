@@ -11,7 +11,7 @@ export interface Product {
   status: Status
   url?: string
   line: string
-  figure?: { value: string; label: string }
+  figure?: { value: string; label: string; exact?: string } // exact: the full value, shown as a tooltip
   facts?: string[]
   alt?: string // description of the product plate image on the homepage
 }
@@ -27,11 +27,13 @@ export const site = {
   description: 'Asgeir Albretsen builds software products and the businesses around them: apps, SaaS and infrastructure for AI agents.',
   availability: 'Takes one outside engagement at a time.',
   mcpUrl: 'https://albretsen.no/mcp',
+  playSince: 2016, // first app on Google Play
+  location: 'Norway',
 }
 
 export const products: Product[] = [
   { id: 'mcp-emails', name: 'MCP Emails', since: 2026, status: 'live', url: 'https://mcpemails.com',
-    line: 'Email for AI agents.', figure: { value: '10,203 NOK', label: 'MRR' },
+    line: 'Email for AI agents.', figure: { value: '10,203 NOK', label: 'MRR', exact: '10,203.19 NOK' },
     facts: ['17 tools', 'About 100 email providers', 'Open source (AGPL)'],
     alt: 'The MCP Emails logo on a terracotta sign by the sea' },
   { id: 'fun-libs', name: 'Fun Libs', since: 2019, status: 'live', url: 'https://funlibs.app',

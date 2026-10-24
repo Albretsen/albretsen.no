@@ -67,7 +67,9 @@ function makeSpots(world) {
   sp('workshop', world.sites.toolrails.x - 2.2, 9.9, 0.25);
   // Asgeir's places: beside the post office screen, at the workshop window, a word with Henri, the railing by the builder
   sp('postbox:1', world.sites.mcp.x + 1.7, 9.6, Math.PI + 0.25);
-  sp('workshop:1', world.sites.toolrails.x - 0.4, 10.0, Math.PI);
+  // clear of the hand cart at the workshop door, looking in through it
+  const wx = world.sites.toolrails.x + 1.5, wz = 10.25;
+  sp('workshop:1', wx, wz, faceTo(wx, wz, world.sites.toolrails.x + 0.2, 9.2));
   const b1 = world.benches[1];
   sp('bench:1:stand', b1.x - 1.45, b1.z + SEAT.back + 0.15, faceTo(b1.x - 1.45, b1.z + SEAT.back + 0.15, b1.x - 0.42, b1.z + SEAT.back - 0.12));
   sp('rail:14', -12.4, RAIL_Z - 0.48, 0);

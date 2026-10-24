@@ -480,13 +480,15 @@ function ambientChat(T, now) {
     if (v.z > 1) continue;
     if (!bubbleClear((v.x + 1) / 2 * W, (1 - v.y) / 2 * H, rects, sr)) continue;
     const centred = 1 - Math.min(1, Math.hypot(v.x, v.y * 1.3) / 1.2);
-    cands.push({ p, w: 0.2 + centred + (focus && p.root === focus ? 1.5 : 0) });
+    // whoever spoke last lets someone else have a turn, unless the camera is following them
+    cands.push({ p, w: (0.2 + centred + (focus && p.root === focus ? 1.5 : 0)) * (p === chat.last && p.root !== focus ? 0.25 : 1) });
   }
   if (!cands.length) return;
   let r = Math.random() * cands.reduce((s, c) => s + c.w, 0), who = cands[0].p;
   for (const c of cands) { r -= c.w; if (r < 0) { who = c.p; break; } }
   const said = lineFor(T, who);
   if (!said) return;
+  chat.last = who;
   const b = makeBubble(speakerOf(T, who.id), said.text, { soft: true, think: !said.reply && speechKind(who) === 'think', until: now + Math.max(4800, said.text.length * 75) });
   if (said.reply) scheduleReply(T, who, said.reply, b, true);
   chat.next = Math.max(chat.next, b.until + 2200 + (said.reply ? 3800 : 0));

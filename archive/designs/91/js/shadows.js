@@ -37,7 +37,7 @@ export async function bakeStaticShadows(scene, camera, root, light, skip = () =>
   const baked = [];
   const visit = (o) => {
     if (skip(o) || !o.visible) return;
-    if (o.isMesh && o.castShadow && !o.isSkinnedMesh && !o.isInstancedMesh && !o.customDepthMaterial && !o.geometry.morphAttributes.position) {
+    if (o.isMesh && o.castShadow && !o.isSkinnedMesh && !o.isInstancedMesh && (!o.customDepthMaterial || o.customDepthMaterial.userData.steady) && !o.geometry.morphAttributes.position) {
       const g = o.geometry, mats = [].concat(o.material);
       const n = g.index ? g.index.count : g.attributes.position.count;
       const dr0 = g.drawRange.start, dr1 = Math.min(n, g.drawRange.start + g.drawRange.count);
@@ -121,4 +121,18 @@ export async function bakeStaticShadows(scene, camera, root, light, skip = () =>
   for (const m of out) scene.add(m);
   for (const o of baked) o.castShadow = false;
   return { proxies: out, baked, ms: busy, wall: performance.now() - t0 };
+}
+
+/**
+ * three draws every caster into the shadow map with one shared depth material, copying each object's
+ * side and map onto it, so the next object along that differs (skinned or not, instanced or not, with
+ * a texture or without) makes three rebuild its program parameters and cache key: dozens of times a
+ * frame with the townsfolk, their props and the bicycles interleaved. A depth material of each
+ * caster's own (the same MeshDepthMaterial three uses) keeps one program per caster. Props attached
+ * later are picked up on the next call.
+ */
+export function steadyDepthMaterials(root) {
+  root.traverse((o) => {
+    if (o.isMesh && o.castShadow && !o.customDepthMaterial) { o.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking }); o.customDepthMaterial.userData.steady = true; }
+  });
 }

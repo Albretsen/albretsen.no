@@ -8,7 +8,7 @@ import { CameraRig, homeView } from './camera.js';
 import { buildTown, FRONT, DANCE } from './town.js';
 import { Life } from './life.js';
 import { TownLights, makeGlowPools } from './lights.js';
-import { bakeStaticShadows } from './shadows.js';
+import { bakeStaticShadows, steadyDepthMaterials } from './shadows.js';
 
 export async function createLivingTown(canvas, { lite = false, reduced = false, adaptive = true, onProgress = () => {} } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance', alpha: false, stencil: false });
@@ -92,7 +92,10 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   const tmp = new THREE.Vector3();
   let frames = 0, acc = 0, lastCheck = 0, failedDpr = Infinity, failedAt = -Infinity;
 
+  let depthCheck = 1;
   function frame(dt) {
+    // once the static casters are baked, the rest get depth materials of their own (see shadows.js)
+    if ((depthCheck += dt) > 1 && (shadowBake || !rig.key.castShadow)) { depthCheck = 0; steadyDepthMaterials(scene); }
     renderer.info.reset();
     // adaptive resolution: keep it smooth on slower machines. It runs before this frame renders:
     // resizing the canvas clears it, and a clear after the render would show one empty frame.

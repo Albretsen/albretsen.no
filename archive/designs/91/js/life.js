@@ -607,7 +607,15 @@ export class Life {
       p.update(dt);
       if (p.bike && !p.mounted) { /* parked */ }
     }
-    this.folk.update(dt);
+    // Townsfolk.update, except that someone hidden indoors does not animate: their mixer keeps the
+    // time and catches up in one step when they are seen again, so the pose is the same as if it had run.
+    const F = this.folk;
+    for (const a of F.actors) {
+      if (!a.object.visible) { a._held = (a._held || 0) + dt; continue; }
+      a.mixer.update(dt + (a._held || 0)); a._held = 0;
+      a._updateFollowers();
+    }
+    if (F._leashes) for (const l of F._leashes) l.userData.update();
   }
 
   /** The person under a screen ray, if any (cheap capsule test). */

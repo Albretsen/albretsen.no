@@ -10,19 +10,17 @@ const SHOP = 1.7;   // landmark windows carry their own interior texture, so the
 
 function hash(i, k) { const s = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return s - Math.floor(s); }
 
-/** A light that switches with a little life: warm windows fade, lamps flicker as they strike. */
+/** A light that switches with a little life: warm windows fade in, lamps warm up as they strike. */
 class Switch {
   constructor(kind = 'fade') { this.kind = kind; this.v = 0; this.target = 0; this.t = 1; this.from = 0; }
   set(t) { if (t !== this.target) { this.from = this.v; this.target = t; this.t = 0; } }
   update(dt) {
-    // a lamp struck while the clock is being dragged or glides warms up without its blinks, so a
-    // sweep through dusk does not set a row of lamps flashing at once
-    if (this.t === 0) this.calm = Switch.calm;
     this.t = Math.min(1, this.t + dt / (this.kind === 'strike' ? 0.9 : 0.45));
     const t = this.t, on = this.target > this.from;
-    if (this.kind === 'strike' && on && !this.calm) {
-      // strike: blink, blink, then warm up
-      const f = t < 0.06 ? 0.85 : t < 0.14 ? 0.08 : t < 0.2 ? 0.7 : t < 0.27 ? 0.15 : 0.35 + 0.65 * smooth(0.27, 1, t);
+    if (this.kind === 'strike' && on) {
+      // strike: a soft glow at once, then a steady warm-up, like an old lantern. (It used to blink twice,
+      // 0.85, 0.08, 0.7, 0.15, and the paving under the five real lamp lights blinked with it: flicker.)
+      const f = 0.35 * smooth(0, 0.12, t) + 0.65 * smooth(0.12, 1, t);
       this.v = this.from + (this.target - this.from) * f;
     } else if (on) {
       const f = t < 0.08 ? 0.6 : 0.6 + 0.4 * smooth(0.08, 1, t);
@@ -31,8 +29,6 @@ class Switch {
     return this.v;
   }
 }
-
-Switch.calm = false;
 
 export class TownLights {
   constructor(world, life) {
@@ -69,8 +65,11 @@ export class TownLights {
   /** A product event: the landmark's sign flares for a moment. */
   pulse(siteId) { const s = this.sites.find((x) => x.s.id === siteId); if (s) s.pulse = 1; }
 
+  // How bright a sign is over its switch level: a product event brightens it gently (a soft swell over
+  // about a third of a second, then a slow ease back), never a flash.
+  static PULSE = 0.3;
+
   update(dt, h, e, calm = false) {
-    Switch.calm = calm;
     const dark = smooth(4, -3, e);          // enough for windows
     const hx = h < 12 ? h + 24 : h;         // evening hours run past midnight
     const inRange = (a, b) => hx >= a && hx < b;
@@ -84,8 +83,13 @@ export class TownLights {
 
     for (const st of this.sites) {
       const s = st.s, G = st.groups;
-      const set = (name, target, k = WIN) => { const g = G[name]; if (!g) return; g.sw.set(target); g.m.emissiveIntensity = g.sw.update(dt) * k; };
+      // `mod` scales the switched level (a sign's swell, the marquee's chase) without restarting the switch:
+      // fed into the switch, a target that moved every frame restarted its fade each frame, so it rose
+      // fast and fell slowly
+      const set = (name, target, k = WIN, mod = 1) => { const g = G[name]; if (!g) return; g.sw.set(target); g.m.emissiveIntensity = g.sw.update(dt) * k * mod; };
       st.pulse = Math.max(0, st.pulse - dt * 0.8);
+      st.glow = (st.glow || 0) + (st.pulse - (st.glow || 0)) * Math.min(1, dt * 6);
+      const swell = 1 + st.glow * TownLights.PULSE;
       const occ = [...s.occupants.values()];
       const litN = occ.filter(Boolean).length;
       if (s.kind === 'home') {
@@ -108,21 +112,22 @@ export class TownLights {
         set('emissive_window_ground', dark > 0.2 ? 1 : 0.25, SHOP);
         set('emissive_window_upper', dark > 0.25 && day(17.5, 23.5) ? 1 : 0, SHOP);
         set('emissive_lamp', dark > 0.15 ? 1 : 0, 1.6);
-        set('emissive_sign_mcpemails', (dark > 0.1 ? 1 : 0.3) + st.pulse * 0.6, SIGN * 0.55);   // a white lightbox: keep the wordmark legible
+        set('emissive_sign_mcpemails', dark > 0.1 ? 1 : 0.3, SIGN * 0.55, swell);   // a white lightbox: keep the wordmark legible
       } else if (s.product === 'fun-libs') {
         set('emissive_window_ground', day(9, 1) ? (dark > 0.2 ? 1 : 0.35) : 0, SHOP);
         set('emissive_window_upper', dark > 0.25 && day(19, 23) ? 1 : 0, SHOP);
         set('emissive_arcade', day(9, 1) ? 1 : 0, 1.2);
-        const chase = 0.75 + 0.25 * Math.sin(performance.now() / 160);
-        set('emissive_marquee', day(17.5, 1.5) && dark > 0.05 ? chase : 0, 1.7);
-        set('emissive_sign_funlibs', (dark > 0.1 ? 1 : 0.35) + st.pulse * 0.6, SIGN);
+        // the chase as it always looked (the restarting switch held it between 0.94 and 1), now an even ripple
+        const chase = 0.97 + 0.03 * Math.sin(performance.now() / 160);
+        set('emissive_marquee', day(17.5, 1.5) && dark > 0.05 ? 1 : 0, 1.7, chase);
+        set('emissive_sign_funlibs', dark > 0.1 ? 1 : 0.35, SIGN, swell);
       } else if (s.product === 'toolrails') {
         // lit while the builder is in the workshop
         const working = litN > 0;
         set('emissive_window_ground', working ? (dark > 0.2 ? 1 : 0.45) : 0, SHOP);
         set('emissive_window_upper', working && dark > 0.2 ? 1 : 0, SHOP);
         set('emissive_skylight', working ? (dark > 0.2 ? 1 : 0.3) : 0, 1.5);
-        set('emissive_sign_toolrails', (dark > 0.1 ? 1 : 0.35) + st.pulse * 0.6, SIGN);
+        set('emissive_sign_toolrails', dark > 0.1 ? 1 : 0.35, SIGN, swell);
       } else if (s.product === 'harbor') {
         // paused: one reading lamp left on, the sign turned low
         set('emissive_window_ground', 0, SHOP);

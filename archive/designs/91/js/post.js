@@ -103,31 +103,36 @@ void main(){
   vec2 s0 = cz(vUv);
   float c0 = cocOf(s0, vUv);
   float z0 = s0.y;
-  vec3 acc = texture2D(tColor, vUv).rgb; float wsum = 1.;
+  vec3 acc = textureLod(tColor, vUv, 0.).rgb; float wsum = 1.;
 #if PREP
   // the largest blur any tap can meet: the tiles in reach, and the tilt band at the far edge of the disc
   float ry = max(abs(vUv.y - uMaxBlur * px.y - .46), abs(vUv.y + uMaxBlur * px.y - .46));
   float reach = min(uMaxBlur, max(texelFetch(tReach, ivec2(gl_FragCoord.xy) / ${TILE}, 0).x, smoothstep(.18, .5, ry) * uTilt * uMaxBlur)) + 1.5 + 1e-3;
 #endif
   if (uDebugNaN > 0.5) { vec3 cc = acc; if (any(isnan(cc)) || any(isinf(cc))) { gl_FragColor = vec4(1.,0.,1.,1.); return; } if (max(cc.r, max(cc.g, cc.b)) > 50.) { gl_FragColor = vec4(0.,1.,0.,1.); return; } }
+  // Each tap reads the colour pre-blurred over about the spacing between taps (the largest blur * sqrt(pi / taps)).
+  // Read sharp, a blur that only two or three taps reach showed as two or three crisp copies (the
+  // Harbor sign's lettering doubled, stepped outlines on lamps and railings, a bright glint repeated
+  // as a stack of dots) that slid as the camera moved. Pre-blurred, the copies melt into the blur;
+  // the pixel's own tap stays sharp, so whatever is in focus is untouched.
+  float lod = PREP > 0 ? log2(max(1., uMaxBlur * 1.7725 * inversesqrt(uTaps))) : 0.;
   if (c0 > .6 || uTilt > 0.) {
     for (int i = 1; i < 40; i++) {
       if (float(i) >= uTaps) break;
       float r = uOff[i].z;
+      float d = r * uMaxBlur;
 #if PREP
-      if (r * uMaxBlur > reach) break;   // this tap and every one after it would weigh 0
+      if (d > reach) break;   // this tap and every one after it would weigh 0
 #endif
-      vec2 o = uOff[i].xy * uMaxBlur;
-      vec2 uv = vUv + o * px;
+      vec2 uv = vUv + uOff[i].xy * uMaxBlur * px;
       vec2 ss = cz(uv);
       float cs = cocOf(ss, uv);
       float zs = ss.y;
-      float d = r * uMaxBlur;
       // a sample counts if its own blur reaches us, or if it is behind us and our blur reaches it
       // a sample in front of us blurs over us by its own amount; one behind us only as far as our own blur reaches
       // (one smoothstep on the chosen blur: the same as mixing two by a 0/1 step)
       float w = smoothstep(d - 1.5, d + .5, zs >= z0 + .6 ? min(cs, c0) : cs);
-      acc += texture2D(tColor, uv).rgb * w; wsum += w;
+      acc += textureLod(tColor, uv, lod).rgb * w; wsum += w;
     }
   }
   vec3 col = acc / wsum;
@@ -138,7 +143,8 @@ void main(){
   vec2 q = vUv - .5;
   col *= 1. - uVignette * dot(q, q) * 1.6;
   col = toSRGB(col);
-  col += (h12(vUv * uRes + fract(uTime) * 91.7) - .5) * uGrain;
+  // the grain holds still: drawn fresh every frame it fizzed (every pixel moved 2.5 levels a frame, even on a calm sky)
+  col += (h12(vUv * uRes) - .5) * uGrain;
   gl_FragColor = vec4(col, 1.);
 }`;
 
@@ -151,15 +157,7 @@ export class Post {
     this.prep = renderer.extensions.has('EXT_color_buffer_float');
     this._makeTarget(size);
     this.bloomScale = bloomScale;
-    this.bloom = new UnrealBloomPass(new THREE.Vector2(size.x * bloomScale, size.y * bloomScale), 0.6, 0.55, 1.0);
-    // Guard the bloom input. Bloom blurs down to a few pixels across, so one NaN or Inf texel (a bad
-    // pow() in a shader, a half-float overflow next to a point light) becomes NaN over the whole frame
-    // and the town vanishes for that frame. Drop non-finite texels and cap the rest well above anything
-    // the scene actually produces, so the result is unchanged when the input is sane.
-    const hp = this.bloom.materialHighPassFilter;
-    hp.fragmentShader = hp.fragmentShader.replace('vec4 texel = texture2D( tDiffuse, vUv );',
-      'vec4 texel = texture2D( tDiffuse, vUv );\n\t\t\ttexel.rgb = (any(isnan(texel.rgb)) || any(isinf(texel.rgb))) ? vec3(0.) : min(texel.rgb, vec3(256.));');
-    hp.needsUpdate = true;
+    this._makeBloom(size);
     this.U = {
       tColor: { value: this.prep ? this.mid.textures[0] : this.rt.texture }, tDepth: { value: this.depth }, tCoc: { value: this.prep ? this.mid.textures[1] : null }, tReach: { value: this.prep ? this.reach.texture : null }, uRes: { value: size.clone() },
       uNear: { value: 1 }, uFar: { value: 3000 }, uFocus: { value: 60 }, uAperture: { value: 14 }, uMaxBlur: { value: 9 },
@@ -194,21 +192,38 @@ export class Post {
     this.qCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   }
 
-  _makeTarget(size) {
-    // a fresh target on every resize: resizing a multisampled target with a depth texture in place is not reliable
-    if (this.rt) { this.rt.dispose(); this.depth.dispose(); }
+  _makeBloom(size) {
+    this.bloom = new UnrealBloomPass(new THREE.Vector2(size.x * this.bloomScale, size.y * this.bloomScale), 0.6, 0.55, 1.0);
+    // Guard the bloom input. Bloom blurs down to a few pixels across, so one NaN or Inf texel (a bad
+    // pow() in a shader, a half-float overflow next to a point light) becomes NaN over the whole frame
+    // and the town vanishes for that frame. Drop non-finite texels and cap the rest well above anything
+    // the scene actually produces, so the result is unchanged when the input is sane.
+    const hp = this.bloom.materialHighPassFilter;
+    hp.fragmentShader = hp.fragmentShader.replace('vec4 texel = texture2D( tDiffuse, vUv );',
+      'vec4 texel = texture2D( tDiffuse, vUv );\n\t\t\ttexel.rgb = (any(isnan(texel.rgb)) || any(isinf(texel.rgb))) ? vec3(0.) : min(texel.rgb, vec3(256.));');
+    hp.needsUpdate = true;
+  }
+
+  _makeTarget(size, lost = false) {
+    // a fresh target on every resize: resizing a multisampled target with a depth texture in place is not reliable.
+    // After a lost context the old targets died with it: they are dropped, not disposed (disposing would
+    // ask the new context to delete objects that were never its own)
+    if (this.rt && !lost) { this.rt.dispose(); this.depth.dispose(); }
     this.depth = new THREE.DepthTexture(size.x, size.y);
     this.depth.type = THREE.UnsignedIntType;
     this.rt = new THREE.WebGLRenderTarget(size.x, size.y, { type: THREE.HalfFloatType, samples: this.msaa, depthTexture: this.depth, depthBuffer: true });
     if (this.prep) {
-      if (this.mid) this.mid.dispose();
+      if (this.mid && !lost) this.mid.dispose();
       this.mid = new THREE.WebGLRenderTarget(size.x, size.y, { type: THREE.HalfFloatType, count: 2, depthBuffer: false });
       const cz = this.mid.textures[1];
       cz.type = THREE.FloatType; cz.format = THREE.RGFormat;
       cz.minFilter = cz.magFilter = THREE.NearestFilter;   // like the depth texture it replaces
-      for (const t of this.mid.textures) t.generateMipmaps = false;
+      cz.generateMipmaps = false;
+      // the colour keeps a mip chain: the gather's taps read it pre-blurred over their spacing
+      const col = this.mid.textures[0];
+      col.generateMipmaps = true; col.minFilter = THREE.LinearMipmapLinearFilter; col.magFilter = THREE.LinearFilter;
       // tile maxima (float32, exact) and their dilation
-      if (this.tiles) { this.tiles.dispose(); this.reach.dispose(); }
+      if (this.tiles && !lost) { this.tiles.dispose(); this.reach.dispose(); }
       const tw = Math.ceil(size.x / TILE), th = Math.ceil(size.y / TILE);
       const opts = { type: THREE.FloatType, format: THREE.RedFormat, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthBuffer: false, generateMipmaps: false };
       this.tiles = new THREE.WebGLRenderTarget(tw, th, opts);
@@ -227,10 +242,12 @@ export class Post {
   /** After a lost GPU context comes back: fresh targets, since the old ones are gone with it. */
   rebuild() {
     const size = this.renderer.getDrawingBufferSize(new THREE.Vector2());
-    this._makeTarget(size);
+    const { strength, threshold, radius } = this.bloom;
+    this._makeBloom(size);
+    Object.assign(this.bloom, { strength, threshold, radius });
+    if (this.PU) this.PU.tBloom.value = this.bloom.renderTargetsHorizontal[0].texture;
+    this._makeTarget(size, true);
     this.U.uRes.value.copy(size);
-    this.bloom.setSize(Math.round(size.x * this.bloomScale) + 1, Math.round(size.y * this.bloomScale));
-    this.bloom.setSize(Math.round(size.x * this.bloomScale), Math.round(size.y * this.bloomScale));
   }
 
   setSize() {

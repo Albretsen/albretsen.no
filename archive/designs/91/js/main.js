@@ -315,6 +315,9 @@ async function boot() {
   }
   if (!SHOT && store.get('lt-coach') !== 'done') setTimeout(() => coachShow(0), reduced ? 600 : 4200);
 
+  // the GPU took the context away: the poster stands in until the town is back, never an empty frame
+  stage.addEventListener('webglcontextlost', () => stage.classList.remove('on'));
+  stage.addEventListener('webglcontextrestored', () => setTimeout(() => stage.classList.add('on'), 250));
   let visible = true;
   new IntersectionObserver(([en]) => { visible = heroOn = en.isIntersecting; }, { threshold: 0.02 }).observe(stage);
   // a resized window or a turned phone: match the drawing buffer to the new size (it used to stay at
@@ -322,7 +325,7 @@ async function boot() {
   let sized = stageW + 'x' + stageH;
   new ResizeObserver(() => { stageW = stage.clientWidth; stageH = stage.clientHeight; }).observe(stage);
   function loop(now) {
-    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    const dt = Math.max(0, Math.min(0.05, (now - last) / 1000)); last = now;   // a frame's timestamp can precede the boot's performance.now()
     if (visible && !document.hidden) {
       if (stageW + 'x' + stageH !== sized) { sized = stageW + 'x' + stageH; T.resize(); }
       tickClock(dt);
@@ -463,7 +466,7 @@ function bubbleClear(x, y, rects, sr, w = 260, h = 96) {
 }
 function ambientChat(T, now) {
   if (!CHAT || !dialog || now < chat.next) return;
-  chat.next = now + 6000 + Math.random() * 6000;
+  chat.next = now + 4500 + Math.random() * 4500;
   if (bubbles.length || cardFor) return;
   const focus = T.state.focusOn;
   if (T.cam.cur.dist > 34 && !focus) return;          // zoomed out: the town keeps to itself
@@ -486,7 +489,7 @@ function ambientChat(T, now) {
   if (!said) return;
   const b = makeBubble(speakerOf(T, who.id), said.text, { soft: true, think: !said.reply && speechKind(who) === 'think', until: now + Math.max(4800, said.text.length * 75) });
   if (said.reply) scheduleReply(T, who, said.reply, b, true);
-  chat.next = Math.max(chat.next, b.until + 3000 + (said.reply ? 4500 : 0));
+  chat.next = Math.max(chat.next, b.until + 2200 + (said.reply ? 3800 : 0));
 }
 
 function focusPerson(T, p, instant = false) {
@@ -651,11 +654,13 @@ function updateOverlays(T) {
     if (now > b.until || b.sp.gone()) { dropBubble(b); continue; }
     v.copy((b.sp.anchor || b.sp.p.root).position); v.y = b.sp.h;
     v.project(T.camera);
-    const on = v.z < 1 && v.x > -1.2 && v.x < 1.2 && v.y > -1.2 && v.y < 1.3;
+    const on = v.z < 1 && v.x > -1.04 && v.x < 1.04 && v.y > -1.2 && v.y < 1.3;
     if (!on) { b.el.style.visibility = 'hidden'; continue; }
     // a bubble's size only changes with the stage width: measure it once per width, not every frame
     if (b.sizedAt !== W) { b.w = b.el.offsetWidth; b.h = b.el.offsetHeight; b.sizedAt = W; }
-    const x = (v.x + 1) / 2 * W, w = b.w, h = b.h;
+    const w = b.w, h = b.h;
+    // near the edge of the screen a bubble slides inward rather than being cut off
+    const x = Math.min(Math.max((v.x + 1) / 2 * W, w / 2 + 8), Math.max(w / 2 + 8, W - w / 2 - 8));
     let y = (1 - v.y) / 2 * H;
     // two bubbles side by side: lift the later one clear of the first
     for (const o of placed) if (Math.abs(o.x - x) < (o.w + w) / 2 + 8 && y > o.y - o.h - 12 && y - h < o.y) y = o.y - o.h - 12;
@@ -673,6 +678,12 @@ function updateOverlays(T) {
     const n = notes[i];
     if (performance.now() > n.until) { n.el.remove(); notes.splice(i, 1); continue; }
     place(n.el, n.pos);
+    // a note that would hang off the edge of the screen is not shown cut in half
+    if (n.el.style.visibility === 'visible') {
+      n.w ??= n.el.offsetWidth;
+      const x = (v.x + 1) / 2 * W;
+      if (x - n.w / 2 < 6 || x + n.w / 2 > W - 6) n.el.style.visibility = 'hidden';
+    }
   }
 }
 

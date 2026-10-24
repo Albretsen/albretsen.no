@@ -1,6 +1,6 @@
 // Live product figures. Pages ship the build-time figure; this swaps in the
 // latest one from /api/figures when there is one, and stays quiet otherwise.
-const text = (f) => `${typeof f.value === 'number' ? f.value.toLocaleString('en-US') : f.value}${f.unit ? ' ' + f.unit : ''}`;
+const text = (f) => `${typeof f.value === 'number' ? f.value.toLocaleString('en-US', { maximumFractionDigits: Math.abs(f.value) >= 100 ? 0 : 2 }) : f.value}${f.unit ? ' ' + f.unit : ''}`;
 export function apply(f) {
   for (const el of document.querySelectorAll(`[data-figure="${f.product}"]`)) {
     const v = text(f), label = el.lastElementChild;

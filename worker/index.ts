@@ -221,5 +221,6 @@ export function cleanFigure(f: any): Json | null {
   return out
 }
 
-// How a figure reads on a page: 1136 + NOK → "1,136 NOK". Same rule as assets/js/figures.js.
-export const figureText = (f: any) => `${typeof f.value === 'number' ? f.value.toLocaleString('en-US') : f.value}${f.unit ? ' ' + f.unit : ''}`
+// How a figure reads on a page: 10203.19 + NOK → "10,203 NOK" (large figures drop the decimals,
+// small ones keep up to two). Same rule as assets/js/figures.js.
+export const figureText = (f: any) => `${typeof f.value === 'number' ? f.value.toLocaleString('en-US', { maximumFractionDigits: Math.abs(f.value) >= 100 ? 0 : 2 }) : f.value}${f.unit ? ' ' + f.unit : ''}`

@@ -41,7 +41,7 @@ Pages ship each product's figure from `site/data.ts` and refresh it from `/api/f
 ```
 curl -X POST https://albretsen.no/api/figures \
   -H "Authorization: Bearer $FEED_KEY" -H "content-type: application/json" \
-  -d '{"product":"mcp-emails","label":"MRR","value":10203.19,"unit":"NOK"}'
+  -d '{"product":"mcp-emails","label":"emails handled","value":48000}'
 ```
 
 `value` is a number (shown as `10,203 NOK`: large figures drop the decimals) or short text such as `"113,000+"`; only `label`, `value` and `unit` are kept. `GET /api/figures` returns `{ "figures": { "mcp-emails": { "label", "value", "unit", "updated" } } }`, and each update is also pushed on `/api/events/socket` as `{ "type": "figure", ... }`. Keep `site/data.ts` roughly current so the first paint is right.

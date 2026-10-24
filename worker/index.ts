@@ -176,7 +176,8 @@ export class Feed {
 
   async figures(req: Request): Promise<Response> {
     if (req.method === 'GET') {
-      const figures = (await this.ctx.storage.get<Record<string, Json>>('figures')) ?? {}
+      const stored = (await this.ctx.storage.get<Record<string, Json>>('figures')) ?? {}
+      const figures = Object.fromEntries(Object.entries(stored).filter(([, f]) => !isPrivateFigure(f)))
       return Response.json({ figures }, { headers: { 'access-control-allow-origin': '*', 'cache-control': 'no-store' } })
     }
     if (req.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: { allow: 'GET, POST' } })
@@ -209,9 +210,14 @@ export function clean(e: any): Json | null {
 
 const authorized = (req: Request, env: Env) => !!env.FEED_KEY && req.headers.get('authorization') === `Bearer ${env.FEED_KEY}`
 
+// Money stays private: revenue, prices and currencies tell competitors and customers too much,
+// so such a figure is refused, and one stored before this rule is never served.
+const PRIVATE = /\b(mrr|arr|revenue|income|profit|sales|price|prices|customers?|subscribers?|paying)\b|[$€£¥]|\b(nok|usd|eur|gbp|sek|dkk|kr)\b/i
+export const isPrivateFigure = (f: any) => PRIVATE.test(`${f?.label ?? ''} ${f?.unit ?? ''} ${typeof f?.value === 'string' ? f.value : ''}`)
+
 // A figure is a product, a short label and a value (a number, or short text such as "113,000+").
 export function cleanFigure(f: any): Json | null {
-  if (!f || !PRODUCTS.has(f.product) || typeof f.label !== 'string' || !f.label.trim()) return null
+  if (!f || !PRODUCTS.has(f.product) || typeof f.label !== 'string' || !f.label.trim() || isPrivateFigure(f)) return null
   const value = typeof f.value === 'number' ? (Number.isFinite(f.value) ? Math.round(f.value * 100) / 100 : null)
     : typeof f.value === 'string' && f.value.trim() ? f.value.trim().slice(0, 24) : null
   if (value === null) return null

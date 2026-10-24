@@ -376,6 +376,14 @@ export const DIALOG = {
     voice: 'Understated, curious and a bit dry. Friendly, never boastful. The odd Norwegian word.',
     lines: [
       ['dawn', '', 'Early. The sea is doing its quiet thing.'],
+      ['', '', 'Five minutes outside. Best meeting of the day.'],
+      ['morning midday afternoon', '', 'Hei. Lovely day for it, whatever it is.'],
+      ['morning', '', 'Good light for thinking. And for croissants.'],
+      ['morning midday', 'bench', 'Odile knows everyone. Now she knows me too.'],
+      ['midday', '', 'Noon. The town smells of bread and sea.'],
+      ['', 'home', 'At the desk, window open. The gulls supervise.'],
+      ['', 'stroll', 'One lap of the promenade, then back to the desk.'],
+      ['', 'post', 'The post office lamp is on. It always is.'],
       ['morning', 'cafe', 'God morgen, Marcel. Just a coffee. And maybe that.'],
       ['morning', 'cafe', 'Window seat. I like watching the town wake up.'],
       ['morning', 'wander', 'The bakery queue is the best meeting of the day.'],
@@ -499,6 +507,9 @@ const X = [
   ['ines', 'asgeir', 'dawn morning', 'running', 'Morning, Asgeir! One lap with me?', 'Tomorrow. I say that every day.'],
   ['asgeir', 'yusuf', '', '', 'Hei, Biscuit. Hei, Yusuf.', 'He says hei back. With the tail.'],
   ['builder', 'asgeir', '', 'workshop', 'Want to see what I did today?', 'Always. Show me the small bits too.'],
+  ['asgeir', 'builder', 'golden sunset', 'railing', 'Ten minutes off?', 'Ten minutes. The sunset does not wait.'],
+  ['builder', 'asgeir', 'golden sunset', 'railing', 'Evening, Asgeir. Good one tonight.', 'You say that every night. You are always right.'],
+  ['asgeir', 'henri', 'morning midday', 'bench', 'Henri, Odile. How is the crossword going?', 'One word left. You can have it.'],
   // Rarer exchanges about the products.
   ['asgeir', 'builder', 'blue night late', '', 'Lamp still on?', 'Always. Toolrails is coming along.', true],
   ['theo', 'marcel', 'midday', 'cafe', 'Is it true the post office does email for robots?', 'Oui. Open all night. Very polite robots.', true],
@@ -529,12 +540,14 @@ function remember(recent, key) {
   while (recent.size > RECENT_MAX) recent.delete(recent.values().next().value);
 }
 
-// Candidate lines in falling order of fit: exact, right time (any activity), timeless, anything.
+// Candidate lines in falling order of fit: right time and activity (or none named), timeless and
+// general, then right time with another activity (so nobody on a bench talks about their coffee
+// while a general line would do).
 function candidates(rows, phase, activity) {
   const tiers = [
     rows.filter(([w, a]) => fits(w, a, phase, activity)),
-    rows.filter(([w]) => has(w, phase)),
     rows.filter(([w, a]) => !w && !a),
+    rows.filter(([w]) => has(w, phase)),
   ];
   return tiers.find((t) => t.length) || [];
 }

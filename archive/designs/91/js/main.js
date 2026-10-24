@@ -3,6 +3,7 @@
 // after first paint and fades in over the poster.
 import { content } from '../../_shared/content.js';
 import { elevation, osloHour, fmtHour, phase, wrap24, SUNRISE, SUNSET } from './time.js';
+import { createFigures, openSocket } from './figures.js';
 
 const Q = new URLSearchParams(location.search);
 const SHOT = Q.get('shot');                 // 'poster' hides the UI; any value skips fades and the intro
@@ -133,13 +134,32 @@ function tickClock(dt) {
 // ------------------------------------------------------------------ live product events
 const feedEl = $('feed'), feedLine = $('feed-line');
 const PRODUCT_SITE = { 'mcp-emails': 'mcp', 'fun-libs': 'funlibs', toolrails: 'toolrails', harbor: 'harbor' };
-const feed = { events: [], demo: false, onEvent: () => {} };
+const feed = { events: [], demo: false, onEvent: () => {}, stopDemo: null };
+const evKey = (e) => e.id || `${e.time}|${e.product}|${e.text}`;
+// keep the ticker calm: at most one new line every few seconds, the newest wins
+const FEED_GAP = 6500;
+let feedShownAt = 0, feedQueued = null, feedTimer = 0;
+function queueEvent(e) {
+  const wait = feedShownAt + FEED_GAP - performance.now();
+  if (wait <= 0 && !feedTimer) { showEvent(e); return; }
+  feedQueued = e;
+  if (!feedTimer) feedTimer = setTimeout(() => { feedTimer = 0; const q = feedQueued; feedQueued = null; if (q) showEvent(q); }, Math.max(0, wait));
+}
+/** A real product event (poll or socket): the demo feed steps aside for good. */
+function realEvent(e) {
+  if (!e || !e.product || !e.text) return;
+  if (feed.demo) { feed.demo = false; feed.stopDemo?.(); feed.events = []; }
+  if (feed.events.some((x) => evKey(x) === evKey(e))) return;
+  feed.events.unshift(e); feed.events.length = Math.min(feed.events.length, 30);
+  queueEvent(e);
+}
 function describeEvent(e) {
   const tail = e.ms ? `${e.ms} ms` : e.country ? e.country : e.city ? e.city : '';
   const label = e.label || e.product || '';
   return `${label}${label ? ': ' : ''}${e.text || e.kind || 'event'}${tail ? ' · ' + tail : ''}`;
 }
 function showEvent(e) {
+  feedShownAt = performance.now();
   feedEl.innerHTML = '';
   feedEl.append(document.createTextNode(describeEvent(e)));
   if (feed.demo) { const s = document.createElement('span'); s.className = 'demo'; s.textContent = 'demo'; feedEl.append(s); }
@@ -152,27 +172,70 @@ async function startFeed() {
     const r = await fetch('https://albretsen.no/api/events?limit=12', { cache: 'no-store' });
     if (r.ok) { const j = await r.json(); real = Array.isArray(j) ? j : j.events || []; }
   } catch {}
+  // the poll keeps going either way: the first real event replaces the demo feed
+  setInterval(async () => {
+    try {
+      const r = await fetch('https://albretsen.no/api/events?limit=12', { cache: 'no-store' });
+      const j = await r.json(); const list = Array.isArray(j) ? j : j.events || [];
+      for (const e of list.slice().reverse()) realEvent(e);
+    } catch {}
+  }, 30000);
   if (real.length) {
-    feed.events = real;
+    feed.events = real.slice(0, 30);
     showEvent(real[0]);
-    let seen = new Set(real.map((e) => e.id));
-    setInterval(async () => {
-      try {
-        const r = await fetch('https://albretsen.no/api/events?limit=12', { cache: 'no-store' });
-        const j = await r.json(); const list = Array.isArray(j) ? j : j.events || [];
-        for (const e of list.reverse()) if (!seen.has(e.id)) { seen.add(e.id); feed.events.unshift(e); showEvent(e); }
-      } catch {}
-    }, 30000);
     return;
   }
   // nothing live yet: keep the town moving with the simulated feed, labelled as demo data
   const { createFeed } = await import('../../_shared/feed.js');
+  if (feed.events.length) return;   // a real event arrived over the socket meanwhile
   const f = createFeed();
   feed.demo = true;
   feed.events = f.recent(12);
   showEvent(feed.events[0]);
-  f.subscribe((e) => { feed.events.unshift(e); feed.events.length = Math.min(feed.events.length, 30); showEvent(e); });
+  const off = f.subscribe((e) => { if (!feed.demo) return; feed.events.unshift(e); feed.events.length = Math.min(feed.events.length, 30); queueEvent(e); });
+  feed.stopDemo = () => { off(); f.stop(); };
 }
+
+// ------------------------------------------------------------------ live figures
+const figures = createFigures(content.products);
+const figureEls = [];   // [{ id, b, fresh }] in the products section
+let screensDirty = () => {};
+function paintFresh(el, f) { el.textContent = f.fresh; el.hidden = !f.fresh; el.classList.toggle('is-live', f.fresh === 'live'); }
+function paintFigures() {
+  for (const { id, b, fresh } of figureEls) {
+    const f = figures.get(id); if (!f) continue;
+    if (b.textContent !== f.text) b.textContent = f.text;
+    b.classList.toggle('long', f.text.length > 8);
+    if (f.exact) b.title = f.exact; else b.removeAttribute('title');
+    paintFresh(fresh, f);
+  }
+  const s = cardFor && T ? T.world.sites[cardFor] : null;
+  const f = s && figures.get(s.product);
+  if (f) {
+    const val = $('card-value');
+    if (val.textContent !== f.text) val.textContent = f.text;
+    if (f.exact) val.title = f.exact; else val.removeAttribute('title');
+    $('card-label').textContent = f.label || '';
+    paintFresh($('card-fresh'), f);
+  }
+}
+const SITE_PRODUCT = { mcp: 'mcp-emails', funlibs: 'fun-libs', toolrails: 'toolrails', harbor: 'harbor' };
+document.querySelectorAll('.pcard').forEach((li) => {
+  const id = SITE_PRODUCT[li.dataset.site], b = li.querySelector('.figure b');
+  if (!id || !b) return;
+  const fresh = document.createElement('small'); fresh.className = 'fresh'; fresh.hidden = true;
+  b.parentNode.append(fresh);
+  figureEls.push({ id, b, fresh });
+});
+let rollRaf = 0;
+function rollFigures() {
+  paintFigures();
+  screensDirty();
+  rollRaf = figures.rolling() ? requestAnimationFrame(rollFigures) : 0;
+}
+figures.subscribe(() => { if (!rollRaf) rollRaf = requestAnimationFrame(rollFigures); });
+setInterval(paintFigures, 30000);   // "updated N min ago" moves on
+setInterval(() => figures.load(), 5 * 60000);
 
 // ------------------------------------------------------------------ onboarding hints
 const coach = $('coach'), coachText = $('coach-text');
@@ -214,6 +277,7 @@ async function boot() {
   const lite = Q.has('lite') || matchMedia('(max-width: 760px)').matches || (navigator.hardwareConcurrency || 8) <= 4;
   let mod;
   try {
+    import('./dialog.js').then((m) => { dialog = m; }, () => {});
     mod = await import('./scene.js');
     T = await mod.createLivingTown(stage, { lite, reduced, adaptive: !SHOT, onProgress: (p) => { fill.style.width = Math.round(p * 100) + '%'; } });
   } catch (err) {
@@ -238,7 +302,7 @@ async function boot() {
   $('tools').hidden = false;
 
   applyCamParam(T);
-  if (Q.get('say')) { const p = T.life.byId[Q.get('say')]; if (p) { for (let i = 0; i < 30; i++) T.frame(0.05); focusPerson(T, p, true); showBubble(T, p); bubble.until = Infinity; } }
+  if (Q.get('say')) { const p = T.life.byId[Q.get('say')]; if (p) { for (let i = 0; i < 30; i++) T.frame(0.05); focusPerson(T, p, true); showBubble(T, p); if (bubble) bubble.until = Infinity; } }
   if (Q.has('stats')) setInterval(() => { const i = T.renderer.info.render; $('feed').textContent = `${i.calls} draws · ${(i.triangles / 1000).toFixed(0)}k tris · dpr ${T.renderer.getPixelRatio()}`; }, 1000);
   if (!SHOT && !reduced && !Q.has('cam') && !Q.has('view') && !Q.has('say') && Q.get('intro') !== '0') {
     const H = T.HOME_VIEW;
@@ -283,29 +347,138 @@ function applyCamParam(T) {
 
 // ------------------------------------------------------------------ people, signs, bubbles
 const tagsEl = $('tags');
-let bubble = null, hoverTag = null;
+let bubble = null, hoverTag = null;   // bubble: the one a click opened
+const bubbles = [];                    // everyone speaking right now (never more than two)
 const notes = [];
 let THREE_ = null;
+let dialog = null;                     // js/dialog.js, loaded with the town
+const recentLines = new Set();
 
 function speechKind(p) {
   const c = p.actor.current?.getClip().name || '';
   return /talk|phone|rail_call|wave|yes|no/.test(c) || p.state === 'travel' ? 'say' : 'think';
 }
 
-function showBubble(T, p) {
-  const text = p.line();
-  if (!text) return;
-  clearBubble();
-  const el = document.createElement('div');
-  el.className = 'bubble' + (speechKind(p) === 'think' ? ' think' : '');
-  const name = document.createElement('b');
-  name.textContent = p.def.name + ' ';
-  const role = document.createElement('i'); role.textContent = p.def.role; name.append(role);
-  el.append(name, document.createTextNode(text));
-  tagsEl.append(el);
-  bubble = { el, p, until: performance.now() + Math.max(4500, text.length * 70) };
+/** People within reach of p, for two-person exchanges. Yusuf brings Biscuit. */
+function nearbyOf(T, p, r = 4.5) {
+  const out = [];
+  for (const o of T.life.people) {
+    if (o === p || o.state === 'inside' || o.state === 'entering' || o.opacity < 0.9) continue;
+    if (Math.hypot(o.pos.x - p.pos.x, o.pos.z - p.pos.z) < r) out.push(o.id);
+  }
+  if (p.dog && p.state !== 'inside') out.push('dog');
+  return out;
 }
-function clearBubble() { if (bubble) { const el = bubble.el; el.classList.add('out'); setTimeout(() => el.remove(), 400); bubble = null; } }
+
+/** Something for p to say now: the dialog bank first (hour, activity, who is near), their schedule line otherwise. */
+function lineFor(T, p) {
+  if (dialog) {
+    const r = dialog.pick(p.id, { hour: clock.hour, activity: dialog.activityOf(p.act, p.state), nearby: nearbyOf(T, p), recent: recentLines });
+    if (r && r.text) return r;
+  }
+  const text = p.line();
+  return text ? { text, reply: null } : null;
+}
+
+/** Who a line belongs to: a person, or Biscuit (who speaks in stage directions). */
+function speakerOf(T, id, by) {
+  if (id === 'dog') return by?.dog ? { anchor: by.dog.obj, p: null, h: 0.9, name: 'Biscuit', role: 'Yusuf’s terrier', gone: () => by.state === 'inside' } : null;
+  const p = T.life.byId[id];
+  if (!p) return null;
+  return { anchor: null, p, h: p.def.model === 'child' ? 1.45 : 2.05, name: p.def.name, role: p.def.role, gone: () => p.state === 'inside' };
+}
+
+function makeBubble(sp, text, { think = false, soft = false, until } = {}) {
+  const el = document.createElement('div');
+  el.className = 'bubble' + (think ? ' think' : '') + (soft ? ' soft' : '');
+  const name = document.createElement('b');
+  name.textContent = sp.name + ' ';
+  const role = document.createElement('i'); role.textContent = sp.role; name.append(role);
+  el.append(name, document.createTextNode(text));
+  el.style.visibility = 'hidden';
+  tagsEl.append(el);
+  const b = { el, sp, p: sp.p, soft, until: until ?? performance.now() + Math.max(4500, text.length * 70) };
+  bubbles.push(b);
+  return b;
+}
+function dropBubble(b) {
+  const i = bubbles.indexOf(b); if (i >= 0) bubbles.splice(i, 1);
+  if (bubble === b) bubble = null;
+  b.el.classList.add('out'); setTimeout(() => b.el.remove(), b.soft ? 700 : 400);
+}
+let replyTimer = 0;
+function clearAll() { clearTimeout(replyTimer); for (const b of [...bubbles]) dropBubble(b); }
+
+/** The reply half of an exchange, a beat after the first line. */
+function scheduleReply(T, by, reply, first, soft) {
+  clearTimeout(replyTimer);
+  replyTimer = setTimeout(() => {
+    if (!bubbles.includes(first) || bubbles.length >= 2) return;
+    const sp = speakerOf(T, reply.id, by);
+    if (!sp || sp.gone()) return;
+    const b = makeBubble(sp, reply.text, { soft, until: first.until === Infinity ? Infinity : performance.now() + Math.max(4500, reply.text.length * 75) });
+    b.pairedWith = first;
+    first.until = Math.max(first.until, b.until - 1200);
+  }, soft ? 2000 : 1500);
+}
+
+function showBubble(T, p) {
+  const said = lineFor(T, p);
+  if (!said) return;
+  clearAll();
+  bubble = makeBubble(speakerOf(T, p.id), said.text, { think: !said.reply && speechKind(p) === 'think' });
+  if (said.reply) scheduleReply(T, p, said.reply, bubble, false);
+}
+function clearBubble() { if (bubble) { clearTimeout(replyTimer); const b = bubble; for (const x of [...bubbles]) if (x === b || x.pairedWith === b) dropBubble(x); } }
+
+// When the camera is close, people now and then say something on their own: one line at a time
+// (two with a reply), spaced out, never over the panels, and never while someone is being read.
+const CHAT = !SHOT || Q.has('chat');
+const chat = { next: performance.now() + 6000 };
+const UI_SEL = ['.title', '.nav', '#clock', '#tools', '#feed-line', '#card', '#coach', '.scroll-cue'];
+function uiRects() {
+  const out = [];
+  for (const sel of UI_SEL) {
+    const el = document.querySelector(sel);
+    if (!el || el.hidden) continue;
+    const r = el.getBoundingClientRect();
+    if (r.width && r.height) out.push(r);
+  }
+  return out;
+}
+const hits = (r, x0, y0, x1, y1) => x0 < r.right + 10 && x1 > r.left - 10 && y0 < r.bottom + 10 && y1 > r.top - 10;
+function bubbleClear(x, y, rects, sr, w = 260, h = 96) {
+  const x0 = sr.left + x - w / 2, x1 = x0 + w, y1 = sr.top + y, y0 = y1 - h;
+  if (x0 < sr.left + 12 || x1 > sr.right - 12 || y0 < sr.top + 12 || y1 > sr.bottom - 12) return false;
+  return !rects.some((r) => hits(r, x0, y0, x1, y1));
+}
+function ambientChat(T, now) {
+  if (!CHAT || !dialog || now < chat.next) return;
+  chat.next = now + 6000 + Math.random() * 6000;
+  if (bubbles.length || cardFor) return;
+  const focus = T.state.focusOn;
+  if (T.cam.cur.dist > 34 && !focus) return;          // zoomed out: the town keeps to itself
+  const W = stage.clientWidth, H = stage.clientHeight, sr = stage.getBoundingClientRect(), rects = uiRects();
+  const v = new T.THREE.Vector3(), camPos = T.camera.position;
+  const cands = [];
+  for (const p of T.life.people) {
+    if (p.state === 'inside' || p.state === 'entering' || p.opacity < 0.95) continue;
+    if (camPos.distanceTo(p.root.position) > 42) continue;
+    v.copy(p.root.position); v.y = p.def.model === 'child' ? 1.45 : 2.05; v.project(T.camera);
+    if (v.z > 1) continue;
+    if (!bubbleClear((v.x + 1) / 2 * W, (1 - v.y) / 2 * H, rects, sr)) continue;
+    const centred = 1 - Math.min(1, Math.hypot(v.x, v.y * 1.3) / 1.2);
+    cands.push({ p, w: 0.2 + centred + (focus && p.root === focus ? 1.5 : 0) });
+  }
+  if (!cands.length) return;
+  let r = Math.random() * cands.reduce((s, c) => s + c.w, 0), who = cands[0].p;
+  for (const c of cands) { r -= c.w; if (r < 0) { who = c.p; break; } }
+  const said = lineFor(T, who);
+  if (!said) return;
+  const b = makeBubble(speakerOf(T, who.id), said.text, { soft: true, think: !said.reply && speechKind(who) === 'think', until: now + Math.max(4800, said.text.length * 75) });
+  if (said.reply) scheduleReply(T, who, said.reply, b, true);
+  chat.next = Math.max(chat.next, b.until + 3000 + (said.reply ? 4500 : 0));
+}
 
 function focusPerson(T, p, instant = false) {
   const r = p.root;
@@ -345,6 +518,8 @@ function openCard(T, siteId) {
   $('card-name').textContent = p.name;
   $('card-value').textContent = p.figure?.value || '';
   $('card-label').textContent = p.figure?.label || '';
+  $('card-fresh').hidden = true;
+  paintFigures();
   $('card-line').textContent = p.line;
   const ul = $('card-facts'); ul.innerHTML = '';
   for (const f of p.facts || []) { const li = document.createElement('li'); li.textContent = f; ul.append(li); }
@@ -378,13 +553,14 @@ function wire(T) {
     const rr = rayAt(e);
     const p = T.life.pick(rr);
     if (p) {
+      chat.next = Math.max(chat.next, performance.now() + 9000);
       if (bubble && bubble.p === p) { showBubble(T, p); return; }
       showBubble(T, p); focusPerson(T, p); closeCard(); coachStep('person');
       return;
     }
     const s = pickSite(rr);
-    if (s) { clearBubble(); focusSite(T, s.id); return; }
-    clearBubble(); closeCard();
+    if (s) { clearAll(); focusSite(T, s.id); return; }
+    clearAll(); closeCard();
     T.state.focusOn = null; T.cam.follow = null;
   };
   let hoverAt = 0;
@@ -414,23 +590,23 @@ function wire(T) {
     coachText.textContent = `Pinch, or ${mac ? '⌘' : 'Ctrl'} + scroll, to zoom the town.`;
     coach.hidden = false; clearTimeout(coachTimer); coachTimer = setTimeout(() => (coach.hidden = true), 3500);
   };
-  T.cam.onDouble = () => { closeCard(); clearBubble(); T.state.focusOn = null; T.cam.moveTo(T.HOME_VIEW, 1.4); };
+  T.cam.onDouble = () => { closeCard(); clearAll(); T.state.focusOn = null; T.cam.moveTo(T.HOME_VIEW, 1.4); };
 
   $('zoom-in').addEventListener('click', () => T.cam.zoom(0.75));
   $('zoom-out').addEventListener('click', () => T.cam.zoom(1.33));
-  $('sea').addEventListener('click', () => { closeCard(); clearBubble(); T.state.focusOn = null; T.cam.follow = null; T.cam.moveTo(SEA_VIEW, 2.2); });
-  $('reset').addEventListener('click', () => { closeCard(); clearBubble(); T.state.focusOn = null; T.cam.follow = null; T.cam.moveTo(T.HOME_VIEW, 1.4); });
-  addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeCard(); clearBubble(); T.state.focusOn = null; T.cam.follow = null; T.cam.moveTo(T.HOME_VIEW, 1.4); } });
+  $('sea').addEventListener('click', () => { closeCard(); clearAll(); T.state.focusOn = null; T.cam.follow = null; T.cam.moveTo(SEA_VIEW, 2.2); });
+  $('reset').addEventListener('click', () => { closeCard(); clearAll(); T.state.focusOn = null; T.cam.follow = null; T.cam.moveTo(T.HOME_VIEW, 1.4); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeCard(); clearAll(); T.state.focusOn = null; T.cam.follow = null; T.cam.moveTo(T.HOME_VIEW, 1.4); } });
   document.querySelectorAll('.see').forEach((b) => b.addEventListener('click', () => {
     document.getElementById('top').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
     setTimeout(() => focusSite(T, b.dataset.site), reduced ? 0 : 500);
   }));
 
   // someone got home: their window lights up
-  T.life.onLight = (site, person, on) => {
+  T.life.onLight = (site, person, on, own = false) => {
     if (site.kind === 'away') return;
     const dark = elevation(clock.hour) < 3;
-    if (on) site.lightAt = performance.now() + 1100;
+    if (on && !own) site.lightAt = performance.now() + 1100;   // a window of one's own keeps its own timing
     if (!dark || SHOT) return;
     const isHome = site.kind === 'home' || site.kind === 'cafe';
     const text = on ? (isHome ? `${person.def.name} is home` : `${person.def.name} is back at work`) : (isHome ? 'Lights out' : '');
@@ -459,16 +635,29 @@ function updateOverlays(T) {
     el.style.visibility = on ? 'visible' : 'hidden';
     if (on) el.style.transform = `translate(${((v.x + 1) / 2 * W).toFixed(1)}px, ${((1 - v.y) / 2 * H).toFixed(1)}px) translate(-50%, -100%)`;
   };
-  if (bubble) {
-    const p = bubble.p;
-    if (performance.now() > bubble.until || p.state === 'inside') clearBubble();
-    else {
-      const r = p.root;
-      v.set(0, 0, 0);
-      const pos = r.position.clone(); pos.y = p.def.model === 'child' ? 1.45 : 2.05;
-      place(bubble.el, pos);
+  const now = performance.now();
+  const placed = [];
+  let rects = null, sr = null;
+  for (const b of [...bubbles]) {
+    if (now > b.until || b.sp.gone()) { dropBubble(b); continue; }
+    v.copy((b.sp.anchor || b.sp.p.root).position); v.y = b.sp.h;
+    v.project(T.camera);
+    const on = v.z < 1 && v.x > -1.2 && v.x < 1.2 && v.y > -1.2 && v.y < 1.3;
+    if (!on) { b.el.style.visibility = 'hidden'; continue; }
+    const x = (v.x + 1) / 2 * W, w = b.el.offsetWidth, h = b.el.offsetHeight;
+    let y = (1 - v.y) / 2 * H;
+    // two bubbles side by side: lift the later one clear of the first
+    for (const o of placed) if (Math.abs(o.x - x) < (o.w + w) / 2 + 8 && y > o.y - o.h - 12 && y - h < o.y) y = o.y - o.h - 12;
+    placed.push({ x, y, w, h });
+    // a line said on its own that drifts under the panels bows out early
+    if (b.soft && !b.leaving) {
+      rects ??= uiRects(); sr ??= stage.getBoundingClientRect();
+      if (!bubbleClear(x, y, rects, sr, w + 8, h + 14)) { b.leaving = true; b.until = Math.min(b.until, now + 250); }
     }
+    b.el.style.visibility = 'visible';
+    b.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -100%)`;
   }
+  ambientChat(T, now);
   for (let i = notes.length - 1; i >= 0; i--) {
     const n = notes[i];
     if (performance.now() > n.until) { n.el.remove(); notes.splice(i, 1); continue; }
@@ -496,12 +685,27 @@ function startScreens(T) {
     ctx.fillText(p.name, 98, 46);
     ctx.font = '600 15px "Instrument Sans", sans-serif'; ctx.fillStyle = p.status === 'live' ? '#6fd39b' : p.status === 'building' ? '#d9a42b' : 'rgba(244,234,219,.55)';
     ctx.fillText((STATUS[p.status] || p.status).toUpperCase(), 100, 76);
-    if (p.figure) {
-      ctx.fillStyle = '#ffd27a'; ctx.font = '96px "Poiret One", Federo, serif'; ctx.textBaseline = 'alphabetic';
-      ctx.fillText(p.figure.value, 26, 200);
-      const w = ctx.measureText(p.figure.value).width;
+    const f = figures.get(p.id);
+    if (f) {
+      // the figure, at 96 px unless a long live value needs a little less room
+      ctx.font = '22px "Instrument Sans", sans-serif';
+      const lw = ctx.measureText(f.label || '').width;
+      ctx.font = '96px "Poiret One", Federo, serif';
+      const fw = ctx.measureText(f.text).width;
+      const px = Math.max(56, Math.min(96, Math.floor(96 * (380 - 12 - lw) / Math.max(1, fw))));   // no wider than "113,000+ installs" (a hanging lamp sits by the post office screen)
+      ctx.fillStyle = '#ffd27a'; ctx.font = `${px}px "Poiret One", Federo, serif`; ctx.textBaseline = 'alphabetic';
+      ctx.fillText(f.text, 26, 200);
+      const w = ctx.measureText(f.text).width;
       ctx.fillStyle = 'rgba(244,234,219,.8)'; ctx.font = '22px "Instrument Sans", sans-serif';
-      ctx.fillText(p.figure.label, 26 + w + 12, 196);
+      ctx.fillText(f.label || '', 26 + w + 12, 196);
+      if (f.fresh) {
+        // freshness, top right: a lamplight dot when the figure came over the socket just now
+        ctx.font = '600 13px "Instrument Sans", sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'right';
+        ctx.fillStyle = f.fresh === 'live' ? '#ffd27a' : 'rgba(244,234,219,.6)';
+        ctx.fillText(f.fresh.toUpperCase(), W - 24, 34);
+        if (f.fresh === 'live') { const tw = ctx.measureText('LIVE').width; ctx.beginPath(); ctx.arc(W - 24 - tw - 10, 34, 4, 0, Math.PI * 2); ctx.fill(); }
+        ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+      }
     }
     const ev = feed.events.find((e) => e.product === p.id);
     ctx.font = '16px "Instrument Sans", sans-serif'; ctx.fillStyle = 'rgba(244,234,219,.7)';
@@ -511,6 +715,9 @@ function startScreens(T) {
   };
   for (const s of sites) draw(s);
   setInterval(() => { if (!sites.length) return; draw(sites[i++ % sites.length]); }, 700);
+  // a figure rolling to a new value redraws its screen every frame until it lands
+  screensDirty = () => { for (const s of sites) if (figures.get(s.product)?.rolling) draw(s); };
+  figures.subscribe((id) => { for (const s of sites) if (s.product === id) draw(s); });
   document.fonts?.ready.then(() => sites.forEach(draw));
 }
 function roundRect(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
@@ -519,6 +726,8 @@ function roundRect(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcT
 renderClock();
 setInterval(() => { if (!T) { tickClock(1); renderClock(); } }, 1000);
 startFeed();
+figures.load();
+openSocket({ onFigure: (f) => figures.push(f), onEvent: realEvent });
 if (SHOT === 'poster') document.documentElement.classList.add('shot-poster');
 if (Q.has('nohero')) document.getElementById('top').style.display = 'none';   // review: screenshot the sections below
 

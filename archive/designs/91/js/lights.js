@@ -84,9 +84,11 @@ export class TownLights {
       const litN = occ.filter(Boolean).length;
       if (s.kind === 'home') {
         const v = dark > 0.3 && litN > 0 && performance.now() > (s.lightAt || 0) ? litN : 0;
-        set('emissive_window_1', v >= 1 ? 1 : 0);
-        set('emissive_window_2', v >= 2 ? 1 : 0);
-        set('emissive_window_3', v >= 3 ? 1 : 0);
+        // a window of someone's own (Asgeir's) follows only them
+        const own = (name) => { const o = s.own?.[name]; return !!o && o.lit && dark > 0.3 && performance.now() > o.at; };
+        set('emissive_window_1', v >= 1 || own('emissive_window_1') ? 1 : 0);
+        set('emissive_window_2', v >= 2 || own('emissive_window_2') ? 1 : 0);
+        set('emissive_window_3', v >= 3 || own('emissive_window_3') ? 1 : 0);
       } else if (s.kind === 'cafe') {
         const open = day(6.6, 0.7);
         set('emissive_sign', open && dark > 0.2 ? 1 : 0, SIGN);

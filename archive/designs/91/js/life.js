@@ -65,6 +65,12 @@ function makeSpots(world) {
   sp('postbox', world.sites.mcp.x - 1.6, 9.45, Math.PI);
   sp('arcade', world.sites.funlibs.x + 0.6, 10.1, -0.3);
   sp('workshop', world.sites.toolrails.x - 2.2, 9.9, 0.25);
+  // Asgeir's places: beside the post office screen, at the workshop window, a word with Henri, the railing by the builder
+  sp('postbox:1', world.sites.mcp.x + 1.7, 9.6, Math.PI + 0.25);
+  sp('workshop:1', world.sites.toolrails.x - 0.4, 10.0, Math.PI);
+  const b1 = world.benches[1];
+  sp('bench:1:stand', b1.x - 1.45, b1.z + SEAT.back + 0.15, faceTo(b1.x - 1.45, b1.z + SEAT.back + 0.15, b1.x - 0.42, b1.z + SEAT.back - 0.12));
+  sp('rail:14', -12.4, RAIL_Z - 0.48, 0);
   return S;
 }
 
@@ -524,6 +530,14 @@ export class Life {
 
   enter(p, siteId, lit, instant = false) {
     const s = this.sites[siteId];
+    // someone with a window of their own (Asgeir): it switches for them alone, never for the household
+    if (p.def.window && siteId === p.def.home) {
+      s.own = s.own || {};
+      const was = !!s.own[p.def.window]?.lit;
+      s.own[p.def.window] = { lit: !!lit, at: instant ? 0 : performance.now() + 1100 };
+      if (!instant && was !== !!lit) this.onLight(s, p, !!lit, true);
+      return;
+    }
     const was = [...s.occupants.values()].some(Boolean);
     s.occupants.set(p.id, !!lit);
     const now = [...s.occupants.values()].some(Boolean);
@@ -533,6 +547,12 @@ export class Life {
 
   leave(p, siteId) {
     const s = this.sites[siteId];
+    if (p.def.window && s.own?.[p.def.window]) {
+      const was = s.own[p.def.window].lit;
+      delete s.own[p.def.window];
+      if (was) this.onLight(s, p, false, true);
+      return;
+    }
     const was = [...s.occupants.values()].some(Boolean);
     s.occupants.delete(p.id);
     const now = [...s.occupants.values()].some(Boolean);

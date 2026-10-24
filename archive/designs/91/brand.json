@@ -1,7 +1,7 @@
 {
   "name": "Living Town",
   "tagline": "A tilt-shift seaside town where everyone keeps a schedule, and their window lights up when they get home.",
-  "summary": "The homepage is a small town on the water, seen like a model on a table. Sixteen townspeople live by the clock in Oslo: a runner at six, a waiter setting out chairs at seven, an older couple on the good bench, drinks at golden hour, the railing at sunset, dancing under string lights, then home, where their window lights. Drag the sun and the whole town reschedules. Four shopfronts on the promenade are Asgeir's real products, with their real figures on their screens. The craft shows in the simulation, not in a slogan, which fits a one-person company that builds and runs software properly.",
+  "summary": "The homepage is a small town on the water, seen like a model on a table. Seventeen townspeople, Asgeir among them, live by the clock in Oslo: a runner at six, a waiter setting out chairs at seven, an older couple on the good bench, drinks at golden hour, the railing at sunset, dancing under string lights, then home, where their window lights. Drag the sun and the whole town reschedules. Four shopfronts on the promenade are Asgeir's real products, with their real figures on their screens. The craft shows in the simulation, not in a slogan, which fits a one-person company that builds and runs software properly.",
   "palette": ["#1b2450", "#232c57", "#f4eadb", "#ffd27a", "#f2b5b8", "#d9a42b", "#6e1f33", "#a9c6e0"],
   "type": ["Federo", "Instrument Sans", "Poiret One (large figures only)"],
   "voice": "Calm and exact, with the warmth of overheard conversation. The townspeople are allowed to be funny; the company copy is not. Example: \"Every lit sign on the promenade is a real product.\"",

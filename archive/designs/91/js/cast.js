@@ -188,6 +188,28 @@ export const CAST = [
       [20.1, { act: 'inside', site: 'toolrails', say: ['Back to it.'] }],
     ],
   },
+  {
+    // Asgeir himself: the top-floor window of the tower house is his (window: own light, not shared).
+    id: 'asgeir', model: 'asgeir', name: 'Asgeir', role: 'runs the four shopfronts', home: 'home_dog', window: 'emissive_window_3',
+    day: [
+      [0, { act: 'home', lit: false }],
+      [7.0, { act: 'home', lit: true }],
+      [7.9, { act: 'spot', spot: 'chair:0:1', clips: ['sit', 'sit_talk'], prop: 'coffee_cup', say: ['God morgen, Marcel. Just a coffee.'] }],
+      [8.9, { act: 'spot', spot: 'postbox:1', clips: ['idle_arms_folded', 'phone', 'idle'], prop: 'phone', say: ['The post office never closes. I find that very calming.'] }],
+      [9.5, { act: 'home', lit: true, say: ['At the desk. Window open.'] }],
+      [11.0, { act: 'spot', spot: 'bench:1:stand', clips: ['talk', 'idle', 'yes'], say: ['How are the lemons today, Henri?'] }],
+      [11.8, { act: 'wander', gait: 'walk', pause: ['idle'], prop: 'baguette', say: ['Baguette. Still warm.'] }],
+      [12.6, { act: 'home', lit: true }],
+      [15.4, { act: 'spot', spot: 'workshop:1', clips: ['idle_arms_folded', 'talk', 'idle'], say: ['Looking in on the workshop.'] }],
+      [16.1, { act: 'loop', loop: 'stroll', gait: 'walk', say: ['Walking helps me think.'] }],
+      [17.3, { act: 'spot', spot: 'kiosk', clips: ['drink', 'idle'], prop: 'coffee_cup', say: ['Kiosk coffee. Lucie was right about this.'] }],
+      [18.0, { act: 'wander', gait: 'walk', pause: ['idle', 'wave'], say: ['This light. I keep meaning to get used to it.'] }],
+      [18.9, { act: 'spot', spot: 'rail:14', clips: ['lean_rail', 'lean_rail', 'wave'], say: ['Takk for i dag, sun.'] }],
+      [20.3, { act: 'spot', spot: 'bench:4:0', clips: ['sit', 'sit_talk'], say: ['The windows are coming on.'] }],
+      [21.4, { act: 'home', lit: true, say: ['God natt.'] }],
+      [23.5, { act: 'home', lit: false }],
+    ],
+  },
 ];
 
 // People up from the old town: they come down to the promenade and go home up the hill.

@@ -112,7 +112,13 @@ button { font: inherit; color: inherit; }
 .bubble.think::after { width: 9px; height: 9px; bottom: -12px; border-radius: 50%; transform: translateX(-30%); box-shadow: -6px 9px 0 -2px var(--paper); }
 .bubble.think { border-radius: 22px; font-style: italic; }
 .bubble.out { opacity: 0; transition: opacity .35s; }
-@keyframes pop { from { opacity: 0; transform: translate(-50%, -88%) scale(.85); } to { opacity: 1; transform: translate(-50%, -100%) scale(1); } }
+/* the pop scales and lifts with the individual properties, so the bubble stays where the script placed it */
+@keyframes pop { from { opacity: 0; scale: .85; translate: 0 10px; } to { opacity: 1; scale: 1; translate: 0 0; } }
+.bubble { transform-origin: 50% 100%; }
+/* lines said on their own (when the camera is close): a slower, quieter fade */
+.bubble.soft { animation: soft .7s ease both; }
+.bubble.soft.out { transition: opacity .6s ease; }
+@keyframes soft { from { opacity: 0; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
 .tag { position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); padding: 3px 9px; border-radius: 999px; background: rgba(18, 23, 54, .72); color: var(--plaster); font-size: 12px; white-space: nowrap; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 .note { position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); color: var(--lamp); font: 400 12px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; text-shadow: 0 0 12px rgba(255, 190, 110, .9), 0 1px 6px rgba(14, 19, 48, .9); animation: note 4.2s ease forwards; }
 @keyframes note { 0% { opacity: 0; margin-top: 8px; } 12% { opacity: 1; margin-top: 0; } 75% { opacity: 1; } 100% { opacity: 0; margin-top: -14px; } }
@@ -157,6 +163,14 @@ button { font: inherit; color: inherit; }
 .pcard h3 a::after { content: ' \2197'; font-family: var(--text); font-size: .6em; opacity: .6; }
 .figure { margin: 12px 0 4px; color: rgba(244, 234, 219, .75); font-size: 14px; }
 .figure b { font: 400 44px/1 var(--figure); color: var(--lamp); margin-right: 3px; }
+/* a long figure (10,203 NOK) keeps to one line at a slightly smaller size */
+.figure b.long { font-size: 34px; white-space: nowrap; }
+/* freshness of a live figure: shown only when the live store has one */
+.fresh { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .72; white-space: nowrap; vertical-align: middle; }
+.fresh[hidden] { display: none; }
+.fresh.is-live { opacity: 1; color: var(--lamp); }
+.fresh.is-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
+.card-figure .fresh.is-live { color: var(--burgundy); }
 .line { margin: 4px 0 10px; }
 .facts { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 6px; }
 .facts li { font-size: 12.5px; padding: 3px 9px; border-radius: 999px; background: rgba(244, 234, 219, .08); }

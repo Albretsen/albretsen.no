@@ -8,13 +8,15 @@ Design 91, a variation on Heure Bleue (design 64).
 
 Heure Bleue was a view: a terrace above a town at blue hour, a sun you could drag, windows lighting one by one. Asgeir loved the sunset and the lights. Living Town keeps both and adds the people who switch the lights.
 
-The homepage is a small town on the water seen like a model on a table, with a shallow, tilt-shift focus. Sixteen townspeople and a terrier live there on a timetable. Inès runs two laps at six. Marcel puts out the café chairs just before seven and serves until midnight. Henri waters the lemon trees, then takes the good bench with Odile. Lucie cycles to the bakery. At golden hour people drink rosé on the terrace, at sunset half the town leans on the railing, after dark Camille and Théo dance under the string lights. Then everyone goes home, and **when someone gets home after dark, their window lights up a second after they walk through the door**. When they go to bed, it goes out. The street lamps strike one after another along the promenade, west to east.
+The homepage is a small town on the water seen like a model on a table, with a shallow, tilt-shift focus. Seventeen townspeople and a terrier live there on a timetable, Asgeir among them. Inès runs two laps at six. Marcel puts out the café chairs just before seven and serves until midnight. Henri waters the lemon trees, then takes the good bench with Odile. Lucie cycles to the bakery. At golden hour people drink rosé on the terrace, at sunset half the town leans on the railing, after dark Camille and Théo dance under the string lights. Then everyone goes home, and **when someone gets home after dark, their window lights up a second after they walk through the door**. When they go to bed, it goes out. The street lamps strike one after another along the promenade, west to east.
 
 Left alone, the town follows the real clock in Oslo. Drag the sun across the day strip (or press a chip: Morning, Noon, Golden hour, Blue hour, Night) and every person works out where they should be at that hour and hurries there. Click anyone and they tell you what they are thinking. The camera pulls focus to them, like a lens racking onto a miniature.
 
 Four shopfronts on the promenade are Asgeir's real products, built from the shared landmark kit with their real logos: the MCP Emails post office (open all night: agents never sleep), the Fun Libs arcade with its marquee, the Toolrails workshop, and the Harbor library, paused, with one reading lamp left on. Their screens show the real figures from `content.js` and the latest product events. Clicking a sign opens its card. A builder in a mustard jacket works in the workshop. The workshop is usually the last light on in town, and he walks home after midnight.
 
-**Why it fits Albretsen AS.** The page never says how good the work is. It shows a system with sixteen people on schedules, pathfinding, light states, a physically based sky, depth of field and live data, running at 60 fps with nothing announced. A visitor who stays a minute notices that the town is coherent. Things happen because someone had somewhere to be. That is the company's case: small software, run properly, by someone with taste.
+Asgeir lives here too, as one of the townspeople and not as a mascot: tousled hair, an ink overshirt over a white tee, sand chinos. He has coffee at Marcel's in the morning, checks the post office screen, works at his desk at the top of the tower house, has a word with Henri on the bench, looks in at the workshop window, walks the promenade, and leans on the railing at sunset with the builder and Inès. The tower's top window is his own: it lights a second after he gets home, whoever else is in.
+
+**Why it fits Albretsen AS.** The page never says how good the work is. It shows a system with seventeen people on schedules, pathfinding, light states, a physically based sky, depth of field and live data, running at 60 fps with nothing announced. A visitor who stays a minute notices that the town is coherent. Things happen because someone had somewhere to be. That is the company's case: small software, run properly, by someone with taste.
 
 ## Structure of the homepage
 
@@ -33,6 +35,8 @@ Four shopfronts on the promenade are Asgeir's real products, built from the shar
 - **Rescheduling.** While the clock is being dragged, people run instead of walk. The older couple speed up their formal walk instead. Very long trips are shortened so the town settles within seconds. A chip glides the clock forward, so the visitor watches the day pass.
 
 ## Voice
+
+Everyone has a voice of their own (`js/dialog.js`). Inès counts things, Marcel is the host, Henri and Odile finish each other's crosswords, Léo asks questions, and Asgeir is understated and a little dry, with the odd Norwegian word. Lines follow the time of day and what the person is doing. Click someone and they say something, and if the right person is standing near, they answer. Zoom in close and now and then people talk on their own: one line at a time (two with a reply), spaced out, fading, never over the panels. Zoomed out, the town keeps to itself. About one line in eight mentions Asgeir or the products, warmly and only with facts from `content.js`. Nothing sad, nothing loud.
 
 Calm and exact for the company: what runs, what it earns, what is retired. The townspeople carry the warmth and are allowed to be a little funny ("Baguette secured.", "Crossword. Seven down, 'dusk', four letters."). When the builder talks about the products, he uses only facts from `content.js`. Nobody says "hire me".
 
@@ -75,7 +79,7 @@ Everything moves because someone has somewhere to be. People walk at the speed t
 
 ## Data
 
-Figures come from `_shared/content.js` and are never rounded or invented. Product events come from `https://albretsen.no/api/events?limit=12`, polled every 30 seconds. While that list is empty, `_shared/feed.js` keeps the signs flickering, and every line it produces is labelled *demo*. Each event flares the matching shop sign.
+Figures come from `_shared/content.js` and are never invented. When `https://albretsen.no/api/figures` has a newer figure, or one arrives over the event socket (`wss://albretsen.no/api/events/socket`, `{ type: 'figure' }`), the number rolls to its new value on the shop screen, the card and the product section, with a quiet *updated N min ago* (or *live*, just after a push). Large figures drop their decimals the way the Worker does, and the exact value (10,203.19 NOK) is in the tooltip. With no live store the build-time figure stands, with no freshness note. The ticker shows at most one new line every 6.5 seconds, and the first real event retires the demo feed. Product events come from `https://albretsen.no/api/events?limit=12`, polled every 30 seconds. While that list is empty, `_shared/feed.js` keeps the signs flickering, and every line it produces is labelled *demo*. Each event flares the matching shop sign.
 
 ## Sound
 
@@ -87,4 +91,4 @@ A small house in outline with one lit, arched window, beside ALBRETSEN in widely
 
 ## URL parameters (for screenshots and review)
 
-`?t=19.5` sets the hour and stops following Oslo time. `?cam=sunset|cafe|wide|mcp|funlibs|toolrails|harbor|person:<id>` picks a view. `?say=<id>` opens a person's bubble. `?shot=poster` hides the UI. `?intro=0` skips the opening move. `?lite` forces the light mode. `?no3d` shows the poster only. `?stats` puts draw calls in the feed line. `?view=tx,ty,tz,yaw,pitch,dist` sets a free camera.
+`?t=19.5` sets the hour and stops following Oslo time. `?cam=sunset|cafe|wide|mcp|funlibs|toolrails|harbor|person:<id>` picks a view. `?say=<id>` opens a person's bubble. `?shot=poster` hides the UI. `?intro=0` skips the opening move. `?lite` forces the light mode. `?no3d` shows the poster only. `?stats` puts draw calls in the feed line. `?view=tx,ty,tz,yaw,pitch,dist` sets a free camera. `?chat` lets people talk on their own during a `?shot` review (off there by default, so screenshots stay still).

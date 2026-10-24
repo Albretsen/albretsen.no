@@ -198,10 +198,49 @@ export class Post {
     // pow() in a shader, a half-float overflow next to a point light) becomes NaN over the whole frame
     // and the town vanishes for that frame. Drop non-finite texels and cap the rest well above anything
     // the scene actually produces, so the result is unchanged when the input is sane.
-    const hp = this.bloom.materialHighPassFilter;
-    hp.fragmentShader = hp.fragmentShader.replace('vec4 texel = texture2D( tDiffuse, vUv );',
-      'vec4 texel = texture2D( tDiffuse, vUv );\n\t\t\ttexel.rgb = (any(isnan(texel.rgb)) || any(isinf(texel.rgb))) ? vec3(0.) : min(texel.rgb, vec3(256.));');
+    //
+    // The bright pass also averages its whole footprint instead of reading one point. Its target is a
+    // quarter of the bloom size, so each texel stands for 4 x 4 screen pixels (5.7 x 5.7 on a phone), and
+    // the stock pass read only the 2 x 2 under its centre: a street lamp's flame, three pixels across,
+    // was caught at full brightness by one texel or missed altogether, and which lamps were caught
+    // changed as the picture moved by a fraction of a pixel. Nine bilinear taps, each thresholded
+    // on its own, cover the footprint: every lamp gives its share, the same share every frame, and a
+    // large bright area (a lit window) reads the same as before.
+    const B = this.bloom, hp = B.materialHighPassFilter;
+    hp.uniforms.uStep = { value: new THREE.Vector2() };
+    hp.fragmentShader = /* glsl */`
+      uniform sampler2D tDiffuse;
+      uniform float luminosityThreshold, smoothWidth;
+      uniform vec2 uStep;   // one bright-pass texel, in uv
+      varying vec2 vUv;
+      vec3 tap(vec2 uv){
+        vec3 t = texture2D(tDiffuse, uv).rgb;
+        t = (any(isnan(t)) || any(isinf(t))) ? vec3(0.) : min(t, vec3(256.));
+        return t * smoothstep(luminosityThreshold, luminosityThreshold + smoothWidth, luminance(t));
+      }
+      void main(){
+        vec3 s = vec3(0.);
+        for (int y = -1; y <= 1; y++) for (int x = -1; x <= 1; x++) s += tap(vUv + vec2(x, y) * uStep / 3.);
+        gl_FragColor = vec4(s / 9., 1.);
+      }`;
     hp.needsUpdate = true;
+    // And the blur is a true Gaussian. The stock kernel weighs taps by exp(-i^2 / 2R^2) but stops at
+    // R - 1 taps, a single standard deviation out, so it is nearly a box: one bright texel came out as
+    // a flat square with hard edges, 23 CSS px across on a phone, and that was the "square lamp".
+    // Each level keeps the stock kernel's spread (the same variance, so a lit window's glow keeps its
+    // size and strength) but runs out to three standard deviations, where the weight has fallen to
+    // nothing and a point comes out round.
+    B.separableBlurMaterials = B.separableBlurMaterials.map((old) => {
+      const R = old.defines.KERNEL_RADIUS;
+      let w = 0, v = 0;
+      for (let i = 1 - R; i < R; i++) { const g = Math.exp(-0.5 * i * i / (R * R)); w += g; v += g * i * i; }
+      const sd = Math.sqrt(v / w), K = Math.ceil(3 * sd) + 1;
+      const m = B.getSeperableBlurMaterial(K);
+      m.uniforms.gaussianCoefficients.value = Array.from({ length: K }, (_, i) => Math.exp(-0.5 * i * i / (sd * sd)));
+      m.uniforms.invSize.value.copy(old.uniforms.invSize.value);
+      old.dispose();
+      return m;
+    });
   }
 
   _makeTarget(size, lost = false) {
@@ -274,6 +313,8 @@ export class Post {
     r.clear();
     r.render(scene, camera);
     const bloomOn = this.bloom.strength > 0.01;
+    const bt = this.bloom.renderTargetBright;
+    this.bloom.materialHighPassFilter.uniforms.uStep.value.set(1 / bt.width, 1 / bt.height);
     if (!this.prep) {
       if (bloomOn) this.bloom.render(r, null, this.rt, dt, false);
     } else {

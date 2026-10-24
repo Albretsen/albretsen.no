@@ -95,8 +95,17 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   const tmp = new THREE.Vector3();
   let frames = 0, acc = 0, lastCheck = 0, failedDpr = Infinity, failedAt = -Infinity;
 
+  // The GPU can take the context away (a driver reset, a GPU switch, memory pressure). Until it comes
+  // back nothing is drawn; main.js shows the poster meanwhile. On restore three re-uploads what it
+  // tracks, and the post targets are made afresh.
+  let lost = false;
+  canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); lost = true; }, false);
+  canvas.addEventListener('webglcontextrestored', () => { lost = false; post.rebuild(); resize(); }, false);
+
   let depthCheck = 1;
   function frame(dt) {
+    if (lost) return;
+    if (!(dt >= 0)) dt = 0;
     // once the static casters are baked, the rest get depth materials of their own (see shadows.js)
     if ((depthCheck += dt) > 1 && (shadowBake || !rig.key.castShadow)) { depthCheck = 0; steadyDepthMaterials(scene); }
     renderer.info.reset();
@@ -136,7 +145,8 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
     post.bloom.radius = 0.28;
     const target = state.focusOn ? state.focusOn.getWorldPosition(tmp).setY(1.1) : cam.cur.target;
     const fd = camera.position.distanceTo(target);
-    state.focusDist += (fd - state.focusDist) * (state.snapFocus ? 1 : Math.min(1, dt * 6));
+    if (!Number.isFinite(state.focusDist)) state.focusDist = Number.isFinite(fd) ? fd : 70;   // one bad value would blank every frame after it
+    if (Number.isFinite(fd)) state.focusDist += (fd - state.focusDist) * (state.snapFocus ? 1 : Math.min(1, dt * 6));
     state.snapFocus = false;
     post.U.uFocus.value = state.focusDist;
     const ap = state.focusOn ? 26 : state.aperture;
@@ -150,7 +160,7 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
 
   }
 
-  return { THREE, renderer, scene, camera, cam, post, world, life, lights, state, setHour, frame, resize, get shadowBake() { return shadowBake; }, get HOME_VIEW() { return homeView(camera.aspect); }, FRONT, U };
+  return { get lost() { return lost; }, THREE, renderer, scene, camera, cam, post, world, life, lights, state, setHour, frame, resize, get shadowBake() { return shadowBake; }, get HOME_VIEW() { return homeView(camera.aspect); }, FRONT, U };
 }
 
 export { elevation, smooth };

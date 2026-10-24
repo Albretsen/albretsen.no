@@ -143,6 +143,8 @@ export class CameraRig {
     const idle = (performance.now() - this.lastInput) / 1000;
     if (!this.reduced && !this.tween && !this.follow && idle > 14 && this.drift !== false) g.yaw += Math.sin(idle * 0.05) * dt * 0.012;
 
+    // a non-finite value anywhere (it would empty every frame from then on): back to the overview
+    if (!Number.isFinite(g.yaw + g.pitch + g.dist + g.target.x + g.target.y + g.target.z + c.yaw + c.pitch + c.dist + c.target.x + c.target.y + c.target.z)) { this.tween = null; this.follow = null; this.set(HOME_VIEW); }
     const k = 1 - Math.exp(-dt * 7.5);
     c.target.lerp(g.target, k);
     c.yaw += (g.yaw - c.yaw) * k; c.pitch += (g.pitch - c.pitch) * k; c.dist += (g.dist - c.dist) * k;

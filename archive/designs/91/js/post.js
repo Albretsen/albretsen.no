@@ -23,7 +23,22 @@ void main(){
   if (uBloom > .5) { vec4 b = texture(tBloom, vUv); c += b.rgb * b.a; }   // additive blend, src * srcAlpha + dst
   oColor = vec4(c, 1.);
   float z = linDepth(texture(tDepth, vUv).x);
-  oCoc = vec4(uAperture * abs(z - uFocus) / max(z, .001), z, 0., 1.);
+  float coc = uAperture * abs(z - uFocus) / max(z, .001);
+#if EDGE
+  // The scene is multisampled, but its depth resolves to one sample per pixel while its colour is the
+  // average. Along the outline of something in focus against a blurred background, a pixel that is
+  // part lamp and part sky could read the sky's depth, get blurred into the sky, and the outline broke
+  // up into speckles and stairs. A pixel right beside something nearer and sharper takes that
+  // neighbour's depth, so the antialiased outline stays whole.
+  ivec2 p = ivec2(gl_FragCoord.xy), hi = textureSize(tDepth, 0) - 1;
+  for (int i = 0; i < 4; i++) {
+    ivec2 o = i == 0 ? ivec2(1, 0) : i == 1 ? ivec2(-1, 0) : i == 2 ? ivec2(0, 1) : ivec2(0, -1);
+    float zn = linDepth(texelFetch(tDepth, clamp(p + o, ivec2(0), hi), 0).x);
+    float cn = uAperture * abs(zn - uFocus) / max(zn, .001);
+    if (zn < z * .8 && cn < coc) { z = zn; coc = cn; }
+  }
+#endif
+  oCoc = vec4(coc, z, 0., 1.);
 }`;
 const PREP_VERT = /* glsl */`
 in vec3 position; in vec2 uv; out vec2 vUv;
@@ -162,7 +177,7 @@ export class Post {
         uNear: U.uNear, uFar: U.uFar, uFocus: U.uFocus, uAperture: U.uAperture };
       this.prepQuad = new FullScreenQuad(new THREE.RawShaderMaterial({
         glslVersion: THREE.GLSL3, uniforms: this.PU, depthTest: false, depthWrite: false,
-        vertexShader: PREP_VERT, fragmentShader: PREP_FRAG,
+        vertexShader: PREP_VERT, fragmentShader: PREP_FRAG, defines: { EDGE: new URLSearchParams(location.search).get('edge') === '0' ? 0 : 1 },
       }));
       this.TU = { tCoc: { value: this.mid.textures[1] }, uSize: { value: size.clone() } };
       this.tileQuad = new FullScreenQuad(new THREE.RawShaderMaterial({
@@ -207,6 +222,15 @@ export class Post {
         this.DU.tTile.value = this.tiles.texture; this.DU.uTiles.value.set(this.tiles.width, this.tiles.height);
       }
     }
+  }
+
+  /** After a lost GPU context comes back: fresh targets, since the old ones are gone with it. */
+  rebuild() {
+    const size = this.renderer.getDrawingBufferSize(new THREE.Vector2());
+    this._makeTarget(size);
+    this.U.uRes.value.copy(size);
+    this.bloom.setSize(Math.round(size.x * this.bloomScale) + 1, Math.round(size.y * this.bloomScale));
+    this.bloom.setSize(Math.round(size.x * this.bloomScale), Math.round(size.y * this.bloomScale));
   }
 
   setSize() {

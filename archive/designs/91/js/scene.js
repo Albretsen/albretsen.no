@@ -93,7 +93,7 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   setHour(12);
 
   const tmp = new THREE.Vector3();
-  let frames = 0, acc = 0, lastCheck = 0, failedDpr = Infinity, failedAt = -Infinity;
+  let frames = 0, acc = 0, lastCheck = 0, failedDpr = Infinity, failedAt = -Infinity, fails = 0, drop = null, floor = 0;
 
   // The GPU can take the context away (a driver reset, a GPU switch, memory pressure). Until it comes
   // back nothing is drawn; main.js shows the poster meanwhile. On restore three re-uploads what it
@@ -118,8 +118,13 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
       const fps = frames / (acc - lastCheck);
       frames = 0; lastCheck = acc;
       const top = Math.min(devicePixelRatio || 1, maxDpr);
-      if (fps < 42 && dpr > 0.75) { failedDpr = dpr; failedAt = acc; dpr = Math.max(0.75, dpr - 0.25); resize(); }
-      else if (fps > 58 && dpr < top && (dpr + 0.25 < failedDpr - 1e-3 || acc - failedAt > 30)) { dpr = Math.min(top, dpr + 0.25); resize(); }
+      // a step down that did not help (the browser caps the frame rate, as in Low Power Mode, or the
+      // time goes somewhere else): step back up and stay there, sharp, rather than blurry at the same speed
+      let undone = false;
+      if (drop) { const d = drop; drop = null; if (fps < d.fps * 1.08 && fps < 42) { floor = d.from; dpr = d.from; resize(); undone = true; } }
+      // each time a resolution fails again it waits twice as long before the next try (30 s, 1 min, 2 min...)
+      if (undone) { /* stay */ } else if (fps < 42 && dpr > Math.max(0.75, floor)) { drop = { from: dpr, fps }; if (Math.abs(failedDpr - dpr) < 1e-3) fails++; else fails = 1; failedDpr = dpr; failedAt = acc; dpr = Math.max(0.75, dpr - 0.25); resize(); }
+      else if (fps > 58 && dpr < top && (dpr + 0.25 < failedDpr - 1e-3 || acc - failedAt > 30 * 2 ** (fails - 1))) { dpr = Math.min(top, dpr + 0.25); resize(); }
     }
 
     const h = state.hour, e = state.e;
@@ -128,7 +133,7 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
     life.update(dt, h);
     const lift = nightAmount(h);
     if (Math.abs(lift - (state._lift ?? -1)) > 0.01) { state._lift = lift; for (const p of life.people) p.nightLift(lift); }
-    lights.update(dt, h, e);
+    lights.update(dt, h, e, life.hurry);
     cam.update(dt);
 
     // light pools and real lights follow the lamps

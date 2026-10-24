@@ -15,9 +15,12 @@ class Switch {
   constructor(kind = 'fade') { this.kind = kind; this.v = 0; this.target = 0; this.t = 1; this.from = 0; }
   set(t) { if (t !== this.target) { this.from = this.v; this.target = t; this.t = 0; } }
   update(dt) {
+    // a lamp struck while the clock is being dragged or glides warms up without its blinks, so a
+    // sweep through dusk does not set a row of lamps flashing at once
+    if (this.t === 0) this.calm = Switch.calm;
     this.t = Math.min(1, this.t + dt / (this.kind === 'strike' ? 0.9 : 0.45));
     const t = this.t, on = this.target > this.from;
-    if (this.kind === 'strike' && on) {
+    if (this.kind === 'strike' && on && !this.calm) {
       // strike: blink, blink, then warm up
       const f = t < 0.06 ? 0.85 : t < 0.14 ? 0.08 : t < 0.2 ? 0.7 : t < 0.27 ? 0.15 : 0.35 + 0.65 * smooth(0.27, 1, t);
       this.v = this.from + (this.target - this.from) * f;
@@ -28,6 +31,8 @@ class Switch {
     return this.v;
   }
 }
+
+Switch.calm = false;
 
 export class TownLights {
   constructor(world, life) {
@@ -64,7 +69,8 @@ export class TownLights {
   /** A product event: the landmark's sign flares for a moment. */
   pulse(siteId) { const s = this.sites.find((x) => x.s.id === siteId); if (s) s.pulse = 1; }
 
-  update(dt, h, e) {
+  update(dt, h, e, calm = false) {
+    Switch.calm = calm;
     const dark = smooth(4, -3, e);          // enough for windows
     const hx = h < 12 ? h + 24 : h;         // evening hours run past midnight
     const inRange = (a, b) => hx >= a && hx < b;

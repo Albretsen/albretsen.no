@@ -1,0 +1,12 @@
+{
+  "name": "Enter World",
+  "tagline": "Heure Bleue you can drive: the homepage opens on a sunset, one button takes you into the driver's seat.",
+  "summary": "The Heure Bleue terrace view, rebuilt as a real-time town from the shared 3D kit, with the sun setting while you watch. One button, Enter world, flies the camera down into a 1960s spider on the coast road; you drive past four product buildings whose screens carry their figures and latest events, step out and walk up to the door to read the card. It shows the craft by letting people use it, and every fact stays readable as plain HTML below.",
+  "palette": ["#232c57", "#151a3c", "#f4eadb", "#ffd27a", "#f2b5b8", "#d9a42b", "#6e1f33", "#a9c6e0"],
+  "type": ["Federo", "Instrument Sans", "Poiret One"],
+  "voice": "Plain and exact, game prompts in the imperative and nothing more: \"Slow down and stop in the lit bay outside MCP Emails.\"",
+  "motion": "The sun never stops setting, lights switch rather than fade, and the camera moves like a drone operator with a steady hand.",
+  "sound": "Off until asked: a synthesised engine with three loose gears, a sea hush, a soft tick for every light that switches and a glass chime at each stop.",
+  "mark": "An arched window at sunset with the coast road running under the sun, drawn in the brand's ink, plaster and lamplight.",
+  "inspiration": ["https://www.awwwards.com/", "https://bruno-simon.com/", "https://www.monumentvalleygame.com/", "https://altosodyssey.com/"]
+}

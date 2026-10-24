@@ -1,0 +1,12 @@
+{
+  "name": "Lamplighter",
+  "tagline": "A small game at blue hour: light the town's lamps before dark, and each district shows one product.",
+  "summary": "A Heure Bleue variation that turns the homepage into a two-minute game. The sun sets over the bay, the lamps are out, and you carry the flame through the terraces of a hillside town. Each lamp spreads light into nearby windows, each district switches on its product landmark, and when the town is lit Asgeir's name appears over it. It shows craft by doing, not by claiming.",
+  "palette": ["#232c57", "#f4eadb", "#ffd27a", "#f2b5b8", "#d9a42b", "#6e1f33", "#a9c6e0", "#3c5a50"],
+  "type": ["Federo", "Instrument Sans", "Poiret One"],
+  "voice": "Calm, exact, a little warm. Says what runs and what it earns. Example: \"Blue hour, and the street lamps are out. Light the town before dark.\"",
+  "motion": "The sky is the clock: everything darkens slowly, and every light you make comes on with a short overshoot, a flicker, and then holds.",
+  "sound": "Off until asked: a far-sea hush, a soft gas whoomp and a glass chime that climbs a pentatonic scale as you light lamps in a row, a chord per district, a bell at the end.",
+  "mark": "An arched window with a single lamp flame inside, beside ALBRETSEN in spaced Federo capitals.",
+  "inspiration": ["https://en.wikipedia.org/wiki/Lamplighter", "https://www.townscapergame.com/", "https://altosodyssey.com/", "https://monumentvalleygame.com/"]
+}

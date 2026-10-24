@@ -13,7 +13,7 @@ for (const id of dirs) {
   let brand = {}
   try { brand = JSON.parse(await readFile(join(root, id, 'brand.json'), 'utf8')) } catch (e) { console.warn(`${id}: no valid brand.json (${e.message})`) }
   const assets = await access(join(root, id, 'assets', 'preview.html')).then(() => `${id}/assets/preview.html`, () => null)
-  manifest.push({ ...brand, id, path: `${id}/`, round: Number(id) > 60 ? 3 : Number(id) > 30 ? 2 : 1, assets })
+  manifest.push({ ...brand, id, path: `${id}/`, round: Number(id) > 90 ? 4 : Number(id) > 60 ? 3 : Number(id) > 30 ? 2 : 1, assets })
 }
 await writeFile(join(root, 'manifest.json'), JSON.stringify(manifest, null, 1) + '\n')
 console.log(`manifest.json: ${manifest.length} designs`)

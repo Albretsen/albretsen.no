@@ -3235,5 +3235,178 @@
   "path": "90/",
   "round": 3,
   "assets": "90/assets/preview.html"
+ },
+ {
+  "name": "Living Town",
+  "tagline": "A tilt-shift seaside town where everyone keeps a schedule, and their window lights up when they get home.",
+  "summary": "The homepage is a small town on the water, seen like a model on a table. Sixteen townspeople live by the clock in Oslo: a runner at six, a waiter setting out chairs at seven, an older couple on the good bench, drinks at golden hour, the railing at sunset, dancing under string lights, then home, where their window lights. Drag the sun and the whole town reschedules. Four shopfronts on the promenade are Asgeir's real products, with their real figures on their screens. The craft shows in the simulation, not in a slogan, which fits a one-person company that builds and runs software properly.",
+  "palette": [
+   "#1b2450",
+   "#232c57",
+   "#f4eadb",
+   "#ffd27a",
+   "#f2b5b8",
+   "#d9a42b",
+   "#6e1f33",
+   "#a9c6e0"
+  ],
+  "type": [
+   "Federo",
+   "Instrument Sans",
+   "Poiret One (large figures only)"
+  ],
+  "voice": "Calm and exact, with the warmth of overheard conversation. The townspeople are allowed to be funny; the company copy is not. Example: \"Every lit sign on the promenade is a real product.\"",
+  "motion": "Everything moves because someone has somewhere to be: people walk at the speed of their stride, lamps strike one after another along the promenade, windows come on a second after someone walks through the door.",
+  "sound": "Silent. The lights switching on and off are the soundtrack.",
+  "mark": "A small house in outline with one lit arched window, beside ALBRETSEN in widely spaced Federo capitals.",
+  "inspiration": [
+   "https://www.townscapergame.com",
+   "https://minimotorways.com",
+   "https://en.wikipedia.org/wiki/Tilt%E2%80%93shift_photography",
+   "https://www.monumentvalleygame.com",
+   "https://en.wikipedia.org/wiki/Jacques_Tati",
+   "https://www.w3.org/WAI/ARIA/apg/patterns/slider/"
+  ],
+  "id": "91",
+  "path": "91/",
+  "round": 4,
+  "assets": null
+ },
+ {
+  "name": "Enter World",
+  "tagline": "Heure Bleue you can drive: the homepage opens on a sunset, one button takes you into the driver's seat.",
+  "summary": "The Heure Bleue terrace view, rebuilt as a real-time town from the shared 3D kit, with the sun setting while you watch. One button, Enter world, flies the camera down into a 1960s spider on the coast road; you drive past four product buildings whose screens carry their figures and latest events, step out and walk up to the door to read the card. It shows the craft by letting people use it, and every fact stays readable as plain HTML below.",
+  "palette": [
+   "#232c57",
+   "#151a3c",
+   "#f4eadb",
+   "#ffd27a",
+   "#f2b5b8",
+   "#d9a42b",
+   "#6e1f33",
+   "#a9c6e0"
+  ],
+  "type": [
+   "Federo",
+   "Instrument Sans",
+   "Poiret One"
+  ],
+  "voice": "Plain and exact, game prompts in the imperative and nothing more: \"Slow down and stop in the lit bay outside MCP Emails.\"",
+  "motion": "The sun never stops setting, lights switch rather than fade, and the camera moves like a drone operator with a steady hand.",
+  "sound": "Off until asked: a synthesised engine with three loose gears, a sea hush, a soft tick for every light that switches and a glass chime at each stop.",
+  "mark": "An arched window at sunset with the coast road running under the sun, drawn in the brand's ink, plaster and lamplight.",
+  "inspiration": [
+   "https://www.awwwards.com/",
+   "https://bruno-simon.com/",
+   "https://www.monumentvalleygame.com/",
+   "https://altosodyssey.com/"
+  ],
+  "id": "92",
+  "path": "92/",
+  "round": 4,
+  "assets": null
+ },
+ {
+  "name": "Lamplighter",
+  "tagline": "A small game at blue hour: light the town's lamps before dark, and each district shows one product.",
+  "summary": "A Heure Bleue variation that turns the homepage into a two-minute game. The sun sets over the bay, the lamps are out, and you carry the flame through the terraces of a hillside town. Each lamp spreads light into nearby windows, each district switches on its product landmark, and when the town is lit Asgeir's name appears over it. It shows craft by doing, not by claiming.",
+  "palette": [
+   "#232c57",
+   "#f4eadb",
+   "#ffd27a",
+   "#f2b5b8",
+   "#d9a42b",
+   "#6e1f33",
+   "#a9c6e0",
+   "#3c5a50"
+  ],
+  "type": [
+   "Federo",
+   "Instrument Sans",
+   "Poiret One"
+  ],
+  "voice": "Calm, exact, a little warm. Says what runs and what it earns. Example: \"Blue hour, and the street lamps are out. Light the town before dark.\"",
+  "motion": "The sky is the clock: everything darkens slowly, and every light you make comes on with a short overshoot, a flicker, and then holds.",
+  "sound": "Off until asked: a far-sea hush, a soft gas whoomp and a glass chime that climbs a pentatonic scale as you light lamps in a row, a chord per district, a bell at the end.",
+  "mark": "An arched window with a single lamp flame inside, beside ALBRETSEN in spaced Federo capitals.",
+  "inspiration": [
+   "https://en.wikipedia.org/wiki/Lamplighter",
+   "https://www.townscapergame.com/",
+   "https://altosodyssey.com/",
+   "https://monumentvalleygame.com/"
+  ],
+  "id": "93",
+  "path": "93/",
+  "round": 4,
+  "assets": null
+ },
+ {
+  "name": "Evening Post",
+  "tagline": "A one-minute flight at sunset: deliver the letters, and the town lights up behind you.",
+  "summary": "Heure Bleue turned into a small game. The visitor flies a cream airmail paper plane over a hillside town while the sun sets, posting letters through windows that light up as each one lands, and visiting the four product buildings, which open a card with each product's real figure. The round ends at night with the whole town lit and a postcard that is also the contact card. It shows taste and engineering through craft rather than claims, and the products stay readable in plain HTML below.",
+  "palette": [
+   "#232c57",
+   "#f4eadb",
+   "#ffd27a",
+   "#6e1f33",
+   "#8fb3e0",
+   "#f2b5b8",
+   "#c8333f",
+   "#2d4f9e"
+  ],
+  "type": [
+   "Federo",
+   "Instrument Sans",
+   "Poiret One (large figures only)"
+  ],
+  "voice": "Calm, exact and a little postal. It states what runs and what it earns, then stops. Example: \"Four addresses on the round.\"",
+  "motion": "Everything follows the sun: it sinks as you fly, windows switch on one by one behind the plane, lamps strike as you pass, and every letter you post lights a house at once.",
+  "sound": "Silent by default. When switched on: air over paper that rises with speed, a glass chime per letter climbing a pentatonic scale, a rubber-stamp thud for each product and a chord through the sun gate.",
+  "mark": "A pale-blue airmail paper plane crossing a blue-hour sky with the sun on the sea, beside ALBRETSEN in spaced Federo capitals.",
+  "inspiration": [
+   "https://altosodyssey.com",
+   "https://www.monumentvalleygame.com",
+   "https://en.wikipedia.org/wiki/Aerogram",
+   "https://threejs.org/examples/#webgl_postprocessing_unreal_bloom"
+  ],
+  "id": "94",
+  "path": "94/",
+  "round": 4,
+  "assets": null
+ },
+ {
+  "name": "Town through time",
+  "tagline": "A hillside town that builds itself from 2016 to today, one product building at a time.",
+  "summary": "A Heure Bleue variation played as a small city-builder time-lapse. Scrub the years and each of Asgeir's products rises out of a blueprint in the year it started, with houses, trees, traffic and townsfolk filling in around them. Scrub the sun and the windows switch on at dusk and off again when the town goes to bed, while the live products keep their lights on. Retired products close their shutters but stay standing, so the town is an honest record: what runs, what is being built, and what was learned on the way.",
+  "palette": [
+   "#232c57",
+   "#f4eadb",
+   "#ffd27a",
+   "#f2b5b8",
+   "#d9a42b",
+   "#6e1f33",
+   "#a9c6e0",
+   "#8a5a3c"
+  ],
+  "type": [
+   "Federo",
+   "Instrument Sans",
+   "Poiret One (years and large figures only)"
+  ],
+  "voice": "Plain and exact, like a town ledger. It names the year, what opened and what is still running, then stops. Example: \"Live: MCP Emails, Fun Libs. 7 retired, shutters closed.\"",
+  "motion": "Townscaper-soft: buildings rise out of a glowing blueprint with a squash and a dust puff, windows switch in steps rather than fade, and the camera cranes back slowly as the town grows.",
+  "sound": "Silent by default. Switched on, a low evening hush, a wooden thunk and a pentatonic pluck as each building lands, a light-switch click when you flick a house, and a glass chime when a product card opens.",
+  "mark": "The Heure Bleue terrace window beside ALBRETSEN AS in spaced Federo capitals; in the town itself the gate over the coast road carries the name and rises in 2026, the year the company was founded.",
+  "inspiration": [
+   "https://www.townscapergame.com",
+   "https://en.wikipedia.org/wiki/SimCity",
+   "https://dinopoloclub.com/games/mini-motorways/",
+   "https://www.monumentvalleygame.com",
+   "https://www.w3.org/WAI/ARIA/apg/patterns/slider/"
+  ],
+  "id": "95",
+  "path": "95/",
+  "round": 4,
+  "assets": null
  }
 ]

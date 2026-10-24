@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds apps, SaaS and infrastructure for AI agents at Albretsen AS in Norway. A small town on the water keeps its own hours on the homepage.">
+<meta name="theme-color" content="#1b2450">
+<meta property="og:title" content="Asgeir Albretsen · Albretsen AS">
+<meta property="og:description" content="Apps, SaaS and infrastructure for AI agents, from Norway.">
+<meta property="og:image" content="assets/poster/poster-1920.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/federo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" imagesrcset="assets/poster/poster-1280.jpg 1280w, assets/poster/poster-1920.jpg 1920w" imagesizes="100vw" media="(min-aspect-ratio: 1/1)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="assets/poster/poster-tall-720.jpg 720w, assets/poster/poster-tall-1080.jpg 1080w" imagesizes="100vw" media="(max-aspect-ratio: 1/1)" fetchpriority="high">
+<link rel="modulepreload" href="js/main.js">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="css/site.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }
+</script>
+</head>
+<body>
+<a class="skip" href="#products">Skip to the products</a>
+
+<header class="hero" id="top">
+  <picture class="poster">
+    <source media="(max-aspect-ratio: 1/1)" srcset="assets/poster/poster-tall-720.jpg 720w, assets/poster/poster-tall-1080.jpg 1080w" sizes="100vw">
+    <img src="assets/poster/poster-1920.jpg" srcset="assets/poster/poster-1280.jpg 1280w, assets/poster/poster-1920.jpg 1920w" sizes="100vw"
+         width="1920" height="1080" fetchpriority="high" decoding="async"
+         alt="A small seaside town at blue hour seen from above like a model: a paved promenade with an iron railing, a café with string lights, four lit shopfronts and white and pink houses climbing the hill, with people strolling and leaning on the rail.">
+  </picture>
+  <canvas class="stage" id="stage" aria-hidden="true" tabindex="-1"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="tags" id="tags" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Main">
+    <a class="mark" href="#top" aria-label="Albretsen AS, home">
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path d="M5 28V13l11-8 11 8v15z" fill="none" stroke="currentColor" stroke-width="1.6"/><rect class="mark-win" x="13" y="15" width="6" height="7" rx="3" /><path d="M3 28h26" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span>Albretsen</span>
+    </a>
+    <ul>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="title">
+    <h1>Asgeir Albretsen</h1>
+    <p class="lede">I build apps, SaaS and infrastructure for AI agents, at Albretsen&nbsp;AS in&nbsp;Norway.</p>
+  </div>
+
+  <div class="loader" id="loader" hidden>
+    <span class="loader-label" id="loader-label">Waking the town</span>
+    <span class="loader-bar"><span id="loader-fill"></span></span>
+  </div>
+  <button class="open3d" id="open3d" type="button" hidden>Open the living town</button>
+
+  <div class="hud" id="hud">
+    <div class="clock" id="clock">
+      <div class="clock-read">
+        <p class="clock-time"><b id="clock-time">--:--</b> <span id="clock-phase">&nbsp;</span></p>
+        <button class="live" id="live" type="button" aria-pressed="true"><span class="live-dot" aria-hidden="true"></span><span id="live-label">Oslo time</span></button>
+      </div>
+      <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Time of day in the town" aria-valuemin="0" aria-valuemax="24" aria-valuenow="12" aria-valuetext="12:00">
+        <svg class="dial-svg" id="dial-svg" viewBox="0 0 480 84" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="dial-sky" x1="0" x2="1" y1="0" y2="0"></linearGradient></defs>
+          <rect class="dial-band" x="0" y="0" width="480" height="84" rx="12" fill="url(#dial-sky)"/>
+          <line class="dial-horizon" x1="0" x2="480" y1="58" y2="58"/>
+          <path class="dial-arc" id="dial-arc" d=""/>
+          <g class="dial-ticks" id="dial-ticks"></g>
+        </svg>
+        <span class="dial-sun" id="dial-sun" aria-hidden="true"></span>
+      </div>
+      <div class="chips" role="group" aria-label="Jump to">
+        <button type="button" data-h="7.4">Morning</button>
+        <button type="button" data-h="12.6">Noon</button>
+        <button type="button" data-h="19.25">Golden hour</button>
+        <button type="button" data-h="20.25">Blue hour</button>
+        <button type="button" data-h="23.3">Night</button>
+      </div>
+    </div>
+
+    <p class="feed" id="feed-line" aria-live="off"><span class="feed-dot" aria-hidden="true"></span><span id="feed">Albretsen AS · apps, SaaS and agent infrastructure</span></p>
+
+    <div class="tools" id="tools" hidden>
+      <button type="button" id="sea" class="sea" title="Stand at the railing and look out to sea"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 11a5 5 0 0 1 10 0" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 14h16M5 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="sea-label">Look out to sea</span></button>
+      <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+      <button type="button" id="zoom-out" aria-label="Zoom out">&minus;</button>
+      <button type="button" id="reset" aria-label="Back to the overview">&#8634;</button>
+    </div>
+  </div>
+
+  <div class="coach" id="coach" hidden aria-live="polite"><span id="coach-text"></span><button type="button" id="coach-x" aria-label="Dismiss the hint">&times;</button></div>
+
+  <aside class="card" id="card" hidden aria-labelledby="card-name">
+    <button type="button" class="card-x" id="card-x" aria-label="Close">&times;</button>
+    <img class="card-logo" id="card-logo" alt="" width="44" height="44">
+    <p class="card-status" id="card-status"></p>
+    <h2 class="card-name" id="card-name"></h2>
+    <p class="card-figure"><b id="card-value"></b> <span id="card-label"></span></p>
+    <p class="card-line" id="card-line"></p>
+    <ul class="card-facts" id="card-facts"></ul>
+    <p class="card-live" id="card-live"></p>
+    <a class="card-link" id="card-link" href="#" rel="noopener">Visit</a>
+  </aside>
+
+  <a class="scroll-cue" href="#products" aria-label="Scroll to the products"><span></span></a>
+</header>
+
+<main>
+  <section class="products" id="products" aria-labelledby="products-title">
+    <div class="wrap">
+      <p class="eyebrow">Products</p>
+      <h2 id="products-title">Every lit sign on the promenade is a real product.</h2>
+      <p class="intro">Albretsen AS builds what earns its keep: apps, SaaS and infrastructure for AI agents. Two products are live, one is being built and one is paused.</p>
+
+      <ol class="cards">
+        <li class="pcard" data-site="mcp" style="--accent:#2547e5">
+          <img class="pcard-logo" src="../_shared/products/mcp-emails/logo-mark.svg" width="48" height="48" alt="">
+          <p class="status" data-status="live"><span aria-hidden="true"></span>Live · since 2026</p>
+          <h3><a href="https://mcpemails.com">MCP Emails</a></h3>
+          <p class="figure"><b>$782</b> MRR</p>
+          <p class="line">Email for AI agents.</p>
+          <ul class="facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+          <p class="where">In town: the post office, open all night.</p>
+          <button type="button" class="see" data-site="mcp">See it in town</button>
+        </li>
+        <li class="pcard" data-site="funlibs" style="--accent:#ffd400">
+          <img class="pcard-logo" src="../_shared/products/fun-libs/icon.png" width="48" height="48" alt="">
+          <p class="status" data-status="live"><span aria-hidden="true"></span>Live · since 2019</p>
+          <h3><a href="https://funlibs.app">Fun Libs</a></h3>
+          <p class="figure"><b>113,000+</b> installs</p>
+          <p class="line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <ul class="facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+          <p class="where">In town: the arcade with the marquee.</p>
+          <button type="button" class="see" data-site="funlibs">See it in town</button>
+        </li>
+        <li class="pcard" data-site="toolrails" style="--accent:#ffd400">
+          <img class="pcard-logo" src="../_shared/products/toolrails/icon.svg" width="48" height="48" alt="">
+          <p class="status" data-status="building"><span aria-hidden="true"></span>Being built · since 2026</p>
+          <h3><a href="https://toolrails.com">Toolrails</a></h3>
+          <p class="figure"><b>4</b> connectors</p>
+          <p class="line">One MCP URL that gives an agent every tool.</p>
+          <ul class="facts"><li>tool search</li><li>injection guard</li></ul>
+          <p class="where">In town: the workshop, usually the last light on.</p>
+          <button type="button" class="see" data-site="toolrails">See it in town</button>
+        </li>
+        <li class="pcard" data-site="harbor" style="--accent:#a9c6e0">
+          <img class="pcard-logo pcard-logo--ink" src="../_shared/products/harbor/harbor-mark.svg" width="48" height="48" alt="">
+          <p class="status" data-status="paused"><span aria-hidden="true"></span>Paused · since 2026</p>
+          <h3><a href="https://harborknowledge.com">Harbor</a></h3>
+          <p class="figure"><b>549</b> commits</p>
+          <p class="line">A private knowledge base shared by people and AI.</p>
+          <ul class="facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+          <p class="where">In town: the library, one reading lamp left on.</p>
+          <button type="button" class="see" data-site="harbor">See it in town</button>
+        </li>
+      </ol>
+
+      <div class="retired">
+        <h3 class="eyebrow">Retired, lights off</h3>
+        <ul>
+          <li><b>Luma</b> <span>2026 · Norwegian budgeting app with open banking. 378 commits.</span></li>
+          <li><b>Polyglot Pilot</b> <span>2025 · Agents that localised entire codebases, with a dashboard for human reviewers.</span></li>
+          <li><b>PinPoint</b> <span>2025 · GeoGuessr with your own photos: friends guess where your pictures were taken.</span></li>
+          <li><b>WebVakt</b> <span>2024 · Website change monitoring.</span></li>
+          <li><b>Daily Jokes / Joke Central</b> <span>2024 · Joke apps for iOS and Android.</span></li>
+          <li><b>Tryggere Hyring</b> <span>2023 · Background checks for hiring.</span></li>
+          <li><b>IAGO HMS, Rentekalkulator, Prosentkalkulator</b> <span>2021 · Early apps.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="about-title">
+    <div class="wrap about-grid">
+      <h2 id="about-title" class="eyebrow">About the town</h2>
+      <p>Everyone on the promenade keeps a schedule. Inès runs at six, Marcel sets out the chairs just before seven, Henri and Odile take the good bench mid-morning, and at sunset half the town leans on the railing. When someone gets home after dark, their window lights up; when they go to bed, it goes out. Left alone, the town follows the clock in Oslo. Drag the sun and everyone reschedules.</p>
+      <p class="small">Built with three.js and a library of low-poly people, buildings and props made for this site. The figures on the shop screens are the products' real numbers.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" id="contact">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <p class="avail">Takes one outside engagement at a&nbsp;time.</p>
+      <a class="email" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    </div>
+    <div class="mcp">
+      <p class="eyebrow">For your agent</p>
+      <code id="mcp-cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button type="button" id="copy">Copy</button>
+    </div>
+  </div>
+  <p class="wrap base">Albretsen AS · Norway · on Google Play since 2016</p>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

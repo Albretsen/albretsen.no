@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Asgeir Albretsen · Albretsen AS</title>
+<meta name="description" content="Asgeir Albretsen builds and runs apps, SaaS and infrastructure for AI agents at Albretsen AS, in Norway.">
+<meta name="theme-color" content="#1b2148">
+<meta property="og:title" content="Asgeir Albretsen · Albretsen AS">
+<meta property="og:description" content="Apps, SaaS and infrastructure for AI agents. Enter the world and drive past the products.">
+<meta property="og:image" content="assets/poster-1600.jpg">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preload" href="assets/federo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 21/20)" imagesrcset="assets/poster-960.avif 960w, assets/poster-1600.avif 1600w, assets/poster-2400.avif 2400w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 21/20)" imagesrcset="assets/poster-tall-720.avif 720w, assets/poster-tall-1080.avif 1080w" imagesizes="100vw" fetchpriority="high">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="css/site.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }
+</script>
+</head>
+<body>
+<a class="skip" href="#work">Skip to the products</a>
+
+<header class="hero" id="top">
+  <picture class="poster">
+    <source type="image/avif" media="(max-aspect-ratio: 21/20)" srcset="assets/poster-tall-720.avif 720w, assets/poster-tall-1080.avif 1080w" sizes="100vw">
+    <source type="image/jpeg" media="(max-aspect-ratio: 21/20)" srcset="assets/poster-tall-720.jpg 720w, assets/poster-tall-1080.jpg 1080w" sizes="100vw">
+    <source type="image/avif" srcset="assets/poster-960.avif 960w, assets/poster-1600.avif 1600w, assets/poster-2400.avif 2400w" sizes="100vw">
+    <img src="assets/poster-1600.jpg" srcset="assets/poster-960.jpg 960w, assets/poster-1600.jpg 1600w" sizes="100vw" width="1600" height="900" fetchpriority="high" decoding="async"
+         alt="Sunset over a hillside town: zinc mansard roofs and whitewashed houses step down to a coast road and a calm sea, the sun on the horizon.">
+  </picture>
+  <canvas class="world" id="world" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Main">
+    <a class="nav-mark" href="#top" aria-label="Albretsen AS, home"><img src="assets/mark.svg" width="34" height="34" alt=""><span>Albretsen</span></a>
+    <ul class="nav-links">
+      <li><a href="#work">Products</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button class="sound" id="sound" type="button" aria-pressed="false"><i aria-hidden="true"></i>Sound</button></li>
+    </ul>
+  </nav>
+
+  <div class="hero-copy">
+    <p class="eyebrow">Albretsen AS · Norway</p>
+    <h1>Asgeir Albretsen</h1>
+    <p class="lede">I build and run apps, SaaS and infrastructure for AI&nbsp;agents.</p>
+    <div class="enter-row">
+      <button class="enter" id="enter" type="button">
+        <span class="enter-label">Enter world</span>
+        <span class="enter-meter" aria-hidden="true"><i id="meter"></i></span>
+      </button>
+      <p class="enter-note" id="enter-note">A short drive along the coast road, past four products. <span class="kb-only">Keyboard</span><span class="touch-only">Touch</span> controls.</p>
+    </div>
+  </div>
+
+  <div class="hero-foot" aria-hidden="true">
+    <p class="readout"><span>Sun</span> <b id="deg">+1.2°</b> <span id="hour">Golden hour</span><span class="drag-hint" id="drag-hint">· drag the sun</span></p>
+    <p class="feed"><i class="feed-dot"></i><span id="feed">Albretsen AS · apps, SaaS and agent infrastructure</span></p>
+  </div>
+</header>
+
+<main>
+  <section class="work" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="work-head">
+        <p class="eyebrow">Products</p>
+        <h2 id="work-title">Four stops on the coast road</h2>
+        <p class="work-intro">Albretsen AS builds whatever earns its keep. Two products are live, one is being built and one is paused. In the world each one has a building on the road, with its numbers on a screen by the door.</p>
+      </div>
+      <ol class="cards" id="cards">
+        <li class="card" data-id="mcp-emails">
+          <div class="card-top"><img src="../_shared/products/mcp-emails/logo-mark.svg" width="48" height="48" alt="" class="logo logo-plate"><p class="status" data-status="live"><i></i><span class="js-status">Live</span> · since <span class="js-since">2026</span></p></div>
+          <h3><a class="js-name" href="https://mcpemails.com">MCP Emails</a></h3>
+          <p class="figure"><b class="js-value">$782</b> <span class="js-label">MRR</span></p>
+          <p class="line js-line">Email for AI agents.</p>
+          <ul class="facts js-facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+          <p class="where">Stop 1 · the post office</p>
+        </li>
+        <li class="card" data-id="fun-libs">
+          <div class="card-top"><img src="../_shared/products/fun-libs/icon.png" width="48" height="48" alt="" class="logo"><p class="status" data-status="live"><i></i><span class="js-status">Live</span> · since <span class="js-since">2019</span></p></div>
+          <h3><a class="js-name" href="https://funlibs.app">Fun Libs</a></h3>
+          <p class="figure"><b class="js-value">113,000+</b> <span class="js-label">installs</span></p>
+          <p class="line js-line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <ul class="facts js-facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+          <p class="where">Stop 2 · the arcade</p>
+        </li>
+        <li class="card" data-id="toolrails">
+          <div class="card-top"><img src="../_shared/products/toolrails/icon.svg" width="48" height="48" alt="" class="logo"><p class="status" data-status="building"><i></i><span class="js-status">Being built</span> · since <span class="js-since">2026</span></p></div>
+          <h3><a class="js-name" href="https://toolrails.com">Toolrails</a></h3>
+          <p class="figure"><b class="js-value">4</b> <span class="js-label">connectors</span></p>
+          <p class="line js-line">One MCP URL that gives an agent every tool.</p>
+          <ul class="facts js-facts"><li>tool search</li><li>injection guard</li></ul>
+          <p class="where">Stop 3 · the workshop</p>
+        </li>
+        <li class="card" data-id="harbor">
+          <div class="card-top"><img src="../_shared/products/harbor/harbor-mark.svg" width="48" height="48" alt="" class="logo logo-plate"><p class="status" data-status="paused"><i></i><span class="js-status">Paused</span> · since <span class="js-since">2026</span></p></div>
+          <h3><a class="js-name" href="https://harborknowledge.com">Harbor</a></h3>
+          <p class="figure"><b class="js-value">549</b> <span class="js-label">commits</span></p>
+          <p class="line js-line">A private knowledge base shared by people and AI.</p>
+          <ul class="facts js-facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+          <p class="where">Stop 4 · the library</p>
+        </li>
+      </ol>
+
+      <div class="retired">
+        <h3 class="eyebrow">Retired, lights off</h3>
+        <ul class="retired-list" id="retired"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" id="contact">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <p class="avail">Takes one outside engagement at a&nbsp;time.</p>
+      <a class="email" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    </div>
+    <div class="mcp">
+      <p class="eyebrow">Ask an agent about the work</p>
+      <code id="mcp-cmd">claude mcp add albretsen https://albretsen.no/mcp</code>
+      <button type="button" class="copy" id="copy">Copy</button>
+      <span class="sr-only" id="copy-status" aria-live="polite"></span>
+    </div>
+  </div>
+  <div class="wrap foot-base"><p>Albretsen AS · Norway · on Google Play since 2016</p><p class="credits">The town, people and cars are built in Blender and three.js for this page.</p></div>
+</footer>
+
+<!-- the game layer: shown once you enter the world -->
+<div class="game" id="game" hidden>
+  <button class="leave" id="leave" type="button"><span aria-hidden="true">←</span> Back to the page <kbd class="kb-only">Esc</kbd></button>
+  <div class="route" id="route" aria-label="The coast road">
+    <div class="route-inner">
+      <span class="route-line"></span><span class="route-town"></span>
+      <ol class="route-stops"></ol>
+      <span class="route-car" id="route-car" aria-hidden="true"></span>
+    </div>
+  </div>
+  <div class="hud-tr">
+    <div class="hud-sun"><button type="button" id="hud-sun-down" aria-label="Lower the sun">−</button><span><b id="hud-sun">+0.0°</b> <span id="hud-hour">Golden hour</span></span><button type="button" id="hud-sun-up" aria-label="Raise the sun">+</button></div>
+    <button type="button" class="hud-btn" id="hud-lights" title="Every light in town goes dark and comes back (L)">Lights <kbd class="kb-only">L</kbd></button>
+    <button type="button" class="hud-btn" id="hud-cam">View: driver’s seat</button>
+    <button type="button" class="hud-btn sound" id="hud-sound" aria-pressed="false"><i aria-hidden="true"></i>Sound</button>
+  </div>
+  <div class="waypoint" id="waypoint" aria-hidden="true"></div>
+  <div class="coach" id="coach" aria-live="polite"></div>
+  <div class="toast" id="toast" aria-live="polite"></div>
+  <div class="prompt" id="prompt" aria-live="polite"></div>
+  <div class="speedo" id="speedo" aria-hidden="true"><b>0</b><span>km/h</span></div>
+  <aside class="pcard" id="card" aria-hidden="true" aria-label="Product"></aside>
+  <div class="touch" id="touch" hidden>
+    <div class="joy"><i id="joy-knob"></i></div>
+    <button type="button" class="tbtn tbtn-brake" data-act="brake">Brake</button>
+    <button type="button" class="tbtn tbtn-e" data-act="e">E</button>
+  </div>
+  <div class="fade" id="fade"></div>
+</div>
+
+<script type="module" src="js/page.js"></script>
+</body>
+</html>

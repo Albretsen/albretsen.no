@@ -1,0 +1,17 @@
+{
+  "name": "Evening Post",
+  "tagline": "A one-minute flight at sunset: deliver the letters, and the town lights up behind you.",
+  "summary": "Heure Bleue turned into a small game. The visitor flies a cream airmail paper plane over a hillside town while the sun sets, posting letters through windows that light up as each one lands, and visiting the four product buildings, which open a card with each product's real figure. The round ends at night with the whole town lit and a postcard that is also the contact card. It shows taste and engineering through craft rather than claims, and the products stay readable in plain HTML below.",
+  "palette": ["#232c57", "#f4eadb", "#ffd27a", "#6e1f33", "#8fb3e0", "#f2b5b8", "#c8333f", "#2d4f9e"],
+  "type": ["Federo", "Instrument Sans", "Poiret One (large figures only)"],
+  "voice": "Calm, exact and a little postal. It states what runs and what it earns, then stops. Example: \"Four addresses on the round.\"",
+  "motion": "Everything follows the sun: it sinks as you fly, windows switch on one by one behind the plane, lamps strike as you pass, and every letter you post lights a house at once.",
+  "sound": "Silent by default. When switched on: air over paper that rises with speed, a glass chime per letter climbing a pentatonic scale, a rubber-stamp thud for each product and a chord through the sun gate.",
+  "mark": "A pale-blue airmail paper plane crossing a blue-hour sky with the sun on the sea, beside ALBRETSEN in spaced Federo capitals.",
+  "inspiration": [
+    "https://altosodyssey.com",
+    "https://www.monumentvalleygame.com",
+    "https://en.wikipedia.org/wiki/Aerogram",
+    "https://threejs.org/examples/#webgl_postprocessing_unreal_bloom"
+  ]
+}

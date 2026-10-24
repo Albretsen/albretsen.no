@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Albretsen AS mark">
+  <defs><clipPath id="c"><rect x="2" y="2" width="60" height="60" rx="14"/></clipPath></defs>
+  <g clip-path="url(#c)">
+    <rect width="64" height="64" fill="#232c57"/>
+    <rect y="40" width="64" height="24" fill="#6f6aa8"/>
+    <rect y="46" width="64" height="18" fill="#e08f98"/>
+    <circle cx="44" cy="51" r="7" fill="#ffd27a"/>
+    <rect y="52" width="64" height="12" fill="#3c4c86"/>
+    <path d="M10 30 52 13 41 46 32 35Z" fill="#f4eadb"/>
+    <path d="M32 35 52 13 28 31Z" fill="#d8ccb8"/>
+    <path d="M28 31 32 35 30 41Z" fill="#c9bca6"/>
+    <path d="M10 30 52 13" stroke="#c8333f" stroke-width="2" stroke-dasharray="4 3"/>
+  </g>
+</svg>

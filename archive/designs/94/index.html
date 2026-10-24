@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Albretsen AS · Asgeir Albretsen</title>
+<meta name="description" content="Asgeir Albretsen runs Albretsen AS, a small software company in Norway that builds apps, SaaS and infrastructure for AI agents.">
+<meta name="theme-color" content="#232c57">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/federo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/poster-1600.avif" type="image/avif" media="(min-aspect-ratio: 1/1)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/poster-tall-900.avif" type="image/avif" media="(max-aspect-ratio: 1/1)" fetchpriority="high">
+<link rel="stylesheet" href="css/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skiplink" href="#products">Skip to the products</a>
+
+<header class="hero" id="top">
+  <picture class="poster">
+    <source type="image/avif" media="(max-aspect-ratio: 1/1)" srcset="assets/poster-tall-900.avif">
+    <source media="(max-aspect-ratio: 1/1)" srcset="assets/poster-tall-900.jpg">
+    <source type="image/avif" srcset="assets/poster-1600.avif">
+    <img src="assets/poster-1600.jpg" width="1600" height="900" fetchpriority="high" decoding="async"
+         alt="A hillside town at sunset seen from above the bay: whitewashed houses and zinc roofs climb to a church, windows starting to glow, a paper plane circling in front.">
+  </picture>
+  <canvas id="stage" class="stage" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="#top" aria-label="Albretsen AS, home">
+      <img src="assets/mark.svg" width="34" height="34" alt="">
+      <span>Albretsen</span>
+    </a>
+    <ul>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button type="button" class="sound" data-sound aria-pressed="false"><span class="dot" aria-hidden="true"></span>Sound</button></li>
+    </ul>
+  </nav>
+
+  <div class="intro" id="intro">
+    <p class="eyebrow">The evening post &middot; a one-minute flight</p>
+    <h1>Asgeir Albretsen</h1>
+    <p class="lede">I run Albretsen AS, a small company in Norway that builds apps, SaaS and infrastructure for AI&nbsp;agents.</p>
+    <div class="cta">
+      <button type="button" class="btn btn-fly" id="fly" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 11.5 22 3l-6.5 18-3.6-7.2L2 11.5Z M11.9 13.8 22 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span class="label">Fly the evening post</span>
+        <span class="load" aria-hidden="true"><i id="loadbar"></i></span>
+      </button>
+      <a class="btn btn-quiet" href="#products">Skip, show me the products</a>
+    </div>
+    <p class="how" id="how">Deliver the letters before the sun goes down. Steer with the mouse, or drag on a phone. Let go and the plane flies itself.</p>
+  </div>
+
+  <div class="foot">
+    <p class="feed" aria-live="off"><span class="pulse" aria-hidden="true"></span><span id="feed">Albretsen AS &middot; apps, SaaS and agent infrastructure</span></p>
+    <p class="sunread" aria-hidden="true"><span id="clock">20:41</span> &middot; sun <b id="sundeg">+4.6&deg;</b></p>
+  </div>
+</header>
+
+<!-- in-game overlay -->
+<div class="hud" id="hud" hidden>
+  <div class="hud-top">
+    <div class="tally">
+      <p class="count"><svg viewBox="0 0 24 16" aria-hidden="true"><rect x="1" y="1" width="22" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M1.5 1.8 12 9.5l10.5-7.7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b id="h-letters">0</b><span>/<i id="h-total">0</i> letters</span></p>
+      <ul class="stamps" id="stamps" aria-label="Products visited">
+        <li data-id="mcp-emails"><img src="../_shared/products/mcp-emails/logo-mark.svg" alt="MCP Emails"></li>
+        <li data-id="toolrails"><img src="../_shared/products/toolrails/icon.svg" alt="Toolrails"></li>
+        <li data-id="fun-libs"><img src="../_shared/products/fun-libs/icon.png" alt="Fun Libs"></li>
+        <li data-id="harbor"><img src="../_shared/products/harbor/harbor-mark.svg" alt="Harbor"></li>
+      </ul>
+    </div>
+    <div class="sky">
+      <p><span id="h-clock">20:41</span> <b id="h-sun">sun +4.6&deg;</b></p>
+      <div class="sunbar"><i id="h-sunbar"></i></div>
+    </div>
+    <div class="hud-actions">
+      <button type="button" class="sound" data-sound aria-pressed="false"><span class="dot" aria-hidden="true"></span>Sound</button>
+      <button type="button" class="btn-skip" id="skip">Skip to the end <kbd>Esc</kbd></button>
+    </div>
+  </div>
+  <p class="score"><b id="h-score">0</b><span id="h-combo"></span></p>
+  <div class="hint" id="hint"><p id="hint-text"></p></div>
+  <div class="arrow" id="arrow" hidden><svg viewBox="0 0 24 24"><path d="M4 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="stick" id="stick" hidden><i></i></div>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <aside class="card" id="card" hidden aria-live="polite"></aside>
+</div>
+
+<!-- score card = contact card -->
+<div class="end" id="end" hidden role="dialog" aria-modal="false" aria-labelledby="end-title">
+  <article class="postcard">
+    <section class="pc-score">
+      <p class="eyebrow">The evening post</p>
+      <h2 id="end-title"><span id="e-rank">First class</span></h2>
+      <dl class="pc-stats">
+        <div><dt>Letters</dt><dd id="e-letters">0 of 0</dd></div>
+        <div><dt>Products</dt><dd id="e-products">0 of 4</dd></div>
+        <div><dt>Lights</dt><dd id="e-rings">0 of 0</dd></div>
+        <div><dt>Score</dt><dd id="e-score">0</dd></div>
+      </dl>
+      <ul class="pc-products" id="e-list"></ul>
+      <div class="pc-actions">
+        <button type="button" class="btn btn-fly small" id="again">Fly again</button>
+        <a class="btn btn-quiet small" href="#products" id="e-products-link">See the products</a>
+      </div>
+    </section>
+    <section class="pc-address">
+      <div class="pc-stamp" aria-hidden="true"><img src="assets/mark.svg" alt=""><span>Albretsen AS</span></div>
+      <div class="pc-postmark" aria-hidden="true"><span id="e-date">23 OCT 2026</span><span>NORWAY</span></div>
+      <address>
+        <strong>Asgeir Albretsen</strong>
+        <span>Albretsen AS &middot; Norway</span>
+        <span class="pc-line">Builds apps, SaaS and infrastructure for AI agents.</span>
+        <a href="mailto:asgeir@albretsen.no" class="pc-mail">asgeir@albretsen.no</a>
+        <span class="pc-avail">Takes one outside engagement at a time.</span>
+      </address>
+    </section>
+  </article>
+</div>
+
+<main>
+  <section class="products" id="products" aria-labelledby="p-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="eyebrow">Products</p>
+        <h2 id="p-title">Four addresses on the round</h2>
+        <p class="sec-intro">Albretsen AS builds whatever earns its keep. Two products are live, one is being built and one is paused. Each has a building in the town, and its figure is the real one.</p>
+      </header>
+      <ol class="grid" id="grid">
+        <li class="prod" data-id="mcp-emails">
+          <div class="prod-top"><img src="../_shared/products/mcp-emails/logo-mark.svg" width="44" height="44" alt=""><span class="status live">Live</span></div>
+          <h3>MCP Emails</h3>
+          <p class="fig"><b>$782</b><span>MRR</span></p>
+          <p class="line">Email for AI agents.</p>
+          <ul class="facts"><li>17 tools</li><li>about 100 email providers</li><li>open source (AGPL)</li></ul>
+          <p class="where">The post office, row two</p>
+          <a class="url" href="https://mcpemails.com">mcpemails.com</a>
+        </li>
+        <li class="prod" data-id="fun-libs">
+          <div class="prod-top"><img src="../_shared/products/fun-libs/icon.png" width="44" height="44" alt=""><span class="status live">Live</span></div>
+          <h3>Fun Libs</h3>
+          <p class="fig"><b>113,000+</b><span>installs</span></p>
+          <p class="line">A fill-in-the-blanks word game for Android and iOS.</p>
+          <ul class="facts"><li>built at 17</li><li>no marketing</li><li>v5 shipped 2026</li></ul>
+          <p class="where">The arcade, under the church</p>
+          <a class="url" href="https://funlibs.app">funlibs.app</a>
+        </li>
+        <li class="prod" data-id="toolrails">
+          <div class="prod-top"><img src="../_shared/products/toolrails/icon.svg" width="44" height="44" alt=""><span class="status building">Building</span></div>
+          <h3>Toolrails</h3>
+          <p class="fig"><b>4</b><span>connectors</span></p>
+          <p class="line">One MCP URL that gives an agent every tool.</p>
+          <ul class="facts"><li>tool search</li><li>injection guard</li></ul>
+          <p class="where">The workshop, east end</p>
+          <a class="url" href="https://toolrails.com">toolrails.com</a>
+        </li>
+        <li class="prod" data-id="harbor">
+          <div class="prod-top"><img src="../_shared/products/harbor/harbor-mark.svg" width="44" height="44" alt=""><span class="status paused">Paused</span></div>
+          <h3>Harbor</h3>
+          <p class="fig"><b>549</b><span>commits</span></p>
+          <p class="line">A private knowledge base shared by people and AI.</p>
+          <ul class="facts"><li>self-hostable</li><li>AI edits held for approval</li></ul>
+          <p class="where">The library, on the axis</p>
+          <a class="url" href="https://harborknowledge.com">harborknowledge.com</a>
+        </li>
+      </ol>
+
+      <div class="retired">
+        <h3>Returned to sender</h3>
+        <p class="sec-intro">Retired products, with the lights off.</p>
+        <ul id="retired">
+          <li><b>Luma</b><span>2026</span><em>Norwegian budgeting app with open banking.</em></li>
+          <li><b>Polyglot Pilot</b><span>2025</span><em>Agents that localised entire codebases, with a dashboard for human reviewers.</em></li>
+          <li><b>PinPoint</b><span>2025</span><em>GeoGuessr with your own photos: friends guess where your pictures were taken.</em></li>
+          <li><b>WebVakt</b><span>2024</span><em>Website change monitoring.</em></li>
+          <li><b>Daily Jokes / Joke Central</b><span>2024</span><em>Joke apps for iOS and Android.</em></li>
+          <li><b>Tryggere Hyring</b><span>2023</span><em>Background checks for hiring.</em></li>
+          <li><b>IAGO HMS, Rentekalkulator, Prosentkalkulator</b><span>2021</span><em>Early apps.</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <p class="avail">Takes one outside engagement at a time.</p>
+    <a class="mail" href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a>
+    <p class="mcp"><span>For your agent</span><code>claude mcp add albretsen https://albretsen.no/mcp</code></p>
+    <p class="small">Albretsen AS &middot; Norway &middot; The town is built from the studio's own low-poly kit and rendered live with three.js.</p>
+  </div>
+</footer>
+
+<script type="importmap">
+{ "imports": {
+  "three": "../_shared/3d/architecture/vendor/three.module.min.js",
+  "three/addons/": "./vendor/addons/"
+} }
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

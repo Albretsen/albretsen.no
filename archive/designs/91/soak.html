@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#123;color:#fff;font:12px monospace}canvas{width:300px;height:200px}pre{white-space:pre-wrap}</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }</script></head>
+<body><pre id="o">running</pre><canvas id="c"></canvas>
+<script>window.onerror=(m,s,l)=>{document.getElementById('o').textContent+='\nERR '+m+' '+s+':'+l};addEventListener('unhandledrejection',e=>{document.getElementById('o').textContent+='\nREJ '+(e.reason&&e.reason.stack||e.reason)})</script>
+<script type="module">
+// Simulation soak test: run the town through two days, with scrubbing, and report what everyone is doing.
+import { createLivingTown } from './js/scene.js';
+const O = document.getElementById('o');
+const log = (s) => { O.textContent += '\n' + s; };
+log('loading');
+const T = await createLivingTown(document.getElementById('c'), { adaptive: false, lite: true });
+const L = T.life;
+log('loaded ' + ((performance.now()) | 0));
+const tick = () => new Promise((r) => setTimeout(r, 0));
+let h = 5.5; T.setHour(h); L.settle(h);
+const t0 = performance.now();
+let errors = 0;
+function step(dt, dh, hurry) {
+  h = (h + dh) % 24; L.hurry = hurry;
+  try { T.lights.update(dt, h, T.state.e); L.update(dt, h); T.setHour(h); } catch (e) { errors++; if (errors < 4) log('EXC ' + e.stack); }
+}
+// a calm day at 120x speed: 0.05 s steps, 0.0017 h each
+for (let i = 0; i < 24 * 600; i++) { step(0.05, 0.05 * 120 / 3600, false); if (i % 600 === 0) { log('h ' + h.toFixed(1)); await tick(); } }
+const snap = (label) => log(label + ' ' + h.toFixed(2) + ': ' + L.people.map((p) => `${p.id}:${p.state}${p.act ? '/' + p.act.act : ''}`).join(' '));
+snap('after day');
+// scrub hard: random jumps
+for (let k = 0; k < 40; k++) { const target = Math.random() * 24; for (let i = 0; i < 40; i++) step(0.03, ((target - h + 24) % 24) / 40, true); }
+snap('after scrub');
+// settle 60 s at 19.4
+h = 19.4; for (let i = 0; i < 1200; i++) step(0.05, 0, false);
+snap('sunset');
+const lit = Object.values(T.world.sites).filter((s) => s.occupants && s.occupants.size).map((s) => s.id + '=' + [...s.occupants.keys()].join('+'));
+log('occupied: ' + lit.join(' '));
+h = 23.0; for (let i = 0; i < 1600; i++) step(0.05, 0, false);
+snap('23:00');
+log('homes lit: ' + T.lights.sites.filter((x) => x.s.kind === 'home').map((x) => x.s.id + ':' + (x.groups.emissive_window_1?.m.emissiveIntensity || 0).toFixed(1)).join(' '));
+const stuck = L.people.filter((p) => p.state === 'travel' && p.route.length === 0);
+log('errors ' + errors + ' · stuck ' + stuck.length + ' · ' + ((performance.now() - t0) | 0) + ' ms');
+log('DONE');
+</script></body></html>

@@ -1,0 +1,18 @@
+{
+  "name": "Town through time",
+  "tagline": "A hillside town that builds itself from 2016 to today, one product building at a time.",
+  "summary": "A Heure Bleue variation played as a small city-builder time-lapse. Scrub the years and each of Asgeir's products rises out of a blueprint in the year it started, with houses, trees, traffic and townsfolk filling in around them. Scrub the sun and the windows switch on at dusk and off again when the town goes to bed, while the live products keep their lights on. Retired products close their shutters but stay standing, so the town is an honest record: what runs, what is being built, and what was learned on the way.",
+  "palette": ["#232c57", "#f4eadb", "#ffd27a", "#f2b5b8", "#d9a42b", "#6e1f33", "#a9c6e0", "#8a5a3c"],
+  "type": ["Federo", "Instrument Sans", "Poiret One (years and large figures only)"],
+  "voice": "Plain and exact, like a town ledger. It names the year, what opened and what is still running, then stops. Example: \"Live: MCP Emails, Fun Libs. 7 retired, shutters closed.\"",
+  "motion": "Townscaper-soft: buildings rise out of a glowing blueprint with a squash and a dust puff, windows switch in steps rather than fade, and the camera cranes back slowly as the town grows.",
+  "sound": "Silent by default. Switched on, a low evening hush, a wooden thunk and a pentatonic pluck as each building lands, a light-switch click when you flick a house, and a glass chime when a product card opens.",
+  "mark": "The Heure Bleue terrace window beside ALBRETSEN AS in spaced Federo capitals; in the town itself the gate over the coast road carries the name and rises in 2026, the year the company was founded.",
+  "inspiration": [
+    "https://www.townscapergame.com",
+    "https://en.wikipedia.org/wiki/SimCity",
+    "https://dinopoloclub.com/games/mini-motorways/",
+    "https://www.monumentvalleygame.com",
+    "https://www.w3.org/WAI/ARIA/apg/patterns/slider/"
+  ]
+}

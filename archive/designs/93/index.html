@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Albretsen · Lamplighter</title>
+<meta name="description" content="Asgeir Albretsen builds and runs apps, SaaS and infrastructure for AI agents. Light the town's lamps at blue hour to see what he has built.">
+<meta name="theme-color" content="#1b2148">
+<link rel="preload" as="image" imagesrcset="assets/poster-1600.webp 1600w, assets/poster-2400.webp 2400w" imagesizes="100vw" type="image/webp" media="(min-width: 700px)">
+<link rel="preload" as="image" href="assets/poster-tall-900.webp" type="image/webp" media="(max-width: 699px)">
+<link rel="preload" as="font" href="assets/fonts/federo-latin.woff2" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css">
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three.module.min.js",
+  "three/addons/": "./vendor/addons/"
+} }
+</script>
+</head>
+<body>
+<a class="skiplink" href="#work">Skip to the products</a>
+
+<header class="top">
+  <a class="mark" href="#top" aria-label="Albretsen, top of page">
+    <svg viewBox="0 0 24 32" aria-hidden="true"><path d="M12 1.5c-5.8 0-10.5 4.7-10.5 10.5V30.5h21V12C22.5 6.2 17.8 1.5 12 1.5Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 9.2c1.9 2.1 2.9 3.8 2.9 5.4a2.9 2.9 0 0 1-5.8 0c0-1.6 1-3.3 2.9-5.4Z" fill="#ffd27a"/><path d="M5.5 24h13M8 27.5h8" stroke="currentColor" stroke-width="1.6"/></svg>
+    <span>ALBRETSEN</span>
+  </a>
+  <nav aria-label="Main">
+    <a href="#work">Products</a>
+    <a href="#contact">Contact</a>
+    <button type="button" id="sound" class="sound" aria-pressed="false">Sound <span>off</span></button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="top" aria-label="Lamplighter, a small game">
+  <picture class="poster" aria-hidden="true">
+    <source media="(max-width: 699px)" srcset="assets/poster-tall-900.webp" type="image/webp">
+    <source media="(max-width: 699px)" srcset="assets/poster-tall-900.jpg">
+    <source srcset="assets/poster-1600.webp 1600w, assets/poster-2400.webp 2400w" sizes="100vw" type="image/webp">
+    <img src="assets/poster-1600.jpg" alt="" width="1600" height="1000" decoding="async" fetchpriority="high">
+  </picture>
+  <canvas id="scene" aria-label="The town at blue hour. Walk with WASD or the arrow keys, or click where to go." tabindex="-1"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+
+  <div class="intro" id="intro">
+    <p class="eyebrow">Albretsen AS · Norway</p>
+    <h1>Asgeir Albretsen</h1>
+    <p class="lede">Builds and runs apps, SaaS and infrastructure for AI&nbsp;agents.</p>
+    <div class="pitch">
+      <p><strong>Lamplighter.</strong> Blue hour, and the street lamps are out. Light the town before dark. Each district you light shows one thing he built.</p>
+      <div class="actions">
+        <button type="button" class="btn primary" id="play"><span class="label">Light the lamps</span><span class="load" aria-hidden="true"><i></i></span></button>
+        <button type="button" class="btn ghost" id="skip0">Skip to the lit town</button>
+      </div>
+      <p class="keys"><span class="kb">WASD or arrows to walk · click where to go · Shift to hurry</span><span class="touch">Drag to walk · tap a lamp to go to it</span></p>
+    </div>
+  </div>
+
+  <div class="hud" id="hud" hidden>
+    <div class="count" aria-live="polite"><b id="lit">0</b><span>/ <i id="total">16</i></span><em>lamps lit</em></div>
+    <div class="dusk" aria-hidden="true"><div class="track"><i id="sunpip"></i></div><span id="elev">Sun 4.5°</span></div>
+    <button type="button" class="btn ghost small" id="skip">Skip</button>
+  </div>
+  <p class="hint" id="hint" aria-live="polite"></p>
+  <div class="cards" id="cards" aria-live="polite"></div>
+  <div class="arrow" id="arrow" aria-hidden="true"><i></i></div>
+  <div class="stick" id="stick" aria-hidden="true"><i></i></div>
+
+  <div class="finale" id="finale" hidden>
+    <p class="eyebrow" id="finale-eyebrow">Night, and the town is lit</p>
+    <h2 class="wordmark">ALBRETSEN</h2>
+    <p class="who">Asgeir Albretsen builds and runs apps, SaaS and infrastructure for AI agents, through Albretsen&nbsp;AS.</p>
+    <p class="stat" id="stat"></p>
+    <p class="avail">Takes one outside engagement at a time. <a href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+    <ul class="chips" id="chips" aria-label="What the lamps lit"></ul>
+    <div class="actions">
+      <a class="btn primary" href="#work">See the products</a>
+      <button type="button" class="btn ghost" id="again">Play again</button>
+    </div>
+  </div>
+  <p class="feedline" id="feedline" aria-live="off"></p>
+</section>
+
+<section class="work" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <p class="eyebrow">What the lamps light</p>
+    <h2 id="work-h">Small software, run properly.</h2>
+    <p class="sub" id="work-sub"></p>
+    <div class="products" id="products"></div>
+    <div class="retired">
+      <h3>Retired, with the lights off</h3>
+      <ul id="retired"></ul>
+    </div>
+  </div>
+</section>
+
+<section class="feed" aria-labelledby="feed-h">
+  <div class="wrap">
+    <h2 id="feed-h">From the products, lately <span id="feed-tag" class="tag"></span></h2>
+    <ol id="feed"></ol>
+  </div>
+</section>
+</main>
+
+<footer class="foot" id="contact">
+  <div class="wrap">
+    <p class="avail">Takes one outside engagement at a time.</p>
+    <p class="mail"><a href="mailto:asgeir@albretsen.no">asgeir@albretsen.no</a></p>
+    <p class="mcp"><span>For agents:</span> <code id="mcp"></code> <button type="button" id="copy" class="btn ghost small">Copy</button></p>
+    <p class="small">Albretsen AS · Norway · The town is built from the Heure Bleue kit; the lamps are lit by hand.</p>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -151,7 +151,7 @@ export function mergeStatic(THREE, root) {
     drop.push(o);
   });
   const out = [];
-  const v = new THREE.Vector3(), nm = new THREE.Matrix3();
+  const nm = new THREE.Matrix3();
   for (const [key, { material, parts }] of buckets) {
     let nv = 0, ni = 0;
     for (const { g } of parts) { nv += g.attributes.position.count; ni += g.index ? g.index.count : g.attributes.position.count; }
@@ -160,11 +160,23 @@ export function mergeStatic(THREE, root) {
     for (const { g, m } of parts) {
       const P = g.attributes.position, N = g.attributes.normal;
       nm.getNormalMatrix(m);
-      for (let i = 0; i < P.count; i++) {
-        v.fromBufferAttribute(P, i).applyMatrix4(m); pos.set([v.x, v.y, v.z], (ov + i) * 3);
-        if (N) { v.fromBufferAttribute(N, i).applyMatrix3(nm).normalize(); nor.set([v.x, v.y, v.z], (ov + i) * 3); }
+      // Vector3.applyMatrix4 / applyMatrix3 + normalize written out (same operations in the same
+      // order, so the same numbers), without a Vector3 and a temporary array per vertex
+      const e = m.elements, n = nm.elements;
+      for (let i = 0, o = ov * 3; i < P.count; i++, o += 3) {
+        let x = P.getX(i), y = P.getY(i), z = P.getZ(i);
+        const w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15]);
+        pos[o] = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w;
+        pos[o + 1] = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w;
+        pos[o + 2] = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w;
+        if (N) {
+          const a = N.getX(i), b = N.getY(i), c = N.getZ(i);
+          x = n[0] * a + n[3] * b + n[6] * c; y = n[1] * a + n[4] * b + n[7] * c; z = n[2] * a + n[5] * b + n[8] * c;
+          const k = 1 / (Math.sqrt(x * x + y * y + z * z) || 1);
+          nor[o] = x * k; nor[o + 1] = y * k; nor[o + 2] = z * k;
+        }
       }
-      if (g.index) for (let i = 0; i < g.index.count; i++) idx[oi + i] = g.index.getX(i) + ov;
+      if (g.index) { const I = g.index.array; for (let i = 0; i < g.index.count; i++) idx[oi + i] = I[i] + ov; }
       else for (let i = 0; i < P.count; i++) idx[oi + i] = ov + i;
       ov += P.count; oi += g.index ? g.index.count : P.count;
     }

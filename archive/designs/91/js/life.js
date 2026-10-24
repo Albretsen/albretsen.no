@@ -559,6 +559,31 @@ export class Life {
     if (was && !now) this.onLight(s, p, false);
   }
 
+  /**
+   * Download every model the cast needs while the town loads, but parse each one only when spawn()
+   * asks for it, as before (parsing them all at once would be one long task). Townsfolk caches its
+   * loads by file; a cache entry here is a thenable that parses the prefetched bytes on first use.
+   */
+  static prefetch(town, { extras = true } = {}) {
+    const cast = extras ? [...MAIN, ...EXTRAS] : MAIN;
+    const files = new Set(['townsfolk-anims', 'props', ...cast.map((d) => d.model)]);
+    if (cast.some((d) => d.dog)) files.add('dog');
+    if (cast.some((d) => d.bike)) files.add('bicycle');
+    for (const f of files) {
+      const file = f + '.glb', url = town.base + file;
+      if (town.cache.has(file)) continue;
+      const bytes = fetch(url).then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(`${url}: ${r.status}`))));
+      bytes.catch(() => {});
+      let parsed = null;
+      // each parse in a task of its own, as when the files arrived one by one over the network
+      const parse = () => (parsed ??= bytes.then(
+        (b) => new Promise((r) => setTimeout(r, 0)).then(() => town.loader.parseAsync(b, THREE.LoaderUtils.extractUrlBase(url))),
+        () => town.loader.loadAsync(url),   // the prefetch failed: load it the usual way
+      ));
+      town.cache.set(file, { then: (ok, no) => parse().then(ok, no) });
+    }
+  }
+
   async spawn(town = new Townsfolk(), { onProgress = () => {}, extras = true } = {}) {
     CAST = extras ? [...MAIN, ...EXTRAS] : MAIN;
     this.folk = town;

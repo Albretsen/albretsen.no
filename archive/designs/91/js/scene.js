@@ -35,6 +35,9 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   // ---------------------------------------------------------------- load the town and its people
   let pTown = 0, pPeople = 0;
   const report = () => onProgress(pTown * 0.7 + pPeople * 0.3);
+  // the townsfolk download alongside the town instead of after it
+  const folk = new Townsfolk();
+  Life.prefetch(folk);
   const world = await buildTown({ lite, onProgress: (p) => { pTown = p; report(); } });
   scene.add(world.root);
   // everything in the world that never moves casts its shadow through one baked mesh per culling side;
@@ -49,7 +52,7 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   let shadowBake = null;
   if (rig.key.castShadow) bakeStaticShadows(scene, camera, world.root, rig.key, (o) => moving.has(o)).then((r) => { shadowBake = r; });
   const life = new Life(scene, world);
-  await life.spawn(new Townsfolk(), { onProgress: (p) => { pPeople = p; report(); } });
+  await life.spawn(folk, { onProgress: (p) => { pPeople = p; report(); } });
   const lights = new TownLights(world, life);
   const glow = makeGlowPools(world);
   scene.add(glow.group);

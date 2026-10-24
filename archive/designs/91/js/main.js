@@ -269,6 +269,7 @@ $('copy').addEventListener('click', async () => {
 const stage = $('stage');
 // the stage size, kept by a ResizeObserver (reading clientWidth every frame forced a style and layout pass)
 let stageW = stage.clientWidth, stageH = stage.clientHeight;
+let heroOn = true;   // the town is on screen (set by the frame loop's IntersectionObserver)
 function webgl2() { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } }
 
 let T = null;
@@ -315,7 +316,7 @@ async function boot() {
   if (!SHOT && store.get('lt-coach') !== 'done') setTimeout(() => coachShow(0), reduced ? 600 : 4200);
 
   let visible = true;
-  new IntersectionObserver(([en]) => { visible = en.isIntersecting; }, { threshold: 0.02 }).observe(stage);
+  new IntersectionObserver(([en]) => { visible = heroOn = en.isIntersecting; }, { threshold: 0.02 }).observe(stage);
   // a resized window or a turned phone: match the drawing buffer to the new size (it used to stay at
   // the size it started with, stretched), just before the next frame renders, since a resize clears it
   let sized = stageW + 'x' + stageH;
@@ -724,7 +725,14 @@ function startScreens(T) {
     tex.needsUpdate = true;
   };
   for (const s of sites) draw(s);
-  setInterval(() => { if (!sites.length) return; draw(sites[i++ % sites.length]); }, 700);
+  // one screen at a time, only while someone can see them; all of them again on the way back
+  let away = false;
+  setInterval(() => {
+    if (!sites.length) return;
+    if (!heroOn || document.hidden) { away = true; return; }
+    if (away) { away = false; sites.forEach(draw); return; }
+    draw(sites[i++ % sites.length]);
+  }, 700);
   // a figure rolling to a new value redraws its screen every frame until it lands
   screensDirty = () => { for (const s of sites) if (figures.get(s.product)?.rolling) draw(s); };
   figures.subscribe((id) => { for (const s of sites) if (s.product === id) draw(s); });

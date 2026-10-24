@@ -12,9 +12,12 @@ const $ = (id) => document.getElementById(id);
 const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
 
 // ------------------------------------------------------------------ the clock
+// ?t=19.45 or ?hour=19.45 (or ?hour=19:27) fixes the clock for a review link
+const HOUR_Q = Q.get('t') ?? Q.get('hour');
+const fixedHour = HOUR_Q == null ? null : HOUR_Q.includes(':') ? +HOUR_Q.split(':')[0] + (+HOUR_Q.split(':')[1] || 0) / 60 : +HOUR_Q;
 const clock = {
-  live: !Q.has('t'),
-  hour: Q.has('t') ? wrap24(+Q.get('t')) : osloHour(),
+  live: !Number.isFinite(fixedHour),
+  hour: Number.isFinite(fixedHour) ? wrap24(fixedHour) : osloHour(),
   tween: null,
   hurryUntil: 0,
 };
@@ -198,24 +201,30 @@ async function startFeed() {
 
 // ------------------------------------------------------------------ live figures
 const figures = createFigures(content.products);
-const figureEls = [];   // [{ id, b, fresh }] in the products section
+const figureEls = [];   // [{ id, b, lab, fresh }] in the products section
+// '10,203 NOK' -> ['10,203', 'NOK']: the number is set large, its unit small beside the label, so a figure
+// with a currency reads as one line ('10,203' NOK MRR) at the same size as the others
+const splitFigure = (text) => { const m = /^(.*\d\+?)\s+([A-Za-z]{1,8})$/.exec(String(text)); return m ? [m[1], m[2]] : [String(text), '']; };
+const unitLabel = (unit, label) => [unit, label].filter(Boolean).join(' ');
 let screensDirty = () => {};
 function paintFresh(el, f) { el.textContent = f.fresh; el.hidden = !f.fresh; el.classList.toggle('is-live', f.fresh === 'live'); }
 function paintFigures() {
-  for (const { id, b, fresh } of figureEls) {
+  for (const { id, b, lab, fresh } of figureEls) {
     const f = figures.get(id); if (!f) continue;
-    if (b.textContent !== f.text) b.textContent = f.text;
-    b.classList.toggle('long', f.text.length > 8);
+    const [num, unit] = splitFigure(f.text), l = ' ' + unitLabel(unit, f.label);
+    if (b.textContent !== num) b.textContent = num;
+    if (lab.textContent !== l) lab.textContent = l;
+    b.classList.toggle('long', num.length > 8);
     if (f.exact) b.title = f.exact; else b.removeAttribute('title');
     paintFresh(fresh, f);
   }
   const s = cardFor && T ? T.world.sites[cardFor] : null;
   const f = s && figures.get(s.product);
   if (f) {
-    const val = $('card-value');
-    if (val.textContent !== f.text) val.textContent = f.text;
+    const val = $('card-value'), [num, unit] = splitFigure(f.text);
+    if (val.textContent !== num) val.textContent = num;
     if (f.exact) val.title = f.exact; else val.removeAttribute('title');
-    $('card-label').textContent = f.label || '';
+    $('card-label').textContent = unitLabel(unit, f.label);
     paintFresh($('card-fresh'), f);
   }
 }
@@ -224,8 +233,12 @@ document.querySelectorAll('.pcard').forEach((li) => {
   const id = SITE_PRODUCT[li.dataset.site], b = li.querySelector('.figure b');
   if (!id || !b) return;
   const fresh = document.createElement('small'); fresh.className = 'fresh'; fresh.hidden = true;
+  // the unit and label after the number, in a span of their own so a live figure can change them
+  const lab = document.createElement('span');
+  while (b.nextSibling) lab.append(b.nextSibling);
+  b.after(lab);
   b.parentNode.append(fresh);
-  figureEls.push({ id, b, fresh });
+  figureEls.push({ id, b, lab, fresh });
 });
 let rollRaf = 0;
 function rollFigures() {
@@ -273,6 +286,7 @@ let heroOn = true;   // the town is on screen (set by the frame loop's Intersect
 function webgl2() { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } }
 
 let T = null;
+let keepStill = () => {};
 async function boot() {
   const loader = $('loader'), fill = $('loader-fill');
   loader.hidden = false;
@@ -315,9 +329,33 @@ async function boot() {
   }
   if (!SHOT && store.get('lt-coach') !== 'done') setTimeout(() => coachShow(0), reduced ? 600 : 4200);
 
-  // the GPU took the context away: the poster stands in until the town is back, never an empty frame
-  stage.addEventListener('webglcontextlost', () => stage.classList.remove('on'));
-  stage.addEventListener('webglcontextrestored', () => setTimeout(() => stage.classList.add('on'), 250));
+  // The GPU took the context away. Chrome paints a lost canvas white with a placeholder at once, so the
+  // canvas goes out at once too (no fade through white), and a small copy of the last frame stands in:
+  // same hour, same view. Until a copy exists, the poster does. When the town is back, the copy fades.
+  const still = document.createElement('canvas');
+  still.className = 'still'; still.hidden = true; still.setAttribute('aria-hidden', 'true');
+  stage.after(still);
+  let stillAt = performance.now(), stillOk = false;   // the first copy once the town has settled (4 s in)
+  keepStill = (now) => {
+    if (now - stillAt < 4000 || T.lost) return;
+    stillAt = now;
+    const w = Math.max(1, stage.width >> 2), h = Math.max(1, stage.height >> 2);
+    if (still.width !== w || still.height !== h) { still.width = w; still.height = h; }
+    try { still.getContext('2d').drawImage(stage, 0, 0, w, h); stillOk = true; } catch { stillOk = false; }
+  };
+  stage.addEventListener('webglcontextlost', () => {
+    stage.style.transition = 'none';
+    stage.classList.remove('on');
+    if (stillOk) { still.classList.remove('gone'); still.hidden = false; }
+  });
+  stage.addEventListener('webglcontextrestored', () => setTimeout(() => {
+    if (still.hidden) { stage.style.transition = SHOT ? 'none' : ''; stage.classList.add('on'); return; }
+    stage.classList.add('on');   // at once, under the copy
+    setTimeout(() => {
+      still.classList.add('gone');
+      setTimeout(() => { still.hidden = true; stage.style.transition = SHOT ? 'none' : ''; }, 700);
+    }, 100);
+  }, 250));
   let visible = true;
   new IntersectionObserver(([en]) => { visible = heroOn = en.isIntersecting; }, { threshold: 0.02 }).observe(stage);
   // a resized window or a turned phone: match the drawing buffer to the new size (it used to stay at
@@ -332,6 +370,7 @@ async function boot() {
       T.life.hurry = performance.now() < clock.hurryUntil;
       T.setHour(clock.hour);
       T.frame(dt);
+      keepStill(now);
       updateOverlays(T);
       if (Math.floor(now / 250) !== Math.floor((now - dt * 1000) / 250)) renderClock();
     }
@@ -530,8 +569,9 @@ function openCard(T, siteId) {
   $('card-logo').src = LOGOS[p.id];
   $('card-status').textContent = `${STATUS[p.status] || p.status} · since ${p.since}`;
   $('card-name').textContent = p.name;
-  $('card-value').textContent = p.figure?.value || '';
-  $('card-label').textContent = p.figure?.label || '';
+  const [num, unit] = splitFigure(p.figure?.value || '');
+  $('card-value').textContent = num;
+  $('card-label').textContent = unitLabel(unit, p.figure?.label);
   $('card-fresh').hidden = true;
   paintFigures();
   $('card-line').textContent = p.line;

@@ -149,3 +149,27 @@ test('phases and activities map from the clock and the cast', () => {
 test('unknown characters say nothing', () => {
   assert.equal(pick('nobody', { hour: 12 }), null);
 });
+
+test('a ref is only said where its time and activity fit (no evening library lamp at a noon café table)', () => {
+  const rand = seeded(7);
+  for (let i = 0; i < 3000; i++) {
+    const said = pick('henri', { hour: 12.5, activity: 'cafe', recent: new Set(), rand });
+    assert.doesNotMatch(said.text, /lamp/i, said.text);
+  }
+  const refRows = Object.entries(DIALOG).flatMap(([id, e]) => e.refs.map((r) => ({ id, w: r[0], a: r[1], t: r[2] })));
+  for (const id of MAIN) {
+    for (const [phase, hour] of Object.entries(PHASE_HOUR)) {
+      for (const activity of ACTIVITIES) {
+        const r2 = seeded(3);
+        for (let i = 0; i < 40; i++) {
+          const said = pick(id, { hour, activity, recent: new Set(), rand: r2 });
+          if (!said || !said.ref || said.reply) continue;
+          const row = refRows.find((r) => r.id === id && r.t === said.text);
+          assert.ok(row, said.text);
+          if (row.w) assert.ok(row.w.split(' ').includes(phase), `${id} ${phase}: ${row.t}`);
+          if (row.a) assert.ok(row.a.split(' ').includes(activity), `${id} ${activity}: ${row.t}`);
+        }
+      }
+    }
+  }
+});

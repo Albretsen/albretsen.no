@@ -179,7 +179,7 @@ export const DIALOG = {
     ],
     refs: [
       ['morning afternoon', 'watering bench', 'Asgeir asked how to water lemons. A serious young man.'],
-      ['', 'stroll bench', 'The library is resting. They left one lamp on. Very civil.'],
+      ['golden sunset blue night late', 'stroll bench', 'The library is resting. They left one lamp on. Very civil.'],
       ['afternoon', 'bench', 'Odile tried that word game. She chose "magnificent" every time.'],
     ],
   },
@@ -197,7 +197,7 @@ export const DIALOG = {
       ['midday', 'cafe', 'A slice of the tarte, and a second fork for Henri.'],
       ['', 'cafe', 'Marcel remembers everyone\'s order. Like a little poem.'],
       ['midday', 'cafe', 'Marcel, you spoil us. Do keep doing it.'],
-      ['', 'cafe', 'A table in the sun and Henri across it. Lovely.'],
+      ['morning midday afternoon golden', 'cafe', 'A table in the sun and Henri across it. Lovely.'],
       ['midday', 'bench', 'Noon already! The morning simply flew by.'],
       ['afternoon golden', 'stroll', 'Arm, Henri. There. Now we are a parade.'],
       ['golden', 'stroll', 'Bonsoir, Lucie! What a lovely basket!'],
@@ -374,7 +374,7 @@ export const DIALOG = {
     ],
     refs: [
       ['afternoon', 'wander', 'The new arcade! Léo talks about Fun Libs all week.'],
-      ['', '', 'The library is resting. I like that they kept the lamp on.'],
+      ['golden sunset blue night late', '', 'The library is resting. I like that they kept the lamp on.'],
       ['morning midday', '', 'Asgeir helped Léo fly his kite. Very patient.'],
     ],
   },
@@ -489,7 +489,7 @@ export const DIALOG = {
       ['', 'post wander', 'MCP Emails is email for AI agents. They write politely.'],
       ['', 'arcade', 'Fun Libs. Made it at seventeen. People still fill in the blanks.'],
       ['', 'workshop', 'Toolrails is coming along. The builder hums when it goes well.'],
-      ['', '', 'Harbor is resting for now. I left the reading lamp on.'],
+      ['golden sunset blue night late', '', 'Harbor is resting for now. I left the reading lamp on.'],
       ['', 'cafe bench', 'Albretsen AS is mostly a desk, a coffee and this view.'],
     ],
   },
@@ -534,7 +534,7 @@ export const DIALOG = {
       ['blue', 'bench', 'The lamps are on. One more look, then home.'],
     ],
     refs: [
-      ['', '', 'The library lamp is still on. I like that.'],
+      ['golden sunset blue night late', '', 'The library lamp is still on. I like that.'],
     ],
   },
 
@@ -616,7 +616,7 @@ const X = [
   ['asgeir', 'builder', 'blue night late', '', 'Lamp still on?', 'Always. Toolrails is coming along.', true],
   ['theo', 'marcel', 'midday', 'cafe', 'Is it true the post office does email for robots?', 'Oui. Open all night. Very polite robots.', true],
   ['leo', 'asgeir', '', '', 'Did you really make Fun Libs?', 'At seventeen. You fill in the funny bits.', true],
-  ['odile', 'henri', '', 'bench', 'The library is closed, but the lamp is on.', 'Resting, not gone. Like us after lunch.', true],
+  ['odile', 'henri', 'sunset blue night', 'bench', 'The library is closed, but the lamp is on.', 'Resting, not gone. Like us after lunch.', true],
 ];
 
 export const EXCHANGES = X.map(([a, b, when, act, line, reply, ref]) => ({ a, b, when, act, line, reply, ref: !!ref }));
@@ -645,11 +645,14 @@ function remember(recent, key) {
 // Candidate lines in falling order of fit: right time and activity (or none named), timeless and
 // general, then right time with another activity (so nobody on a bench talks about their coffee
 // while a general line would do).
-function candidates(rows, phase, activity) {
+// A ref is rare and only said where it fits: the first two tiers, never a line for another activity
+// (Henri at a café table at noon used to get his evening bench line about the library lamp).
+// The last resort names this phase outright before it falls back to a timeless line for elsewhere.
+function candidates(rows, phase, activity, ref = false) {
   const tiers = [
     rows.filter(([w, a]) => fits(w, a, phase, activity)),
     rows.filter(([w, a]) => !w && !a),
-    rows.filter(([w]) => has(w, phase)),
+    ...(ref ? [] : [rows.filter(([w]) => w && has(w, phase)), rows.filter(([w]) => !w)]),
   ];
   return tiers.find((t) => t.length) || [];
 }
@@ -683,7 +686,7 @@ export function pick(id, ctx = {}) {
   }
 
   let ref = wantRef;
-  let pool = candidates(ref ? entry.refs : entry.lines, phase, activity);
+  let pool = candidates(ref ? entry.refs : entry.lines, phase, activity, ref);
   if (ref && !pool.length) { ref = false; pool = candidates(entry.lines, phase, activity); }
   if (!pool.length) return null;
   let fresh = recent ? pool.filter((r) => !recent.has(r[2])) : pool;

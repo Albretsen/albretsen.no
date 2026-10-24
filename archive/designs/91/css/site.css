@@ -30,6 +30,9 @@ button { font: inherit; color: inherit; }
 .poster img { object-fit: cover; display: block; }
 .stage { display: block; opacity: 0; transition: opacity 1.4s ease; touch-action: pan-y; cursor: grab; outline: none; }
 .stage.on { opacity: 1; }
+/* a small copy of the last frame, shown while the GPU context is lost */
+.still { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; transition: opacity .6s ease; }
+.still.gone { opacity: 0; }
 .stage.grabbing { cursor: grabbing; }
 .stage.pointing { cursor: pointer; }
 .veil { position: absolute; inset: 0; pointer-events: none; background:
@@ -164,7 +167,7 @@ button { font: inherit; color: inherit; }
 .pcard h3 a::after { content: ' \2197'; font-family: var(--text); font-size: .6em; opacity: .6; }
 .figure { margin: 12px 0 4px; color: rgba(244, 234, 219, .75); font-size: 14px; }
 .figure b { font: 400 44px/1 var(--figure); color: var(--lamp); margin-right: 3px; }
-/* a long figure (10,203 NOK) keeps to one line at a slightly smaller size */
+/* a very long number keeps to one line at a slightly smaller size (a currency is set small, after it) */
 .figure b.long { font-size: 34px; white-space: nowrap; }
 /* freshness of a live figure: shown only when the live store has one */
 .fresh { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .72; white-space: nowrap; vertical-align: middle; }

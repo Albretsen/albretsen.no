@@ -267,6 +267,8 @@ $('copy').addEventListener('click', async () => {
 
 // ------------------------------------------------------------------ boot the town
 const stage = $('stage');
+// the stage size, kept by a ResizeObserver (reading clientWidth every frame forced a style and layout pass)
+let stageW = stage.clientWidth, stageH = stage.clientHeight;
 function webgl2() { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } }
 
 let T = null;
@@ -314,9 +316,14 @@ async function boot() {
 
   let visible = true;
   new IntersectionObserver(([en]) => { visible = en.isIntersecting; }, { threshold: 0.02 }).observe(stage);
+  // a resized window or a turned phone: match the drawing buffer to the new size (it used to stay at
+  // the size it started with, stretched), just before the next frame renders, since a resize clears it
+  let sized = stageW + 'x' + stageH;
+  new ResizeObserver(() => { stageW = stage.clientWidth; stageH = stage.clientHeight; }).observe(stage);
   function loop(now) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     if (visible && !document.hidden) {
+      if (stageW + 'x' + stageH !== sized) { sized = stageW + 'x' + stageH; T.resize(); }
       tickClock(dt);
       T.life.hurry = performance.now() < clock.hurryUntil;
       T.setHour(clock.hour);
@@ -628,7 +635,7 @@ function addNote(T, text, site) {
 }
 
 function updateOverlays(T) {
-  const W = stage.clientWidth, H = stage.clientHeight;
+  const W = stageW, H = stageH;
   const v = new T.THREE.Vector3();
   const place = (el, pos) => {
     v.copy(pos).project(T.camera);
@@ -645,7 +652,9 @@ function updateOverlays(T) {
     v.project(T.camera);
     const on = v.z < 1 && v.x > -1.2 && v.x < 1.2 && v.y > -1.2 && v.y < 1.3;
     if (!on) { b.el.style.visibility = 'hidden'; continue; }
-    const x = (v.x + 1) / 2 * W, w = b.el.offsetWidth, h = b.el.offsetHeight;
+    // a bubble's size only changes with the stage width: measure it once per width, not every frame
+    if (b.sizedAt !== W) { b.w = b.el.offsetWidth; b.h = b.el.offsetHeight; b.sizedAt = W; }
+    const x = (v.x + 1) / 2 * W, w = b.w, h = b.h;
     let y = (1 - v.y) / 2 * H;
     // two bubbles side by side: lift the later one clear of the first
     for (const o of placed) if (Math.abs(o.x - x) < (o.w + w) / 2 + 8 && y > o.y - o.h - 12 && y - h < o.y) y = o.y - o.h - 12;

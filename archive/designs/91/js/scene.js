@@ -9,6 +9,7 @@ import { buildTown, FRONT, DANCE } from './town.js';
 import { Life } from './life.js';
 import { TownLights, makeGlowPools } from './lights.js';
 import { bakeStaticShadows, steadyDepthMaterials } from './shadows.js';
+import { Clearance } from './clearance.js';
 
 export async function createLivingTown(canvas, { lite = false, reduced = false, adaptive = true, onProgress = () => {} } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance', alpha: false, stencil: false });
@@ -70,6 +71,8 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   // ---------------------------------------------------------------- post + camera
   const post = new Post(renderer, { msaa: lite ? 0 : 4, taps: lite ? 14 : 30, bloomScale: lite ? 0.35 : 0.5 });
   const cam = new CameraRig(camera, canvas, { reduced });
+  // the props the camera steers around, measured in idle time once the town is up
+  (window.requestIdleCallback || ((f) => setTimeout(f, 200)))(() => { cam.clear = new Clearance(world.root, world.parasols.map((p) => p.open)); }, { timeout: 2000 });
 
   const state = { hour: 12, e: 30, focusOn: null, aperture: 16, focusDist: 70, tilt: 0.3, quality: 1 };
 
@@ -118,14 +121,22 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
       const fps = frames / (acc - lastCheck);
       frames = 0; lastCheck = acc;
       const top = Math.min(devicePixelRatio || 1, maxDpr);
-      // a step down that did not help (the browser caps the frame rate, as in Low Power Mode, or the
-      // time goes somewhere else): step back up and stay there, sharp, rather than blurry at the same speed
+      // Steps down that did not help (the browser caps the frame rate, as in Low Power Mode, or the time
+      // goes to the CPU, not the pixels): back to where the stepping began, and stay there, sharp, rather
+      // than blurry at the same speed. A run of steps counts as helping only if, all together, they made
+      // the town at least 15 % faster: one noisy reading no longer sends it a second step down.
       let undone = false;
-      if (drop) { const d = drop; drop = null; if (fps < d.fps * 1.08 && fps < 42) { floor = d.from; dpr = d.from; resize(); undone = true; } }
+      if (drop) {
+        if (fps < 42 && fps < drop.fps * 1.15) { floor = drop.from; dpr = drop.from; drop = null; resize(); undone = true; }
+        else if (fps >= 42) drop = null;   // it helped: keep this resolution
+      }
       // each time a resolution fails again it waits twice as long before the next try (30 s, 1 min, 2 min...)
-      if (undone) { /* stay */ } else if (fps < 42 && dpr > Math.max(0.75, floor)) { drop = { from: dpr, fps }; if (Math.abs(failedDpr - dpr) < 1e-3) fails++; else fails = 1; failedDpr = dpr; failedAt = acc; dpr = Math.max(0.75, dpr - 0.25); resize(); }
+      if (undone) { /* stay */ } else if (fps < 42 && dpr > Math.max(0.75, floor)) { if (!drop) drop = { from: dpr, fps }; if (Math.abs(failedDpr - dpr) < 1e-3) fails++; else fails = 1; failedDpr = dpr; failedAt = acc; dpr = Math.max(0.75, dpr - 0.25); resize(); }
       else if (fps > 58 && dpr < top && (dpr + 0.25 < failedDpr - 1e-3 || acc - failedAt > 30 * 2 ** (fails - 1))) { dpr = Math.min(top, dpr + 0.25); resize(); }
     }
+    // the lens blur is set in drawing-buffer pixels: when the resolution steps, its size on screen stays put
+    if (state._dpr && state._dpr !== dpr) post.U.uAperture.value *= dpr / state._dpr;
+    state._dpr = dpr;
 
     const h = state.hour, e = state.e;
     U.uTime.value += dt;

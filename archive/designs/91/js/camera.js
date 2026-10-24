@@ -5,6 +5,32 @@ import * as THREE from 'three';
 const clamp = THREE.MathUtils.clamp;
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
+// Room the lens keeps from any prop on a flight (m), and the least it may ever have (the near plane is 1 m).
+const ROOM = 2.0, NEAR = 1.0;
+const NO_SHAPE = { lift: 0, yawLead: 0, distLag: 0, pitchLag: 0 };
+// The ways a flight may bend, gentlest first: pitchLag keeps the camera up until late and lets it
+// come down onto the view (a crane settling), lift arcs it higher on the way, yawLead turns it
+// before it closes in, distLag closes in after it has turned.
+const UP_FIRST = { lift: 0, yawLead: 0, distLag: 0.5, pitchLag: 0 };
+const SHAPES = [];
+for (const pitchLag of [0, 0.3, 0.5, 0.7]) for (const lift of [0, 0.12, 0.3, 0.5]) for (const yawLead of [0, 0.6]) for (const distLag of [0, 0.35]) {
+  SHAPES.push({ lift, yawLead, distLag, pitchLag, cost: pitchLag + lift * 1.5 + yawLead * 0.6 + distLag * 0.8 });
+}
+SHAPES.sort((a, b) => a.cost - b.cost);
+
+/** One tween step into the goal: target, yaw, pitch and distance along the eased curve, bent by its shape. */
+function applyTween(g, tw) {
+  const t = Math.min(1, tw.t), k = ease(t), s = tw.shape || NO_SHAPE;
+  const ky = s.yawLead ? ease(Math.min(1, t * (1 + s.yawLead))) : k;
+  const kd = s.distLag ? ease(clamp((t - s.distLag) / (1 - s.distLag), 0, 1)) : k;
+  const kp = s.pitchLag ? ease(clamp((t - s.pitchLag) / (1 - s.pitchLag), 0, 1)) : k;
+  const { from, to } = tw;
+  g.target.lerpVectors(from.target, to.target, k);
+  g.yaw = from.yaw + (to.yaw - from.yaw) * ky;
+  g.pitch = from.pitch + (to.pitch - from.pitch) * kp + s.lift * Math.sin(Math.PI * kp);
+  g.dist = from.dist + (to.dist - from.dist) * kd;
+}
+
 export const HOME_VIEW = { target: [0.5, 1.5, 15.5], yaw: 0.3, pitch: 0.4, dist: 64 };
 
 /** The overview, framed for the screen's shape (portrait phones need to stand further back). */
@@ -42,7 +68,64 @@ export class CameraRig {
     let toYaw = v.yaw ?? from.yaw;
     const to = { target: v.target ? new THREE.Vector3(...v.target) : from.target.clone(), yaw: toYaw, pitch: v.pitch ?? from.pitch, dist: v.dist ?? from.dist };
     if (this.reduced) dur = Math.min(dur, 0.01);
-    this.tween = { from, to, t: 0, dur: Math.max(0.01, dur) };
+    this.tween = { from, to, t: 0, dur: Math.max(0.01, dur), shape: NO_SHAPE };
+    if (!this.reduced) this.tween.shape = this._plan(this.tween);
+  }
+
+  // ---------------------------------------------------------------- room to move
+  // A flight or a zoom is simulated before it starts (the same tween and damping as update(), at
+  // 60 steps a second) and shaped so the lens keeps clear of the street furniture: as much room
+  // along the way as at either end, up to ROOM. The ends are never changed for a scripted move, so
+  // every view looks exactly as before; only the way there bends, first by arcing a little higher,
+  // then by turning before closing in, or by closing in after turning.
+
+  _eye(c, out) {
+    const cp = Math.cos(c.pitch);
+    out.set(c.target.x + Math.sin(c.yaw) * cp * c.dist, c.target.y + Math.sin(c.pitch) * c.dist, c.target.z + Math.cos(c.yaw) * cp * c.dist);
+    if (out.y < 1.2) out.y = 1.2;
+    return out;
+  }
+
+  /** Camera positions along a tween with this shape, or along the damping to the current goal. */
+  _path(tw, shape, secs) {
+    const g = { target: this.goal.target.clone(), yaw: this.goal.yaw, pitch: this.goal.pitch, dist: this.goal.dist };
+    const c = { target: this.cur.target.clone(), yaw: this.cur.yaw, pitch: this.cur.pitch, dist: this.cur.dist };
+    const dt = 1 / 60, k = 1 - Math.exp(-dt * 7.5), pts = [];
+    const tw2 = tw && { ...tw, t: 0, shape };
+    for (let i = 0, n = Math.ceil(secs * 60); i < n; i++) {
+      if (tw2 && tw2.t < 1) { tw2.t += dt / tw2.dur; applyTween(g, tw2); }
+      g.target.x = clamp(g.target.x, this.bounds.x0, this.bounds.x1);
+      g.target.z = clamp(g.target.z, this.bounds.z0, this.bounds.z1);
+      c.target.lerp(g.target, k);
+      c.yaw += (g.yaw - c.yaw) * k; c.pitch += (g.pitch - c.pitch) * k; c.dist += (g.dist - c.dist) * k;
+      if (i % 2 === 1 || i === n - 1) pts.push(this._eye(c, new THREE.Vector3()));
+    }
+    return pts;
+  }
+
+  /** The least room along a path, stopping early once it falls below `need`. */
+  _room(pts, need) {
+    const box = new THREE.Box3().setFromPoints(pts);
+    const items = this.clear.near(box, ROOM);
+    let m = ROOM;
+    for (const p of pts) { m = Math.min(m, this.clear.at(p, ROOM, items)); if (m < need) break; }
+    return m;
+  }
+
+  _plan(tw) {
+    if (!this.clear) return NO_SHAPE;
+    const secs = tw.dur + 1.0;
+    const eye = new THREE.Vector3();
+    const start = this.clear.at(this._eye(this.cur, eye), ROOM);
+    const end = this.clear.at(this._eye(tw.to, eye), ROOM);
+    const need = Math.min(ROOM, start, end) * 0.97;
+    let best = NO_SHAPE, bestRoom = -1;
+    for (const shape of SHAPES) {
+      const room = this._room(this._path(tw, shape, secs), need);
+      if (room >= need) return shape;
+      if (room > bestRoom) { bestRoom = room; best = shape; }
+    }
+    return best;
   }
 
   _bind() {
@@ -109,7 +192,31 @@ export class CameraRig {
     this.goal.target.z -= (dx * rz - dy * fz) * s;
   }
 
-  zoom(f) { this.goal.dist = clamp(this.goal.dist * f, 14, 120); this._user(); }
+  zoom(f) {
+    const g = this.goal;
+    g.dist = clamp(g.dist * f, 14, 120);
+    this._user();
+    // Backing out of a low view (the sunset over the terrace) would reverse straight into a parasol.
+    // Rise a little with the zoom, or rise first and then back out, until the way is as clear as
+    // where it started; failing that, the clearest of those.
+    if (!this.clear || this.reduced) return;
+    const start = this.clear.at(this._eye(this.cur, new THREE.Vector3()), ROOM), need = Math.min(ROOM, start) * 0.97;
+    const base = g.pitch, dist = g.dist;
+    let best = null, bestRoom = -1;
+    for (const lift of [0, 0.04, 0.08, 0.12, 0.17, 0.23, 0.3, 0.38, 0.48]) {
+      const pitch = Math.min(1.25, base + lift);
+      g.pitch = pitch;
+      let room = this._room(this._path(null, NO_SHAPE, 1.4), need);
+      if (room >= need) return;
+      if (room > bestRoom) { bestRoom = room; best = { pitch, tween: null }; }
+      const tw = { from: { target: g.target.clone(), yaw: g.yaw, pitch: this.cur.pitch, dist: this.cur.dist },
+        to: { target: g.target.clone(), yaw: g.yaw, pitch, dist }, t: 0, dur: 0.9, shape: UP_FIRST };
+      room = this._room(this._path(tw, UP_FIRST, 1.9), need);
+      if (room >= need) { this.tween = tw; return; }
+      if (room > bestRoom) { bestRoom = room; best = { pitch, tween: tw }; }
+    }
+    g.pitch = best.pitch; this.tween = best.tween;
+  }
 
   _user() {
     this.tween = null; this.follow = null; this.lastInput = performance.now();
@@ -125,11 +232,7 @@ export class CameraRig {
     if (this.tween) {
       const tw = this.tween;
       tw.t += dt / tw.dur;
-      const k = ease(Math.min(1, tw.t));
-      g.target.lerpVectors(tw.from.target, tw.to.target, k);
-      g.yaw = tw.from.yaw + (tw.to.yaw - tw.from.yaw) * k;
-      g.pitch = tw.from.pitch + (tw.to.pitch - tw.from.pitch) * k;
-      g.dist = tw.from.dist + (tw.to.dist - tw.from.dist) * k;
+      applyTween(g, tw);
       if (tw.t >= 1) this.tween = null;
     }
     if (this.follow && !this.tween) {
@@ -139,6 +242,11 @@ export class CameraRig {
     // keep the eye over the town
     g.target.x = clamp(g.target.x, this.bounds.x0, this.bounds.x1);
     g.target.z = clamp(g.target.z, this.bounds.z0, this.bounds.z1);
+    // a hand-driven or following view that would put the lens inside a palm or a parasol rises over it
+    if (this.clear && !this.tween) {
+      const e = this._eye(g, this._tmp || (this._tmp = new THREE.Vector3()));
+      for (let i = 0; i < 12 && g.pitch < 1.25 && this.clear.at(e, NEAR) < NEAR; i++) { g.pitch = Math.min(1.25, g.pitch + 0.03); this._eye(g, e); }
+    }
     // idle drift: the diorama turns a little on its own
     const idle = (performance.now() - this.lastInput) / 1000;
     if (!this.reduced && !this.tween && !this.follow && idle > 14 && this.drift !== false) g.yaw += Math.sin(idle * 0.05) * dt * 0.012;

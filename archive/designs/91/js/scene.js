@@ -40,7 +40,14 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   // everything in the world that never moves casts its shadow through one baked mesh per culling side;
   // parasols open and fold, so they keep casting on their own
   const moving = new Set(world.parasols.flatMap((p) => [p.open, p.closed]));
-  if (rig.key.castShadow) bakeStaticShadows(scene, camera, world.root, rig.key, (o) => moving.has(o));
+  // the town itself stands still: its matrices are worked out once, not recomposed every frame.
+  // (anything in world.root that moves must be listed in `moving`)
+  world.root.updateMatrixWorld(true);
+  (function freeze(o) { if (moving.has(o)) return; o.matrixAutoUpdate = false; for (const c of o.children) freeze(c); })(world.root);
+  scene.matrixAutoUpdate = false;   // the scene root never moves; children that do still update themselves
+  // in idle time after the town is up: the originals cast until the baked meshes take over
+  let shadowBake = null;
+  if (rig.key.castShadow) bakeStaticShadows(scene, camera, world.root, rig.key, (o) => moving.has(o)).then((r) => { shadowBake = r; });
   const life = new Life(scene, world);
   await life.spawn(new Townsfolk(), { onProgress: (p) => { pPeople = p; report(); } });
   const lights = new TownLights(world, life);
@@ -51,6 +58,8 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   const warm = new THREE.Color('#ffbf73');
   const pl = (x, y, z) => { const l = new THREE.PointLight(warm, 0, 0, 2); l.position.set(x, y, z); scene.add(l); return l; };
   const lampLights = [-18, -8, 2, 12, 22].map((x) => ({ l: pl(x, 3.6, 24.0), x }));
+  // each real light follows the street lamp it stands under (found once, not every frame)
+  for (const L of lampLights) L.lamp = world.lamps.find((l) => l.x === L.x + 0) || world.lamps.reduce((a, b) => (Math.abs(b.x - L.x) < Math.abs(a.x - L.x) ? b : a));
   const danceLight = pl(DANCE.x, 3.2, DANCE.z);
   const cafeLight = pl(-6, 3.0, 13.2);
   const cafeLight2 = pl(-6, 3.4, 9.6);
@@ -109,7 +118,7 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
 
     // light pools and real lights follow the lamps
     for (const p of glow.pools) p.m.material.opacity = p.src.level * 0.55;
-    for (const L of lampLights) { const lamp = world.lamps.find((l) => l.x === L.x + 0) || world.lamps.reduce((a, b) => (Math.abs(b.x - L.x) < Math.abs(a.x - L.x) ? b : a)); L.l.intensity = lamp.level * 26; }
+    for (const L of lampLights) L.l.intensity = L.lamp.level * 26;
     danceLight.intensity = lights.level.dance * 30;
     cafeLight.intensity = lights.level.cafe * 22;
     cafeLight2.intensity = lights.level.cafe * 14;
@@ -135,7 +144,7 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
 
   }
 
-  return { THREE, renderer, scene, camera, cam, post, world, life, lights, state, setHour, frame, resize, get HOME_VIEW() { return homeView(camera.aspect); }, FRONT, U };
+  return { THREE, renderer, scene, camera, cam, post, world, life, lights, state, setHour, frame, resize, get shadowBake() { return shadowBake; }, get HOME_VIEW() { return homeView(camera.aspect); }, FRONT, U };
 }
 
 export { elevation, smooth };

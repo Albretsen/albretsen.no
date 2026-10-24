@@ -150,13 +150,14 @@ export class LightRig {
     scene.add(this.hemi, this.key, this.key.target);
     this._s = [0, 0, 0];
     this._c = new THREE.Color();
+    this._sd = new THREE.Vector3(); this._fog = new THREE.Color(); this._fog2 = new THREE.Color();   // reused every frame
     this.moonCol = new THREE.Color('#8ea6e6');
   }
 
   apply(h, U, sea, scene) {
     const e = elevation(h);
     const s = sunDir(h, this._s);
-    const sd = new THREE.Vector3(s[0], s[1], s[2]);
+    const sd = this._sd.set(s[0], s[1], s[2]);
     U.uSunDir.value.copy(sd);
     rampAt('zenith', e, U.uZen.value); rampAt('mid', e, U.uMid.value); rampAt('horizon', e, U.uHor.value);
     rampAt('sun', e, U.uSunCol.value); rampAt('belt', e, U.uBelt.value); rampAt('shadow', e, U.uShade.value);
@@ -186,7 +187,7 @@ export class LightRig {
     rampAt('ground', e, this.hemi.groundColor);
     this.hemi.intensity = 0.32 + 0.42 * smooth(-12, 2, e) + 0.63 * smooth(4, 20, e);
 
-    const fogC = rampAt('horizon', e, new THREE.Color()).lerp(rampAt('mid', e, new THREE.Color()), 0.45);
+    const fogC = rampAt('horizon', e, this._fog).lerp(rampAt('mid', e, this._fog2), 0.45);
     if (scene.fog) scene.fog.color.copy(fogC);
     if (sea) {
       rampAt('water', e, sea.userData.u.uWater.value);

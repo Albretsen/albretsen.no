@@ -303,6 +303,7 @@ async function boot() {
 
   applyCamParam(T);
   if (Q.get('say')) { const p = T.life.byId[Q.get('say')]; if (p) { for (let i = 0; i < 30; i++) T.frame(0.05); focusPerson(T, p, true); showBubble(T, p); if (bubble) bubble.until = Infinity; } }
+  if (Q.has('perf')) window.__T = T;   // review: lets a profiler read draw calls and timings
   if (Q.has('stats')) setInterval(() => { const i = T.renderer.info.render; $('feed').textContent = `${i.calls} draws · ${(i.triangles / 1000).toFixed(0)}k tris · dpr ${T.renderer.getPixelRatio()}`; }, 1000);
   if (!SHOT && !reduced && !Q.has('cam') && !Q.has('view') && !Q.has('say') && Q.get('intro') !== '0') {
     const H = T.HOME_VIEW;

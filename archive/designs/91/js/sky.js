@@ -38,7 +38,9 @@ vec3 skyColor(vec3 d, float withDiscs){
   vec3 c = mix(uHor, uMid, smoothstep(0., .42, t));
   c = mix(c, uZen, smoothstep(.36, 1., t));
   vec2 hd = normalize(d.xz + 1e-5), hs = normalize(uSunDir.xz + 1e-5);
-  float az = dot(hd, hs) * .5 + .5;
+  // dot() of two unit vectors can land a hair above 1 (or below -1) in float: clamp, or pow(1. - az, 1.6)
+  // goes NaN in the column of sky (and its reflection) straight under the sun, and bloom smears it over the frame
+  float az = clamp(dot(hd, hs) * .5 + .5, 0., 1.);
   float low = 1. - smoothstep(0., .42, h);
   c = mix(c, uSunCol, pow(az, 4.) * low * uGlow);
   float anti = pow(1. - az, 1.6) * uBeltAmt;
@@ -99,7 +101,7 @@ export function createSea(U) {
         vec3 v = vW - uCam; float dist = length(v); v /= dist;
         float t = uTime;
         vec3 r = reflect(v, vec3(0., 1., 0.));
-        float fres = .02 + .98 * pow(1. - max(-v.y, 0.), 5.);
+        float fres = .02 + .98 * pow(clamp(1. + v.y, 0., 1.), 5.);   // clamped: pow of a tiny negative is NaN
         vec3 sky = skyColor(r, 0.);
         vec3 c = mix(uWater, sky * .55, clamp(fres * .8 + .15, 0., 1.));
         c *= mix(.72, 1., smoothstep(26., 34., vW.z));                     // the sea wall's shadow

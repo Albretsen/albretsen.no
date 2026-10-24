@@ -49,6 +49,7 @@ void main(){
     }
   }
   vec3 col = acc / wsum;
+  if (any(isnan(col)) || any(isinf(col))) col = vec3(0.);   // never let one bad texel smear through the gather
   col *= uExposure;
   col = aces(col);
   col = col * uGain + uLift * (1. - col);
@@ -67,6 +68,14 @@ export class Post {
     this._makeTarget(size);
     this.bloomScale = bloomScale;
     this.bloom = new UnrealBloomPass(new THREE.Vector2(size.x * bloomScale, size.y * bloomScale), 0.6, 0.55, 1.0);
+    // Guard the bloom input. Bloom blurs down to a few pixels across, so one NaN or Inf texel (a bad
+    // pow() in a shader, a half-float overflow next to a point light) becomes NaN over the whole frame
+    // and the town vanishes for that frame. Drop non-finite texels and cap the rest well above anything
+    // the scene actually produces, so the result is unchanged when the input is sane.
+    const hp = this.bloom.materialHighPassFilter;
+    hp.fragmentShader = hp.fragmentShader.replace('vec4 texel = texture2D( tDiffuse, vUv );',
+      'vec4 texel = texture2D( tDiffuse, vUv );\n\t\t\ttexel.rgb = (any(isnan(texel.rgb)) || any(isinf(texel.rgb))) ? vec3(0.) : min(texel.rgb, vec3(256.));');
+    hp.needsUpdate = true;
     this.U = {
       tColor: { value: this.rt.texture }, tDepth: { value: this.depth }, uRes: { value: size.clone() },
       uNear: { value: 1 }, uFar: { value: 3000 }, uFocus: { value: 60 }, uAperture: { value: 14 }, uMaxBlur: { value: 9 },

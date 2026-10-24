@@ -76,10 +76,23 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
   setHour(12);
 
   const tmp = new THREE.Vector3();
-  let frames = 0, acc = 0, lastCheck = 0;
+  let frames = 0, acc = 0, lastCheck = 0, failedDpr = Infinity, failedAt = -Infinity;
 
   function frame(dt) {
     renderer.info.reset();
+    // adaptive resolution: keep it smooth on slower machines. It runs before this frame renders:
+    // resizing the canvas clears it, and a clear after the render would show one empty frame.
+    // A resolution that once failed is not retried for 30 s, so a machine that sits between the two
+    // thresholds does not swap resolution (and pop the image) every few seconds.
+    frames++; acc += dt;
+    if (adaptive && acc - lastCheck > 2.5) {
+      const fps = frames / (acc - lastCheck);
+      frames = 0; lastCheck = acc;
+      const top = Math.min(devicePixelRatio || 1, maxDpr);
+      if (fps < 42 && dpr > 0.75) { failedDpr = dpr; failedAt = acc; dpr = Math.max(0.75, dpr - 0.25); resize(); }
+      else if (fps > 58 && dpr < top && (dpr + 0.25 < failedDpr - 1e-3 || acc - failedAt > 30)) { dpr = Math.min(top, dpr + 0.25); resize(); }
+    }
+
     const h = state.hour, e = state.e;
     U.uTime.value += dt;
     sea.userData.u.uCam.value.copy(camera.position);
@@ -115,14 +128,6 @@ export async function createLivingTown(canvas, { lite = false, reduced = false, 
     post.U.uGain.value.setRGB(1.0, 0.985, 0.97);
     post.render(scene, camera, dt);
 
-    // adaptive resolution: keep it smooth on slower machines
-    frames++; acc += dt;
-    if (adaptive && acc - lastCheck > 2.5) {
-      const fps = frames / (acc - lastCheck);
-      frames = 0; lastCheck = acc;
-      if (fps < 42 && dpr > 0.75) { dpr = Math.max(0.75, dpr - 0.25); resize(); }
-      else if (fps > 58 && dpr < Math.min(devicePixelRatio || 1, maxDpr)) { dpr = Math.min(maxDpr, dpr + 0.25); resize(); }
-    }
   }
 
   return { THREE, renderer, scene, camera, cam, post, world, life, lights, state, setHour, frame, resize, get HOME_VIEW() { return homeView(camera.aspect); }, FRONT, U };

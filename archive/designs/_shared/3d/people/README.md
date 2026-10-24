@@ -1,9 +1,10 @@
 # Heure Bleue: people
 
-Ten low-poly townspeople, a terrier, a Paris city bicycle and a set of hand props. All the humans share **one 23-bone skeleton** (`townsfolk_rig`), so every clip plays on every character. `preview.html` is the contact sheet. Its time slider turns on the `emissive_` lights, and "their routine at this hour" shows the day schedule.
+Eleven low-poly townspeople, a terrier, a Paris city bicycle and a set of hand props. All the humans share **one 23-bone skeleton** (`townsfolk_rig`), so every clip plays on every character. `preview.html` is the contact sheet. Its time slider turns on the `emissive_` lights, and "their routine at this hour" shows the day schedule.
 
 | file | what |
 |---|---|
+| `asgeir.glb` | Asgeir himself, founder of Albretsen AS: ink overshirt open over a white tee, sleeves pushed up, sand chinos, white sneakers, a thin dark watch on the left wrist, tousled dark-blond hair. Has his own day in `ROUTINES` (coffee, a table in the morning, baguette at noon, the rail at sunset, a wave). |
 | `player.glb` | The visitor you walk around as: mustard jacket, ink trousers, white trainers, backpack. Bright enough to find at night. |
 | `jogger.glb` | Pink tank top, leggings, ponytail, headband. |
 | `waiter.glb` | White shirt, black waistcoat, bow tie, long white apron. Use with the `tray` prop and `walk_carry`. |
@@ -68,4 +69,4 @@ actor.setLights(1);                                // emissive_ props on (phone,
 - **Skeleton and clips:** Quaternius **Universal Animation Library** 1 and 2, the Standard (free) tier, CC0 (https://quaternius.itch.io/universal-animation-library, https://quaternius.itch.io/universal-animation-library-2). The 65-bone UE-style rig was trimmed to 23 bones (no fingers; mitten hands), and the location and scale channels were dropped except on the root and pelvis. `wave` and `cycle` were authored in Blender on top of `idle`, with analytic two-bone IK for the pedalling.
 - **Characters, dog, bicycle and props:** our own Blender work, built procedurally by `src/*.py` (lofted rings and ellipsoids, palette vertex colours, distance-based skin weights). Kenney Mini Characters (CC0) was considered and rejected: chibi proportions.
 - **Meshy:** two Smart Topology tests of a trench-coat flâneur, 10 credits in all. The sculpt was nice, but neither came out in T-pose, and the realistic face and proportions clashed with the faceless, stylised family, so none was used.
-- **Rebuilding:** `src/` holds the scripts as they ran. They expect the UAL `.glb` files in a scratch `src/` folder (the paths at the top of `lib.py`). Run them with `blender -b --python src/build_anims.py`, then `build_chars.py`, `build_props.py`, `build_dog.py` and `build_bike.py`. After that run `optimize.py` (gltf-transform: meshopt, quantize, no simplify) and `manifest.py`.
+- **Rebuilding:** `src/` holds the scripts as they ran. They expect the UAL `.glb` files in a scratch `src/` folder (the paths at the top of `lib.py`). Run them with `blender -b --python src/build_anims.py`, then `build_chars.py` (`-- asgeir` builds just him), `build_props.py`, `build_dog.py` and `build_bike.py`. After that run `optimize.py` (gltf-transform: meshopt, quantize, no simplify) and `manifest.py`.

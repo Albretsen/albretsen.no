@@ -184,8 +184,8 @@ def hair(parts, o):
                 th = side + (back - side) * (-fy)
             return lv.z / rr.z > th
         return f
-    if style in ("short", "bun", "ponytail", "slick", "crop"):
-        front = {"short": 0.42, "bun": 0.40, "ponytail": 0.40, "slick": 0.48, "crop": 0.5}[style]
+    if style in ("short", "bun", "ponytail", "slick", "crop", "tousled"):
+        front = {"short": 0.42, "bun": 0.40, "ponytail": 0.40, "slick": 0.48, "crop": 0.5, "tousled": 0.36}[style]
         ellipsoid(p, c + Vector((0, 0.008, 0.008)), rr, col, seg=12, rings=8, cut=cut_fn(front, 0.0, -0.45))
     if style in ("bob", "long"):
         rb = Vector((rr.x * 1.06, rr.y * 1.04, rr.z * 1.02))
@@ -204,7 +204,21 @@ def hair(parts, o):
              [col], n=6, cap0="flat", cap1="pole")
     if style == "slick":
         pass
+    if style == "tousled":  # short sides, a loose, slightly lifted top swept to one side
+        for (x, y, z, rx, ry, rz, ax, ay) in TUFTS:
+            rot = Matrix.Rotation(math.radians(ay), 3, "Y") @ Matrix.Rotation(math.radians(ax), 3, "X")
+            ellipsoid(p, c + Vector((x, y, z)), (rx, ry, rz), col, seg=9 if rx > 0.04 else 7, rings=5 if rx > 0.04 else 4, rot=rot)
     parts.append(p)
+
+
+# tousled top: (x, y, z offset from head centre, radii, tilt about X, tilt about Y); -y is the face
+TUFTS = [
+    (0.000, 0.000, 0.094, 0.090, 0.100, 0.054, 0, 0),        # lifted top volume
+    (0.008, -0.060, 0.098, 0.066, 0.046, 0.036, -22, -6),    # front, pushed up and over
+    (-0.034, -0.078, 0.074, 0.044, 0.026, 0.024, -34, 16),   # loose fringe swept to his right
+    (0.030, 0.030, 0.130, 0.030, 0.028, 0.016, 8, -14),      # two strands out of place on the crown
+    (-0.020, -0.024, 0.140, 0.028, 0.026, 0.015, -6, 12),
+]
 
 
 def hat(parts, o):
@@ -326,6 +340,28 @@ def extras(parts, o):
             for sx in (1, -1):
                 box(p, (sx * 0.05, -0.112, 1.33), (0.035, 0.012, 0.2), ex[1], rot=Matrix.Rotation(math.radians(sx * 14), 3, "Y"))
             parts.append(p)
+        elif kind == "tee_neck":  # round crew neckline of the tee, inside the open overshirt
+            p = Part("tee_neck", ["spine_03", "neck_01"])
+            loft(p, [((0, 0.008, 1.488), 0.068, 0.062), ((0, 0.010, 1.522), 0.061, 0.057)], [ex[1]], n=10, cap0="flat", cap1=None)
+            parts.append(p)
+        elif kind == "watch":  # thin band on the left wrist with a small round face
+            p = Part("watch", ["lowerarm_l"], smooth=False)
+            y, z, x = 0.062, 1.437, 0.688
+            loft(p, [((x - 0.008, y, z), 0.0385, 0.0375), ((x + 0.008, y, z), 0.0375, 0.0365)], [ex[1]], n=8, cap0="flat", cap1="flat",
+                 frame=lambda d: (Vector((0, 1, 0)), Vector((0, 0, 1))))
+            disc(p, (x, y, z + 0.035), 0.0125, 0.006, ex[1], n=8, col_top=ex[2])
+            parts.append(p)
+        elif kind == "rolled_cuffs":  # sleeves pushed up to just below the elbow
+            for s_, sx in (("l", 1), ("r", -1)):
+                p = Part(f"cuff_{s_}", [f"lowerarm_{s_}", f"upperarm_{s_}"])
+                y, z = 0.062, 1.437
+                loft(p, [((0.456 * sx, y, z), 0.047, 0.047), ((0.474 * sx, y, z), 0.050, 0.050), ((0.502 * sx, y, z), 0.046, 0.046)],
+                     [ex[1], ex[1]], n=10, cap0="flat", cap1="flat")
+                parts.append(p)
+        elif kind == "pocket":  # chest patch pocket on his left
+            p = Part("pocket", ["spine_03", "spine_02"], smooth=False)
+            box(p, (0.085, -0.116, 1.31), (0.06, 0.01, 0.065), ex[1], rot=Matrix.Rotation(math.radians(-8), 3, "X"))
+            parts.append(p)
         elif kind == "shirtfront":
             p = Part("shirtfront", ["spine_03", "spine_02"], smooth=False)
             box(p, (0, -0.108, 1.33), (0.07, 0.012, 0.24), ex[1])
@@ -417,6 +453,14 @@ def spec():
         torso=[S["linen"], S["linen"], S["linen"], S["linen"], S["linen"], S["linen"]], arms=[S["linen"]] * 5,
         legs=[S["linen"]] * 6, shoe=S["coffee"],
         extras=[("glasses", S["black"])], front=(S["powder"], 0.06, 1.47))
+    L["asgeir"] = dict(
+        desc="Asgeir, founder of Albretsen AS: ink overshirt open over a white tee, sleeves pushed up, sand chinos, white sneakers, thin dark watch, tousled dark-blond hair.",
+        skin=S["skin1"], hair="tousled", hair_col=S["hair_ash"], girth=0.95, limb=0.96, trouser_w=0.93, hem_w=0.94,
+        torso=[S["sand"], S["ink"], S["ink"], S["ink"], S["ink"], S["ink"], S["ink"]],
+        arms=[S["ink"], S["ink"], S["ink"], S["skin1"], S["skin1"]],
+        legs=[S["sand"]] * 6, shoe=S["white"], sole=S["white"],
+        extras=[("tee_neck", S["white"]), ("collar", S["ink"]), ("rolled_cuffs", S["ink"]), ("pocket", S["navy"]), ("watch", S["black"], S["plaster"])],
+        front=(S["white"], 0.052, 1.475))
     return L
 
 

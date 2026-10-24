@@ -17,7 +17,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { clone as cloneSkinned } from 'three/addons/utils/SkeletonUtils.js';
 
-export const PEOPLE = ['player', 'jogger', 'waiter', 'older_woman', 'older_man', 'dog_walker', 'cyclist', 'child', 'stroller_dress', 'stroller_linen'];
+export const PEOPLE = ['player', 'jogger', 'waiter', 'older_woman', 'older_man', 'dog_walker', 'cyclist', 'child', 'stroller_dress', 'stroller_linen', 'asgeir'];
 export const CLIPS = ['idle', 'idle_arms_folded', 'walk', 'walk_formal', 'walk_carry', 'jog', 'run', 'sit', 'sit_talk', 'sit_down', 'stand_up',
   'talk', 'wave', 'drink', 'phone', 'dance', 'lean_rail', 'rail_call', 'lantern', 'water_plants', 'yes', 'no', 'drive', 'cycle',
   'interact', 'pick_up', 'push', 'jump_start', 'jump_loop', 'jump_land', 'roll', 'crouch_idle', 'crouch_walk'];
@@ -246,6 +246,7 @@ export const ROUTINES = {
   child:          [[0, 'sit', null, false], [8, 'walk', null, true], [10, 'jog', null, true], [12, 'sit', null, false], [14, 'water_plants', 'watering_can', false], [17, 'dance', null, false], [19, 'wave', null, false], [20, 'sit', null, false]],
   stroller_dress: [[0, 'idle', null, false], [10, 'walk', null, true], [13, 'sit_talk', null, false], [16, 'walk', null, true], [18, 'lean_rail', null, false], [19.5, 'drink', 'wine_glass', false], [21, 'dance', null, false], [23, 'walk', null, true]],
   stroller_linen: [[0, 'idle', null, false], [9, 'walk', 'baguette', true], [11, 'phone', 'phone', false], [13, 'sit_talk', null, false], [17, 'walk', null, true], [18.5, 'rail_call', null, false], [19.5, 'talk', null, false], [21, 'dance', null, false]],
+  asgeir:         [[0, 'sit', null, false], [7, 'walk', null, true], [7.5, 'drink', 'coffee_cup', false], [8.5, 'sit_talk', null, false], [11.5, 'walk', 'baguette', true], [12.5, 'sit', null, false], [16.5, 'walk', null, true], [18, 'lean_rail', null, false], [19.5, 'wave', null, false], [20, 'talk', null, false], [22, 'sit', null, false]],
   player:         [[0, 'idle', null, false]],
 };
 

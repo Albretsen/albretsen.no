@@ -1,5 +1,18 @@
 [
   {
+    "file": "asgeir.glb",
+    "name": "asgeir",
+    "tris": 2314,
+    "kb": 26.1,
+    "animations": [
+      "(uses townsfolk-anims.glb)"
+    ],
+    "emissive": [],
+    "source": "Own Blender work (procedural build scripts in src/); skinned to the shared townsfolk_rig (skeleton from Quaternius UAL, CC0)",
+    "license": "Own work (rig: CC0)",
+    "notes": "Asgeir, founder of Albretsen AS: ink overshirt open over a white tee, sleeves pushed up, sand chinos, white sneakers, thin dark watch, tousled dark-blond hair."
+  },
+  {
     "file": "bicycle.glb",
     "name": "bicycle",
     "tris": 2076,

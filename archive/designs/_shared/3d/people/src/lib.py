@@ -21,7 +21,7 @@ PAL = {
     "white": "#fbf6ee", "black": "#1b1f33", "linen": "#e6d6bc", "sand": "#d8c3a0",
     "skin1": "#f1c7a6", "skin2": "#d9a07a", "skin3": "#a8704e", "skin4": "#6f4632",
     "hair_dark": "#2b2230", "hair_brown": "#5a3a2a", "hair_auburn": "#8a3e26", "hair_blond": "#d9b25e",
-    "hair_grey": "#c9c6c4", "hair_white": "#ece8e2", "navy": "#2c3a6b", "olive": "#6f7445",
+    "hair_grey": "#c9c6c4", "hair_ash": "#86704f", "hair_white": "#ece8e2", "navy": "#2c3a6b", "olive": "#6f7445",
     "denim": "#4f6d9a", "sage": "#9db59a", "coral": "#e8806b", "cream": "#fff4d6",
     "dog_tan": "#c58b52", "dog_dark": "#3a2a24", "dog_white": "#f3ece2", "rubber": "#2a2a33",
     "steel": "#b8c2d0", "glass": "#cfe3ef", "wine": "#7a1630", "coffee": "#4a2c20",

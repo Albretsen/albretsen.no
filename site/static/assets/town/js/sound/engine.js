@@ -126,6 +126,39 @@ export class TownSound {
     return b;
   }
 
+  /**
+   * One recipe, rendered in a worker where there is one (a long tune is a quarter of a second of
+   * arithmetic, too long a pause for a phone's frame), on the main thread in idle time otherwise.
+   */
+  async render(name, seed, Off) {
+    this.worker ??= this.startWorker();
+    const w = await this.worker;
+    if (!w) { await idle(); return RECIPES[name].render({ OfflineAudioContext: Off, sampleRate: this.rate, seed }); }
+    const id = (this.jobs = (this.jobs || 0) + 1);
+    const d = await new Promise((ok) => { this.waiting.set(id, ok); w.postMessage({ id, name, seed, sampleRate: this.rate }); });
+    if (d.error) throw new Error(d.error);
+    const b = this.ctx.createBuffer(d.channels.length, d.channels[0].length, d.sampleRate);
+    d.channels.forEach((c, k) => b.copyToChannel(c, k));
+    return b;
+  }
+  startWorker() {
+    try {
+      const at = (f) => import.meta.resolve(f);
+      const w = new Worker(at('./render-worker.js'), { type: 'module' });
+      this.waiting = new Map();
+      return new Promise((ok) => {
+        const no = () => { w.terminate(); ok(null); };
+        w.onerror = no;
+        w.onmessage = ({ data }) => {
+          if (data.ready) { w.onerror = null; ok(w); return; }
+          this.waiting.get(data.id)?.(data); this.waiting.delete(data.id);
+        };
+        w.postMessage({ urls: ['./recipes-nature.js', './recipes-foley.js', './recipes-music.js'].map(at) });
+        setTimeout(() => { if (!this.waiting.size && w.onerror) no(); }, 4000);   // a worker that never answers: render here
+      });
+    } catch { return Promise.resolve(null); }
+  }
+
   // no sound here needs more than 48 kHz (some machines run audio at 96): half the memory
   get rate() { return Math.min(this.ctx.sampleRate, 48000); }
 
@@ -164,8 +197,7 @@ export class TownSound {
         if (!r) continue;
         const out = [];
         for (let seed = 0; seed < (r.variants || 1); seed++) {
-          await idle();
-          try { out.push(await r.render({ OfflineAudioContext: Off, sampleRate: this.rate, seed })); } catch (e) { console.warn('sound', name, e); }
+          try { out.push(await this.render(name, seed, Off)); } catch (e) { console.warn('sound', name, e); }
         }
         if (out.length) this.buffers.set(name, out.length > 1 ? out : out[0]);
       }

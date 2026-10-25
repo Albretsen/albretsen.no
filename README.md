@@ -16,6 +16,9 @@ npx wrangler deploy            # deploy dist/ + worker/ (see wrangler.jsonc)
 | `site/styles/` | CSS, inlined into each page at build time. |
 | `site/static/` | Fonts, logos, icons and the Living Town (`assets/town/`: its modules, three.js, the glTF models and the poster), copied as-is. Every file under `/assets/` gets a content hash in its name at build time; the town's modules find each other through an import map. |
 | `dist/assets/town/js/content.*.js` | Generated: the build writes it from `site/data.ts`, so the town's signs, cards and screens show the same facts as the pages. |
+| `site/static/assets/town/js/senses.js` | What is going on in town (sunset, lamps, windows, people passing, the café filling, a product event) and what each person can see; the dialog reacts to it and the sound plays it. |
+| `site/static/assets/town/dialog/react/` | Reactive lines by cue (`lamps`, `passby`, `see:henri`, `next:rose`...), loaded with each character's bank. |
+| `site/static/assets/town/js/sound/` | The town's sound, off until a visitor turns it on: `engine.js` (the mix, which follows the camera and the hour) and the `recipes-*.js` it renders in a worker. Three CC0 recordings in `assets/town/sound/` ([docs/sound-licences.md](docs/sound-licences.md)). |
 | `site/charts/spx/` | The interactive S&P chart for "Stop caring about all-time highs". |
 | `articles/` | Posts in Markdown with front matter; `slug/en.md` + `slug/nb.md` for two languages. |
 | `worker/` | `/mcp` (read-only MCP server), the product event feed and live figures (one Durable Object). |

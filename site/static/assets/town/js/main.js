@@ -797,9 +797,13 @@ function startSound() {
   sound.loading = true;
   Promise.all([import('./sound/engine.js'), senses ? null : import('./senses.js').then((m) => { senses ||= new m.Senses(); })]).then(([m]) => {
     sound.eng = new m.TownSound(sound.ctx, T, senses, { reduced, samples: m.SAMPLES?.(SOUNDS) || {} });
-    sound.eng.prepare(soundUrl);
+    sound.eng.prepare(soundUrl).catch((e) => console.warn(e));
     if (sound.on) { sound.eng.setOn(true); soundAway(); }
-  }, (e) => { console.warn(e); sound.loading = false; });
+  }).catch((e) => {
+    // no sound on this browser: say so with the button, and let a later click try again
+    console.warn(e);
+    sound.eng = null; sound.loading = false; sound.on = false; paintSound();
+  });
 }
 function soundAway() { sound.eng?.away(document.hidden || !heroOn); }
 soundBtn.addEventListener('click', () => {
@@ -809,13 +813,15 @@ soundBtn.addEventListener('click', () => {
   if (sound.on) startSound(); else sound.eng?.setOn(false);
 });
 if (sound.on) {
-  // remembered: the first gesture anywhere on the page brings it back
+  // remembered: the first gesture anywhere on the page brings it back (a touch counts once it lifts:
+  // phones do not let a pointerdown start audio)
+  const GESTURES = ['pointerup', 'touchend', 'keydown'];
   const first = (e) => {
-    if (e.target === soundBtn || !T) return;
-    removeEventListener('pointerdown', first, true); removeEventListener('keydown', first, true);
+    if (soundBtn.contains(e.target) || !T) return;
     if (sound.on) startSound();
+    if (!sound.on || sound.ctx?.state === 'running') for (const g of GESTURES) removeEventListener(g, first, true);
   };
-  addEventListener('pointerdown', first, true); addEventListener('keydown', first, true);
+  for (const g of GESTURES) addEventListener(g, first, true);
 }
 paintSound();
 

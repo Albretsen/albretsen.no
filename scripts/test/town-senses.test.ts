@@ -150,3 +150,22 @@ test('nobody remarks on the same kind of happening twice in a few minutes', () =
   s.emit('post', 200, { x: 6.4, z: 10.4 });
   assert.ok(s.cuesFor(asgeir, 201, 12, 30, [asgeir]).some((c) => c.cue === 'post'));
 });
+
+test('a bank whose reactive file fails is fetched again, and never added twice', async () => {
+  const { ensure, DIALOG } = await import('../../site/static/assets/town/js/dialog.js');
+  const before = DIALOG.kid.lines.length;
+  let reactTries = 0;
+  const real = globalThis.fetch;
+  globalThis.fetch = (async (u: string) => {
+    if (u === 'react') { reactTries++; return reactTries === 1 ? { ok: false, status: 500 } : { ok: true, json: async () => ({ lines: [['gull', '', '', 'A gull! Léo says it is called Paul.']] }) }; }
+    return { ok: true, json: async () => ({ lines: [['', '', 'One new line.']] }) };
+  }) as any;
+  try {
+    await ensure('x6', (b: string) => (b.startsWith('react/') ? 'react' : 'lines'));
+    await ensure('x6', (b: string) => (b.startsWith('react/') ? 'react' : 'lines'));
+    await ensure('x6', (b: string) => (b.startsWith('react/') ? 'react' : 'lines'));
+  } finally { globalThis.fetch = real; }
+  assert.equal(DIALOG.kid.lines.length, before + 1, 'the big bank once');
+  assert.equal(reactTries, 2, 'the reactive file again after it failed, then no more');
+  assert.ok(REACT.kid.lines.get('gull'));
+});

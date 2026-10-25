@@ -92,7 +92,7 @@ export class TownSound {
     const wet = ctx.createGain(); wet.gain.value = 0.32;
     this.verb.connect(wet); wet.connect(this.master);
     this.beds = new Map();
-    this.shots = 0;
+    this.live = [];   // [start, end] of every one-shot playing or scheduled, in audio time
     this.on = false;
     this.vol = 3;   // the recipes are rendered quiet (about -24 dBFS); the compressor keeps the peaks down
     this.walk = new Map();   // person id -> step phase
@@ -188,8 +188,10 @@ export class TownSound {
     let g = level * dB(MIX[name] ?? -18), pan = 0;
     if (x != null) { const p = this.place(x, z, y); g *= Math.pow(p.g, far); pan = p.pan; }
     if (g < 0.003) return;
-    if (this.shots >= (prio > 1 ? 14 : 10)) return;   // never a pile-up
     const ctx = this.ctx, t = ctx.currentTime + 0.02 + delay;
+    // never a pile-up: count what will be sounding at that moment (a bell rung for later does not block a footstep now)
+    this.live = this.live.filter(([, b]) => b > ctx.currentTime);
+    if (this.live.filter(([a, b]) => a <= t && b > t).length >= (prio > 1 ? 14 : 10)) return;
     const src = ctx.createBufferSource(); src.buffer = buf; src.playbackRate.value = rate;
     const gain = ctx.createGain(); gain.gain.value = g;
     let out = gain;
@@ -197,8 +199,8 @@ export class TownSound {
     if (ctx.createStereoPanner) { const p = ctx.createStereoPanner(); p.pan.value = pan; gain.connect(p); out = p; }
     out.connect(this.master);
     if (verb) { const s = ctx.createGain(); s.gain.value = verb; out.connect(s); s.connect(this.verb); }
-    this.shots++;
-    src.onended = () => { this.shots--; out.disconnect(); };
+    this.live.push([t, t + buf.duration / rate]);
+    src.onended = () => out.disconnect();
     src.start(t);
   }
 
@@ -211,7 +213,7 @@ export class TownSound {
       case 'post': this.play('letter', { x: AT.post[0], z: AT.post[1], far: 0.6 }); if (e.t - (this.chimed ?? -99) > 18) { this.chimed = e.t; this.play('chime', { x: AT.post[0], z: AT.post[1], delay: 0.5, far: 0.4, prio: 2 }); } break;
       case 'arcadeev': case 'workshopev': this.play('chime', { x: e.x, z: 10, level: 0.55, rate: e.type === 'arcadeev' ? 1.12 : 0.9, far: 0.5 }); break;
       case 'bell': this.play('bikebell', { x: e.x, z: e.z, rate: 0.97 + Math.random() * 0.06, prio: 2 }); break;
-      case 'gull': if (!hurry) this.play('gull', { x: e.x, z: e.z, y: 9, far: 0.25, level: 0.7, rate: 0.94 + Math.random() * 0.1, lp: 3200, verb: 1.2 });   // a close recording, made far away break;
+      case 'gull': if (!hurry) this.play('gull', { x: e.x, z: e.z, y: 9, far: 0.25, level: 0.7, rate: 0.94 + Math.random() * 0.1, lp: 3200, verb: 1.2 }); break;   // a close recording, made far away
       case 'churchbell': if (!hurry) for (let i = 0; i < Math.min(e.count || 1, 12); i++) this.play('churchbell', { delay: i * 2.6, verb: 0.3, level: 0.9, prio: 2 }); break;
       case 'window': this.play('door', { x: e.x, z: e.z, far: 0.8 }); break;
       case 'kioskopen': this.play('shutterup', { x: e.x, z: e.z }); break;

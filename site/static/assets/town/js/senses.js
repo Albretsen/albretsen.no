@@ -75,6 +75,9 @@ export class Senses {
 
   on(fn) { this.listeners.add(fn); return () => this.listeners.delete(fn); }
 
+  /** A happening only the sound needs (each lamp as it strikes): told, not kept. */
+  tell(e) { for (const fn of this.listeners) fn(e); }
+
   emit(type, t, o = {}) {
     const e = { id: ++this.n, type, t, ...o };
     this.events.push(e);
@@ -114,7 +117,7 @@ export class Senses {
       lamps.forEach((l, i) => {
         const was = p.lamps[i];
         if (was === undefined || was === l.on) return;
-        if (l.on) { lit++; this.emit('lamp', t, { x: l.x, z: l.z, quiet: true }); } else dark++;
+        if (l.on) { lit++; this.tell({ type: 'lamp', t, x: l.x, z: l.z }); } else dark++;
       });
       if (lit && !this.fresh('lamps', t)) this.emit('lamps', t);
       if (dark && !this.fresh('lampsoff', t) && lamps.every((l) => !l.on)) this.emit('lampsoff', t);
@@ -203,7 +206,7 @@ export class Senses {
       if (keep[1] && far > keep[1]) continue;
       if ((ev.type === 'window' || ev.type === 'lightsout') && (ev.who === who.id || !ev.name)) continue;
       if (ev.type === 'bell' && who.id === 'lucie') continue;
-      out.push({ cue: ev.type, w: 1 + Math.max(0, 1 - age / keep[0]), vars: ev.name ? { name: ev.name } : undefined, ev });
+      out.push({ cue: ev.type, w: 1 + Math.min(1, Math.max(0, 1 - age / keep[0])), vars: ev.name ? { name: ev.name } : undefined, ev });
     }
     // what is there to see and hear
     const ph = phaseOf(h);

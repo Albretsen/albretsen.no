@@ -641,8 +641,16 @@ export function ensure(id, urlOf) {
   if (!DIALOG[bank] || loaded.has(bank)) return loaded.get(bank);
   const url = urlOf && urlOf(bank);
   if (!url) return undefined;
-  const get = (u, then) => (u ? fetch(u).then((r) => (r.ok ? r.json() : null)).then(then) : Promise.resolve());
-  const p = Promise.all([get(url, (d) => extend(bank, d)), get(urlOf('react/' + bank), (d) => extendReact(bank, d))]).catch(() => loaded.delete(bank));
+  // each file on its own: one that fails is fetched again next time, one that arrived is never added twice
+  const get = (key, u, then) => {
+    if (!u || loaded.has(key)) return loaded.get(key);
+    const p = fetch(u).then((r) => (r.ok ? r.json() : Promise.reject(r.status))).then(then).catch(() => loaded.delete(key));
+    loaded.set(key, p);
+    return p;
+  };
+  const rurl = urlOf('react/' + bank);
+  const p = Promise.all([get(bank + ':lines', url, (d) => extend(bank, d)), get(bank + ':react', rurl, (d) => extendReact(bank, d))])
+    .then(() => { if (!loaded.has(bank + ':lines') || (rurl && !loaded.has(bank + ':react'))) loaded.delete(bank); });
   loaded.set(bank, p);
   return p;
 }

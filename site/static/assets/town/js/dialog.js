@@ -635,15 +635,79 @@ export function extend(bank, data) {
   for (const [b, when, act, line, reply, ref] of data.exchanges || []) EXCHANGES.push({ a: bank, b: resolveId(b), when, act, line, reply, ref: !!ref });
 }
 
-/** Load the full bank for a character id once. urlOf(bank) gives its URL, or nothing to skip. */
+/** Load the full bank for a character id once, and their reactive lines. urlOf(bank) gives a URL, or nothing to skip. */
 export function ensure(id, urlOf) {
   const bank = resolveId(id);
   if (!DIALOG[bank] || loaded.has(bank)) return loaded.get(bank);
   const url = urlOf && urlOf(bank);
   if (!url) return undefined;
-  const p = fetch(url).then((r) => (r.ok ? r.json() : null)).then((d) => extend(bank, d)).catch(() => loaded.delete(bank));
+  const get = (u, then) => (u ? fetch(u).then((r) => (r.ok ? r.json() : null)).then(then) : Promise.resolve());
+  const p = Promise.all([get(url, (d) => extend(bank, d)), get(urlOf('react/' + bank), (d) => extendReact(bank, d))]).catch(() => loaded.delete(bank));
   loaded.set(bank, p);
   return p;
+}
+
+// ------------------------------------------------------------------ reactive lines
+// Lines about what is happening around someone right now (senses.js finds it): the lamps striking
+// on, Lucie cycling past, the café filling up, a neighbour watering lemons. They live in
+// /assets/town/dialog/react/<bank>.json as { lines: [[cue, when, act, text]], exchanges:
+// [[cue, replier, when, act, line, reply]] } and load with the bank. For a `see:<id>` cue, `act` is
+// what the one seen is doing; `{name}` in a passby, window or lightsout line is who it was.
+export const REACT = {};
+
+export function extendReact(bank, data) {
+  if (!data) return;
+  const r = (REACT[bank] ||= { lines: new Map(), exchanges: [] });
+  for (const [cue, when, act, text] of data.lines || []) { if (!r.lines.has(cue)) r.lines.set(cue, []); r.lines.get(cue).push([when, act, text]); }
+  for (const [cue, b, when, act, line, reply] of data.exchanges || []) r.exchanges.push({ cue, b: resolveId(b), when, act, line, reply });
+}
+
+// How often a fitting reactive line wins over an ordinary one: something that just happened, or
+// only something there to see
+export const REACT_RATE = { fresh: 0.8, standing: 0.42 };
+
+const fill = (text, vars) => text.replace(/\{name\}/g, () => vars?.name ?? '{name}');
+
+/**
+ * Pick a reactive line for `id`, given what it can react to (Senses.cuesFor), or null to fall back to pick().
+ * @param ctx { cues: [{ cue, w, vars?, act? }], hour, phase?, activity?, nearby?, recent?, rand? }
+ * @returns {{ id, text, reply, ref: false, cue, ev? } | null}
+ */
+export function pickReactive(id, ctx = {}) {
+  const key = resolveId(id);
+  const R = REACT[key];
+  const cues = ctx.cues || [];
+  if (!R || !cues.length) return null;
+  const rand = ctx.rand || Math.random;
+  const recent = ctx.recent;
+  const phase = ctx.phase && PHASES.includes(ctx.phase) ? ctx.phase : phaseOf(ctx.hour ?? 12);
+  const activity = ctx.activity;
+  const near = new Map();
+  for (const n of ctx.nearby || []) if (n !== id && !near.has(resolveId(n))) near.set(resolveId(n), n);
+
+  // the cues this character has something fresh to say about
+  const options = [];
+  for (const c of cues) {
+    const rows = R.lines.get(c.cue) || [];
+    // `see:` lines name what the other is doing; everything else what the speaker is doing
+    const act = c.cue.startsWith('see:') ? c.act : activity;
+    const ok = rows.filter(([w, a, t]) => fits(w, a, phase, act) && !recent?.has(t) && (!t.includes('{name}') || c.vars?.name));
+    const ex = R.exchanges.filter((e) => e.cue === c.cue && near.has(e.b) && fits(e.when, e.act, phase, act) && !recent?.has(e.line) && (c.vars?.name || !(e.line + e.reply).includes('{name}')));
+    if (ok.length || ex.length) options.push({ c, ok, ex });
+  }
+  if (!options.length) return null;
+  const fresh = options.some((o) => o.c.w >= 1);
+  if (rand() >= (fresh ? REACT_RATE.fresh : REACT_RATE.standing)) return null;
+  // the most striking cue usually wins; any of them can
+  const o = weighted(options, (x) => x.c.w * x.c.w, rand);
+  if (o.ex.length && (!o.ok.length || rand() < EXCHANGE_RATE)) {
+    const e = o.ex[Math.floor(rand() * o.ex.length)];
+    remember(recent, e.line); remember(recent, e.reply);
+    return { id, text: fill(e.line, o.c.vars), reply: { id: near.get(e.b), text: fill(e.reply, o.c.vars) }, ref: false, cue: o.c.cue, ev: o.c.ev };
+  }
+  const row = weighted(o.ok, ([w, a]) => 1 + (w ? 1 : 0) + (a ? 1 : 0), rand);
+  remember(recent, row[2]);
+  return { id, text: fill(row[2], o.c.vars), reply: null, ref: false, cue: o.c.cue, ev: o.c.ev };
 }
 
 export const REF_RATE = 1 / 8;      // share of picks that may be about Asgeir or his products

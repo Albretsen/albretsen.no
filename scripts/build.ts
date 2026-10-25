@@ -65,6 +65,12 @@ function townContent() {
   for (const [k, v] of manifest) if (k.startsWith('/assets/town/models/')) models[k.slice('/assets/town/models/'.length)] = v
   const dialogs: Record<string, string> = {}
   for (const [k, v] of manifest) if (k.startsWith('/assets/town/dialog/')) dialogs[k.slice('/assets/town/dialog/'.length).replace(/\.json$/, '')] = v
+  // recorded sounds (CC0, see docs/sound-licences.md): { name: { webm, m4a } }
+  const sounds: Record<string, Record<string, string>> = {}
+  for (const [k, v] of manifest) {
+    const m = /^\/assets\/town\/sound\/([\w-]+)\.(webm|m4a)$/.exec(k)
+    if (m) (sounds[m[1]] ||= {})[m[2]] = v
+  }
   const content = {
     person: site.person, company: site.company, domain: site.domain, email: site.email, location: site.location,
     line: site.line, availability: site.availability, mcpCommand: mcpClients[0].text,
@@ -79,6 +85,8 @@ export function model(name) { const u = MODELS[name.endsWith('.glb') ? name : na
 const DIALOGS = ${JSON.stringify(dialogs)};
 /** The fingerprinted URL of a character's full dialog bank, e.g. dialogUrl('henri'). */
 export const dialogUrl = (bank) => DIALOGS[bank];
+/** The town's recorded sounds by name, each as { webm, m4a } (Opus for most browsers, AAC for Safari). */
+export const SOUNDS = ${JSON.stringify(sounds)};
 `
 }
 
@@ -221,11 +229,17 @@ async function budgets() {
   // The town: its own modules, three.js, and the models it downloads.
   const sum = async (files: string[]) => { let raw = 0, br = 0; for (const f of files) { const b = await readFile(f); raw += b.length; br += BR(b) } return { raw, br } }
   const town = await walk(join(DIST, 'assets', 'town'))
-  const code = await sum(town.filter((f) => f.endsWith('.js') && !f.includes('/vendor/')))
+  const code = await sum(town.filter((f) => f.endsWith('.js') && !f.includes('/vendor/') && !f.includes('/js/sound/')))
+  // sound loads only when a visitor turns it on: its code and recordings have a budget of their own
+  const soundCode = await sum(town.filter((f) => f.includes('/js/sound/')))
+  const soundFiles = town.filter((f) => /\/town\/sound\/.*\.(webm|m4a)$/.test(f))
+  const soundWebm = await sum(soundFiles.filter((f) => f.endsWith('.webm'))), soundM4a = await sum(soundFiles.filter((f) => f.endsWith('.m4a')))
   const vendor = await sum(town.filter((f) => f.endsWith('.js') && f.includes('/vendor/')))
   const models = await sum(town.filter((f) => f.endsWith('.glb')))
   check(code.br <= 100 * 1024, `${KB(code.br)} br  town JavaScript (${KB(code.raw).trim()} raw, budget 100 KB br)`)
   check(vendor.br <= 190 * 1024, `${KB(vendor.br)} br  three.js and addons (${KB(vendor.raw).trim()} raw, budget 190 KB br)`)
+  check(soundCode.br <= 40 * 1024, `${KB(soundCode.br)} br  town sound code, loaded on demand (${KB(soundCode.raw).trim()} raw, budget 40 KB br)`)
+  check(Math.max(soundWebm.raw, soundM4a.raw) <= 600 * 1024, `${KB(Math.max(soundWebm.raw, soundM4a.raw))} raw town recordings, one format (Opus ${KB(soundWebm.raw).trim()}, AAC ${KB(soundM4a.raw).trim()}; budget 600 KB)`)
   check(models.raw <= 3.2 * 1024 * 1024, `${KB(models.raw)} raw town models (glTF, budget 3.2 MB)`)
   for (const f of (await walk(join(DIST, 'assets', 'js'))).filter((f) => f.endsWith('.js'))) rows.push(`  ${KB((await stat(f)).size)} raw ${f.slice(DIST.length)}`)
   console.log(rows.join('\n'))

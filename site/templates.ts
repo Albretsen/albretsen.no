@@ -191,6 +191,7 @@ const HUD = `<div class="loader" id="loader" hidden>
 
     <div class="tools" id="tools" hidden>
       <button type="button" id="sea" class="sea" title="Stand at the railing and look out to sea"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 11a5 5 0 0 1 10 0" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 14h16M5 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="sea-label">Look out to sea</span></button>
+      <button type="button" id="sound" class="sound" aria-pressed="false" aria-label="Sound" title="Sound: the town, the sea, the café"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M3 8h3l4-3.5v11L6 12H3z" fill="currentColor"/><path class="w" d="M13 7.2a4 4 0 0 1 0 5.6M15.3 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="x" d="M13.5 8l4 4m0-4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
       <button type="button" id="zoom-out" aria-label="Zoom out">&minus;</button>
       <button type="button" id="reset" aria-label="Back to the overview">&#8634;</button>

@@ -66,6 +66,9 @@
 .tools button { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--glass-line); background: var(--glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 18px; line-height: 1; cursor: pointer; }
 .tools button:hover { background: rgba(35, 44, 87, .85); }
 .tools button.sea { width: auto; grid-auto-flow: column; gap: 8px; padding: 0 15px 0 12px; border-radius: 999px; font: 500 13px/1 var(--text); letter-spacing: .02em; color: var(--plaster); }
+.tools .sound .w, .tools .sound[aria-pressed="true"] .x { display: none; }
+.tools .sound[aria-pressed="true"] .w { display: inline; }
+.tools .sound[aria-pressed="true"] { border-color: rgba(255, 210, 122, .55); color: #ffd27a; }
 .tools button.sea.golden { background: linear-gradient(90deg, rgba(255, 166, 92, .9), rgba(242, 181, 184, .9)); color: #2a1c2e; border-color: rgba(255, 210, 160, .7); box-shadow: 0 0 24px rgba(255, 170, 100, .35); }
 
 .coach { position: absolute; left: 50%; bottom: 228px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 10px; background: var(--plaster); color: var(--ink); padding: 9px 10px 9px 16px; border-radius: 999px; font-size: 14px; box-shadow: 0 12px 30px rgba(8, 10, 30, .35); animation: rise .5s cubic-bezier(.2, .8, .2, 1); white-space: nowrap; }

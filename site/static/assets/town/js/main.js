@@ -2,7 +2,7 @@
 // which the build generates from site/data.ts.
 // The page paints a still poster first. The clock works straight away; the town loads
 // after first paint and fades in over the poster.
-import { content, dialogUrl } from './content.js';
+import { content, dialogUrl, SOUNDS } from './content.js';
 import { elevation, osloHour, fmtHour, phase, wrap24, SUNRISE, SUNSET } from './time.js';
 import { createFigures, openSocket } from './figures.js';
 
@@ -292,6 +292,7 @@ async function boot() {
   let mod;
   try {
     import('./dialog.js').then((m) => { dialog = m; }, () => {});
+    import('./senses.js').then((m) => { senses = new m.Senses(); }, () => {});
     mod = await import('./scene.js');
     T = await mod.createLivingTown(stage, { lite, reduced, adaptive: !SHOT, onProgress: (p) => { fill.style.width = Math.round(p * 100) + '%'; } });
   } catch (err) {
@@ -316,8 +317,9 @@ async function boot() {
   $('tools').hidden = false;
 
   applyCamParam(T);
+  if (Q.has('sound')) startSound();   // review: with Chrome's --autoplay-policy=no-user-gesture-required
   if (Q.get('say')) { const p = T.life.byId[Q.get('say')]; if (p) { for (let i = 0; i < 30; i++) T.frame(0.05); focusPerson(T, p, true); showBubble(T, p); if (bubble) bubble.until = Infinity; } }
-  if (Q.has('perf')) window.__T = T;   // review: lets a profiler read draw calls and timings
+  if (Q.has('perf')) { window.__T = T; window.__sound = sound; window.__senses = () => senses; }   // review: lets a profiler read draw calls and timings, and record the sound
   if (Q.has('stats')) setInterval(() => { const i = T.renderer.info.render; $('feed').textContent = `${i.calls} draws · ${(i.triangles / 1000).toFixed(0)}k tris · dpr ${T.renderer.getPixelRatio()}`; }, 1000);
   if (!SHOT && !reduced && !Q.has('cam') && !Q.has('view') && !Q.has('say') && Q.get('intro') !== '0') {
     const H = T.HOME_VIEW;
@@ -354,7 +356,8 @@ async function boot() {
     }, 100);
   }, 250));
   let visible = true;
-  new IntersectionObserver(([en]) => { visible = heroOn = en.isIntersecting; }, { threshold: 0.02 }).observe(stage);
+  new IntersectionObserver(([en]) => { visible = heroOn = en.isIntersecting; soundAway(); }, { threshold: 0.02 }).observe(stage);
+  document.addEventListener('visibilitychange', soundAway);
   // a resized window or a turned phone: match the drawing buffer to the new size (it used to stay at
   // the size it started with, stretched), just before the next frame renders, since a resize clears it
   let sized = stageW + 'x' + stageH;
@@ -368,6 +371,8 @@ async function boot() {
       T.setHour(clock.hour);
       T.frame(dt);
       keepStill(now);
+      sense(T, now);
+      sound.eng?.update(dt, clock.hour, elevation(clock.hour));
       updateOverlays(T);
       if (Math.floor(now / 250) !== Math.floor((now - dt * 1000) / 250)) renderClock();
     }
@@ -400,7 +405,19 @@ const bubbles = [];                    // everyone speaking right now (never mor
 const notes = [];
 let THREE_ = null;
 let dialog = null;                     // js/dialog.js, loaded with the town
+let senses = null;                     // js/senses.js: what is going on around everyone
 const recentLines = new Set();
+
+// A few times a second: what just happened in town (for the dialog, and for the sound when it is on)
+let sensedAt = 0;
+const lampState = [];
+function sense(T, now) {
+  if (!senses || now - sensedAt < 250) return;
+  sensedAt = now;
+  const lamps = T.lights.lamps;
+  for (let i = 0; i < lamps.length; i++) { const l = (lampState[i] ||= { x: lamps[i].x, z: lamps[i].z, on: false }); l.on = lamps[i].sw.target > 0; }
+  senses.update(now / 1000, clock.hour, elevation(clock.hour), T.life.people, lampState, { dance: T.lights.level.dance });
+}
 
 function speechKind(p) {
   const c = p.actor.current?.getClip().name || '';
@@ -418,12 +435,26 @@ function nearbyOf(T, p, r = 4.5) {
   return out;
 }
 
-/** Something for p to say now: the dialog bank first (hour, activity, who is near), their schedule line otherwise. */
+/** What p could react to right now (senses.js), most striking first. */
+function cuesOf(T, p) {
+  return senses ? senses.cuesFor(p, performance.now() / 1000, clock.hour, elevation(clock.hour), T.life.people) : [];
+}
+
+/**
+ * Something for p to say now: a line about what is happening around them if one fits, the dialog
+ * bank otherwise (hour, activity, who is near), their schedule line as a last resort.
+ * Yusuf now and then lets Biscuit have the word: { speaker: 'dog' }.
+ */
 function lineFor(T, p) {
   if (dialog) {
     dialog.ensure(p.id, dialogUrl);
-    for (const id of nearbyOf(T, p)) dialog.ensure(id, dialogUrl);
-    const r = dialog.pick(p.id, { hour: clock.hour, activity: dialog.activityOf(p.act, p.state), nearby: nearbyOf(T, p), recent: recentLines });
+    const nearby = nearbyOf(T, p);
+    for (const id of nearby) dialog.ensure(id, dialogUrl);
+    const ctx = { hour: clock.hour, activity: dialog.activityOf(p.act, p.state), nearby, recent: recentLines, cues: cuesOf(T, p) };
+    let r = null;
+    if (p.dog && Math.random() < 0.3) { r = dialog.pickReactive('biscuit', { ...ctx, nearby: [] }); if (r) r.speaker = 'dog'; }
+    r ||= dialog.pickReactive(p.id, ctx) || dialog.pick(p.id, ctx);
+    if (r?.ev) senses.noted(r.ev, p.id);
     if (r && r.text) return r;
   }
   const text = p.line();
@@ -476,7 +507,7 @@ function showBubble(T, p) {
   const said = lineFor(T, p);
   if (!said) return;
   clearAll();
-  bubble = makeBubble(speakerOf(T, p.id), said.text, { think: !said.reply && speechKind(p) === 'think' });
+  bubble = makeBubble(speakerOf(T, said.speaker || p.id, p), said.text, { think: !said.speaker && !said.reply && speechKind(p) === 'think' });
   if (said.reply) scheduleReply(T, p, said.reply, bubble, false);
 }
 function clearBubble() { if (bubble) { clearTimeout(replyTimer); const b = bubble; for (const x of [...bubbles]) if (x === b || x.pairedWith === b) dropBubble(x); } }
@@ -518,8 +549,10 @@ function ambientChat(T, now) {
     if (v.z > 1) continue;
     if (!bubbleClear((v.x + 1) / 2 * W, (1 - v.y) / 2 * H, rects, sr)) continue;
     const centred = 1 - Math.min(1, Math.hypot(v.x, v.y * 1.3) / 1.2);
+    // someone who just saw something happen is more likely to say so
+    const stirred = senses && senses.events.length ? Math.max(0, ...cuesOf(T, p).map((c) => c.w)) >= 1 : false;
     // whoever spoke last lets someone else have a turn, unless the camera is following them
-    cands.push({ p, w: (0.2 + centred + (focus && p.root === focus ? 1.5 : 0)) * (p === chat.last && p.root !== focus ? 0.25 : 1) });
+    cands.push({ p, w: (0.2 + centred + (focus && p.root === focus ? 1.5 : 0) + (stirred ? 0.8 : 0)) * (p === chat.last && p.root !== focus ? 0.25 : 1) });
   }
   if (!cands.length) return;
   let r = Math.random() * cands.reduce((s, c) => s + c.w, 0), who = cands[0].p;
@@ -527,7 +560,7 @@ function ambientChat(T, now) {
   const said = lineFor(T, who);
   if (!said) return;
   chat.last = who;
-  const b = makeBubble(speakerOf(T, who.id), said.text, { soft: true, think: !said.reply && speechKind(who) === 'think', until: now + Math.max(4800, said.text.length * 75) });
+  const b = makeBubble(speakerOf(T, said.speaker || who.id, who), said.text, { soft: true, think: !said.speaker && !said.reply && speechKind(who) === 'think', until: now + Math.max(4800, said.text.length * 75) });
   if (said.reply) scheduleReply(T, who, said.reply, b, true);
   chat.next = Math.max(chat.next, b.until + 2200 + (said.reply ? 3800 : 0));
 }
@@ -660,6 +693,7 @@ function wire(T) {
     if (site.kind === 'away') return;
     const dark = elevation(clock.hour) < 3;
     if (on && !own) site.lightAt = performance.now() + 1100;   // a window of one's own keeps its own timing
+    if (dark) senses?.light(performance.now() / 1000 + (on ? 1.1 : 0), site, person, on);
     if (!dark || SHOT) return;
     const isHome = site.kind === 'home' || site.kind === 'cafe';
     const text = on ? (isHome ? `${person.def.name} is home` : `${person.def.name} is back at work`) : (isHome ? 'Lights out' : '');
@@ -668,7 +702,12 @@ function wire(T) {
   };
 
   // product events flare the matching sign
-  feed.onEvent = (e) => { const id = PRODUCT_SITE[e.product]; if (id) T.lights.pulse(id); };
+  feed.onEvent = (e) => {
+    const id = PRODUCT_SITE[e.product];
+    if (!id) return;
+    T.lights.pulse(id);
+    senses?.product(performance.now() / 1000, e.product, T.world.sites[id].x);
+  };
 }
 
 function addNote(T, text, site) {
@@ -727,6 +766,58 @@ function updateOverlays(T) {
     }
   }
 }
+
+// ------------------------------------------------------------------ sound
+// Off until the visitor turns it on, and remembered. Nothing plays on page load: a visitor who turned
+// it on last time hears it fade in at their first touch, click or key (browsers allow no sooner).
+// The engine (sound/engine.js) and everything it plays load only then.
+const soundBtn = $('sound');
+const sound = { on: store.get('lt-sound') === 'on' || Q.has('sound'), ctx: null, eng: null, loading: false };
+function paintSound() {
+  soundBtn.setAttribute('aria-pressed', String(sound.on));
+  soundBtn.title = sound.on ? 'Sound on: tap to turn it off' : 'Sound: the sea, the café, the town';
+}
+// a recording in the format this browser plays: Opus where it can, AAC (Safari) otherwise
+// (Safari says "maybe" to Opus in WebM but its decoder is not to be relied on)
+const opus = !/^((?!chrome|android).)*safari/i.test(navigator.userAgent) && (() => { try { return new Audio().canPlayType('audio/webm; codecs="opus"') !== ''; } catch { return false; } })();
+const soundUrl = (name) => { const s = SOUNDS[name]; return s && (opus ? s.webm || s.m4a : s.m4a || s.webm); };
+/** Start (or resume) the sound. Must run inside a click or key handler the first time. */
+function startSound() {
+  if (!T) return;
+  if (!sound.ctx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    sound.ctx = new AC({ latencyHint: 'playback' });
+    // iOS opens the audio path on a sound played inside the gesture itself: a moment of silence
+    const s = sound.ctx.createBufferSource(); s.buffer = sound.ctx.createBuffer(1, 1, 22050); s.connect(sound.ctx.destination); s.start();
+  }
+  sound.ctx.resume?.();
+  if (sound.eng) { sound.eng.setOn(true); soundAway(); return; }
+  if (sound.loading) return;
+  sound.loading = true;
+  Promise.all([import('./sound/engine.js'), senses ? null : import('./senses.js').then((m) => { senses ||= new m.Senses(); })]).then(([m]) => {
+    sound.eng = new m.TownSound(sound.ctx, T, senses, { reduced, samples: m.SAMPLES?.(SOUNDS) || {} });
+    sound.eng.prepare(soundUrl);
+    if (sound.on) { sound.eng.setOn(true); soundAway(); }
+  }, (e) => { console.warn(e); sound.loading = false; });
+}
+function soundAway() { sound.eng?.away(document.hidden || !heroOn); }
+soundBtn.addEventListener('click', () => {
+  sound.on = !sound.on;
+  store.set('lt-sound', sound.on ? 'on' : 'off');
+  paintSound();
+  if (sound.on) startSound(); else sound.eng?.setOn(false);
+});
+if (sound.on) {
+  // remembered: the first gesture anywhere on the page brings it back
+  const first = (e) => {
+    if (e.target === soundBtn || !T) return;
+    removeEventListener('pointerdown', first, true); removeEventListener('keydown', first, true);
+    if (sound.on) startSound();
+  };
+  addEventListener('pointerdown', first, true); addEventListener('keydown', first, true);
+}
+paintSound();
 
 // ------------------------------------------------------------------ the shop screens
 function startScreens(T) {

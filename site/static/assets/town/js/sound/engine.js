@@ -33,16 +33,23 @@ const AT = {
 
 // The mix, in dB, before distance: one place to tune how loud everything is against everything else
 const MIX = {
-  sea: -9, lapping: -12, breeze: -17, birds: -15, cicadas: -21, crickets: -17, nightair: -15, fountain: -11,
+  sea: -9, lapping: -14, breeze: -17, birds: -15, cicadas: -21, crickets: -19, nightair: -15, fountain: -11,
   murmurbig: -10, murmur: -11, murmursmall: -12, musette: -9, musette2: -9, radio: -18, arcade: -22, freewheel: -16,
   step: -17, stepheel: -17, cane: -21, run: -16, paw: -22, jingle: -25, bikebell: -10, cup: -18, glass: -17, cutlery: -21,
-  chair: -22, lamptink: -20, shutter: -16, shutterup: -16, letter: -10, chime: -8, churchbell: -12, applause: -14,
+  chair: -22, lamptink: -20, shutter: -16, shutterup: -16, letter: -10, chime: -14, churchbell: -12, applause: -14,
   taps: -22, door: -18, gull: -15, swifts: -20, hum: -20, laugh: -16,
 };
 // What to render first: the bed for the hour you arrive at, then what you are likely to hear next
 const FIRST = ['sea', 'lapping', 'breeze', 'nightair', 'birds', 'fountain', 'murmur', 'murmursmall', 'step', 'cup', 'chime', 'letter', 'crickets', 'cicadas', 'murmurbig'];
 
-/** A loop that never sounds like a loop: two playheads crossfading at random offsets. */
+// equal-power fades (noise crossfaded linearly dips 3 dB at every crossover)
+const FADE_IN = Float32Array.from({ length: 64 }, (_, i) => Math.sin(i / 63 * Math.PI / 2));
+const FADE_OUT = FADE_IN.slice().reverse();
+const SILENT = 0.006;   // -44 dB: below this a bed is not heard, so it stops playing
+// tunes play straight through from the top (they loop seamlessly; a random entry would start mid-phrase)
+const TUNES = new Set(['musette', 'musette2', 'radio', 'arcade']);
+
+/** A loop that never sounds like a loop: two playheads crossfading at random offsets (a tune just loops). */
 class Bed {
   constructor(eng, name, out) {
     this.eng = eng; this.name = name;
@@ -58,23 +65,27 @@ class Bed {
     if (this.pan) this.pan.pan.setTargetAtTime(clamp(pan, -0.85, 0.85), t, 0.25);
     const buf = this.eng.buffer(this.name);
     if (!buf) return;
-    if (level > 0.0015 && t >= this.next) this.cycle(buf);
-    // silent for a while: stop playing altogether (costs nothing until it is wanted again)
-    if (level <= 0.0015 && this.playing && t > this.quietSince + 4) { try { this.playing.stop(); } catch {} this.playing = null; this.next = 0; }
-    if (level > 0.0015) this.quietSince = t;
+    const on = level > SILENT;
+    if (on && TUNES.has(this.name)) { if (!this.playing) { const src = this.source(buf); src.connect(this.g); src.start(t); this.playing = src; } }
+    else if (on && t >= this.next) this.cycle(buf);
+    // silent for a while: stop playing altogether (costs nothing until it is wanted again; a tune starts over)
+    if (!on && this.playing && t > this.quietSince + 4) { try { this.playing.stop(); } catch {} this.playing = null; this.next = 0; }
+    if (on) this.quietSince = t;
   }
+  source(buf) { const src = this.eng.ctx.createBufferSource(); src.buffer = buf; src.loop = true; return src; }
   cycle(buf) {
     const ctx = this.eng.ctx, t = ctx.currentTime;
     const len = Math.min(buf.duration, 14 + Math.random() * 6), fade = Math.min(2.5, len / 4);
-    const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
-    const g = ctx.createGain();
+    const src = this.source(buf), g = ctx.createGain();
     src.connect(g); g.connect(this.g);
-    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(1, t + fade);
-    g.gain.setValueAtTime(1, t + len - fade); g.gain.linearRampToValueAtTime(0, t + len + 0.05);
+    g.gain.value = 0;
+    g.gain.setValueCurveAtTime(FADE_IN, t, fade);
+    g.gain.setValueCurveAtTime(FADE_OUT, t + len - fade, fade);
     src.start(t, Math.random() * buf.duration);
-    src.stop(t + len + 0.1);
+    src.stop(t + len + 0.05);
+    src.onended = () => g.disconnect();
     this.playing = src;
-    this.next = t + len - fade;   // the next playhead starts as this one fades: equal crossfade
+    this.next = t + len - fade;   // the next playhead starts as this one fades
   }
 }
 
@@ -115,6 +126,22 @@ export class TownSound {
     return b;
   }
 
+  // no sound here needs more than 48 kHz (some machines run audio at 96): half the memory
+  get rate() { return Math.min(this.ctx.sampleRate, 48000); }
+
+  /** Decode a recording at 48 kHz at most, levelled like the recipes: about -24 dBFS RMS, peaks no higher than -3. */
+  async decode(bytes) {
+    const Off = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    const dec = Off ? new Off(1, 1, this.rate) : this.ctx;
+    const b = await new Promise((ok, no) => { const p = dec.decodeAudioData(bytes, ok, no); p?.then?.(ok, no); });
+    let peak = 0, sum = 0, n = 0;
+    for (let c = 0; c < b.numberOfChannels; c++) { const d = b.getChannelData(c); for (let i = 0; i < d.length; i++) { const v = Math.abs(d[i]); if (v > peak) peak = v; sum += v * v; n++; } }
+    const rms = Math.sqrt(sum / Math.max(1, n));
+    const k = Math.min(dB(-24) / Math.max(rms, 1e-6), dB(-3) / Math.max(peak, 1e-6));
+    for (let c = 0; c < b.numberOfChannels; c++) { const d = b.getChannelData(c); for (let i = 0; i < d.length; i++) d[i] *= k; }
+    return b;
+  }
+
   buffer(name) { const v = this.buffers.get(name); return Array.isArray(v) ? pick(v) : v; }
 
   /** Render the recipes (CC0 recordings first where we have one), most needed first, a few at a time in idle time. */
@@ -129,7 +156,7 @@ export class TownSound {
         try {
           if (file && urlOf) {
             const urls = (Array.isArray(file) ? file : [file]).map(urlOf).filter(Boolean);
-            const bufs = await Promise.all(urls.map((u) => fetch(u).then((r) => r.arrayBuffer()).then((a) => this.ctx.decodeAudioData(a))));
+            const bufs = await Promise.all(urls.map((u) => fetch(u).then((r) => r.arrayBuffer()).then((a) => this.decode(a))));
             if (bufs.length) { this.buffers.set(name, bufs.length > 1 ? bufs : bufs[0]); continue; }
           }
         } catch {}
@@ -138,7 +165,7 @@ export class TownSound {
         const out = [];
         for (let seed = 0; seed < (r.variants || 1); seed++) {
           await idle();
-          try { out.push(await r.render({ OfflineAudioContext: Off, sampleRate: this.ctx.sampleRate, seed })); } catch (e) { console.warn('sound', name, e); }
+          try { out.push(await r.render({ OfflineAudioContext: Off, sampleRate: this.rate, seed })); } catch (e) { console.warn('sound', name, e); }
         }
         if (out.length) this.buffers.set(name, out.length > 1 ? out : out[0]);
       }
@@ -172,7 +199,9 @@ export class TownSound {
     const cam = this.T.cam.cur;
     const w = clamp(cam.dist * 0.3, 6, 30);
     const d = Math.hypot(x - cam.target.x, z - cam.target.z);
-    const g = Math.exp(-0.7 * (d / w) * (d / w)) * 0.85 + 0.15 / (1 + d / 12);
+    // standing further back you hear more of the town, but all of it a little further away (to -6 dB)
+    const back = 0.5 + 0.5 * smooth(120, 16, cam.dist);
+    const g = (Math.exp(-0.7 * (d / w) * (d / w)) * 0.85 + 0.15 / (1 + d / 12)) * back;
     this.v.set(x, y, z).project(this.T.camera);
     const pan = this.v.z > 1 ? 0 : clamp(this.v.x, -1, 1) * 0.75;
     return { g, pan, d };
@@ -208,10 +237,17 @@ export class TownSound {
   happen(e) {
     if (!this.on) return;
     const hurry = this.T.life.hurry;
+    // dragging the clock sweeps through the day: let the beds tell it, not a pile of doors and chairs
+    if (hurry && /^(window|kioskopen|kioskshut|cafeopen|cafeclose|post|arcadeev|workshopev|bell)$/.test(e.type)) return;
     switch (e.type) {
       case 'lamp': if (!hurry || Math.random() < 0.15) this.play('lamptink', { x: e.x, z: e.z, y: 3.5, rate: 0.94 + Math.random() * 0.12 }); break;
-      case 'post': this.play('letter', { x: AT.post[0], z: AT.post[1], far: 0.6 }); if (e.t - (this.chimed ?? -99) > 18) { this.chimed = e.t; this.play('chime', { x: AT.post[0], z: AT.post[1], delay: 0.5, far: 0.4, prio: 2 }); } break;
-      case 'arcadeev': case 'workshopev': this.play('chime', { x: e.x, z: 10, level: 0.55, rate: e.type === 'arcadeev' ? 1.12 : 0.9, far: 0.5 }); break;
+      // a product event: a letter now and then, and the chime at most once in 45 s, across all of them
+      case 'post': case 'arcadeev': case 'workshopev': {
+        const x = e.type === 'post' ? AT.post[0] : e.x, z = e.type === 'post' ? AT.post[1] : 10;
+        if (e.type === 'post' && e.t - (this.lettered ?? -99) > 8) { this.lettered = e.t; this.play('letter', { x, z, far: 0.9 }); }
+        if (e.t - (this.chimed ?? -99) > 45) { this.chimed = e.t; this.play('chime', { x, z, delay: 0.5, far: 0.9, prio: 2, rate: e.type === 'arcadeev' ? 1.12 : e.type === 'workshopev' ? 0.9 : 1 }); }
+        break;
+      }
       case 'bell': this.play('bikebell', { x: e.x, z: e.z, rate: 0.97 + Math.random() * 0.06, prio: 2 }); break;
       case 'gull': if (!hurry) this.play('gull', { x: e.x, z: e.z, y: 9, far: 0.25, level: 0.7, rate: 0.94 + Math.random() * 0.1, lp: 3200, verb: 1.2 }); break;   // a close recording, made far away
       case 'churchbell': if (!hurry) for (let i = 0; i < Math.min(e.count || 1, 12); i++) this.play('churchbell', { delay: i * 2.6, verb: 0.3, level: 0.9, prio: 2 }); break;
@@ -313,7 +349,10 @@ export class TownSound {
 
   /** Footsteps, in time with the walking: a step every stride, for the few people nearest the camera. */
   steps(dt, close, people) {
-    if (close < 0.15) return;
+    // footsteps are for close in: from the overview they would be a patter of hundreds a minute
+    const near2 = smooth(0.55, 0.8, close);
+    if (near2 <= 0) return;
+    close = near2;
     const near = [];
     for (const q of people) {
       if (q.state === 'inside' || q.opacity < 0.5 || q.speed < 0.3) continue;
@@ -336,7 +375,7 @@ export class TownSound {
       }
       // Biscuit trots beside Yusuf: paws and, now and then, his tag
       if (q.dog) {
-        const dp = (this.walk.get('dog') || 0) + q.speed * dt / 0.32;
+        const dp = (this.walk.get('dog') || 0) + q.speed * dt / 0.55;   // a patter now and then, not every paw
         this.walk.set('dog', dp % 1);
         if (dp >= 1) this.play('paw', { x: q.dog.pos.x, z: q.dog.pos.z, y: 0.1, level: close * 0.8, rate: 0.9 + Math.random() * 0.2, verb: 0.3 });
         if (dp >= 1 && Math.random() < 0.18) this.play('jingle', { x: q.dog.pos.x, z: q.dog.pos.z, y: 0.3, level: close });

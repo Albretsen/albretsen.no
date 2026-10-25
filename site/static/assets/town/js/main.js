@@ -452,7 +452,7 @@ function lineFor(T, p) {
     for (const id of nearby) dialog.ensure(id, dialogUrl);
     const ctx = { hour: clock.hour, activity: dialog.activityOf(p.act, p.state), nearby, recent: recentLines, cues: cuesOf(T, p) };
     let r = null;
-    if (p.dog && Math.random() < 0.3) { r = dialog.pickReactive('biscuit', { ...ctx, nearby: [] }); if (r) r.speaker = 'dog'; }
+    if (p.dog && Math.random() < 0.3) { r = dialog.pickReactive('biscuit', { ...ctx, nearby: [p.id, ...nearby.filter((n) => n !== 'dog')] }); if (r) r.speaker = 'dog'; }
     r ||= dialog.pickReactive(p.id, ctx) || dialog.pick(p.id, ctx);
     if (r?.ev) senses.noted(r.ev, p.id);
     if (r && r.text) return r;

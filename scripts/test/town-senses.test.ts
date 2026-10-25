@@ -169,3 +169,15 @@ test('a bank whose reactive file fails is fetched again, and never added twice',
   assert.equal(reactTries, 2, 'the reactive file again after it failed, then no more');
   assert.ok(REACT.kid.lines.get('gull'));
 });
+
+test('family is not greeted by name, and a window at home is not news', () => {
+  const s = new Senses();
+  const camille = person('camille', 0, 20); camille.def.home = 'home_fam';
+  const leo = person('leo', -3, 20, { state: 'loop', speed: 3.2, act: { act: 'loop', loop: 'fountain' } }); leo.def.home = 'home_fam';
+  for (let t = 0; t < 3; t += 0.25) { leo.pos.x = -3 + t * 2; s.update(t, 16, 20, [camille, leo]); }
+  const cues = s.cuesFor(camille, 2, 16, 20, [camille, leo]);
+  assert.ok(cues.some((c) => c.cue === 'passby_leo'));
+  assert.ok(!cues.some((c) => c.cue === 'passby'), 'no "Bonjour, {name}" for her own son');
+  s.light(3, { kind: 'home', id: 'home_fam', x: 14.2 }, { id: 'theo' }, true);
+  assert.ok(!s.cuesFor(camille, 4, 21, -10, [camille]).some((c) => c.cue === 'window'));
+});

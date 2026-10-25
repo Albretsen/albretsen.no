@@ -148,7 +148,9 @@ export class Senses {
         this.pairs.set(k, t);
         if (t - last < 25) continue;
         const [mover, still] = moving(a) && (!moving(b) || a.speed >= b.speed) ? [a, b] : [b, a];
-        this.emit('passby', t, { who: mover.id, to: still.id, x: mover.pos.x, z: mover.pos.z, name: NAMES[mover.id] });
+        // someone from your own house is not greeted by name (Léo does not say "Bonjour, Théo!")
+        const family = mover.def?.home && mover.def.home === still.def?.home;
+        this.emit('passby', t, { who: mover.id, to: still.id, x: mover.pos.x, z: mover.pos.z, name: family ? undefined : NAMES[mover.id] });
         // Lucie rings for whoever she passes, now and then (not twice in a row)
         if (mover.id === 'lucie' && mover.mounted && t - (this.rang ?? -1e9) > 20 && this.rand() < 0.6) { this.rang = t; this.emit('bell', t, { x: mover.pos.x, z: mover.pos.z, who: 'lucie' }); }
       }
@@ -204,7 +206,7 @@ export class Senses {
       if (t - (this.said.get(who.id + ':' + ev.type) ?? -1e9) < 180) continue;
       const far = keep[1] && ev.x != null ? Math.hypot(ev.x - P.x, (ev.z ?? P.z) - P.z) : 0;
       if (keep[1] && far > keep[1]) continue;
-      if ((ev.type === 'window' || ev.type === 'lightsout') && (ev.who === who.id || !ev.name)) continue;
+      if ((ev.type === 'window' || ev.type === 'lightsout') && (ev.who === who.id || !ev.name || ev.site === who.def?.home)) continue;
       if (ev.type === 'bell' && who.id === 'lucie') continue;
       out.push({ cue: ev.type, w: 1 + Math.min(1, Math.max(0, 1 - age / keep[0])), vars: ev.name ? { name: ev.name } : undefined, ev });
     }

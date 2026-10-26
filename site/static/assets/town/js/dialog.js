@@ -625,6 +625,9 @@ export const EXCHANGES = X.map(([a, b, when, act, line, reply, ref]) => ({ a, b,
 // load the first time someone from that bank speaks. Until then the hand-written lines above answer.
 // A file is { lines: [[when, act, text]], refs: [...], exchanges: [[replier, when, act, line, reply, ref]] }.
 const loaded = new Map();
+// Banks whose full lines and reactive lines have arrived. Until then pick() only has the few
+// hand-written lines above, so a character's first line would be the same on every visit.
+const full = new Set();
 
 /** Add a loaded bank's lines to DIALOG and EXCHANGES. */
 export function extend(bank, data) {
@@ -640,7 +643,7 @@ export function ensure(id, urlOf) {
   const bank = resolveId(id);
   if (!DIALOG[bank] || loaded.has(bank)) return loaded.get(bank);
   const url = urlOf && urlOf(bank);
-  if (!url) return undefined;
+  if (!url) { full.add(bank); return undefined; }
   // each file on its own: one that fails is fetched again next time, one that arrived is never added twice
   const get = (key, u, then) => {
     if (!u || loaded.has(key)) return loaded.get(key);
@@ -652,7 +655,14 @@ export function ensure(id, urlOf) {
   const p = Promise.all([get(bank + ':lines', url, (d) => extend(bank, d)), get(bank + ':react', rurl, (d) => extendReact(bank, d))])
     .then(() => { if (!loaded.has(bank + ':lines') || (rurl && !loaded.has(bank + ':react'))) loaded.delete(bank); });
   loaded.set(bank, p);
+  p.then(() => { if (loaded.get(bank) === p) full.add(bank); });
   return p;
+}
+
+/** Whether `id`'s full bank is loaded (ids without a bank file count as ready). */
+export function ready(id) {
+  const bank = resolveId(id);
+  return !DIALOG[bank] || full.has(bank);
 }
 
 // ------------------------------------------------------------------ reactive lines

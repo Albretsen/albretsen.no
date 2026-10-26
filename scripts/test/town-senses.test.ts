@@ -152,8 +152,9 @@ test('nobody remarks on the same kind of happening twice in a few minutes', () =
 });
 
 test('a bank whose reactive file fails is fetched again, and never added twice', async () => {
-  const { ensure, DIALOG } = await import('../../site/static/assets/town/js/dialog.js');
+  const { ensure, ready, DIALOG } = await import('../../site/static/assets/town/js/dialog.js');
   const before = DIALOG.kid.lines.length;
+  assert.equal(ready('x6'), false, 'only the built-in lines before the bank arrives');
   let reactTries = 0;
   const real = globalThis.fetch;
   globalThis.fetch = (async (u: string) => {
@@ -162,8 +163,10 @@ test('a bank whose reactive file fails is fetched again, and never added twice',
   }) as any;
   try {
     await ensure('x6', (b: string) => (b.startsWith('react/') ? 'react' : 'lines'));
+    assert.equal(ready('x6'), false, 'not ready while the reactive file is missing');
     await ensure('x6', (b: string) => (b.startsWith('react/') ? 'react' : 'lines'));
     await ensure('x6', (b: string) => (b.startsWith('react/') ? 'react' : 'lines'));
+    assert.equal(ready('kid'), true, 'ready once both files are in');
   } finally { globalThis.fetch = real; }
   assert.equal(DIALOG.kid.lines.length, before + 1, 'the big bank once');
   assert.equal(reactTries, 2, 'the reactive file again after it failed, then no more');

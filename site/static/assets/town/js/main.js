@@ -318,7 +318,7 @@ async function boot() {
 
   applyCamParam(T);
   if (Q.has('sound')) startSound();   // review: with Chrome's --autoplay-policy=no-user-gesture-required
-  if (Q.get('say')) { const p = T.life.byId[Q.get('say')]; if (p) { for (let i = 0; i < 30; i++) T.frame(0.05); focusPerson(T, p, true); showBubble(T, p); if (bubble) bubble.until = Infinity; } }
+  if (Q.get('say')) { const p = T.life.byId[Q.get('say')]; if (p) { for (let i = 0; i < 30; i++) T.frame(0.05); focusPerson(T, p, true); Promise.resolve(dialog?.ensure(p.id, dialogUrl)).then(() => { showBubble(T, p); if (bubble) bubble.until = Infinity; }); } }
   if (Q.has('perf')) { window.__T = T; window.__sound = sound; window.__senses = () => senses; }   // review: lets a profiler read draw calls and timings, and record the sound
   if (Q.has('stats')) setInterval(() => { const i = T.renderer.info.render; $('feed').textContent = `${i.calls} draws · ${(i.triangles / 1000).toFixed(0)}k tris · dpr ${T.renderer.getPixelRatio()}`; }, 1000);
   if (!SHOT && !reduced && !Q.has('cam') && !Q.has('view') && !Q.has('say') && Q.get('intro') !== '0') {
@@ -406,7 +406,17 @@ const notes = [];
 let THREE_ = null;
 let dialog = null;                     // js/dialog.js, loaded with the town
 let senses = null;                     // js/senses.js: what is going on around everyone
-const recentLines = new Set();
+// Lines said lately, kept across visits so coming back does not replay the same ones
+const RECENT_KEY = 'lt-said', RECENT_KEEP = 400;
+const recentLines = new Set((() => { try { return JSON.parse(store.get(RECENT_KEY) || '[]'); } catch { return []; } })());
+let recentSaved = -Infinity;
+function saveRecent() {
+  const now = performance.now();
+  if (now - recentSaved < 5000) return;
+  recentSaved = now;
+  store.set(RECENT_KEY, JSON.stringify([...recentLines].slice(-RECENT_KEEP)));
+}
+addEventListener('pagehide', () => { recentSaved = -Infinity; saveRecent(); });
 
 // A few times a second: what just happened in town (for the dialog, and for the sound when it is on)
 let sensedAt = 0;
@@ -455,7 +465,7 @@ function lineFor(T, p) {
     if (p.dog && Math.random() < 0.3) { r = dialog.pickReactive('biscuit', { ...ctx, nearby: [p.id, ...nearby.filter((n) => n !== 'dog')] }); if (r) r.speaker = 'dog'; }
     r ||= dialog.pickReactive(p.id, ctx) || dialog.pick(p.id, ctx);
     if (r?.ev) senses.noted(r.ev, p.id);
-    if (r && r.text) return r;
+    if (r && r.text) { saveRecent(); return r; }
   }
   const text = p.line();
   return text ? { text, reply: null } : null;
@@ -503,14 +513,24 @@ function scheduleReply(T, by, reply, first, soft) {
   }, soft ? 2000 : 1500);
 }
 
+let showFor = null;
 function showBubble(T, p) {
+  // wait a moment for their full bank, or the first line is one of the few built in
+  if (dialog && !dialog.ready(p.id)) {
+    showFor = p;
+    const go = () => { if (showFor === p) { showFor = null; showBubble(T, p); } };
+    Promise.resolve(dialog.ensure(p.id, dialogUrl)).then(() => { if (dialog.ready(p.id)) go(); });
+    setTimeout(go, 1500);
+    return;
+  }
+  showFor = null;
   const said = lineFor(T, p);
   if (!said) return;
   clearAll();
   bubble = makeBubble(speakerOf(T, said.speaker || p.id, p), said.text, { think: !said.speaker && !said.reply && speechKind(p) === 'think' });
   if (said.reply) scheduleReply(T, p, said.reply, bubble, false);
 }
-function clearBubble() { if (bubble) { clearTimeout(replyTimer); const b = bubble; for (const x of [...bubbles]) if (x === b || x.pairedWith === b) dropBubble(x); } }
+function clearBubble() { showFor = null; if (bubble) { clearTimeout(replyTimer); const b = bubble; for (const x of [...bubbles]) if (x === b || x.pairedWith === b) dropBubble(x); } }
 
 // When the camera is close, people now and then say something on their own: one line at a time
 // (two with a reply), spaced out, never over the panels, and never while someone is being read.
@@ -545,6 +565,8 @@ function ambientChat(T, now) {
   for (const p of T.life.people) {
     if (p.state === 'inside' || p.state === 'entering' || p.opacity < 0.95) continue;
     if (camPos.distanceTo(p.root.position) > 42) continue;
+    // fetch their full bank; they get a turn once it is here
+    if (!dialog.ready(p.id)) { dialog.ensure(p.id, dialogUrl); continue; }
     v.copy(p.root.position); v.y = p.def.model === 'child' ? 1.45 : 2.05; v.project(T.camera);
     if (v.z > 1) continue;
     if (!bubbleClear((v.x + 1) / 2 * W, (1 - v.y) / 2 * H, rects, sr)) continue;
